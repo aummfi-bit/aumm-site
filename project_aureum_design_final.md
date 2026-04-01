@@ -1,0 +1,1033 @@
+# Project Aureum — Protocol Design Document
+
+*CONFIDENTIAL — Founding Team Only*
+*Final Version — March 2026*
+*aumm.fi*
+
+---
+
+## One-Liner
+
+A fair-launch AMM where the only way to mine the token is to provide liquidity to productive pools. BTC tokenomics. Aequilibrium engine. No pre-mine. No VC. No team allocation.
+
+---
+
+## The Thesis in One Paragraph
+
+The best AMM architecture in DeFi is about to lose its growth mechanism. The token is priced for terminal decline. But the code is open source, formally verified, and architecturally superior to every competitor. Project Aureum takes that code, replaces the broken tokenomics with a fair launch where the only way to earn tokens is to provide liquidity to productive pools, and lets the market discover what formally verified multi-asset pools can do when the economic layer is designed correctly. The experiment hasn't failed. It hasn't happened.
+
+
+---
+
+
+## Why This Exists
+
+Balancer V3 is the most advanced AMM architecture in DeFi — multi-asset weighted pools, ERC-4626 native yield, hooks, formal verification by Certora. But the protocol's tokenomics failed. Emissions directed to legacy pools and governance staking created circular economics. Meta-governance capture concentrated power. The founding entity shut down. The team proposed eliminating emissions entirely — removing the only mechanism through which external builders could bootstrap new infrastructure.
+
+The architecture deserves a second chance under a clean economic model. Project Aureum forks the V3 smart contracts and replaces the tokenomics with a fair launch. Same verified core. Fundamentally different economics. (See **Appendix** for a detailed comparison to every historical fair-launch failure mode.) Aureum's anticyclical, productive-capital-first thesis is independently validated by Curve's Yield Basis Hybrid Vaults (March 2026), which solve the same problem — scaling AMM liquidity without reflexive fragility — through a complementary but architecturally orthogonal approach tied to crvUSD peg stability. (See **Appendix: Yield Basis Hybrid Vaults**.)
+
+---
+
+## Core Principles
+
+1. **Fair launch.** No pre-mine, no team allocation, no VC. Treasury emission phase (months 0–10) seeds protocol-owned liquidity only — see Launch Procedures for details.
+2. **Fixed supply.** 21 million maximum. Halving schedule. Declining emission rate.
+3. **Mining is LP.** Productive capital in, tokens out. No staking rewards or bribe markets.
+4. **Anti-capture by design.** Governance power derives exclusively from active LP positions with a 6-month on-ramp.
+5. **Ethereum only.** Single chain for maximum composability and aggregator coverage.
+
+---
+
+## The Roman Infrastructure
+
+The protocol's naming follows the architecture of Roman infrastructure — because the design follows it too.
+
+The **Miliarium Aureum** (Golden Milestone) was the monument in the Roman Forum from which all distances in the Empire were measured. Every road radiated from it. In this protocol, the Miliarium Aureum is the founding constellation of pools — the routing hub that connects every pool through cross-pool arbitrage, shared aggregator paths, and deeper effective liquidity.
+
+**AuMM** (Aureum Market Maker) is the reward token — mined by providing liquidity, burned by the protocol. BTC-style scarcity.
+
+**AuMT** (Aureum Market Tessera) is the proof-of-participation token — your tessera. In Rome, a tessera was a small tablet that served as a ticket, a voucher, or a token of identity. It proved you belonged and carried rights: entry, grain distribution, voting in assemblies. Your AuMT proves your stake in the protocol's liquidity and carries the same rights — emissions, governance power, LP bonus eligibility.
+
+**Aequilibrium** is the AMM engine — Latin for "equal balance." The pool layer that powers every trade, every arb, every routing path. Derived from Balancer V3's Certora-verified smart contracts, reborn under a new economic model.
+
+*All roads lead to the Miliarium Aureum. Your tessera proves you helped build them.*
+
+---
+
+## Theoretical Foundations
+
+The CCB draws from established research across multiple disciplines:
+
+**Autonomous Corporate Logic:** Meisser's "Continuous Capital Corporation" (2022) argues that a corporation can operate via continuous algorithms rather than board meetings — the foundational logic for the CCB as an autonomous institution.
+
+**Pro-Cyclicality:** BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.
+
+**Monetary Rules:** Friedman's k-percent rule (fixed money supply growth) is the intellectual ancestor of the fixed-emission, halving-based schedule.
+
+**Governance Minimization:** Buterin and Meisser argue governance is a security surface. The ±10% Pioneer multiplier collapses the governance attack surface to near-zero.
+
+**Signal Processing:** The EMA is a low-pass filter — "market hype" is noise, "sustained liquidity commitment" is the signal.
+
+**Automatic Stabilizers:** The EMA acts like fiscal automatic stabilizers (unemployment insurance) — elevating yield during crashes without requiring a governance vote.
+
+**Mechanism Design (Roth/Maskin):** Routing unqualified votes to buyback-and-burn makes every outcome — productive allocation or misdirected votes — beneficial to protocol health.
+
+**Hysteresis:** The EMA gives Aureum institutional memory. Most DeFi is memoryless and reflexive.
+
+### Prior Work by the Founding Team
+
+- **The DRUID Deep Dive** — Routing architecture and aggregator thesis. [www.sagix.io/the-druid-deep-dive/](https://www.sagix.io/the-druid-deep-dive/)
+- **The Layer Framework** — Layered DeFi infrastructure model. [www.sagix.io/our-layer-framework/](https://www.sagix.io/our-layer-framework/)
+- **Sagix Miliarium Aureum** — Original constellation design, live on Balancer V3 Ethereum mainnet. [www.sagix.io/sagix-miliarium-aureum/](https://www.sagix.io/sagix-miliarium-aureum/)
+- **The Risk Premium Problem** — Governance centralisation analysis, published on Leviathan News. Direct catalyst for the fork. [www.sagix.io/the-risk-premium-problem/](https://www.sagix.io/the-risk-premium-problem/)
+
+---
+
+
+## The Continuous Central Bank (CCB)
+
+> **Activation:** The CCB engine activates during the month 11–12 transition. During months 0–10, emissions are distributed equally across the 25 Pioneer pools (1/25th each). See **Launch Procedures** for the full timeline.
+
+### The Problem: Pro-Cyclicality
+
+Most DeFi protocols amplify market moves — pouring incentives into pumps and withdrawing them during crashes. Research from the Bank for International Settlements (Aramonte et al., 2022) identifies this as systemic pro-cyclicality: the protocol accelerates the very volatility it should be dampening. Governance-driven emission allocation compounds the problem: in bull markets, voters chase hot pools; in bear markets, they flee to safety. The protocol's own incentive layer becomes a reflexive amplifier.
+
+### The Solution: Algorithmic Inertia
+
+The Continuous Central Bank (CCB) replaces human-driven emission allocation with an algorithmic engine that uses each pool's **60-day Exponential Moving Average (EMA) of on-chain TVL** as the base emission weight. Governance does not set pool weights. Capital sets pool weights. Governance only nudges Pioneer pool multipliers within a constrained band.
+
+```
+TVL_EMA_pool(today) = α × TVL_spot(today) + (1 - α) × TVL_EMA_pool(yesterday)
+α = 2 / (N + 1)    where N = 60 days
+```
+
+The 60-day EMA has a **half-life of approximately 21 days** — closely aligned with the bi-weekly governance cycle. After a capital withdrawal, the ghost signal halves every three weeks, eliminating the flat-persistence problem of a simple moving average while preserving meaningful anticyclical smoothing.
+
+### Anticyclical Dynamics
+
+**The bull market brake.** During rapid price appreciation, TVL spikes. The EMA lags behind the spot growth, so relative yield (%) drops. The protocol does not overpay for capital during periods of greed, reducing the risk of speculative bubbles.
+
+**The bear market floor.** During market crashes, liquidity exits rapidly. But the EMA preserves the "memory" of higher TVL, keeping absolute emission levels elevated. Yield (%) spikes for remaining LPs, creating a programmatic lender of last resort that attracts capital when the market is most illiquid.
+
+This is the protocol behaving as an anticyclical central bank — tightening during booms, loosening during busts — without human discretion.
+
+### The Emission Formula
+
+Every pool's base emission weight is its EMA-smoothed TVL share of total protocol TVL. Multiple multipliers layer on top for qualifying pools:
+
+```
+Score(pool) = TVL_EMA60(pool) × Pioneer_mult(pool) × Bubble_mult(pool)
+```
+
+Where:
+- `Pioneer_mult` = tessera-weighted vote result [0.90–1.10] for Pioneer pools, 1.00 for non-Pioneer
+- `Bubble_mult` = tessera-weighted vote result [0.90–2.00] for pools in their first 90 days post-gauge-approval, 1.00 otherwise
+
+**Two-step emission distribution:**
+
+```
+Step 1:  Incendiary_total = Σ (all active Incendiary Boost claims this block)
+Step 2:  Remaining_emission = block_emission - Incendiary_total
+Step 3:  CCB_share(pool_i) = Remaining_emission × Score(pool_i) / Σ Score(all_pools)
+Step 4:  Total_emission(pool_i) = CCB_share(pool_i) + Incendiary_claim(pool_i)
+```
+
+The 21M hard cap is never breached. Incendiary Boosts eat from the same fixed pie — they are subtracted before CCB distribution, not added on top. Every AuMM emitted via Incendiary Boost is one less AuMM distributed via the CCB to all other pools.
+
+**Zero-sum normalization.** The total emission rate is fixed. Any boost — Pioneer, Bubble, or Incendiary — is a reallocation of existing emissions, not new inflation.
+
+### The Steering Mechanism: Pioneer Multiplier Voting
+
+Tessera-weighted governance votes set the multiplier for each Pioneer pool within a constrained range:
+
+| Discrete Steps | 0.90 | 0.95 | 1.00 | 1.05 | 1.10 |
+|---------------|------|------|------|------|------|
+
+**The final multiplier for each Pioneer pool is the tessera-weighted average of all votes cast for that pool.** Individual voters choose from discrete steps (0.90, 0.95, 1.00, 1.05, 1.10), but the weighted average produces a continuous result (e.g., 1.034). This forces consensus — no single voter or coalition can slam a multiplier to the extreme. The system gravitates toward the middle ground.
+
+**Voting mechanics:**
+- Multiplier votes are cast per Pioneer pool every **6 weeks** (three governance cycles)
+- Only qualified AuMT holders can vote (same qualification as all governance)
+- Withdrawal from any pool resets voting power to zero (see Governance section)
+- If no votes are cast in a cycle, the multiplier persists from the prior cycle
+
+**Non-Pioneer pools have no multiplier.** Their emission share is pure TVL-EMA weight. No governance input. Capital is the only signal.
+
+### Strategic Examples
+
+The multiplier applies only to Pioneer pools that currently hold a valid tag. If tags are revoked (gauge loss, disqualification), the multiplier pool shrinks — 15 active Pioneers means governance steers 15 pools, not 20. The math adjusts automatically.
+
+| Strategy | Pioneer Votes | Effect |
+|----------|--------------|--------|
+| Boost all Pioneers | 1.10 on all active Pioneers | Pioneer pools collectively get ~10% more than TVL-weighted share |
+| Boost ecosystem pools | 0.90 on all active Pioneers | Non-Pioneer pools collectively get more emissions |
+| Concentrate on ixAppia | 1.10 on ixAppia, 0.90 on others | Gold pool favored within Pioneer set |
+| Neutral | 1.00 on all | Pure TVL-weighted allocation everywhere |
+
+### Self-Referential Integrity
+
+The CCB is **oracle-free**. It relies entirely on internal contract balances and time-weighted EMA data. No external price feeds, no Chainlink dependency, no oracle manipulation surface. The protocol prices its own liquidity commitments using its own on-chain state.
+
+**Note on the Treasury Stabilization module.** The Price Ceiling mechanism (months 6–10) requires a price reference — the 7-day SMA of AuMM's price derived from the internal AuMM/stablecoin trading pool. This is not an external oracle: it reads the protocol's own on-chain pool price, which is manipulation-resistant due to the pool's 0.75% swap fee and the 7-day averaging window. The emission allocation engine (CCB) and the treasury stabilization module are both oracle-free in the sense that neither depends on external price feeds.
+
+### Interaction with Existing Mechanisms
+
+The CCB replaces how the emission pie is sliced. It does not replace any existing discipline mechanism:
+
+- **Efficiency tournament** still caps the bottom 15% of pools by efficiency ratio. A pool with high EMA-TVL but terrible efficiency still gets capped.
+- **Volume percentile floor** still disqualifies dead pools. The EMA gives them a decaying weight, but the percentile floor kills them outright.
+- **Gauge revocation** still removes dead gauges after 4 cycles. The CCB doesn't protect non-performing pools.
+- **Buyback-and-burn on unqualified votes** still applies. If the EMA directs weight to a pool that fails eligibility, those emissions are burned.
+
+The CCB handles allocation. The anti-gaming stack handles discipline. Orthogonal systems, complementary effects.
+
+---
+
+
+## Pool Bootstrapping: The Cold Start Solution
+
+The CCB's 60-day EMA creates a deliberate inertia — new pools have zero "memory" and earn minimal emissions for their first two months. This is a feature for established pools (anticyclical stability) but a problem for new pools (the cold start trap). Three mechanisms solve this without compromising the CCB's integrity. All three require gauge approval first.
+
+### The Incendiary Boost (Proof-of-Burn Bootstrapping)
+
+A pool operator deposits AuMM into a smart-contract-controlled position. That exact amount of AuMM is emitted to the pool equally over 30 days as a supplementary emission stream. This is not free — the operator burns conviction capital to activate the protocol's routing engine.
+
+**The efficiency scalar.** The Incendiary emission rate is pegged to the 85th percentile of the Efficiency Tournament, scaled by the pool's own performance:
+
+```
+E_inc = E_85th × (2 - R)
+```
+
+Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th efficiency percentile, and `R` is the target pool's normalized efficiency rank (0 = most efficient, 1 = least efficient).
+
+| Pool Efficiency | R | Multiplier (2 - R) | Effect |
+|----------------|---|-------------------|--------|
+| Most efficient in protocol | ≈ 0 | 2.0× | Massive reward for utility |
+| At 85th percentile cutoff | ≈ 0.85 | 1.15× | Modest boost |
+| Below 85th percentile | > 0.85 | < 1.15× | Diminishing returns |
+
+**The priority skim — emission dilution by design.** Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on block rewards. The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the block emission, then distributes the remainder via the CCB. **This means every active Incendiary Boost directly reduces emissions to all other pools.** Active, efficient new pools temporarily tax every existing pool's emission share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. This is intentional: the protocol subsidises its own future by skimming its own present. Stagnant pools relying on accumulated EMA weight see their emissions compressed, creating pressure to stay productive or lose share to the newcomers. The operator's escrowed AuMM is permanently burned — making AuMM scarcer for all holders long-term in exchange for the privilege of skipping the EMA queue.
+
+**Renewal rule.** The Incendiary slot locks after 30 days. A second boost is only possible if the pool **is at or above the 85th percentile** in the Efficiency Tournament at the time of renewal request. A pool that stayed in the top 10% throughout its first boost qualifies immediately. No cycling boosts on underperforming pools.
+
+**Anti-wash-trading.** The 30-day limit plus the efficiency rank requirement makes wash trading uneconomical: the attacker pays more in swap fees (routed to buyback-and-burn) than they can extract in boosted emissions. The protocol wins the fee-vs-emission spread.
+
+### Bubble Voting (90-Day Governance Multiplier)
+
+For the first 90 days after gauge approval, a new pool is eligible for a **Bubble multiplier** — a tessera-weighted governance vote with a wider range than Pioneer multipliers:
+
+| Discrete Steps | 0.90 | 1.00 | 1.20 | 1.50 | 2.00 |
+|---------------|------|------|------|------|------|
+
+**Pioneer and Bubble multipliers stack.** A pool that earns a Pioneer tag at gauge approval receives both multipliers during its first 90 days: the Pioneer multiplier [0.90–1.10] and the Bubble multiplier [0.90–2.00]. After day 91, the Bubble expires and only the Pioneer multiplier remains. The founding Miliarium Aureum pools receive both multipliers from launch — they are simultaneously the first Pioneers and the first Bubble-eligible pools.
+
+**The final Bubble multiplier is the tessera-weighted average of all votes cast for that pool.** This allows LPs to express strategic conviction: a 2.0× vote on a new Swiss Franc/Bitcoin pool signals strong ecosystem alignment. A 0.9× vote on a suspected wash-trading pool acts as a social consensus firewall.
+
+**The hand-off.** At day 91, the Bubble expires. By this point, a successful pool has 90 days of TVL data baked into its EMA. The mechanical CCB weight "takes the baton" from the governance boost seamlessly. Failed pools lose both the Bubble and the EMA weight — they die naturally.
+
+**Bubble votes occur every 6 weeks** (same cycle as Pioneer multiplier votes). Only qualified AuMT holders can vote.
+
+### The Bootstrapping Sequence
+
+| Phase | Days | Driver | Purpose |
+|-------|------|--------|---------|
+| Gauge approval | Day 0 | AuMT governance vote | Quality gate — pool must pass governance before any boost |
+| Incendiary Boost | Days 1–30 | AuMM escrow by operator | Proof of conviction — builder buys into the ecosystem |
+| Bubble Vote | Days 1–90 | Tessera-weighted multiplier [0.9–2.0] | Social alignment — LPs endorse or penalise the pool |
+| CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
+
+All three layers require gauge approval first. No pool can access the Incendiary Boost or Bubble Vote without passing governance.
+
+### The Permissionless Sandbox
+
+Pool creation is permissionless from block 0. Any pool can be deployed without a gauge. Non-gauged pools operate in the **Sandbox**:
+
+- They receive base EMA emissions only (no Incendiary Boost, no Bubble multiplier)
+- They are ranked in the Efficiency Tournament alongside all other pools
+- They have no governance voice (no Pioneer multiplier voting, no Bubble voting)
+
+**The fast-track rule.** If a non-gauged Sandbox pool reaches the **top 10% efficiency** in the Efficiency Tournament organically — without any emission boost — it earns **automatic gauge approval**. No governance vote required. The protocol recognises proven productivity and removes the governance bottleneck.
+
+This gives the protocol experimentation without emission risk. Builders can deploy, prove efficiency organically, and earn their way into full emission eligibility. The fast-track replaces politics with performance.
+
+---
+
+
+## Token Design: AuMM (Aureum Market Maker)
+
+### Supply Schedule
+
+| Parameter | Value |
+|-----------|-------|
+| Token name | **AuMM** (Aureum Market Maker) |
+| Pool token | **AuMT** (Aureum Market Tessera) |
+| Maximum supply | 21,000,000 |
+| Emission rate (Era 1) | ~0.000496 AuMM per block (~50 AuMM per 2-week governance cycle) |
+| Governance cycle | **2 weeks** (bi-weekly gauge votes) |
+| Halving interval | Every 105 governance cycles (~4 years) |
+| First halving | ~4 years after launch |
+| Full emission timeline | ~20 years (99%+ mined by year 16) |
+
+### Emission Schedule
+
+| Era | Years | Per-Block Rate | Per Governance Cycle | Annual Emission | Cumulative % |
+|-----|-------|---------------|---------------------|-----------------|-------------|
+| 1 | 0–4 | ~0.000496 AuMM | ~50 AuMM | 1,300 | 49.5% |
+| 2 | 4–8 | ~0.000248 AuMM | ~25 AuMM | 650 | 74.8% |
+| 3 | 8–12 | ~0.000124 AuMM | ~12.5 AuMM | 325 | 87.3% |
+| 4 | 12–16 | ~0.000062 AuMM | ~6.25 AuMM | 162.5 | 93.6% |
+| 5 | 16–20 | ~0.000031 AuMM | ~3.125 AuMM | 81.25 | 96.7% |
+| 6+ | 20+ | <0.000031 AuMM | <3.125 AuMM | <81.25 | →100% |
+
+*The model mirrors BTC's emission curve — front-loaded but declining, creating scarcity over time while incentivising early LP participation.*
+### Distribution Mechanism
+
+**Emissions stream continuously per block.** Every Ethereum block (~12 seconds), the protocol accrues AuMM to LPs in eligible pools proportional to:
+
+```
+lp_reward_per_block = emission_per_block × (LP_value_in_pool × pool_weight) / total_weighted_LP_value
+```
+
+Where:
+- `emission_per_block` = current era's total emission divided by blocks per governance cycle (~100,800 blocks per 2 weeks at 12s/block)
+- `LP_value_in_pool` = USD value of LP's AuMT position in that pool
+- `pool_weight` = CCB-derived weight for that pool (60-day EMA TVL share × Pioneer multiplier if applicable, updated bi-weekly)
+- `total_weighted_LP_value` = sum across all eligible pools
+
+Deposit → start accruing. Withdraw → stop accruing. No snapshots, no pro-rata, no epoch-boundary gaming. An LP earns exactly what they earned up to the block they withdrew. At the halving block, the per-block rate drops 50%. Clean.
+
+**Why per-block.** Prevents epoch-boundary gaming (deposit before snapshot, earn full period, withdraw). Per-block streaming is the standard pattern used by Balancer gauges, Curve gauges, and MasterChef contracts.
+
+**Gauge weights update bi-weekly.** Emissions stream continuously, but the pool weights that determine how emissions are distributed across pools change only at bi-weekly governance cycle boundaries. This separates the two concerns: continuous, manipulation-resistant accrual paired with deliberate, governance-driven allocation.
+
+**No lock required.** LPs earn tokens while they provide liquidity. Remove liquidity, stop earning. No vesting. No cliff. Tokens are liquid immediately.
+### Token Properties
+
+AuMM is a **100% liquid token**. There is no locking, no staking, no ve-mechanism, no wrapper. You hold AuMM, you can sell it at any time.
+
+**AuMM carries zero governance power.** It does not vote on emissions, fee parameters, or any protocol decision. All governance — including emission direction — is AuMT-weighted (active LP positions in qualified pools). AuMM is a pure reward and value-capture token: earned by LPs, burned by the protocol.
+
+AuMM accrues value exclusively through **buyback and burn** — the same mechanism as a corporate stock buyback programme. Protocol revenue is used to buy AuMM on the open market and permanently burn it. Circulating supply declines over time. Each remaining token represents a larger share of future protocol revenue. No yield farming. No APR on holding. Just scarcity.
+
+---
+### Token Supply Transparency
+
+The aumm.fi dashboard publishes in real time:
+- **Total AuMM emitted** — cumulative tokens distributed to LPs and treasury since block 0
+- **Total AuMM burned** — cumulative tokens destroyed through governance deposits, excess burns, and buyback-and-burn
+- **Net circulating supply** — emitted minus burned
+- **Burn rate** — trailing 30-day annualised burn rate as % of circulating supply
+
+
+---
+
+
+## Value Capture: Two Revenue Streams
+
+### Stream 1: Swap Fees
+
+| Destination | Share | Mechanism |
+|-------------|-------|-----------|
+| **LP bonus** | **50%** | Additional yield to LPs, proportional to their multiplier voting participation. Vote on Pioneer multipliers → earn bonus. |
+| AuMM buyback and burn | 25% | Market buy AuMM + permanent burn. Deflationary pressure. |
+| Protocol treasury | 25% | Funds development, audits, and integrations |
+
+### Stream 2: ERC-4626 Yield Fees
+
+The Aequilibrium vault takes 10% of all yield accrued on ERC-4626 tokens (svZCHF, waEthUSDT, GHO Prime, sUSDS, etc.). This is protocol revenue from day one — it doesn't depend on swap volume.
+
+| Destination | Share | Mechanism |
+|-------------|-------|-----------|
+| AuMM buyback and burn | 25% | Permanent deflationary pressure from block one |
+| Protocol treasury | 75% | Funds ongoing operations |
+
+### The Day-One Revenue Guarantee
+
+Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has treasury income from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It's architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. During the treasury emission phase (months 0–10), this revenue accumulates alongside AuMM emissions, building the capital needed to seed the AuMM trading pool at month 6, fund the price ceiling stabilization mechanism, and activate buyback-and-burn from month 6 onward.
+
+### The Deflationary Crossover
+
+At scale, the combined buyback-and-burn from swap fees (25%) and yield fees (25% of 10%) can exceed the emission rate — making AuMM net deflationary despite ongoing LP mining rewards. BTC scarcity with productive backing.
+
+### AuMM Liquidity: The Non-Emission Pool
+
+The AuMM trading pool operates as a non-emission pool — AuMM cannot be a component in emission-eligible pools (no self-referential tokens). LPs earn only swap fees plus native ERC-4626 yield on the non-AuMM side (svZCHF, waEthUSDC, sUSDS — 75% of pool TVL is yield-bearing). No circular incentives. The treasury seeds the pool at month 6, operates the price ceiling between months 6–10, then at month 10 deposits max 80% of remaining stablecoin balance plus corresponding AuMM at market price and burns all leftover AuMM.
+
+**The LP proposition.** svZCHF, waEthUSDC, and sUSDS are ERC-4626 tokens that accrue native yield inside the pool. LPs earn swap fees from AuMM trading PLUS 2–4% native yield on 75% of their position. That's a competitive return without any emission subsidies.
+
+**Volume comes from two natural flows.** Sell-side: LPs in emission-eligible pools selling AuMM they earned from mining. Buy-side: participants who want exposure to the protocol's growth via the deflationary supply mechanics (buyback-and-burn reducing circulating supply over time). No governance motivation needed — AuMM carries zero voting power.
+
+**The self-reinforcing loop.** The protocol captures the 10% yield fee on the ERC-4626 tokens in the pool (svZCHF, sUSDS, waEthUSDC). 25% of that goes to buyback-and-burn of AuMM. So the AuMM trading pool feeds the deflationary mechanism that makes AuMM scarcer — even though the pool itself receives no emissions.
+
+---
+
+
+## Governance: The "LP = Power" Model
+
+### Emission Direction: The CCB Engine
+
+Emission allocation is driven by the **Continuous Central Bank (CCB)** — not by direct gauge voting. Each pool's base emission weight is its 60-day EMA of on-chain TVL as a share of total protocol TVL. Capital allocates itself.
+
+Governance participation is limited to **Pioneer multiplier voting**: tessera-weighted votes set each Pioneer pool's multiplier within [0.90–1.10] every bi-weekly cycle. This is the only emission-direction governance action. See **The Continuous Central Bank** section for the full formula and mechanics.
+
+- **Voting power = dampened AuMT.** `(AuMT_value × time_in_pool)^(1/4)` — same formula as protocol governance. 14-day qualification, 6-month on-ramp, any withdrawal resets to zero. See **Governance** for details.
+- The 50% LP bonus from swap fees distributes to LPs who participated in multiplier voting — creating an incentive to both provide liquidity and participate in governance.
+
+Every bi-weekly governance cycle:
+1. CCB recalculates each pool's 60-day EMA TVL weight
+2. Active Incendiary Boosts are calculated as priority claims on block emissions
+3. Per-block emission streaming adjusts at cycle boundary
+4. LP bonus distributes to voting participants
+
+Every 6-week multiplier vote:
+1. Qualified LPs vote on Pioneer pool multipliers (discrete steps: 0.90, 0.95, 1.00, 1.05, 1.10)
+2. Qualified LPs vote on Bubble multipliers for new pools in their 90-day window (discrete steps: 0.90, 1.00, 1.20, 1.50, 2.00)
+3. Final multipliers = tessera-weighted average of votes cast per pool
+4. Emission shares recalculated with updated multipliers
+
+### Emissions Directed to Unqualified Pools
+
+If the CCB directs emissions toward pools that do not meet eligibility criteria (see Anti-Gaming Criteria below), those emissions are **not distributed to the pool**. Instead, the equivalent AuMM value is routed to the **buyback-and-burn mechanism**. This means:
+
+- Votes wasted on ineligible pools accelerate deflation
+- There is no economic benefit to gaming the vote toward unqualified pools
+- The protocol benefits even from misallocated votes
+- Voters are incentivised to direct emissions to productive pools or accept that their misdirected votes burn supply (which still benefits all remaining holders)
+
+### Protocol Governance (Non-Emission Decisions)
+
+For decisions beyond emission direction (fee parameters, treasury, upgrades), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
+
+```
+Era 1 (Year 0–4, pre-halving):   voting_power = (qualified_AuMT_value × time_in_pool)^(1/4)
+Era 2 (post-first-halving):      voting_power = (qualified_AuMT_value × time_in_pool)^(1/3)
+```
+
+**`qualified_AuMT_value` is the USD-denominated value of the liquidity the tessera represents** — not the number of AuMT tokens held. Each tessera is a proportional claim on its pool's TVL. An AuMT representing a $50K position in ixAppia carries more governance weight than an AuMT representing a $5K position in a smaller pool, because the underlying locked value is different. Different pools have different TVLs and different token compositions; the governance formula normalises across all of them by pricing each tessera at the current market value of the liquidity it represents.
+
+This ensures governance power reflects real economic commitment — not which pool you happen to be in, but how much capital you have at risk in productive pools.
+
+The dampening exponent transitions from fourth root to cube root at the first halving block. This is a protocol-wide parameter shift — all positions recalculate under the new exponent, regardless of when they were opened. There is no two-tier governance class.
+
+**Why the transition matters:**
+
+- **Era 1 (fourth root):** A $100M position has 18× the governance weight of a $1K position. At low TVL, a single whale can represent 20%+ of the entire protocol. Maximum compression prevents single-actor capture when the protocol is most vulnerable. The whale still has more governance weight than a small LP — they just can't steamroll every vote.
+- **Era 2 (cube root):** A $100M position has 46× the governance weight of a $1K position. By year 4, TVL growth has naturally diluted individual power — a $10M whale in a $200M protocol is 5%, not 20%. The ecosystem no longer needs training wheels. The exponent relaxes because the primary decentralization force is now TVL distribution, not governance math.
+
+The transition trigger is the halving block itself — immutable in the contract, no governance vote required, no discretionary timing.
+
+AuMT in pools that fail any eligibility criterion carries zero governance weight. This ensures governance power flows exclusively from productive capital — the same capital that earns emissions and generates protocol fees.
+
+**Governance power for non-emission decisions derives exclusively from active, qualified AuMT positions. AuMT in non-qualified pools carries zero weight. Voting power cannot be purchased on the open market.**
+
+### Minimum Qualification Period and Governance On-Ramp
+
+**Days 0–14: Zero governance weight.** Voting power requires at least **14 days (one full governance cycle)** of continuous qualified AuMT holding before any contribution to the governance power calculation. During this period, `time_in_pool = 0` in the formula — the position is invisible to governance.
+
+**Days 14–180: Governance on-ramp.** After the 14-day qualification, `time_in_pool` begins accruing from zero. Because the governance formula uses `(qualified_AuMT_value × time_in_pool)^(1/4)`, voting power grows sublinearly with time. An LP at day 14 has minimal power. By month 6 (day 180), they reach **full voting weight**. This 6-month on-ramp ensures that governance power reflects sustained commitment, not recent capital deployment.
+
+**Any withdrawal resets everything to zero.** If an LP removes liquidity from a qualified pool — any amount, even 1% — their governance power for that position drops to zero immediately, `time_in_pool` resets to zero, and the 14-day qualification clock restarts from scratch. The 6-month on-ramp begins again.
+
+This eliminates:
+- **Flash-LP attacks:** Borrow capital, deposit, vote, withdraw in the same block or day
+- **Snapshot-based manipulation:** Accumulate AuMT moments before a governance snapshot, then exit
+- **Cycle-boundary gaming:** Deposit at the end of a cycle to vote, remove at the start of the next
+- **Ghost governance:** Withdraw most liquidity while retaining outsized governance weight from original position's time-weighting
+- **Capital-rotation attacks:** Deposit large capital, vote immediately, then move capital elsewhere — the 6-month on-ramp means new capital has negligible governance power
+
+### Soft Quorum for Major Decisions
+
+Not all governance decisions carry equal weight. Major changes require minimum participation to prevent low-turnout capture:
+
+| Decision Type | Quorum Requirement | Deposit (in AuMM, burned) | Failure Mode |
+|--------------|-------------------|--------------------------|-------------|
+| Pioneer multiplier voting | No quorum (6-week cycle) | None | Tessera-weighted average of votes cast per Pioneer pool |
+| Bubble multiplier voting | No quorum (6-week cycle) | None | Tessera-weighted average of votes cast per new pool (first 90 days) |
+| Gauge approval | No quorum | 100 svZCHF/sUSDS equivalent | Simple majority of votes cast |
+| Gauge challenge | No quorum | 1,000 svZCHF/sUSDS equivalent | Simple majority to revoke; gauge removed if passed |
+| Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail if quorum not met |
+| Treasury spends >10% of balance | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail → 14-day timelock + public review |
+| Fee distribution split changes (after Year 4) | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail → 14-day timelock + public review |
+| Protocol upgrades | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail → 14-day timelock + public review |
+
+All governance deposits are paid in **AuMM and burned automatically**. The deposit amount is denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Gauge proposals: 100 equivalent. All other proposals and challenges: 1,000 equivalent. Non-refundable. Every governance action creates deflationary pressure on AuMM.
+
+Uncontested proposals with very low turnout do not pass silently. They either auto-fail or route to a timelock with a mandatory public review period. This prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+
+**Anti-Market Buying:** Only active liquidity providers in **emission-qualified pools** possess governance voting power. AuMT held in pools that do not meet eligibility criteria carries zero voting weight. You cannot buy governance power on the open market, and you cannot earn it by parking capital in unproductive pools. You must be providing liquidity to pools that meet every anti-gaming criterion.
+
+Fourth root (Era 1) then cube root (Era 2) dampens whale dominance — maximum compression when the protocol is smallest and most vulnerable, relaxing as TVL growth naturally decentralizes power. Time-weighting rewards commitment without requiring lock mechanisms.
+
+**What governance controls:**
+- Pioneer pool multipliers via 6-weekly tessera-weighted voting (constrained to [0.90–1.10] per pool)
+- Bubble multipliers via 6-weekly tessera-weighted voting for new pools in their first 90 days (constrained to [0.90–2.00])
+- Gauge approval (AuMT vote to grant a pool emission eligibility — requires 100 svZCHF/sUSDS equivalent in AuMM, burned). **Available from month 11 onward only.**
+- Gauge revocation (AuMT vote to remove a gauge via challenge — requires 1,000 svZCHF/sUSDS equivalent in AuMM, burned)
+- Fee parameters (swap fee %, yield fee %)
+- Treasury allocation (within defined bounds)
+- Protocol upgrades (with timelock)
+
+**What governance cannot control:** See **Permanent Protocol Rules** section for the full list of immutable parameters. In short: emission schedule, maximum supply, CCB engine parameters (60-day EMA, Pioneer multiplier range, Bubble multiplier range, Incendiary Boost mechanics, Sandbox fast-track threshold), governance dampening transition, eligibility criteria, Pioneer pool tags, fee distribution split (first 4 years), and all launch mechanics (months 0–13) are immutable in contract.
+
+---
+
+
+## Pool Creation and Gauge Approval
+
+**Pool creation is permissionless from block 0.** Anyone can deploy any pool with any token composition at any time. The Aequilibrium factory is open. This never changes.
+
+### Gauge Approval
+
+A pool only becomes eligible for AuMM emissions after qualified LPs approve a gauge through governance. This is the single gatekeeping step. Without it, an attacker deploys a pool and immediately starts extracting emissions. With it, existing LPs must collectively decide that the new pool deserves a share of the emission budget.
+
+**The eligibility criteria are immutable.** Once a gauge is approved, the pool must still meet every anti-gaming criterion to receive emissions. Governance cannot waive, modify, or relax these rules. A gauge vote says "this pool may compete for emissions." The contract decides whether it actually qualifies.
+
+This separates the three concerns cleanly: permissionless creation (anyone can build, from day one), democratic gauge approval (LPs decide what competes), immutable rules (the contract enforces discipline, always).
+
+### Governance Proposals
+
+Any AuMT holder can submit a governance proposal — fee parameter changes, treasury spending, protocol upgrades. Proposals require burning **1,000 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM**. The AuMM is burned automatically on submission — non-refundable regardless of outcome.
+
+**Gauge proposals** (requesting emission eligibility for a new pool) require burning **100 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM** — lower than other governance proposals because gauge requests are lower-stakes. If the pool fails the immutable criteria, the contract kills it automatically. The governance vote is a lightweight check on whether the pool deserves to compete, not a major protocol decision.
+
+Every governance action creates deflationary pressure on AuMM. The deposit filters spam (proposers must hold and sacrifice AuMM), funds no one (tokens are destroyed, not transferred), and tightens supply. Self-regulating.
+
+### Gauge Challenges
+
+Any AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. Challenges require burning **1,000 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM**. A challenge triggers a governance vote: if the challenge succeeds (majority votes to revoke), the gauge is removed and the pool loses emission eligibility. If the challenge fails, the AuMM is still burned — the challenger accepted that risk.
+
+This creates a community enforcement layer on top of the immutable anti-gaming criteria. The contract catches pools that fail the volume percentile floor or the efficiency caps automatically. Gauge challenges catch pools that technically pass the criteria but are extractive in ways the contract can't detect — coordinated wash trading, circular routing schemes, or pools that exist solely to farm emissions for a single actor.
+
+
+---
+
+
+## Anti-Gaming Criteria
+
+Pools must meet ALL criteria to remain eligible for AuMM emissions:
+
+| Criterion | Requirement | Rationale |
+|-----------|-------------|-----------|
+| Protocol version | Aequilibrium only | No legacy pool farming |
+| ERC-4626 composition ("4626 Quality Gate") | **≥52%** yield-bearing tokens by weight. Each ERC-4626 token must have **≥$5M, 30 BTC, or 4,000,000 svZCHF (whichever is largest) in its underlying vault** (`totalAssets()`) to count toward the 52% threshold. | Ensures pools generate real protocol yield fees. Three independent currency-denominated floors (USD, BTC, CHF) prevent any single inflation or devaluation event from eroding the quality gate. |
+| Minimum TVL | $10K **7-day SMA** (exempt during months 0–3 grace period) | Filters ghost pools. The 7-day SMA prevents flickering eligibility from intra-day price fluctuations — a pool at $10,001 that dips to $9,999 from a price move doesn't lose eligibility until the 7-day average drops below $10K. |
+| Volume percentile floor | Graduated by pool age (see Graduated Grace Period below) | Benchmarks pool activity against protocol-wide distribution |
+| Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
+| No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
+
+### Why TVL-Based Governance Eliminates the Wrapper Problem
+
+In token-weighted governance (Balancer/Aura), bear markets enable cheap governance capture through lock multipliers and meta-governance amplifiers. AuMM carries zero governance power. AuMT governance weight equals the USD value of the LP position in qualified pools. To get 5% of governance power, you need 5% of protocol TVL in real capital. No lock multiplier. No boost. No amplifier. Bear market doesn't help the attacker — governance weight is TVL-denominated, not token-price-denominated.
+
+**Wrappers and composability layers are welcome.** Convex/Aura-style vaults that hold AuMT carry full governance weight proportional to the underlying TVL. They cannot amplify governance because there's nothing to amplify. The TVL-based governance model IS the anti-capture mechanism.
+
+Pools containing AuMT follow all the same rules as any other pool — permissionless creation, gauge approval via AuMT vote, full anti-gaming criteria.
+
+### Graduated Grace Period
+
+New pools need time to get discovered by aggregators, indexed by bots, and build organic volume. A static kill switch applied too early makes the protocol's "permissionless pool creation" pitch hollow in practice. The graduated grace period introduces discipline incrementally, preserving the discovery layer while filtering out pools that never find traction.
+
+| Pool Age | Volume Percentile Floor | Efficiency Caps | Notes |
+|----------|------------------------|-----------------|-------|
+| Months 0–3 | None | Exempt | Full experimentation window. Pool must still meet structural criteria (ERC-4626 composition, no self-referential tokens). |
+| Months 3–6 | 5th percentile | Exempt | First signal required: pool must demonstrate it's not completely dead. |
+| Months 6–12 | 10th percentile | Exempt | Higher bar, still in discovery phase. Treasury stabilization active. |
+| Month 13+ | 15th percentile | **Active** | Full discipline. Both volume percentile floor and efficiency-based emission caps apply. Aligned with treasury exit. |
+
+Percentile rankings are calculated against the protocol's own pool activity distribution — specifically, the trailing 4-week rolling window of fee + yield revenue across all emission-eligible pools. This is a relative measure: as the protocol grows, the absolute bar rises organically.
+
+**Gaming the grace period.** The exploit vector for the grace period is the gauge, not the pool. An attacker deploys a pool, gets a gauge approved via governance vote, votes emissions to it, and milks the grace window before the fee/percentile checks activate. Switching deployer wallets or swapping one token to argue "different composition" doesn't help the attacker because the percentile floor is protocol-wide — a pool that generates no organic activity sits at the bottom of the distribution regardless of who deployed it or how many times it's been redeployed. The graduated percentile ramp is the natural defence: a pool earning zero fees can't stay above the 5th percentile for long, even with generous AuMM emission allocation.
+
+### Hysteresis Buffer (Anti-Oscillation)
+
+Binary thresholds with no dead zone create oscillation — a pool at the 14th percentile bounces between eligible and disqualified every governance cycle based on noise. The hysteresis buffer prevents random volatility from killing viable pools.
+
+| Zone | Volume Percentile | Status | Action |
+|------|------------------|--------|--------|
+| **Safe** | Above 15th | Fully eligible | Normal emissions, no flags |
+| **Warning** | 10th–15th | Flagged | Emissions continue normally. Pool must recover above the 15th percentile within 2 governance cycles (4 weeks). |
+| **Cut** | Below 10th | Disqualified | Emissions cease immediately. Unallocated emissions route to buyback-and-burn. |
+
+**Critical design choice:** Emissions continue during the warning period. Cutting emissions from a pool in the warning zone reduces its attractiveness exactly when it needs to attract more volume — that's a death sentence disguised as a second chance. The 2-cycle recovery window gives the pool a genuine opportunity to recover while creating a hard deadline.
+
+Re-qualification after disqualification requires the pool to sustain activity above the 15th percentile for one full rolling window (4 weeks) with no emissions. If it can generate organic activity without emission subsidies, it earned its way back.
+
+### Emission Efficiency Tournament
+
+The efficiency tournament is a relative ranking system that is entirely price-agnostic — designed to throttle inefficient pools without penalising productive pools during AuMM price appreciation.
+
+**The mechanic.** All gauged pools **above $10K TVL** are ranked by their efficiency ratio — `(swap_fees + ERC-4626_yield_revenue_to_DAO) / emissions_received` — using a **2-epoch (4-week) moving average** to prevent single-day glitches. Pools below $10K TVL are excluded from the ranking entirely and receive zero emissions regardless of gauge votes. Higher ratio = more efficient (more revenue per unit of emission). The least efficient gauged pools — those at the bottom of the ranking — receive hard emission caps regardless of how many governance votes they receive:
+
+| Efficiency Rank (gauged pools above $10K TVL) | Emission Cap | Effect |
+|--------------------------------------|-------------|--------|
+| Above 15th percentile | No cap | Full emissions as voted |
+| 10th–15th percentile (bottom 15–10%) | 1% of total protocol emissions | Capped even if votes say more |
+| 5th–10th percentile (bottom 10–5%) | 0.5% of total protocol emissions | Harder cap |
+| Below 5th percentile (bottom 5%) | 0.1% of total protocol emissions | Nearly starved |
+
+The efficiency tournament activates at **month 13** of a pool's life (same as the volume percentile floor reaching full discipline).
+
+**Excess emissions are redistributed.** When a pool is capped below its voted emission weight, the excess is redistributed to uncapped pools pro-rata by their existing voted emission weight. This rewards productive pools rather than burning the excess.
+
+The efficiency tournament is price-agnostic by design — it prevents the reflexive disqualification problem where a rising AuMM price would cause fixed revenue hurdles to fail productive pools.
+
+**Self-correcting.** A pool gets capped → receives fewer emissions → its efficiency ratio improves next cycle → it climbs out. No death spiral.
+
+**Governance-capture resistant.** A group of voters colludes to send 50% of emissions to a pool with zero fees. The protocol sees the pool's efficiency ratio is the worst in the set. It's ranked in the bottom 5%. Despite having 50% of the votes, it receives 0.1% of emissions. The other 49.9% is redistributed to productive pools.
+
+**Sacrificial lamb resistant.** An attacker tries to flood the bottom 15% with junk pools to shield their extractive pool from capping. Each lamb pool needs $10K TVL to enter the ranking, a gauge approval vote (burning 100 svZCHF/sUSDS equivalent in AuMM), and LP governance approval. Twenty lamb pools = $200K+ in capital at risk plus 2,000 equivalent in AuMM burned. The $10K TVL floor makes the attack prohibitively expensive.
+
+### Disqualification and Gauge Revocation
+
+Pools that fail the anti-gaming criteria face a two-stage process:
+
+**Stage 1: Disqualification.** A pool that falls below the 10th volume percentile (or fails other structural criteria) is disqualified — emissions cease immediately. The gauge remains intact. If the pool recovers above the 15th percentile for one full rolling window (4 weeks) with no emissions, it re-qualifies automatically.
+
+**Stage 2: Gauge revocation.** A pool that remains disqualified for **4 consecutive governance cycles (8 weeks)** has its gauge permanently revoked. To restart emissions, the pool operator must submit a new gauge proposal (burn 100 svZCHF/sUSDS equivalent in AuMM) and win a fresh AuMT governance vote. This prevents dead pools from holding gauge slots indefinitely.
+
+### How the Criteria Interact
+
+After month 13, a gauged pool must clear the volume floor (or be disqualified) AND survive the efficiency ranking (or be capped). Volume floor catches dead pools. Efficiency caps catch extractive pools. Neither alone is sufficient. Both are self-correcting — no governance vote required.
+
+---
+
+
+## AMM Architecture: Aequilibrium
+
+### Provenance: Balancer V3
+
+Aequilibrium is derived from Balancer V3's open-source, Certora-verified smart contracts. The relationship is transparent: the pool layer is byte-identical to the audited code, the tokenomics layer is entirely new. The table below shows what was inherited and what was built.
+
+| Component | Origin | Modifications |
+|-----------|--------|--------------|
+| Vault | Balancer V3 (Certora verified) | None |
+| Weighted pools | Balancer V3 (Certora verified) | None |
+| Stable pools | Balancer V3 (Certora verified) | None |
+| Hooks (StableSurge etc.) | Balancer V3 (Certora verified) | None |
+| ERC-4626 rate providers | Balancer V3 (Certora verified) | None |
+| Smart Order Router | Balancer V3 | None |
+| Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming, unqualified-vote-to-burn |
+| Token contract | **New** | BTC-style emission schedule, immutable supply cap |
+| Fee distributor | **New** | 50/25/25 swap fee split + yield fee split + buyback-and-burn |
+| Governance | **New** | LP-weighted voting (AuMT for all decisions — emission direction and protocol governance), no ve-locking |
+
+### What's Unchanged (Critical)
+
+The pool contracts, vault, SOR, hooks, and rate providers are **byte-identical** to the Certora-verified Balancer V3 code. The audit and formal verification apply to these components. Only the tokenomics layer is new and requires independent audit.
+
+This is important for LP trust: *"The AMM you're depositing into is the same formally verified code. The token you're earning is different."*
+
+### What's New (Requires Audit)
+
+- AuMM token contract (ERC-20 with immutable supply cap and halving logic)
+- AuMT pool token wrapper (Aureum Market Tessera)
+- CCB emission engine (60-day EMA calculator, Pioneer multiplier voting with tessera-weighted averaging, zero-sum normalization)
+- Incendiary Boost engine (AuMM escrow, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
+- Bubble multiplier voting (90-day window, tessera-weighted averaging, expiry logic)
+- Sandbox fast-track (top 10% efficiency detection, automatic gauge approval)
+- Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
+- Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 2-epoch smoothing, gauge revocation logic)
+- Pioneer pool tag registry (25 pre-defined pools, non-transferable, revocation on gauge loss, locked treasury deposits)
+- Token supply tracker (cumulative emitted, cumulative burned, net circulating, burn rate)
+- Minimum qualification period enforcer (14-day continuous hold check)
+- Quorum calculator and timelock router
+- Unqualified-vote-to-burn router
+- Fee splitter (swap fees: 50/25/25 + yield fees: 25/75)
+- Governance voting (AuMT for all decisions — emission direction and protocol governance — with phased fourth root→cube root dampening)
+
+Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, Pioneer and Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+
+---
+
+
+---
+
+## Proof of Real Yield Dashboard
+
+The aumm.fi frontend displays per-pool yield transparency that reframes how LPs evaluate returns:
+
+**Per pool, the dashboard shows:**
+- **Real yield %** — the portion of returns from swap fees + ERC-4626 vault yield (non-inflationary sources)
+- **Emission yield %** — the portion from AuMM emissions (inflationary)
+- **Efficiency score** — the pool's efficiency ratio vs. protocol average
+- **Revenue per $1 of emissions** — how much protocol revenue each dollar of emission generates
+
+**The framing:**
+
+*"This pool earns 68% of returns from real yield, not inflation."*
+
+Most AMMs report a single blended APR that mixes real revenue with token emissions. LPs see "80% APR" without knowing that 75% of it is inflation that dilutes the token they're earning. Aureum separates the two, making the quality of returns visible.
+
+This is a competitive weapon. When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% emission yield," the conversation shifts from "which number is bigger" to "which return is sustainable." Lower headline APR, higher quality return. The dashboard makes that argument visually without saying a word about competitors.
+
+---
+
+## Permanent Protocol Rules
+
+The following parameters are immutable in the smart contracts. No governance vote, no multisig, no admin key can modify them. They are the protocol's constitution.
+
+**Emission schedule.** 21M maximum supply. BTC-style halving every ~4 years. Per-block streaming. Immutable from block 0.
+
+**Governance dampening transition.** Fourth root (Era 1, pre-halving) → cube root (Era 2, post-halving). Triggered at halving block. No governance vote. All positions recalculate.
+
+**Any withdrawal = governance reset.** Full details in Governance section.
+
+**Eligibility criteria.** ERC-4626 composition ≥52% with $5M/30 BTC/4M svZCHF vault TVL floor per token. Volume percentile floors. Efficiency-based emission caps. Grace period schedule. Gauge revocation after 4 consecutive failed cycles. None of this can be changed.
+
+**Pioneer pool tags.** All 28 pre-defined at launch, locked from block 0. No open slots. Governance-steerable multiplier [0.90–1.10]. Non-transferable. Revoked on gauge loss. No replacements ever.
+
+**Continuous Central Bank (CCB).** Emission allocation driven by 60-day EMA of on-chain TVL. Zero-sum normalization against fixed emission schedule. Pioneer multiplier range [0.90–1.10] in discrete steps. Bubble multiplier range [0.90–2.00] for first 90 days post-gauge-approval. Multiplier votes every 6 weeks. Tessera-weighted average determines final multipliers. All parameters immutable. (Oracle-free design detailed in the CCB section.)
+
+**Incendiary Boost.** 30-day supplementary emission funded by operator AuMM escrow. Emission rate pegged to 85th percentile efficiency × (2 - pool's efficiency rank). Priority claim on block rewards. Renewal only after pool enters 85th percentile in Efficiency Tournament. All parameters immutable.
+
+**Sandbox fast-track.** Non-gauged pools reaching top 10% efficiency organically earn automatic gauge approval. No governance vote. Immutable threshold.
+
+**Fee distribution split.** Immutable for first 4 years. Governance-adjustable only after first halving.
+
+**Governance proposal deposits.** All paid in AuMM, burned automatically. Denominated in svZCHF or sUSDS equivalent (whichever is higher). 100 equivalent for gauge proposals, 1,000 for all other governance. Non-refundable. This is immutable.
+
+---
+
+
+## Founding Team
+
+| Role | Contributor | Brings |
+|------|------------|--------|
+| Architecture & Thesis | **Sagix** | Pool design, routing topology, aggregator relationships, cross-protocol integrations (Frankencoin, Reserve), published research |
+| Smart Contracts | **TBD** | Solidity expertise, governance vault infrastructure, Balancer V3 codebase familiarity |
+| Frontend & UX | **TBD** | Frontend experience, emission dashboard, LP interface |
+| Founding Liquidity | **TBD** (aligned capital partner) | Seed capital for genesis pools, long-term LP commitment |
+
+**The founding team earns tokens by being early LPs.** Same mechanism as everyone else. The only advantage is being first — deploying pools, providing initial liquidity, and earning the highest emission rate before anyone else arrives. As more LPs join, per-LP emissions decline. Early believers rewarded. No allocation. No vesting.
+
+---
+
+
+---
+
+
+## Treasury
+
+### Source
+
+Protocol fee revenue flows to the treasury as defined in the **Value Capture** section (25% of swap fees + 75% of ERC-4626 yield fees). These are **stablecoin revenues** — the treasury's operating budget.
+
+**The treasury never sells AuMM to fund operations.** AuMM received during the treasury emission phase (months 0–10) is used exclusively for protocol-owned liquidity: seeding the AuMM trading pool at month 6 and operating the price ceiling stabilization mechanism (months 6–10). Stabilization sale proceeds are deposited as permanently locked liquidity in Pioneer pools — not converted to stablecoins for team spending. All leftover AuMM is burned at month 10. After month 10, the treasury never receives AuMM again. Development, audits, and operations are funded entirely from stablecoin fee revenue. This is the "no team allocation" guarantee: the team cannot extract value through AuMM sales.
+
+### Use
+
+| Category | Allocation | Notes |
+|----------|-----------|-------|
+| Audits & Security | 40% | Ongoing audit coverage, bug bounties, formal verification |
+| Development | 30% | Smart contract maintenance, frontend, integrations |
+| Operations | 20% | Infrastructure, RPC, subgraph, monitoring |
+| Reserve | 10% | Emergency fund |
+
+### Governance
+
+Treasury spending requires governance vote (AuMT-weighted, qualified pool LPs only). No single party controls treasury. Multi-sig with founding team members initially, transitioning to LP-elected council after Year 1.
+
+---
+
+
+## Competitive Position
+
+### LP Advantage Over Uniswap
+
+| Feature | Uniswap V3 Pair | Aureum Pool |
+|---------|----------------|-------------|
+| Trading pairs per position | 1 | 10+ (per multi-token pool) |
+| Yield on idle capital | 0% | 2.0–2.8% (ERC-4626 native) |
+| IL profile | Full directional exposure to one pair | Dampened — correlated assets diversify directional risk |
+| Fee tier | 0.05–0.3% | 0.01–0.05% (attracts routing) |
+| Active management required | Yes (range adjustments) | No (weighted pools are set-and-forget) |
+| Yield sources | Swap fees only | Swap fees + vault yield + cross-pool arb fees + AuMM mining |
+
+### Protocol Comparison
+
+| Feature | Balancer V3 | Uniswap V4 | Curve | Aerodrome | **Aureum** |
+|---------|-------------|-----------|-------|-----------|-----------|
+| Multi-asset pools | ✅ | ❌ | ❌ | ❌ | ✅ |
+| ERC-4626 native | ✅ | ❌ | ❌ | ❌ | ✅ |
+| Hooks | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Formal verification | ✅ | ❌ | ❌ | ❌ | ✅ (inherited) |
+| Fair launch | ❌ | ❌ | ❌ | ❌ | ✅ |
+| BTC tokenomics | ❌ | ❌ | ❌ | ❌ | ✅ |
+| No team allocation | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Anti-gaming criteria | ❌ | N/A | ❌ | ❌ | ✅ |
+| LP = miner | ❌ | ❌ | ❌ | Partial | ✅ |
+| LP = governor | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Emissions to governance staking | ✅ (80/20) | N/A | ✅ (veCRV) | ❌ | ❌ (banned) |
+| Unqualified votes → burn | ❌ | N/A | ❌ | ❌ | ✅ |
+| Constellation routing network | ❌ | ❌ | ❌ | ❌ | ✅ (ixEDEL hub by network effect) |
+| Buyback-and-burn from day 1 | ❌ | ❌ | ❌ | ❌ | ✅ |
+
+### The Prop AMM Contrast
+
+The table above compares Aureum to other public AMMs. But the most instructive contrast is with proprietary AMMs — the "dark AMMs" that now dominate Solana routing, processing tens of billions in monthly volume with zero public TVL.
+
+Prop AMMs proved the thesis that winning aggregator routing is the entire game. A single team supplies all liquidity from proprietary capital, runs active market-making algorithms with off-chain pricing oracles, and captures volume purely by being the cheapest fill when an aggregator routes a trade. No frontend, no brand, no retail awareness needed. Just better execution.
+
+The model works. And it is architecturally the opposite of Aureum on every dimension:
+
+| Dimension | Proprietary AMM | Aureum |
+|-----------|----------------|--------|
+| Liquidity source | Team-supplied, closed | Public, permissionless LP |
+| Pricing logic | Private algorithms, off-chain oracles | On-chain weighted pool math, formally verified |
+| Transparency | Opaque — users cannot assess fairness or execution quality | Fully transparent — pool weights, fees, and rules are on-chain |
+| Governance | None — one team controls all parameters | AuMT-weighted — LPs govern emission direction and protocol decisions |
+| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — declining treasury share (75%→50%→0% over months 0–10) for protocol-owned pool seeding, 100% to LPs after month 10 |
+| Failure mode | Single team goes down, 35%+ of chain volume disappears | Permissionless — no single point of failure, pools exist independently |
+| Chain dependency | Requires sub-second block times for active quoting — Solana-native | Passive LP model designed for Ethereum's 12-second blocks |
+| LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |
+
+Prop AMMs solved the routing problem through centralisation. Aureum solves the same problem through architecture — multi-asset pools with native yield, constellation routing, and aggregator-competitive fees — without concentrating control in a single team. The question is whether decentralised infrastructure can match the execution quality of a proprietary trading desk. The ERC-4626 yield floor, the multi-pair capital efficiency, and the cross-pool arbitrage engine are the mechanisms that make it possible.
+
+---
+
+
+## Launch Procedures: Months 0–13+
+
+All launch mechanics described in this section are **immutable from block 0**. They execute on schedule and self-terminate.
+
+### During the Pioneer Phase (months 0–10): Equal-Weight Pioneer Phase
+
+**Pool creation is permissionless from block 0.** The Aequilibrium factory is open. Anyone can deploy any pool and provide liquidity, including to the 25 Pioneers.
+
+**Emissions are split equally among the 25 Pioneer pools only.** No CCB/EMA weighting during this phase. Each Pioneer receives 1/25th of total LP emissions (after the treasury share). Non-Pioneer pools exist in the Sandbox — they can attract liquidity but receive zero emissions.
+
+**Treasury emission phase:** A declining share of per-block emissions flows to the protocol treasury (75%→50% by month 6, 50%→0% by month 10). After month 10, the treasury never receives AuMM again.
+
+**Month 2:** TVL measurement window opens for AuMM trading pool pricing.
+
+**Month 6: AuMM Trading Pool Launch.**
+- LPs vote (AuMT-weighted) on TVL-to-FDV multiple (5x–8x range)
+- Treasury deploys AuMM / svZCHF / waEthUSDC / sUSDS (25% each), 0.75% swap fee
+- 80% of treasury non-AuMM assets deposited; excess AuMM retained as stabilization inventory
+- Buyback-and-burn begins one week later
+
+**Months 6–10: Price Ceiling Stabilization.**
+If 7-day SMA FDV > 200% of voted multiple, treasury sells AuMM at 0.75% of pool TVL per day. Proceeds deposited as permanent locked liquidity in qualifying Pioneer pools. Price reference is the internal AuMM/stablecoin pool price (oracle-free).
+
+**Month 10: Hard Stop.**
+- Stabilization shuts off permanently
+- Treasury deposits max 80% of remaining stablecoin balance + corresponding AuMM at 30-day SMA (price-neutral)
+- All leftover AuMM burned
+- Treasury emission share hits 0% — permanent
+
+### End of Month 10: First Pioneer Multiplier Vote
+
+Qualified LPs cast the first tessera-weighted vote on Pioneer multipliers [0.90–1.10] for all 25 pools. This is the first governance action on emission allocation.
+
+### Month 11: Gauge Proposals Open
+
+- Non-Pioneer pools can submit gauge proposals (burn 100 svZCHF/sUSDS equivalent in AuMM)
+- All pools (Pioneer and non-Pioneer) begin ranking in the Efficiency Tournament
+- Sandbox fast-track active: non-gauged pools reaching top 10% efficiency earn automatic gauge approval
+
+### Months 11–12: CCB Transition
+
+Emissions transition linearly from equal-weight to full CCB/EMA allocation:
+
+```
+Day D weight = (1 - T) × equal_share + T × CCB_EMA_share
+T = (D - month_11_start) / (month_13_start - month_11_start)
+```
+
+At the start of month 11, T = 0 (100% equal weight). At the start of month 13, T = 1 (100% CCB/EMA × multipliers). The transition is smooth — no discontinuity, no cliff.
+
+Bubble voting (multiplier [0.90–2.00]) activates for newly gauged pools during this period.
+
+### Month 13 Day 1: Full Protocol Activation
+
+- CCB/EMA fully active for all pools (Pioneer and non-Pioneer)
+- Efficiency Tournament fully active — bottom 15% capped, excess redistributed
+- Volume percentile floor at full discipline (15th percentile)
+- New gauged pools receive emissions alongside the 25 Pioneers
+- Incendiary Boost available for all gauged pools
+- The protocol is now fully autonomous
+
+The subsections above constitute the binding launch specification. All dates, parameters, and mechanisms are immutable from block 0.
+
+---
+
+## Risk Factors
+
+**Fork risk.** Aequilibrium inherits Balancer V3's smart contract security via byte-identical pool contracts, but the new tokenomics contracts require independent audit. Until audited, the new code carries unverified risk.
+
+**Liquidity risk.** Genesis pools will have minimal TVL. Bootstrapping requires the founding team's capital and early LP adoption. If depth doesn't reach aggregator thresholds, the routing thesis never activates.
+
+**Regulatory risk.** Fair-launch tokens with no pre-mine have the strongest regulatory position (no securities argument), but the regulatory landscape is uncertain.
+
+**Balancer response.** Balancer could modify their revamp to preserve emissions, making the fork less necessary. Or they could challenge the fork through non-legal means (community pressure, aggregator lobbying).
+
+**Team risk.** Founding team is small and self-funded. Key-person dependency is high in early phases.
+
+**Market risk.** Launching during a bear market or period of DeFi apathy could delay adoption regardless of architectural merit.
+
+---
+
+
+## The Miliarium Aureum: Pioneer Pools
+
+All 25 Pioneer pools are pre-defined at launch and locked from block 0. No open slots. No governance vote to add or replace Pioneers. The 25 pools below constitute the complete founding infrastructure.
+
+### The Dual-Anchor System: svZCHF + ixEDEL
+
+Every Pioneer pool contains both **svZCHF** (yield anchor — ERC-4626, Frankencoin savings rate ~3.75%, counts toward the 4626 Quality Gate) and **ixEDEL** (routing anchor — ERC-20, Reserve Protocol DTF, IL reduction via diversified basket, internal cross-pool arbitrage routing, strategic moat). Together they create a unified routing hub where all 25 pools are interconnected through shared anchor tokens.
+
+### Standardised Pool Template
+
+All Pioneer pools follow a consistent weight structure:
+
+| Component | Weight | Role |
+|-----------|--------|------|
+| Yield Core (2 ERC-4626 tokens) | 52% (26% + 26%) | Meets 4626 Quality Gate. Generates protocol yield fees from block one. |
+| Routing Anchor (ixEDEL) | 16% | Cross-pool arbitrage. Constellation routing connectivity. |
+| Theme Assets (2 tokens) | 32% (16% + 16%) | Sector exposure. Drives aggregator volume from external markets. |
+
+### I. The Founding Infrastructure (Slots 01–05)
+
+Core routing gates for crypto-native benchmarks.
+
+| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
+|:-----|:----------|:-----------------|:-------------|:-------------------|
+| 01 | **ixHelvetia** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% waEthUSDT / 16% USDC |
+| 02 | **ixStrata** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% LINK / 16% AAVE |
+| 03 | **ixForum** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% SKY / 16% LDO |
+| 04 | **ixAppia** | 26% svZCHF / 26% sfrxUSD | 16% ixEDEL | 16% PAXG / 16% XAUt |
+| 05 | **ixAugusta** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% WBTC / 16% cbBTC |
+
+### II. The Reserve & Ecosystem Empire (Slots 06–09)
+
+Consolidating the Sagix/Reserve stack, yield-bearing primitives, and ecosystem tokens.
+
+| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
+|:-----|:----------|:-----------------|:-------------|:-------------------|
+| 06 | **ixRegistrum** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% ETHPLUS / 16% OPEN |
+| 07 | **ixBeneficium** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% ENA / 16% sUSDe |
+| 08 | **ixEcosysthema** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% FRAX / 16% CHEX |
+| 09 | **ixImperium** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% PENDLE / 16% EIGEN |
+
+### III. ETH Staking Governance & DeFi Infra (Slots 10–11)
+
+Capturing the ETH staking governance layer and DeFi lending infrastructure.
+
+| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
+|:-----|:----------|:-----------------|:-------------|:-------------------|
+| 10 | **ixCasper** | 27% waEthrETH / 27% waEthweETH | 15% ixEDEL | 15% RPL / 16% ETHFI |
+| 11 | **ixAuxilium** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% Morpho / 16% SPK |
+
+**ixCasper** — ETH staking governance pool. Non-standard composition: waEthrETH and waEthweETH are Aave V3 stataToken ERC-4626 wrappers for Rocket Pool's rETH and EtherFi's weETH respectively. ERC-4626 composition: 54% (both yield core tokens). RPL (Rocket Pool governance) and ETHFI (EtherFi governance) provide exposure to the staking protocol upside alongside the underlying staking yield.
+
+### IV. The Equity & Index Empire (Slots 12–17)
+
+TradFi indices, tokenised equity wrappers, and fintech.
+
+| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
+|:-----|:----------|:-----------------|:-------------|:-------------------|
+| 12 | **ixAureum** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% SPYon / 16% IVVon |
+| 13 | **ixVictoria** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% QQQon / 16% QQQX |
+| 14 | **ixGigantus** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% NVDAon / 16% TSLAon |
+| 15 | **ixMajestas** | 26% svZCHF / 26% sfrxUSD | 16% ixEDEL | 16% MSFTon / 16% AAPLon |
+| 16 | **ixMoneta** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% JPMon / 16% GSon |
+| 17 | **ixMercatura** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% COIN / 16% HOOD |
+
+### V. Macro, Hard Assets & Global FX (Slots 18–22)
+
+Treasuries, energy, LSTs, and global fiat corridors.
+
+| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
+|:-----|:----------|:-----------------|:-------------|:-------------------|
+| 18 | **ixSalus** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% LLYon / 16% NVOon |
+| 19 | **ixVectura** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% SGOVon / 16% TLTon |
+| 20 | **ixCustodia** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% GLDon / 16% TIPon |
+| 21 | **ixManes** | 26% fWSTETH / 26% fWETH | 16% ixEDEL | 16% svZCHF / 16% waEthwstETH |
+| 22 | **ixViatica** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% fBRZ / 16% st-EURA |
+
+### VI. Core Connector Pools (Slots 23–25)
+
+Anchor and infrastructure pools with non-standard compositions. These pools serve specialised routing and price discovery roles that require weight distributions outside the standard 52%/16%/32% template.
+
+| Slot | Pool Name | Composition | Role |
+|:-----|:----------|:-----------|:-----|
+| 23 | **ixEdelweiss** | ixEDEL (46%), waEthUSDC (18%), waEthUSDT (18%), svZCHF (18%) | Primary ixEDEL price discovery venue. ixEDEL-heavy weighting concentrates liquidity for the routing anchor. |
+| 24 | **ixLibertas** | scrvUSD (15%), PYUSD (15%), GHO (14%), sUSDS (14%), sfrxUSD (14%), USDT (14%), USDC (14%) | USD stablecoin hub. Seven-token pool spanning major USD stables and savings vaults. No ixEDEL — functions as a standalone deep-liquidity USD venue. |
+| 25 | **ixCambio** | ixEDEL (20%), svZCHF (16%), st-EURA (16%), aEURS (16%), s-tGBP (16%), [Partner Stable] (16%) | FX hub. Multi-currency pool (CHF, EUR, GBP, USD) with yield-bearing stablecoins via Aave/Morpho vaults. Competes directly with Curve's FXSwap (launched ZCHF/crvUSD at Stable Summit Cannes, March 2026) but captures multiple FX pairs from one LP position. |
+
+### Cross-Pool Arbitrage
+
+With 25 pools sharing svZCHF and ixEDEL as common anchors, six arbitrage layers generate fees continuously: vault-rate arbitrage (ERC-4626 drift correction), CHF/USD forex arbitrage, multi-currency FX arbitrage, wrapped-asset arbitrage (gold-to-gold, BTC-to-BTC), cross-pool price arbitrage (25 pools × 2 shared anchors = dense routing graph), and external-internal arbitrage (constituent tokens trading $898M+ daily on Uniswap at higher fees).
+
+### Pioneer Benefits
+
+**1. Governance-steerable emission multiplier.** Pioneer pools are the only pools eligible for the CCB governance multiplier [0.90–1.10] (see **The Continuous Central Bank** section).
+
+**2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Pioneer pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
+
+**Tag revocation:** If a Pioneer pool loses its gauge or emission eligibility, the tag is permanently revoked. No replacement. The number of active Pioneer slots only decreases.
+
+---
+
+## Appendix: Why Fair Launch AMMs Failed — And Why Aureum Won't
+
+### The Fair Launch Graveyard
+
+Fair launches were the gold standard in 2020 (Yearn, SushiSwap). Today they're nearly extinct. The reasons are structural:
+
+**The Bootstrap Paradox.** An AMM needs liquidity to be useful. VC-backed projects pay for liquidity mining from their war chest. Fair launches have no war chest. No liquidity → high slippage → no traders → no fees → LPs leave → death spiral.
+
+**The Builder Burnout Problem.** If 100% of tokens go to the community, who pays for audits ($100-250K), legal counsel, infrastructure, and the dev's rent? Most fair launch founders end up working for free while yield farmers dump their tokens for profit.
+
+**Governance Capture.** Fair launches distribute tokens based on liquidity provision. Whales bring massive capital on day one, earn the majority of "fair" tokens, and vote to redirect the treasury to themselves. A "Fair Launch" becomes a "Whale Launch."
+
+**The Death Spiral.** Most AMMs rely on their own token as the incentive. Token price drops → APR drops → LPs leave → protocol dies. VC-backed projects subsidise during bear markets using their treasury. Fair launches have no cushion.
+
+### The SushiSwap Autopsy
+
+SushiSwap is the most instructive failure. Three specific causes:
+
+**1. The backdoor.** Chef Nomi controlled the dev fund and sold $14M of SUSHI. The "fair launch" had admin keys hidden in the migration contract. The founder had a sell button the community didn't know about.
+
+**2. Vampire attack dependency.** SushiSwap's entire TVL came from migrating Uniswap LPs through token incentives. Once incentives declined, LPs had no structural reason to stay. The liquidity was rented, not earned.
+
+**3. Immediate governance capture.** Large holders (FTX/Alameda) accumulated governance power through token purchases and directed treasury spending to their own interests. Token-weighted voting meant capital = control.
+
+The deeper structural failure: SushiSwap was a fair launch of a **commodity product** — same Uniswap V2 pairs, same architecture, nothing novel. When incentives faded, there was no reason to use Sushi over Uniswap. The token was the only differentiator, and the token was losing value.
+
+### How Aureum Addresses Every Failure Mode
+
+| Failure Mode | What Killed Them | Aureum's Fix |
+|-------------|-----------------|-------------|
+| **Bootstrap Paradox** | No capital to seed liquidity | Founding team seeds pools with existing assets (ixEDEL, svZCHF). ERC-4626 pools generate 2-2.8% native yield from day one — LPs have a reason to stay before any AuMM emission has value. |
+| **Builder Burnout** | Devs work for free, farmers dump | Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. Treasury funded by protocol fees (25% swap + 75% yield), not by token sales. Audit costs funded by treasury once fees accumulate. |
+| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. The treasury receives a declining share of emissions (75%→50%→0% over months 0–10) for seeding the AuMM trading pool and operating a price ceiling that converts overvaluation into pool depth. Deployed at a governance-voted multiple, capped at 80% of treasury assets. Excess AuMM serves as stabilization inventory (months 6–10), then burned at month 10. Treasury emission share hits zero permanently at month 10. All mechanisms immutable in contract. No human can change the supply curve or the stabilization rules. |
+| **Vampire Attack Dependency** | Liquidity rented via incentives, leaves when APR drops | Constituent tokens (WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay. |
+| **Governance Capture** | Token-weighted voting = capital buys control | Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 1 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power). |
+| **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. Buyback-and-burn creates deflationary pressure that partially offsets price declines. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
+| **Commodity Product** | No architectural moat → users leave when incentives fade | Multi-asset weighted pools, ERC-4626 native yield, hooks, constellation routing — these pool designs cannot exist on Uniswap, Curve, or Aerodrome. The moat is the architecture, not the token. LPs stay because no other venue offers the same capital efficiency. |
+
+### The White Space
+
+There are no Fair Launch AMMs in 2026 because most people assume the model can't work. They're right — for commodity products with no structural moat and no native yield.
+
+Aureum is different because it launches with three things no previous fair launch had:
+
+1. **A differentiated architecture** that cannot be replicated on any competing AMM
+2. **Native yield** (ERC-4626) that provides LP returns independent of token emissions
+3. **A pre-built routing topology** (Miliarium Aureum) with $898M daily volume opportunity from constituent tokens already trading on-chain
+
+The fair launch model failed when applied to commodity AMMs. It has never been tried on a formally verified, multi-asset, yield-bearing routing infrastructure with BTC-scarcity tokenomics and contract-enforced anti-gaming.
+
+That experiment hasn't failed. It hasn't happened.
+
+---
+
+## Appendix: Yield Basis Hybrid Vaults — Complementary Architecture
+
+Curve's Yield Basis protocol (March 2026) independently validated the same core thesis Aureum is built on: sustainable AMM growth requires tying TVL expansion to productive capital, not reflexive incentives. Their Hybrid Vaults solve this by requiring LPs to deposit crvUSD (earning ~4.5% scrvUSD yield) before unlocking BTC/ETH pool capacity — directly supporting the crvUSD peg while scaling. The mechanism is architecturally orthogonal to Aureum's CCB: Yield Basis enforces anticyclicality at the user level (stable-first deposit → personal cap), while Aureum enforces it at the protocol level (EMA-weighted emissions + immutable anti-gaming gates + 52% ERC-4626 Quality Gate). Both reject reflexive liquidity mining. Both force conviction capital upfront. The key divergence: Yield Basis depends on an external stablecoin peg (crvUSD + Curve DAO credit line), while Aureum's stability layer is entirely internal and oracle-free. Aureum's routing anchor (ixEDEL) has no peg to defend — its NAV arb surface generates continuous cross-pool fees without the catastrophic depeg risk that Hybrid Vaults were specifically engineered to mitigate. The two designs compose well: a future gauge-approved Aureum pool could include scrvUSD as an ERC-4626 component if it meets the $5M vault floor, giving LPs access to both yield layers simultaneously. Source: [@yieldbasis, March 30 2026](https://x.com/yieldbasis/status/2038610652194037966).
+
+---
+
+
+*This document is confidential and intended for founding team discussion only. Do not distribute.*
