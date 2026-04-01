@@ -54,7 +54,7 @@ The **Miliarium Aureum** (Golden Milestone) was the monument in the Roman Forum 
 
 ### I. Capital Allocation (The Continuous Central Bank)
 
-Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (institutional memory). Small governance nudges via Pioneer multipliers [0.90–1.10] and Bubble multipliers [0.90–2.00]. Strictly zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation.
+Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (institutional memory). Pioneer multipliers [0.75–1.25] are set automatically by the PMAR — a deterministic, oracle-free mechanism that adjusts based on TVL ratio slopes (no governance vote). Bubble multipliers [0.90–2.00] apply to new pools for 90 days (governance-voted). Total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation.
 
 ### II. Bootstrapping (Starting New Pools)
 

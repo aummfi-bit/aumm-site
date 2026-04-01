@@ -24,7 +24,7 @@
 
 **Pioneer Pools** — 25 pre-defined foundational pools receiving equal emissions during months 0–10.
 
-**Pioneer Multiplier** — governance-steerable emission weight [0.90–1.10] for Pioneer pools, voted every 6 weeks.
+**Pioneer Multiplier (PMAR)** — automatic, deterministic emission weight [0.75–1.25] for Pioneer pools, recalculated at each bi-weekly cycle boundary by the Pioneer Multiplier Adjustment Rule. Not governance-voted.
 
 **Incendiary Boost** — builder-funded emission boost; deposit AuMM → emitted over 30 days (permanently burned); priority skim reduces all other pools' emissions.
 

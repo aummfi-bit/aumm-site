@@ -75,16 +75,16 @@
 | ID | Story | SP | Priority | Acceptance Criteria |
 |----|-------|----|----------|-------------------|
 | S3-01 | Implement 60-day EMA calculator (on-chain TVL tracking per pool) | 8 | P0 | EMA updates at cycle boundary; half-life ~21 days verified; gas benchmarked |
-| S3-02 | Implement CCB score formula: `TVL_EMA × Pioneer_mult × Bubble_mult` | 5 | P0 | Correct zero-sum normalization; total emission = block_emission at all times |
+| S3-02 | Implement CCB score formula: `TVL_EMA × PMAR_mult × Incendiary_mult` | 5 | P0 | Each pool's share = score / sum(all scores); total emission = block_emission at all times |
 | S3-03 | Implement two-step Incendiary subtraction (priority skim before CCB distribution) | 5 | P0 | Incendiary claims deducted first; remainder distributed via CCB; sum = block_emission |
-| S3-04 | Implement Pioneer multiplier storage and cycle-boundary update | 3 | P1 | Multiplier persists between votes; range enforced [0.90–1.10] |
+| S3-04 | Implement PMAR engine (slope calculation, dead zone, +/-0.05 adjustments, [0.75–1.25] clamping) | 5 | P0 | Multiplier updates at cycle boundary; slopes computed from EMA(60) ratios; dead zone at 0.1% of ratio; range enforced [0.75–1.25] |
 | S3-05 | CCB integration tests (multi-pool, multi-cycle simulation) | 8 | P0 | 100-cycle simulation with varying TVL, deposits, withdrawals; emission invariant holds |
 
 ### Sprint 4 — Fee Distribution & Buyback
 
 | ID | Story | SP | Priority | Acceptance Criteria |
 |----|-------|----|----------|-------------------|
-| S4-01 | Implement fee splitter: swap fees (50% LP bonus / 25% buyback / 25% treasury) | 5 | P0 | Correct split on every swap; LP bonus proportional to multiplier voting participation |
+| S4-01 | Implement fee splitter: swap fees (50% LP bonus / 25% buyback / 25% treasury) | 5 | P0 | Correct split on every swap; LP bonus proportional to governance participation |
 | S4-02 | Implement yield fee splitter: ERC-4626 yield (25% buyback / 75% treasury) | 5 | P0 | 10% skim on vault yield accrual; correct 25/75 split |
 | S4-03 | Implement buyback-and-burn contract (market buy AuMM from trading pool + permanent burn) | 5 | P0 | AuMM purchased at market; sent to burn address; supply tracker updated |
 | S4-04 | Implement token supply tracker (emitted, burned, net circulating, 30-day burn rate) | 3 | P1 | Real-time on-chain reads; matches manual calculation |
@@ -291,7 +291,7 @@ These are protocol milestones from the design doc, not development sprints. Incl
 | 2 | TVL measurement window opens |
 | 6 | AuMM trading pool launch; buyback-and-burn begins; treasury at 50% |
 | 6–10 | Price ceiling stabilization active |
-| 10 | Hard stop — treasury at 0%, excess AuMM burned, first Pioneer multiplier vote |
+| 10 | Hard stop — treasury at 0%, excess AuMM burned, PMAR initialised (all multipliers = 1.0) |
 | 11 | Gauge proposals open; efficiency ranking begins; CCB transition starts |
 | 12 | CCB transition completes |
 | 13 | Full protocol activation — CCB, efficiency tournament, new gauged pool emissions |

@@ -74,7 +74,7 @@ The aumm.fi dashboard publishes in real time:
 
 | Destination | Share | Mechanism |
 |-------------|-------|-----------|
-| **LP bonus** | **50%** | Additional yield to LPs, proportional to their multiplier voting participation. Vote on Pioneer multipliers → earn bonus. |
+| **LP bonus** | **50%** | Additional yield to LPs, proportional to their governance participation (Bubble votes, gauge votes, protocol governance). |
 | AuMM buyback and burn | 25% | Market buy AuMM + permanent burn. Deflationary pressure. |
 | Protocol treasury | 25% | Funds development, audits, and integrations |
 

@@ -91,7 +91,7 @@ With 25 pools sharing svZCHF and ixEDEL as common anchors, six arbitrage layers 
 
 ### Pioneer Benefits
 
-**1. Governance-steerable emission multiplier.** Pioneer pools are the only pools eligible for the CCB governance multiplier [0.90–1.10] (see **The Continuous Central Bank** section).
+**1. PMAR emission multiplier.** Pioneer pools are the only pools eligible for the automatic PMAR multiplier [0.75–1.25] (see **PMAR Specification**).
 
 **2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Pioneer pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
 

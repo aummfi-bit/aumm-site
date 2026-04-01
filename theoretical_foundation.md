@@ -59,12 +59,13 @@ This is the protocol behaving as an anticyclical central bank — tightening dur
 Every pool's base emission weight is its EMA-smoothed TVL share of total protocol TVL. Multiple multipliers layer on top for qualifying pools:
 
 ```
-Score(pool) = TVL_EMA60(pool) × Pioneer_mult(pool) × Bubble_mult(pool)
+Score(pool) = TVL_EMA60(pool) × Pioneer_mult(pool) × Bubble_mult(pool) × Incendiary_mult(pool)
 ```
 
 Where:
-- `Pioneer_mult` = tessera-weighted vote result [0.90–1.10] for Pioneer pools, 1.00 for non-Pioneer
+- `Pioneer_mult` = PMAR-computed multiplier [0.75–1.25] for Pioneer pools, 1.00 for non-Pioneer (see PMAR Specification)
 - `Bubble_mult` = tessera-weighted vote result [0.90–2.00] for pools in their first 90 days post-gauge-approval, 1.00 otherwise
+- `Incendiary_mult` = burn-funded boost multiplier, 1.00 for most pools, > 1.00 for pools with active Incendiary Boost
 
 **Two-step emission distribution:**
 

@@ -41,13 +41,13 @@ For the first 90 days after gauge approval, a new pool is eligible for a **Bubbl
 | Discrete Steps | 0.90 | 1.00 | 1.20 | 1.50 | 2.00 |
 |---------------|------|------|------|------|------|
 
-**Pioneer and Bubble multipliers stack.** A pool that earns a Pioneer tag at gauge approval receives both multipliers during its first 90 days: the Pioneer multiplier [0.90–1.10] and the Bubble multiplier [0.90–2.00]. After day 91, the Bubble expires and only the Pioneer multiplier remains. The founding Miliarium Aureum pools receive both multipliers from launch — they are simultaneously the first Pioneers and the first Bubble-eligible pools.
+**Pioneer PMAR and Bubble multipliers stack.** A pool that earns a Pioneer tag at gauge approval receives both multipliers during its first 90 days: the PMAR multiplier [0.75–1.25] and the Bubble multiplier [0.90–2.00]. After day 91, the Bubble expires and only the PMAR multiplier remains. The founding Miliarium Aureum pools receive both multipliers from launch — they are simultaneously the first Pioneers and the first Bubble-eligible pools.
 
 **The final Bubble multiplier is the tessera-weighted average of all votes cast for that pool.** This allows LPs to express strategic conviction: a 2.0× vote on a new Swiss Franc/Bitcoin pool signals strong ecosystem alignment. A 0.9× vote on a suspected wash-trading pool acts as a social consensus firewall.
 
 **The hand-off.** At day 91, the Bubble expires. By this point, a successful pool has 90 days of TVL data baked into its EMA. The mechanical CCB weight "takes the baton" from the governance boost seamlessly. Failed pools lose both the Bubble and the EMA weight — they die naturally.
 
-**Bubble votes occur every 6 weeks** (same cycle as Pioneer multiplier votes). Only qualified AuMT holders can vote.
+**Bubble votes occur every 6 weeks.** Only qualified AuMT holders can vote.
 
 ### The Bootstrapping Sequence
 
@@ -66,7 +66,7 @@ Pool creation is permissionless from block 0. Any pool can be deployed without a
 
 - They receive base EMA emissions only (no Incendiary Boost, no Bubble multiplier)
 - They are ranked in the Efficiency Tournament alongside all other pools
-- They have no governance voice (no Pioneer multiplier voting, no Bubble voting)
+- They have no governance voice (no PMAR eligibility, no Bubble voting)
 
 **The fast-track rule.** If a non-gauged Sandbox pool reaches the **top 10% efficiency** in the Efficiency Tournament organically — without any emission boost — it earns **automatic gauge approval**. No governance vote required. The protocol recognises proven productivity and removes the governance bottleneck.
 
@@ -79,22 +79,16 @@ This gives the protocol experimentation without emission risk. Builders can depl
 
 Emission allocation is driven by the **Continuous Central Bank (CCB)** — not by direct gauge voting. Each pool's base emission weight is its 60-day EMA of on-chain TVL as a share of total protocol TVL. Capital allocates itself.
 
-Governance participation is limited to **Pioneer multiplier voting**: tessera-weighted votes set each Pioneer pool's multiplier within [0.90–1.10] every bi-weekly cycle. This is the only emission-direction governance action. See **The Continuous Central Bank** section for the full formula and mechanics.
+Pioneer pool multipliers are **not governance-voted**. They are set automatically by the **Pioneer Multiplier Adjustment Rule (PMAR)** — a deterministic, oracle-free mechanism that adjusts each Pioneer pool's multiplier within [0.75–1.25] based solely on the slope of EMA(60) TVL ratios. See **PMAR Specification** for full details.
 
-- **Voting power = dampened AuMT.** `(AuMT_value × time_in_pool)^(1/4)` — same formula as protocol governance. 14-day qualification, 6-month on-ramp, any withdrawal resets to zero. See **Governance** for details.
-- The 50% LP bonus from swap fees distributes to LPs who participated in multiplier voting — creating an incentive to both provide liquidity and participate in governance.
+- The 50% LP bonus from swap fees distributes to LPs who participated in protocol governance (non-emission decisions).
 
 Every bi-weekly governance cycle:
 1. CCB recalculates each pool's 60-day EMA TVL weight
-2. Active Incendiary Boosts are calculated as priority claims on block emissions
-3. Per-block emission streaming adjusts at cycle boundary
-4. LP bonus distributes to voting participants
-
-Every 6-week multiplier vote:
-1. Qualified LPs vote on Pioneer pool multipliers (discrete steps: 0.90, 0.95, 1.00, 1.05, 1.10)
-2. Qualified LPs vote on Bubble multipliers for new pools in their 90-day window (discrete steps: 0.90, 1.00, 1.20, 1.50, 2.00)
-3. Final multipliers = tessera-weighted average of votes cast per pool
-4. Emission shares recalculated with updated multipliers
+2. PMAR recalculates Pioneer multipliers based on TVL ratio slopes
+3. Active Incendiary Boosts are calculated as priority claims on block emissions
+4. Per-block emission streaming adjusts at cycle boundary
+5. LP bonus distributes to governance participants
 
 ### Emissions Directed to Unqualified Pools
 
@@ -152,7 +146,6 @@ Not all governance decisions carry equal weight. Major changes require minimum p
 
 | Decision Type | Quorum Requirement | Deposit (in AuMM, burned) | Failure Mode |
 |--------------|-------------------|--------------------------|-------------|
-| Pioneer multiplier voting | No quorum (6-week cycle) | None | Tessera-weighted average of votes cast per Pioneer pool |
 | Bubble multiplier voting | No quorum (6-week cycle) | None | Tessera-weighted average of votes cast per new pool (first 90 days) |
 | Gauge approval | No quorum | 100 svZCHF/sUSDS equivalent | Simple majority of votes cast |
 | Gauge challenge | No quorum | 1,000 svZCHF/sUSDS equivalent | Simple majority to revoke; gauge removed if passed |
@@ -170,8 +163,8 @@ Uncontested proposals with very low turnout do not pass silently. They either au
 Fourth root (Era 1) then cube root (Era 2) dampens whale dominance — maximum compression when the protocol is smallest and most vulnerable, relaxing as TVL growth naturally decentralizes power. Time-weighting rewards commitment without requiring lock mechanisms.
 
 **What governance controls:**
-- Pioneer pool multipliers via 6-weekly tessera-weighted voting (constrained to [0.90–1.10] per pool)
 - Bubble multipliers via 6-weekly tessera-weighted voting for new pools in their first 90 days (constrained to [0.90–2.00])
+- *Note: Pioneer pool multipliers are set automatically by the PMAR — not by governance vote*
 - Gauge approval (AuMT vote to grant a pool emission eligibility — requires 100 svZCHF/sUSDS equivalent in AuMM, burned). **Available from month 11 onward only.**
 - Gauge revocation (AuMT vote to remove a gauge via challenge — requires 1,000 svZCHF/sUSDS equivalent in AuMM, burned)
 - Fee parameters (swap fee %, yield fee %)
@@ -332,9 +325,10 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
 - AuMT pool token wrapper (Aureum Market Tessera)
-- CCB emission engine (60-day EMA calculator, Pioneer multiplier voting with tessera-weighted averaging, zero-sum normalization)
+- CCB emission engine (60-day EMA calculator, PMAR multiplier computation with slope-based adjustments and dead zone)
 - Incendiary Boost engine (AuMM escrow, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
 - Bubble multiplier voting (90-day window, tessera-weighted averaging, expiry logic)
+- PMAR engine (slope calculation, dead zone, +/-0.05 adjustments, [0.75–1.25] clamping)
 - Sandbox fast-track (top 10% efficiency detection, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 2-epoch smoothing, gauge revocation logic)
@@ -344,9 +338,9 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Quorum calculator and timelock router
 - Unqualified-vote-to-burn router
 - Fee splitter (swap fees: 50/25/25 + yield fees: 25/75)
-- Governance voting (AuMT for all decisions — emission direction and protocol governance — with phased fourth root→cube root dampening)
+- Governance voting (AuMT for protocol governance and Bubble voting — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, Pioneer and Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, PMAR multiplier logic, Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 
@@ -385,9 +379,11 @@ The following parameters are immutable in the smart contracts. No governance vot
 
 **Eligibility criteria.** ERC-4626 composition ≥52% with $5M/30 BTC/4M svZCHF vault TVL floor per token. Volume percentile floors. Efficiency-based emission caps. Grace period schedule. Gauge revocation after 4 consecutive failed cycles. None of this can be changed.
 
-**Pioneer pool tags.** All 28 pre-defined at launch, locked from block 0. No open slots. Governance-steerable multiplier [0.90–1.10]. Non-transferable. Revoked on gauge loss. No replacements ever.
+**Pioneer pool tags.** All 25 pre-defined at launch, locked from block 0. No open slots. PMAR-steered multiplier [0.75–1.25]. Non-transferable. Revoked on gauge loss. No replacements ever.
 
-**Continuous Central Bank (CCB).** Emission allocation driven by 60-day EMA of on-chain TVL. Zero-sum normalization against fixed emission schedule. Pioneer multiplier range [0.90–1.10] in discrete steps. Bubble multiplier range [0.90–2.00] for first 90 days post-gauge-approval. Multiplier votes every 6 weeks. Tessera-weighted average determines final multipliers. All parameters immutable. (Oracle-free design detailed in the CCB section.)
+**Continuous Central Bank (CCB).** Emission allocation driven by 60-day EMA of on-chain TVL. Each pool's emission share = `(TVL_EMA60 * M * Incendiary_mult) / sum(all pool scores)`. Pioneer multipliers set automatically by PMAR [0.75–1.25] — no governance vote. Bubble multiplier range [0.90–2.00] for first 90 days post-gauge-approval (governance-voted). All parameters immutable. (Oracle-free design detailed in the CCB and PMAR sections.)
+
+**Pioneer Multiplier Adjustment Rule (PMAR).** Deterministic, oracle-free multiplier steering for Pioneer pools. +/-0.05 adjustments based on slope of EMA(60) TVL ratios with 0.1%-of-ratio dead zone. Clamped to [0.75, 1.25]. Recalculated at bi-weekly cycle boundaries. All parameters immutable from block 0. (Full specification in PMAR addendum.)
 
 **Incendiary Boost.** 30-day supplementary emission funded by operator AuMM escrow. Emission rate pegged to 85th percentile efficiency × (2 - pool's efficiency rank). Priority claim on block rewards. Renewal only after pool enters 85th percentile in Efficiency Tournament. All parameters immutable.
 
@@ -526,9 +522,9 @@ If 7-day SMA FDV > 200% of voted multiple, treasury sells AuMM at 0.75% of pool 
 - All leftover AuMM burned
 - Treasury emission share hits 0% — permanent
 
-### End of Month 10: First Pioneer Multiplier Vote
+### End of Month 10: PMAR Initialisation
 
-Qualified LPs cast the first tessera-weighted vote on Pioneer multipliers [0.90–1.10] for all 25 pools. This is the first governance action on emission allocation.
+All 25 Pioneer pool multipliers are set to 1.0. The PMAR begins collecting EMA(60) TVL ratio data for slope calculation. No governance vote — multipliers are fully automatic from this point forward.
 
 ### Month 11: Gauge Proposals Open
 
@@ -538,14 +534,14 @@ Qualified LPs cast the first tessera-weighted vote on Pioneer multipliers [0.90�
 
 ### Months 11–12: CCB Transition
 
-Emissions transition linearly from equal-weight to full CCB/EMA allocation:
+Emissions transition linearly from equal-weight to full CCB/EMA + PMAR allocation:
 
 ```
-Day D weight = (1 - T) × equal_share + T × CCB_EMA_share
+Day D weight = (1 - T) × equal_share + T × CCB_PMAR_share
 T = (D - month_11_start) / (month_13_start - month_11_start)
 ```
 
-At the start of month 11, T = 0 (100% equal weight). At the start of month 13, T = 1 (100% CCB/EMA × multipliers). The transition is smooth — no discontinuity, no cliff.
+At the start of month 11, T = 0 (100% equal weight). At the start of month 13, T = 1 (100% CCB/EMA × PMAR multipliers). The transition is smooth — no discontinuity, no cliff.
 
 Bubble voting (multiplier [0.90–2.00]) activates for newly gauged pools during this period.
 
