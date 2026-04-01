@@ -136,6 +136,7 @@
         <button class="tab-btn" data-tab="intro">Intro</button>
         <button class="tab-btn active" data-tab="doc">Design Doc</button>
         <button class="tab-btn" data-tab="model">Mental Model</button>
+        <button class="tab-btn" data-tab="foundations">Theoretical Foundations</button>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
         <button class="tab-btn" data-tab="appendices">Appendices</button>
       </div>
@@ -151,130 +152,6 @@
 
   <div class="tab-content active" id="tab-doc">
     <div class="content">
-<div class="section" id="theoretical-foundations"><h2>Theoretical Foundations</h2><p>The CCB draws from established research across multiple disciplines:</p>
-<p><strong>Autonomous Corporate Logic:</strong> Meisser's "Continuous Capital Corporation" (2022) argues that a corporation can operate via continuous algorithms rather than board meetings — the foundational logic for the CCB as an autonomous institution.</p>
-<p><strong>Pro-Cyclicality:</strong> BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.</p>
-<p><strong>Monetary Rules:</strong> Friedman's k-percent rule (fixed money supply growth) is the intellectual ancestor of the fixed-emission, halving-based schedule.</p>
-<p><strong>Governance Minimization:</strong> Buterin and Meisser argue governance is a security surface. The ±10% Pioneer multiplier collapses the governance attack surface to near-zero.</p>
-<p><strong>Signal Processing:</strong> The EMA is a low-pass filter — "market hype" is noise, "sustained liquidity commitment" is the signal.</p>
-<p><strong>Automatic Stabilizers:</strong> The EMA acts like fiscal automatic stabilizers (unemployment insurance) — elevating yield during crashes without requiring a governance vote.</p>
-<p><strong>Mechanism Design (Roth/Maskin):</strong> Routing unqualified votes to buyback-and-burn makes every outcome — productive allocation or misdirected votes — beneficial to protocol health.</p>
-<p><strong>Hysteresis:</strong> The EMA gives Aureum institutional memory. Most DeFi is memoryless and reflexive.</p>
-<h3>Prior Work by the Founding Team</h3>
-<ul>
-<li><strong>The DRUID Deep Dive</strong> — Routing architecture and aggregator thesis. <a href="https://www.sagix.io/the-druid-deep-dive/">www.sagix.io/the-druid-deep-dive/</a></li>
-<li><strong>The Layer Framework</strong> — Layered DeFi infrastructure model. <a href="https://www.sagix.io/our-layer-framework/">www.sagix.io/our-layer-framework/</a></li>
-<li><strong>Sagix Miliarium Aureum</strong> — Original constellation design, live on Balancer V3 Ethereum mainnet. <a href="https://www.sagix.io/sagix-miliarium-aureum/">www.sagix.io/sagix-miliarium-aureum/</a></li>
-<li><strong>The Risk Premium Problem</strong> — Governance centralisation analysis, published on Leviathan News. Direct catalyst for the fork. <a href="https://www.sagix.io/the-risk-premium-problem/">www.sagix.io/the-risk-premium-problem/</a></li>
-</ul>
-<hr /></div>
-<div class="section" id="the-continuous-central-bank-ccb"><h2>The Continuous Central Bank (CCB)</h2><blockquote>
-<p><strong>Activation:</strong> The CCB engine activates during the month 11–12 transition. During months 0–10, emissions are distributed equally across the 25 Pioneer pools (1/25th each). See <strong>Launch Procedures</strong> for the full timeline.</p>
-</blockquote>
-<h3>The Problem: Pro-Cyclicality</h3>
-<p>Most DeFi protocols amplify market moves — pouring incentives into pumps and withdrawing them during crashes. Research from the Bank for International Settlements (Aramonte et al., 2022) identifies this as systemic pro-cyclicality: the protocol accelerates the very volatility it should be dampening. Governance-driven emission allocation compounds the problem: in bull markets, voters chase hot pools; in bear markets, they flee to safety. The protocol's own incentive layer becomes a reflexive amplifier.</p>
-<h3>The Solution: Algorithmic Inertia</h3>
-<p>The Continuous Central Bank (CCB) replaces human-driven emission allocation with an algorithmic engine that uses each pool's <strong>60-day Exponential Moving Average (EMA) of on-chain TVL</strong> as the base emission weight. Governance does not set pool weights. Capital sets pool weights. Governance only nudges Pioneer pool multipliers within a constrained band.</p>
-<pre><code>TVL_EMA_pool(today) = α × TVL_spot(today) + (1 - α) × TVL_EMA_pool(yesterday)
-α = 2 / (N + 1)    where N = 60 days
-</code></pre>
-<p>The 60-day EMA has a <strong>half-life of approximately 21 days</strong> — closely aligned with the bi-weekly governance cycle. After a capital withdrawal, the ghost signal halves every three weeks, eliminating the flat-persistence problem of a simple moving average while preserving meaningful anticyclical smoothing.</p>
-<h3>Anticyclical Dynamics</h3>
-<p><strong>The bull market brake.</strong> During rapid price appreciation, TVL spikes. The EMA lags behind the spot growth, so relative yield (%) drops. The protocol does not overpay for capital during periods of greed, reducing the risk of speculative bubbles.</p>
-<p><strong>The bear market floor.</strong> During market crashes, liquidity exits rapidly. But the EMA preserves the "memory" of higher TVL, keeping absolute emission levels elevated. Yield (%) spikes for remaining LPs, creating a programmatic lender of last resort that attracts capital when the market is most illiquid.</p>
-<p>This is the protocol behaving as an anticyclical central bank — tightening during booms, loosening during busts — without human discretion.</p>
-<h3>The Emission Formula</h3>
-<p>Every pool's base emission weight is its EMA-smoothed TVL share of total protocol TVL. Multiple multipliers layer on top for qualifying pools:</p>
-<pre><code>Score(pool) = TVL_EMA60(pool) × Pioneer_mult(pool) × Bubble_mult(pool)
-</code></pre>
-<p>Where:
-- <code>Pioneer_mult</code> = tessera-weighted vote result [0.90–1.10] for Pioneer pools, 1.00 for non-Pioneer
-- <code>Bubble_mult</code> = tessera-weighted vote result [0.90–2.00] for pools in their first 90 days post-gauge-approval, 1.00 otherwise</p>
-<p><strong>Two-step emission distribution:</strong></p>
-<pre><code>Step 1:  Incendiary_total = Σ (all active Incendiary Boost claims this block)
-Step 2:  Remaining_emission = block_emission - Incendiary_total
-Step 3:  CCB_share(pool_i) = Remaining_emission × Score(pool_i) / Σ Score(all_pools)
-Step 4:  Total_emission(pool_i) = CCB_share(pool_i) + Incendiary_claim(pool_i)
-</code></pre>
-<p>The 21M hard cap is never breached. Incendiary Boosts eat from the same fixed pie — they are subtracted before CCB distribution, not added on top. Every AuMM emitted via Incendiary Boost is one less AuMM distributed via the CCB to all other pools.</p>
-<p><strong>Zero-sum normalization.</strong> The total emission rate is fixed. Any boost — Pioneer, Bubble, or Incendiary — is a reallocation of existing emissions, not new inflation.</p>
-<h3>The Steering Mechanism: Pioneer Multiplier Voting</h3>
-<p>Tessera-weighted governance votes set the multiplier for each Pioneer pool within a constrained range:</p>
-<table>
-<thead>
-<tr>
-<th>Discrete Steps</th>
-<th>0.90</th>
-<th>0.95</th>
-<th>1.00</th>
-<th>1.05</th>
-<th>1.10</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><strong>The final multiplier for each Pioneer pool is the tessera-weighted average of all votes cast for that pool.</strong> Individual voters choose from discrete steps (0.90, 0.95, 1.00, 1.05, 1.10), but the weighted average produces a continuous result (e.g., 1.034). This forces consensus — no single voter or coalition can slam a multiplier to the extreme. The system gravitates toward the middle ground.</p>
-<p><strong>Voting mechanics:</strong>
-- Multiplier votes are cast per Pioneer pool every <strong>6 weeks</strong> (three governance cycles)
-- Only qualified AuMT holders can vote (same qualification as all governance)
-- Withdrawal from any pool resets voting power to zero (see Governance section)
-- If no votes are cast in a cycle, the multiplier persists from the prior cycle</p>
-<p><strong>Non-Pioneer pools have no multiplier.</strong> Their emission share is pure TVL-EMA weight. No governance input. Capital is the only signal.</p>
-<h3>Strategic Examples</h3>
-<p>The multiplier applies only to Pioneer pools that currently hold a valid tag. If tags are revoked (gauge loss, disqualification), the multiplier pool shrinks — 15 active Pioneers means governance steers 15 pools, not 20. The math adjusts automatically.</p>
-<table>
-<thead>
-<tr>
-<th>Strategy</th>
-<th>Pioneer Votes</th>
-<th>Effect</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Boost all Pioneers</td>
-<td>1.10 on all active Pioneers</td>
-<td>Pioneer pools collectively get ~10% more than TVL-weighted share</td>
-</tr>
-<tr>
-<td>Boost ecosystem pools</td>
-<td>0.90 on all active Pioneers</td>
-<td>Non-Pioneer pools collectively get more emissions</td>
-</tr>
-<tr>
-<td>Concentrate on ixAppia</td>
-<td>1.10 on ixAppia, 0.90 on others</td>
-<td>Gold pool favored within Pioneer set</td>
-</tr>
-<tr>
-<td>Neutral</td>
-<td>1.00 on all</td>
-<td>Pure TVL-weighted allocation everywhere</td>
-</tr>
-</tbody>
-</table>
-<h3>Self-Referential Integrity</h3>
-<p>The CCB is <strong>oracle-free</strong>. It relies entirely on internal contract balances and time-weighted EMA data. No external price feeds, no Chainlink dependency, no oracle manipulation surface. The protocol prices its own liquidity commitments using its own on-chain state.</p>
-<p><strong>Note on the Treasury Stabilization module.</strong> The Price Ceiling mechanism (months 6–10) requires a price reference — the 7-day SMA of AuMM's price derived from the internal AuMM/stablecoin trading pool. This is not an external oracle: it reads the protocol's own on-chain pool price, which is manipulation-resistant due to the pool's 0.75% swap fee and the 7-day averaging window. The emission allocation engine (CCB) and the treasury stabilization module are both oracle-free in the sense that neither depends on external price feeds.</p>
-<h3>Interaction with Existing Mechanisms</h3>
-<p>The CCB replaces how the emission pie is sliced. It does not replace any existing discipline mechanism:</p>
-<ul>
-<li><strong>Efficiency tournament</strong> still caps the bottom 15% of pools by efficiency ratio. A pool with high EMA-TVL but terrible efficiency still gets capped.</li>
-<li><strong>Volume percentile floor</strong> still disqualifies dead pools. The EMA gives them a decaying weight, but the percentile floor kills them outright.</li>
-<li><strong>Gauge revocation</strong> still removes dead gauges after 4 cycles. The CCB doesn't protect non-performing pools.</li>
-<li><strong>Buyback-and-burn on unqualified votes</strong> still applies. If the EMA directs weight to a pool that fails eligibility, those emissions are burned.</li>
-</ul>
-<p>The CCB handles allocation. The anti-gaming stack handles discipline. Orthogonal systems, complementary effects.</p>
-<hr /></div>
 <div class="section" id="pool-bootstrapping-the-cold-start-solution"><h2>Pool Bootstrapping: The Cold Start Solution</h2><p>The CCB's 60-day EMA creates a deliberate inertia — new pools have zero "memory" and earn minimal emissions for their first two months. This is a feature for established pools (anticyclical stability) but a problem for new pools (the cold start trap). Three mechanisms solve this without compromising the CCB's integrity. All three require gauge approval first.</p>
 <h3>The Incendiary Boost (Proof-of-Burn Bootstrapping)</h3>
 <p>A pool operator deposits AuMM into a smart-contract-controlled position. That exact amount of AuMM is emitted to the pool equally over 30 days as a supplementary emission stream. This is not free — the operator burns conviction capital to activate the protocol's routing engine.</p>
@@ -1691,6 +1568,12 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
       <div class="footer">AUREUM — Glossary</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-foundations">
+    <div class="content">
+      <div id="foundations-body"></div>
+      <div class="footer">AUREUM — Theoretical Foundations</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-appendices">
     <div class="content">
       <div id="appendices-body"></div>
@@ -1706,9 +1589,10 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
 
 <script>
 var menus = {
-  doc: [{"id": "theoretical-foundations", "title": "Theoretical Foundations"}, {"id": "the-continuous-central-bank-ccb", "title": "The Continuous Central Bank (CCB)"}, {"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "token-design-aumm-aureum-market-maker", "title": "Token Design: AuMM (Aureum Market Maker)"}, {"id": "value-capture-two-revenue-streams", "title": "Value Capture: Two Revenue Streams"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}],
+  doc: [{"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "token-design-aumm-aureum-market-maker", "title": "Token Design: AuMM (Aureum Market Maker)"}, {"id": "value-capture-two-revenue-streams", "title": "Value Capture: Two Revenue Streams"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}],
   model: [],
   glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}],
+  foundations: [],
   appendices: [],
   intro: []
 };
@@ -1886,6 +1770,14 @@ updateMenu();
 menuBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
 document.addEventListener('click', function() { dropdown.classList.remove('open'); });
 dropdown.addEventListener('click', function(e) { if (e.target.tagName === 'A') dropdown.classList.remove('open'); });
+
+// Load theoretical foundations from theoretical_foundation.md
+fetch('theoretical_foundation.md')
+  .then(function(r) { return r.text(); })
+  .then(function(text) {
+    var el = document.getElementById('foundations-body');
+    if (el) el.innerHTML = marked.parse(text);
+  });
 
 // Load mental model from aureum_mental_model.md
 fetch('aureum_mental_model.md')
