@@ -42,6 +42,10 @@
   .finale .enter-btn { margin-top: 30px; padding: 12px 40px; background: transparent; border: 1px solid #ffb000; color: #ffb000; font-family: 'VT323', monospace; font-size: 20px; cursor: pointer; letter-spacing: 2px; transition: all 0.3s; }
   .finale .enter-btn:hover { background: #ffb000; color: #0a0a08; }
 
+  /* INTRO TAB */
+  #tab-intro { background: #0a0a08; min-height: 100vh; cursor: pointer; }
+  #intro-tab-wrap { max-width: 700px; margin: 0 auto; padding: 88px 40px 80px; }
+
   /* PASSWORD */
   #password-screen { position: fixed; inset: 0; z-index: 90; background: #0a0a08; display: none; flex-direction: column; justify-content: center; align-items: center; font-family: 'VT323', monospace; }
   #password-screen.active { display: flex; }
@@ -128,6 +132,7 @@
     <div class="nav-brand">AUREUM</div>
     <div class="nav-right">
       <div class="tab-bar">
+        <button class="tab-btn" data-tab="intro">Intro</button>
         <button class="tab-btn active" data-tab="doc">Design Doc</button>
         <button class="tab-btn" data-tab="model">Mental Model</button>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
@@ -1792,62 +1797,23 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
       <div class="footer">AUREUM — Glossary</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-intro">
+    <div id="intro-tab-wrap">
+      <div id="intro-tab-terminal"></div>
+    </div>
+  </div>
 </div>
 
 <script>
 var menus = {
   doc: [{"id": "one-liner", "title": "One-Liner"}, {"id": "the-thesis-in-one-paragraph", "title": "The Thesis in One Paragraph"}, {"id": "why-this-exists", "title": "Why This Exists"}, {"id": "core-principles", "title": "Core Principles"}, {"id": "the-roman-infrastructure", "title": "The Roman Infrastructure"}, {"id": "theoretical-foundations", "title": "Theoretical Foundations"}, {"id": "the-continuous-central-bank-ccb", "title": "The Continuous Central Bank (CCB)"}, {"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "token-design-aumm-aureum-market-maker", "title": "Token Design: AuMM (Aureum Market Maker)"}, {"id": "value-capture-two-revenue-streams", "title": "Value Capture: Two Revenue Streams"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}, {"id": "appendix-why-fair-launch-amms-failed-and-why-aureum-won-t", "title": "Appendix: Why Fair Launch AMMs Failed \u2014 And Why Aureum Won't"}, {"id": "appendix-yield-basis-hybrid-vaults-complementary-architecture", "title": "Appendix: Yield Basis Hybrid Vaults \u2014 Complementary Architecture"}],
   model: [{"id": "how-aureum-works-three-layers", "title": "How Aureum Works \u2014 Three Layers"}, {"id": "the-feedback-loop", "title": "The Feedback Loop"}, {"id": "governance-in-one-sentence", "title": "Governance in One Sentence"}],
-  glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}]
+  glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}],
+  intro: []
 };
 var currentTab = 'doc';
 
-var introLines = [
-  { text: "ASX failed.", pause: 800 },
-  { text: "$150 million spent.", pause: 600 },
-  { text: "", spacer: true, pause: 300 },
-  { text: "SIX had to reevaluate their plan.", pause: 800 },
-  { text: "", spacer: true, pause: 300 },
-  { text: "The economics failed.", pause: 700 },
-  { text: "Extraction incentives with no caps failed.", pause: 800 },
-  { text: "Governance capture failed.", pause: 600 },
-  { text: "Meta-governance amplifiers failed.", pause: 600 },
-  { text: "", spacer: true, pause: 400 },
-  { text: "ve-tokenomics failed.", pause: 800 },
-  { text: "Pendle abandoned it.", pause: 600 },
-  { text: "PancakeSwap abandoned it.", pause: 600 },
-  { text: "Balancer abandoned it.", pause: 800 },
-  { text: "", spacer: true, pause: 300 },
-  { text: "Governance capture. Emission extraction.", pause: 700 },
-  { text: "Liquid lockers that centralised what locks were supposed to distribute.", pause: 900 },
-  { text: "Buybacks that enriched insiders. Tokens that bled while usage grew.", pause: 800 },
-  { text: "", spacer: true, pause: 500 },
-  { text: "The architecture was never the problem.", pause: 700 },
-  { text: "The economics were.", pause: 1200 },
-  { text: "", spacer: true, pause: 500 },
-  { text: "Where all of those failed...", pause: 1200 },
-  { text: "", spacer: true, pause: 600 },
-  { text: "Aureum sets the new standard", cta: true, pause: 400 },
-  { text: "for automated market making.", cta: true, pause: 1200 },
-  { text: "", spacer: true, pause: 500 },
-  { text: "21 million tokens. Fixed supply. BTC scarcity.", pause: 700 },
-  { text: "Immutable smart contracts. No admin keys.", pause: 600 },
-  { text: "Buyback and burn \u2014 financed by real fees.", pause: 700 },
-  { text: "", spacer: true, pause: 400 },
-  { text: "The best AMM architecture ever built", pause: 600 },
-  { text: "meets the tokenomics it always deserved.", pause: 900 },
-  { text: "", spacer: true, pause: 400 },
-  { text: "No extraction. No gaming. No exceptions.", pause: 800 },
-  { text: "No rug pulls. Enforced by immutable smart contracts.", pause: 900 },
-  { text: "Liquid. Transferable. No locking. No staking.", pause: 600 },
-  { text: "Negotiable 24/7 from day one.", pause: 1200 },
-  { text: "", spacer: true, pause: 700 },
-  { text: "Meet $AuMM.", cta: true, highlight: "$AuMM", pause: 800 },
-  { text: "Get your Tessera.", cta: true, highlight: "Tessera", pause: 1200 },
-  { text: "", spacer: true, pause: 800 },
-  { text: "$AuMT proves you are participating.", highlight: "$AuMT", pause: 700 },
-  { text: "$AuMM drives value to your participation.", highlight: "$AuMM", pause: 0 }
-];
+var introLines = [];
 
 var terminal = document.getElementById('terminal');
 var introScreen = document.getElementById('intro-screen');
@@ -1860,27 +1826,115 @@ var mainDoc = document.getElementById('main-doc');
 var dropdown = document.getElementById('dropdown');
 var menuBtn = document.getElementById('menu-btn');
 
-function typeIntro(idx) {
-  if (idx >= introLines.length) {
-    setTimeout(function() {
-      terminal.style.transition = 'opacity 0.8s';
-      terminal.style.opacity = '0';
-      setTimeout(function() { finaleEl.classList.add('visible'); }, 600);
-    }, 1500);
-    return;
-  }
-  var line = introLines[idx];
+// Track intro animation state
+var introTimeout = null;
+var introCurrentIdx = -1;
+var introFinished = false;
+
+// Track tab intro animation state
+var tabIntroTimeout = null;
+var tabIntroCurrentIdx = -1;
+var tabIntroFinished = false;
+
+function renderLine(line, container, immediate) {
   var el = document.createElement('div');
   el.className = 'term-line' + (line.spacer ? ' spacer' : '') + (line.cta ? ' cta' : '');
+  if (immediate) { el.style.opacity = '1'; el.style.animation = 'none'; }
   if (line.text) {
     if (line.highlight) { el.innerHTML = line.text.replace(line.highlight, '<span class="highlight">' + line.highlight + '</span>'); }
     else { el.textContent = line.text; }
   }
-  terminal.appendChild(el);
-  introScreen.scrollTop = introScreen.scrollHeight;
-  setTimeout(function() { typeIntro(idx + 1); }, line.pause || 500);
+  container.appendChild(el);
 }
-setTimeout(function() { typeIntro(0); }, 800);
+
+function typeIntro(idx) {
+  introCurrentIdx = idx;
+  if (idx >= introLines.length) {
+    introTimeout = setTimeout(function() {
+      terminal.style.transition = 'opacity 0.8s';
+      terminal.style.opacity = '0';
+      setTimeout(function() { finaleEl.classList.add('visible'); introFinished = true; }, 600);
+    }, 1500);
+    return;
+  }
+  var line = introLines[idx];
+  renderLine(line, terminal, false);
+  introScreen.scrollTop = introScreen.scrollHeight;
+  introTimeout = setTimeout(function() { typeIntro(idx + 1); }, line.pause || 500);
+}
+
+function skipIntroToEnd() {
+  if (introFinished) return;
+  if (introTimeout) { clearTimeout(introTimeout); introTimeout = null; }
+  for (var i = introCurrentIdx + 1; i < introLines.length; i++) {
+    renderLine(introLines[i], terminal, true);
+  }
+  introCurrentIdx = introLines.length;
+  introScreen.scrollTop = introScreen.scrollHeight;
+  terminal.style.transition = 'opacity 0.8s';
+  terminal.style.opacity = '0';
+  setTimeout(function() { finaleEl.classList.add('visible'); introFinished = true; }, 600);
+}
+
+function typeTabIntro(idx) {
+  var tabTerminal = document.getElementById('intro-tab-terminal');
+  if (!tabTerminal) return;
+  tabIntroCurrentIdx = idx;
+  if (idx >= introLines.length) { tabIntroFinished = true; return; }
+  var line = introLines[idx];
+  renderLine(line, tabTerminal, false);
+  var wrap = document.getElementById('intro-tab-wrap');
+  if (wrap) wrap.scrollTop = wrap.scrollHeight;
+  tabIntroTimeout = setTimeout(function() { typeTabIntro(idx + 1); }, line.pause || 500);
+}
+
+function skipTabIntroToEnd() {
+  if (tabIntroFinished) return;
+  var tabTerminal = document.getElementById('intro-tab-terminal');
+  if (!tabTerminal) return;
+  if (tabIntroTimeout) { clearTimeout(tabIntroTimeout); tabIntroTimeout = null; }
+  for (var i = tabIntroCurrentIdx + 1; i < introLines.length; i++) {
+    renderLine(introLines[i], tabTerminal, true);
+  }
+  tabIntroCurrentIdx = introLines.length;
+  tabIntroFinished = true;
+}
+
+function startTabIntro() {
+  var tabTerminal = document.getElementById('intro-tab-terminal');
+  if (!tabTerminal) return;
+  if (tabIntroTimeout) { clearTimeout(tabIntroTimeout); tabIntroTimeout = null; }
+  tabTerminal.innerHTML = '';
+  tabIntroCurrentIdx = -1;
+  tabIntroFinished = false;
+  setTimeout(function() { typeTabIntro(0); }, 400);
+}
+
+// Click anywhere on intro screen to skip (not on ENTER button)
+introScreen.addEventListener('click', function(e) {
+  if (introFinished) return;
+  if (e.target === enterBtn || enterBtn.contains(e.target)) return;
+  if (finaleEl.classList.contains('visible')) return;
+  skipIntroToEnd();
+});
+
+// Click on intro tab content to skip
+document.addEventListener('click', function(e) {
+  if (currentTab !== 'intro' || tabIntroFinished) return;
+  var tabIntroEl = document.getElementById('tab-intro');
+  if (tabIntroEl && tabIntroEl.contains(e.target)) skipTabIntroToEnd();
+});
+
+// Enter key: skip intro / skip tab intro / submit password
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  if (!introFinished && introScreen.style.display !== 'none' && !finaleEl.classList.contains('visible')) {
+    skipIntroToEnd(); return;
+  }
+  if (currentTab === 'intro' && !tabIntroFinished) {
+    skipTabIntroToEnd(); return;
+  }
+});
 
 enterBtn.addEventListener('click', function() {
   introScreen.style.transition = 'opacity 0.5s'; introScreen.style.opacity = '0';
@@ -1923,6 +1977,7 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
     document.getElementById('tab-' + currentTab).classList.add('active');
     updateMenu();
     window.scrollTo(0, 0);
+    if (currentTab === 'intro') startTabIntro();
   });
 });
 
@@ -1930,6 +1985,14 @@ updateMenu();
 menuBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
 document.addEventListener('click', function() { dropdown.classList.remove('open'); });
 dropdown.addEventListener('click', function(e) { if (e.target.tagName === 'A') dropdown.classList.remove('open'); });
+
+// Load intro lines from intro.md and start animation
+fetch('intro.md')
+  .then(function(r) { return r.text(); })
+  .then(function(text) {
+    introLines = JSON.parse(text);
+    setTimeout(function() { typeIntro(0); }, 800);
+  });
 </script>
 </body>
 </html>
