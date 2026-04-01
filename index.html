@@ -138,6 +138,7 @@
         <button class="tab-btn" data-tab="model">Mental Model</button>
         <button class="tab-btn" data-tab="foundations">Theoretical Foundations</button>
         <button class="tab-btn" data-tab="tokenomics">Tokenomics</button>
+        <button class="tab-btn" data-tab="pioneer">Pioneer Pools</button>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
         <button class="tab-btn" data-tab="appendices">Appendices</button>
       </div>
@@ -1035,306 +1036,6 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
 <p><strong>Team risk.</strong> Founding team is small and self-funded. Key-person dependency is high in early phases.</p>
 <p><strong>Market risk.</strong> Launching during a bear market or period of DeFi apathy could delay adoption regardless of architectural merit.</p>
 <hr /></div>
-<div class="section" id="the-miliarium-aureum-pioneer-pools"><h2>The Miliarium Aureum: Pioneer Pools</h2><p>All 25 Pioneer pools are pre-defined at launch and locked from block 0. No open slots. No governance vote to add or replace Pioneers. The 25 pools below constitute the complete founding infrastructure.</p>
-<h3>The Dual-Anchor System: svZCHF + ixEDEL</h3>
-<p>Every Pioneer pool contains both <strong>svZCHF</strong> (yield anchor — ERC-4626, Frankencoin savings rate ~3.75%, counts toward the 4626 Quality Gate) and <strong>ixEDEL</strong> (routing anchor — ERC-20, Reserve Protocol DTF, IL reduction via diversified basket, internal cross-pool arbitrage routing, strategic moat). Together they create a unified routing hub where all 25 pools are interconnected through shared anchor tokens.</p>
-<h3>Standardised Pool Template</h3>
-<p>All Pioneer pools follow a consistent weight structure:</p>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Weight</th>
-<th>Role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Yield Core (2 ERC-4626 tokens)</td>
-<td>52% (26% + 26%)</td>
-<td>Meets 4626 Quality Gate. Generates protocol yield fees from block one.</td>
-</tr>
-<tr>
-<td>Routing Anchor (ixEDEL)</td>
-<td>16%</td>
-<td>Cross-pool arbitrage. Constellation routing connectivity.</td>
-</tr>
-<tr>
-<td>Theme Assets (2 tokens)</td>
-<td>32% (16% + 16%)</td>
-<td>Sector exposure. Drives aggregator volume from external markets.</td>
-</tr>
-</tbody>
-</table>
-<h3>I. The Founding Infrastructure (Slots 01–05)</h3>
-<p>Core routing gates for crypto-native benchmarks.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Slot</th>
-<th style="text-align: left;">Pool Name</th>
-<th style="text-align: left;">Yield Core (52%)</th>
-<th style="text-align: left;">Anchor (16%)</th>
-<th style="text-align: left;">Theme Assets (32%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">01</td>
-<td style="text-align: left;"><strong>ixHelvetia</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sUSDS</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% waEthUSDT / 16% USDC</td>
-</tr>
-<tr>
-<td style="text-align: left;">02</td>
-<td style="text-align: left;"><strong>ixStrata</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDC</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% LINK / 16% AAVE</td>
-</tr>
-<tr>
-<td style="text-align: left;">03</td>
-<td style="text-align: left;"><strong>ixForum</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDT</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% SKY / 16% LDO</td>
-</tr>
-<tr>
-<td style="text-align: left;">04</td>
-<td style="text-align: left;"><strong>ixAppia</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sfrxUSD</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% PAXG / 16% XAUt</td>
-</tr>
-<tr>
-<td style="text-align: left;">05</td>
-<td style="text-align: left;"><strong>ixAugusta</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% GHO</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% WBTC / 16% cbBTC</td>
-</tr>
-</tbody>
-</table>
-<h3>II. The Reserve &amp; Ecosystem Empire (Slots 06–09)</h3>
-<p>Consolidating the Sagix/Reserve stack, yield-bearing primitives, and ecosystem tokens.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Slot</th>
-<th style="text-align: left;">Pool Name</th>
-<th style="text-align: left;">Yield Core (52%)</th>
-<th style="text-align: left;">Anchor (16%)</th>
-<th style="text-align: left;">Theme Assets (32%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">06</td>
-<td style="text-align: left;"><strong>ixRegistrum</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sUSDS</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% ETHPLUS / 16% OPEN</td>
-</tr>
-<tr>
-<td style="text-align: left;">07</td>
-<td style="text-align: left;"><strong>ixBeneficium</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDC</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% ENA / 16% sUSDe</td>
-</tr>
-<tr>
-<td style="text-align: left;">08</td>
-<td style="text-align: left;"><strong>ixEcosysthema</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDT</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% FRAX / 16% CHEX</td>
-</tr>
-<tr>
-<td style="text-align: left;">09</td>
-<td style="text-align: left;"><strong>ixImperium</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% GHO</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% PENDLE / 16% EIGEN</td>
-</tr>
-</tbody>
-</table>
-<h3>III. ETH Staking Governance &amp; DeFi Infra (Slots 10–11)</h3>
-<p>Capturing the ETH staking governance layer and DeFi lending infrastructure.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Slot</th>
-<th style="text-align: left;">Pool Name</th>
-<th style="text-align: left;">Yield Core (52%)</th>
-<th style="text-align: left;">Anchor (16%)</th>
-<th style="text-align: left;">Theme Assets (32%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">10</td>
-<td style="text-align: left;"><strong>ixCasper</strong></td>
-<td style="text-align: left;">27% waEthrETH / 27% waEthweETH</td>
-<td style="text-align: left;">15% ixEDEL</td>
-<td style="text-align: left;">15% RPL / 16% ETHFI</td>
-</tr>
-<tr>
-<td style="text-align: left;">11</td>
-<td style="text-align: left;"><strong>ixAuxilium</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sUSDS</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% Morpho / 16% SPK</td>
-</tr>
-</tbody>
-</table>
-<p><strong>ixCasper</strong> — ETH staking governance pool. Non-standard composition: waEthrETH and waEthweETH are Aave V3 stataToken ERC-4626 wrappers for Rocket Pool's rETH and EtherFi's weETH respectively. ERC-4626 composition: 54% (both yield core tokens). RPL (Rocket Pool governance) and ETHFI (EtherFi governance) provide exposure to the staking protocol upside alongside the underlying staking yield.</p>
-<h3>IV. The Equity &amp; Index Empire (Slots 12–17)</h3>
-<p>TradFi indices, tokenised equity wrappers, and fintech.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Slot</th>
-<th style="text-align: left;">Pool Name</th>
-<th style="text-align: left;">Yield Core (52%)</th>
-<th style="text-align: left;">Anchor (16%)</th>
-<th style="text-align: left;">Theme Assets (32%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">12</td>
-<td style="text-align: left;"><strong>ixAureum</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sUSDS</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% SPYon / 16% IVVon</td>
-</tr>
-<tr>
-<td style="text-align: left;">13</td>
-<td style="text-align: left;"><strong>ixVictoria</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDC</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% QQQon / 16% QQQX</td>
-</tr>
-<tr>
-<td style="text-align: left;">14</td>
-<td style="text-align: left;"><strong>ixGigantus</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDT</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% NVDAon / 16% TSLAon</td>
-</tr>
-<tr>
-<td style="text-align: left;">15</td>
-<td style="text-align: left;"><strong>ixMajestas</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sfrxUSD</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% MSFTon / 16% AAPLon</td>
-</tr>
-<tr>
-<td style="text-align: left;">16</td>
-<td style="text-align: left;"><strong>ixMoneta</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% GHO</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% JPMon / 16% GSon</td>
-</tr>
-<tr>
-<td style="text-align: left;">17</td>
-<td style="text-align: left;"><strong>ixMercatura</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sUSDS</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% COIN / 16% HOOD</td>
-</tr>
-</tbody>
-</table>
-<h3>V. Macro, Hard Assets &amp; Global FX (Slots 18–22)</h3>
-<p>Treasuries, energy, LSTs, and global fiat corridors.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Slot</th>
-<th style="text-align: left;">Pool Name</th>
-<th style="text-align: left;">Yield Core (52%)</th>
-<th style="text-align: left;">Anchor (16%)</th>
-<th style="text-align: left;">Theme Assets (32%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">18</td>
-<td style="text-align: left;"><strong>ixSalus</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% sUSDS</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% LLYon / 16% NVOon</td>
-</tr>
-<tr>
-<td style="text-align: left;">19</td>
-<td style="text-align: left;"><strong>ixVectura</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDC</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% SGOVon / 16% TLTon</td>
-</tr>
-<tr>
-<td style="text-align: left;">20</td>
-<td style="text-align: left;"><strong>ixCustodia</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% waEthUSDT</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% GLDon / 16% TIPon</td>
-</tr>
-<tr>
-<td style="text-align: left;">21</td>
-<td style="text-align: left;"><strong>ixManes</strong></td>
-<td style="text-align: left;">26% fWSTETH / 26% fWETH</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% svZCHF / 16% waEthwstETH</td>
-</tr>
-<tr>
-<td style="text-align: left;">22</td>
-<td style="text-align: left;"><strong>ixViatica</strong></td>
-<td style="text-align: left;">26% svZCHF / 26% GHO</td>
-<td style="text-align: left;">16% ixEDEL</td>
-<td style="text-align: left;">16% fBRZ / 16% st-EURA</td>
-</tr>
-</tbody>
-</table>
-<h3>VI. Core Connector Pools (Slots 23–25)</h3>
-<p>Anchor and infrastructure pools with non-standard compositions. These pools serve specialised routing and price discovery roles that require weight distributions outside the standard 52%/16%/32% template.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Slot</th>
-<th style="text-align: left;">Pool Name</th>
-<th style="text-align: left;">Composition</th>
-<th style="text-align: left;">Role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">23</td>
-<td style="text-align: left;"><strong>ixEdelweiss</strong></td>
-<td style="text-align: left;">ixEDEL (46%), waEthUSDC (18%), waEthUSDT (18%), svZCHF (18%)</td>
-<td style="text-align: left;">Primary ixEDEL price discovery venue. ixEDEL-heavy weighting concentrates liquidity for the routing anchor.</td>
-</tr>
-<tr>
-<td style="text-align: left;">24</td>
-<td style="text-align: left;"><strong>ixLibertas</strong></td>
-<td style="text-align: left;">scrvUSD (15%), PYUSD (15%), GHO (14%), sUSDS (14%), sfrxUSD (14%), USDT (14%), USDC (14%)</td>
-<td style="text-align: left;">USD stablecoin hub. Seven-token pool spanning major USD stables and savings vaults. No ixEDEL — functions as a standalone deep-liquidity USD venue.</td>
-</tr>
-<tr>
-<td style="text-align: left;">25</td>
-<td style="text-align: left;"><strong>ixCambio</strong></td>
-<td style="text-align: left;">ixEDEL (20%), svZCHF (16%), st-EURA (16%), aEURS (16%), s-tGBP (16%), [Partner Stable] (16%)</td>
-<td style="text-align: left;">FX hub. Multi-currency pool (CHF, EUR, GBP, USD) with yield-bearing stablecoins via Aave/Morpho vaults. Competes directly with Curve's FXSwap (launched ZCHF/crvUSD at Stable Summit Cannes, March 2026) but captures multiple FX pairs from one LP position.</td>
-</tr>
-</tbody>
-</table>
-<h3>Cross-Pool Arbitrage</h3>
-<p>With 25 pools sharing svZCHF and ixEDEL as common anchors, six arbitrage layers generate fees continuously: vault-rate arbitrage (ERC-4626 drift correction), CHF/USD forex arbitrage, multi-currency FX arbitrage, wrapped-asset arbitrage (gold-to-gold, BTC-to-BTC), cross-pool price arbitrage (25 pools × 2 shared anchors = dense routing graph), and external-internal arbitrage (constituent tokens trading $898M+ daily on Uniswap at higher fees).</p>
-<h3>Pioneer Benefits</h3>
-<p><strong>1. Governance-steerable emission multiplier.</strong> Pioneer pools are the only pools eligible for the CCB governance multiplier [0.90–1.10] (see <strong>The Continuous Central Bank</strong> section).</p>
-<p><strong>2. Treasury liquidity deposits.</strong> Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Pioneer pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.</p>
-<p><strong>Tag revocation:</strong> If a Pioneer pool loses its gauge or emission eligibility, the tag is permanently revoked. No replacement. The number of active Pioneer slots only decreases.</p>
-<hr /></div>
 
       <div class="footer">AUREUM — aumm.fi — CONFIDENTIAL</div>
     </div>
@@ -1389,6 +1090,12 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
       <div class="footer">AUREUM — Tokenomics</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-pioneer">
+    <div class="content">
+      <div id="pioneer-body"></div>
+      <div class="footer">AUREUM — Pioneer Pools</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-appendices">
     <div class="content">
       <div id="appendices-body"></div>
@@ -1404,11 +1111,12 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
 
 <script>
 var menus = {
-  doc: [{"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}],
+  doc: [{"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}],
   model: [],
   glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}],
   foundations: [],
   tokenomics: [],
+  pioneer: [],
   appendices: [],
   intro: []
 };
@@ -1608,6 +1316,14 @@ fetch('tokenomics.md')
   .then(function(r) { return r.text(); })
   .then(function(text) {
     var el = document.getElementById('tokenomics-body');
+    if (el) el.innerHTML = marked.parse(text);
+  });
+
+// Load pioneer pools from Pioneer_Pools.md
+fetch('Pioneer_Pools.md')
+  .then(function(r) { return r.text(); })
+  .then(function(text) {
+    var el = document.getElementById('pioneer-body');
     if (el) el.innerHTML = marked.parse(text);
   });
 
