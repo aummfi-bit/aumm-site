@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AUREUM — Protocol Design</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
   :root, [data-theme="au"] {
     --bg: #0a0a08; --bg-light: #111110; --text: #ffb000; --text-dim: #aa7700;
@@ -136,6 +137,7 @@
         <button class="tab-btn active" data-tab="doc">Design Doc</button>
         <button class="tab-btn" data-tab="model">Mental Model</button>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
+        <button class="tab-btn" data-tab="appendices">Appendices</button>
       </div>
       <div class="theme-toggle">
         <button class="theme-btn active" data-theme="au">Au</button>
@@ -1669,79 +1671,6 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
 <p><strong>2. Treasury liquidity deposits.</strong> Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Pioneer pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.</p>
 <p><strong>Tag revocation:</strong> If a Pioneer pool loses its gauge or emission eligibility, the tag is permanently revoked. No replacement. The number of active Pioneer slots only decreases.</p>
 <hr /></div>
-<div class="section" id="appendix-why-fair-launch-amms-failed-and-why-aureum-won-t"><h2>Appendix: Why Fair Launch AMMs Failed — And Why Aureum Won't</h2><h3>The Fair Launch Graveyard</h3>
-<p>Fair launches were the gold standard in 2020 (Yearn, SushiSwap). Today they're nearly extinct. The reasons are structural:</p>
-<p><strong>The Bootstrap Paradox.</strong> An AMM needs liquidity to be useful. VC-backed projects pay for liquidity mining from their war chest. Fair launches have no war chest. No liquidity → high slippage → no traders → no fees → LPs leave → death spiral.</p>
-<p><strong>The Builder Burnout Problem.</strong> If 100% of tokens go to the community, who pays for audits ($100-250K), legal counsel, infrastructure, and the dev's rent? Most fair launch founders end up working for free while yield farmers dump their tokens for profit.</p>
-<p><strong>Governance Capture.</strong> Fair launches distribute tokens based on liquidity provision. Whales bring massive capital on day one, earn the majority of "fair" tokens, and vote to redirect the treasury to themselves. A "Fair Launch" becomes a "Whale Launch."</p>
-<p><strong>The Death Spiral.</strong> Most AMMs rely on their own token as the incentive. Token price drops → APR drops → LPs leave → protocol dies. VC-backed projects subsidise during bear markets using their treasury. Fair launches have no cushion.</p>
-<h3>The SushiSwap Autopsy</h3>
-<p>SushiSwap is the most instructive failure. Three specific causes:</p>
-<p><strong>1. The backdoor.</strong> Chef Nomi controlled the dev fund and sold $14M of SUSHI. The "fair launch" had admin keys hidden in the migration contract. The founder had a sell button the community didn't know about.</p>
-<p><strong>2. Vampire attack dependency.</strong> SushiSwap's entire TVL came from migrating Uniswap LPs through token incentives. Once incentives declined, LPs had no structural reason to stay. The liquidity was rented, not earned.</p>
-<p><strong>3. Immediate governance capture.</strong> Large holders (FTX/Alameda) accumulated governance power through token purchases and directed treasury spending to their own interests. Token-weighted voting meant capital = control.</p>
-<p>The deeper structural failure: SushiSwap was a fair launch of a <strong>commodity product</strong> — same Uniswap V2 pairs, same architecture, nothing novel. When incentives faded, there was no reason to use Sushi over Uniswap. The token was the only differentiator, and the token was losing value.</p>
-<h3>How Aureum Addresses Every Failure Mode</h3>
-<table>
-<thead>
-<tr>
-<th>Failure Mode</th>
-<th>What Killed Them</th>
-<th>Aureum's Fix</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Bootstrap Paradox</strong></td>
-<td>No capital to seed liquidity</td>
-<td>Founding team seeds pools with existing assets (ixEDEL, svZCHF). ERC-4626 pools generate 2-2.8% native yield from day one — LPs have a reason to stay before any AuMM emission has value.</td>
-</tr>
-<tr>
-<td><strong>Builder Burnout</strong></td>
-<td>Devs work for free, farmers dump</td>
-<td>Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. Treasury funded by protocol fees (25% swap + 75% yield), not by token sales. Audit costs funded by treasury once fees accumulate.</td>
-</tr>
-<tr>
-<td><strong>Chef Nomi Backdoor</strong></td>
-<td>Founder controls dev fund, sells</td>
-<td>No admin keys. No migration contract. The treasury receives a declining share of emissions (75%→50%→0% over months 0–10) for seeding the AuMM trading pool and operating a price ceiling that converts overvaluation into pool depth. Deployed at a governance-voted multiple, capped at 80% of treasury assets. Excess AuMM serves as stabilization inventory (months 6–10), then burned at month 10. Treasury emission share hits zero permanently at month 10. All mechanisms immutable in contract. No human can change the supply curve or the stabilization rules.</td>
-</tr>
-<tr>
-<td><strong>Vampire Attack Dependency</strong></td>
-<td>Liquidity rented via incentives, leaves when APR drops</td>
-<td>Constituent tokens (WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay.</td>
-</tr>
-<tr>
-<td><strong>Governance Capture</strong></td>
-<td>Token-weighted voting = capital buys control</td>
-<td>Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 1 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power).</td>
-</tr>
-<tr>
-<td><strong>Death Spiral</strong></td>
-<td>Token price drops → APR drops → LPs leave</td>
-<td>Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. Buyback-and-burn creates deflationary pressure that partially offsets price declines. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one.</td>
-</tr>
-<tr>
-<td><strong>Commodity Product</strong></td>
-<td>No architectural moat → users leave when incentives fade</td>
-<td>Multi-asset weighted pools, ERC-4626 native yield, hooks, constellation routing — these pool designs cannot exist on Uniswap, Curve, or Aerodrome. The moat is the architecture, not the token. LPs stay because no other venue offers the same capital efficiency.</td>
-</tr>
-</tbody>
-</table>
-<h3>The White Space</h3>
-<p>There are no Fair Launch AMMs in 2026 because most people assume the model can't work. They're right — for commodity products with no structural moat and no native yield.</p>
-<p>Aureum is different because it launches with three things no previous fair launch had:</p>
-<ol>
-<li><strong>A differentiated architecture</strong> that cannot be replicated on any competing AMM</li>
-<li><strong>Native yield</strong> (ERC-4626) that provides LP returns independent of token emissions</li>
-<li><strong>A pre-built routing topology</strong> (Miliarium Aureum) with $898M daily volume opportunity from constituent tokens already trading on-chain</li>
-</ol>
-<p>The fair launch model failed when applied to commodity AMMs. It has never been tried on a formally verified, multi-asset, yield-bearing routing infrastructure with BTC-scarcity tokenomics and contract-enforced anti-gaming.</p>
-<p>That experiment hasn't failed. It hasn't happened.</p>
-<hr /></div>
-<div class="section" id="appendix-yield-basis-hybrid-vaults-complementary-architecture"><h2>Appendix: Yield Basis Hybrid Vaults — Complementary Architecture</h2><p>Curve's Yield Basis protocol (March 2026) independently validated the same core thesis Aureum is built on: sustainable AMM growth requires tying TVL expansion to productive capital, not reflexive incentives. Their Hybrid Vaults solve this by requiring LPs to deposit crvUSD (earning ~4.5% scrvUSD yield) before unlocking BTC/ETH pool capacity — directly supporting the crvUSD peg while scaling. The mechanism is architecturally orthogonal to Aureum's CCB: Yield Basis enforces anticyclicality at the user level (stable-first deposit → personal cap), while Aureum enforces it at the protocol level (EMA-weighted emissions + immutable anti-gaming gates + 52% ERC-4626 Quality Gate). Both reject reflexive liquidity mining. Both force conviction capital upfront. The key divergence: Yield Basis depends on an external stablecoin peg (crvUSD + Curve DAO credit line), while Aureum's stability layer is entirely internal and oracle-free. Aureum's routing anchor (ixEDEL) has no peg to defend — its NAV arb surface generates continuous cross-pool fees without the catastrophic depeg risk that Hybrid Vaults were specifically engineered to mitigate. The two designs compose well: a future gauge-approved Aureum pool could include scrvUSD as an ERC-4626 component if it meets the $5M vault floor, giving LPs access to both yield layers simultaneously. Source: <a href="https://x.com/yieldbasis/status/2038610652194037966">@yieldbasis, March 30 2026</a>.</p>
-<hr />
-<p><em>This document is confidential and intended for founding team discussion only. Do not distribute.</em></p></div>
 
       <div class="footer">AUREUM — aumm.fi — CONFIDENTIAL</div>
     </div>
@@ -1797,6 +1726,12 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
       <div class="footer">AUREUM — Glossary</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-appendices">
+    <div class="content">
+      <div id="appendices-body"></div>
+      <div class="footer">AUREUM — Appendices</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-intro">
     <div id="intro-tab-wrap">
       <div id="intro-tab-terminal"></div>
@@ -1806,9 +1741,10 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
 
 <script>
 var menus = {
-  doc: [{"id": "one-liner", "title": "One-Liner"}, {"id": "the-thesis-in-one-paragraph", "title": "The Thesis in One Paragraph"}, {"id": "why-this-exists", "title": "Why This Exists"}, {"id": "core-principles", "title": "Core Principles"}, {"id": "the-roman-infrastructure", "title": "The Roman Infrastructure"}, {"id": "theoretical-foundations", "title": "Theoretical Foundations"}, {"id": "the-continuous-central-bank-ccb", "title": "The Continuous Central Bank (CCB)"}, {"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "token-design-aumm-aureum-market-maker", "title": "Token Design: AuMM (Aureum Market Maker)"}, {"id": "value-capture-two-revenue-streams", "title": "Value Capture: Two Revenue Streams"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}, {"id": "appendix-why-fair-launch-amms-failed-and-why-aureum-won-t", "title": "Appendix: Why Fair Launch AMMs Failed \u2014 And Why Aureum Won't"}, {"id": "appendix-yield-basis-hybrid-vaults-complementary-architecture", "title": "Appendix: Yield Basis Hybrid Vaults \u2014 Complementary Architecture"}],
+  doc: [{"id": "one-liner", "title": "One-Liner"}, {"id": "the-thesis-in-one-paragraph", "title": "The Thesis in One Paragraph"}, {"id": "why-this-exists", "title": "Why This Exists"}, {"id": "core-principles", "title": "Core Principles"}, {"id": "the-roman-infrastructure", "title": "The Roman Infrastructure"}, {"id": "theoretical-foundations", "title": "Theoretical Foundations"}, {"id": "the-continuous-central-bank-ccb", "title": "The Continuous Central Bank (CCB)"}, {"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "token-design-aumm-aureum-market-maker", "title": "Token Design: AuMM (Aureum Market Maker)"}, {"id": "value-capture-two-revenue-streams", "title": "Value Capture: Two Revenue Streams"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}],
   model: [{"id": "how-aureum-works-three-layers", "title": "How Aureum Works \u2014 Three Layers"}, {"id": "the-feedback-loop", "title": "The Feedback Loop"}, {"id": "governance-in-one-sentence", "title": "Governance in One Sentence"}],
   glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}],
+  appendices: [],
   intro: []
 };
 var currentTab = 'doc';
@@ -1985,6 +1921,14 @@ updateMenu();
 menuBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
 document.addEventListener('click', function() { dropdown.classList.remove('open'); });
 dropdown.addEventListener('click', function(e) { if (e.target.tagName === 'A') dropdown.classList.remove('open'); });
+
+// Load appendices from appendices.md
+fetch('appendices.md')
+  .then(function(r) { return r.text(); })
+  .then(function(text) {
+    var el = document.getElementById('appendices-body');
+    if (el) el.innerHTML = marked.parse(text);
+  });
 
 // Load intro lines from intro.md and start animation
 fetch('intro.md')
