@@ -151,28 +151,6 @@
 
   <div class="tab-content active" id="tab-doc">
     <div class="content">
-<div class="section" id="one-liner"><h2>One-Liner</h2><p>A fair-launch AMM where the only way to mine the token is to provide liquidity to productive pools. BTC tokenomics. Aequilibrium engine. No pre-mine. No VC. No team allocation.</p>
-<hr /></div>
-<div class="section" id="the-thesis-in-one-paragraph"><h2>The Thesis in One Paragraph</h2><p>The best AMM architecture in DeFi is about to lose its growth mechanism. The token is priced for terminal decline. But the code is open source, formally verified, and architecturally superior to every competitor. Project Aureum takes that code, replaces the broken tokenomics with a fair launch where the only way to earn tokens is to provide liquidity to productive pools, and lets the market discover what formally verified multi-asset pools can do when the economic layer is designed correctly. The experiment hasn't failed. It hasn't happened.</p>
-<hr /></div>
-<div class="section" id="why-this-exists"><h2>Why This Exists</h2><p>Balancer V3 is the most advanced AMM architecture in DeFi — multi-asset weighted pools, ERC-4626 native yield, hooks, formal verification by Certora. But the protocol's tokenomics failed. Emissions directed to legacy pools and governance staking created circular economics. Meta-governance capture concentrated power. The founding entity shut down. The team proposed eliminating emissions entirely — removing the only mechanism through which external builders could bootstrap new infrastructure.</p>
-<p>The architecture deserves a second chance under a clean economic model. Project Aureum forks the V3 smart contracts and replaces the tokenomics with a fair launch. Same verified core. Fundamentally different economics. (See <strong>Appendix</strong> for a detailed comparison to every historical fair-launch failure mode.) Aureum's anticyclical, productive-capital-first thesis is independently validated by Curve's Yield Basis Hybrid Vaults (March 2026), which solve the same problem — scaling AMM liquidity without reflexive fragility — through a complementary but architecturally orthogonal approach tied to crvUSD peg stability. (See <strong>Appendix: Yield Basis Hybrid Vaults</strong>.)</p>
-<hr /></div>
-<div class="section" id="core-principles"><h2>Core Principles</h2><ol>
-<li><strong>Fair launch.</strong> No pre-mine, no team allocation, no VC. Treasury emission phase (months 0–10) seeds protocol-owned liquidity only — see Launch Procedures for details.</li>
-<li><strong>Fixed supply.</strong> 21 million maximum. Halving schedule. Declining emission rate.</li>
-<li><strong>Mining is LP.</strong> Productive capital in, tokens out. No staking rewards or bribe markets.</li>
-<li><strong>Anti-capture by design.</strong> Governance power derives exclusively from active LP positions with a 6-month on-ramp.</li>
-<li><strong>Ethereum only.</strong> Single chain for maximum composability and aggregator coverage.</li>
-</ol>
-<hr /></div>
-<div class="section" id="the-roman-infrastructure"><h2>The Roman Infrastructure</h2><p>The protocol's naming follows the architecture of Roman infrastructure — because the design follows it too.</p>
-<p>The <strong>Miliarium Aureum</strong> (Golden Milestone) was the monument in the Roman Forum from which all distances in the Empire were measured. Every road radiated from it. In this protocol, the Miliarium Aureum is the founding constellation of pools — the routing hub that connects every pool through cross-pool arbitrage, shared aggregator paths, and deeper effective liquidity.</p>
-<p><strong>AuMM</strong> (Aureum Market Maker) is the reward token — mined by providing liquidity, burned by the protocol. BTC-style scarcity.</p>
-<p><strong>AuMT</strong> (Aureum Market Tessera) is the proof-of-participation token — your tessera. In Rome, a tessera was a small tablet that served as a ticket, a voucher, or a token of identity. It proved you belonged and carried rights: entry, grain distribution, voting in assemblies. Your AuMT proves your stake in the protocol's liquidity and carries the same rights — emissions, governance power, LP bonus eligibility.</p>
-<p><strong>Aequilibrium</strong> is the AMM engine — Latin for "equal balance." The pool layer that powers every trade, every arb, every routing path. Derived from Balancer V3's Certora-verified smart contracts, reborn under a new economic model.</p>
-<p><em>All roads lead to the Miliarium Aureum. Your tessera proves you helped build them.</em></p>
-<hr /></div>
 <div class="section" id="theoretical-foundations"><h2>Theoretical Foundations</h2><p>The CCB draws from established research across multiple disciplines:</p>
 <p><strong>Autonomous Corporate Logic:</strong> Meisser's "Continuous Capital Corporation" (2022) argues that a corporation can operate via continuous algorithms rather than board meetings — the foundational logic for the CCB as an autonomous institution.</p>
 <p><strong>Pro-Cyclicality:</strong> BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.</p>
@@ -1677,20 +1655,7 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
   </div>
   <div class="tab-content" id="tab-model">
     <div class="content">
-<h1>Aureum Protocol — Mental Model</h1>
-<p><em>How Aureum works for intelligent readers.</em></p>
-<hr /><div class="section" id="how-aureum-works-three-layers"><h2>How Aureum Works — Three Layers</h2><h3>1. Capital Allocation (The Continuous Central Bank)</h3>
-<p>Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (institutional memory). Small governance nudges via Pioneer multipliers [0.90–1.10] and Bubble multipliers [0.90–2.00]. Strictly zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation.</p>
-<h3>2. Bootstrapping (Starting New Pools)</h3>
-<p>New pools have no EMA history, so they need a structured path to earn emissions. Three stacked mechanisms: (a) <strong>Incendiary Boost</strong> — builder deposits AuMM, protocol emits it back over 30 days, the deposit is permanently burned, making AuMM scarcer for all holders; must remain efficient to renew. (b) <strong>Bubble Multiplier</strong> — qualified LPs vote to boost or suppress new pools (0.90×–2.00×) for the first 90 days. (c) <strong>EMA Takeover</strong> — after ~90 days, emissions depend purely on real TVL via the CCB. The flow: conviction (Incendiary) → market endorsement (Bubble) → long-term reality (EMA).</p>
-<h3>3. Discipline (Keeping the System Clean)</h3>
-<p>Aureum continuously filters unproductive pools. Volume percentile floor: must stay above minimum activity threshold. Efficiency tournament: revenue-per-emission ranking; bottom 15% capped, excess redistributed to productive pools. Graduated enforcement: warning zone before disqualification, gauge revocation after 4 consecutive failed cycles. Dead or extractive pools lose emissions or are removed entirely.</p>
-<hr /></div>
-<div class="section" id="the-feedback-loop"><h2>The Feedback Loop</h2><p>LPs provide liquidity → earn AuMM. Pools generate real fees + ERC-4626 yield → protocol earns revenue. Revenue → buyback &amp; burn AuMM. Supply decreases → each AuMM backs more protocol revenue. Higher yield per token → attracts more productive capital. Good pools gain share. Bad pools lose share or get removed. The system self-corrects.</p>
-<hr /></div>
-<div class="section" id="governance-in-one-sentence"><h2>Governance in One Sentence</h2><p><strong>Power = productive liquidity held over time.</strong> No tokens to buy. No locks to game. You must provide liquidity, stay committed, and perform.</p>
-<hr />
-<p><em>Most DeFi systems ask "Who should decide?" Aureum asks "What should the system do automatically?" — and encodes the answer into immutable rules.</em></p></div>
+<div id="mental-model-body"></div>
 
       <div class="footer">AUREUM — Mental Model</div>
     </div>
@@ -1741,8 +1706,8 @@ T = (D - month_11_start) / (month_13_start - month_11_start)
 
 <script>
 var menus = {
-  doc: [{"id": "one-liner", "title": "One-Liner"}, {"id": "the-thesis-in-one-paragraph", "title": "The Thesis in One Paragraph"}, {"id": "why-this-exists", "title": "Why This Exists"}, {"id": "core-principles", "title": "Core Principles"}, {"id": "the-roman-infrastructure", "title": "The Roman Infrastructure"}, {"id": "theoretical-foundations", "title": "Theoretical Foundations"}, {"id": "the-continuous-central-bank-ccb", "title": "The Continuous Central Bank (CCB)"}, {"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "token-design-aumm-aureum-market-maker", "title": "Token Design: AuMM (Aureum Market Maker)"}, {"id": "value-capture-two-revenue-streams", "title": "Value Capture: Two Revenue Streams"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}],
-  model: [{"id": "how-aureum-works-three-layers", "title": "How Aureum Works \u2014 Three Layers"}, {"id": "the-feedback-loop", "title": "The Feedback Loop"}, {"id": "governance-in-one-sentence", "title": "Governance in One Sentence"}],
+  doc: [{"id": "theoretical-foundations", "title": "Theoretical Foundations"}, {"id": "the-continuous-central-bank-ccb", "title": "The Continuous Central Bank (CCB)"}, {"id": "pool-bootstrapping-the-cold-start-solution", "title": "Pool Bootstrapping: The Cold Start Solution"}, {"id": "token-design-aumm-aureum-market-maker", "title": "Token Design: AuMM (Aureum Market Maker)"}, {"id": "value-capture-two-revenue-streams", "title": "Value Capture: Two Revenue Streams"}, {"id": "governance-the-lp-power-model", "title": "Governance: The \"LP = Power\" Model"}, {"id": "pool-creation-and-gauge-approval", "title": "Pool Creation and Gauge Approval"}, {"id": "anti-gaming-criteria", "title": "Anti-Gaming Criteria"}, {"id": "amm-architecture-aequilibrium", "title": "AMM Architecture: Aequilibrium"}, {"id": "proof-of-real-yield-dashboard", "title": "Proof of Real Yield Dashboard"}, {"id": "permanent-protocol-rules", "title": "Permanent Protocol Rules"}, {"id": "founding-team", "title": "Founding Team"}, {"id": "treasury", "title": "Treasury"}, {"id": "competitive-position", "title": "Competitive Position"}, {"id": "launch-procedures-months-0-13", "title": "Launch Procedures: Months 0\u201313+"}, {"id": "risk-factors", "title": "Risk Factors"}, {"id": "the-miliarium-aureum-pioneer-pools", "title": "The Miliarium Aureum: Pioneer Pools"}],
+  model: [],
   glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}],
   appendices: [],
   intro: []
@@ -1921,6 +1886,14 @@ updateMenu();
 menuBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
 document.addEventListener('click', function() { dropdown.classList.remove('open'); });
 dropdown.addEventListener('click', function(e) { if (e.target.tagName === 'A') dropdown.classList.remove('open'); });
+
+// Load mental model from aureum_mental_model.md
+fetch('aureum_mental_model.md')
+  .then(function(r) { return r.text(); })
+  .then(function(text) {
+    var el = document.getElementById('mental-model-body');
+    if (el) el.innerHTML = marked.parse(text);
+  });
 
 // Load appendices from appendices.md
 fetch('appendices.md')
