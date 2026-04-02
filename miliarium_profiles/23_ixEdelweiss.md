@@ -24,13 +24,13 @@
 
 **Structural role:**
 - Primary ixEDEL ↔ USD price reference
-- Cross-pool routing hub (all 24 other Pioneers contain 16% ixEDEL — rebalancing flows route through ixEdelweiss)
+- Cross-pool routing hub (all 24 other Miliarium Aureum pools contain 16% ixEDEL — rebalancing flows route through ixEdelweiss)
 - ixEDEL basket rebalancing (ixEDEL is a Reserve Protocol DTF; any constituent drift creates arbitrage with this pool)
 
 **Volume drivers:**
 - Cross-pool arbitrage (25 pools × ixEDEL rebalancing)
 - ixEDEL basket composition changes
-- New LP entries/exits across the protocol (any LP adding to any Pioneer needs ixEDEL)
+- New LP entries/exits across the protocol (any LP adding to any Miliarium Aureum pool needs ixEDEL)
 - Stablecoin rotation via the three anchor stables
 
 **Risk profile:**
@@ -48,7 +48,7 @@
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
 | PMAR multiplier | [0.75–1.25], initialised at 1.0 |
-| Composition challenge | If tokens lack volume or cease to exist, composition renewable via Pioneer Composition Challenge (base cost 100,000 svZCHF/1 BTC/100,000 sUSDS equiv × dynamic factors) |
+| Composition challenge | If tokens lack volume or cease to exist, composition renewable via Miliarium Aureum Composition Challenge (base cost 100,000 svZCHF/1 BTC/100,000 sUSDS equiv × dynamic factors; requires 2/3 protocol-wide tessera-weighted vote; replacement must preserve same asset type or similar economic properties) |
 
 ## Cross-References
 

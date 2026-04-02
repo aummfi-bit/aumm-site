@@ -1,12 +1,12 @@
 # Sector Taxonomy
 
-*How the 25 Mercatūs Praecursorii map to a diversified on-chain economy.*
+*How the 25 Miliarium Aureum pools map to a diversified on-chain economy.*
 
 ---
 
 ## Design Principle
 
-The Pioneer constellation is structured as a **miniature economy** — not a random collection of liquidity pools. Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
+The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
 
 1. **Sector rotation dynamics** — when tech sells off, capital rotates to treasuries or gold; the protocol captures fees on both legs
 2. **Aggregator diversity** — each sector attracts different external volume sources (crypto aggregators, equity wrappers, FX corridors)
@@ -126,7 +126,7 @@ This diversity is the structural defence against protocol-wide volume collapse. 
 
 ## Cross-References
 
-- Pool compositions and weights → [Mercatūs Praecursorii](../Mercatus_Praecursorii.md)
+- Pool compositions and weights → [Miliarium Aureum](../Miliarium_Aureum.md)
 - PMAR emission multipliers → [PMAR Specification](../PMAR.md)
 - Performance discipline → [Constitution: Anti-Gaming Criteria](../constitution.md)
 - Bootstrapping mechanics → [Bootstrap Rules](../bootstrap.md)

@@ -1,6 +1,6 @@
-# Mercatūs Praecursorii — Master Registry
+# Miliarium Aureum — Master Registry
 
-*25 permanent Pioneer slots locked from block 0. No additional slots. Token compositions may be renewed via Pioneer Composition Challenge to adapt to changing markets while preserving each pool's function and sector theme.*
+*25 permanent Miliarium Aureum slots locked from block 0. No additional slots. Token compositions may be renewed via Miliarium Aureum Composition Challenge to adapt to changing markets while preserving each pool's function and sector theme.*
 
 ---
 
@@ -60,7 +60,7 @@
 
 ## Status Tracking
 
-All pools initialise at **Active** status. The 25 Pioneer slots are permanent — the count never decreases.
+All pools initialise at **Active** status. The 25 Miliarium Aureum slots are permanent — the count never decreases.
 
 ```
 Active → Warning → Disqualified ⇄ Composition Challenge (renewal pathway)
@@ -70,5 +70,5 @@ Active → Warning → Disqualified ⇄ Composition Challenge (renewal pathway)
 |:-------|:----------|:----------|:---------|
 | **Active** | Above 15th volume percentile, passes all criteria | Full emissions + PMAR | — |
 | **Warning** | 10th–15th volume percentile | Emissions continue (2-cycle grace) | Return above 15th percentile |
-| **Disqualified** | Below 10th volume percentile | Zero (routed to buyback-and-burn) | Sustain above 15th for 4 weeks, or Pioneer Composition Challenge |
-| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | Pending governance vote | Approved → new composition, slot reactivated with PMAR |
+| **Disqualified** | Below 10th volume percentile | Zero (routed to buyback-and-burn) | Sustain above 15th for 4 weeks, or Miliarium Aureum Composition Challenge |
+| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | 2/3 protocol-wide tessera-weighted vote | Approved if replacement preserves same asset type or similar economic properties; slot remains active with PMAR |

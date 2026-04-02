@@ -24,7 +24,7 @@
 **Theme rationale:** This is the only pool with an ETH-native yield core (no svZCHF). waEthrETH and waEthweETH are Aave V3 stataToken wrappers that earn both staking yield AND Aave lending yield simultaneously. RPL and ETHFI provide governance exposure to the two largest non-Lido staking protocols.
 
 **Non-standard notes:**
-- No svZCHF in yield core — this is the only Pioneer without the CHF anchor in its yield pair
+- No svZCHF in yield core — this is the only Miliarium Aureum pool without the CHF anchor in its yield pair
 - Yield core generates dual yield: ETH staking rewards + Aave V3 supply rate
 - Slightly higher ERC-4626 composition (54%) due to rounding of non-standard weights
 
@@ -49,7 +49,7 @@
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
 | PMAR multiplier | [0.75–1.25], initialised at 1.0 |
-| Composition challenge | If tokens lack volume or cease to exist, composition renewable via Pioneer Composition Challenge (base cost 100,000 svZCHF/1 BTC/100,000 sUSDS equiv × dynamic factors) |
+| Composition challenge | If tokens lack volume or cease to exist, composition renewable via Miliarium Aureum Composition Challenge (base cost 100,000 svZCHF/1 BTC/100,000 sUSDS equiv × dynamic factors; requires 2/3 protocol-wide tessera-weighted vote; replacement must preserve same asset type or similar economic properties) |
 
 ## Cross-References
 
