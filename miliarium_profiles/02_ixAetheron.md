@@ -21,10 +21,10 @@
 
 **Real-world analogue:** Staking infrastructure fund — like owning shares in the clearing houses and custodians that settle transactions.
 
-**Theme rationale:** This is the only pool with an ETH-native yield core (no svZCHF). waEthrETH and waEthweETH are Aave V3 stataToken wrappers that earn both staking yield AND Aave lending yield simultaneously. RPL and ETHFI provide governance exposure to the two largest non-Lido staking protocols.
+**Theme rationale:** This pool uses an **ETH-native** yield core (no svZCHF): waEthrETH and waEthweETH are Aave V3 stataToken wrappers that earn both staking yield AND Aave lending yield simultaneously. RPL and ETHFI provide governance exposure to the two largest non-Lido staking protocols.
 
 **Non-standard notes:**
-- No svZCHF in yield core — this is the only Miliarium Aureum pool without the CHF anchor in its yield pair
+- No svZCHF in the yield core — **ixCasper** (slot 03) also uses non–Frankencoin yield cores (Flux LST vaults); here the pair is specifically rETH/weETH **Aave stataTokens**
 - Yield core generates dual yield: ETH staking rewards + Aave V3 supply rate
 - Slightly higher ERC-4626 composition (54%) due to rounding of non-standard weights
 

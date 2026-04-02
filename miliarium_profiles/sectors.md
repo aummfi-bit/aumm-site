@@ -14,7 +14,7 @@ Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum]
 | Stocks | ixEquitix, ixInnovix, ixGigantus, ixMagnix, ixNubix, ixMoneta, ixColossix, ixVitalix, ixMedicix, ixMercatura |
 | Metals | ixAurix, ixMetallum |
 
-Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](../Miliarium_Aureum.md) master table.
+Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](../Miliarium_Aureum.md) Section I registry (Stocks table).
 
 ### Slot ranges (canonical)
 
@@ -23,7 +23,7 @@ Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthca
 | 01–07 | Yield | Savings, LST/staking, flux LST, FX corridors, ixEDEL venue, USD hub, multi-currency FX |
 | 08–11 | Bonds | Short / ultra-short, HY, aggregate + TIPS, long Treasury |
 | 12–16 | Crypto-native | DeFi infrastructure, wrapped BTC, ecosystem and lending governance |
-| 17–26 | Stocks | Tokenised equities (see subclasses in master table) |
+| 17–26 | Stocks | Tokenised equities (see subclasses in Section I Stocks table) |
 | 27–28 | Metals | Physical gold; silver + uranium ETFs |
 
 ---
@@ -74,7 +74,7 @@ The Miliarium Aureum is structured as a **miniature economy** — not a random c
 
 ### TradFi equities (slots 17–26)
 
-| Pool | Profile | Subclass (see master table) |
+| Pool | Profile | Subclass (see Section I) |
 |:-----|:--------|:----------------------------|
 | [ixEquitix](17_ixEquitix.md) | Broad index | Broad ETF |
 | [ixInnovix](18_ixInnovix.md) | Nasdaq-style | Tech index |

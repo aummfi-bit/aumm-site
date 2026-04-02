@@ -24,13 +24,13 @@
 
 **Structural role:**
 - Primary ixEDEL ↔ USD price reference
-- Cross-pool routing hub (all 27 other Miliarium Aureum pools contain 16% ixEDEL — rebalancing flows route through ixEdelweiss)
+- Cross-pool routing hub (most pools use a **16% ixEDEL** slice; **ixHelvetia** and **ixLibertas** do not — see registry; rebalancing among ixEDEL-anchored pools still concentrates through here)
 - ixEDEL basket rebalancing (ixEDEL is a Reserve Protocol DTF; any constituent drift creates arbitrage with this pool)
 
 **Volume drivers:**
-- Cross-pool arbitrage (28 pools × ixEDEL rebalancing)
+- Cross-pool arbitrage across ixEDEL-anchored pools
 - ixEDEL basket composition changes
-- New LP entries/exits across the protocol (any LP adding to any Miliarium Aureum pool needs ixEDEL)
+- New LP entries/exits in pools that hold ixEDEL for routing
 - Stablecoin rotation via the three anchor stables
 
 **Risk profile:**

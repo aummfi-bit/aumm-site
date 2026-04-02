@@ -6,7 +6,7 @@
 
 ## Pool Registry
 
-*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) master table). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
+*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) Section I registry). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
 
 | Slot | Pool Name | Registry category | Sector | Yield Core A (26%) | Yield Core B (26%) | Routing Anchor (16%) | Theme Asset A (16%) | Theme Asset B (16%) | Template |
 |:-----|:----------|:------------------|:-------|:-------------------|:-------------------|:---------------------|:-------------------|:-------------------|:---------|
@@ -33,8 +33,8 @@
 | 21 | [ixNubix](21_ixNubix.md) | Stocks | Mega-cap tech | svZCHF | sUSDS | ixEDEL | GOOGLon | AMZNon | Standard |
 | 22 | [ixMoneta](22_ixMoneta.md) | Stocks | Banking / Financials | svZCHF | GHO | ixEDEL | JPMon | GSon | Standard |
 | 23 | [ixColossix](23_ixColossix.md) | Stocks | Financials | svZCHF | sUSDS | ixEDEL | BLKon | BACon | Standard |
-| 24 | [ixVitalix](24_ixVitalix.md) | Stocks | Pharma / Healthcare | svZCHF | sUSDS | ixEDEL | LLYon | NVOon | Standard |
-| 25 | [ixMedicix](25_ixMedicix.md) | Stocks | Pharma / Healthcare | svZCHF | sUSDS | ixEDEL | JNJon | ABBVon | Standard |
+| 24 | [ixVitalix](24_ixVitalix.md) | Stocks | Healthcare | svZCHF | sUSDS | ixEDEL | LLYon | NVOon | Standard |
+| 25 | [ixMedicix](25_ixMedicix.md) | Stocks | Healthcare | svZCHF | sUSDS | ixEDEL | JNJon | ABBVon | Standard |
 | 26 | [ixMercatura](26_ixMercatura.md) | Stocks | Fintech / Brokers | svZCHF | sUSDS | ixEDEL | COIN | HOOD | Standard |
 | 27 | [ixAurix](27_ixAurix.md) | Metals | Gold / Commodities | svZCHF | sfrxUSD | ixEDEL | PAXG | XAUt | Standard |
 | 28 | [ixMetallum](28_ixMetallum.md) | Metals | Silver & uranium (ETFs) | svZCHF | waEthUSDT | ixEDEL | SLVon | URAon | Standard |
@@ -51,7 +51,7 @@
 
 **Total: 28 pools.** **Registry category** is the five-way split above. **Sector** is the finer label used in profile files.
 
-Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../Miliarium_Aureum.md) master table).
+Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../Miliarium_Aureum.md) Section I).
 
 ## Status Tracking
 

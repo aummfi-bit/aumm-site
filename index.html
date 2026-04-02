@@ -133,6 +133,7 @@
   .content td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
   .content tr:hover td { background: var(--table-hover); }
   .content pre { background: var(--code-bg); border: 1px solid var(--border); padding: 14px; margin: 14px 0; overflow-x: auto; font-size: 14px; }
+  .profile-back { margin-bottom: 16px; }
   .content code { color: var(--text-strong); font-family: 'VT323', monospace; }
   [data-theme="day"] .content code, [data-theme="night"] .content code { font-family: monospace; font-size: 13px; }
   .section { margin-bottom: 32px; }
@@ -166,7 +167,14 @@
         <button class="tab-btn active" data-tab="model">Mental Model</button>
         <button class="tab-btn" data-tab="foundations">Theoretical Foundations</button>
         <button class="tab-btn" data-tab="tokenomics">Tokenomics</button>
-        <button class="tab-btn" data-tab="miliarium">Miliarium Aureum</button>
+        <div class="rules-wrap" id="miliarium-wrap">
+          <button class="rules-btn" id="miliarium-btn">Miliarium &#9662;</button>
+          <div class="rules-menu" id="miliarium-menu">
+            <a data-tab="miliarium">Registry</a>
+            <a data-tab="miliarium-manifest">Manifest</a>
+            <a data-tab="miliarium-sectors">Sectors</a>
+          </div>
+        </div>
         <div class="rules-wrap">
           <button class="rules-btn" id="rules-btn">Rules &#9662;</button>
           <div class="rules-menu" id="rules-menu">
@@ -193,7 +201,10 @@
     <button data-tab="model">Mental Model</button>
     <button data-tab="foundations">Theoretical Foundations</button>
     <button data-tab="tokenomics">Tokenomics</button>
-    <button data-tab="miliarium">Miliarium Aureum</button>
+    <div class="rules-group-label">Miliarium</div>
+    <button class="rules-sub" data-tab="miliarium">Registry</button>
+    <button class="rules-sub" data-tab="miliarium-manifest">Manifest</button>
+    <button class="rules-sub" data-tab="miliarium-sectors">Sectors</button>
     <div class="rules-group-label">Rules</div>
     <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
     <button class="rules-sub" data-tab="transitions">Transitions</button>
@@ -260,7 +271,26 @@
   <div class="tab-content" id="tab-miliarium">
     <div class="content">
       <div id="miliarium-body"></div>
-      <div class="footer">AUREUM — Miliarium Aureum</div>
+      <div class="footer">AUREUM — Miliarium Aureum (registry)</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-miliarium-manifest">
+    <div class="content">
+      <div id="manifest-body"></div>
+      <div class="footer">AUREUM — Pool manifest</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-miliarium-sectors">
+    <div class="content">
+      <div id="sectors-body"></div>
+      <div class="footer">AUREUM — Sector taxonomy</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-miliarium-profile">
+    <div class="content">
+      <p class="profile-back"><button type="button" class="tab-btn" id="profile-back-btn" data-tab="miliarium-manifest">&#8592; Back to manifest</button></p>
+      <div id="profile-body"></div>
+      <div class="footer">AUREUM — Pool profile</div>
     </div>
   </div>
   <div class="tab-content" id="tab-appendices">
@@ -287,10 +317,14 @@ var menus = {
   foundations: [],
   tokenomics: [],
   miliarium: [],
+  'miliarium-manifest': [],
+  'miliarium-sectors': [],
+  'miliarium-profile': [],
   appendices: [],
   intro: []
 };
 var rulesTabs = ['bootstrap', 'transitions', 'constitution'];
+var miliariumTabs = ['miliarium', 'miliarium-manifest', 'miliarium-sectors', 'miliarium-profile'];
 var currentTab = 'model';
 
 var introLines = [];
@@ -441,15 +475,21 @@ document.querySelectorAll('.theme-btn').forEach(function(btn) {
 // TABS
 var rulesBtn = document.getElementById('rules-btn');
 var rulesMenu = document.getElementById('rules-menu');
+var miliariumBtn = document.getElementById('miliarium-btn');
+var miliariumMenu = document.getElementById('miliarium-menu');
 
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
   document.querySelectorAll('.rules-menu a').forEach(function(a) { a.classList.remove('active'); });
   rulesBtn.classList.remove('has-active');
+  if (miliariumBtn) miliariumBtn.classList.remove('has-active');
   if (rulesTabs.indexOf(tab) >= 0) {
     rulesBtn.classList.add('has-active');
-    document.querySelectorAll('.rules-menu a').forEach(function(a) { if (a.getAttribute('data-tab') === tab) a.classList.add('active'); });
+    document.querySelectorAll('#rules-menu a').forEach(function(a) { if (a.getAttribute('data-tab') === tab) a.classList.add('active'); });
+  } else if (miliariumTabs.indexOf(tab) >= 0) {
+    if (miliariumBtn) miliariumBtn.classList.add('has-active');
+    document.querySelectorAll('#miliarium-menu a').forEach(function(a) { if (a.getAttribute('data-tab') === tab) a.classList.add('active'); });
   } else {
     document.querySelectorAll('.tab-btn').forEach(function(b) { if (b.getAttribute('data-tab') === tab) b.classList.add('active'); });
   }
@@ -479,15 +519,24 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
 });
 
 // Rules dropdown
-rulesBtn.addEventListener('click', function(e) { e.stopPropagation(); rulesMenu.classList.toggle('open'); });
+rulesBtn.addEventListener('click', function(e) { e.stopPropagation(); rulesMenu.classList.toggle('open'); if (miliariumMenu) miliariumMenu.classList.remove('open'); });
 rulesMenu.addEventListener('click', function(e) {
   var a = e.target.closest('a[data-tab]');
   if (a) { rulesMenu.classList.remove('open'); switchTab(a.getAttribute('data-tab')); }
 });
 
+// Miliarium dropdown
+if (miliariumBtn && miliariumMenu) {
+  miliariumBtn.addEventListener('click', function(e) { e.stopPropagation(); miliariumMenu.classList.toggle('open'); rulesMenu.classList.remove('open'); });
+  miliariumMenu.addEventListener('click', function(e) {
+    var a = e.target.closest('a[data-tab]');
+    if (a) { miliariumMenu.classList.remove('open'); switchTab(a.getAttribute('data-tab')); }
+  });
+}
+
 updateMenu();
 menuBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
-document.addEventListener('click', function() { dropdown.classList.remove('open'); rulesMenu.classList.remove('open'); mobileMenu.classList.remove('open'); });
+document.addEventListener('click', function() { dropdown.classList.remove('open'); rulesMenu.classList.remove('open'); if (miliariumMenu) miliariumMenu.classList.remove('open'); mobileMenu.classList.remove('open'); });
 dropdown.addEventListener('click', function(e) { if (e.target.tagName === 'A') dropdown.classList.remove('open'); });
 
 // MOBILE MENU
@@ -506,25 +555,56 @@ mobileMenu.addEventListener('click', function(e) {
   }
 });
 
+// Rewrite relative pool profile links so they resolve under miliarium_profiles/
+function rewriteMiliariumProfileLinks(root) {
+  if (!root) return;
+  root.querySelectorAll('a[href]').forEach(function(a) {
+    var h = a.getAttribute('href');
+    if (!h || /^(https?:|#|mailto:)/i.test(h)) return;
+    if (h.indexOf('miliarium_profiles/') === 0) return;
+    if (/^\d{2}_ix[^/\\]+\.md$/i.test(h) || /^bond_\d+_ix[^/\\]+\.md$/i.test(h)) {
+      a.setAttribute('href', 'miliarium_profiles/' + h);
+    }
+  });
+}
+
 // Helper: load markdown into element and build section menu
 function loadMd(file, elId, menuKey) {
   fetch(file)
     .then(function(r) { return r.text(); })
     .then(function(text) {
       var el = document.getElementById(elId);
-      if (el) el.innerHTML = marked.parse(text);
+      if (el) {
+        el.innerHTML = marked.parse(text);
+        rewriteMiliariumProfileLinks(el);
+      }
       if (menuKey) {
         var headers = el ? el.querySelectorAll('h2') : [];
         var items = [];
         headers.forEach(function(h) {
           var id = h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
           h.id = id;
-          var section = h.closest('.section') || h.parentElement;
           items.push({ id: id, title: h.textContent });
         });
         menus[menuKey] = items;
         if (currentTab === menuKey) updateMenu();
       }
+    });
+}
+
+function loadProfileMd(path) {
+  fetch(path)
+    .then(function(r) { if (!r.ok) throw new Error(path); return r.text(); })
+    .then(function(text) {
+      var el = document.getElementById('profile-body');
+      if (el) {
+        el.innerHTML = marked.parse(text);
+        rewriteMiliariumProfileLinks(el);
+      }
+      switchTab('miliarium-profile');
+    })
+    .catch(function() {
+      alert('Could not load ' + path);
     });
 }
 
@@ -541,6 +621,8 @@ loadMd('theoretical_foundation.md', 'foundations-body', 'foundations');
 loadMd('aureum_mental_model.md', 'mental-model-body', 'model');
 loadMd('tokenomics.md', 'tokenomics-body', 'tokenomics');
 loadMd('Miliarium_Aureum.md', 'miliarium-body', 'miliarium');
+loadMd('miliarium_profiles/manifest.md', 'manifest-body', 'miliarium-manifest');
+loadMd('miliarium_profiles/sectors.md', 'sectors-body', 'miliarium-sectors');
 loadMd('aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('appendices.md', 'appendices-body', 'appendices');
 
@@ -551,6 +633,38 @@ fetch('intro.md')
     introLines = JSON.parse(text);
     setTimeout(function() { typeIntro(0); }, 800);
   });
+
+// In-app navigation: .md links render with marked but default click loads raw file — intercept
+mainDoc.addEventListener('click', function(e) {
+  var a = e.target.closest('a[href]');
+  if (!a || !mainDoc.contains(a)) return;
+  var href = a.getAttribute('href');
+  if (!href || href.charAt(0) === '#') return;
+  if (/^https?:\/\//i.test(href)) return;
+  var norm = href.split('#')[0];
+  if (norm === 'miliarium_profiles/manifest.md' || /(^|[\\/])manifest\.md$/i.test(norm)) {
+    e.preventDefault();
+    switchTab('miliarium-manifest');
+    return;
+  }
+  if (norm === 'miliarium_profiles/sectors.md' || /(^|[\\/])sectors\.md$/i.test(norm)) {
+    e.preventDefault();
+    switchTab('miliarium-sectors');
+    return;
+  }
+  if (/Miliarium_Aureum\.md$/i.test(norm) || norm.indexOf('Miliarium_Aureum.md') >= 0) {
+    e.preventDefault();
+    switchTab('miliarium');
+    return;
+  }
+  if (norm.indexOf('miliarium_profiles/') === 0 && /\.md$/i.test(norm)) {
+    e.preventDefault();
+    loadProfileMd(norm);
+  }
+});
+
+var profileBackBtn = document.getElementById('profile-back-btn');
+if (profileBackBtn) profileBackBtn.addEventListener('click', function(e) { e.preventDefault(); switchTab(profileBackBtn.getAttribute('data-tab')); });
 </script>
 </body>
 </html>

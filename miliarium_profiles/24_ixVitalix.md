@@ -1,6 +1,6 @@
 # ixVitalix — Slot 24
 
-**Sector:** Pharma / Healthcare
+**Sector:** Healthcare
 **Template:** Standard (52% / 16% / 32%)
 
 ---
