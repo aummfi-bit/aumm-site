@@ -1,4 +1,4 @@
-# Aureum Protocol — Mental Model
+# Aureum Protocol
 
 **Imagine mining BTC with capital, not electricity.**  
 **Your liquidity generates real fees that buy back and burn the scarce token.**  
