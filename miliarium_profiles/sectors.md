@@ -120,7 +120,7 @@ This diversity is the structural defence against protocol-wide volume collapse. 
 ## xx. Cross-References
 
 - Pool compositions and weights → [Miliarium Aureum](../Miliarium_Aureum.md)
-- PMAR emission multipliers → [PMAR Specification](../PMAR.md)
+- MAMAR emission multipliers → [MAMAR Specification](../MAMAR.md)
 - Performance discipline → [Constitution: Anti-Gaming Criteria](../constitution.md)
 - Bootstrapping mechanics → [Bootstrap Rules](../bootstrap.md)
 - Individual pool profiles → [Manifest](manifest.md)

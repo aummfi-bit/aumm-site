@@ -23,7 +23,7 @@ Incendiary Boost remains a proof-of-conviction mechanism:
 ## xxiii. Eligibility and Competition
 
 - Pools compete under immutable eligibility criteria and efficiency ranking.
-- PMAR applies automatically as defined in `PMAR.md`.
+- MAMAR applies automatically as defined in `MAMAR.md`.
 - No Bubble voting and no voting over emission allocation.
 
 ## xxiv. Governance Gating (Non-Emission)

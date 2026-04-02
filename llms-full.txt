@@ -8,9 +8,10 @@ https://aumm.fi/miliarium_profiles/sectors.md
 https://aumm.fi/bootstrap.md
 https://aumm.fi/transitions.md
 https://aumm.fi/constitution.md
+https://aumm.fi/formulas.md
 https://aumm.fi/aureum_glossary.md
 https://aumm.fi/appendices.md
-https://aumm.fi/PMAR.md
+https://aumm.fi/MAMAR.md
 https://aumm.fi/aureum_schedule.md
 https://aumm.fi/project_aureum_design_final.md
 https://aumm.fi/README.md

@@ -40,9 +40,9 @@
 | Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF (per constitution) |
 | Volume percentile floor | Per protocol schedule |
 | Efficiency tournament | Per protocol schedule |
-| PMAR multiplier | [0.75–1.25], initialised at 1.0 |
+| MAMAR multiplier | [0.75–1.25], initialised at 1.0 |
 | Composition challenge | If tokens lack volume or cease to exist, composition renewable via Miliarium Aureum Composition Challenge (base cost 100,000 svZCHF/1 BTC/100,000 sUSDS equiv × dynamic factors; requires 2/3 protocol-wide tessera-weighted vote; replacement must preserve same asset type or similar economic properties) |
 
 ## Cross-References
 
-- [Manifest](manifest.md) | [Sectors](sectors.md) | [PMAR](../PMAR.md) | [Miliarium Aureum registry](../Miliarium_Aureum.md)
+- [Manifest](manifest.md) | [Sectors](sectors.md) | [MAMAR](../MAMAR.md) | [Miliarium Aureum registry](../Miliarium_Aureum.md)

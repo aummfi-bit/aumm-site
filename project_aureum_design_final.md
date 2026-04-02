@@ -12,7 +12,7 @@ This document has been reorganised into dedicated sections accessible via the si
 |-----|---------|
 | **Overview** | Dashboard, Founding Team, Treasury, Risk Factors |
 | **Rules > Bootstrap** | Pool bootstrapping under immutable automatic rules |
-| **Rules > Transitions** | Equal through Month 10 → Months 11–12 linear α blend → post–Year-1 pure CCB + PMAR |
+| **Rules > Transitions** | Equal through Month 10 → Months 11–12 linear α blend → post–Year-1 pure CCB + MAMAR |
 | **Rules > Constitution** | Immutable parameters and pure Real DeFi constraints |
 | **Mental Model** | Five-section conceptual overview |
 | **Theoretical Foundations** | CCB formula, score mechanics, two-step distribution |
@@ -21,4 +21,4 @@ This document has been reorganised into dedicated sections accessible via the si
 | **Glossary** | Term definitions |
 | **Appendices** | AMM Architecture, Fair Launch Analysis, Yield Basis, Competitive Position |
 
-See also: [PMAR Specification](PMAR.md) for the full Miliarium Aureum Multiplier Adjustment Rule.
+See also: [MAMAR Specification](MAMAR.md) for the full Miliarium Aureum Multiplier Adjustment Rule.

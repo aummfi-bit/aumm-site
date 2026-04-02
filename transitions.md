@@ -24,7 +24,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 
 ### First block after Year 1 (full CCB)
 
-- Allocation is **pure** CCB: each pool scored by smoothed TVL, PMAR multiplier, and Incendiary multiplier, normalized across eligible pools. See `constitution.md` and `formulas.md`.
+- Allocation is **pure** CCB: each pool scored by smoothed TVL, MAMAR multiplier, and Incendiary multiplier, normalized across eligible pools. See `constitution.md` and `formulas.md`.
 - Allocation remains automatic: no voting, no Bubble multipliers, no discretionary transition council.
 - Governance continues for non-emission proposals (gauges, treasury, fees) under immutable constraints.
 

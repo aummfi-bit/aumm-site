@@ -5,7 +5,7 @@ The 28 pools are pre-defined at launch and locked from block 0. No open slots.
 ### Scope
 
 - There are **28** immutable Miliarium Aureum pools (the founding constellation).
-- Through **end of Month 10**, emissions are **equal** (1/28 each). **Months 11–12** blend **linearly** from equal to CCB (see `constitution.md`). **After Year 1**, allocation is **pure CCB** (EMA TVL × PMAR × Incendiary).
+- Through **end of Month 10**, emissions are **equal** (1/28 each). **Months 11–12** blend **linearly** from equal to CCB (see `constitution.md`). **After Year 1**, allocation is **pure CCB** (EMA TVL × MAMAR × Incendiary).
 
 ### AuMM vs the 28 pools
 
@@ -146,11 +146,11 @@ With shared **svZCHF** and **ixEDEL** across most pools, arbitrage layers includ
 
 ### Miliarium Aureum benefits
 
-**1. PMAR emission multiplier.** Miliarium Aureum pools are the only pools eligible for the automatic PMAR multiplier [0.75–1.25] (see **PMAR Specification**).
+**1. MAMAR emission multiplier.** Miliarium Aureum pools are the only pools eligible for the automatic MAMAR multiplier [0.75–1.25] (see **MAMAR Specification**).
 
 **2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Miliarium Aureum pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
 
-**Permanent slots.** The 28 Miliarium Aureum slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the PMAR emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge** to propose a new token composition that preserves the pool's function, sector theme, and template structure (see **Bootstrap Rules** and `constitution.md`).
+**Permanent slots.** The 28 Miliarium Aureum slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the MAMAR emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge** to propose a new token composition that preserves the pool's function, sector theme, and template structure (see **Bootstrap Rules** and `constitution.md`).
 
 ### Pool profiles
 

@@ -29,10 +29,10 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
 - AuMT pool token wrapper (Aureum Market Tessera)
-- CCB emission engine (60-day EMA calculator, PMAR multiplier computation with slope-based adjustments and dead zone)
+- CCB emission engine (60-day EMA calculator, MAMAR multiplier computation with slope-based adjustments and dead zone)
 - Incendiary Boost engine (AuMM escrow, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
 - Bubble multiplier voting (90-day window, tessera-weighted averaging, expiry logic)
-- PMAR engine (slope calculation, dead zone, +/-0.05 adjustments, [0.75–1.25] clamping)
+- MAMAR engine (slope calculation, dead zone, +/-0.05 adjustments, [0.75–1.25] clamping)
 - Sandbox fast-track (top 10% efficiency detection, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 2-epoch smoothing, gauge revocation logic)
@@ -44,7 +44,7 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Fee splitter (swap fees: 50/25/25 + yield fees: 25/75)
 - Governance voting (AuMT for protocol governance and Bubble voting — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, PMAR multiplier logic, Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, MAMAR multiplier logic, Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 
