@@ -583,9 +583,12 @@ function rewriteMiliariumProfileLinks(root) {
   });
 }
 
+// Avoid stale markdown when the tab uses fetch (browser / CDN cache)
+var fetchMdOpts = { cache: 'no-store' };
+
 // Helper: load markdown into element and build section menu
 function loadMd(file, elId, menuKey) {
-  fetch(file)
+  fetch(file, fetchMdOpts)
     .then(function(r) { return r.text(); })
     .then(function(text) {
       var el = document.getElementById(elId);
@@ -608,7 +611,7 @@ function loadMd(file, elId, menuKey) {
 }
 
 function loadProfileMd(path) {
-  fetch(path)
+  fetch(path, fetchMdOpts)
     .then(function(r) { if (!r.ok) throw new Error(path); return r.text(); })
     .then(function(text) {
       var el = document.getElementById('profile-body');
@@ -642,7 +645,7 @@ loadMd('aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('appendices.md', 'appendices-body', 'appendices');
 
 // Load intro lines from intro.md and start animation
-fetch('intro.md')
+fetch('intro.md', fetchMdOpts)
   .then(function(r) { return r.text(); })
   .then(function(text) {
     introLines = JSON.parse(text);
