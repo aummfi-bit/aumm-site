@@ -58,4 +58,59 @@ Curve's Yield Basis protocol (March 2026) independently validated the same core 
 
 ---
 
+## Appendix III — Competitive Position
+
+### LP Advantage Over Uniswap
+
+| Feature | Uniswap V3 Pair | Aureum Pool |
+|---------|----------------|-------------|
+| Trading pairs per position | 1 | 10+ (per multi-token pool) |
+| Yield on idle capital | 0% | 2.0–2.8% (ERC-4626 native) |
+| IL profile | Full directional exposure to one pair | Dampened — correlated assets diversify directional risk |
+| Fee tier | 0.05–0.3% | 0.01–0.05% (attracts routing) |
+| Active management required | Yes (range adjustments) | No (weighted pools are set-and-forget) |
+| Yield sources | Swap fees only | Swap fees + vault yield + cross-pool arb fees + AuMM mining |
+
+### Protocol Comparison
+
+| Feature | Balancer V3 | Uniswap V4 | Curve | Aerodrome | **Aureum** |
+|---------|-------------|-----------|-------|-----------|-----------|
+| Multi-asset pools | Yes | No | No | No | Yes |
+| ERC-4626 native | Yes | No | No | No | Yes |
+| Hooks | Yes | Yes | No | No | Yes |
+| Formal verification | Yes | No | No | No | Yes (inherited) |
+| Fair launch | No | No | No | No | Yes |
+| BTC tokenomics | No | No | No | No | Yes |
+| No team allocation | No | No | No | No | Yes |
+| Anti-gaming criteria | No | N/A | No | No | Yes |
+| LP = miner | No | No | No | Partial | Yes |
+| LP = governor | No | No | No | No | Yes |
+| Emissions to governance staking | Yes (80/20) | N/A | Yes (veCRV) | No | No (banned) |
+| Unqualified votes to burn | No | N/A | No | No | Yes |
+| Constellation routing network | No | No | No | No | Yes (ixEDEL hub by network effect) |
+| Buyback-and-burn from day 1 | No | No | No | No | Yes |
+
+### The Prop AMM Contrast
+
+The table above compares Aureum to other public AMMs. But the most instructive contrast is with proprietary AMMs — the "dark AMMs" that now dominate Solana routing, processing tens of billions in monthly volume with zero public TVL.
+
+Prop AMMs proved the thesis that winning aggregator routing is the entire game. A single team supplies all liquidity from proprietary capital, runs active market-making algorithms with off-chain pricing oracles, and captures volume purely by being the cheapest fill when an aggregator routes a trade. No frontend, no brand, no retail awareness needed. Just better execution.
+
+The model works. And it is architecturally the opposite of Aureum on every dimension:
+
+| Dimension | Proprietary AMM | Aureum |
+|-----------|----------------|--------|
+| Liquidity source | Team-supplied, closed | Public, permissionless LP |
+| Pricing logic | Private algorithms, off-chain oracles | On-chain weighted pool math, formally verified |
+| Transparency | Opaque — users cannot assess fairness or execution quality | Fully transparent — pool weights, fees, and rules are on-chain |
+| Governance | None — one team controls all parameters | AuMT-weighted — LPs govern protocol decisions |
+| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — declining treasury share (75%→50%→0% over months 0–10) for protocol-owned pool seeding, 100% to LPs after month 10 |
+| Failure mode | Single team goes down, 35%+ of chain volume disappears | Permissionless — no single point of failure, pools exist independently |
+| Chain dependency | Requires sub-second block times for active quoting — Solana-native | Passive LP model designed for Ethereum's 12-second blocks |
+| LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |
+
+Prop AMMs solved the routing problem through centralisation. Aureum solves the same problem through architecture — multi-asset pools with native yield, constellation routing, and aggregator-competitive fees — without concentrating control in a single team. The question is whether decentralised infrastructure can match the execution quality of a proprietary trading desk. The ERC-4626 yield floor, the multi-pair capital efficiency, and the cross-pool arbitrage engine are the mechanisms that make it possible.
+
+---
+
 *This document is confidential and intended for founding team discussion only. Do not distribute.*
