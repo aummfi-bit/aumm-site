@@ -46,17 +46,32 @@ All proposals must reference verifiable on-chain state only. A valid proposal mu
 
 ## II. Emission Operating Rules
 
-### Year 1 Equal Distribution
+Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block ranges from genesis; **Year 1** is Months 1–12 inclusive.
 
-- Months 0-12: 100% of block emissions are distributed equally across the 28 immutable Miliarium Aureum pools (1/28 each).
+### Equal regime (through end of Month 10)
 
-### Post-Year-1 Automatic Distribution
+- From **genesis through the final block of Month 10**, 100% of block emissions to the Miliarium Aureum tranche are split **equally** across the **28** immutable pools (**1/28** each).
 
-- Starting at Month 13 Day 1 (after the final block of Year 1), emissions are allocated purely by on-chain formula:
+### Transition regime (Months 11–12)
+
+- **Months 11 and 12** are a **two-month linear transition** from pure equal allocation to pure CCB allocation.
+- Let **equal_share_i = 1/28** for each immutable pool, and **CCB_share_i** be the normalized share from the CCB score (below) for that block.
+- Let **α** increase **linearly** from **0** at the **first block of Month 11** to **1** at the **last block of Year 1** (final block of Month 12). At every block in the transition:
+
+```
+share_i(block) = (1 - α(block)) * equal_share_i + α(block) * CCB_share_i(block)
+```
+
+- At the **temporal midpoint** of the transition window (halfway between the start of Month 11 and the end of Year 1), **α = 0.5** — emissions are **halfway** between the equal method and the full CCB method for that block.
+- **CCB_share** uses the same score definition as post–Year-1 (PMAR and Incendiary terms apply inside the CCB leg).
+
+### Full CCB (from Year 1 end onward)
+
+- From the **first block after Year 1** (and equivalently **α = 1** at the last block of Year 1), emissions follow **only** the CCB formula:
 
 ```
 Score(pool_i) = TVL_EMA60(pool_i) * PMAR_mult(pool_i) * Incendiary_mult(pool_i)
-share(pool_i) = Score(pool_i) / sum(all pool scores)
+CCB_share_i = Score(pool_i) / sum(all eligible pool scores)
 ```
 
 There is no voting layer, no Bubble multiplier, and no human override.

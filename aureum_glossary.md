@@ -15,8 +15,9 @@
 ## Launch Structure
 
 - **Miliarium Aureum**: 28 immutable founding pools, locked at launch.
-- **Year 1 Equal Regime**: emissions split equally across the 28 pools.
-- **Post-Year-1 Automatic Regime**: CCB + PMAR allocation with no voting.
+- **Equal regime (through Month 10)**: emissions split equally across the 28 pools (1/28).
+- **Transition (Months 11–12)**: linear blend from equal to CCB (α from 0 to 1; halfway at α = 0.5).
+- **Post–Year-1 automatic regime**: pure CCB (TVL EMA × PMAR × Incendiary); no voting.
 
 ## Controls
 

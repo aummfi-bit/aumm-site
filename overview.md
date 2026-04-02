@@ -22,8 +22,9 @@
 
 ## Emission Regime
 
-- Year 1: equal split across 28 Miliarium Aureum pools.
-- After Year 1: pure CCB EMA(60) + PMAR automatic weighting.
+- **Through end of Month 10:** equal **1/28** split across the 28 Miliarium Aureum pools.
+- **Months 11–12:** linear transition from equal to CCB (**α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB).
+- **After Year 1:** pure CCB — **TVL EMA(60) × PMAR × Incendiary** scores, normalized across eligible pools (see `constitution.md`).
 - No governance voting controls emission allocation.
 
 ## Governance (Non-Emission)

@@ -14,8 +14,9 @@ The Continuous Central Bank allocates emissions with no voting input.
 
 ### Activation Sequence
 
-- Months 0-12: equal emissions across the 28 Miliarium Aureum pools.
-- Month 13 Day 1 onward: full CCB + PMAR allocation.
+- **Through end of Month 10:** equal **1/28** emissions to each of the 28 immutable Miliarium Aureum pools.
+- **Months 11–12:** linear blend: **(1 − α) × (1/28) + α × CCB_share**, **α** from 0 to 1 over the two months; midpoint **α = 0.5**.
+- **After Year 1:** full CCB allocation using **TVL EMA(60) × PMAR_mult × Incendiary_mult** (see formula below and `constitution.md`).
 
 ### Core Formula
 

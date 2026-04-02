@@ -10,12 +10,13 @@ An immutable fair-launch AMM where emissions follow fixed Bitcoin-style issuance
 2. 21M max supply, per-block halving schedule.
 3. No multisig, no admin keys, no upgradeability, no pause.
 4. No emission voting; governance exists only for non-emission actions.
-5. Automatic CCB + PMAR logic after Year 1.
+5. Automatic CCB allocation after the transition (EMA TVL, PMAR, and Incendiary terms per `constitution.md`).
 
 ## Emission Regimes
 
-- **Months 0-12:** equal emissions to the 28 Miliarium Aureum pools.
-- **Month 13 Day 1 onward:** pure EMA(60) TVL + PMAR automatic competition.
+- **Through end of Month 10:** emissions to the 28 immutable Miliarium Aureum pools are **purely equal** (**1/28** each). Other pools may exist but do not receive this equal tranche.
+- **Months 11–12 (two-month transition):** blend **linearly** from equal to CCB: **share = (1 − α) × (1/28) + α × CCB_share**, with **α** from **0 → 1** over the window. At the **midpoint**, **α = 0.5** — **half** equal, **half** CCB.
+- **After Year 1:** **α = 1** — emissions follow **only** the CCB formula (no vote): **TVL EMA(60) × PMAR × Incendiary**, normalized across **eligible** pools. See **`constitution.md`** and **`theoretical_foundation.md`**.
 
 ## Why It Matters
 

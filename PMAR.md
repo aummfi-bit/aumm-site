@@ -10,8 +10,9 @@ PMAR is a deterministic, oracle-free multiplier engine over the 28 immutable Mil
 
 ## Activation Window
 
-- Before end of Year 1: equal distribution regime is active.
-- **After the last block of Year 1 (Month 13 Day 1):** PMAR is fully active inside CCB allocation.
+- **Through end of Month 10:** equal **1/28** distribution; the CCB leg is not yet used for emissions (PMAR does not affect the equal tranche).
+- **Months 11–12:** PMAR applies **inside the CCB leg** of the blended share `(1 − α) × (1/28) + α × CCB_share` (see `constitution.md`).
+- **After Year 1:** PMAR is fully active **inside** pure CCB allocation (`TVL_EMA60 * PMAR_mult * Incendiary_mult`; see `constitution.md`).
 
 ## Fixed Rules
 

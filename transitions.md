@@ -1,6 +1,6 @@
 # Transition Rules
 
-*Launch timeline from equal emissions to fully automatic CCB.*
+*Timeline from equal emissions through a linear blend to fully automatic CCB.*
 
 ---
 
@@ -9,19 +9,26 @@
 - Pool creation is permissionless from block 0.
 - All launch mechanics are immutable from block 0.
 
-### Months 0-12 (Year 1)
+Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Year 1** is Months 1–12.
 
-- Emissions are split equally across the 28 Miliarium Aureum pools.
+### Through end of Month 10 (equal regime)
+
+- Emissions to the Miliarium Aureum tranche are split equally (**1/28**) across the 28 immutable pools.
 - Non-Miliarium pools can exist and build liquidity but do not receive this equal tranche.
 
-### Month 13 Day 1
+### Months 11–12 (two-month linear transition)
 
-- Equal split ends after the final block of Year 1.
-- Full CCB + PMAR allocation activates.
-- Allocation is automatic: no voting, no Bubble multipliers, no discretionary transition council.
+- **α** runs **linearly** from **0** at the **first block of Month 11** to **1** at the **last block of Year 1**.
+- Each pool’s emission share is **(1 − α) × (1/28) + α × CCB_share** for that block (see `constitution.md`).
+- **Halfway** through this window, **α = 0.5** — the mix is **half** equal and **half** CCB.
+
+### First block after Year 1 (full CCB)
+
+- **α = 1**; allocation is **pure** CCB: **TVL EMA(60) × PMAR × Incendiary** scores, normalized across eligible pools (`constitution.md`).
+- Allocation remains automatic: no voting, no Bubble multipliers, no discretionary transition council.
 - Governance continues for non-emission proposals (gauges, treasury, fees) under immutable constraints.
 
-### Post-Activation
+### Post-activation
 
 - Efficiency tournament and eligibility criteria apply automatically.
 - Protocol continues under immutable, on-chain rules only.

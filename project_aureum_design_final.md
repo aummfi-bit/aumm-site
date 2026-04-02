@@ -12,7 +12,7 @@ This document has been reorganised into dedicated sections accessible via the si
 |-----|---------|
 | **Overview** | Dashboard, Founding Team, Treasury, Risk Factors |
 | **Rules > Bootstrap** | Pool bootstrapping under immutable automatic rules |
-| **Rules > Transitions** | Year-1 equal regime to post-Year-1 CCB + PMAR activation |
+| **Rules > Transitions** | Equal through Month 10 → Months 11–12 linear α blend → post–Year-1 pure CCB + PMAR |
 | **Rules > Constitution** | Immutable parameters and pure Real DeFi constraints |
 | **Mental Model** | Five-section conceptual overview |
 | **Theoretical Foundations** | CCB formula, score mechanics, two-step distribution |
