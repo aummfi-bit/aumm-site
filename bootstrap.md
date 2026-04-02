@@ -97,3 +97,32 @@ Every governance action creates deflationary pressure on AuMM. The deposit filte
 Any AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. Challenges require burning **1,000 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM**. A challenge triggers a governance vote: if the challenge succeeds (majority votes to revoke), the gauge is removed and the pool loses emission eligibility. If the challenge fails, the AuMM is still burned — the challenger accepted that risk.
 
 This creates a community enforcement layer on top of the immutable anti-gaming criteria. The contract catches pools that fail the volume percentile floor or the efficiency caps automatically. Gauge challenges catch pools that technically pass the criteria but are extractive in ways the contract can't detect — coordinated wash trading, circular routing schemes, or pools that exist solely to farm emissions for a single actor.
+
+### Pioneer Composition Challenge
+
+Pioneer pools may also be challenged for token-composition renewal using the same 1,000 svZCHF-equivalent AuMM burn. This allows the protocol to adapt to changing market conditions while keeping the 25 Pioneer slots permanently allocated to the Miliarium Aureum routing core.
+
+**Composition constraints.** The proposed new composition must preserve the pool's function and sector theme. A composition challenge swaps like-for-like: a tokenised equity for another tokenised equity, an ERC-4626 vault that ceased to exist for another qualifying vault. The pool's template structure (52%/16%/32% or its non-standard equivalent), sector classification, and role within the routing constellation must remain intact. The new composition must pass the ERC-4626 Quality Gate (≥52%) and all other eligibility criteria.
+
+**Dynamic cost formula.** The base deposit for a Pioneer Composition Challenge is **100,000 svZCHF, 1 BTC, or 100,000 sUSDS equivalent (whichever is greatest) worth of AuMM**, scaled by two factors:
+
+```
+Pioneer_Challenge_Cost = Base × (1 + TVL_share_i) × (1 - Rank_percentile_i)
+```
+
+Where:
+- `Base` = 100,000 svZCHF, 1 BTC, or 100,000 sUSDS equivalent — whichever is greatest at the time of submission
+- `TVL_share_i` = pool's TVL as a percentage of total Pioneer constellation TVL (e.g. 0.08 if the pool holds 8% of Pioneer TVL)
+- `Rank_percentile_i` = pool's efficiency rank percentile within the protocol (0 = worst performer, 1 = best performer)
+
+| Pool State | TVL Share | Efficiency Rank | Cost Multiplier | Effective Cost |
+|:-----------|:----------|:----------------|:----------------|:---------------|
+| Dead pool (token delisted) | ~0% | 0th percentile | 1.00 × 1.00 = 1.00 | ~100,000 svZCHF equiv |
+| Underperforming pool | 2% | 15th percentile | 1.02 × 0.85 = 0.87 | ~87,000 svZCHF equiv |
+| Average pool | 4% | 50th percentile | 1.04 × 0.50 = 0.52 | ~52,000 svZCHF equiv |
+| High-performing pool | 8% | 90th percentile | 1.08 × 0.10 = 0.11 | ~11,000 svZCHF equiv |
+| Top performer | 12% | 99th percentile | 1.12 × 0.01 = 0.01 | ~1,000 svZCHF equiv |
+
+The formula makes dead pools (where tokens have genuinely ceased to exist) cost the full base rate, while well-performing pools are nearly free to challenge — but governance would reject frivolous challenges anyway. Three independent currency-denominated floors (svZCHF, BTC, sUSDS) prevent any single devaluation event from cheapening the challenge cost.
+
+The AuMM is burned on submission, non-refundable. A governance vote (simple majority of qualified AuMT holders) decides whether the new composition is approved. If approved, the pool's tokens are migrated to the new composition. If rejected, the AuMM is still burned.

@@ -56,6 +56,7 @@ Not all governance decisions carry equal weight. Major changes require minimum p
 | Bubble multiplier voting | No quorum (6-week cycle) | None | Tessera-weighted average of votes cast per new pool (first 90 days) |
 | Gauge approval | No quorum | 100 svZCHF/sUSDS equivalent | Simple majority of votes cast |
 | Gauge challenge | No quorum | 1,000 svZCHF/sUSDS equivalent | Simple majority to revoke; gauge removed if passed |
+| Pioneer composition challenge | No quorum | 100,000 svZCHF/1 BTC/100,000 sUSDS equiv (greatest) × TVL & efficiency factors | Simple majority; new composition must preserve pool function and sector theme |
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail if quorum not met |
 | Treasury spends >10% of balance | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail → 14-day timelock + public review |
 | Fee distribution split changes (after Year 4) | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail → 14-day timelock + public review |
@@ -72,6 +73,7 @@ Uncontested proposals with very low turnout do not pass silently. They either au
 - *Note: Mercatūs Praecursorii multipliers are set automatically by the PMAR — not by governance vote*
 - Gauge approval (AuMT vote to grant a pool emission eligibility — requires 100 svZCHF/sUSDS equivalent in AuMM, burned). **Available from month 11 onward only.**
 - Gauge revocation (AuMT vote to remove a gauge via challenge — requires 1,000 svZCHF/sUSDS equivalent in AuMM, burned)
+- Pioneer composition challenge (AuMT vote to renew a Mercatūs Praecursorii's token composition — base cost 100,000 svZCHF/1 BTC/100,000 sUSDS equivalent, whichever greatest, × dynamic scaling factors, burned as AuMM)
 - Fee parameters (swap fee %, yield fee %)
 - Treasury allocation (within defined bounds)
 - Protocol upgrades (with timelock)
@@ -263,7 +265,7 @@ The following parameters are immutable in the smart contracts. No governance vot
 
 **Eligibility criteria.** ERC-4626 composition ≥52% with $5M/30 BTC/4M svZCHF vault TVL floor per token. Volume percentile floors. Efficiency-based emission caps. Grace period schedule. Gauge revocation after 4 consecutive failed cycles. None of this can be changed.
 
-**Mercatūs Praecursorii tags.** All 25 pre-defined at launch, locked from block 0. No open slots. PMAR-steered multiplier [0.75–1.25]. Non-transferable. Revoked on gauge loss. No replacements ever.
+**Mercatūs Praecursorii slots.** 25 permanent slots, locked from block 0. No additional slots can be created. PMAR-steered multiplier [0.75–1.25]. Non-transferable. Token compositions may be renewed via Pioneer Composition Challenge (preserving pool function and sector theme), but the slot count (25), sector assignments, and PMAR eligibility are immutable.
 
 **Continuous Central Bank (CCB).** Emission allocation driven by 60-day EMA of on-chain TVL. Each pool's emission share = `(TVL_EMA60 * M * Incendiary_mult) / sum(all pool scores)`. Pioneer multipliers set automatically by PMAR [0.75–1.25] — no governance vote. Bubble multiplier range [0.90–2.00] for first 90 days post-gauge-approval (governance-voted). All parameters immutable.
 

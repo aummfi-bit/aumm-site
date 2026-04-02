@@ -163,7 +163,10 @@
     <div class="nav-right">
       <div class="tab-bar">
         <button class="tab-btn" data-tab="intro">Intro</button>
-        <button class="tab-btn active" data-tab="overview">Overview</button>
+        <button class="tab-btn active" data-tab="model">Mental Model</button>
+        <button class="tab-btn" data-tab="foundations">Theoretical Foundations</button>
+        <button class="tab-btn" data-tab="tokenomics">Tokenomics</button>
+        <button class="tab-btn" data-tab="pioneer">Mercatūs Praecursorii</button>
         <div class="rules-wrap">
           <button class="rules-btn" id="rules-btn">Rules &#9662;</button>
           <div class="rules-menu" id="rules-menu">
@@ -172,10 +175,6 @@
             <a data-tab="constitution">Constitution</a>
           </div>
         </div>
-        <button class="tab-btn" data-tab="model">Mental Model</button>
-        <button class="tab-btn" data-tab="foundations">Theoretical Foundations</button>
-        <button class="tab-btn" data-tab="tokenomics">Tokenomics</button>
-        <button class="tab-btn" data-tab="pioneer">Mercatūs Praecursorii</button>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
         <button class="tab-btn" data-tab="appendices">Appendices</button>
       </div>
@@ -191,15 +190,14 @@
   <div class="dropdown" id="dropdown"></div>
   <div class="mobile-menu" id="mobile-menu">
     <button data-tab="intro">Intro</button>
-    <button data-tab="overview">Overview</button>
-    <div class="rules-group-label">Rules</div>
-    <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
-    <button class="rules-sub" data-tab="transitions">Transitions</button>
-    <button class="rules-sub" data-tab="constitution">Constitution</button>
     <button data-tab="model">Mental Model</button>
     <button data-tab="foundations">Theoretical Foundations</button>
     <button data-tab="tokenomics">Tokenomics</button>
     <button data-tab="pioneer">Mercatūs Praecursorii</button>
+    <div class="rules-group-label">Rules</div>
+    <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
+    <button class="rules-sub" data-tab="transitions">Transitions</button>
+    <button class="rules-sub" data-tab="constitution">Constitution</button>
     <button data-tab="glossary">Glossary</button>
     <button data-tab="appendices">Appendices</button>
     <div class="mobile-theme-row">
@@ -209,7 +207,7 @@
     </div>
   </div>
 
-  <div class="tab-content active" id="tab-overview">
+  <div class="tab-content" id="tab-overview">
     <div class="content">
       <div id="overview-body"></div>
       <div class="footer">AUREUM — aumm.fi — CONFIDENTIAL</div>
@@ -234,7 +232,7 @@
     </div>
   </div>
   <!-- old hardcoded doc sections removed -->
-  <div class="tab-content" id="tab-model">
+  <div class="tab-content active" id="tab-model">
     <div class="content">
 <div id="mental-model-body"></div>
 
@@ -293,7 +291,7 @@ var menus = {
   intro: []
 };
 var rulesTabs = ['bootstrap', 'transitions', 'constitution'];
-var currentTab = 'overview';
+var currentTab = 'model';
 
 var introLines = [];
 
