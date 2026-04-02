@@ -1,5 +1,7 @@
 # Aureum Protocol - Mental Model
 
+Imagine mining BTC with capital, not electricity. Your liquidity generates real fees that buy back and burn the scarce token. Meet $AuMM.
+
 ## I — One Line
 
 An immutable fair-launch AMM where emissions follow fixed Bitcoin-style issuance and automatic on-chain allocation only.
