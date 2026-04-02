@@ -144,7 +144,7 @@
     <div class="nav-right">
       <div class="tab-bar">
         <button class="tab-btn" data-tab="intro">Intro</button>
-        <button class="tab-btn active" data-tab="doc">Design Doc</button>
+        <button class="tab-btn active" data-tab="overview">Overview</button>
         <div class="rules-wrap">
           <button class="rules-btn" id="rules-btn">Rules &#9662;</button>
           <div class="rules-menu" id="rules-menu">
@@ -170,9 +170,9 @@
   </div>
   <div class="dropdown" id="dropdown"></div>
 
-  <div class="tab-content active" id="tab-doc">
+  <div class="tab-content active" id="tab-overview">
     <div class="content">
-      <div id="doc-body"></div>
+      <div id="overview-body"></div>
       <div class="footer">AUREUM — aumm.fi — CONFIDENTIAL</div>
     </div>
   </div>
@@ -204,32 +204,7 @@
   </div>
   <div class="tab-content" id="tab-glossary">
     <div class="content">
-<h1>Aureum Protocol — Glossary</h1>
-<hr /><div class="section" id="core-tokens"><h2>Core Tokens</h2><p><strong>AuMM</strong> (Aureum Market Maker) — reward token. 21M fixed supply, emitted to LPs, burned via protocol revenue. Zero governance power.</p>
-<p><strong>AuMT</strong> (Aureum Market Tessera) — proof-of-participation token. Represents an active LP position. Carries all governance power.</p>
-<hr /></div>
-<div class="section" id="core-systems"><h2>Core Systems</h2><p><strong>Aequilibrium</strong> — the AMM engine (Balancer V3 fork, byte-identical pool layer, new tokenomics layer).</p>
-<p><strong>Continuous Central Bank (CCB)</strong> — emission allocation engine using 60-day EMA of TVL.</p>
-<p><strong>EMA</strong> (Exponential Moving Average) — 60-day time-weighted TVL measure with ~21-day half-life; the CCB's "institutional memory."</p>
-<hr /></div>
-<div class="section" id="emission-bootstrapping"><h2>Emission & Bootstrapping</h2><p><strong>Pioneer Pools</strong> — 25 pre-defined foundational pools receiving equal emissions during months 0–10.</p>
-<p><strong>Pioneer Multiplier (PMAR)</strong> — automatic, deterministic emission weight [0.75–1.25] for Pioneer pools, recalculated at each bi-weekly cycle boundary by the Pioneer Multiplier Adjustment Rule. Not governance-voted.</p>
-<p><strong>Incendiary Boost</strong> — builder-funded emission boost; deposit AuMM → emitted over 30 days (permanently burned); priority skim reduces all other pools' emissions.</p>
-<p><strong>Bubble Multiplier</strong> — temporary governance boost [0.90–2.00] for new pools during first 90 days post-gauge-approval.</p>
-<p><strong>Sandbox</strong> — non-gauged pools that exist and attract liquidity but receive zero emissions until they earn a gauge (or fast-track via top 10% efficiency).</p>
-<hr /></div>
-<div class="section" id="governance"><h2>Governance</h2><p><strong>Tessera-Weighted Voting</strong> — governance power = <code>(USD value of qualified LP × time_in_pool)^(1/4)</code>.</p>
-<p><strong>Qualification Period</strong> — 14 days of continuous LP before voting power begins; full weight reached at ~6 months.</p>
-<p><strong>Withdrawal Reset</strong> — any withdrawal of any amount resets governance power to zero; 14-day qualification and 6-month on-ramp restart.</p>
-<hr /></div>
-<div class="section" id="anti-gaming-discipline"><h2>Anti-Gaming & Discipline</h2><p><strong>Volume Percentile Floor</strong> — minimum activity threshold relative to all pools (graduated: 5th → 10th → 15th percentile over months 0–13).</p>
-<p><strong>Efficiency Tournament</strong> — pools ranked by <code>(fees + yield revenue) / emissions</code>; bottom 15% capped; excess redistributed.</p>
-<p><strong>4626 Quality Gate</strong> — ≥52% of pool composition must be ERC-4626 yield-bearing vault tokens, each with ≥$5M / 30 BTC / 4M svZCHF underlying vault TVL.</p>
-<hr /></div>
-<div class="section" id="economic"><h2>Economic</h2><p><strong>Buyback and Burn</strong> — 25% of swap fees + 25% of yield fees used to purchase and permanently destroy AuMM.</p>
-<p><strong>Deflationary Crossover</strong> — point at which burn rate exceeds emission rate, causing net supply contraction.</p>
-<p><strong>Priority Skim</strong> — Incendiary Boost emissions are subtracted from the fixed block reward before CCB distribution, directly diluting all other pools.</p></div>
-
+      <div id="glossary-body"></div>
       <div class="footer">AUREUM — Glossary</div>
     </div>
   </div>
@@ -266,12 +241,12 @@
 
 <script>
 var menus = {
-  doc: [],
+  overview: [],
   bootstrap: [],
   transitions: [],
   constitution: [],
   model: [],
-  glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}],
+  glossary: [],
   foundations: [],
   tokenomics: [],
   pioneer: [],
@@ -279,7 +254,7 @@ var menus = {
   intro: []
 };
 var rulesTabs = ['bootstrap', 'transitions', 'constitution'];
-var currentTab = 'doc';
+var currentTab = 'overview';
 
 var introLines = [];
 
@@ -496,8 +471,8 @@ function loadMd(file, elId, menuKey) {
     });
 }
 
-// Load design doc
-loadMd('project_aureum_design_final.md', 'doc-body', 'doc');
+// Load overview
+loadMd('overview.md', 'overview-body', 'overview');
 
 // Load rules tabs
 loadMd('bootstrap.md', 'bootstrap-body', 'bootstrap');
@@ -509,6 +484,7 @@ loadMd('theoretical_foundation.md', 'foundations-body', 'foundations');
 loadMd('aureum_mental_model.md', 'mental-model-body', 'model');
 loadMd('tokenomics.md', 'tokenomics-body', 'tokenomics');
 loadMd('Pioneer_Pools.md', 'pioneer-body', 'pioneer');
+loadMd('aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('appendices.md', 'appendices-body', 'appendices');
 
 // Load intro lines from intro.md and start animation
