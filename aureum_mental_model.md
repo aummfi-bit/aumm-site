@@ -1,13 +1,16 @@
 # Aureum Protocol
 
+
+
 **Imagine mining BTC with capital, not electricity**
 
 **Imagine BTC with a buy back and burn program sponsored by real fees**
 
 **Imagine your capital is liquidity generating real fees that buy back and burn the scarce token**
 
-  
 **Meet $AuMM**
+
+
 
 ## i. One Line
 
