@@ -189,6 +189,7 @@
             <a data-tab="bootstrap">Bootstrap</a>
             <a data-tab="transitions">Transitions</a>
             <a data-tab="constitution">Constitution</a>
+            <a data-tab="formulas">Formulas</a>
           </div>
         </div>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
@@ -217,6 +218,7 @@
     <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
     <button class="rules-sub" data-tab="transitions">Transitions</button>
     <button class="rules-sub" data-tab="constitution">Constitution</button>
+    <button class="rules-sub" data-tab="formulas">Formulas</button>
     <button data-tab="glossary">Glossary</button>
     <button data-tab="appendices">Appendices</button>
     <div class="mobile-theme-row">
@@ -248,6 +250,12 @@
     <div class="content">
       <div id="constitution-body"></div>
       <div class="footer">AUREUM — Constitution</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-formulas">
+    <div class="content">
+      <div id="formulas-body"></div>
+      <div class="footer">AUREUM — Protocol Formulas</div>
     </div>
   </div>
   <!-- old hardcoded doc sections removed -->
@@ -331,7 +339,7 @@ var menus = {
   appendices: [],
   intro: []
 };
-var rulesTabs = ['bootstrap', 'transitions', 'constitution'];
+var rulesTabs = ['bootstrap', 'transitions', 'constitution', 'formulas'];
 var miliariumTabs = ['miliarium', 'miliarium-manifest', 'miliarium-sectors', 'miliarium-profile'];
 var currentTab = 'model';
 
@@ -633,6 +641,7 @@ loadMd('overview.md', 'overview-body', 'overview');
 loadMd('bootstrap.md', 'bootstrap-body', 'bootstrap');
 loadMd('transitions.md', 'transitions-body', 'transitions');
 loadMd('constitution.md', 'constitution-body', 'constitution');
+loadMd('formulas.md', 'formulas-body', 'formulas');
 
 // Load other tabs
 loadMd('theoretical_foundation.md', 'foundations-body', 'foundations');

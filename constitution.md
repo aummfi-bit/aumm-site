@@ -56,36 +56,11 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Transition regime (Months 11–12)
 
-**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. **α** runs from **0** at the first block of Month 11 to **1** at the last block of Year 1.
-
-```
-share_i(block) = (1 − α(block)) × (1/28) + α(block) × CCB_share_i(block)
-```
-
-At the **midpoint** of the window, **α = 0.5** (half equal, half CCB). **CCB_share_i** uses the same score as post–Year-1 (PMAR and Incendiary inside the CCB leg).
+**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. A blend parameter runs from zero (pure equal) at the first block of Month 11 to one (pure CCB) at the last block of Year 1. At the midpoint of the window the mix is exactly half equal and half CCB. The CCB leg uses the same score as post–Year-1 (PMAR and Incendiary inside the CCB leg). See `formulas.md` for the formal blend formula.
 
 ### Full CCB (from Year 1 end onward)
 
-**Incendiary Boost** is skimmed from the block reward first; **Remaining** is what the CCB splits. **TVL_EMA60** is a **per-pool** 60-day EMA of on-chain TVL (**α = 2/(60+1)**). **PMAR_mult** applies **only** to the 28 Miliarium pools; for other eligible pools use **1**. **CCB_share** normalizes over **eligible** pools only.
-
-```
-Remaining(block) = block_reward(block) − Incendiary_claims(block)
-
-TVL_EMA_pool(today) = alpha × TVL_spot(today) + (1 − alpha) × TVL_EMA_pool(yesterday)
-alpha = 2 / (60 + 1)
-
-Score(pool_i) = TVL_EMA60(pool_i) × PMAR_mult(pool_i) × Incendiary_mult(pool_i)
-
-CCB_share_i = Score(pool_i) / sum(all eligible pool scores)
-```
-
-**PMAR** (Miliarium only), bi-weekly:
-
-```
-M_i(t) = clamp(M_i(t−1) + delta_global + delta_intra_i, 0.75, 1.25)
-```
-
-No voting layer, no Bubble multiplier, no human override.
+Incendiary Boost claims are skimmed from the block reward first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL. The CCB scores each eligible pool by combining its smoothed TVL with its PMAR multiplier (Miliarium pools only; all others use a neutral value) and its Incendiary multiplier, then normalizes scores across all eligible pools to produce fractional shares. PMAR multipliers update bi-weekly for the 28 Miliarium pools only, clamped to a fixed band. No voting layer, no Bubble multiplier, no human override. See `formulas.md` for all formal definitions.
 
 ## xxix. Immutable Parameters
 

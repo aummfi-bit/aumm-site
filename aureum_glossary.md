@@ -12,38 +12,11 @@
 
 - **CCB** (Continuous Central Bank): the protocol's fully automatic emission allocator — named after a central bank because it does what a central bank does, without humans. A central bank tightens during booms (raises rates, reduces money supply growth) and loosens during busts (cuts rates, expands liquidity). The CCB does the same for LP yield: when TVL spikes in a bull market, the EMA lags spot TVL, so relative yield (%) compresses — the protocol does not overpay for speculative capital. When TVL crashes, the EMA preserves the memory of higher TVL, keeping absolute emission levels elevated — yield (%) spikes for remaining LPs, creating a programmatic lender of last resort. No committee vote. No discretion. Algorithmic inertia enforced on-chain.
 
-  **Full emission sequence (every block, post-Year-1):**
-  ```
-  // EMA update (runs continuously for each pool)
-  alpha = 2 / (60 + 1)                                           // ≈ 0.0328
-  TVL_EMA(pool, today) = alpha × TVL_spot(pool, today)
-                       + (1 - alpha) × TVL_EMA(pool, yesterday)
-
-  // Emission distribution
-  Step 1:  Incendiary_total = Σ active Incendiary Boost claims this block
-  Step 2:  Remaining = block_emission - Incendiary_total
-  Step 3:  Score(pool_i) = TVL_EMA60(pool_i) × PMAR_mult(pool_i)
-  Step 4:  CCB_share(pool_i) = Remaining × Score(pool_i) / Σ Score(all pools)
-  Step 5:  Total_emission(pool_i) = CCB_share(pool_i) + Incendiary_claim(pool_i)
-  ```
-  Oracle-free: reads only internal contract balances. 21M hard cap never breached — Incendiary is a reallocation from the same fixed pie, not new inflation.
+  **Full emission sequence (every block, post–Year-1):** the EMA for each pool updates continuously; Incendiary Boost claims are skimmed from the block reward first; the remainder is scored across all eligible pools using smoothed TVL and PMAR multipliers, then distributed in proportion to those scores. Each pool's total emission is its CCB share plus any Incendiary claim. Oracle-free — reads only internal contract balances. 21M hard cap never breached because Incendiary is a reallocation from the same fixed pie, not new inflation. See `formulas.md` for the step-by-step formal sequence.
 
 - **EMA(60)**: 60-day exponential moving average of on-chain TVL. α = 2/(60+1) ≈ 0.033. Half-life ~21 days — a pool that loses all its TVL today still has 50% of its ghost signal after three weeks, 25% after six. This is the source of the CCB's anticyclical memory: the protocol cannot be jolted into instant reallocation by a single day's capital movement. It is a low-pass filter — suppresses short-term noise (hype, panic), passes long-term signal (sustained committed capital).
 
-- **PMAR** (Miliarium Aureum Multiplier Adjustment Rule): the deterministic, oracle-free multiplier engine applied exclusively to the 28 Miliarium pools inside the CCB score. Replaces human governance voting over emission weights with an algorithmic rule. Every bi-weekly cycle, each Miliarium pool's multiplier updates as:
-
-  ```
-  M_i(t) = clamp( M_i(t-1) + delta_global + delta_intra_i,  0.75,  1.25 )
-  ```
-
-  Where:
-  - `M_i(t-1)` = pool i's multiplier from the prior cycle, initialised at 1.00
-  - `delta_global` = a protocol-wide step (±0.05) derived from the direction of total protocol TVL EMA — rising TVL applies downward pressure across all multipliers; falling TVL applies upward pressure
-  - `delta_intra_i` = a pool-specific step (±0.05) derived from pool i's TVL EMA relative to the Miliarium average — pools growing faster than average are nudged down; pools shrinking relative to average are nudged up
-  - `clamp [0.75, 1.25]` = hard floor and ceiling; multiplier can never leave this band
-  - `dead zone 0.1%` = if the TVL ratio that triggers a step is within 0.1% of neutral, no step is applied — prevents oscillation noise from triggering constant micro-adjustments
-
-  The result: pools that are growing too fast relative to the protocol are automatically taxed; pools that are shrinking are automatically subsidised. Anticyclical within the Miliarium set, without any human intervention. All parameters are immutable from block 0. See `PMAR.md`.
+- **PMAR** (Miliarium Aureum Multiplier Adjustment Rule): the deterministic, oracle-free multiplier engine applied exclusively to the 28 Miliarium pools inside the CCB score. Replaces human governance voting over emission weights with an algorithmic rule. Every bi-weekly cycle, each Miliarium pool's multiplier is adjusted by a protocol-wide step (driven by the direction of total protocol TVL) and a pool-specific step (driven by the pool's TVL relative to the Miliarium average), then clamped to a hard band of [0.75, 1.25]. A small dead zone prevents noise from triggering constant micro-adjustments. The result: pools growing too fast relative to the protocol are automatically taxed; pools shrinking are automatically subsidized. Anticyclical within the Miliarium set, without any human intervention. All parameters (step size ±0.05, clamp bounds, dead zone 0.1%, EMA horizon) are immutable from block 0. See `PMAR.md` and `formulas.md` for the formal update rule.
 
 - **Incendiary Boost**: operator-funded priority emission stream. Operator escrows AuMM → pool receives a 30-day supplementary emission stream pegged to the 85th efficiency percentile × (2 − R). Incendiary claims are subtracted from block emission *before* CCB distribution — not a CCB score multiplier. Escrowed AuMM is permanently burned. See `bootstrap.md`.
 
@@ -83,7 +56,7 @@
 
 ## xxxv. Governance
 
-- **Governance Power**: `(qualified_AuMT_value × time_in_pool)^(1/4)` in Era 0, `^(1/3)` in Era 1+. Transition at halving block, immutable. `qualified_AuMT_value` is the USD value of the LP position — not token count.
+- **Governance Power**: a sub-linear function of the USD value of the LP position multiplied by time held in pool. Era 0 uses fourth-root dampening (maximum compression); Era 1 onward relaxes to cube-root. Transition occurs at the halving block; both exponents are immutable. See `formulas.md` for the formal expression.
 - **Qualification Period**: 14 days of continuous qualified AuMT holding before any governance weight accrues (`time_in_pool = 0` during this window).
 - **Governance On-Ramp**: after the 14-day qualification, `time_in_pool` accrues sublinearly. Full voting weight reached at ~6 months (day 180).
 - **Withdrawal Reset**: any withdrawal from a qualifying pool — any amount — resets governance power to zero and restarts the 14-day qualification clock.

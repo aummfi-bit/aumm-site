@@ -58,26 +58,9 @@ After **Incendiary Boost** claims are paid from the block (below), each **eligib
 
 Capital in productive, eligible pools is the **only** input to emission weight. Rules are **deterministic and immutable**. Governance does not set weights; it remains available only for **non-emission** actions (gauges, treasury, fees, composition challenges) under the on-chain-data-only proposal rules in `constitution.md`.
 
-### Core formulas (CCB)
+### How the math works (summary)
 
-Block reward is split after **Incendiary Boost** claims (first claim on the mint); the **remainder** is allocated by CCB shares. **Each pool** has its own TVL EMA series; **scores** combine smoothed TVL, PMAR (Miliarium only), and Incendiary multiplier; **shares** normalize over all **eligible** pools.
-
-```
-Remaining(block) = block_reward(block) − Incendiary_claims(block)
-
-alpha = 2 / (60 + 1)
-
-TVL_EMA_pool(today) = alpha × TVL_spot(today) + (1 − alpha) × TVL_EMA_pool(yesterday)
-
-Score(pool_i) = TVL_EMA60(pool_i) × PMAR_mult(pool_i) × Incendiary_mult(pool_i)
-
-CCB_share_i = Score(pool_i) / sum(all eligible pool scores)
-
-emission_from_CCB_i = Remaining(block) × CCB_share_i
-```
-
-Transition **Months 11–12** (immutable pools only in the equal leg):  
-`share_i = (1 − α) × (1/28) + α × CCB_share_i` with **α** from 0 at Month 11 start to 1 at Year 1 end (see `constitution.md`).
+Block reward is split after **Incendiary Boost** claims (first claim on the mint); the **remainder** is allocated by CCB shares. Each pool has its own TVL EMA series; scores combine smoothed TVL, PMAR (Miliarium only), and Incendiary multiplier; shares normalize over all eligible pools. During the transition window (Months 11–12), each immutable pool's share is a linear blend of its equal one-twenty-eighth and what the CCB would assign, ramping smoothly from pure equal to pure CCB over the two months. For full formal definitions of every formula, see `formulas.md`.
 
 ---
 
@@ -103,15 +86,9 @@ Multipliers are **clamped** to a fixed band so no pool can be rewarded or punish
 
 The CCB always uses **per-pool** smoothed TVL as the backbone of the score. PMAR **only** adjusts an extra factor for the **28** so that **relative** performance inside the founding constellation can be **taxed or subsidised** without human intervention. Read **Section vi** for how shares work globally; read **`PMAR.md`** for the specification labels; read **`aureum_glossary.md`** for the same mechanics in glossary form.
 
-### Core formula (PMAR)
+### How the multiplier updates
 
-Only **i ∈ {28 Miliarium pools}** receive PMAR updates; for any other eligible pool, **PMAR_mult = 1**. Each bi-weekly cycle:
-
-```
-M_i(t) = clamp( M_i(t−1) + delta_global + delta_intra_i, 0.75, 1.25 )
-```
-
-**delta_global** steps from protocol-wide TVL EMA direction; **delta_intra_i** steps from pool **i**’s TVL EMA vs the Miliarium average (see `aureum_glossary.md`). Initial **M_i = 1.00**; dead zone and step size are fixed in `constitution.md`.
+Only the 28 Miliarium pools receive PMAR updates; for any other eligible pool the multiplier is neutral (effectively one). Each bi-weekly cycle, a pool’s multiplier is adjusted by two small steps — one driven by the direction of total protocol TVL (macro pressure) and one by the pool’s TVL relative to the Miliarium average (intra-constellation pressure) — then clamped to a hard floor and ceiling so no pool can be rewarded or punished without limit. Initial multiplier is 1.00; dead zone and step size are fixed in `constitution.md`. For the formal update rule, see `formulas.md`.
 
 ### FAQ: CCB and PMAR (plain English)
 

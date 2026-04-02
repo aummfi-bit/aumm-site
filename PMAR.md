@@ -11,8 +11,8 @@ PMAR is a deterministic, oracle-free multiplier engine over the 28 immutable Mil
 ## Activation Window
 
 - **Through end of Month 10:** equal **1/28** distribution; the CCB leg is not yet used for emissions (PMAR does not affect the equal tranche).
-- **Months 11–12:** PMAR applies **inside the CCB leg** of the blended share `(1 − α) × (1/28) + α × CCB_share` (see `constitution.md`).
-- **After Year 1:** PMAR is fully active **inside** pure CCB allocation (`TVL_EMA60 * PMAR_mult * Incendiary_mult`; see `constitution.md`).
+- **Months 11–12:** PMAR applies **inside the CCB leg** of the blended transition share (see `constitution.md` and `formulas.md`).
+- **After Year 1:** PMAR is fully active **inside** pure CCB allocation, where each pool's score combines smoothed TVL, PMAR multiplier, and Incendiary multiplier (see `constitution.md` and `formulas.md`).
 
 ## Fixed Rules
 
@@ -23,9 +23,7 @@ PMAR is a deterministic, oracle-free multiplier engine over the 28 immutable Mil
 
 ## Core Update
 
-```
-M_i(t) = clamp(M_i(t-1) + delta_global + delta_intra_i, 0.75, 1.25)
-```
+Each bi-weekly cycle, a Miliarium pool's multiplier is adjusted by a protocol-wide step (macro TVL direction) and a pool-specific step (pool TVL vs Miliarium average), then clamped to the [0.75, 1.25] band. Initial multiplier is 1.00. See `formulas.md` for the formal update rule.
 
 ## Immutable Reference
 

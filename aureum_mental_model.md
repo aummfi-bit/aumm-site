@@ -20,8 +20,8 @@ An immutable fair-launch AMM where emissions follow fixed Bitcoin-style issuance
 ## iii. Emission Regimes
 
 - **Through end of Month 10:** emissions to the 28 immutable Miliarium Aureum pools are **purely equal** (**1/28** each). Other pools may exist but do not receive this equal tranche.
-- **Months 11–12 (two-month transition):** blend **linearly** from equal to CCB: **share = (1 − α) × (1/28) + α × CCB_share**, with **α** from **0 → 1** over the window. At the **midpoint**, **α = 0.5** — **half** equal, **half** CCB.
-- **After Year 1:** **α = 1** — emissions follow **only** the CCB formula (no vote): **TVL EMA(60) × PMAR × Incendiary**, normalized across **eligible** pools. See `constitution.md` and `theoretical_foundation.md`.
+- **Months 11–12 (two-month transition):** blend linearly from equal to CCB over the window. At the midpoint, the mix is half equal and half CCB. See `formulas.md` for the blend formula.
+- **After Year 1:** emissions follow only the CCB — each pool scored by smoothed TVL, PMAR multiplier, and Incendiary multiplier, normalized across eligible pools. No vote. See `constitution.md` and `formulas.md`.
 
 ## iv. Why It Matters
 
