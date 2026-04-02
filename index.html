@@ -150,7 +150,7 @@
           <div class="rules-menu" id="rules-menu">
             <a data-tab="bootstrap">Bootstrap</a>
             <a data-tab="transitions">Transitions</a>
-            <a data-tab="continuous">Continuous</a>
+            <a data-tab="constitution">Constitution</a>
           </div>
         </div>
         <button class="tab-btn" data-tab="model">Mental Model</button>
@@ -188,10 +188,10 @@
       <div class="footer">AUREUM — Transition Rules</div>
     </div>
   </div>
-  <div class="tab-content" id="tab-continuous">
+  <div class="tab-content" id="tab-constitution">
     <div class="content">
-      <div id="continuous-body"></div>
-      <div class="footer">AUREUM — Continuous Rules</div>
+      <div id="constitution-body"></div>
+      <div class="footer">AUREUM — Constitution</div>
     </div>
   </div>
   <!-- old hardcoded doc sections removed -->
@@ -269,7 +269,7 @@ var menus = {
   doc: [],
   bootstrap: [],
   transitions: [],
-  continuous: [],
+  constitution: [],
   model: [],
   glossary: [{"id": "core-tokens", "title": "Core Tokens"}, {"id": "core-systems", "title": "Core Systems"}, {"id": "emission-bootstrapping", "title": "Emission & Bootstrapping"}, {"id": "governance", "title": "Governance"}, {"id": "anti-gaming-discipline", "title": "Anti-Gaming & Discipline"}, {"id": "economic", "title": "Economic"}],
   foundations: [],
@@ -278,7 +278,7 @@ var menus = {
   appendices: [],
   intro: []
 };
-var rulesTabs = ['bootstrap', 'transitions', 'continuous'];
+var rulesTabs = ['bootstrap', 'transitions', 'constitution'];
 var currentTab = 'doc';
 
 var introLines = [];
@@ -502,7 +502,7 @@ loadMd('project_aureum_design_final.md', 'doc-body', 'doc');
 // Load rules tabs
 loadMd('bootstrap.md', 'bootstrap-body', 'bootstrap');
 loadMd('transitions.md', 'transitions-body', 'transitions');
-loadMd('continuous.md', 'continuous-body', 'continuous');
+loadMd('constitution.md', 'constitution-body', 'constitution');
 
 // Load other tabs
 loadMd('theoretical_foundation.md', 'foundations-body', 'foundations');
