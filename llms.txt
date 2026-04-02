@@ -1,0 +1,36 @@
+# Project Aureum — LLM / tool manifest
+
+Static protocol documentation for **Project Aureum**: immutable AMM rules, **Miliarium Aureum** (28 founding pools), tokenomics, CCB/PMAR emission logic, and pool-level profiles. The site is a single-page app; canonical content is Markdown served alongside `index.html`.
+
+**Full URL list (one per line, for crawlers and RAG):** https://aumm.fi/llms-full.txt
+
+**Excluded from the corpus:** `intro.md` (JSON lines for the intro animation, not prose documentation).
+
+**Repository layout:** See `README.md` in this bundle for editors and section numbering.
+
+## Suggested reading order
+
+1. `overview.md` — protocol character at a glance  
+2. `constitution.md` — immutable operating law  
+3. `theoretical_foundation.md` — CCB, PMAR, research framing  
+4. `tokenomics.md` — AuMM supply and emission distribution  
+5. `Miliarium_Aureum.md` — canonical 01–28 registry  
+6. `miliarium_profiles/manifest.md` and `sectors.md` — registry table and taxonomy  
+7. `PMAR.md` — multiplier rule specification  
+8. `bootstrap.md`, `transitions.md`, `appendices.md` — as needed  
+
+Then read individual `miliarium_profiles/NN_ix*.md` files for pool-specific composition and notes.
+
+## Regenerating llms-full.txt
+
+From the repository root:
+
+```bash
+python3 scripts/generate_llms_manifest.py
+```
+
+Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.py` to emit a different origin (default is `https://aumm.fi`).
+
+## Confidentiality
+
+Treat content as confidential where noted in repository or page footers; see `README.md` (License / confidentiality).
