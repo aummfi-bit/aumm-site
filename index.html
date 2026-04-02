@@ -99,6 +99,25 @@
   .dropdown a { display: block; padding: 8px 16px; color: var(--text-dim); text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--border); font-family: var(--font); }
   .dropdown a:hover { color: var(--accent); background: var(--accent-faint); }
 
+  /* HAMBURGER / MOBILE */
+  .hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--accent); font-size: 22px; padding: 2px 8px; cursor: pointer; line-height: 1; font-family: var(--font); }
+  .mobile-menu { display: none; position: fixed; top: 48px; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 55; overflow-y: auto; padding: 12px 0; }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a, .mobile-menu button { display: block; width: 100%; text-align: left; background: none; border: none; border-bottom: 1px solid var(--border); color: var(--text-dim); font-family: var(--font); font-size: 16px; padding: 14px 24px; cursor: pointer; text-decoration: none; }
+  .mobile-menu a:hover, .mobile-menu button:hover, .mobile-menu a.active, .mobile-menu button.active { color: var(--accent); background: var(--accent-faint); }
+  .mobile-menu .rules-group-label { color: var(--text-dim); font-size: 12px; padding: 10px 24px 4px; text-transform: uppercase; letter-spacing: 2px; border-bottom: none; cursor: default; }
+  .mobile-menu .rules-group-label:hover { background: none; color: var(--text-dim); }
+  .mobile-menu .rules-sub { padding-left: 40px; font-size: 15px; }
+  .mobile-menu .mobile-theme-row { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+  .mobile-menu .mobile-theme-row button { flex: 1; text-align: center; border-bottom: none; border-right: 1px solid var(--border); font-size: 14px; padding: 12px 0; }
+  .mobile-menu .mobile-theme-row button:last-child { border-right: none; }
+
+  @media (max-width: 768px) {
+    .hamburger { display: block; }
+    .tab-bar, .theme-toggle, .nav-menu-btn { display: none !important; }
+    .nav-bar { padding: 10px 12px; }
+  }
+
   /* CONTENT */
   .tab-content { display: none; }
   .tab-content.active { display: block; }
@@ -166,9 +185,29 @@
         <button class="theme-btn" data-theme="night">Night</button>
       </div>
       <button class="nav-menu-btn" id="menu-btn">SECTIONS ▾</button>
+      <button class="hamburger" id="hamburger-btn">&#9776;</button>
     </div>
   </div>
   <div class="dropdown" id="dropdown"></div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button data-tab="intro">Intro</button>
+    <button data-tab="overview">Overview</button>
+    <div class="rules-group-label">Rules</div>
+    <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
+    <button class="rules-sub" data-tab="transitions">Transitions</button>
+    <button class="rules-sub" data-tab="constitution">Constitution</button>
+    <button data-tab="model">Mental Model</button>
+    <button data-tab="foundations">Theoretical Foundations</button>
+    <button data-tab="tokenomics">Tokenomics</button>
+    <button data-tab="pioneer">Pioneer Pools</button>
+    <button data-tab="glossary">Glossary</button>
+    <button data-tab="appendices">Appendices</button>
+    <div class="mobile-theme-row">
+      <button class="theme-btn" data-theme="au">Au</button>
+      <button class="theme-btn" data-theme="day">Day</button>
+      <button class="theme-btn" data-theme="night">Night</button>
+    </div>
+  </div>
 
   <div class="tab-content active" id="tab-overview">
     <div class="content">
@@ -419,6 +458,10 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
   var tabEl = document.getElementById('tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
+  // highlight mobile menu
+  document.querySelectorAll('#mobile-menu button[data-tab]').forEach(function(b) { b.classList.remove('active'); });
+  var mBtn = document.querySelector('#mobile-menu button[data-tab="' + tab + '"]');
+  if (mBtn) mBtn.classList.add('active');
   updateMenu();
   window.scrollTo(0, 0);
   if (tab === 'intro') startTabIntro();
@@ -446,8 +489,24 @@ rulesMenu.addEventListener('click', function(e) {
 
 updateMenu();
 menuBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
-document.addEventListener('click', function() { dropdown.classList.remove('open'); rulesMenu.classList.remove('open'); });
+document.addEventListener('click', function() { dropdown.classList.remove('open'); rulesMenu.classList.remove('open'); mobileMenu.classList.remove('open'); });
 dropdown.addEventListener('click', function(e) { if (e.target.tagName === 'A') dropdown.classList.remove('open'); });
+
+// MOBILE MENU
+var mobileMenu = document.getElementById('mobile-menu');
+var hamburgerBtn = document.getElementById('hamburger-btn');
+hamburgerBtn.addEventListener('click', function(e) { e.stopPropagation(); mobileMenu.classList.toggle('open'); });
+mobileMenu.addEventListener('click', function(e) {
+  var btn = e.target.closest('button[data-tab]');
+  if (btn) { mobileMenu.classList.remove('open'); switchTab(btn.getAttribute('data-tab')); return; }
+  var themeBtn = e.target.closest('button[data-theme]');
+  if (themeBtn) {
+    e.stopPropagation();
+    document.querySelectorAll('.theme-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.theme-btn[data-theme="' + themeBtn.getAttribute('data-theme') + '"]').forEach(function(b) { b.classList.add('active'); });
+    document.body.setAttribute('data-theme', themeBtn.getAttribute('data-theme'));
+  }
+});
 
 // Helper: load markdown into element and build section menu
 function loadMd(file, elId, menuKey) {
