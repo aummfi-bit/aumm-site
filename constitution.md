@@ -48,7 +48,7 @@ All proposals must reference verifiable on-chain state only. A valid proposal mu
 
 ### Year 1 Equal Distribution
 
-- Months 0-12: 100% of block emissions are distributed equally across the 25 immutable Miliarium Aureum pools (1/25 each).
+- Months 0-12: 100% of block emissions are distributed equally across the 28 immutable Miliarium Aureum pools (1/28 each).
 
 ### Post-Year-1 Automatic Distribution
 
@@ -69,7 +69,7 @@ The following are immutable from block 0 and cannot be changed by any means:
 - Emission halving schedule and per-block rewards
 - Fee splits, including 25% protocol revenue to AuMM buyback-and-burn
 - PMAR rules: step size +/-0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
-- List of 25 Miliarium Aureum pools (locked at launch; see `Miliarium_Aureum.md`)
+- List of 28 Miliarium Aureum pools (locked at launch; see `Miliarium_Aureum.md`)
 - Core AMM mathematics, CCB formula, and eligibility criteria
 - Any withdrawal resets AuMT power
 - No admin keys, no multisig, no upgradability, no pause functions

@@ -1,4 +1,4 @@
-# ixCambio — Slot 25
+# ixCambio — Slot 07
 
 **Sector:** Routing Infrastructure
 **Template:** Non-Standard (6-token FX hub)

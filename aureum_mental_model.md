@@ -14,7 +14,7 @@ An immutable fair-launch AMM where emissions follow fixed Bitcoin-style issuance
 
 ## Emission Regimes
 
-- **Months 0-12:** equal emissions to the 25 Miliarium Aureum pools.
+- **Months 0-12:** equal emissions to the 28 Miliarium Aureum pools.
 - **Month 13 Day 1 onward:** pure EMA(60) TVL + PMAR automatic competition.
 
 ## Why It Matters

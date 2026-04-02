@@ -1,6 +1,6 @@
-# ixStrata — Slot 02
+# ixRegistrum — Slot 15
 
-**Sector:** Crypto Infrastructure
+**Sector:** DeFi Ecosystem
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -10,35 +10,36 @@
 | Component | Token | Weight | Standard | Role |
 |:----------|:------|:-------|:---------|:-----|
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
-| Yield Core B | waEthUSDC | 26% | ERC-4626 | Aave V3 stataToken wrapper for USDC |
+| Yield Core B | sUSDS | 26% | ERC-4626 | Sky savings rate vault |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | LINK | 16% | ERC-20 | Chainlink — oracle infrastructure governance |
-| Theme Asset B | AAVE | 16% | ERC-20 | Aave — lending protocol governance |
+| Theme Asset A | ETHPLUS | 16% | ERC-20 | Reserve Protocol ETH+ (yield-bearing ETH basket) |
+| Theme Asset B | OPEN | 16% | ERC-20 | Reserve Protocol governance token |
 
-**ERC-4626 composition:** 52% (svZCHF + waEthUSDC)
+**ERC-4626 composition:** 52% (svZCHF + sUSDS)
 
 ## Profile
 
-**Real-world analogue:** DeFi infrastructure index — like owning shares in the data providers and banks that underpin financial markets.
+**Real-world analogue:** Ecosystem ETF — exposure to the Reserve Protocol stack, a diversified tokenised fund issuer.
 
-**Theme rationale:** LINK and AAVE represent the two most critical DeFi infrastructure layers: oracles (data feeds) and lending (capital markets). Both have deep external liquidity and consistent aggregator volume.
+**Theme rationale:** ETHPLUS is a Reserve Protocol DTF (Diversified Tokenised Fund) providing diversified yield-bearing ETH exposure. OPEN is the Reserve Protocol governance token. This pool consolidates the Sagix/Reserve ecosystem within Aureum.
 
 **Volume drivers:**
-- LINK/AAVE trading pairs (high external volume on Uniswap/Sushiswap)
-- DeFi governance token rebalancing
-- Oracle narrative cycles (Chainlink CCIP, staking)
-- Aave governance events and protocol upgrades
+- Reserve Protocol ecosystem growth and DTF adoption
+- ETHPLUS rebalancing and arbitrage
+- OPEN governance token demand
+- Cross-pollination with ixEDEL (also a Reserve Protocol DTF)
 
 **Risk profile:**
-- Governance token volatility (LINK, AAVE can swing 30%+ in a week)
-- Higher IL risk than stablecoin-only pools
-- Smart contract risk (Aave stataToken wrapper)
+- Reserve Protocol smart contract risk
+- DTF basket composition risk (ETHPLUS underlying assets)
+- Governance token volatility (OPEN)
+- Ecosystem concentration risk
 
 ## Performance Discipline
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + waEthUSDC (26%) |
+| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + sUSDS (26%) |
 | Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |

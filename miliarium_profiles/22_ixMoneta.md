@@ -1,4 +1,4 @@
-# ixMoneta — Slot 16
+# ixMoneta — Slot 22
 
 **Sector:** Banking / Financials
 **Template:** Standard (52% / 16% / 32%)

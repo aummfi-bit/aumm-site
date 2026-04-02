@@ -8,8 +8,8 @@
 
 ## Phase 2 - Year-1 Equal Regime
 
-- deploy and seed the 25 Miliarium Aureum pools
-- activate equal 1/25 emission distribution
+- deploy and seed the 28 Miliarium Aureum pools
+- activate equal 1/28 emission distribution
 - run telemetry and invariants for immutable execution checks
 
 ## Phase 3 - Automatic Regime Activation

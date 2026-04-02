@@ -6,7 +6,7 @@
 
 ## Purpose
 
-PMAR is a deterministic, oracle-free multiplier engine over the 25 immutable Miliarium Aureum pools.
+PMAR is a deterministic, oracle-free multiplier engine over the 28 immutable Miliarium Aureum pools.
 
 ## Activation Window
 

@@ -1,66 +1,61 @@
 # Miliarium Aureum — Master Registry
 
-*25 permanent Miliarium Aureum slots locked from block 0. No additional slots. Token compositions may be renewed via Miliarium Aureum Composition Challenge to adapt to changing markets while preserving each pool's function and sector theme.*
+*28 permanent Miliarium Aureum slots locked from block 0. No additional slots. Token compositions may be renewed via Miliarium Aureum Composition Challenge to adapt to changing markets while preserving each pool's function and sector theme.*
 
 ---
 
 ## Pool Registry
 
-| Slot | Pool Name | Sector | Yield Core A (26%) | Yield Core B (26%) | Routing Anchor (16%) | Theme Asset A (16%) | Theme Asset B (16%) | Template |
-|:-----|:----------|:-------|:-------------------|:-------------------|:---------------------|:-------------------|:-------------------|:---------|
-| 01 | [ixHelvetia](01_ixHelvetia.md) | Crypto Infrastructure | svZCHF | sUSDS | ixEDEL | waEthUSDT | USDC | Standard |
-| 02 | [ixStrata](02_ixStrata.md) | Crypto Infrastructure | svZCHF | waEthUSDC | ixEDEL | LINK | AAVE | Standard |
-| 03 | [ixForum](03_ixForum.md) | Crypto Infrastructure | svZCHF | waEthUSDT | ixEDEL | SKY | LDO | Standard |
-| 04 | [ixAppia](04_ixAppia.md) | Gold / Commodities | svZCHF | sfrxUSD | ixEDEL | PAXG | XAUt | Standard |
-| 05 | [ixAugusta](05_ixAugusta.md) | Digital Gold / Bitcoin | svZCHF | GHO | ixEDEL | WBTC | cbBTC | Standard |
-| 06 | [ixRegistrum](06_ixRegistrum.md) | DeFi Ecosystem | svZCHF | sUSDS | ixEDEL | ETHPLUS | OPEN | Standard |
-| 07 | [ixBeneficium](07_ixBeneficium.md) | DeFi Ecosystem | svZCHF | waEthUSDC | ixEDEL | ENA | sUSDe | Standard |
-| 08 | [ixEcosysthema](08_ixEcosysthema.md) | DeFi Ecosystem | svZCHF | waEthUSDT | ixEDEL | FRAX | CHEX | Standard |
-| 09 | [ixImperium](09_ixImperium.md) | DeFi Ecosystem | svZCHF | GHO | ixEDEL | PENDLE | EIGEN | Standard |
-| 10 | [ixCasper](10_ixCasper.md) | ETH Staking | waEthrETH | waEthweETH | ixEDEL | RPL | ETHFI | Non-Standard |
-| 11 | [ixAuxilium](11_ixAuxilium.md) | DeFi Lending Infra | svZCHF | sUSDS | ixEDEL | Morpho | SPK | Standard |
-| 12 | [ixAureum](12_ixAureum.md) | US Equities (Large Cap) | svZCHF | sUSDS | ixEDEL | SPYon | IVVon | Standard |
-| 13 | [ixVictoria](13_ixVictoria.md) | US Equities (Tech Index) | svZCHF | waEthUSDC | ixEDEL | QQQon | QQQX | Standard |
-| 14 | [ixGigantus](14_ixGigantus.md) | US Equities (Mega Cap Tech) | svZCHF | waEthUSDT | ixEDEL | NVDAon | TSLAon | Standard |
-| 15 | [ixMajestas](15_ixMajestas.md) | US Equities (Mega Cap Tech) | svZCHF | sfrxUSD | ixEDEL | MSFTon | AAPLon | Standard |
-| 16 | [ixMoneta](16_ixMoneta.md) | Banking / Financials | svZCHF | GHO | ixEDEL | JPMon | GSon | Standard |
-| 17 | [ixMercatura](17_ixMercatura.md) | Fintech / Brokers | svZCHF | sUSDS | ixEDEL | COIN | HOOD | Standard |
-| 18 | [ixSalus](18_ixSalus.md) | Pharma / Healthcare | svZCHF | sUSDS | ixEDEL | LLYon | NVOon | Standard |
-| 19 | [ixVectura](19_ixVectura.md) | Treasuries / Fixed Income | svZCHF | waEthUSDC | ixEDEL | SGOVon | TLTon | Standard |
-| 20 | [ixCustodia](20_ixCustodia.md) | Gold / Inflation Protection | svZCHF | waEthUSDT | ixEDEL | GLDon | TIPon | Standard |
-| 21 | [ixManes](21_ixManes.md) | LST / Staking Derivatives | fWSTETH | fWETH | ixEDEL | svZCHF | waEthwstETH | Standard |
-| 22 | [ixViatica](22_ixViatica.md) | FX / Emerging Markets | svZCHF | GHO | ixEDEL | fBRZ | st-EURA | Standard |
-| 23 | [ixEdelweiss](23_ixEdelweiss.md) | Routing Infrastructure | — | — | — | — | — | Non-Standard |
-| 24 | [ixLibertas](24_ixLibertas.md) | Routing Infrastructure | — | — | — | — | — | Non-Standard |
-| 25 | [ixCambio](25_ixCambio.md) | Routing Infrastructure | — | — | — | — | — | Non-Standard |
+*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) master table). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
 
-## Sector Summary
+| Slot | Pool Name | Registry category | Sector | Yield Core A (26%) | Yield Core B (26%) | Routing Anchor (16%) | Theme Asset A (16%) | Theme Asset B (16%) | Template |
+|:-----|:----------|:------------------|:-------|:-------------------|:-------------------|:---------------------|:-------------------|:-------------------|:---------|
+| 01 | [ixHelvetia](01_ixHelvetia.md) | Yield-bearing | Frankencoin MMA | svZCHF **80%** | sUSDS **20%** | — | — | — | Two-asset (no ixEDEL) |
+| 02 | [ixAetheron](02_ixAetheron.md) | Yield-bearing | ETH Staking | waEthrETH | waEthweETH | ixEDEL | RPL | ETHFI | Non-Standard |
+| 03 | [ixCasper](03_ixCasper.md) | Yield-bearing | LST / Staking Derivatives | fWSTETH | fWETH | ixEDEL | svZCHF | waEthwstETH | Standard |
+| 04 | [ixViatica](04_ixViatica.md) | Yield-bearing | FX / Emerging Markets | svZCHF | GHO | ixEDEL | fBRZ | st-EURA | Standard |
+| 05 | [ixEdelweiss](05_ixEdelweiss.md) | Yield-bearing | Routing Infrastructure | — | — | — | — | — | Non-Standard |
+| 06 | [ixLibertas](06_ixLibertas.md) | Yield-bearing | Routing Infrastructure | — | — | — | — | — | Non-Standard |
+| 07 | [ixCambio](07_ixCambio.md) | Yield-bearing | Routing Infrastructure | — | — | — | — | — | Non-Standard |
+| 08 | [ixBrevis](08_ixBrevis.md) | Bonds | US Fixed Income (short / ultra-short) | svZCHF | waEthUSDC | ixEDEL | SGOVon | SHYon | Standard |
+| 09 | [ixAltrix](09_ixAltrix.md) | Bonds | US Fixed Income (high yield) | svZCHF | waEthUSDC | ixEDEL | HYGon | FLHYon | Standard |
+| 10 | [ixMediox](10_ixMediox.md) | Bonds | US Fixed Income (aggregate + TIPS) | svZCHF | waEthUSDC | ixEDEL | AGGon | TIPon | Standard |
+| 11 | [ixLongus](11_ixLongus.md) | Bonds | US Fixed Income (long Treasury) | svZCHF | waEthUSDC | ixEDEL | TLTon (32%) | — | Non-Standard |
+| 12 | [ixStrata](12_ixStrata.md) | Crypto-native gov | Crypto Infrastructure | svZCHF | waEthUSDC | ixEDEL | LINK | AAVE | Standard |
+| 13 | [ixForum](13_ixForum.md) | Crypto-native gov | Crypto Infrastructure | svZCHF | waEthUSDT | ixEDEL | SKY | LDO | Standard |
+| 14 | [ixAurebit](14_ixAurebit.md) | Crypto-native gov | Digital Gold / Bitcoin | svZCHF | GHO | ixEDEL | WBTC | cbBTC | Standard |
+| 15 | [ixRegistrum](15_ixRegistrum.md) | Crypto-native gov | DeFi Ecosystem | svZCHF | sUSDS | ixEDEL | ETHPLUS | OPEN | Standard |
+| 16 | [ixDebitum](16_ixDebitum.md) | Crypto-native gov | DeFi Lending Infra | svZCHF | sUSDS | ixEDEL | Morpho | SPK | Standard |
+| 17 | [ixEquitix](17_ixEquitix.md) | Stocks | US Equities (Large Cap) | svZCHF | sUSDS | ixEDEL | SPYon | IVVon | Standard |
+| 18 | [ixInnovix](18_ixInnovix.md) | Stocks | US Equities (Tech Index) | svZCHF | waEthUSDC | ixEDEL | QQQon | QQQX | Standard |
+| 19 | [ixGigantus](19_ixGigantus.md) | Stocks | US Equities (Mega Cap Tech) | svZCHF | waEthUSDT | ixEDEL | NVDAon | TSLAon | Standard |
+| 20 | [ixMagnix](20_ixMagnix.md) | Stocks | US Equities (Mega Cap Tech) | svZCHF | sfrxUSD | ixEDEL | MSFTon | AAPLon | Standard |
+| 21 | [ixNubix](21_ixNubix.md) | Stocks | Mega-cap tech | svZCHF | sUSDS | ixEDEL | GOOGLon | AMZNon | Standard |
+| 22 | [ixMoneta](22_ixMoneta.md) | Stocks | Banking / Financials | svZCHF | GHO | ixEDEL | JPMon | GSon | Standard |
+| 23 | [ixColossix](23_ixColossix.md) | Stocks | Financials | svZCHF | sUSDS | ixEDEL | BLKon | BACon | Standard |
+| 24 | [ixVitalix](24_ixVitalix.md) | Stocks | Pharma / Healthcare | svZCHF | sUSDS | ixEDEL | LLYon | NVOon | Standard |
+| 25 | [ixMedicix](25_ixMedicix.md) | Stocks | Pharma / Healthcare | svZCHF | sUSDS | ixEDEL | JNJon | ABBVon | Standard |
+| 26 | [ixMercatura](26_ixMercatura.md) | Stocks | Fintech / Brokers | svZCHF | sUSDS | ixEDEL | COIN | HOOD | Standard |
+| 27 | [ixAurix](27_ixAurix.md) | Metals | Gold / Commodities | svZCHF | sfrxUSD | ixEDEL | PAXG | XAUt | Standard |
+| 28 | [ixMetallum](28_ixMetallum.md) | Metals | Silver & uranium (ETFs) | svZCHF | waEthUSDT | ixEDEL | SLVon | URAon | Standard |
 
-| Sector | Slots | Count | Economy Analogue |
-|:-------|:------|:------|:-----------------|
-| Crypto Infrastructure | 01–03 | 3 | DeFi blue-chips, protocol governance tokens |
-| Digital Gold / Bitcoin | 05 | 1 | Bitcoin exposure, digital store of value |
-| DeFi Ecosystem | 06–09 | 4 | Yield primitives, ecosystem consolidation |
-| ETH Staking | 10 | 1 | Staking protocol governance layer |
-| DeFi Lending Infra | 11 | 1 | Lending protocol governance |
-| US Equities (Large Cap) | 12 | 1 | S&P 500 index exposure |
-| US Equities (Tech Index) | 13 | 1 | Nasdaq-100 index exposure |
-| US Equities (Mega Cap Tech) | 14–15 | 2 | Individual mega-cap tech stocks |
-| Banking / Financials | 16 | 1 | Traditional bank stocks |
-| Fintech / Brokers | 17 | 1 | Crypto-native fintech equities |
-| Pharma / Healthcare | 18 | 1 | Pharmaceutical sector |
-| Treasuries / Fixed Income | 19 | 1 | US government bonds |
-| Gold / Commodities | 04 | 1 | Physical gold tokenised |
-| Gold / Inflation Protection | 20 | 1 | Gold ETF + TIPS |
-| LST / Staking Derivatives | 21 | 1 | Liquid staking tokens |
-| FX / Emerging Markets | 22 | 1 | Forex, emerging market currencies |
-| Routing Infrastructure | 23–25 | 3 | Price discovery, stablecoin hub, FX hub |
+## Registry grouping
 
-**Total: 25 pools across 17 sectors — a diversified on-chain economy.**
+| Category | Slots | Count | Role |
+|:---------|:------|:------|:-----|
+| Yield | 01–07 | 7 | Frankencoin MMA, LST/staking, LST/flux, FX, ixEDEL venue, USD hub, multi-currency FX |
+| Bonds | 08–11 | 4 | Short / ultra-short, HY, aggregate + TIPS, long Treasury |
+| Crypto-native governance & protocols | 12–16 | 5 | DeFi infrastructure, BTC, lending stack |
+| Stocks | 17–26 | 10 | Tokenised equities and fintech (see Subclass column in [Miliarium Aureum](../Miliarium_Aureum.md)) |
+| Metals | 27–28 | 2 | Gold + silver/uranium |
+
+**Total: 28 pools.** **Registry category** is the five-way split above. **Sector** is the finer label used in profile files.
+
+Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../Miliarium_Aureum.md) master table).
 
 ## Status Tracking
 
-All pools initialise at **Active** status. The 25 Miliarium Aureum slots are permanent — the count never decreases.
+All pools initialise at **Active** status. The 28 Miliarium Aureum slots are permanent — the count never decreases.
 
 ```
 Active → Warning → Disqualified ⇄ Composition Challenge (renewal pathway)

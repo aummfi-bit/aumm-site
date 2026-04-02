@@ -1,6 +1,6 @@
-# ixMercatura — Slot 17
+# ixDebitum — Slot 16
 
-**Sector:** Fintech / Brokers
+**Sector:** DeFi Lending Infra
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,29 +12,28 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | sUSDS | 26% | ERC-4626 | Sky savings rate vault |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | COIN | 16% | ERC-20 | Coinbase Global Inc (native ERC-20) |
-| Theme Asset B | HOOD | 16% | ERC-20 | Tokenised Robinhood Markets Inc |
+| Theme Asset A | Morpho | 16% | ERC-20 | Morpho — permissionless lending governance |
+| Theme Asset B | SPK | 16% | ERC-20 | Spark (Sky ecosystem) — lending protocol governance |
 
 **ERC-4626 composition:** 52% (svZCHF + sUSDS)
 
 ## Profile
 
-**Real-world analogue:** Crypto-native fintech fund — exposure to the two companies that bridge traditional brokerage with crypto markets.
+**Real-world analogue:** Lending sector index — like owning shares in the challenger banks disrupting traditional lending.
 
-**Theme rationale:** Coinbase and Robinhood are the two most important retail-facing crypto/fintech platforms. COIN is a native ERC-20 (Coinbase is on-chain native). HOOD represents the retail trading revolution. Together they are the gateway between TradFi users and DeFi.
+**Theme rationale:** Morpho and SPK (Spark) represent the next generation of DeFi lending. Morpho is a permissionless lending optimiser that sits on top of Aave/Compound. Spark (formerly Spark Protocol) is the lending arm of the Sky/Maker ecosystem. Both compete with and complement Aave.
 
 **Volume drivers:**
-- Crypto market cycle correlation (COIN revenue = crypto trading volume)
-- Retail trading sentiment (HOOD rises with retail participation)
-- Regulatory clarity events (SEC actions on Coinbase drive massive volume)
-- Crypto bull/bear cycle amplification (both are leveraged plays on crypto adoption)
+- Morpho governance token demand (growing TVL narrative)
+- SPK ecosystem integration with Sky/Maker
+- Lending protocol competition narratives
+- DeFi lending rate arbitrage driving token demand
 
 **Risk profile:**
-- Crypto market cycle risk (both companies' revenue is highly correlated with crypto volume)
-- Regulatory risk (Coinbase SEC lawsuit, crypto regulation)
-- Competition risk (new entrants, DEX growth reducing CEX relevance)
-- High single-stock volatility
-- Tokenised equity counterparty risk (HOOD; COIN is native ERC-20)
+- Governance token volatility (Morpho, SPK)
+- SPK ecosystem dependency on Sky/Maker
+- Lending protocol smart contract risk
+- Competition risk (Aave dominance)
 
 ## Performance Discipline
 

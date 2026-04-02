@@ -1,4 +1,4 @@
-# ixManes — Slot 21
+# ixCasper — Slot 03
 
 **Sector:** LST / Staking Derivatives
 **Template:** Standard (52% / 16% / 32%) — Non-standard token assignment

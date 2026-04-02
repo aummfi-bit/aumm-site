@@ -1,6 +1,6 @@
-# ixAugusta — Slot 05
+# ixViatica — Slot 04
 
-**Sector:** Digital Gold / Bitcoin
+**Sector:** FX / Emerging Markets
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,28 +12,30 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | GHO | 26% | ERC-4626 | Aave GHO stablecoin |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | WBTC | 16% | ERC-20 | Wrapped Bitcoin (BitGo custody) |
-| Theme Asset B | cbBTC | 16% | ERC-20 | Coinbase Wrapped Bitcoin |
+| Theme Asset A | fBRZ | 16% | ERC-20 | Flux Finance BRZ vault (Brazilian Real stablecoin) |
+| Theme Asset B | st-EURA | 16% | ERC-20 | Staked EURA (Angle Protocol Euro stablecoin) |
 
 **ERC-4626 composition:** 52% (svZCHF + GHO)
 
 ## Profile
 
-**Real-world analogue:** Bitcoin ETF — equivalent to holding BTC through a regulated custody wrapper, the digital store of value.
+**Real-world analogue:** Emerging market FX fund — exposure to Brazilian Real and Euro corridors, the on-chain forex desk for non-USD currencies.
 
-**Theme rationale:** WBTC and cbBTC are the two dominant wrapped Bitcoin tokens on Ethereum. Together they represent the primary on-chain access point for Bitcoin exposure. The dual-wrapper design captures arbitrage between issuers (BitGo vs Coinbase custody).
+**Theme rationale:** fBRZ provides access to the Brazilian Real (BRL) — one of the highest-volume emerging market currencies. st-EURA provides Euro exposure through Angle Protocol's staked Euro stablecoin. This pool captures FX demand that TradFi forex markets serve, but on-chain and 24/7.
 
 **Volume drivers:**
-- Bitcoin price movements (highest-volume crypto asset globally)
-- WBTC ↔ cbBTC arbitrage (different custodians, same underlying)
-- BTC-to-stablecoin rotation during volatility
-- Institutional Bitcoin allocation flows
+- BRL/USD and EUR/USD forex flows (remittances, trade settlement)
+- Brazilian crypto market demand (Brazil is a top-5 crypto market)
+- Euro stablecoin demand (growing European DeFi market)
+- CHF/EUR/BRL triangular arbitrage via svZCHF anchor
+- Emerging market currency volatility events
 
 **Risk profile:**
-- Bitcoin price volatility (high — 50%+ drawdowns historically)
-- Custodian risk (BitGo for WBTC, Coinbase for cbBTC)
-- WBTC governance controversy (BitGo custody changes)
-- Higher IL risk due to BTC/stablecoin divergence
+- BRL volatility (emerging market currency — can move 5%+ in a day)
+- Euro stablecoin regulatory risk (MiCA compliance)
+- Angle Protocol smart contract risk (st-EURA)
+- Flux Finance smart contract risk (fBRZ wrapper)
+- Higher IL risk due to FX pair divergence
 
 ## Performance Discipline
 

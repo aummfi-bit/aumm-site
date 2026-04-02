@@ -1,6 +1,6 @@
-# ixAuxilium — Slot 11
+# ixEquitix — Slot 17
 
-**Sector:** DeFi Lending Infra
+**Sector:** US Equities (Large Cap)
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,28 +12,28 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | sUSDS | 26% | ERC-4626 | Sky savings rate vault |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | Morpho | 16% | ERC-20 | Morpho — permissionless lending governance |
-| Theme Asset B | SPK | 16% | ERC-20 | Spark (Sky ecosystem) — lending protocol governance |
+| Theme Asset A | SPYon | 16% | ERC-20 | Tokenised SPDR S&P 500 ETF |
+| Theme Asset B | IVVon | 16% | ERC-20 | Tokenised iShares Core S&P 500 ETF |
 
 **ERC-4626 composition:** 52% (svZCHF + sUSDS)
 
 ## Profile
 
-**Real-world analogue:** Lending sector index — like owning shares in the challenger banks disrupting traditional lending.
+**Real-world analogue:** S&P 500 index fund — the benchmark for US large-cap equity exposure, available 24/7 on-chain.
 
-**Theme rationale:** Morpho and SPK (Spark) represent the next generation of DeFi lending. Morpho is a permissionless lending optimiser that sits on top of Aave/Compound. Spark (formerly Spark Protocol) is the lending arm of the Sky/Maker ecosystem. Both compete with and complement Aave.
+**Theme rationale:** SPYon and IVVon are tokenised versions of the two largest S&P 500 ETFs ($500B+ combined AUM in TradFi). Both track the same index, creating natural arbitrage. This is the broadest US equity exposure available in the protocol.
 
 **Volume drivers:**
-- Morpho governance token demand (growing TVL narrative)
-- SPK ecosystem integration with Sky/Maker
-- Lending protocol competition narratives
-- DeFi lending rate arbitrage driving token demand
+- 24/7 equity trading demand (TradFi markets close, on-chain doesn't)
+- SPYon ↔ IVVon arbitrage (same underlying index, different issuers)
+- US market hours ↔ off-hours price discovery
+- Macro rotation flows (risk-on → equities, risk-off → treasuries/gold)
 
 **Risk profile:**
-- Governance token volatility (Morpho, SPK)
-- SPK ecosystem dependency on Sky/Maker
-- Lending protocol smart contract risk
-- Competition risk (Aave dominance)
+- US equity market risk (S&P 500 drawdowns)
+- Tokenised equity issuer risk (counterparty, regulatory)
+- Off-hours pricing risk (weekend/holiday price gaps)
+- Regulatory risk (tokenised securities evolving legal framework)
 
 ## Performance Discipline
 

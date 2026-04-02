@@ -1,4 +1,4 @@
-# ixLibertas — Slot 24
+# ixLibertas — Slot 06
 
 **Sector:** Routing Infrastructure
 **Template:** Non-Standard (7-token stablecoin hub — no ixEDEL)
@@ -17,7 +17,7 @@
 | USDT | 14% | ERC-20 | Tether USD |
 | USDC | 14% | ERC-20 | Circle USD Coin |
 
-**No ixEDEL.** This is the only Miliarium Aureum pool without the routing anchor.
+**No ixEDEL.** **ixHelvetia** (slot 01) also omits ixEDEL; here the absence is intentional for a pure seven-token USD hub.
 
 **ERC-4626 composition:** 57% (scrvUSD + GHO + sUSDS + sfrxUSD) — exceeds 52% threshold.
 

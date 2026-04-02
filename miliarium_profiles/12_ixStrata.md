@@ -1,6 +1,6 @@
-# ixVectura — Slot 19
+# ixStrata — Slot 12
 
-**Sector:** Treasuries / Fixed Income
+**Sector:** Crypto Infrastructure
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,29 +12,27 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | waEthUSDC | 26% | ERC-4626 | Aave V3 stataToken wrapper for USDC |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | SGOVon | 16% | ERC-20 | Tokenised iShares 0-3 Month Treasury Bond ETF |
-| Theme Asset B | TLTon | 16% | ERC-20 | Tokenised iShares 20+ Year Treasury Bond ETF |
+| Theme Asset A | LINK | 16% | ERC-20 | Chainlink — oracle infrastructure governance |
+| Theme Asset B | AAVE | 16% | ERC-20 | Aave — lending protocol governance |
 
 **ERC-4626 composition:** 52% (svZCHF + waEthUSDC)
 
 ## Profile
 
-**Real-world analogue:** Treasury bond barbell strategy — short-duration T-bills (SGOV) paired with long-duration bonds (TLT), the classic fixed income barbell.
+**Real-world analogue:** DeFi infrastructure index — like owning shares in the data providers and banks that underpin financial markets.
 
-**Theme rationale:** SGOVon represents the risk-free rate (0–3 month T-bills). TLTon represents long-duration treasuries (20+ years). The pairing creates natural yield curve arbitrage — when rates rise, SGOV outperforms TLT; when rates fall, TLT outperforms SGOV. LPs profit from the rebalancing.
+**Theme rationale:** LINK and AAVE represent the two most critical DeFi infrastructure layers: oracles (data feeds) and lending (capital markets). Both have deep external liquidity and consistent aggregator volume.
 
 **Volume drivers:**
-- Fed rate decisions (FOMC meetings drive massive treasury repricing)
-- Yield curve steepening/flattening trades
-- Flight-to-safety flows (treasuries are the ultimate safe haven)
-- Duration rotation (short → long or long → short based on rate expectations)
-- 24/7 treasury trading (TradFi bond markets are relatively illiquid)
+- LINK/AAVE trading pairs (high external volume on Uniswap/Sushiswap)
+- DeFi governance token rebalancing
+- Oracle narrative cycles (Chainlink CCIP, staking)
+- Aave governance events and protocol upgrades
 
 **Risk profile:**
-- Interest rate risk (TLT has high duration — 20%+ drawdowns in rate hike cycles)
-- SGOVon is near-zero volatility (T-bill equivalent)
-- The barbell creates natural IL from duration spread divergence
-- Tokenised equity counterparty risk
+- Governance token volatility (LINK, AAVE can swing 30%+ in a week)
+- Higher IL risk than stablecoin-only pools
+- Smart contract risk (Aave stataToken wrapper)
 
 ## Performance Discipline
 

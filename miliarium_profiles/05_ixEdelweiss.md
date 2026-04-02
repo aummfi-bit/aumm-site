@@ -1,4 +1,4 @@
-# ixEdelweiss — Slot 23
+# ixEdelweiss — Slot 05
 
 **Sector:** Routing Infrastructure
 **Template:** Non-Standard (ixEDEL-heavy price discovery pool)
@@ -24,11 +24,11 @@
 
 **Structural role:**
 - Primary ixEDEL ↔ USD price reference
-- Cross-pool routing hub (all 24 other Miliarium Aureum pools contain 16% ixEDEL — rebalancing flows route through ixEdelweiss)
+- Cross-pool routing hub (all 27 other Miliarium Aureum pools contain 16% ixEDEL — rebalancing flows route through ixEdelweiss)
 - ixEDEL basket rebalancing (ixEDEL is a Reserve Protocol DTF; any constituent drift creates arbitrage with this pool)
 
 **Volume drivers:**
-- Cross-pool arbitrage (25 pools × ixEDEL rebalancing)
+- Cross-pool arbitrage (28 pools × ixEDEL rebalancing)
 - ixEDEL basket composition changes
 - New LP entries/exits across the protocol (any LP adding to any Miliarium Aureum pool needs ixEDEL)
 - Stablecoin rotation via the three anchor stables

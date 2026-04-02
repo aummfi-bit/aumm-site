@@ -1,6 +1,6 @@
-# ixEcosysthema — Slot 08
+# ixForum — Slot 13
 
-**Sector:** DeFi Ecosystem
+**Sector:** Crypto Infrastructure
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,28 +12,27 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | waEthUSDT | 26% | ERC-4626 | Aave V3 stataToken wrapper for USDT |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | FRAX | 16% | ERC-20 | Frax Finance stablecoin/governance |
-| Theme Asset B | CHEX | 16% | ERC-20 | Chintai exchange token |
+| Theme Asset A | SKY | 16% | ERC-20 | Sky (formerly MakerDAO) — stablecoin governance |
+| Theme Asset B | LDO | 16% | ERC-20 | Lido — liquid staking governance |
 
 **ERC-4626 composition:** 52% (svZCHF + waEthUSDT)
 
 ## Profile
 
-**Real-world analogue:** DeFi ecosystem basket — exposure to stablecoin innovation (Frax) and real-world asset tokenisation infrastructure (Chintai).
+**Real-world analogue:** DeFi governance blue-chips — like owning shares in the central bank (Sky/Maker) and the largest custodian (Lido) of the crypto economy.
 
-**Theme rationale:** FRAX represents Frax Finance's ecosystem (frxETH, sfrxETH, sfrxUSD) — one of the most innovative stablecoin protocols. CHEX represents Chintai, a regulated exchange focused on tokenised real-world assets. Together they bridge DeFi yield innovation with RWA infrastructure.
+**Theme rationale:** SKY governs the largest decentralised stablecoin system (DAI/USDS). LDO governs the largest liquid staking protocol (stETH). Together they represent DeFi's two most systemically important governance tokens.
 
 **Volume drivers:**
-- Frax ecosystem activity (sfrxETH staking, sfrxUSD savings rate)
-- FRAX governance and tokenomics events
-- CHEX exchange token demand
-- RWA tokenisation narrative
+- SKY/LDO trading pairs (consistent aggregator volume)
+- MakerDAO → Sky rebrand narrative
+- Lido staking dominance debates and governance events
+- Stablecoin policy changes (DSR adjustments drive SKY demand)
 
 **Risk profile:**
-- Frax algorithmic stablecoin risk (partially collateralised history)
-- CHEX lower liquidity (smaller market cap)
-- Ecosystem concentration risk
-- Regulatory risk (RWA tokenisation regulatory clarity)
+- Governance token volatility
+- Regulatory risk (Sky/Maker faces stablecoin regulation scrutiny)
+- Lido market share risk (potential regulatory pressure on staking dominance)
 
 ## Performance Discipline
 

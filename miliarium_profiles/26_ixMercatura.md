@@ -1,6 +1,6 @@
-# ixSalus — Slot 18
+# ixMercatura — Slot 26
 
-**Sector:** Pharma / Healthcare
+**Sector:** Fintech / Brokers
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,29 +12,29 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | sUSDS | 26% | ERC-4626 | Sky savings rate vault |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | LLYon | 16% | ERC-20 | Tokenised Eli Lilly & Co |
-| Theme Asset B | NVOon | 16% | ERC-20 | Tokenised Novo Nordisk A/S |
+| Theme Asset A | COIN | 16% | ERC-20 | Coinbase Global Inc (native ERC-20) |
+| Theme Asset B | HOOD | 16% | ERC-20 | Tokenised Robinhood Markets Inc |
 
 **ERC-4626 composition:** 52% (svZCHF + sUSDS)
 
 ## Profile
 
-**Real-world analogue:** Pharma blue-chip fund — exposure to the two most valuable pharmaceutical companies, driven by the GLP-1/obesity drug revolution.
+**Real-world analogue:** Crypto-native fintech fund — exposure to the two companies that bridge traditional brokerage with crypto markets.
 
-**Theme rationale:** Eli Lilly and Novo Nordisk are the two dominant players in the GLP-1 obesity/diabetes drug market — the largest pharmaceutical opportunity in a generation. LLY (Mounjaro/Zepbound) and NVO (Ozempic/Wegovy) together represent the defensive healthcare sector with blockbuster growth.
+**Theme rationale:** Coinbase and Robinhood are the two most important retail-facing crypto/fintech platforms. COIN is a native ERC-20 (Coinbase is on-chain native). HOOD represents the retail trading revolution. Together they are the gateway between TradFi users and DeFi.
 
 **Volume drivers:**
-- Drug approval and clinical trial data releases (massive single-day moves)
-- Quarterly earnings and revenue guidance
-- GLP-1 market expansion news (new indications, competitor data)
-- Defensive sector rotation (pharma rallies in risk-off environments)
+- Crypto market cycle correlation (COIN revenue = crypto trading volume)
+- Retail trading sentiment (HOOD rises with retail participation)
+- Regulatory clarity events (SEC actions on Coinbase drive massive volume)
+- Crypto bull/bear cycle amplification (both are leveraged plays on crypto adoption)
 
 **Risk profile:**
-- Drug pipeline risk (clinical trial failures)
-- Pricing/regulatory risk (drug pricing legislation, Medicare negotiations)
-- Competition risk (new GLP-1 entrants)
-- Lower volatility than tech (pharma is traditionally defensive)
-- Tokenised equity counterparty risk
+- Crypto market cycle risk (both companies' revenue is highly correlated with crypto volume)
+- Regulatory risk (Coinbase SEC lawsuit, crypto regulation)
+- Competition risk (new entrants, DEX growth reducing CEX relevance)
+- High single-stock volatility
+- Tokenised equity counterparty risk (HOOD; COIN is native ERC-20)
 
 ## Performance Discipline
 

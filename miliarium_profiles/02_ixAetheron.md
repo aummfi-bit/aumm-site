@@ -1,4 +1,4 @@
-# ixCasper — Slot 10
+# ixAetheron — Slot 02
 
 **Sector:** ETH Staking
 **Template:** Non-Standard (54% / 15% / 31%)

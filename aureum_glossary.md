@@ -2,7 +2,7 @@
 
 ## Core Tokens
 
-- **AuMM**: reward token with 21,000,000 max supply and immutable halving schedule.
+- **AuMM**: reward token with 21,000,000 max supply and immutable halving schedule (see `tokenomics.md`). Not a Miliarium Aureum pool slot — the 28 immutable pools are the ix-named registry in `Miliarium_Aureum.md`. Trading liquidity is **AuMM / svZCHF** and **AuMM / sUSDS**; that venue receives **no** emissions (emissions go to the 28 pools + gauges).
 - **AuMT**: LP participation token proving active liquidity position.
 
 ## Core Systems
@@ -14,8 +14,8 @@
 
 ## Launch Structure
 
-- **Miliarium Aureum**: 25 immutable founding pools, locked at launch.
-- **Year 1 Equal Regime**: emissions split equally across the 25 pools.
+- **Miliarium Aureum**: 28 immutable founding pools, locked at launch.
+- **Year 1 Equal Regime**: emissions split equally across the 28 pools.
 - **Post-Year-1 Automatic Regime**: CCB + PMAR allocation with no voting.
 
 ## Controls

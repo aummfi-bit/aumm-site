@@ -11,7 +11,7 @@
 
 ### Months 0-12 (Year 1)
 
-- Emissions are split equally across the 25 Miliarium Aureum pools.
+- Emissions are split equally across the 28 Miliarium Aureum pools.
 - Non-Miliarium pools can exist and build liquidity but do not receive this equal tranche.
 
 ### Month 13 Day 1

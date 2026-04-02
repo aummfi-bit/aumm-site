@@ -1,4 +1,4 @@
-# ixMajestas — Slot 15
+# ixMagnix — Slot 20
 
 **Sector:** US Equities (Mega Cap Tech)
 **Template:** Standard (52% / 16% / 32%)

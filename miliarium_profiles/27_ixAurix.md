@@ -1,4 +1,4 @@
-# ixAppia — Slot 04
+# ixAurix — Slot 27
 
 **Sector:** Gold / Commodities
 **Template:** Standard (52% / 16% / 32%)
@@ -21,7 +21,9 @@
 
 **Real-world analogue:** Physical gold fund — equivalent to holding allocated gold bars in a vault, tokenised for 24/7 trading.
 
-**Theme rationale:** PAXG and XAUt are the two largest tokenised gold instruments on Ethereum. Both are backed 1:1 by physical gold in custody. This pool captures the on-chain gold market and provides a flight-to-safety destination within the protocol.
+**Theme rationale:** PAXG and XAUt are the two largest tokenised gold instruments on Ethereum. Both are backed 1:1 by physical gold in custody. This slot is **physical gold only** — no silver (tokenised silver and uranium ETF exposure is **ixMetallum**, slot 28).
+
+This pool captures the on-chain gold market and provides a flight-to-safety destination within the protocol.
 
 **Volume drivers:**
 - Gold price volatility (geopolitical events, inflation fears)

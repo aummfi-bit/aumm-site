@@ -25,7 +25,7 @@ The old cycle-based emission table is removed. Emissions are specified only in p
 
 ### Emission Distribution
 
-- **Months 0-12:** 100% of block emissions are split equally across the 25 immutable Miliarium Aureum pools (1/25 each).
+- **Months 0-12:** 100% of block emissions are split equally across the 28 immutable Miliarium Aureum pools (1/28 each).
 - **After the last block of Year 1 (Month 13 Day 1):** distribution switches to pure CCB weighting: `EMA(60) TVL * PMAR multiplier` across eligible pools.
 - No voting, no Bubble multipliers, and no discretionary overrides.
 

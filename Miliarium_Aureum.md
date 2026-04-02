@@ -1,30 +1,34 @@
 # The Miliarium Aureum
 
-The 25 pools are pre-defined at launch and locked from block 0. No open slots.
+The 28 pools are pre-defined at launch and locked from block 0. No open slots.
 
 ### Scope
 
-- There are **25** immutable Miliarium Aureum pools (the founding constellation).
-- During Year 1 they receive equal emissions (1/25 each).
+- There are **28** immutable Miliarium Aureum pools (the founding constellation).
+- During Year 1 they receive equal emissions (1/28 each).
 - After Year 1 they compete under automatic CCB EMA(60) + PMAR rules.
+
+### AuMM vs the 28 pools
+
+**AuMM** is the reward **token** (`tokenomics.md`), not a Miliarium slot. The **AuMM / svZCHF · sUSDS** trading layer is at the end of this file — **Section II** (no emissions to that pool).
 
 ### Canonical registry
 
-The tables below are the binding list of pools and compositions. Emission allocation is not vote-controlled; governance applies only to non-emission actions (see `constitution.md`, `bootstrap.md`).
+The master table below is the binding list of pools and compositions. Emission allocation is not vote-controlled; governance applies only to non-emission actions (see `constitution.md`, `bootstrap.md`).
 
 ---
 
 ## I — Registry and structure
 
-All 25 Miliarium Aureum pools are pre-defined at launch and locked from block 0. No open slots. The 25 pools below constitute the complete founding infrastructure.
+All 28 pools are listed **in slot order 01–28** in the master table below. **Standard** pools follow **52% / 16% / 32%** (two ERC-4626 yield cores, ixEDEL anchor, two theme assets) unless noted. **Connector** pools (**05–07**) use non-standard weights. **Slot 11 (ixLongus)** uses a **non-standard** 32% single theme (TLTon only).
+
+**Pool count:** **28** pools = **slots 01–28** (one pool per slot).
 
 ### The dual-anchor system: svZCHF + ixEDEL
 
-Most **standard-template** pools (slots 01–22) contain both **svZCHF** (yield anchor — ERC-4626, Frankencoin savings rate ~3.75%, counts toward the 4626 Quality Gate) and **ixEDEL** (routing anchor — ERC-20, Reserve Protocol DTF, IL reduction via diversified basket, internal cross-pool arbitrage routing, strategic moat). **Connector pools** (slots 23–25) use the non-standard compositions in Section VI; **ixLibertas** has no ixEDEL by design.
+**Slot 01 (ixHelvetia)** has **no ixEDEL** (Frankencoin MMA). **Slot 06 (ixLibertas)** has **no ixEDEL** (USD stable hub). **Most** other pools use **svZCHF** (or equivalent yield core) and **ixEDEL** as described per slot. **Connector pools (05, 07)** use non-standard splits; **slot 06** is a seven-token USD hub.
 
-### Standardised pool template
-
-Standard-template Miliarium Aureum pools follow a consistent weight structure:
+### Standardised pool template (where applicable)
 
 | Component | Weight | Role |
 |-----------|--------|------|
@@ -32,78 +36,53 @@ Standard-template Miliarium Aureum pools follow a consistent weight structure:
 | Routing Anchor (ixEDEL) | 16% | Cross-pool arbitrage. Constellation routing connectivity. |
 | Theme Assets (2 tokens) | 32% (16% + 16%) | Sector exposure. Drives aggregator volume from external markets. |
 
-### I. The founding infrastructure (slots 01–05)
+### Bonds (slots 08–11)
 
-Core routing gates for crypto-native benchmarks.
+Bond sleeves sit **after yield (01–07)** and **before crypto (12–16)**.
 
-| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
-|:-----|:----------|:-----------------|:-------------|:-------------------|
-| 01 | **ixHelvetia** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% waEthUSDT / 16% USDC |
-| 02 | **ixStrata** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% LINK / 16% AAVE |
-| 03 | **ixForum** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% SKY / 16% LDO |
-| 04 | **ixAppia** | 26% svZCHF / 26% sfrxUSD | 16% ixEDEL | 16% PAXG / 16% XAUt |
-| 05 | **ixAugusta** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% WBTC / 16% cbBTC |
+- **08 — ixBrevis:** SGOVon + SHYon (short / ultra-short bond ETFs).
+- **09 — ixAltrix:** HYGon + FLHYon (high-yield corporate).
+- **10 — ixMediox:** AGGon + TIPon (aggregate + TIPS).
+- **11 — ixLongus:** TLTon only at **32%** theme weight (long Treasuries; non-standard vs 16% / 16%).
 
-### II. The reserve and ecosystem empire (slots 06–09)
+### Master table (slots 01–28 sequential)
 
-Consolidating the Sagix/Reserve stack, yield-bearing primitives, and ecosystem tokens.
+| Slot | Pool | Class | Subclass | Composition (summary) |
+|:-----|:-----|:------|:---------|:------------------------|
+| 01 | **ixHelvetia** | Yield | — | 80% svZCHF / 20% sUSDS |
+| 02 | **ixAetheron** | Yield | — | 27% waEthrETH / 27% waEthweETH / 15% ixEDEL / 15% RPL / 16% ETHFI |
+| 03 | **ixCasper** | Yield | — | 26% fWSTETH / 26% fWETH / 16% ixEDEL / 16% svZCHF / 16% waEthwstETH |
+| 04 | **ixViatica** | Yield | — | 26% svZCHF / 26% GHO / 16% ixEDEL / 16% fBRZ / 16% st-EURA |
+| 05 | **ixEdelweiss** | Yield | — | 46% ixEDEL · 18% waEthUSDC · 18% waEthUSDT · 18% svZCHF |
+| 06 | **ixLibertas** | Yield | — | 15% scrvUSD · 15% PYUSD · 14% GHO · 14% sUSDS · 14% sfrxUSD · 14% USDT · 14% USDC |
+| 07 | **ixCambio** | Yield | — | 20% ixEDEL · 16% svZCHF · 16% st-EURA · 16% aEURS · 16% s-tGBP · 16% [Partner Stable] |
+| 08 | **ixBrevis** | Bonds | — | 26% svZCHF / 26% waEthUSDC / 16% ixEDEL / 16% SGOVon / 16% SHYon |
+| 09 | **ixAltrix** | Bonds | — | 26% svZCHF / 26% waEthUSDC / 16% ixEDEL / 16% HYGon / 16% FLHYon |
+| 10 | **ixMediox** | Bonds | — | 26% svZCHF / 26% waEthUSDC / 16% ixEDEL / 16% AGGon / 16% TIPon |
+| 11 | **ixLongus** | Bonds | — | 26% svZCHF / 26% waEthUSDC / 16% ixEDEL / 32% TLTon (non-standard) |
+| 12 | **ixStrata** | Crypto | — | 26% svZCHF / 26% waEthUSDC / 16% ixEDEL / 16% LINK / 16% AAVE |
+| 13 | **ixForum** | Crypto | — | 26% svZCHF / 26% waEthUSDT / 16% ixEDEL / 16% SKY / 16% LDO |
+| 14 | **ixAurebit** | Crypto | — | 26% svZCHF / 26% GHO / 16% ixEDEL / 16% WBTC / 16% cbBTC |
+| 15 | **ixRegistrum** | Crypto | — | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% ETHPLUS / 16% OPEN |
+| 16 | **ixDebitum** | Crypto | — | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% Morpho / 16% SPK |
+| 17 | **ixEquitix** | Stocks | Broad ETF | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% SPYon / 16% IVVon |
+| 18 | **ixInnovix** | Stocks | Tech index | 26% svZCHF / 26% waEthUSDC / 16% ixEDEL / 16% QQQon / 16% QQQX |
+| 19 | **ixGigantus** | Stocks | Mega-cap tech | 26% svZCHF / 26% waEthUSDT / 16% ixEDEL / 16% NVDAon / 16% TSLAon |
+| 20 | **ixMagnix** | Stocks | Mega-cap tech | 26% svZCHF / 26% sfrxUSD / 16% ixEDEL / 16% MSFTon / 16% AAPLon |
+| 21 | **ixNubix** | Stocks | Mega-cap tech | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% GOOGLon / 16% AMZNon |
+| 22 | **ixMoneta** | Stocks | Financials | 26% svZCHF / 26% GHO / 16% ixEDEL / 16% JPMon / 16% GSon |
+| 23 | **ixColossix** | Stocks | Financials | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% BLKon / 16% BACon |
+| 24 | **ixVitalix** | Stocks | Healthcare | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% LLYon / 16% NVOon |
+| 25 | **ixMedicix** | Stocks | Healthcare | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% JNJon / 16% ABBVon |
+| 26 | **ixMercatura** | Stocks | Fintech | 26% svZCHF / 26% sUSDS / 16% ixEDEL / 16% COIN / 16% HOOD |
+| 27 | **ixAurix** | Metals | — | 26% svZCHF / 26% sfrxUSD / 16% ixEDEL / 16% PAXG / 16% XAUt |
+| 28 | **ixMetallum** | Metals | — | 26% svZCHF / 26% waEthUSDT / 16% ixEDEL / 16% SLVon / 16% URAon |
 
-| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
-|:-----|:----------|:-----------------|:-------------|:-------------------|
-| 06 | **ixRegistrum** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% ETHPLUS / 16% OPEN |
-| 07 | **ixBeneficium** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% ENA / 16% sUSDe |
-| 08 | **ixEcosysthema** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% FRAX / 16% CHEX |
-| 09 | **ixImperium** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% PENDLE / 16% EIGEN |
-
-### III. ETH staking governance and DeFi infra (slots 10–11)
-
-Capturing the ETH staking governance layer and DeFi lending infrastructure.
-
-| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
-|:-----|:----------|:-----------------|:-------------|:-------------------|
-| 10 | **ixCasper** | 27% waEthrETH / 27% waEthweETH | 15% ixEDEL | 15% RPL / 16% ETHFI |
-| 11 | **ixAuxilium** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% Morpho / 16% SPK |
-
-**ixCasper** — ETH staking governance pool. Non-standard composition: waEthrETH and waEthweETH are Aave V3 stataToken ERC-4626 wrappers for Rocket Pool's rETH and EtherFi's weETH respectively. ERC-4626 composition: 54% (both yield core tokens). RPL (Rocket Pool governance) and ETHFI (EtherFi governance) provide exposure to the staking protocol upside alongside the underlying staking yield.
-
-### IV. The equity and index empire (slots 12–17)
-
-TradFi indices, tokenised equity wrappers, and fintech.
-
-| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
-|:-----|:----------|:-----------------|:-------------|:-------------------|
-| 12 | **ixAureum** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% SPYon / 16% IVVon |
-| 13 | **ixVictoria** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% QQQon / 16% QQQX |
-| 14 | **ixGigantus** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% NVDAon / 16% TSLAon |
-| 15 | **ixMajestas** | 26% svZCHF / 26% sfrxUSD | 16% ixEDEL | 16% MSFTon / 16% AAPLon |
-| 16 | **ixMoneta** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% JPMon / 16% GSon |
-| 17 | **ixMercatura** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% COIN / 16% HOOD |
-
-### V. Macro, hard assets and global FX (slots 18–22)
-
-Treasuries, energy, LSTs, and global fiat corridors.
-
-| Slot | Pool Name | Yield Core (52%) | Anchor (16%) | Theme Assets (32%) |
-|:-----|:----------|:-----------------|:-------------|:-------------------|
-| 18 | **ixSalus** | 26% svZCHF / 26% sUSDS | 16% ixEDEL | 16% LLYon / 16% NVOon |
-| 19 | **ixVectura** | 26% svZCHF / 26% waEthUSDC | 16% ixEDEL | 16% SGOVon / 16% TLTon |
-| 20 | **ixCustodia** | 26% svZCHF / 26% waEthUSDT | 16% ixEDEL | 16% GLDon / 16% TIPon |
-| 21 | **ixManes** | 26% fWSTETH / 26% fWETH | 16% ixEDEL | 16% svZCHF / 16% waEthwstETH |
-| 22 | **ixViatica** | 26% svZCHF / 26% GHO | 16% ixEDEL | 16% fBRZ / 16% st-EURA |
-
-### VI. Core connector pools (slots 23–25)
-
-Anchor and infrastructure pools with non-standard compositions. These pools serve specialised routing and price discovery roles that require weight distributions outside the standard 52%/16%/32% template.
-
-| Slot | Pool Name | Composition | Role |
-|:-----|:----------|:-----------|:-----|
-| 23 | **ixEdelweiss** | ixEDEL (46%), waEthUSDC (18%), waEthUSDT (18%), svZCHF (18%) | Primary ixEDEL price discovery venue. ixEDEL-heavy weighting concentrates liquidity for the routing anchor. |
-| 24 | **ixLibertas** | scrvUSD (15%), PYUSD (15%), GHO (14%), sUSDS (14%), sfrxUSD (14%), USDT (14%), USDC (14%) | USD stablecoin hub. Seven-token pool spanning major USD stables and savings vaults. No ixEDEL — functions as a standalone deep-liquidity USD venue. |
-| 25 | **ixCambio** | ixEDEL (20%), svZCHF (16%), st-EURA (16%), aEURS (16%), s-tGBP (16%), [Partner Stable] (16%) | FX hub. Multi-currency pool (CHF, EUR, GBP, USD) with yield-bearing stablecoins via Aave/Morpho vaults. Competes directly with Curve's FXSwap (launched ZCHF/crvUSD at Stable Summit Cannes, March 2026) but captures multiple FX pairs from one LP position. |
+---
 
 ### Cross-pool arbitrage
 
-With 25 pools sharing svZCHF and ixEDEL as common anchors, six arbitrage layers generate fees continuously: vault-rate arbitrage (ERC-4626 drift correction), CHF/USD forex arbitrage, multi-currency FX arbitrage, wrapped-asset arbitrage (gold-to-gold, BTC-to-BTC), cross-pool price arbitrage (25 pools × 2 shared anchors = dense routing graph), and external-internal arbitrage (constituent tokens trading $898M+ daily on Uniswap at higher fees).
+With shared **svZCHF** and **ixEDEL** across most pools, arbitrage layers include vault-rate drift, CHF/USD forex, multi-currency FX, wrapped-asset (e.g. gold, BTC), cross-pool price, and external DEX flow.
 
 ### Miliarium Aureum benefits
 
@@ -111,11 +90,28 @@ With 25 pools sharing svZCHF and ixEDEL as common anchors, six arbitrage layers 
 
 **2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Miliarium Aureum pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
 
-**Permanent slots.** The 25 Miliarium Aureum slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the PMAR emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge** to propose a new token composition that preserves the pool's function, sector theme, and template structure (see **Bootstrap Rules** and `constitution.md`).
+**Permanent slots.** The 28 Miliarium Aureum slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the PMAR emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge** to propose a new token composition that preserves the pool's function, sector theme, and template structure (see **Bootstrap Rules** and `constitution.md`).
 
 ### Pool profiles
 
-Each Miliarium Aureum pool has a detailed structural profile documenting its sector classification, composition rationale, volume drivers, and risk characteristics. See the [miliarium_profiles/manifest.md](miliarium_profiles/manifest.md) directory for the full registry, [sector taxonomy](miliarium_profiles/sectors.md), and individual pool profiles.
+Each immutable pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column of the master table). The full index is [miliarium_profiles/manifest.md](miliarium_profiles/manifest.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
+
+---
+
+## II — AuMM pool (not a Miliarium slot)
+
+The **28** pools in **Section I** are the full **Miliarium Aureum** founding set. **AuMM** is separate: it is the **reward token**, not a numbered ix slot.
+
+**AuMM trading pool** — AMM liquidity where **AuMM** trades against the protocol’s savings rails: **svZCHF** (Frankencoin savings vault) and **sUSDS** (Sky savings). Typical structure: **AuMM / svZCHF** and **AuMM / sUSDS** (or a routed graph that prices AuMM off both). This is **price discovery and swap depth** for the reward token; it is **not** one of the immutable ix pools above.
+
+**Emissions:** The AuMM pool receives **no** protocol emissions. **AuMM** is what gets **minted** and **paid** to LPs of the **28** Miliarium pools (and gauge-eligible pools per **`bootstrap.md`**). LPs in the AuMM/svZCHF and AuMM/sUSDS venues earn **swap fees** only, **not** the per-block emission stream.
+
+| Concept | What it is |
+|:--------|:-----------|
+| **AuMM (token)** | Emission, halving, and fee routing to buyback-and-burn — **`tokenomics.md`**. |
+| **AuMM pool** | Trading against **svZCHF** and **sUSDS**; **no emissions** to this pool. |
+
+**Summary:** Read **Section I** for the **only** locked founding pools and emission destinations. Read **`tokenomics.md`** for **AuMM** the asset; this section defines the **AuMM / svZCHF · sUSDS** trading layer vs the **28** Miliarium pools.
 
 ---
 

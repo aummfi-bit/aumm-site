@@ -1,6 +1,6 @@
-# ixImperium — Slot 09
+# ixAurebit — Slot 14
 
-**Sector:** DeFi Ecosystem
+**Sector:** Digital Gold / Bitcoin
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,28 +12,28 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | GHO | 26% | ERC-4626 | Aave GHO stablecoin |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | PENDLE | 16% | ERC-20 | Pendle Finance — yield tokenisation governance |
-| Theme Asset B | EIGEN | 16% | ERC-20 | EigenLayer — restaking governance |
+| Theme Asset A | WBTC | 16% | ERC-20 | Wrapped Bitcoin (BitGo custody) |
+| Theme Asset B | cbBTC | 16% | ERC-20 | Coinbase Wrapped Bitcoin |
 
 **ERC-4626 composition:** 52% (svZCHF + GHO)
 
 ## Profile
 
-**Real-world analogue:** DeFi yield infrastructure index — like owning shares in the yield curve and the security market simultaneously.
+**Real-world analogue:** Bitcoin ETF — equivalent to holding BTC through a regulated custody wrapper, the digital store of value.
 
-**Theme rationale:** PENDLE and EIGEN represent DeFi's two most important yield infrastructure primitives. Pendle tokenises future yield (creating fixed/variable rate markets). EigenLayer extends Ethereum security to new protocols (restaking). Both are critical yield-bearing infrastructure.
+**Theme rationale:** WBTC and cbBTC are the two dominant wrapped Bitcoin tokens on Ethereum. Together they represent the primary on-chain access point for Bitcoin exposure. The dual-wrapper design captures arbitrage between issuers (BitGo vs Coinbase custody).
 
 **Volume drivers:**
-- Pendle yield market expiries and rollovers (high-volume events)
-- EIGEN restaking narrative and AVS launches
-- Yield strategy rebalancing (fixed vs variable rate shifts)
-- Both tokens have deep aggregator routing on Uniswap
+- Bitcoin price movements (highest-volume crypto asset globally)
+- WBTC ↔ cbBTC arbitrage (different custodians, same underlying)
+- BTC-to-stablecoin rotation during volatility
+- Institutional Bitcoin allocation flows
 
 **Risk profile:**
-- High governance token volatility (PENDLE, EIGEN)
-- Pendle smart contract complexity (yield tokenisation)
-- EigenLayer slashing risk (restaking penalties)
-- Narrative-driven demand (both tokens are momentum-sensitive)
+- Bitcoin price volatility (high — 50%+ drawdowns historically)
+- Custodian risk (BitGo for WBTC, Coinbase for cbBTC)
+- WBTC governance controversy (BitGo custody changes)
+- Higher IL risk due to BTC/stablecoin divergence
 
 ## Performance Discipline
 

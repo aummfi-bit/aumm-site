@@ -1,6 +1,6 @@
-# ixForum — Slot 03
+# ixGigantus — Slot 19
 
-**Sector:** Crypto Infrastructure
+**Sector:** US Equities (Mega Cap Tech)
 **Template:** Standard (52% / 16% / 32%)
 
 ---
@@ -12,27 +12,29 @@
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 | Yield Core B | waEthUSDT | 26% | ERC-4626 | Aave V3 stataToken wrapper for USDT |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | SKY | 16% | ERC-20 | Sky (formerly MakerDAO) — stablecoin governance |
-| Theme Asset B | LDO | 16% | ERC-20 | Lido — liquid staking governance |
+| Theme Asset A | NVDAon | 16% | ERC-20 | Tokenised NVIDIA Corp |
+| Theme Asset B | TSLAon | 16% | ERC-20 | Tokenised Tesla Inc |
 
 **ERC-4626 composition:** 52% (svZCHF + waEthUSDT)
 
 ## Profile
 
-**Real-world analogue:** DeFi governance blue-chips — like owning shares in the central bank (Sky/Maker) and the largest custodian (Lido) of the crypto economy.
+**Real-world analogue:** Mega-cap tech stock pair — concentrated exposure to the two most volatile and traded mega-cap names: the AI chip leader and the EV/energy leader.
 
-**Theme rationale:** SKY governs the largest decentralised stablecoin system (DAI/USDS). LDO governs the largest liquid staking protocol (stETH). Together they represent DeFi's two most systemically important governance tokens.
+**Theme rationale:** NVIDIA and Tesla are the highest-volume single stocks in US markets. Both drive massive retail and institutional trading. On-chain, they attract 24/7 speculative and hedging demand that TradFi can't serve outside market hours.
 
 **Volume drivers:**
-- SKY/LDO trading pairs (consistent aggregator volume)
-- MakerDAO → Sky rebrand narrative
-- Lido staking dominance debates and governance events
-- Stablecoin policy changes (DSR adjustments drive SKY demand)
+- Earnings volatility (NVDA and TSLA both move 10%+ on earnings)
+- AI narrative cycles (NVIDIA = the picks-and-shovels play)
+- Tesla news flow (Elon Musk, EV demand, energy storage)
+- After-hours and weekend trading demand
+- NVDAon ↔ TSLAon sector rotation within tech
 
 **Risk profile:**
-- Governance token volatility
-- Regulatory risk (Sky/Maker faces stablecoin regulation scrutiny)
-- Lido market share risk (potential regulatory pressure on staking dominance)
+- Extreme single-stock volatility (both can move 20%+ in a week)
+- High IL risk (large divergence between theme assets and stablecoin yield core)
+- Concentration risk (two names, not an index)
+- Tokenised equity counterparty risk
 
 ## Performance Discipline
 
