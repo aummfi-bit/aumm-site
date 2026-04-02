@@ -104,3 +104,115 @@ The AuMM trading pool operates as a non-emission pool — AuMM cannot be a compo
 **Volume comes from two natural flows.** Sell-side: LPs in emission-eligible pools selling AuMM they earned from mining. Buy-side: participants who want exposure to the protocol's growth via the deflationary supply mechanics (buyback-and-burn reducing circulating supply over time). No governance motivation needed — AuMM carries zero voting power.
 
 **The self-reinforcing loop.** The protocol captures the 10% yield fee on the ERC-4626 tokens in the pool (svZCHF, sUSDS, waEthUSDC). 25% of that goes to buyback-and-burn of AuMM. So the AuMM trading pool feeds the deflationary mechanism that makes AuMM scarcer — even though the pool itself receives no emissions.
+
+---
+
+## III — Proof of Real Yield Dashboard
+
+The aumm.fi dashboard publishes all protocol economics in real time — on-chain, oracle-free, independently verifiable. No proprietary data feeds. Every number is derived from public smart contract state.
+
+### Supply Metrics
+
+| Metric | Source | Update Frequency |
+|:-------|:-------|:-----------------|
+| **Total AuMM emitted** | Cumulative emissions from block 0 (LP rewards + treasury phase) | Per block |
+| **Total AuMM burned** | Governance deposits + excess burns + buyback-and-burn | Per block |
+| **Net circulating supply** | Emitted − burned | Per block |
+| **30-day trailing burn rate** | Annualised burn as % of circulating supply | Daily |
+| **Emission era** | Current halving era and per-block rate | Per halving block |
+
+### Revenue Metrics
+
+| Metric | Source | Update Frequency |
+|:-------|:-------|:-----------------|
+| **Swap fee revenue** | Cumulative fees across all pools, split by destination (LP bonus / buyback / treasury) | Per swap |
+| **ERC-4626 yield revenue** | 10% skim on vault yield across all pools, split by destination (buyback / treasury) | Per yield accrual |
+| **Total protocol revenue** | Swap fees + yield fees combined | Daily |
+| **Revenue per pool** | Per-pool breakdown of swap fees and yield revenue | Per governance cycle |
+| **Efficiency ratio per pool** | `(swap_fees + yield_revenue) / emissions_received` — the Efficiency Tournament input | Per governance cycle |
+
+### Pool Health Metrics
+
+| Metric | Source | Update Frequency |
+|:-------|:-------|:-----------------|
+| **TVL per pool** | Spot and 60-day EMA | Per block / per cycle |
+| **PMAR multiplier per Pioneer** | Current multiplier [0.75–1.25] for each Mercatūs Praecursorii | Per governance cycle |
+| **Volume percentile ranking** | Each pool's position in the protocol-wide volume distribution | Per 4-week rolling window |
+| **Efficiency Tournament ranking** | All pools ranked by efficiency ratio (2-epoch moving average) | Per governance cycle |
+| **Eligibility status** | Active / Warning / Disqualified per pool | Per governance cycle |
+
+### Deflationary Crossover Tracker
+
+The dashboard tracks whether the protocol has reached the **deflationary crossover** — the point where combined buyback-and-burn exceeds the emission rate:
+
+```
+Net supply change = Emissions per block − Burn per block
+```
+
+| State | Condition | Implication |
+|:------|:----------|:------------|
+| **Inflationary** | Emissions > Burns | Supply growing, normal for early eras |
+| **Crossover** | Emissions ≈ Burns | Supply stabilising, protocol approaching maturity |
+| **Deflationary** | Burns > Emissions | Supply shrinking — BTC scarcity with productive backing |
+
+All metrics are derived from on-chain state. No off-chain APIs, no proprietary feeds, no oracle dependencies. Any participant can independently verify every number by reading the smart contracts directly.
+
+---
+
+## IV — Treasury
+
+### Revenue Sources
+
+The protocol treasury is funded exclusively by stablecoin fee revenue — never by selling AuMM.
+
+| Source | Treasury Share | Mechanism |
+|:-------|:--------------|:----------|
+| Swap fees | 25% | Stablecoin revenue from trading activity across all pools |
+| ERC-4626 yield fees | 75% of the 10% skim | Stablecoin revenue from vault yield accrued in all pools |
+
+**The Day-One Guarantee.** Because ERC-4626 pools generate yield fees regardless of swap volume, the treasury has income from block 0. This is architectural — every dollar of yield-bearing tokens in any pool generates treasury revenue automatically.
+
+### Treasury Emission Phase (Months 0–10)
+
+During the launch phase, the treasury also receives a declining share of AuMM emissions:
+
+| Period | Treasury AuMM Share | Purpose |
+|:-------|:-------------------|:--------|
+| Months 0–6 | 75% → 50% (declining) | Accumulate AuMM for trading pool seed |
+| Month 6 | — | Deploy 80% of treasury assets to seed AuMM trading pool |
+| Months 6–10 | 50% → 0% (declining) | Price ceiling stabilization inventory |
+| Month 10 | **Hard stop** | Remaining stablecoins + AuMM deposited as locked liquidity; leftover AuMM burned |
+| Month 10+ | **0% — permanent** | Treasury never receives AuMM again |
+
+**The "no team allocation" guarantee.** AuMM received during the treasury phase is used exclusively for protocol-owned liquidity — never converted to stablecoins for team spending. Stabilization sale proceeds are deposited as permanently locked liquidity in qualifying Mercatūs Praecursorii. The team cannot extract value through AuMM sales.
+
+### Operating Budget
+
+After month 10, the treasury operates entirely on stablecoin fee revenue:
+
+| Category | Allocation | Notes |
+|:---------|:----------|:------|
+| Audits & Security | 40% | Ongoing audit coverage, bug bounties, formal verification |
+| Development | 30% | Smart contract maintenance, frontend, integrations |
+| Operations | 20% | Infrastructure, RPC, subgraph, monitoring |
+| Reserve | 10% | Emergency fund |
+
+### Governance Controls
+
+Treasury spending requires governance vote (AuMT-weighted, qualified pool LPs only). No single party controls the treasury.
+
+| Decision | Quorum | Deposit | Process |
+|:---------|:-------|:--------|:--------|
+| Treasury spend ≤10% of balance | No quorum | 1,000 svZCHF/sUSDS equiv in AuMM (burned) | Simple majority |
+| Treasury spend >10% of balance | 20% of qualified voting power | 1,000 svZCHF/sUSDS equiv in AuMM (burned) | Auto-fail if quorum not met → 14-day timelock + public review |
+
+**Multi-sig.** Founding team members initially hold multi-sig keys, transitioning to LP-elected council after Year 1. The multi-sig executes governance-approved spending only — it cannot initiate spends unilaterally.
+
+### Treasury Transparency
+
+All treasury flows are published on the Proof of Real Yield Dashboard:
+
+- **Treasury balance** — current stablecoin holdings by denomination
+- **Revenue inflow** — trailing 30-day treasury revenue (swap fees + yield fees)
+- **Spending outflow** — all governance-approved disbursements with transaction links
+- **Locked liquidity** — permanently locked LP positions in Mercatūs Praecursorii from stabilization proceeds (treasury can never withdraw)
