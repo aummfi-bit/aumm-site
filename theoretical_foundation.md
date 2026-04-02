@@ -99,7 +99,7 @@ Tessera-weighted governance votes set the multiplier for each Mercatūs Praecurs
 
 ### Strategic Examples
 
-The multiplier applies only to Mercatūs Praecursorii that currently hold a valid tag. If tags are revoked (gauge loss, disqualification), the multiplier pool shrinks — 15 active Pioneers means governance steers 15 pools, not 20. The math adjusts automatically.
+The multiplier applies to all 25 Mercatūs Praecursorii permanently. The Pioneer slot count never decreases — if a pool's token composition becomes unviable, a Pioneer Composition Challenge can renew it while preserving the slot, sector theme, and PMAR eligibility. The PMAR always steers exactly 25 pools.
 
 | Strategy | Pioneer Votes | Effect |
 |----------|--------------|--------|

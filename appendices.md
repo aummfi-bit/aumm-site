@@ -34,7 +34,7 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Sandbox fast-track (top 10% efficiency detection, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 2-epoch smoothing, gauge revocation logic)
-- Mercatūs Praecursorii tag registry (25 pre-defined pools, non-transferable, revocation on gauge loss, locked treasury deposits)
+- Mercatūs Praecursorii slot registry (25 permanent pools, non-transferable, composition renewable via Pioneer Composition Challenge, locked treasury deposits)
 - Token supply tracker (cumulative emitted, cumulative burned, net circulating, burn rate)
 - Minimum qualification period enforcer (14-day continuous hold check)
 - Quorum calculator and timelock router

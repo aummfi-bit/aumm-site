@@ -95,7 +95,7 @@ With 25 pools sharing svZCHF and ixEDEL as common anchors, six arbitrage layers 
 
 **2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Mercatūs Praecursorii meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
 
-**Tag revocation:** If a Mercatūs Praecursorii loses its gauge or emission eligibility, the tag is permanently revoked. No replacement. The number of active Pioneer slots only decreases.
+**Permanent slots.** The 25 Pioneer slots are permanent protocol infrastructure — the number never decreases. If a Mercatūs Praecursorii underperforms due to sector rotation, the PMAR emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a Pioneer lack on-chain volume or cease to exist, any AuMT holder can initiate a **Pioneer Composition Challenge** to propose a new token composition that preserves the pool's function, sector theme, and template structure (see **Bootstrap Rules: Pioneer Composition Challenge**).
 
 ### Pioneer Pool Profiles
 
