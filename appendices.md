@@ -1,4 +1,52 @@
-## Appendix I — Why Fair Launch AMMs Failed — And Why Aureum Won't
+## Appendix I — AMM Architecture: Aequilibrium
+
+### Provenance: Balancer V3
+
+Aequilibrium is derived from Balancer V3's open-source, Certora-verified smart contracts. The relationship is transparent: the pool layer is byte-identical to the audited code, the tokenomics layer is entirely new. The table below shows what was inherited and what was built.
+
+| Component | Origin | Modifications |
+|-----------|--------|--------------|
+| Vault | Balancer V3 (Certora verified) | None |
+| Weighted pools | Balancer V3 (Certora verified) | None |
+| Stable pools | Balancer V3 (Certora verified) | None |
+| Hooks (StableSurge etc.) | Balancer V3 (Certora verified) | None |
+| ERC-4626 rate providers | Balancer V3 (Certora verified) | None |
+| Smart Order Router | Balancer V3 | None |
+| Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming, unqualified-vote-to-burn |
+| Token contract | **New** | BTC-style emission schedule, immutable supply cap |
+| Fee distributor | **New** | 50/25/25 swap fee split + yield fee split + buyback-and-burn |
+| Governance | **New** | LP-weighted voting (AuMT for protocol governance and Bubble voting), no ve-locking |
+
+### What's Unchanged (Critical)
+
+The pool contracts, vault, SOR, hooks, and rate providers are **byte-identical** to the Certora-verified Balancer V3 code. The audit and formal verification apply to these components. Only the tokenomics layer is new and requires independent audit.
+
+This is important for LP trust: *"The AMM you're depositing into is the same formally verified code. The token you're earning is different."*
+
+### What's New (Requires Audit)
+
+- AuMM token contract (ERC-20 with immutable supply cap and halving logic)
+- AuMT pool token wrapper (Aureum Market Tessera)
+- CCB emission engine (60-day EMA calculator, PMAR multiplier computation with slope-based adjustments and dead zone)
+- Incendiary Boost engine (AuMM escrow, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
+- Bubble multiplier voting (90-day window, tessera-weighted averaging, expiry logic)
+- PMAR engine (slope calculation, dead zone, +/-0.05 adjustments, [0.75–1.25] clamping)
+- Sandbox fast-track (top 10% efficiency detection, automatic gauge approval)
+- Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
+- Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 2-epoch smoothing, gauge revocation logic)
+- Pioneer pool tag registry (25 pre-defined pools, non-transferable, revocation on gauge loss, locked treasury deposits)
+- Token supply tracker (cumulative emitted, cumulative burned, net circulating, burn rate)
+- Minimum qualification period enforcer (14-day continuous hold check)
+- Quorum calculator and timelock router
+- Unqualified-vote-to-burn router
+- Fee splitter (swap fees: 50/25/25 + yield fees: 25/75)
+- Governance voting (AuMT for protocol governance and Bubble voting — with phased fourth root→cube root dampening)
+
+Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, PMAR multiplier logic, Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+
+---
+
+## Appendix II — Why Fair Launch AMMs Failed — And Why Aureum Won't
 
 ### The Fair Launch Graveyard
 
@@ -52,13 +100,13 @@ That experiment hasn't failed. It hasn't happened.
 
 ---
 
-## Appendix II — Yield Basis Hybrid Vaults — Complementary Architecture
+## Appendix III — Yield Basis Hybrid Vaults — Complementary Architecture
 
 Curve's Yield Basis protocol (March 2026) independently validated the same core thesis Aureum is built on: sustainable AMM growth requires tying TVL expansion to productive capital, not reflexive incentives. Their Hybrid Vaults solve this by requiring LPs to deposit crvUSD (earning ~4.5% scrvUSD yield) before unlocking BTC/ETH pool capacity — directly supporting the crvUSD peg while scaling. The mechanism is architecturally orthogonal to Aureum's CCB: Yield Basis enforces anticyclicality at the user level (stable-first deposit → personal cap), while Aureum enforces it at the protocol level (EMA-weighted emissions + immutable anti-gaming gates + 52% ERC-4626 Quality Gate). Both reject reflexive liquidity mining. Both force conviction capital upfront. The key divergence: Yield Basis depends on an external stablecoin peg (crvUSD + Curve DAO credit line), while Aureum's stability layer is entirely internal and oracle-free. Aureum's routing anchor (ixEDEL) has no peg to defend — its NAV arb surface generates continuous cross-pool fees without the catastrophic depeg risk that Hybrid Vaults were specifically engineered to mitigate. The two designs compose well: a future gauge-approved Aureum pool could include scrvUSD as an ERC-4626 component if it meets the $5M vault floor, giving LPs access to both yield layers simultaneously. Source: [@yieldbasis, March 30 2026](https://x.com/yieldbasis/status/2038610652194037966).
 
 ---
 
-## Appendix III — Competitive Position
+## Appendix IV — Competitive Position
 
 ### LP Advantage Over Uniswap
 
