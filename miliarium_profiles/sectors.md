@@ -4,7 +4,7 @@
 
 Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum](../Miliarium_Aureum.md) (**slots 01–28**). Connector pools are **05–07** (Edelweiss, Libertas, Cambio). One profile per pool: **`NN_ixCanonicalName.md`** in [manifest](manifest.md).
 
-## XVI — Mapping and slot ranges
+## xvi. Mapping and slot ranges
 
 ### Mapping to registry categories
 
@@ -16,7 +16,7 @@ Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum]
 | Stocks | ixEquitix, ixInnovix, ixGigantus, ixMagnix, ixNubix, ixMoneta, ixColossix, ixVitalix, ixMedicix, ixMercatura |
 | Metals | ixAurix, ixMetallum |
 
-Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](../Miliarium_Aureum.md) Section XI registry (Stocks table).
+Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](../Miliarium_Aureum.md) Section xi registry (Stocks table).
 
 ### Slot ranges (canonical)
 
@@ -25,12 +25,12 @@ Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthca
 | 01–07 | Yield | Savings, LST/staking, flux LST, FX corridors, ixEDEL venue, USD hub, multi-currency FX |
 | 08–11 | Bonds | Short / ultra-short, HY, aggregate + TIPS, long Treasury |
 | 12–16 | Crypto-native | DeFi infrastructure, wrapped BTC, ecosystem and lending governance |
-| 17–26 | Stocks | Tokenised equities (see subclasses in Section XI Stocks table) |
+| 17–26 | Stocks | Tokenised equities (see subclasses in Section xi Stocks table) |
 | 27–28 | Metals | Physical gold; silver + uranium ETFs |
 
 ---
 
-## XVII — Design Principle
+## xvii. Design Principle
 
 The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
 
@@ -41,7 +41,7 @@ The Miliarium Aureum is structured as a **miniature economy** — not a random c
 
 ---
 
-## XVIII — Sector definitions (canonical names)
+## xviii. Sector definitions (canonical names)
 
 ### Yield (slots 01–07)
 
@@ -76,7 +76,7 @@ The Miliarium Aureum is structured as a **miniature economy** — not a random c
 
 ### TradFi equities (slots 17–26)
 
-| Pool | Profile | Subclass (see Section XI) |
+| Pool | Profile | Subclass (see Section xi) |
 |:-----|:--------|:----------------------------|
 | [ixEquitix](17_ixEquitix.md) | Broad index | Broad ETF |
 | [ixInnovix](18_ixInnovix.md) | Nasdaq-style | Tech index |
@@ -98,7 +98,7 @@ The Miliarium Aureum is structured as a **miniature economy** — not a random c
 
 ---
 
-## XIX — Sector Correlation Matrix (Qualitative)
+## xix. Sector Correlation Matrix (Qualitative)
 
 Understanding how sectors move relative to each other during macro regimes:
 
@@ -117,7 +117,7 @@ This diversity is the structural defence against protocol-wide volume collapse. 
 
 ---
 
-## XX — Cross-References
+## xx. Cross-References
 
 - Pool compositions and weights → [Miliarium Aureum](../Miliarium_Aureum.md)
 - PMAR emission multipliers → [PMAR Specification](../PMAR.md)

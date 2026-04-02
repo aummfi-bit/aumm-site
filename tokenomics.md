@@ -1,6 +1,6 @@
 # Tokenomics
 
-## IX — Token Design: AuMM (Aureum Market Maker)
+## ix. Token Design: AuMM (Aureum Market Maker)
 
 ### Supply Rules (Immutable from Block 0)
 
@@ -42,7 +42,7 @@ Governance exists for non-emission actions only (gauge approvals/challenges, tre
 - AuMT is economic proof of active LP participation only.
 - Value capture remains buyback-and-burn funded by protocol revenue.
 
-## X — Value Capture
+## x. Value Capture
 
 ### Fee Splits
 

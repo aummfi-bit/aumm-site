@@ -9,15 +9,15 @@ The 28 pools are pre-defined at launch and locked from block 0. No open slots.
 
 ### AuMM vs the 28 pools
 
-**AuMM** is the reward **token** (`tokenomics.md`), not a Miliarium slot. The **AuMM / svZCHF · sUSDS** trading layer is at the end of this file — **Section XII** (no emissions to that pool).
+**AuMM** is the reward **token** (`tokenomics.md`), not a Miliarium slot. The **AuMM / svZCHF · sUSDS** trading layer is at the end of this file — **Section xii** (no emissions to that pool).
 
 ### Canonical registry
 
-The registry tables in Section XI are the binding list of pools and compositions (one ordered list **01–28**, split by sector for readability). Emission allocation is not vote-controlled; governance applies only to non-emission actions (see `constitution.md`, `bootstrap.md`).
+The registry tables in Section xi are the binding list of pools and compositions (one ordered list **01–28**, split by sector for readability). Emission allocation is not vote-controlled; governance applies only to non-emission actions (see `constitution.md`, `bootstrap.md`).
 
 ---
 
-## XI — Registry and structure
+## xi. Registry and structure
 
 **Pool count:** **28** pools = **slots 01–28** (one pool per slot), fixed at launch.
 
@@ -154,13 +154,13 @@ With shared **svZCHF** and **ixEDEL** across most pools, arbitrage layers includ
 
 ### Pool profiles
 
-Each immutable pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column in Section XI). In the site UI, open **Miliarium ▾** in the nav for **Manifest** (full registry table), **Sectors** (taxonomy), and **Registry** (this document). The same links work here: [manifest](miliarium_profiles/manifest.md) · [sector taxonomy](miliarium_profiles/sectors.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
+Each immutable pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column in Section xi). In the site UI, open **Miliarium ▾** in the nav for **Manifest** (full registry table), **Sectors** (taxonomy), and **Registry** (this document). The same links work here: [manifest](miliarium_profiles/manifest.md) · [sector taxonomy](miliarium_profiles/sectors.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
 
 ---
 
-## XII — AuMM pool (not a Miliarium slot)
+## xii. AuMM pool (not a Miliarium slot)
 
-The **28** pools in **Section XI** are the full **Miliarium Aureum** founding set. **AuMM** is separate: it is the **reward token**, not a numbered ix slot.
+The **28** pools in **Section xi** are the full **Miliarium Aureum** founding set. **AuMM** is separate: it is the **reward token**, not a numbered ix slot.
 
 **AuMM trading pool** — AMM liquidity where **AuMM** trades against the protocol’s savings rails: **svZCHF** (Frankencoin savings vault) and **sUSDS** (Sky savings). Typical structure: **AuMM / svZCHF** and **AuMM / sUSDS** (or a routed graph that prices AuMM off both). This is **price discovery and swap depth** for the reward token; it is **not** one of the immutable ix pools above.
 
@@ -171,7 +171,7 @@ The **28** pools in **Section XI** are the full **Miliarium Aureum** founding se
 | **AuMM (token)** | Emission, halving, and fee routing to buyback-and-burn — **`tokenomics.md`**. |
 | **AuMM pool** | Trading against **svZCHF** and **sUSDS**; **no emissions** to this pool. |
 
-**Summary:** Read **Section XI** for the **only** locked founding pools and emission destinations. Read **`tokenomics.md`** for **AuMM** the asset; this section defines the **AuMM / svZCHF · sUSDS** trading layer vs the **28** Miliarium pools.
+**Summary:** Read **Section xi** for the **only** locked founding pools and emission destinations. Read **`tokenomics.md`** for **AuMM** the asset; this section defines the **AuMM / svZCHF · sUSDS** trading layer vs the **28** Miliarium pools.
 
 ---
 

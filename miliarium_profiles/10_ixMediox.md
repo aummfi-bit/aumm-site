@@ -7,7 +7,7 @@
 
 ## Composition
 
-Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section XI, slot 10).
+Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section xi, slot 10).
 
 | Component | Token | Weight |
 |:----------|:------|:-------|

@@ -4,14 +4,14 @@
 
 ---
 
-## XXI — Cold-Start Design
+## xxi. Cold-Start Design
 
 The protocol keeps permissionless pool creation while limiting governance to non-emission actions.
 
 - Any builder can deploy pools from block 0.
 - Core emission allocation remains automatic and immutable.
 
-## XXII — Incendiary Boost
+## xxii. Incendiary Boost
 
 Incendiary Boost remains a proof-of-conviction mechanism:
 
@@ -20,13 +20,13 @@ Incendiary Boost remains a proof-of-conviction mechanism:
 - escrowed AuMM is burned
 - all logic executes on-chain with no admin controls
 
-## XXIII — Eligibility and Competition
+## xxiii. Eligibility and Competition
 
 - Pools compete under immutable eligibility criteria and efficiency ranking.
 - PMAR applies automatically as defined in `PMAR.md`.
 - No Bubble voting and no voting over emission allocation.
 
-## XXIV — Governance Gating (Non-Emission)
+## xxiv. Governance Gating (Non-Emission)
 
 ### Gauge Proposal
 
@@ -56,6 +56,6 @@ Incendiary Boost remains a proof-of-conviction mechanism:
 
 Every proposal must reference only verifiable on-chain data (addresses, block ranges, and contract-derived metrics). Proposals based on off-chain-only claims are invalid.
 
-## XXV — Immutable Reference
+## xxv. Immutable Reference
 
 See Immutable Parameters in `constitution.md`.
