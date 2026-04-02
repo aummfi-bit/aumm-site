@@ -69,7 +69,7 @@ Uncontested proposals with very low turnout do not pass silently. They either au
 
 **What governance controls:**
 - Bubble multipliers via 6-weekly tessera-weighted voting for new pools in their first 90 days (constrained to [0.90–2.00])
-- *Note: Pioneer pool multipliers are set automatically by the PMAR — not by governance vote*
+- *Note: Mercatūs Praecursorii multipliers are set automatically by the PMAR — not by governance vote*
 - Gauge approval (AuMT vote to grant a pool emission eligibility — requires 100 svZCHF/sUSDS equivalent in AuMM, burned). **Available from month 11 onward only.**
 - Gauge revocation (AuMT vote to remove a gauge via challenge — requires 1,000 svZCHF/sUSDS equivalent in AuMM, burned)
 - Fee parameters (swap fee %, yield fee %)
@@ -96,7 +96,7 @@ Score(pool_i) = TVL_EMA60(pool_i) × PMAR_mult(pool_i) × Bubble_mult(pool_i) ×
 
 Where:
 - `TVL_EMA60` = 60-day exponential moving average of on-chain TVL (~21-day half-life)
-- `PMAR_mult` = Pioneer Multiplier Adjustment Rule output [0.75–1.25] for Pioneer pools, 1.0 for non-Pioneer (see below)
+- `PMAR_mult` = Pioneer Multiplier Adjustment Rule output [0.75–1.25] for Mercatūs Praecursorii, 1.0 for non-Pioneer (see below)
 - `Bubble_mult` = tessera-weighted vote result [0.90–2.00] for pools in their first 90 days, 1.0 otherwise
 - `Incendiary_mult` = burn-funded boost multiplier, 1.0 for most pools, > 1.0 for pools with active Incendiary Boost
 
@@ -118,7 +118,7 @@ If emissions are directed toward pools that do not meet eligibility criteria, th
 
 ### Pioneer Multiplier Adjustment Rule (PMAR)
 
-The PMAR is a deterministic, oracle-free mechanism that automatically steers emission multipliers across the 25 immutable Pioneer pools. It replaces governance-driven multiplier voting entirely.
+The PMAR is a deterministic, oracle-free mechanism that automatically steers emission multipliers across the 25 immutable Mercatūs Praecursorii. It replaces governance-driven multiplier voting entirely.
 
 **Inputs (All On-Chain, Oracle-Free)**
 
@@ -130,10 +130,10 @@ Global Pioneer ratio — Pioneer share of protocol TVL:
 r_P(t) = TVL_Pioneer_EMA60(t) / TVL_Protocol(t)
 ```
 
-Per-pool ratio — each Pioneer pool's share within the Pioneer constellation:
+Per-pool ratio — each Mercatūs Praecursorii's share within the Pioneer constellation:
 
 ```
-r_i(t) = TVL_i_EMA60(t) / TVL_Pioneer_EMA60(t)     for each Pioneer pool i = 1..25
+r_i(t) = TVL_i_EMA60(t) / TVL_Pioneer_EMA60(t)     for each Mercatūs Praecursorii i = 1..25
 ```
 
 **Slope Calculation**
@@ -263,11 +263,11 @@ The following parameters are immutable in the smart contracts. No governance vot
 
 **Eligibility criteria.** ERC-4626 composition ≥52% with $5M/30 BTC/4M svZCHF vault TVL floor per token. Volume percentile floors. Efficiency-based emission caps. Grace period schedule. Gauge revocation after 4 consecutive failed cycles. None of this can be changed.
 
-**Pioneer pool tags.** All 25 pre-defined at launch, locked from block 0. No open slots. PMAR-steered multiplier [0.75–1.25]. Non-transferable. Revoked on gauge loss. No replacements ever.
+**Mercatūs Praecursorii tags.** All 25 pre-defined at launch, locked from block 0. No open slots. PMAR-steered multiplier [0.75–1.25]. Non-transferable. Revoked on gauge loss. No replacements ever.
 
 **Continuous Central Bank (CCB).** Emission allocation driven by 60-day EMA of on-chain TVL. Each pool's emission share = `(TVL_EMA60 * M * Incendiary_mult) / sum(all pool scores)`. Pioneer multipliers set automatically by PMAR [0.75–1.25] — no governance vote. Bubble multiplier range [0.90–2.00] for first 90 days post-gauge-approval (governance-voted). All parameters immutable.
 
-**Pioneer Multiplier Adjustment Rule (PMAR).** Deterministic, oracle-free multiplier steering for Pioneer pools. +/-0.05 adjustments based on slope of EMA(60) TVL ratios with 0.1%-of-ratio dead zone. Clamped to [0.75, 1.25]. Recalculated at bi-weekly cycle boundaries. All parameters immutable from block 0.
+**Pioneer Multiplier Adjustment Rule (PMAR).** Deterministic, oracle-free multiplier steering for Mercatūs Praecursorii. +/-0.05 adjustments based on slope of EMA(60) TVL ratios with 0.1%-of-ratio dead zone. Clamped to [0.75, 1.25]. Recalculated at bi-weekly cycle boundaries. All parameters immutable from block 0.
 
 **Incendiary Boost.** 30-day supplementary emission funded by operator AuMM escrow. Emission rate pegged to 85th percentile efficiency × (2 - pool's efficiency rank). Priority claim on block rewards. Renewal only after pool enters 85th percentile in Efficiency Tournament. All parameters immutable.
 

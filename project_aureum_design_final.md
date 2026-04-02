@@ -17,7 +17,7 @@ This document has been reorganised into dedicated sections accessible via the si
 | **Mental Model** | Five-section conceptual overview |
 | **Theoretical Foundations** | CCB formula, score mechanics, two-step distribution |
 | **Tokenomics** | Token design, supply schedule, value capture, fee splits |
-| **Pioneer Pools** | All 25 Miliarium Aureum pools, compositions, routing |
+| **Mercatūs Praecursorii** | All 25 Miliarium Aureum pools, compositions, routing |
 | **Glossary** | Term definitions |
 | **Appendices** | AMM Architecture, Fair Launch Analysis, Yield Basis, Competitive Position |
 

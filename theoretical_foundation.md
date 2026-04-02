@@ -29,7 +29,7 @@ The CCB draws from established research across multiple disciplines:
 
 ## II — The Continuous Central Bank (CCB)
 
-> **Activation:** The CCB engine activates during the month 11–12 transition. During months 0–10, emissions are distributed equally across the 25 Pioneer pools (1/25th each). See **Launch Procedures** for the full timeline.
+> **Activation:** The CCB engine activates during the month 11–12 transition. During months 0–10, emissions are distributed equally across the 25 Mercatūs Praecursorii (1/25th each). See **Launch Procedures** for the full timeline.
 
 ### The Problem: Pro-Cyclicality
 
@@ -37,7 +37,7 @@ Most DeFi protocols amplify market moves — pouring incentives into pumps and w
 
 ### The Solution: Algorithmic Inertia
 
-The Continuous Central Bank (CCB) replaces human-driven emission allocation with an algorithmic engine that uses each pool's **60-day Exponential Moving Average (EMA) of on-chain TVL** as the base emission weight. Governance does not set pool weights. Capital sets pool weights. Governance only nudges Pioneer pool multipliers within a constrained band.
+The Continuous Central Bank (CCB) replaces human-driven emission allocation with an algorithmic engine that uses each pool's **60-day Exponential Moving Average (EMA) of on-chain TVL** as the base emission weight. Governance does not set pool weights. Capital sets pool weights. Governance only nudges Mercatūs Praecursorii multipliers within a constrained band.
 
 ```
 TVL_EMA_pool(today) = α × TVL_spot(today) + (1 - α) × TVL_EMA_pool(yesterday)
@@ -63,7 +63,7 @@ Score(pool) = TVL_EMA60(pool) × Pioneer_mult(pool) × Bubble_mult(pool) × Ince
 ```
 
 Where:
-- `Pioneer_mult` = PMAR-computed multiplier [0.75–1.25] for Pioneer pools, 1.00 for non-Pioneer (see PMAR Specification)
+- `Pioneer_mult` = PMAR-computed multiplier [0.75–1.25] for Mercatūs Praecursorii, 1.00 for non-Pioneer (see PMAR Specification)
 - `Bubble_mult` = tessera-weighted vote result [0.90–2.00] for pools in their first 90 days post-gauge-approval, 1.00 otherwise
 - `Incendiary_mult` = burn-funded boost multiplier, 1.00 for most pools, > 1.00 for pools with active Incendiary Boost
 
@@ -82,29 +82,29 @@ The 21M hard cap is never breached. Incendiary Boosts eat from the same fixed pi
 
 ### The Steering Mechanism: Pioneer Multiplier Voting
 
-Tessera-weighted governance votes set the multiplier for each Pioneer pool within a constrained range:
+Tessera-weighted governance votes set the multiplier for each Mercatūs Praecursorii within a constrained range:
 
 | Discrete Steps | 0.90 | 0.95 | 1.00 | 1.05 | 1.10 |
 |---------------|------|------|------|------|------|
 
-**The final multiplier for each Pioneer pool is the tessera-weighted average of all votes cast for that pool.** Individual voters choose from discrete steps (0.90, 0.95, 1.00, 1.05, 1.10), but the weighted average produces a continuous result (e.g., 1.034). This forces consensus — no single voter or coalition can slam a multiplier to the extreme. The system gravitates toward the middle ground.
+**The final multiplier for each Mercatūs Praecursorii is the tessera-weighted average of all votes cast for that pool.** Individual voters choose from discrete steps (0.90, 0.95, 1.00, 1.05, 1.10), but the weighted average produces a continuous result (e.g., 1.034). This forces consensus — no single voter or coalition can slam a multiplier to the extreme. The system gravitates toward the middle ground.
 
 **Voting mechanics:**
-- Multiplier votes are cast per Pioneer pool every **6 weeks** (three governance cycles)
+- Multiplier votes are cast per Mercatūs Praecursorii every **6 weeks** (three governance cycles)
 - Only qualified AuMT holders can vote (same qualification as all governance)
 - Withdrawal from any pool resets voting power to zero (see Governance section)
 - If no votes are cast in a cycle, the multiplier persists from the prior cycle
 
-**Non-Pioneer pools have no multiplier.** Their emission share is pure TVL-EMA weight. No governance input. Capital is the only signal.
+**Non-Mercatūs Praecursorii have no multiplier.** Their emission share is pure TVL-EMA weight. No governance input. Capital is the only signal.
 
 ### Strategic Examples
 
-The multiplier applies only to Pioneer pools that currently hold a valid tag. If tags are revoked (gauge loss, disqualification), the multiplier pool shrinks — 15 active Pioneers means governance steers 15 pools, not 20. The math adjusts automatically.
+The multiplier applies only to Mercatūs Praecursorii that currently hold a valid tag. If tags are revoked (gauge loss, disqualification), the multiplier pool shrinks — 15 active Pioneers means governance steers 15 pools, not 20. The math adjusts automatically.
 
 | Strategy | Pioneer Votes | Effect |
 |----------|--------------|--------|
-| Boost all Pioneers | 1.10 on all active Pioneers | Pioneer pools collectively get ~10% more than TVL-weighted share |
-| Boost ecosystem pools | 0.90 on all active Pioneers | Non-Pioneer pools collectively get more emissions |
+| Boost all Pioneers | 1.10 on all active Pioneers | Mercatūs Praecursorii collectively get ~10% more than TVL-weighted share |
+| Boost ecosystem pools | 0.90 on all active Pioneers | Non-Mercatūs Praecursorii collectively get more emissions |
 | Concentrate on ixAppia | 1.10 on ixAppia, 0.90 on others | Gold pool favored within Pioneer set |
 | Neutral | 1.00 on all | Pure TVL-weighted allocation everywhere |
 

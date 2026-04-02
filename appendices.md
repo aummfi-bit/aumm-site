@@ -34,7 +34,7 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Sandbox fast-track (top 10% efficiency detection, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 2-epoch smoothing, gauge revocation logic)
-- Pioneer pool tag registry (25 pre-defined pools, non-transferable, revocation on gauge loss, locked treasury deposits)
+- Mercatūs Praecursorii tag registry (25 pre-defined pools, non-transferable, revocation on gauge loss, locked treasury deposits)
 - Token supply tracker (cumulative emitted, cumulative burned, net circulating, burn rate)
 - Minimum qualification period enforcer (14-day continuous hold check)
 - Quorum calculator and timelock router
@@ -42,7 +42,7 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Fee splitter (swap fees: 50/25/25 + yield fees: 25/75)
 - Governance voting (AuMT for protocol governance and Bubble voting — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, PMAR multiplier logic, Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, PMAR multiplier logic, Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Mercatūs Praecursorii tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 

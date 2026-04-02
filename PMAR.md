@@ -8,10 +8,10 @@
 
 ## Purpose
 
-The Pioneer Multiplier Adjustment Rule (PMAR) is a minimal, deterministic, oracle-free mechanism that automatically steers emission multipliers across the 25 immutable Pioneer pools. It replaces governance-driven multiplier voting entirely. The system responds **solely** to the slope (first derivative) of two EMA(60) TVL ratios and applies simple **+/-0.05** adjustments:
+The Pioneer Multiplier Adjustment Rule (PMAR) is a minimal, deterministic, oracle-free mechanism that automatically steers emission multipliers across the 25 immutable Mercatūs Praecursorii. It replaces governance-driven multiplier voting entirely. The system responds **solely** to the slope (first derivative) of two EMA(60) TVL ratios and applies simple **+/-0.05** adjustments:
 
-- **Global adjustment**: When the Pioneer set as a whole loses share of protocol TVL, every Pioneer pool receives a uniform **+0.05** boost. When the Pioneer set gains share, every pool receives a uniform **-0.05** penalty.
-- **Per-pool adjustment**: Any individual Pioneer pool that is gaining relative share inside the Pioneer constellation receives a **-0.05** intra adjustment; a pool losing relative share receives a **+0.05** boost.
+- **Global adjustment**: When the Pioneer set as a whole loses share of protocol TVL, every Mercatūs Praecursorii receives a uniform **+0.05** boost. When the Pioneer set gains share, every pool receives a uniform **-0.05** penalty.
+- **Per-pool adjustment**: Any individual Mercatūs Praecursorii that is gaining relative share inside the Pioneer constellation receives a **-0.05** intra adjustment; a pool losing relative share receives a **+0.05** boost.
 
 All adjustments are additive, start from a neutral base of **1.0**, and remain strictly clamped to **[0.75, 1.25]**.
 
@@ -27,17 +27,17 @@ A higher multiplier means a larger share of the fixed per-block emission. The su
 
 ## Activation and Base Values
 
-- Applies **exclusively** to the 25 immutable Pioneer pools (pre-tagged at launch).
-- Non-Pioneer pools are unaffected (pure CCB/EMA weighting; their multiplier is implicitly 1.0).
-- **Activation**: Linear interpolation during the CCB transition (month 11 day 1 to month 13 day 1). Before month 11, Pioneer pools receive equal emissions. On month 13 day 1, the full CCB + PMAR math applies. During the transition:
+- Applies **exclusively** to the 25 immutable Mercatūs Praecursorii (pre-tagged at launch).
+- Non-Mercatūs Praecursorii are unaffected (pure CCB/EMA weighting; their multiplier is implicitly 1.0).
+- **Activation**: Linear interpolation during the CCB transition (month 11 day 1 to month 13 day 1). Before month 11, Mercatūs Praecursorii receive equal emissions. On month 13 day 1, the full CCB + PMAR math applies. During the transition:
 
 ```
 T = (D - month_11_start) / (month_13_start - month_11_start)
 effective_share = (1 - T) * equal_share + T * CCB_PMAR_share
 ```
 
-- **Initial multiplier**: Every Pioneer pool starts at exactly **1.0**.
-- All 25 Pioneer pools have a minimum seed TVL at launch. If a pool's TVL approaches zero, its emission share approaches zero naturally via the TVL term in the numerator — no special-case handling required.
+- **Initial multiplier**: Every Mercatūs Praecursorii starts at exactly **1.0**.
+- All 25 Mercatūs Praecursorii have a minimum seed TVL at launch. If a pool's TVL approaches zero, its emission share approaches zero naturally via the TVL term in the numerator — no special-case handling required.
 
 ---
 
@@ -51,10 +51,10 @@ Recalculated at every bi-weekly governance cycle boundary using the 60-day EMA a
 r_P(t) = TVL_Pioneer_EMA60(t) / TVL_Protocol(t)
 ```
 
-**Per-pool ratio** — each Pioneer pool's share within the Pioneer constellation:
+**Per-pool ratio** — each Mercatūs Praecursorii's share within the Pioneer constellation:
 
 ```
-r_i(t) = TVL_i_EMA60(t) / TVL_Pioneer_EMA60(t)     for each Pioneer pool i = 1..25
+r_i(t) = TVL_i_EMA60(t) / TVL_Pioneer_EMA60(t)     for each Mercatūs Praecursorii i = 1..25
 ```
 
 ---
@@ -116,18 +116,18 @@ M_i(t) = clamp( M_i(t-1) + delta_global + delta_intra_i,  0.75,  1.25 )
 
 **Case**: Pool i is gaining TVL (`slope_i > epsilon_i`) while the Pioneer set as a whole is losing share of protocol TVL (`slope_P < -epsilon_P`).
 
-- `delta_global = +0.05` (boost to every Pioneer pool)
+- `delta_global = +0.05` (boost to every Mercatūs Praecursorii)
 - `delta_intra_i = -0.05` (penalty to the gaining pool)
 - **Net for pool i**: `+0.05 - 0.05 = 0` — no change to its multiplier.
-- **Net for other Pioneer pools** (those also losing intra-share): `+0.05 + 0.05 = +0.10`.
+- **Net for other Mercatūs Praecursorii** (those also losing intra-share): `+0.05 + 0.05 = +0.10`.
 
-The gaining pool holds steady while the declining pools get boosted. The Pioneer set as a whole shifts emission weight upward (via higher multipliers in the score formula) relative to non-Pioneer pools — exactly the anticyclical behaviour intended.
+The gaining pool holds steady while the declining pools get boosted. The Pioneer set as a whole shifts emission weight upward (via higher multipliers in the score formula) relative to non-Mercatūs Praecursorii — exactly the anticyclical behaviour intended.
 
-**Case**: All Pioneer pools growing proportionally, Pioneer set gaining protocol share.
+**Case**: All Mercatūs Praecursorii growing proportionally, Pioneer set gaining protocol share.
 
 - `slope_P > epsilon_P` → `delta_global = -0.05`
 - All `|slope_i| < epsilon_i` (proportional growth, no intra-change) → `delta_intra_i = 0`
-- **Net for all Pioneer pools**: `-0.05` each. Multipliers drift downward, reducing Pioneer emission share relative to non-Pioneer pools. Protocol self-corrects against Pioneer dominance.
+- **Net for all Mercatūs Praecursorii**: `-0.05` each. Multipliers drift downward, reducing Pioneer emission share relative to non-Mercatūs Praecursorii. Protocol self-corrects against Pioneer dominance.
 
 ---
 
@@ -141,7 +141,7 @@ Score(pool_i) = TVL_EMA60(pool_i) * M_i(t) * Incendiary_mult(pool_i)
 
 Where:
 - `TVL_EMA60` is the 60-day exponential moving average of on-chain TVL
-- `M_i(t)` is the PMAR multiplier (Pioneer pools only; implicitly 1.0 for non-Pioneer pools)
+- `M_i(t)` is the PMAR multiplier (Mercatūs Praecursorii only; implicitly 1.0 for non-Mercatūs Praecursorii)
 - `Incendiary_mult` is the Incendiary Boost multiplier (1.0 for most pools; > 1.0 for pools with an active burn-funded boost)
 
 Each pool's share of per-block emissions is `Score(pool_i) / sum(all pool scores)`.

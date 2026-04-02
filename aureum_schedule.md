@@ -61,7 +61,7 @@
 | S2-02 | Implement per-block emission streaming logic | 8 | P0 | Correct emission rate for Era 1; halving trigger at block boundary; fuzz tests on edge cases |
 | S2-03 | Implement treasury emission split (75%→50%→0% linear decline) | 5 | P0 | Treasury share matches schedule at any block; immutable after deploy |
 | S2-04 | Implement AuMT tessera wrapper (LP position → governance token) | 5 | P0 | AuMT minted on pool join, burned on exit; USD value readable on-chain |
-| S2-05 | Stub CCB interface (equal-weight distribution for Pioneer phase) | 3 | P1 | 25 Pioneer pools receive 1/25th each; non-Pioneer pools receive zero |
+| S2-05 | Stub CCB interface (equal-weight distribution for Pioneer phase) | 3 | P1 | 25 Mercatūs Praecursorii receive 1/25th each; non-Mercatūs Praecursorii receive zero |
 | S2-06 | Unit test suite for token contracts | 5 | P0 | 100% branch coverage on AuMM and AuMT; invariant tests on supply cap |
 
 ---
@@ -145,9 +145,9 @@
 |----|-------|----|----------|-------------------|
 | S9-01 | Implement AuMM trading pool deployment logic (month 6 trigger) | 5 | P0 | TVL-to-FDV vote mechanism; 80% treasury deployment; correct pool composition |
 | S9-02 | Implement TVL measurement window (months 2–6, time-weighted average) | 3 | P0 | Recency-weighted; manipulation-resistant; feeds pricing formula |
-| S9-03 | Implement price ceiling (7-day SMA, 200% FDV trigger, 0.75% daily sell rate) | 5 | P0 | Reads internal pool price (oracle-free); sell rate enforced; proceeds to Pioneer pools |
+| S9-03 | Implement price ceiling (7-day SMA, 200% FDV trigger, 0.75% daily sell rate) | 5 | P0 | Reads internal pool price (oracle-free); sell rate enforced; proceeds to Mercatūs Praecursorii |
 | S9-04 | Implement month-10 hard stop (final deposit, excess burn, emission share → 0%) | 3 | P0 | All mechanisms deactivate permanently; leftover AuMM burned; treasury share = 0 forever |
-| S9-05 | Implement Pioneer pool locked liquidity (treasury deposits permanent, no withdrawal) | 3 | P0 | Deposit function succeeds; withdraw function reverts always |
+| S9-05 | Implement Mercatūs Praecursorii locked liquidity (treasury deposits permanent, no withdrawal) | 3 | P0 | Deposit function succeeds; withdraw function reverts always |
 | S9-06 | Treasury lifecycle integration test (months 0–10 full simulation) | 8 | P0 | Emission decline, pool deployment, ceiling activation/deactivation, final burn all verified |
 
 ---
@@ -160,7 +160,7 @@
 
 | ID | Story | SP | Priority | Acceptance Criteria |
 |----|-------|----|----------|-------------------|
-| S10-01 | End-to-end integration: deploy all contracts, 25 Pioneer pools, run 100-block simulation | 8 | P0 | All emissions correct; fees split correctly; governance power accrues; anti-gaming fires |
+| S10-01 | End-to-end integration: deploy all contracts, 25 Mercatūs Praecursorii, run 100-block simulation | 8 | P0 | All emissions correct; fees split correctly; governance power accrues; anti-gaming fires |
 | S10-02 | Month 11–12 CCB transition test (equal-weight → full CCB linear interpolation) | 5 | P0 | `T` parameter transitions smoothly; no discontinuity at month 13 boundary |
 | S10-03 | Pioneer tag registry integration (25 pools tagged, revocation tested, locked deposits verified) | 3 | P0 | All 25 pools tagged; revocation removes tag; treasury deposit locks verified |
 | S10-04 | Gas optimization pass on all new contracts | 5 | P1 | Gas per operation benchmarked; no function exceeds 500K gas; CCB cycle update < 1M gas |
@@ -232,7 +232,7 @@
 
 | ID | Story | SP | Priority | Acceptance Criteria |
 |----|-------|----|----------|-------------------|
-| S16-01 | Deploy all contracts to testnet (Sepolia/Holesky) | 3 | P0 | All 25 Pioneer pools live; emissions streaming; governance functional |
+| S16-01 | Deploy all contracts to testnet (Sepolia/Holesky) | 3 | P0 | All 25 Mercatūs Praecursorii live; emissions streaming; governance functional |
 | S16-02 | Founding team testnet walkthrough (deposit, earn, vote, withdraw) | 2 | P0 | Every user flow tested by at least 2 team members |
 | S16-03 | Testnet stress test (high-frequency deposits/withdrawals, cycle boundaries) | 5 | P0 | No reverts; emission invariants hold; gas within limits |
 | S16-04 | Frontend connected to testnet (aumm.fi staging environment) | 3 | P0 | Full UX functional against testnet contracts |
@@ -243,9 +243,9 @@
 | ID | Story | SP | Priority | Acceptance Criteria |
 |----|-------|----|----------|-------------------|
 | S17-01 | Verify Aequilibrium SOR compatibility with existing Balancer V3 aggregator integrations | 3 | P0 | At least 2 aggregators (1inch, CoW) successfully route through testnet pools |
-| S17-02 | Prepare seed liquidity for 25 Pioneer pools (asset sourcing, wallet setup) | 3 | P0 | All 25 pool compositions confirmed; assets acquired or committed |
+| S17-02 | Prepare seed liquidity for 25 Mercatūs Praecursorii (asset sourcing, wallet setup) | 3 | P0 | All 25 pool compositions confirmed; assets acquired or committed |
 | S17-03 | Prepare ERC-4626 buffer initialization for all yield-bearing tokens | 5 | P0 | Balancer V3 buffers initialized for: svZCHF, sUSDS, waEthUSDC, waEthUSDT, sfrxUSD, GHO, waEthrETH, waEthweETH, fWSTETH, fWETH, waEthwstETH, sUSDe, scrvUSD |
-| S17-04 | Verify all Pioneer pool token compositions against design doc | 2 | P0 | 25 pools × weights × token addresses verified; no mismatches |
+| S17-04 | Verify all Mercatūs Praecursorii token compositions against design doc | 2 | P0 | 25 pools × weights × token addresses verified; no mismatches |
 | S17-05 | DNS and hosting for aumm.fi (production) | 2 | P1 | Domain resolves; SSL; CDN; frontend deploys from CI |
 | S17-06 | Bug bounty program launched (Immunefi or equivalent) | 2 | P1 | Scope defined; reward tiers set; publicly listed |
 
@@ -270,9 +270,9 @@
 | ID | Story | SP | Priority | Acceptance Criteria |
 |----|-------|----|----------|-------------------|
 | S19-01 | Deploy all contracts to Ethereum mainnet (deterministic addresses) | 3 | P0 | All contracts verified on Etherscan; addresses match testnet dry run |
-| S19-02 | Deploy 25 Pioneer pools with founding gauges | 5 | P0 | All 25 pools live; weights match design doc; gauges active |
+| S19-02 | Deploy 25 Mercatūs Praecursorii with founding gauges | 5 | P0 | All 25 pools live; weights match design doc; gauges active |
 | S19-03 | Initialize all ERC-4626 buffers on Balancer V3 Vault | 3 | P0 | All yield-bearing tokens have initialized buffers; wrap/unwrap functional |
-| S19-04 | Seed initial liquidity in Pioneer pools | 3 | P0 | Founding team deposits in priority pools; TVL > $10K per pool |
+| S19-04 | Seed initial liquidity in Mercatūs Praecursorii | 3 | P0 | Founding team deposits in priority pools; TVL > $10K per pool |
 | S19-05 | Verify emission streaming (first blocks) | 2 | P0 | AuMM accruing to LP positions; treasury share = 75%; non-Pioneer = 0 |
 | S19-06 | Verify fee distribution (first swaps) | 2 | P0 | Swap fees split 50/25/25; yield fees split 25/75 |
 | S19-07 | Frontend goes live at aumm.fi | 1 | P0 | Production deployment; all pools visible; deposit/withdraw functional |
@@ -287,7 +287,7 @@ These are protocol milestones from the design doc, not development sprints. Incl
 
 | Month | Milestone |
 |-------|-----------|
-| 0 | Genesis — 25 Pioneer pools, equal-weight emissions, treasury at 75% |
+| 0 | Genesis — 25 Mercatūs Praecursorii, equal-weight emissions, treasury at 75% |
 | 2 | TVL measurement window opens |
 | 6 | AuMM trading pool launch; buyback-and-burn begins; treasury at 50% |
 | 6–10 | Price ceiling stabilization active |

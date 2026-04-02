@@ -12,7 +12,7 @@ All launch mechanics described in this section are **immutable from block 0**. T
 
 **Pool creation is permissionless from block 0.** The Aequilibrium factory is open. Anyone can deploy any pool and provide liquidity, including to the 25 Pioneers.
 
-**Emissions are split equally among the 25 Pioneer pools only.** No CCB/EMA weighting during this phase. Each Pioneer receives 1/25th of total LP emissions (after the treasury share). Non-Pioneer pools exist in the Sandbox — they can attract liquidity but receive zero emissions.
+**Emissions are split equally among the 25 Mercatūs Praecursorii only.** No CCB/EMA weighting during this phase. Each Pioneer receives 1/25th of total LP emissions (after the treasury share). Non-Mercatūs Praecursorii exist in the Sandbox — they can attract liquidity but receive zero emissions.
 
 **Treasury emission phase:** A declining share of per-block emissions flows to the protocol treasury (75%→50% by month 6, 50%→0% by month 10). After month 10, the treasury never receives AuMM again.
 
@@ -25,7 +25,7 @@ All launch mechanics described in this section are **immutable from block 0**. T
 - Buyback-and-burn begins one week later
 
 **Months 6–10: Price Ceiling Stabilization.**
-If 7-day SMA FDV > 200% of voted multiple, treasury sells AuMM at 0.75% of pool TVL per day. Proceeds deposited as permanent locked liquidity in qualifying Pioneer pools. Price reference is the internal AuMM/stablecoin pool price (oracle-free).
+If 7-day SMA FDV > 200% of voted multiple, treasury sells AuMM at 0.75% of pool TVL per day. Proceeds deposited as permanent locked liquidity in qualifying Mercatūs Praecursorii. Price reference is the internal AuMM/stablecoin pool price (oracle-free).
 
 **Month 10: Hard Stop.**
 - Stabilization shuts off permanently
@@ -35,11 +35,11 @@ If 7-day SMA FDV > 200% of voted multiple, treasury sells AuMM at 0.75% of pool 
 
 ### End of Month 10: PMAR Initialisation
 
-All 25 Pioneer pool multipliers are set to 1.0. The PMAR begins collecting EMA(60) TVL ratio data for slope calculation. No governance vote — multipliers are fully automatic from this point forward.
+All 25 Mercatūs Praecursorii multipliers are set to 1.0. The PMAR begins collecting EMA(60) TVL ratio data for slope calculation. No governance vote — multipliers are fully automatic from this point forward.
 
 ### Month 11: Gauge Proposals Open
 
-- Non-Pioneer pools can submit gauge proposals (burn 100 svZCHF/sUSDS equivalent in AuMM)
+- Non-Mercatūs Praecursorii can submit gauge proposals (burn 100 svZCHF/sUSDS equivalent in AuMM)
 - All pools (Pioneer and non-Pioneer) begin ranking in the Efficiency Tournament
 - Sandbox fast-track active: non-gauged pools reaching top 10% efficiency earn automatic gauge approval
 

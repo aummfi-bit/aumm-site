@@ -1,14 +1,14 @@
-## I — The Miliarium Aureum: Pioneer Pools
+## I — The Miliarium Aureum: Mercatūs Praecursorii
 
-All 25 Pioneer pools are pre-defined at launch and locked from block 0. No open slots. No governance vote to add or replace Pioneers. The 25 pools below constitute the complete founding infrastructure.
+All 25 Mercatūs Praecursorii are pre-defined at launch and locked from block 0. No open slots. No governance vote to add or replace Pioneers. The 25 pools below constitute the complete founding infrastructure.
 
 ### The Dual-Anchor System: svZCHF + ixEDEL
 
-Every Pioneer pool contains both **svZCHF** (yield anchor — ERC-4626, Frankencoin savings rate ~3.75%, counts toward the 4626 Quality Gate) and **ixEDEL** (routing anchor — ERC-20, Reserve Protocol DTF, IL reduction via diversified basket, internal cross-pool arbitrage routing, strategic moat). Together they create a unified routing hub where all 25 pools are interconnected through shared anchor tokens.
+Every Mercatūs Praecursorii contains both **svZCHF** (yield anchor — ERC-4626, Frankencoin savings rate ~3.75%, counts toward the 4626 Quality Gate) and **ixEDEL** (routing anchor — ERC-20, Reserve Protocol DTF, IL reduction via diversified basket, internal cross-pool arbitrage routing, strategic moat). Together they create a unified routing hub where all 25 pools are interconnected through shared anchor tokens.
 
 ### Standardised Pool Template
 
-All Pioneer pools follow a consistent weight structure:
+All Mercatūs Praecursorii follow a consistent weight structure:
 
 | Component | Weight | Role |
 |-----------|--------|------|
@@ -91,8 +91,8 @@ With 25 pools sharing svZCHF and ixEDEL as common anchors, six arbitrage layers 
 
 ### Pioneer Benefits
 
-**1. PMAR emission multiplier.** Pioneer pools are the only pools eligible for the automatic PMAR multiplier [0.75–1.25] (see **PMAR Specification**).
+**1. PMAR emission multiplier.** Mercatūs Praecursorii are the only pools eligible for the automatic PMAR multiplier [0.75–1.25] (see **PMAR Specification**).
 
-**2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Pioneer pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
+**2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Mercatūs Praecursorii meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
 
-**Tag revocation:** If a Pioneer pool loses its gauge or emission eligibility, the tag is permanently revoked. No replacement. The number of active Pioneer slots only decreases.
+**Tag revocation:** If a Mercatūs Praecursorii loses its gauge or emission eligibility, the tag is permanently revoked. No replacement. The number of active Pioneer slots only decreases.

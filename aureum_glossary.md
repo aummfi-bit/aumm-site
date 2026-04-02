@@ -22,9 +22,9 @@
 
 ## Emission & Bootstrapping
 
-**Pioneer Pools** — 25 pre-defined foundational pools receiving equal emissions during months 0–10.
+**Mercatūs Praecursorii** (Latin: *Precursor Markets*) — the 25 pre-defined foundational pools constituting the Miliarium Aureum. Locked from block 0 with no open slots. Receive equal emissions during months 0–10, then transition to CCB/EMA + PMAR weighting. Each pool shares svZCHF (yield anchor) and ixEDEL (routing anchor) as common components, creating a unified cross-pool arbitrage and routing network. Only these pools are eligible for the PMAR emission multiplier.
 
-**Pioneer Multiplier (PMAR)** — automatic, deterministic emission weight [0.75–1.25] for Pioneer pools, recalculated at each bi-weekly cycle boundary by the Pioneer Multiplier Adjustment Rule. Not governance-voted.
+**Pioneer Multiplier (PMAR)** — automatic, deterministic emission weight [0.75–1.25] for Mercatūs Praecursorii, recalculated at each bi-weekly cycle boundary by the Pioneer Multiplier Adjustment Rule. Not governance-voted.
 
 **Incendiary Boost** — builder-funded emission boost; deposit AuMM → emitted over 30 days (permanently burned); priority skim reduces all other pools' emissions.
 
