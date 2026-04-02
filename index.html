@@ -130,6 +130,9 @@
   .content p { margin-bottom: 14px; } .content strong { color: var(--text-strong); } .content em { color: var(--text-dim); }
   .content a { color: var(--accent); } .content ul, .content ol { margin: 0 0 14px 24px; } .content li { margin-bottom: 4px; }
   .content blockquote { border-left: 2px solid var(--accent); padding: 8px 16px; margin: 16px 0; background: var(--accent-faint); }
+  .content .mental-hook { margin: 8px 0 28px; padding: 16px 20px; border-left: 3px solid var(--accent); background: var(--accent-faint); border-radius: 0 8px 8px 0; font-size: clamp(17px, 2.2vw, 21px); line-height: 1.55; }
+  .content .mental-hook strong { color: var(--accent); font-weight: 600; }
+  [data-theme="au"] .content .mental-hook strong { text-shadow: 0 0 12px var(--accent-glow); }
   .content table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
   .content th { text-align: left; padding: 8px; border-bottom: 2px solid var(--accent); color: var(--accent); }
   .content td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
@@ -514,7 +517,7 @@ function updateMenu() {
   var items = menus[currentTab] || [];
   var html = '';
   for (var i = 0; i < items.length; i++) {
-    html += '<a href="#' + items[i].id + '">' + (i+1) + '. ' + items[i].title + '</a>';
+    html += '<a href="#' + items[i].id + '">' + items[i].title + '</a>';
   }
   dropdown.innerHTML = html;
 }

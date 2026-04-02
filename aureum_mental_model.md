@@ -1,6 +1,8 @@
-# Aureum Protocol - Mental Model
+# Aureum Protocol — Mental Model
 
-Imagine mining BTC with capital, not electricity. Your liquidity generates real fees that buy back and burn the scarce token. Meet $AuMM.
+<p class="mental-hook"><strong>Imagine mining BTC with capital, not electricity.</strong><br>
+<strong>Your liquidity generates real fees that buy back and burn the scarce token.</strong><br>
+<strong>Meet $AuMM.</strong></p>
 
 ## I — One Line
 
@@ -18,7 +20,7 @@ An immutable fair-launch AMM where emissions follow fixed Bitcoin-style issuance
 
 - **Through end of Month 10:** emissions to the 28 immutable Miliarium Aureum pools are **purely equal** (**1/28** each). Other pools may exist but do not receive this equal tranche.
 - **Months 11–12 (two-month transition):** blend **linearly** from equal to CCB: **share = (1 − α) × (1/28) + α × CCB_share**, with **α** from **0 → 1** over the window. At the **midpoint**, **α = 0.5** — **half** equal, **half** CCB.
-- **After Year 1:** **α = 1** — emissions follow **only** the CCB formula (no vote): **TVL EMA(60) × PMAR × Incendiary**, normalized across **eligible** pools. See **`constitution.md`** and **`theoretical_foundation.md`**.
+- **After Year 1:** **α = 1** — emissions follow **only** the CCB formula (no vote): **TVL EMA(60) × PMAR × Incendiary**, normalized across **eligible** pools. See `**constitution.md`** and `**theoretical_foundation.md**`.
 
 ## IV — Why It Matters
 
