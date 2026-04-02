@@ -46,6 +46,8 @@ All proposals must reference verifiable on-chain state only. A valid proposal mu
 
 ## xxviii. Emission Operating Rules
 
+*Narrative treatment: `theoretical_foundation.md` (sections vi and vii).*
+
 Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block ranges from genesis; **Year 1** is Months 1–12 inclusive.
 
 ### Equal regime (through end of Month 10)
@@ -54,27 +56,36 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Transition regime (Months 11–12)
 
-- **Months 11 and 12** are a **two-month linear transition** from pure equal allocation to pure CCB allocation.
-- Let **equal_share_i = 1/28** for each immutable pool, and **CCB_share_i** be the normalized share from the CCB score (below) for that block.
-- Let **α** increase **linearly** from **0** at the **first block of Month 11** to **1** at the **last block of Year 1** (final block of Month 12). At every block in the transition:
+**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. **α** runs from **0** at the first block of Month 11 to **1** at the last block of Year 1.
 
 ```
-share_i(block) = (1 - α(block)) * equal_share_i + α(block) * CCB_share_i(block)
+share_i(block) = (1 − α(block)) × (1/28) + α(block) × CCB_share_i(block)
 ```
 
-- At the **temporal midpoint** of the transition window (halfway between the start of Month 11 and the end of Year 1), **α = 0.5** — emissions are **halfway** between the equal method and the full CCB method for that block.
-- **CCB_share** uses the same score definition as post–Year-1 (PMAR and Incendiary terms apply inside the CCB leg).
+At the **midpoint** of the window, **α = 0.5** (half equal, half CCB). **CCB_share_i** uses the same score as post–Year-1 (PMAR and Incendiary inside the CCB leg).
 
 ### Full CCB (from Year 1 end onward)
 
-- From the **first block after Year 1** (and equivalently **α = 1** at the last block of Year 1), emissions follow **only** the CCB formula:
+**Incendiary Boost** is skimmed from the block reward first; **Remaining** is what the CCB splits. **TVL_EMA60** is a **per-pool** 60-day EMA of on-chain TVL (**α = 2/(60+1)**). **PMAR_mult** applies **only** to the 28 Miliarium pools; for other eligible pools use **1**. **CCB_share** normalizes over **eligible** pools only.
 
 ```
-Score(pool_i) = TVL_EMA60(pool_i) * PMAR_mult(pool_i) * Incendiary_mult(pool_i)
+Remaining(block) = block_reward(block) − Incendiary_claims(block)
+
+TVL_EMA_pool(today) = alpha × TVL_spot(today) + (1 − alpha) × TVL_EMA_pool(yesterday)
+alpha = 2 / (60 + 1)
+
+Score(pool_i) = TVL_EMA60(pool_i) × PMAR_mult(pool_i) × Incendiary_mult(pool_i)
+
 CCB_share_i = Score(pool_i) / sum(all eligible pool scores)
 ```
 
-There is no voting layer, no Bubble multiplier, and no human override.
+**PMAR** (Miliarium only), bi-weekly:
+
+```
+M_i(t) = clamp(M_i(t−1) + delta_global + delta_intra_i, 0.75, 1.25)
+```
+
+No voting layer, no Bubble multiplier, no human override.
 
 ## xxix. Immutable Parameters
 

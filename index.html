@@ -466,17 +466,26 @@ enterBtn.addEventListener('click', function() {
 function checkPassword() {
   if (pwInput.value === 'm21m') {
     passwordScreen.style.transition = 'opacity 0.5s'; passwordScreen.style.opacity = '0';
-    setTimeout(function() { passwordScreen.style.display = 'none'; mainDoc.classList.add('active'); document.body.classList.add('doc-mode'); }, 500);
+    setTimeout(function() {
+      passwordScreen.style.display = 'none';
+      mainDoc.classList.add('active');
+      document.body.classList.add('doc-mode');
+      setTheme('day');
+    }, 500);
   } else { pwError.classList.add('visible'); pwInput.value = ''; setTimeout(function() { pwError.classList.remove('visible'); }, 2000); }
 }
 pwInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPassword(); });
 
 // THEME
+function setTheme(theme) {
+  document.querySelectorAll('.theme-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-theme') === theme);
+  });
+  document.body.setAttribute('data-theme', theme);
+}
 document.querySelectorAll('.theme-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    document.querySelectorAll('.theme-btn').forEach(function(b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    document.body.setAttribute('data-theme', btn.getAttribute('data-theme'));
+    setTheme(btn.getAttribute('data-theme'));
   });
 });
 
@@ -557,9 +566,7 @@ mobileMenu.addEventListener('click', function(e) {
   var themeBtn = e.target.closest('button[data-theme]');
   if (themeBtn) {
     e.stopPropagation();
-    document.querySelectorAll('.theme-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelectorAll('.theme-btn[data-theme="' + themeBtn.getAttribute('data-theme') + '"]').forEach(function(b) { b.classList.add('active'); });
-    document.body.setAttribute('data-theme', themeBtn.getAttribute('data-theme'));
+    setTheme(themeBtn.getAttribute('data-theme'));
   }
 });
 
