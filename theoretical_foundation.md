@@ -113,6 +113,16 @@ M_i(t) = clamp( M_i(t−1) + delta_global + delta_intra_i, 0.75, 1.25 )
 
 **delta_global** steps from protocol-wide TVL EMA direction; **delta_intra_i** steps from pool **i**’s TVL EMA vs the Miliarium average (see `aureum_glossary.md`). Initial **M_i = 1.00**; dead zone and step size are fixed in `constitution.md`.
 
+### FAQ: CCB and PMAR (plain English)
+
+**If one Miliarium pool is gaining share of TVL among the 28, what happens?** Two forces: its **TVL EMA** in the CCB score tends to rise as it takes share from siblings, which pushes its **weight up**. PMAR’s **within-the-28** channel compares each pool to the **Miliarium average** — pools **growing faster than that average** get a **downward** nudge on the multiplier (hot flows taxed), **within [0.75, 1.25]**. Net effect on that pool’s emissions depends on both; it is not “always more” or “always less.”
+
+**If a pool shrinks relative to total protocol TVL (capital moves elsewhere), what happens?** The **CCB score** uses **per-pool** TVL EMA against **all eligible pools** in the denominator. If this pool’s smoothed TVL is lower relative to **other** eligible pools (including non-Miliarium gauges), its **share of total emissions** tends to fall. **PMAR does not** define “relative to total protocol TVL” for **delta_intra** — that is **vs the Miliarium average** only. **delta_global** keys off **aggregate protocol TVL direction** (roughly: boom vs bust pressure on multipliers), not “Miliarium vs the rest” as a separate basket.
+
+**What is the step size on the PMAR multiplier?** Each bi-weekly cycle, each applicable step is **±0.05** before clamp, with multipliers **capped between 0.75 and 1.25**, and a **0.1% dead zone** on the ratio so noise does not flip the rule every time. See `PMAR.md` and Immutable Parameters in `constitution.md`.
+
+**If Miliarium pools as a group lose share of protocol TVL (liquidity shifts to other eligible pools), what happens to emissions to the MA pools?** There is **no** fixed “28-pool basket” guarantee in the written rules. After the equal regime, each pool competes **individually**; **CCB_share** is **Score / sum(scores over all eligible pools)**. If the **non-Miliarium** eligible pools grow their scores faster, **MA pools as a group** can receive a **smaller** fraction of the same CCB pie. **delta_global** is **not** a dedicated “protect the constellation’s share” lever — it is **aggregate** protocol TVL **direction** for multiplier pressure across the 28.
+
 ## viii. Immutable Reference
 
 See Immutable Parameters in `constitution.md`.
