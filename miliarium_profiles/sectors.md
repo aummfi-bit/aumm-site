@@ -4,6 +4,8 @@
 
 Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum](../Miliarium_Aureum.md) (**slots 01–28**). Connector pools are **05–07** (Edelweiss, Libertas, Cambio). One profile per pool: **`NN_ixCanonicalName.md`** in [manifest](manifest.md).
 
+## XVI — Mapping and slot ranges
+
 ### Mapping to registry categories
 
 | Category | Pools (canonical names) |
@@ -14,7 +16,7 @@ Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum]
 | Stocks | ixEquitix, ixInnovix, ixGigantus, ixMagnix, ixNubix, ixMoneta, ixColossix, ixVitalix, ixMedicix, ixMercatura |
 | Metals | ixAurix, ixMetallum |
 
-Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](../Miliarium_Aureum.md) Section I registry (Stocks table).
+Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](../Miliarium_Aureum.md) Section XI registry (Stocks table).
 
 ### Slot ranges (canonical)
 
@@ -23,23 +25,23 @@ Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthca
 | 01–07 | Yield | Savings, LST/staking, flux LST, FX corridors, ixEDEL venue, USD hub, multi-currency FX |
 | 08–11 | Bonds | Short / ultra-short, HY, aggregate + TIPS, long Treasury |
 | 12–16 | Crypto-native | DeFi infrastructure, wrapped BTC, ecosystem and lending governance |
-| 17–26 | Stocks | Tokenised equities (see subclasses in Section I Stocks table) |
+| 17–26 | Stocks | Tokenised equities (see subclasses in Section XI Stocks table) |
 | 27–28 | Metals | Physical gold; silver + uranium ETFs |
 
 ---
 
-## Design Principle
+## XVII — Design Principle
 
 The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
 
-1. **Sector rotation dynamics** — when tech sells off, capital rotates to treasuries or gold; the protocol captures fees on both legs
-2. **Aggregator diversity** — each sector attracts different external volume sources (crypto aggregators, equity wrappers, FX corridors)
-3. **Correlation hedging** — uncorrelated theme assets reduce the chance of simultaneous volume collapse across all 28 pools
-4. **Economic completeness** — LPs can express any macro view (risk-on, risk-off, sector bet) within the protocol
+- **Sector rotation dynamics** — when tech sells off, capital rotates to treasuries or gold; the protocol captures fees on both legs
+- **Aggregator diversity** — each sector attracts different external volume sources (crypto aggregators, equity wrappers, FX corridors)
+- **Correlation hedging** — uncorrelated theme assets reduce the chance of simultaneous volume collapse across all 28 pools
+- **Economic completeness** — LPs can express any macro view (risk-on, risk-off, sector bet) within the protocol
 
 ---
 
-## Sector definitions (canonical names)
+## XVIII — Sector definitions (canonical names)
 
 ### Yield (slots 01–07)
 
@@ -74,7 +76,7 @@ The Miliarium Aureum is structured as a **miniature economy** — not a random c
 
 ### TradFi equities (slots 17–26)
 
-| Pool | Profile | Subclass (see Section I) |
+| Pool | Profile | Subclass (see Section XI) |
 |:-----|:--------|:----------------------------|
 | [ixEquitix](17_ixEquitix.md) | Broad index | Broad ETF |
 | [ixInnovix](18_ixInnovix.md) | Nasdaq-style | Tech index |
@@ -96,7 +98,7 @@ The Miliarium Aureum is structured as a **miniature economy** — not a random c
 
 ---
 
-## Sector Correlation Matrix (Qualitative)
+## XIX — Sector Correlation Matrix (Qualitative)
 
 Understanding how sectors move relative to each other during macro regimes:
 
@@ -115,7 +117,7 @@ This diversity is the structural defence against protocol-wide volume collapse. 
 
 ---
 
-## Cross-References
+## XX — Cross-References
 
 - Pool compositions and weights → [Miliarium Aureum](../Miliarium_Aureum.md)
 - PMAR emission multipliers → [PMAR Specification](../PMAR.md)

@@ -1,8 +1,10 @@
-## Appendix I - Architecture Provenance
+# Appendices
+
+## XXXVI — Architecture Provenance
 
 Aequilibrium inherits Balancer V3 pool architecture and introduces a new immutable tokenomics and allocation layer.
 
-## Appendix II - Pure Real DeFi Positioning
+## XXXVII — Pure Real DeFi Positioning
 
 This design targets strict Real DeFi alignment:
 
@@ -12,13 +14,13 @@ This design targets strict Real DeFi alignment:
 - no voting over emissions
 - no discretionary transition controls
 
-## Appendix III - Emission Logic Summary
+## XXXVIII — Emission Logic Summary
 
 - Through Month 10: equal 1/28 emission split across 28 Miliarium Aureum pools
 - Months 11–12: linear transition (α: 0 → 1) to CCB
 - After Year 1: pure automatic CCB EMA(60) + PMAR allocation
 - Bitcoin-style per-block halving schedule toward 21,000,000 cap
 
-## Appendix IV - Reference
+## XXXIX — Reference
 
 See Immutable Parameters in `constitution.md`.

@@ -4,7 +4,7 @@
 
 ---
 
-## Launch Procedures
+## XXVI — Launch Procedures
 
 - Pool creation is permissionless from block 0.
 - All launch mechanics are immutable from block 0.

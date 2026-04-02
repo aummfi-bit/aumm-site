@@ -4,9 +4,9 @@
 
 ---
 
-## Pool Registry
+## XIII — Pool Registry
 
-*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) Section I registry). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
+*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) Section XI registry). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
 
 | Slot | Pool Name | Registry category | Sector | Yield Core A (26%) | Yield Core B (26%) | Routing Anchor (16%) | Theme Asset A (16%) | Theme Asset B (16%) | Template |
 |:-----|:----------|:------------------|:-------|:-------------------|:-------------------|:---------------------|:-------------------|:-------------------|:---------|
@@ -39,7 +39,7 @@
 | 27 | [ixAurix](27_ixAurix.md) | Metals | Gold / Commodities | svZCHF | sfrxUSD | ixEDEL | PAXG | XAUt | Standard |
 | 28 | [ixMetallum](28_ixMetallum.md) | Metals | Silver & uranium (ETFs) | svZCHF | waEthUSDT | ixEDEL | SLVon | URAon | Standard |
 
-## Registry grouping
+## XIV — Registry grouping
 
 | Category | Slots | Count | Role |
 |:---------|:------|:------|:-----|
@@ -51,9 +51,9 @@
 
 **Total: 28 pools.** **Registry category** is the five-way split above. **Sector** is the finer label used in profile files.
 
-Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../Miliarium_Aureum.md) Section I).
+Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../Miliarium_Aureum.md) Section XI).
 
-## Status Tracking
+## XV — Status Tracking
 
 All pools initialise at **Active** status. The 28 Miliarium Aureum slots are permanent — the count never decreases.
 

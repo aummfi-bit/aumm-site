@@ -4,7 +4,7 @@
 
 ---
 
-## I. Protocol Control Model
+## XXVII — Protocol Control Model
 
 Aureum is immutable and non-custodial from block 0:
 
@@ -44,7 +44,7 @@ This is a like-for-like renewal path, not a free-form redesign path.
 
 All proposals must reference verifiable on-chain state only. A valid proposal must include contract addresses, block ranges, and deterministic on-chain metrics used by its rationale. Off-chain-only claims, unverifiable dashboards, social polling, or discretionary narratives are invalid.
 
-## II. Emission Operating Rules
+## XXVIII — Emission Operating Rules
 
 Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block ranges from genesis; **Year 1** is Months 1–12 inclusive.
 
@@ -76,7 +76,7 @@ CCB_share_i = Score(pool_i) / sum(all eligible pool scores)
 
 There is no voting layer, no Bubble multiplier, and no human override.
 
-## III. Immutable Parameters
+## XXIX — Immutable Parameters
 
 The following are immutable from block 0 and cannot be changed by any means:
 
@@ -89,7 +89,7 @@ The following are immutable from block 0 and cannot be changed by any means:
 - Any withdrawal resets AuMT power
 - No admin keys, no multisig, no upgradability, no pause functions
 
-## IV. Treasury Model
+## XXX — Treasury Model
 
 - Treasury is fully on-chain and non-custodial from genesis.
 - No privileged signer exists.

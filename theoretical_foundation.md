@@ -1,4 +1,6 @@
-## I - Theoretical Foundations
+# Theoretical Foundations
+
+## V — Research foundations
 
 The CCB draws from established lines of research:
 
@@ -8,7 +10,7 @@ The CCB draws from established lines of research:
 - automatic stabilizers in complex systems
 - governance minimization for attack-surface reduction
 
-## II - CCB: Fully Automatic Allocation
+## VI — CCB: Fully Automatic Allocation
 
 The Continuous Central Bank allocates emissions with no voting input.
 
@@ -35,10 +37,10 @@ share(pool_i) = Score(pool_i) / sum(all pool scores)
 - Human governance is removed from allocation logic.
 - Governance remains available for non-emission actions under on-chain-data-only proposal constraints.
 
-## III - PMAR Role
+## VII — PMAR Role
 
 PMAR is deterministic and oracle-free, with fixed immutable parameters in `constitution.md`.
 
-## IV - Immutable Reference
+## VIII — Immutable Reference
 
 See Immutable Parameters in `constitution.md`.

@@ -11,6 +11,10 @@ Static documentation and registry for **Project Aureum**: tokenomics, governance
 | `miliarium_profiles/` | One profile per pool (`NN_ixCanonicalName.md`), plus `manifest.md` and `sectors.md` |
 | `constitution.md`, `tokenomics.md`, `PMAR.md`, … | Core protocol specs |
 
+## Section numbering (site-wide)
+
+`##` headings in the main tabs follow **one continuous Roman sequence** in nav order: **I–IV** Mental Model → **V–VIII** Theoretical Foundations → **IX–X** Tokenomics → **XI–XII** Miliarium registry (`Miliarium_Aureum.md`) → **XIII–XV** Manifest → **XVI–XX** Sectors → **XXI–XXV** Bootstrap → **XXVI** Transitions → **XXVII–XXX** Constitution → **XXXI–XXXV** Glossary → **XXXVI–XXXIX** Appendices. In `Miliarium_Aureum.md`, the registry block is **Section XI** and the AuMM pool block is **Section XII**. **`overview.md`** uses unnumbered `##` headings (not in the sequence).
+
 ## Local preview
 
 No build step. Serve the folder over HTTP (required for `fetch` of `.md` files):
