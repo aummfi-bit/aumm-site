@@ -32,9 +32,39 @@ The old cycle-based emission table is removed. Emissions are specified only in p
 - **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL, MAMAR multiplier, and Incendiary multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
 - No voting, no Bubble multipliers, and no discretionary overrides.
 
-### Governance Clarification
+### Governance: The "LP = Power" Model
 
-Governance exists for non-emission actions only (gauge approvals/challenges, treasury proposals, fee proposals within immutable bounds). Emission allocation itself is never vote-controlled.
+#### Emission Direction: The CCB Engine
+
+Emission allocation is driven by the **Continuous Central Bank (CCB)** — not by direct gauge voting. Each pool's base emission weight is its 60-day EMA of on-chain TVL as a share of total protocol TVL. Capital allocates itself. See `theoretical_foundation.md` (sections vi–vii) and `constitution.md` for the full mechanics.
+
+#### Protocol Governance (Non-Emission Decisions)
+
+For decisions beyond emission direction (fee parameters, treasury, gauge approvals/challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
+
+```
+Era 0 (years 0–4, pre-halving):   voting_power = (qualified_AuMT_value × time_in_pool)^(1/4)
+Era 1 (years 4–8, post-halving):  voting_power = (qualified_AuMT_value × time_in_pool)^(1/3)
+```
+
+**`qualified_AuMT_value` is the USD-denominated value of the liquidity the tessera represents** — not the number of AuMT tokens held. Each tessera is a proportional claim on its pool's TVL. An AuMT representing a $50K position in ixAppia carries more governance weight than an AuMT representing a $5K position in a smaller pool, because the underlying locked value is different. Different pools have different TVLs and different token compositions; the governance formula normalises across all of them by pricing each tessera at the current market value of the liquidity it represents.
+
+This ensures governance power reflects real economic commitment — not which pool you happen to be in, but how much capital you have at risk in productive pools.
+
+The dampening exponent transitions from fourth root to cube root at the first halving block. This is a protocol-wide parameter shift — all positions recalculate under the new exponent, regardless of when they were opened. There is no two-tier governance class.
+
+**Why the transition matters:**
+
+- **Era 0 (fourth root):** A $100M position has 18x the governance weight of a $1K position. At low TVL, a single whale can represent 20%+ of the entire protocol. Maximum compression prevents single-actor capture when the protocol is most vulnerable. The whale still has more governance weight than a small LP — they just can't steamroll every vote.
+- **Era 1 (cube root):** A $100M position has 46x the governance weight of a $1K position. By year 4, TVL growth has naturally diluted individual power — a $10M whale in a $200M protocol is 5%, not 20%. The ecosystem no longer needs training wheels. The exponent relaxes because the primary decentralization force is now TVL distribution, not governance math.
+
+The transition trigger is the halving block itself — immutable in the contract, no governance vote required, no discretionary timing.
+
+AuMT in pools that fail any eligibility criterion carries zero governance weight. This ensures governance power flows exclusively from productive capital — the same capital that earns emissions and generates protocol fees.
+
+**Governance power for non-emission decisions derives exclusively from active, qualified AuMT positions. AuMT in non-qualified pools carries zero weight. Voting power cannot be purchased on the open market.**
+
+- **Voting power = dampened AuMT.** `(AuMT_value × time_in_pool)^(1/4)` — same formula as protocol governance. 14-day qualification, 6-month on-ramp, any withdrawal resets to zero. See `aureum_glossary.md` (section xxxv) for the full rule set.
 
 ### Token Properties
 
