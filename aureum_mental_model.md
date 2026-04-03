@@ -5,6 +5,10 @@
 > Imagine your capital is liquidity generating real fees that buy back and burn the scarce token.  
 > Meet $AuMM.
 
+## i. One Line
+
+An immutable fair-launch AMM where emissions follow fixed Bitcoin-style issuance and automatic on-chain allocation only.
+
 ## The Thesis
 
 The best AMM architecture in DeFi is about to lose its growth mechanism. The token is priced for terminal decline. But the code is open source, formally verified, and architecturally superior to every competitor. Project Aureum takes that code, replaces the broken tokenomics with a fair launch where the only way to earn tokens is to provide liquidity to productive pools, and lets the market discover what formally verified multi-asset pools can do when the economic layer is designed correctly. The experiment hasn't failed. It hasn't happened.
@@ -14,10 +18,6 @@ The best AMM architecture in DeFi is about to lose its growth mechanism. The tok
 Balancer V3 is the most advanced AMM architecture in DeFi — multi-asset weighted pools, ERC-4626 native yield, hooks, formal verification by Certora. But the protocol's tokenomics failed. Emissions directed to legacy pools and governance staking created circular economics. Meta-governance capture concentrated power. The founding entity shut down. The team proposed eliminating emissions entirely — removing the only mechanism through which external builders could bootstrap new infrastructure.
 
 The architecture deserves a second chance under a clean economic model. Project Aureum forks the V3 smart contracts and replaces the tokenomics with a fair launch. Same verified core. Fundamentally different economics. See `appendices.md` for a detailed comparison to every historical fair-launch failure mode, Yield Basis Hybrid Vaults, and the competitive position against Uniswap, Curve, Aerodrome, and proprietary AMMs.
-
-## i. One Line
-
-An immutable fair-launch AMM where emissions follow fixed Bitcoin-style issuance and automatic on-chain allocation only.
 
 ## ii. Core Principles
 
@@ -42,16 +42,36 @@ The **Miliarium Aureum** (Golden Milestone) was the monument in the Roman Forum 
 
 *All roads lead to the Miliarium Aureum. Your tessera proves you helped build them.*
 
-## iii. Emission Regimes
+## iii. How Aureum Works — Three Layers
+
+### 1. Capital Allocation (The Continuous Central Bank)
+
+Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (institutional memory). The 28 Miliarium pools carry an algorithmic CCB multiplier [0.75–1.25] that nudges their share based on TVL trends — no voting, no human override. Strictly zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation.
+
+### 2. Bootstrapping (Starting New Pools)
+
+New pools have no EMA history, so they need a structured path to earn emissions. Two stacked mechanisms: (a) **Incendiary Boost** — builder deposits AuMM, protocol emits it back over 30 days, the deposit is permanently burned, making AuMM scarcer for all holders; must remain efficient to renew. (b) **90-day gauge boost** — new gauges receive a fixed 1.2x CCB multiplier for 90 days, expiring automatically with no vote and no renewal. After ~90 days, emissions depend purely on real TVL via the CCB. The flow: conviction (Incendiary) → cold-start ramp (gauge boost) → long-term reality (EMA).
+
+### 3. Discipline (Keeping the System Clean)
+
+Aureum continuously filters unproductive pools. Volume percentile floor: must stay above minimum activity threshold. Efficiency tournament: revenue-per-emission ranking; bottom 15% capped, excess redistributed to productive pools. Graduated enforcement: warning zone before disqualification, gauge revocation after 4 consecutive epochs. Dead or extractive pools lose emissions or are removed entirely.
+
+## iv. Emission Regimes
 
 - **Through end of Month 10:** emissions to the 28 immutable Miliarium Aureum pools are **purely equal** (**1/28** each). Other pools may exist but do not receive this equal tranche.
 - **Months 11–12 (two-month transition):** blend linearly from equal to CCB over the window. At the midpoint, the mix is half equal and half CCB. See `formulas.md` for the blend formula.
 - **After Year 1:** emissions follow only the CCB — each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. No vote. See `constitution.md` and `formulas.md`.
 
-## iv. Why It Matters
+## v. The Feedback Loop
+
+LPs provide liquidity → earn AuMM. Pools generate real fees + ERC-4626 yield → protocol earns revenue. Revenue → buyback and burn AuMM. Supply decreases → each AuMM backs more protocol revenue. Higher yield per token → attracts more productive capital. Good pools gain share. Bad pools lose share or get removed. The system self-corrects.
+
+## vi. Why It Matters
 
 The protocol minimizes human discretion and maximizes deterministic execution. Allocation follows capital behavior, not governance behavior.
 
-Proposal governance is still active for gauges, treasury, and fee proposals, and must rely on on-chain verifiable data only.
+**Governance in one sentence:** Power = productive liquidity held over time. No tokens to buy. No locks to game. You must provide liquidity, stay committed, and perform.
 
-See Immutable Parameters in `constitution.md`.
+Proposal governance is still active for gauges, treasury, and fee proposals, and must rely on on-chain verifiable data only. See Immutable Parameters in `constitution.md`.
+
+*Most DeFi systems ask "Who should decide?" Aureum asks "What should the system do automatically?" — and encodes the answer into immutable rules.*

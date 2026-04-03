@@ -22,7 +22,11 @@
 
 - **Incendiary Boost**: operator-funded priority emission stream. Operator escrows AuMM → pool receives a 30-day supplementary emission stream pegged to the 85th efficiency percentile × (2 − R). Incendiary claims are subtracted from block emission *before* CCB distribution — not a CCB score multiplier. Escrowed AuMM is permanently burned. See `bootstrap.md`.
 
+- **Priority Skim**: the mechanism by which Incendiary Boost emissions are subtracted from the fixed block reward *before* CCB distribution. The total block reward never changes — Incendiary claims reduce the remainder available to all other pools, directly diluting their share. This ensures bootstrapping new pools has a real cost borne by the entire emission economy, not free inflation.
+
 - **Buyback-and-burn**: the protocol's value capture mechanism. Protocol revenue (25% of swap fees + 25% of ERC-4626 yield fees) is used to buy AuMM on the open market and permanently burn it. Circulating supply declines over time. No yield on holding — pure scarcity mechanics.
+
+- **Deflationary Crossover**: the point at which the protocol's burn rate (buyback-and-burn + Incendiary burns) exceeds the emission rate, causing net circulating supply to contract. As the halving schedule reduces emissions while protocol revenue grows with TVL and volume, the crossover becomes increasingly likely with each era. Beyond the crossover, AuMM becomes net-deflationary — every block destroys more tokens than it creates.
 
 ## Pool Concepts
 
@@ -58,6 +62,7 @@
 
 ## xxxv. Governance
 
+- **Tessera-Weighted Voting**: the governance voting mechanism. Voting power is derived exclusively from active LP positions — `(USD value of qualified AuMT × time_in_pool)^(1/4)` in Era 0, relaxing to `^(1/3)` in Era 1. No token purchases grant governance power; only productive liquidity held over time. Sub-linear dampening prevents whale capture.
 - **Governance Power**: a sub-linear function of the USD value of the LP position multiplied by time held in pool. Era 0 uses fourth-root dampening (maximum compression); Era 1 onward relaxes to cube-root. Transition occurs at the halving block; both exponents are immutable. See `formulas.md` for the formal expression.
 - **Qualification Period**: 14 days of continuous qualified AuMT holding before any governance weight accrues (`time_in_pool = 0` during this window).
 - **Governance On-Ramp**: after the 14-day qualification, `time_in_pool` accrues sublinearly. Full voting weight reached at ~6 months (day 180).
