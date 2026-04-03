@@ -1,6 +1,6 @@
 # Sector Taxonomy
 
-*How the 28 Miliarium Aureum pools map to a diversified on-chain economy.*
+*How the 28 Miliarium pools map to a diversified on-chain economy.*
 
 Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum](../Miliarium_Aureum.md) (**slots 01–28**). Connector pools are **05–07** (Edelweiss, Libertas, Cambio). One profile per pool: **`NN_ixCanonicalName.md`** in [manifest](manifest.md).
 
@@ -32,11 +32,11 @@ Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthca
 
 ## xvii. Design Principle
 
-The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
+The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. For the conceptual introduction to the miniature economy framing and why 28 pools, see `aureum_mental_model.md` (The Miniature Economy). Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
 
 - **Sector rotation dynamics** — when tech sells off, capital rotates to treasuries or gold; the protocol captures fees on both legs
 - **Aggregator diversity** — each sector attracts different external volume sources (crypto aggregators, equity wrappers, FX corridors)
-- **Correlation hedging** — uncorrelated theme assets reduce the chance of simultaneous volume collapse across all 28 pools
+- **Correlation hedging** — uncorrelated theme assets reduce the chance of simultaneous volume collapse across all 28 Miliarium pools
 - **Economic completeness** — LPs can express any macro view (risk-on, risk-off, sector bet) within the protocol
 
 ---
@@ -120,7 +120,7 @@ This diversity is the structural defence against protocol-wide volume collapse. 
 ## xx. Cross-References
 
 - Pool compositions and weights → [Miliarium Aureum](../Miliarium_Aureum.md)
-- CCB emission multipliers → [Theoretical Foundation § vii](../theoretical_foundation.md) · [Formulas F-8](../formulas.md)
+- CCB emission multipliers → [Theoretical Foundation § vii](../theoretical_foundation.md) · [Formulas F-8](../formulas.md) · [Immutable Parameters](../constitution.md) §xxix
 - Performance discipline → [Constitution: Anti-Gaming Criteria](../constitution.md)
 - Bootstrapping mechanics → [Bootstrap Rules](../bootstrap.md)
 - Individual pool profiles → [Manifest](manifest.md)

@@ -4,7 +4,7 @@ The 28 pools are pre-defined at launch and locked from block 0. No open slots.
 
 ### Scope
 
-- There are **28** immutable Miliarium Aureum pools (the founding constellation).
+- There are **28** Miliarium Aureum pools (the founding constellation), immutable from block 0.
 - Through **end of Month 10**, emissions are **equal** (1/28 each). **Months 11–12** blend **linearly** from equal to CCB (see `constitution.md`). **After Year 1**, allocation is **pure CCB** (EMA TVL × CCB multiplier). Incendiary Boost is a separate priority skim.
 
 ### AuMM vs the 28 pools
@@ -146,21 +146,23 @@ With shared **svZCHF** and **ixEDEL** across most pools, arbitrage layers includ
 
 ### Miliarium Aureum benefits
 
-**1. CCB emission multiplier.** Miliarium Aureum pools are the only pools eligible for the automatic CCB multiplier [0.75–1.25] (see `theoretical_foundation.md` section vii and `formulas.md` F-8).
+**1. CCB emission multiplier.** Miliarium pools are the only pools eligible for the automatic CCB multiplier (see `theoretical_foundation.md` §vii and `formulas.md` F-8; for numeric bounds, see `constitution.md` §xxix).
 
 **2. Treasury liquidity deposits.** Revenue from treasury AuMM sales during the price ceiling stabilization is deposited as permanent locked liquidity into Miliarium Aureum pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw.
 
-**Permanent slots.** The 28 Miliarium Aureum slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge** to propose a new token composition that preserves the pool's function, sector theme, and template structure (see **Bootstrap Rules** and `constitution.md`).
+**Permanent slots.** The 28 Miliarium slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: the old pool’s gauge is revoked and a replacement pool with the updated composition is launched into the same slot, following the standard bootstrap path (gauge proposal, vote, 90-day boost). Like-for-like means same sector, same risk, same template role (see `bootstrap.md` §xxiv for worked examples and `constitution.md` §xxvii for the binding rule).
+
+**Beyond the 28.** The Miliarium pools are a curated economic blueprint, not the full economy. If a token or asset class is missing, the path is a new permissionless pool and a gauge vote — not a composition challenge. The community is encouraged to deploy pools for new stablecoins, tokenized RWAs, and crypto tokens with meaningful volume. See `bootstrap.md` §xxi for gauge approval mechanics.
 
 ### Pool profiles
 
-Each immutable pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column in Section xi). In the site UI, open **Miliarium ▾** in the nav for **Manifest** (full registry table), **Sectors** (taxonomy), and **Registry** (this document). The same links work here: [manifest](miliarium_profiles/manifest.md) · [sector taxonomy](miliarium_profiles/sectors.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
+Each Miliarium pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column in Section xi). In the site UI, open **Miliarium ▾** in the nav for **Manifest** (full registry table), **Sectors** (taxonomy), and **Registry** (this document). The same links work here: [manifest](miliarium_profiles/manifest.md) · [sector taxonomy](miliarium_profiles/sectors.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
 
 ---
 
 ## xii. AuMM pool (not a Miliarium slot)
 
-The **28** pools in **Section xi** are the full **Miliarium Aureum** founding set. **AuMM** is separate: it is the **reward token**, not a numbered ix slot.
+The **28** Miliarium pools in **Section xi** are the full **Miliarium Aureum** founding set. **AuMM** is separate: it is the **reward token**, not a numbered ix slot.
 
 **AuMM trading pool** — AMM liquidity where **AuMM** trades against the protocol’s savings rails: **svZCHF** (Frankencoin savings vault) and **sUSDS** (Sky savings). Typical structure: **AuMM / svZCHF** and **AuMM / sUSDS** (or a routed graph that prices AuMM off both). This is **price discovery and swap depth** for the reward token; it is **not** one of the immutable ix pools above.
 
@@ -175,4 +177,4 @@ The **28** pools in **Section xi** are the full **Miliarium Aureum** founding se
 
 ---
 
-See Immutable Parameters in `constitution.md`.
+See Immutable Parameters (`constitution.md` §xxix).

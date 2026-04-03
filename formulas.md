@@ -2,7 +2,7 @@
 
 *Every formula that governs Aureum emission allocation, multiplier adjustment, and governance power — organized by protocol phase.*
 
-All parameters listed here are **immutable from block 0**. See Immutable Parameters in `constitution.md`.
+All parameters listed here are **immutable from block 0**. See Immutable Parameters (`constitution.md` §xxix).
 
 ---
 
@@ -18,18 +18,18 @@ All parameters listed here are **immutable from block 0**. See Immutable Paramet
 share_i = 1 / 28
 ```
 
-Where **i** ranges over the 28 immutable Miliarium Aureum pools.
+Where **i** ranges over the 28 Miliarium Aureum pools.
 
 ---
 
 ### F-2. Incendiary Boost Priority Claim
 
-**Purpose:** Allow operators to commit conviction capital (escrowed and burned AuMM) in exchange for a time-limited supplementary emission stream, funded from the same fixed block reward — not from new inflation.
+**Purpose:** Allow operators to commit conviction capital (escrowed and burned AuMM) in exchange for a time-limited supplementary emission stream, funded from the same fixed block emission — not from new inflation.
 
-**Effect:** Incendiary claims are subtracted from the block reward **before** the CCB distributes the remainder. This ensures boosted pools receive their committed stream without inflating total supply. Whatever is left after Incendiary claims is what the CCB allocates.
+**Effect:** Incendiary claims are subtracted from the block emission **before** the CCB distributes the remainder. This ensures boosted pools receive their committed stream without inflating total supply. Whatever is left after Incendiary claims is what the CCB allocates.
 
 ```
-Remaining(block) = block_reward(block) − Incendiary_claims(block)
+Remaining(block) = block_emission(block) − Incendiary_claims(block)
 ```
 
 Incendiary Boost provides a 30-day supplementary emission stream pegged to the 85th efficiency percentile. Escrowed AuMM is permanently burned.
@@ -89,7 +89,7 @@ Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i)
 
 **Purpose:** Normalize pool scores into fractional shares that sum to 100%, then distribute the remaining block emission (after Incendiary claims) according to those shares.
 
-**Effect:** The entire post-Incendiary block reward is distributed across eligible pools in proportion to their scores. No emissions are left unallocated. If a pool's score rises relative to others, its share of the pie grows; if it falls, its share shrinks — automatically, every block.
+**Effect:** The entire post-Incendiary block emission is distributed across eligible pools in proportion to their scores. No emissions are left unallocated. If a pool's score rises relative to others, its share of the pie grows; if it falls, its share shrinks — automatically, every block.
 
 ```
 CCB_share_i = Score(pool_i) / Σ(Score(all eligible pools))
@@ -141,10 +141,12 @@ M_i(t) = clamp( M_i(t-1) + delta_global + delta_intra_i,  0.75,  1.25 )
 
 Where:
 - **M_i(t-1)** = pool i's multiplier from the prior cycle, initialized at 1.00
-- **delta_global** = protocol-wide step (±0.05) from the direction of total protocol TVL EMA — rising TVL applies downward pressure; falling TVL applies upward pressure
-- **delta_intra_i** = pool-specific step (±0.05) from pool i's TVL EMA relative to the Miliarium average — pools growing faster than average are nudged down; pools shrinking relative to average are nudged up
-- **clamp [0.75, 1.25]** = hard floor and ceiling; the multiplier can never leave this band
-- **dead zone 0.1%** = if the TVL ratio is within 0.1% of neutral, no step is applied — prevents noise from triggering constant micro-adjustments
+- **delta_global** = protocol-wide step from the direction of total protocol TVL EMA — rising TVL applies downward pressure; falling TVL applies upward pressure
+- **delta_intra_i** = pool-specific step from pool i's TVL EMA relative to the Miliarium average — pools growing faster than average are nudged down; pools shrinking relative to average are nudged up
+- **clamp** = hard floor and ceiling; the multiplier can never leave this band
+- **dead zone** = if the TVL ratio is within the dead zone of neutral, no step is applied — prevents noise from triggering constant micro-adjustments
+
+Step size, clamp bounds, and dead zone threshold are all immutable from block 0 — see Immutable Parameters (`constitution.md` §xxix) for exact values.
 
 Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any other eligible pool, **CCB_mult = 1**.
 
@@ -165,4 +167,4 @@ Era 1+ (years 4+):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/3)
 
 ---
 
-*All formulas are immutable from block 0. See `constitution.md` for the full list of immutable parameters.*
+*All formulas are immutable from block 0. See Immutable Parameters (`constitution.md` §xxix) for the full list.*

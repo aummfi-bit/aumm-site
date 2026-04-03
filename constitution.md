@@ -31,28 +31,31 @@ Governance cannot alter emission formulas, halving math, CCB multiplier constant
 
 ### Quorum and Deposit Requirements
 
-| Decision Type | Quorum | Deposit (AuMM, burned) | Failure Mode |
-|--------------|--------|------------------------|-------------|
-| Gauge approval | No quorum | 100 svZCHF/sUSDS equivalent | Simple majority of votes cast |
-| Gauge challenge (revocation) | No quorum | 1,000 svZCHF/sUSDS equivalent | Simple majority to revoke |
-| Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail if quorum not met |
-| Treasury spends >10% of balance | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail → 14-day timelock + public review |
-| Composition challenge | 2/3 supermajority | 1,000 svZCHF/sUSDS equivalent | Fails without supermajority |
+| Decision Type | Minimum Turnout | Deposit (AuMM, burned) | Approval Threshold | Failure Mode |
+|--------------|-----------------|------------------------|--------------------|-------------|
+| Gauge approval | 20% of total qualified voting power | 100 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
+| Gauge challenge (revocation) | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
+| Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
+| Treasury spends >10% of balance | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
+| Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 
 All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action creates deflationary pressure on AuMM.
 
-Uncontested proposals with very low turnout do not pass silently. They either auto-fail or route to a timelock with a mandatory public review period (see `tokenomics.md` Low-Turnout Safeguard).
+**Low-Turnout Safeguard.** Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** — no timelock, no fallback. The proposal must be resubmitted. This is uniform across all proposal types (see `tokenomics.md` Low-Turnout Safeguard).
 
 ### Composition Challenge Rule (Miliarium Aureum)
 
-Composition challenges are governance-gated non-emission actions and pass only with a **2/3 supermajority** of protocol-wide tessera-weighted votes.
+Composition challenges are governance-gated non-emission actions and pass only with a **2/3 supermajority** of protocol-wide tessera-weighted votes. A single proposal may cover both theme assets in a pool if both have failed.
 
-A valid composition update must preserve pool intent:
+Pool token composition is immutable on-chain. A composition challenge does not swap tokens inside a deployed pool — it **deprecates** the old pool (gauge revoked, emissions cease) and **launches a replacement** into the same Miliarium slot, following the standard bootstrap path (gauge proposal, gauge vote, 90-day boost, optional Incendiary).
 
-- replacement token must represent the same asset class, or
-- replacement token must have materially similar economic properties (risk/yield/exposure profile)
+A valid composition update must preserve pool intent — **like-for-like** means:
 
-This is a like-for-like renewal path, not a free-form redesign path.
+- **Same sector** — the replacement must belong to the same asset class or market sector as the token it replaces
+- **Same risk profile** — materially similar economic properties (volatility, yield type, credit exposure)
+- **Same template role** — the replacement must fill the same structural role in the pool (yield core, routing anchor, or theme asset)
+
+This mechanism activates only when an asset **ceases to function** (delisting, wrapper sunset, issuer failure). It is a renewal path, not a redesign path. See `bootstrap.md` §xxiv for worked examples.
 
 ### Proposal Data Integrity Rule
 
@@ -66,7 +69,7 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Equal regime (through end of Month 10)
 
-- From **genesis through the final block of Month 10**, 100% of block emissions to the Miliarium Aureum tranche are split **equally** across the **28** immutable pools (**1/28** each).
+- From **genesis through the final block of Month 10**, 100% of block emissions to the Miliarium Aureum tranche are split **equally** across the **28** Miliarium pools (**1/28** each).
 
 ### Transition regime (Months 11–12)
 
@@ -74,16 +77,20 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims are skimmed from the block reward first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL. The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, clamped to a fixed band. No voting layer, no human override. See `formulas.md` for all formal definitions.
+Incendiary Boost claims are skimmed from the block emission first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL (see `theoretical_foundation.md` §vi for the canonical EMA explanation). The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, within the immutable band defined in §xxix below. No voting layer, no human override. See `formulas.md` for all formal definitions.
 
-## xxix. Immutable Parameters
+## xxix. Immutable Parameters (Canonical Source)
+
+This section is the **single canonical source** for all immutable protocol parameters. Every other document that references these values should cite this section rather than restating them inline.
+
+These parameters are immutable because they define the boundaries within which the protocol can never be gamed, captured, or inflated. They fall into three classes: **economic constants** (supply cap, halving schedule, fee splits) that guarantee scarcity and revenue flow; **anti-gaming safeguards** (CCB multiplier bounds, EMA horizon, eligibility criteria) that prevent reflexive manipulation; and **anti-capture mechanics** (governance dampening exponents, withdrawal reset, qualification periods) that ensure no single actor can dominate the protocol regardless of capital size.
 
 The following are immutable from block 0 and cannot be changed by any means:
 
 - Maximum AuMM supply: 21,000,000
-- Emission halving schedule and per-block rewards
+- Emission halving schedule and block emission rates
 - Fee splits, including 25% protocol revenue to AuMM buyback-and-burn
-- CCB multiplier rules: step size +/-0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
+- CCB multiplier rules: step size ±0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
 - List of 28 Miliarium Aureum pools (locked at launch; see `Miliarium_Aureum.md`)
 - Core AMM mathematics, CCB formula, and eligibility criteria
 - Any withdrawal resets AuMT power
@@ -105,5 +112,5 @@ The following are immutable from block 0 and cannot be changed by any means:
 | Operations | 20% | Infrastructure, RPC, subgraph, monitoring |
 | Reserve | 10% | Emergency fund |
 
-The treasury never sells AuMM to fund operations. AuMM received during the treasury emission phase (months 0–10) is used exclusively for protocol-owned liquidity: seeding the AuMM trading pool at month 6 and operating the price ceiling stabilization mechanism (months 6–10). All leftover AuMM is burned at month 10. After month 10, the treasury never receives AuMM again. Development, audits, and operations are funded entirely from stablecoin fee revenue.
+The treasury never sells AuMM to fund operations. AuMM received during the treasury emission phase (months 0–10) is used exclusively for protocol-owned liquidity: seeding the AuMM trading pool at month 6 and operating the price ceiling stabilization mechanism (months 6–12). After month 10, the treasury never receives new AuMM — the ceiling continues using existing inventory until month 12. All leftover AuMM is burned at month 12. Development, audits, and operations are funded entirely from stablecoin fee revenue.
 

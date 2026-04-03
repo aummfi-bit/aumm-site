@@ -42,8 +42,8 @@
 | Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
-| CCB multiplier | [0.75–1.25], initialised at 1.0 |
-| Composition challenge | If tokens lack volume or cease to exist, composition renewable via Miliarium Aureum Composition Challenge (base cost 100,000 svZCHF/1 BTC/100,000 sUSDS equiv × dynamic factors; requires 2/3 protocol-wide tessera-weighted vote; replacement must preserve same asset type or similar economic properties) |
+| CCB multiplier | Immutable band, initialised at 1.0 — see `constitution.md` §xxix |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `bootstrap.md` §xxiv |
 
 ## Cross-References
 

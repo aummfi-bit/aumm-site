@@ -10,7 +10,7 @@
 
 **Pool creation is permissionless from block 0.** Anyone can deploy any pool with any token composition at any time. The Aequilibrium factory is open. This never changes.
 
-A pool only becomes eligible for AuMM emissions after qualified LPs approve a gauge through governance. This is the single gatekeeping step. Without it, an attacker deploys a pool and immediately starts extracting emissions. With it, existing LPs must collectively decide that the new pool deserves a share of the emission budget.
+A pool only becomes eligible for AuMM emissions after qualified LPs approve a gauge through governance. This is the single gatekeeping step. **Without gauge approval: no emissions, no Incendiary Boost, no 90-day multiplier.** Without it, an attacker deploys a pool and immediately starts extracting emissions. With it, existing LPs must collectively decide that the new pool deserves a share of the emission budget.
 
 **The eligibility criteria are immutable.** Once a gauge is approved, the pool must still meet every anti-gaming criterion to receive emissions. Governance cannot waive, modify, or relax these rules. A gauge vote says "this pool may compete for emissions." The contract decides whether it actually qualifies.
 
@@ -28,6 +28,14 @@ Core emission allocation remains automatic and immutable.
 | CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
 
 All layers require gauge approval first. No pool can access the Incendiary Boost or the 90-day gauge boost without passing governance. At day 91, the fixed boost expires. By this point, a successful pool has 90 days of TVL data baked into its EMA. The mechanical CCB weight takes the baton seamlessly. Failed pools lose both the boost and the EMA weight — they die naturally.
+
+### Two boosts, different purposes
+
+The bootstrapping sequence provides two distinct emission boosts that serve different functions and can operate independently:
+
+**90-day gauge boost (automatic).** Every newly approved gauge receives a fixed **1.2x CCB multiplier** for 90 days. This is automatic — it activates the moment the gauge passes governance and expires on its own, with no vote and no renewal. A pool can have the 90-day boost **without** Incendiary: the gauge boost is the baseline cold-start ramp that every approved pool gets for free.
+
+**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** deposit AuMM to activate a 30-day supplementary emission stream on top of whatever the pool is already earning. The escrowed AuMM is permanently burned. A pool can have both the 90-day gauge boost **and** Incendiary running simultaneously — the effects stack. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below). They are mechanically independent.
 
 ## xxii. Incendiary Boost
 
@@ -51,7 +59,7 @@ Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th
 
 ### Priority Skim
 
-Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on block rewards. The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the block emission, then distributes the remainder via the CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every existing pool's emission share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed AuMM is permanently burned, making AuMM scarcer for all holders long-term in exchange for the privilege of skipping the EMA queue.
+Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on each block emission. The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the block emission, then distributes the remainder via the CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every existing pool's emission share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed AuMM is permanently burned, making AuMM scarcer for all holders long-term in exchange for the privilege of skipping the EMA queue.
 
 ### Renewal Rule
 
@@ -78,7 +86,7 @@ Pools must meet ALL criteria to remain eligible for AuMM emissions:
 | Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
 | No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
 
-All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax these rules. The CCB multiplier applies automatically to the 28 Miliarium Aureum pools (see `theoretical_foundation.md` section vii and `formulas.md` F-8). No voting over emission allocation. New gauges receive a **90-day 1.2x CCB multiplier** as a cold-start bootstrap — a fixed boost that expires automatically, with no vote and no renewal.
+All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax these rules. The CCB multiplier applies automatically to the 28 Miliarium pools (see `theoretical_foundation.md` §vii and `formulas.md` F-8; for numeric bounds, see `constitution.md` §xxix). No voting over emission allocation. New gauges receive a **90-day 1.2x CCB multiplier** as a cold-start bootstrap — a fixed boost that expires automatically, with no vote and no renewal.
 
 ### Why TVL-Based Governance Eliminates the Wrapper Problem
 
@@ -176,10 +184,52 @@ This creates a community enforcement layer on top of the immutable anti-gaming c
 
 ### Miliarium Aureum Composition Challenge
 
-- Any qualified AuMT holder may submit a composition challenge proposal.
-- Proposal passes only with **2/3 protocol-wide tessera-weighted approval**.
-- Composition intent is binding: replacement token must be same asset type or economically similar.
-- This mechanism is for like-for-like renewal only; pool function and economic role must remain intact.
+Pool token composition is immutable on-chain — there is no mechanism to swap a token inside a deployed pool contract. A composition challenge therefore follows a **deprecate-and-replace** path:
+
+1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal. It passes only with **2/3 protocol-wide tessera-weighted approval**.
+2. **Deprecation** — the old pool's gauge is revoked; emissions cease and the pool enters wind-down.
+3. **New pool launch** — a replacement pool with the updated composition is deployed into the same Miliarium slot, following the standard bootstrap path: gauge proposal, gauge vote, and — if approved — the 90-day gauge boost and optional Incendiary Boost apply as normal.
+
+A single proposal may cover **both** theme assets simultaneously if both have failed — forum discussion builds consensus on the pair before the on-chain vote.
+
+Composition intent is binding: the replacement token must be the same asset type or economically similar. **Like-for-like** means: same sector, same risk profile, same template role (yield core vs routing anchor vs theme asset). This is a renewal path, not a redesign path.
+
+#### What qualifies as "economically similar"
+
+The composition challenge exists because assets cease to exist — tokens get delisted, wrappers lose support, issuers shut down. The goal is to maintain the Miliarium Aureum as a functioning representation of the economy, not to pick winners.
+
+**Crypto tokens:**
+
+| Scenario | Replacement | Valid? | Reasoning |
+|:---------|:------------|:-------|:----------|
+| cbBTC delisted | tBTC or WBTC | **Yes** | Same asset type — wrapped Bitcoin |
+| cbBTC delisted | Tokenized BTC ETF | **Likely yes** | Same underlying exposure (Bitcoin), different wrapper — requires 2/3 to judge |
+| cbBTC delisted | Bitcoin L2 token (e.g., STX) | **No** | An L2 governance token is not Bitcoin, just as ARB or OP are not ETH |
+| cbBTC delisted | PAXG | **No** | Different asset class entirely (gold vs Bitcoin) |
+
+**Tokenized equities:**
+
+| Scenario | Replacement | Valid? | Reasoning |
+|:---------|:------------|:-------|:----------|
+| Company acquired or merged | Acquirer or merged entity | **Yes** | Direct successor — same economic exposure continues |
+| Company ceases to exist | Same-sector peer | **Yes** | E.g., Goldman Sachs → Morgan Stanley, Eli Lilly → Bristol-Myers Squibb |
+| Company ceases to exist | Different-sector company | **No** | Violates same-sector requirement |
+
+This is not a stock-picking exercise. Composition challenges activate when an asset **ceases to function**, and the replacement preserves the pool's role in the constellation.
+
+#### The 28 are a blueprint, not the full economy
+
+The 28 Miliarium pools are a curated economic blueprint for CCB execution — a diversified foundation that ensures the protocol has structural fee generation across asset classes from day one. They are **not** meant to exhaust every possible token or market.
+
+If a token, stablecoin, or asset class is missing from the 28, the path is **not** a composition challenge. It is:
+
+1. **Deploy a new pool** — permissionless from block 0
+2. **Get a gauge approved** — submit a proposal, burn the deposit, win the AuMT vote
+3. **Earn emissions** — through the standard CCB rules, Incendiary Boost, and 90-day gauge boost
+
+The Miliarium system is plug-and-play: new pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary and gauge boost mechanics — the same infrastructure the 28 founding pools use.
+
+**The community is actively encouraged** to monitor the market for new opportunities and propose new pools: emerging stablecoins, new tokenized RWAs (e.g., Ondo products — new bond or equity wrappers), and crypto tokens with meaningful trading volume. A thriving ecosystem of gauged pools beyond the 28 is the design intent — the Miliarium pools are the anchor, not the ceiling.
 
 ### On-Chain-Only Proposal Rule
 
@@ -187,4 +237,4 @@ Every proposal must reference only verifiable on-chain data (addresses, block ra
 
 ## xxv. Immutable Reference
 
-See Immutable Parameters in `constitution.md`.
+See Immutable Parameters (`constitution.md` §xxix).

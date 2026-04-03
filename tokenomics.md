@@ -9,13 +9,13 @@
 | Token name | **AuMM** |
 | Pool token | **AuMT** |
 | Maximum supply | **21,000,000 AuMM** |
-| Emission unit | Per-block reward |
+| Emission unit | Block emission rate |
 | Halving interval | Every 10,512,000 blocks (~4 years) |
 | Emission model | Bitcoin-style geometric halving |
 
 ### Emission Schedule
 
-| Era | Years | Block Reward (AuMM) | Era Emission | Annual Emission (approx.) | Cumulative Supply | % of Total |
+| Era | Years | Block Emission Rate (AuMM) | Era Emission | Annual Emission (approx.) | Cumulative Supply | % of Total |
 |-----|-------|---------------------|-------------|--------------------------|-------------------|------------|
 | 0 | 0–4 | 1.00 | 10,512,000 | 2,628,000 | 10,512,000 | 50.06% |
 | 1 | 4–8 | 0.50 | 5,256,000 | 1,314,000 | 15,768,000 | 75.09% |
@@ -29,7 +29,7 @@ Each era spans 10,512,000 blocks (~4 years at 12 s/block). Emissions are specifi
 
 ### Emission Distribution
 
-- **Through end of Month 10 (Year 1):** emissions to the Miliarium tranche are split **equally** across the 28 pools (**1/28** each).
+- **Through end of Month 10 (Year 1):** emissions to the Miliarium tranche are split **equally** across the 28 Miliarium pools (**1/28** each).
 - **Months 11–12 (Year 1):** a **two-month linear transition** that blends each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping linearly from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At the midpoint, the mix is half equal and half CCB. See `constitution.md` and `formulas.md`.
 - **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL and CCB multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
 - No voting and no discretionary overrides.
@@ -42,9 +42,9 @@ Emissions stream continuously per Ethereum block (~12 seconds). Each block, the 
 lp_reward_per_block = emission_per_block × (LP_value_in_pool × pool_weight) / total_weighted_LP_value
 ```
 
-Where `emission_per_block` is the current era's block reward (see table above), `LP_value_in_pool` is the USD value of the LP's AuMT position, `pool_weight` is the CCB-derived weight for that pool (updated at bi-weekly cycle boundaries), and `total_weighted_LP_value` is the sum across all eligible pools.
+Where `emission_per_block` is the current era's block emission rate (see table above), `LP_value_in_pool` is the USD value of the LP's AuMT position, `pool_weight` is the CCB-derived weight for that pool (updated at bi-weekly cycle boundaries), and `total_weighted_LP_value` is the sum across all eligible pools.
 
-Deposit — start accruing. Withdraw — stop accruing. No snapshots, no pro-rata, no epoch-boundary gaming. An LP earns exactly what they earned up to the block they withdrew. At the halving block, the per-block rate drops 50%.
+Deposit — start accruing. Withdraw — stop accruing. No snapshots, no pro-rata, no epoch-boundary gaming. An LP earns exactly what they earned up to the block they withdrew. At the halving block, the block emission rate drops 50%.
 
 **No lock required.** LPs earn tokens while they provide liquidity. Remove liquidity, stop earning. No vesting. No cliff. Tokens are liquid immediately.
 
@@ -71,10 +71,12 @@ This ensures governance power reflects real economic commitment — not which po
 
 The dampening exponent transitions from fourth root to cube root at the first halving block. This is a protocol-wide parameter shift — all positions recalculate under the new exponent, regardless of when they were opened. There is no two-tier governance class.
 
-**Why the transition matters:**
+**Why these specific exponents:** Governance dampening exponents are chosen to prevent large-capital capture while preserving meaningful voting power for productive LPs. The key insight is that the ratio of the largest LP to total protocol TVL changes dramatically over time — the exponent must match the capture risk of each era.
 
-- **Era 0 (fourth root):** A $100M position has 18x the governance weight of a $1K position. At low TVL, a single whale can represent 20%+ of the entire protocol. Maximum compression prevents single-actor capture when the protocol is most vulnerable. The whale still has more governance weight than a small LP — they just can't steamroll every vote.
-- **Era 1+ (cube root, permanent from year 4):** A $100M position has 46x the governance weight of a $1K position. By year 4, TVL growth has naturally diluted individual power — a $10M whale in a $200M protocol is 5%, not 20%. The ecosystem no longer needs training wheels. The exponent relaxes at the first halving block and stays at cube root permanently — subsequent halvings affect block reward rate only, not governance mechanics.
+- **Era 0 (fourth root):** At genesis, a $100M LP in a $1M protocol is 100% of TVL. Without dampening, that single actor controls the entire governance surface. Fourth-root compression reduces the gap: a $100M position has 18x the governance weight of a $1K position (vs. 100,000x under linear weighting). Maximum compression prevents single-actor capture when the protocol is most vulnerable. The whale still has more governance weight than a small LP — they just cannot steamroll every vote.
+- **Era 1+ (cube root, permanent from year 4):** By year 4, TVL growth has naturally diluted individual power. The same $100M LP in a $1B protocol is now 10%, not 100%. Cube root is the appropriate compression for this regime: a $100M position has 46x the governance weight of a $1K position — more responsive to capital differences than fourth root, reflecting the lower capture risk in a larger ecosystem. The exponent relaxes at the first halving block and stays at cube root permanently — subsequent halvings affect the block emission rate only, not governance mechanics.
+
+**Worked example:** At genesis, a protocol has $1M total TVL. One LP deposits $100M (100x the rest). Under linear weighting, that LP holds 99% of governance power — functionally a dictatorship. Under fourth root: the $100M LP has power proportional to $(100M)^{1/4} \approx 100$, while the remaining $1M of LPs collectively has power proportional to $(1M)^{1/4} \approx 31.6$. The whale holds roughly 76% — still dominant, but a coalition of smaller LPs can contest any proposal. By year 4, suppose the protocol has grown to $1B TVL and the same LP still has $100M (now 10% of TVL). Under cube root: $(100M)^{1/3} \approx 464$, while the remaining $900M has $(900M)^{1/3} \approx 965$. The whale holds roughly 32% — influential but far from controlling. Natural TVL growth did most of the work; the exponent relaxation reflects that reality.
 
 The transition trigger is the halving block itself — immutable in the contract, no governance vote required, no discretionary timing.
 
@@ -102,7 +104,9 @@ This eliminates:
 
 #### Low-Turnout Safeguard
 
-Uncontested proposals with very low turnout do not pass silently. They either auto-fail or route to a timelock with a mandatory public review period. This prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** regardless of vote outcome. There is no timelock fallback — the proposal simply fails and must be resubmitted.
+
+This applies uniformly: gauge approvals, gauge challenges, fee changes, treasury spends, and composition challenges all share the same 20% floor. The burn deposit filters low-effort spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 
 #### Anti-Market Buying
 
@@ -119,7 +123,7 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 - Gauge approvals and challenges (with timelock)
 - Miliarium Aureum composition challenges (2/3 supermajority)
 
-**What governance cannot control:** See Immutable Parameters in `constitution.md` for the full list. In short: emission schedule, maximum supply, CCB engine parameters (60-day EMA, Miliarium Aureum emissions, Incendiary Boost mechanics, Sandbox fast-track threshold), governance dampening transition, eligibility criteria, fee distribution split, and all launch mechanics are immutable in contract.
+**What governance cannot control:** See Immutable Parameters (`constitution.md` §xxix) for the full list. In short: emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, and all launch mechanics are immutable in contract.
 
 ### Token Properties
 
@@ -143,17 +147,33 @@ AuMM accrues value exclusively through **buyback and burn** — the same mechani
 
 ### The Day-One Revenue Guarantee
 
-Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has treasury income from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It's architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. During the treasury emission phase (months 0–10), this revenue accumulates alongside AuMM emissions, building the capital needed to seed the AuMM trading pool at month 6, fund the price ceiling stabilization mechanism, and activate buyback-and-burn from month 6 onward.
+Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has treasury income from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It's architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. During the treasury emission phase (months 0–10), this revenue accumulates alongside AuMM emissions, building the capital needed to seed the AuMM trading pool at month 6, fund the price ceiling stabilization mechanism (months 6–12), and activate buyback-and-burn from month 6 onward.
 
-### Price Ceiling Stabilization (Months 6–10)
+### Price Ceiling Stabilization (Months 6–12)
 
-At month 6, the treasury seeds the AuMM trading pool (AuMM / svZCHF · sUSDS) using accumulated protocol revenue. From month 6 through month 10, the treasury operates a **price ceiling mechanism** that converts AuMM overvaluation into permanent pool depth.
+At month 6, the treasury seeds the AuMM trading pool (AuMM / svZCHF · sUSDS) using accumulated protocol revenue. From month 6 through month 12, the treasury operates a **price ceiling mechanism** that converts AuMM overvaluation into permanent pool depth.
 
-The ceiling price is derived from a **7-day SMA of AuMM's price** read from the internal AuMM/stablecoin trading pool — not an external oracle. The pool's **0.75% swap fee** makes short-term price manipulation expensive (an attacker must pay the fee on every trade used to move the reference price, and the 7-day averaging window smooths out single-day spikes).
+#### The FDV/TVL ratio
 
-When AuMM's spot price exceeds the ceiling (deployed at a fixed multiple of trailing fundamentals), the treasury sells AuMM from its stabilization inventory into the pool, pushing the price back down. Revenue from these sales is deposited as **permanent locked liquidity** into Miliarium Aureum pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw this liquidity.
+The ceiling metric is the protocol’s **fully diluted valuation relative to its total value locked**:
 
-The ceiling is capped at **80% of treasury assets** — the treasury can never fully deplete itself on stabilization. At **month 10**, excess AuMM in the stabilization inventory is permanently burned, and the treasury's emission share drops to zero. All stabilization parameters are immutable in contract.
+```
+FDV/TVL = (21,000,000 × AuMM_price) / total_protocol_TVL
+```
+
+Both inputs are readable on-chain with no external oracle. The AuMM trading pool is seeded at **FDV/TVL = 1** (fully diluted valuation equals protocol TVL at launch). The ratio is smoothed using a **21-day EMA** to filter short-term spikes — the pool’s **0.75% swap fee** makes single-day price manipulation expensive, and the EMA window ensures that transient volatility does not trigger unnecessary sells.
+
+For context, established AMM protocols (Uniswap, Aerodrome, Cetus) trade at FDV/TVL multiples ranging from roughly 0.5 to 2. The ceiling is set at the upper bound of this range.
+
+#### Ceiling trigger and sell mechanics
+
+When the **EMA(21) of FDV/TVL ≥ 2**, the treasury sells **0.75% of the AuMM pool’s AuMM balance per day** into the pool, pushing the price down. Sells execute **once per day, every day** the EMA remains at or above the threshold, and stop automatically when EMA(21) drops below 2.
+
+Revenue from ceiling sells is deposited as **permanent locked liquidity** into the Miliarium Aureum pools with the **lowest TVL** that meet the 4626 Quality Gate. The treasury can never withdraw this liquidity. Speculation above fair value directly strengthens the weakest pools in the constellation.
+
+#### Limits and expiry
+
+The ceiling is capped at **80% of treasury assets** — the treasury can never fully deplete itself on stabilization. If the stabilization inventory runs out, the mechanism stops naturally. The treasury's emission share drops to zero at **month 10** (no new AuMM after that point); the ceiling continues on existing inventory. At **month 12**, any excess AuMM remaining in the stabilization inventory is permanently burned. All stabilization parameters are immutable in contract.
 
 ### The Self-Reinforcing Loop
 
@@ -163,6 +183,24 @@ The AuMM trading pool holds ERC-4626 yield-bearing tokens (svZCHF, sUSDS, waEthU
 
 At scale, the combined buyback-and-burn from swap fees (25%) and yield fees (25% of 10%) can exceed the emission rate — making AuMM net deflationary despite ongoing LP mining rewards. BTC scarcity with productive backing.
 
+**Worked example.** Assume $100M protocol TVL and $20M average daily volume at maturity:
+
+| Burn source | Calculation | Annual burn (AuMM) |
+|:------------|:------------|:-------------------|
+| Swap fee burn | $20M/day × 0.05% fee × 25% to burn × 365 days = $912,500/year in buy pressure | Depends on AuMM price |
+| Yield fee burn | $100M TVL × ~52% ERC-4626 weight × 2.5% avg yield × 10% skim × 25% to burn = $32,500/year in buy pressure | Depends on AuMM price |
+| **Total annual burn pressure** | | **~$945,000/year** in AuMM purchased and destroyed |
+
+| Era | Annual emission (AuMM) | Crossover at $1 AuMM? | Crossover at $0.50 AuMM? |
+|:----|:----------------------|:----------------------|:-------------------------|
+| 0 (years 0–4) | 2,628,000 | No ($945K < $2.63M) | No ($945K < $1.31M) |
+| 1 (years 4–8) | 1,314,000 | No (but closer) | Yes ($945K > $657K) |
+| 2 (years 8–12) | 657,000 | Yes ($945K > $657K) | Yes |
+
+The crossover is structurally expected during **Era 1 or Era 2**, driven primarily by TVL growth and fee revenue — not by AuMM price appreciation. As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, pulling the crossover earlier. Higher TVL means more fees, more burn, and a lower crossover threshold.
+
+*This calculation is illustrative; actual crossover timing depends on protocol TVL, trading volume, and fee revenue at the time. The key structural point is that emissions halve every four years while revenue scales with TVL — the curves must eventually cross.*
+
 ### Immutable Reference
 
-See Immutable Parameters in `constitution.md`.
+See Immutable Parameters (`constitution.md` §xxix).

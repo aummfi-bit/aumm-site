@@ -8,7 +8,7 @@
 
 ## Phase 2 - Equal regime (through Month 10)
 
-- deploy and seed the 28 Miliarium Aureum pools
+- deploy and seed the 28 Miliarium pools
 - activate equal 1/28 emission distribution through end of Month 10
 - run telemetry and invariants for immutable execution checks
 
@@ -28,4 +28,4 @@
 - publish immutable parameter manifest
 - publish public verification guide for bytecode and parameters
 
-See Immutable Parameters in `constitution.md`.
+See Immutable Parameters (`constitution.md` §xxix).

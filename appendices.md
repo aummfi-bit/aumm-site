@@ -29,10 +29,10 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
 - AuMT pool token wrapper (Aureum Market Tessera)
-- CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone)
+- CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see `constitution.md` §xxix for all numeric bounds)
 - Incendiary Boost engine (AuMM escrow, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
 - 90-day gauge boost (1.2x fixed CCB multiplier for new gauges, automatic expiry)
-- CCB multiplier engine (slope calculation, dead zone, +/-0.05 adjustments, [0.75–1.25] clamping)
+- CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see `constitution.md` §xxix)
 - Sandbox fast-track (top 10% efficiency sustained for 3 epochs, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)
@@ -79,7 +79,7 @@ The deeper structural failure: SushiSwap was a fair launch of a **commodity prod
 |-------------|-----------------|-------------|
 | **Bootstrap Paradox** | No capital to seed liquidity | Founding team seeds pools with existing assets (ixEDEL, svZCHF). ERC-4626 pools generate 2-2.8% native yield from day one — LPs have a reason to stay before any AuMM emission has value. |
 | **Builder Burnout** | Devs work for free, farmers dump | Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. Treasury funded by protocol fees (25% swap + 75% yield), not by token sales. Audit costs funded by treasury once fees accumulate. |
-| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. The treasury receives a declining share of emissions (75%→50%→0% over months 0–10) for seeding the AuMM trading pool and operating a price ceiling that converts overvaluation into pool depth. Deployed at a fixed multiple, capped at 80% of treasury assets. Excess AuMM serves as stabilization inventory (months 6–10), then burned at month 10. Treasury emission share hits zero permanently at month 10. All mechanisms immutable in contract. No human can change the supply curve or the stabilization rules. |
+| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. The treasury receives a declining share of emissions (75%→50%→0% over months 0–10) for seeding the AuMM trading pool and operating a price ceiling (FDV/TVL ≥ 2 triggers daily 0.75% sells) that converts overvaluation into permanent pool depth. Capped at 80% of treasury assets. Price ceiling active months 6–12; treasury emission share hits zero at month 10; ceiling continues on existing inventory until month 12, then all leftover AuMM burned. All mechanisms immutable in contract. No human can change the supply curve or the stabilization rules. |
 | **Vampire Attack Dependency** | Liquidity rented via incentives, leaves when APR drops | Constituent tokens (WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay. |
 | **Governance Capture** | Token-weighted voting = capital buys control | Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 1 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power). |
 | **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. Buyback-and-burn creates deflationary pressure that partially offsets price declines. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
@@ -152,7 +152,7 @@ The model works. And it is architecturally the opposite of Aureum on every dimen
 | Pricing logic | Private algorithms, off-chain oracles | On-chain weighted pool math, formally verified |
 | Transparency | Opaque — users cannot assess fairness or execution quality | Fully transparent — pool weights, fees, and rules are on-chain |
 | Governance | None — one team controls all parameters | AuMT-weighted — LPs govern protocol decisions |
-| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — declining treasury share (75%→50%→0% over months 0–10) for protocol-owned pool seeding, 100% to LPs after month 10 |
+| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — declining treasury share (75%→50%→0% over months 0–10) for protocol-owned pool seeding and price ceiling stabilization (months 6–12), 100% to LPs after month 10 |
 | Failure mode | Single team goes down, 35%+ of chain volume disappears | Permissionless — no single point of failure, pools exist independently |
 | Chain dependency | Requires sub-second block times for active quoting — Solana-native | Passive LP model designed for Ethereum's 12-second blocks |
 | LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |
@@ -187,7 +187,7 @@ When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% e
 - **Net circulating supply** — emitted minus burned
 - **Burn rate** — trailing 30-day annualised burn rate as % of circulating supply
 
-See Immutable Parameters in `constitution.md`.
+See Immutable Parameters (`constitution.md` §xxix).
 
 ---
 

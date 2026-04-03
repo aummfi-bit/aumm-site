@@ -1,6 +1,6 @@
 # Miliarium Aureum — Master Registry
 
-*28 permanent Miliarium Aureum slots locked from block 0. No additional slots. Token compositions may be renewed via Miliarium Aureum Composition Challenge to adapt to changing markets while preserving each pool's function and sector theme.*
+*28 Miliarium Aureum slots, locked from block 0. No additional slots. If a token ceases to exist, a Miliarium Aureum Composition Challenge can deprecate the pool and launch a replacement into the same slot via the standard bootstrap path — preserving each pool's function and sector theme.*
 
 ---
 
@@ -49,16 +49,16 @@
 | Stocks | 17–26 | 10 | Tokenised equities and fintech (see Subclass column in [Miliarium Aureum](../Miliarium_Aureum.md)) |
 | Metals | 27–28 | 2 | Gold + silver/uranium |
 
-**Total: 28 pools.** **Registry category** is the five-way split above. **Sector** is the finer label used in profile files.
+**Total: 28 Miliarium pools.** **Registry category** is the five-way split above. **Sector** is the finer label used in profile files.
 
 Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../Miliarium_Aureum.md) Section xi).
 
 ## xv. Status Tracking
 
-All pools initialise at **Active** status. The 28 Miliarium Aureum slots are permanent — the count never decreases.
+All pools initialise at **Active** status. The 28 Miliarium slots are permanent — the count never decreases.
 
 ```
-Active → Warning → Disqualified ⇄ Composition Challenge (renewal pathway)
+Active → Warning → Disqualified ⇄ Composition Challenge (deprecate-and-replace)
 ```
 
 | Status | Condition | Emissions | Recovery |
@@ -66,4 +66,4 @@ Active → Warning → Disqualified ⇄ Composition Challenge (renewal pathway)
 | **Active** | Above 15th volume percentile, passes all criteria | Full emissions + CCB multiplier | — |
 | **Warning** | 10th–15th volume percentile | Emissions continue (3-epoch grace) | Return above 15th percentile |
 | **Disqualified** | Below 10th volume percentile | Zero (redistributed to remaining eligible pools) | Sustain above 15th for 3 epochs (6 weeks), or Miliarium Aureum Composition Challenge |
-| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | 2/3 protocol-wide tessera-weighted vote | Approved if replacement preserves same asset type or similar economic properties; slot remains active with CCB multiplier |
+| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | Old pool deprecated; replacement launched into same slot via standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote | Like-for-like: same sector, same risk, same template role. Slot remains active with CCB multiplier |

@@ -34,6 +34,10 @@ Or: `npx --yes serve -p 8080`
 - After the intro, a gate prompts for the Tessera (see `index.html`); this is a presentation layer for the static bundle.
 - **Miliarium ▾** in the nav opens **Registry** (`Miliarium_Aureum.md`), **Manifest**, **Sectors**, and in-app rendering of pool profile files so `.md` links do not open as raw files.
 
+## Reading guide
+
+Start with **`overview.md`** — it contains a [How to Read This Documentation](overview.md#how-to-read-this-documentation) section with two audience tracks (LP/Investor and Builder/Auditor) and a one-line index of every file.
+
 ## Editing
 
 - Change pool data in **`Miliarium_Aureum.md`** first, then align `miliarium_profiles/manifest.md` and profiles as needed.
