@@ -1,37 +1,34 @@
 # Editorial Sprints — Aureum Protocol Documentation
 
-Fixes organised by priority. Each sprint is self-contained and can be merged independently.
+Fixes organised by dependency order. Each sprint is self-contained and can be merged independently. Sprints are numbered in the recommended execution sequence.
+
+## Execution Order
+
+| Phase | Sprints | Rationale |
+|-------|---------|-----------|
+| **1 — Foundation** | 1, 2 | Canonicalise terms and define audience tracks before writing new prose. |
+| **2 — Critical rewrites** | 3, 4 | CCB and constellation routing rewrites, now using canonical terms and targeting defined audiences. |
+| **3 — Content additions** | 5, 6, 7, 8 | Largely independent of each other; each adds missing motivation, rationale, or worked examples. |
+| **4 — Precision and cleanup** | 9, 10, 11 | Sprint 9 is minor tightening. Sprints 10–11 require protocol-level design decisions before editorial work can begin. |
 
 ---
 
-## Sprint 1 — CCB Explanation Rewrite
-**Files:** `theoretical_foundation.md`
-**Impact:** Critical — the protocol's core mechanic is currently fragmented across 350 lines and leaves readers unable to state plainly how emissions are decided.
+## Sprint 1 — Repetition and Parameter Canonicalisation
+**Files:** `constitution.md`, all files referencing CCB parameters
+**Impact:** High — CCB multiplier parameters are restated in 7 files; "28 Miliarium Aureum pools" appears 34 times with inconsistent variants. This must be resolved first so every subsequent sprint writes prose using canonical terms.
 
 ### Tasks
-- [ ] Rewrite §vi opening: separate the EMA-as-scoring-input from the multiplier-as-adjustment into clearly distinct paragraphs before any detail
-- [ ] Restructure §vi into three clean subsections: (1) What the EMA does and why, (2) How pools score and compete — normalisation across all eligible pools, (3) How the block reward flows after Incendiary skim
-- [ ] Restructure §vii opening to clearly state upfront: "The CCB multiplier is a *separate layer on top of* the base score. It applies only to the 28 Miliarium pools. Non-Miliarium pools use a neutral multiplier of 1."
-- [ ] Move the FAQ block (§vii bottom) to a collapsible or appendix section — the Q&A format introduces new concepts mid-explanation and stalls comprehension
-- [ ] Remove all within-section back-references ("as explained above", "read Section vi first") and make each subsection self-standing
+- [ ] Designate `constitution.md` §xxix as the canonical source for all immutable parameters
+- [ ] In every other file that restates CCB multiplier bounds, step size, dead zone, or EMA horizon: replace the inline restatement with a citation — "See Immutable Parameters (`constitution.md` §xxix)"
+- [ ] Standardise the primary term for the founding pools: choose one form (e.g. "the 28 Miliarium pools") and apply it consistently; reserve "immutable" qualifier only for sentences where immutability is the point
+- [ ] Standardise "block emission rate" as the primary term (replacing "block reward," "per-block emission," "emission_per_block" — keep the formula variable name in `formulas.md` only)
+- [ ] Audit the EMA explanation: it appears in 5 files; designate `theoretical_foundation.md` §vi as canonical; replace full re-explanations in other files with one-sentence summaries + cross-reference
 
 ---
 
-## Sprint 2 — Constellation Routing Explanation
-**Files:** `aureum_mental_model.md`
-**Impact:** Critical — 26 of 28 pools hold ixEDEL but the routing mechanic is never plainly stated anywhere.
-
-### Tasks
-- [ ] Add a "Constellation Routing" subsection to §iii (How Aureum Works) explaining: pool A → ixEdelweiss → pool B, fees on both legs, why ixEDEL appears in 26 pools
-- [ ] Explain what ixEdelweiss (slot 05) does differently from the other ixEDEL-holding pools — it is the routing hub, the others are spokes
-- [ ] Add one sentence clarifying ixLibertas (slot 06) as the USD stable hub with no ixEDEL — explain why the exception exists
-- [ ] Connect the Roman metaphor explicitly: ixEDEL = the via (road), ixEdelweiss = the Miliarium Aureum monument itself
-
----
-
-## Sprint 3 — Reading Guide and Audience Tracks
+## Sprint 2 — Reading Guide and Audience Tracks
 **Files:** `overview.md`
-**Impact:** High — no reading order is defined; new readers start randomly and get lost.
+**Impact:** High — no reading order is defined; new readers start randomly and get lost. Defining audience tracks now frames the tone and depth of every subsequent rewrite.
 
 ### Tasks
 - [ ] Add a "How to Read This Documentation" section at the top of `overview.md`
@@ -43,7 +40,32 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-## Sprint 4 — "Miniature Economy" and 28-Pool Rationale
+## Sprint 3 — CCB Explanation Rewrite
+**Files:** `theoretical_foundation.md`
+**Impact:** Critical — the protocol's core mechanic spans §vi–§vii (~76 lines) but mixes scoring inputs with multiplier mechanics, and the FAQ block introduces new notation mid-explanation.
+
+### Tasks
+- [ ] Rewrite §vi opening: separate the EMA-as-scoring-input from the multiplier-as-adjustment into clearly distinct paragraphs before any detail
+- [ ] Restructure §vi into three clean subsections: (1) What the EMA does and why, (2) How pools score and compete — normalisation across all eligible pools, (3) How the block reward flows after Incendiary skim
+- [x] ~~Restructure §vii opening to clearly state upfront: "The CCB multiplier is a *separate layer on top of* the base score."~~ — Already done (lines 70–71 of `theoretical_foundation.md` explicitly state "a **separate** layer that applies **only** to the 28 immutable Miliarium Aureum pools… sits **on top of** each Miliarium pool's TVL EMA")
+- [ ] Move the FAQ block (§vii bottom) to a collapsible or appendix section — the Q&A format introduces new concepts mid-explanation and stalls comprehension
+- [ ] Remove all within-section back-references ("as explained above", "read Section vi first") and make each subsection self-standing
+
+---
+
+## Sprint 4 — Constellation Routing Explanation
+**Files:** `aureum_mental_model.md`
+**Impact:** Critical — 26 of 28 pools hold ixEDEL but the routing mechanic is never plainly stated anywhere.
+
+### Tasks
+- [ ] Add a "Constellation Routing" subsection to §iii (How Aureum Works) explaining: pool A → ixEdelweiss → pool B, fees on both legs, why ixEDEL appears in 26 pools
+- [ ] Explain what ixEdelweiss (slot 05) does differently from the other ixEDEL-holding pools — it is the routing hub, the others are spokes
+- [ ] Add one sentence clarifying ixLibertas (slot 06) as the USD stable hub with no ixEDEL — explain why the exception exists
+- [ ] Connect the Roman metaphor explicitly: ixEDEL = the via (road), ixEdelweiss = the Miliarium Aureum monument itself
+
+---
+
+## Sprint 5 — "Miniature Economy" and 28-Pool Rationale
 **Files:** `aureum_mental_model.md`, `miliarium_profiles/sectors.md`
 **Impact:** High — the "miniature economy" framing is the strongest conceptual hook but is buried in a taxonomy file; the number 28 is never justified.
 
@@ -55,7 +77,7 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-## Sprint 5 — Equal → CCB Transition Motivation
+## Sprint 6 — Equal → CCB Transition Motivation
 **Files:** `aureum_mental_model.md`, `transitions.md`
 **Impact:** High — the mechanics are clear but the *why* is absent: why two months, what pool operators should expect, what this means for LP ROI calculations.
 
@@ -66,7 +88,7 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-## Sprint 6 — Governance Exponent Justification
+## Sprint 7 — Governance Exponent Justification
 **Files:** `tokenomics.md`, `constitution.md`
 **Impact:** High — 4th root (Era 0) and cube root (Era 1+) are stated and the transition is now correctly described as permanent, but *why those specific exponents* is not argued anywhere.
 
@@ -77,7 +99,7 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-## Sprint 7 — Deflationary Crossover Worked Example
+## Sprint 8 — Deflationary Crossover Worked Example
 **Files:** `tokenomics.md`
 **Impact:** Medium — the concept is mentioned but feels aspirational without numbers; a worked example makes it real.
 
@@ -89,9 +111,22 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-## Sprint 8 — Composition Challenge Mechanics
+## Sprint 9 — bootstrap.md Restructure
+**Files:** `bootstrap.md`
+**Impact:** Medium — the gauge prerequisite and boost mechanisms are stated (§xxi line 13 leads with "This is the single gatekeeping step"; the Bootstrapping Sequence table at lines 23–30 separates the two boosts), but the presentation can be tightened.
+
+### Tasks
+- [x] ~~Move "All layers require gauge approval first" to the opening sentence of §xxi~~ — Already done (line 13: "A pool only becomes eligible for AuMM emissions after qualified LPs approve a gauge through governance. This is the single gatekeeping step.")
+- [ ] Add a negative-path sentence after the opening: "Without gauge approval: no emissions, no Incendiary Boost, no 90-day multiplier"
+- [ ] Make the Incendiary vs. 90-day boost distinction more prominent — currently in a table row; add a brief prose paragraph restating: 90-day boost is automatic on gauge approval, Incendiary is operator-funded and stacks on top
+- [ ] Clarify that a pool can have the 90-day boost *without* Incendiary (automatic on gauge approval) and *with* Incendiary (operator-funded, stacked on top)
+
+---
+
+## Sprint 10 — Composition Challenge Mechanics
 **Files:** `bootstrap.md`, `constitution.md`
-**Impact:** Medium — the mechanic is described but ambiguous for edge cases that real operators will face.
+**Impact:** Medium — the mechanic is described clearly in §xxiv but lacks worked examples for the edge cases real operators will face.
+**⚠️ Prerequisite:** This sprint requires design decisions on edge-case rulings before editorial work can begin. The worked examples cannot be written until the protocol team decides what qualifies as "economically similar."
 
 ### Tasks
 - [ ] Add a concrete worked example to `bootstrap.md` §xxiv: the cbBTC delisting scenario — what clearly qualifies (tBTC — same asset type), what clearly doesn't (physical gold — different asset class), and what is borderline (Bitcoin L2 token — requires 2/3 to judge "similar economic properties")
@@ -100,9 +135,10 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-## Sprint 9 — Price Ceiling and Low-Turnout Precision
+## Sprint 11 — Price Ceiling and Low-Turnout Precision
 **Files:** `tokenomics.md`, `constitution.md`
 **Impact:** Medium — both mechanisms are currently described in terms too vague to be actionable.
+**⚠️ Prerequisite:** This sprint requires the protocol team to decide specific parameter values: the price ceiling multiple, the fundamental metric, the turnout threshold, proposal-type routing rules, and timelock duration. These are design decisions, not editorial ones.
 
 ### Tasks
 - [ ] **Price ceiling** (`tokenomics.md` §x): specify what "fixed multiple of trailing fundamentals" means — define the fundamental metric (protocol revenue per circulating AuMM), the multiple, and how the ceiling is calculated on-chain
@@ -110,29 +146,4 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-## Sprint 10 — Repetition and Parameter Canonicalisation
-**Files:** `constitution.md`, all files referencing CCB parameters
-**Impact:** Medium — CCB multiplier parameters are restated in 7 files; "28 Miliarium Aureum pools" appears 34 times with inconsistent variants.
-
-### Tasks
-- [ ] Designate `constitution.md` §xxix as the canonical source for all immutable parameters
-- [ ] In every other file that restates CCB multiplier bounds, step size, dead zone, or EMA horizon: replace the inline restatement with a citation — "See Immutable Parameters (`constitution.md` §xxix)"
-- [ ] Standardise the primary term for the founding pools: choose one form (e.g. "the 28 Miliarium pools") and apply it consistently; reserve "immutable" qualifier only for sentences where immutability is the point
-- [ ] Standardise "block emission rate" as the primary term (replacing "block reward," "per-block emission," "emission_per_block" — keep the formula variable name in `formulas.md` only)
-- [ ] Audit the EMA explanation: it appears in 5 files; designate `theoretical_foundation.md` §vi as canonical; replace full re-explanations in other files with one-sentence summaries + cross-reference
-
----
-
-## Sprint 11 — bootstrap.md Restructure
-**Files:** `bootstrap.md`
-**Impact:** Medium — the gauge-as-prerequisite is buried at the end of §xxi instead of stated upfront; the sequence is unclear on first read.
-
-### Tasks
-- [ ] Move "All layers require gauge approval first" to the opening sentence of §xxi, not the closing
-- [ ] Restructure §xxi to state the prerequisite model clearly: "Gauge approval is the single gate. Without it: no emissions, no Incendiary Boost, no 90-day multiplier. With it: the following mechanisms become available…"
-- [ ] Introduce Incendiary Boost and 90-day gauge boost explicitly as *optional, post-approval* mechanisms
-- [ ] Clarify that a pool can have the 90-day boost *without* Incendiary (automatic on gauge approval) and *with* Incendiary (operator-funded, stacked on top)
-
----
-
-*Each sprint should be committed and merged independently. Sprints 1–3 have the highest reader impact and should be prioritised first.*
+*Each sprint should be committed and merged independently. Sprints are numbered in execution order.*
