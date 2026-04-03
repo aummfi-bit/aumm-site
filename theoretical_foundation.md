@@ -48,7 +48,7 @@ If a pool’s **smoothed** TVL is **falling**, its weight in the CCB score **ten
 
 ### Score, eligible pools, and the emission pie
 
-After **Incendiary Boost** claims are paid from the block (below), each **eligible** pool gets a **CCB score** built from: the pool’s **smoothed** TVL (EMA), a **CCB multiplier** that **only** applies to the **28 Miliarium** pools (and is **neutral** for all other eligible pools), and the **Incendiary multiplier** term defined in `constitution.md` (distinct from Boost claims). **Gauge-eligible pools that are not among the 28** still compete with smoothed TVL and the neutral multiplier slot; they do not receive the Miliarium-only CCB multiplier engine (Section vii). The CCB turns those scores into **shares**: each pool’s share is its score **divided by the sum of scores of all eligible pools**. So allocation is **relative**: a pool’s emissions depend on how it compares to **everyone else** who qualifies, not on a fixed headline percentage forever.
+After **Incendiary Boost** claims are paid from the block (below), each **eligible** pool gets a **CCB score** built from: the pool’s **smoothed** TVL (EMA), a **CCB multiplier** that **only** applies to the **28 Miliarium** pools (and is **neutral** for all other eligible pools), Incendiary Boost effects are handled separately via the priority skim (below), not inside the CCB score. **Gauge-eligible pools that are not among the 28** still compete with smoothed TVL and the neutral multiplier slot; they do not receive the Miliarium-only CCB multiplier engine (Section vii). The CCB turns those scores into **shares**: each pool’s share is its score **divided by the sum of scores of all eligible pools**. So allocation is **relative**: a pool’s emissions depend on how it compares to **everyone else** who qualifies, not on a fixed headline percentage forever.
 
 ### Incendiary first, then CCB
 
@@ -64,7 +64,7 @@ Capital in productive, eligible pools is the **only** input to emission weight. 
 
 ### How the math works (summary)
 
-Block reward is split after **Incendiary Boost** claims (first claim on the mint); the **remainder** is allocated by CCB shares. Each pool has its own TVL EMA series; scores combine smoothed TVL, CCB multiplier (Miliarium only), and Incendiary multiplier; shares normalize over all eligible pools. During the transition window (Months 11–12), each immutable pool's share is a linear blend of its equal one-twenty-eighth and what the CCB would assign, ramping smoothly from pure equal to pure CCB over the two months. For full formal definitions of every formula, see `formulas.md`.
+Block reward is split after **Incendiary Boost** claims (first claim on the mint); the **remainder** is allocated by CCB shares. Each pool has its own TVL EMA series; scores combine smoothed TVL and CCB multiplier (Miliarium only); shares normalize over all eligible pools. During the transition window (Months 11–12), each immutable pool's share is a linear blend of its equal one-twenty-eighth and what the CCB would assign, ramping smoothly from pure equal to pure CCB over the two months. For full formal definitions of every formula, see `formulas.md`.
 
 ---
 

@@ -73,15 +73,15 @@ The EMA runs continuously for **each pool** individually. Half-life is approxima
 
 ### F-5. CCB Score
 
-**Purpose:** Combine a pool's smoothed TVL with its CCB multiplier and Incendiary multiplier into a single composite score that determines how much of the remaining block emission it receives.
+**Purpose:** Combine a pool's smoothed TVL with its CCB multiplier into a single composite score that determines how much of the remaining block emission it receives.
 
-**Effect:** Pools with higher sustained TVL, favorable CCB multiplier positioning, and active Incendiary terms earn proportionally larger scores. The score is **relative** — a pool's emissions depend on how it compares to every other eligible pool, not on a fixed percentage.
+**Effect:** Pools with higher sustained TVL and favorable CCB multiplier positioning earn proportionally larger scores. The score is **relative** — a pool's emissions depend on how it compares to every other eligible pool, not on a fixed percentage. Incendiary Boost effects are handled separately via the priority skim (F-2), not inside the CCB score.
 
 ```
-Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i) × Incendiary_mult(pool_i)
+Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i)
 ```
 
-**CCB_mult** applies only to the 28 Miliarium pools (all others use 1). **Incendiary_mult** is the term defined in `constitution.md` (distinct from Incendiary Boost claims).
+**CCB_mult** applies only to the 28 Miliarium pools (all others use 1).
 
 ---
 

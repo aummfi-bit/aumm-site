@@ -56,11 +56,11 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Transition regime (Months 11–12)
 
-**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. A blend parameter runs from zero (pure equal) at the first block of Month 11 to one (pure CCB) at the last block of Year 1. At the midpoint of the window the mix is exactly half equal and half CCB. The CCB leg uses the same score as post–Year-1 (CCB multiplier and Incendiary inside the CCB leg). See `formulas.md` for the formal blend formula.
+**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. A blend parameter runs from zero (pure equal) at the first block of Month 11 to one (pure CCB) at the last block of Year 1. At the midpoint of the window the mix is exactly half equal and half CCB. The CCB leg uses the same score as post–Year-1 (smoothed TVL × CCB multiplier). See `formulas.md` for the formal blend formula.
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims are skimmed from the block reward first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL. The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value) and its Incendiary multiplier, then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, clamped to a fixed band. No voting layer, no human override. See `formulas.md` for all formal definitions.
+Incendiary Boost claims are skimmed from the block reward first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL. The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, clamped to a fixed band. No voting layer, no human override. See `formulas.md` for all formal definitions.
 
 ## xxix. Immutable Parameters
 
