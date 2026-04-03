@@ -67,6 +67,31 @@ This ensures the canonical source explicitly states the values that every other 
 
 ---
 
+### R-4. Missing sitemap.xml referenced by robots.txt
+
+**File:** `robots.txt:19`
+
+**Issue:** robots.txt declares `Sitemap: https://aumm.fi/sitemap.xml` but no `sitemap.xml` exists in the repository. Search engines will get a 404.
+
+**Fix:** Either generate a `sitemap.xml` listing all public markdown URLs, or remove the Sitemap directive from `robots.txt`.
+
+---
+
+### R-5. TBD founding team roles in overview.md
+
+**File:** `overview.md:86-88`
+
+**Issue:** Three of four founding team roles are marked **TBD**:
+- Smart Contracts — TBD
+- Frontend & UX — TBD
+- Founding Liquidity — TBD (aligned capital partner)
+
+Only Architecture & Thesis is assigned (Sagix).
+
+**Fix:** Resolve before public launch. Either assign individuals, change to "Seeking [role]", or reframe as open positions.
+
+---
+
 ## Suggested Improvements
 
 ### S-1. "Two destinations" phrasing in tokenomics.md
@@ -167,6 +192,8 @@ But ixHelvetia (slot 01) also has no ixEDEL. The earlier sentence ("Twenty-six o
 | R-1 | Required | `appendices.md:84` | HIGH — factual error |
 | R-2 | Required | 6 pool profiles | HIGH — incomplete content |
 | R-3 | Required | `constitution.md §xxix` | MEDIUM — missing canonical parameter |
+| R-4 | Required | `robots.txt:19` | MEDIUM — references missing sitemap.xml |
+| R-5 | Required | `overview.md:86-88` | LOW — TBD team roles (pre-launch) |
 | S-1 | Suggested | `tokenomics.md:147` | LOW — clarity |
 | S-2 | Suggested | `overview.md:61` | LOW — clarity |
 | S-3 | Suggested | `aureum_mental_model.md:74` | LOW — completeness |
