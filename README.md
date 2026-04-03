@@ -14,7 +14,7 @@ Static documentation and registry for **Project Aureum**: tokenomics, governance
 
 ## Section numbering (site-wide)
 
-`##` headings use **lowercase Roman numerals with a dot** (e.g. `## i.`, `## ii.`, … `## xxxix.`) in one continuous sequence in nav order: **i.–iv.** Mental Model → **v.–viii.** Theoretical Foundations → **ix.–x.** Tokenomics → **xi.–xii.** Miliarium registry (`Miliarium_Aureum.md`) → **xiii.–xv.** Manifest → **xvi.–xx.** Sectors → **xxi.–xxv.** Bootstrap → **xxvi.** Transitions → **xxvii.–xxx.** Constitution → **xxxi.–xxxv.** Glossary → **xxxvi.–xxxix.** Appendices. In `Miliarium_Aureum.md`, the registry block is **Section xi** and the AuMM pool block is **Section xii**. **`overview.md`** uses unnumbered `##` headings (not in the sequence).
+`##` headings use **lowercase Roman numerals with a dot** (e.g. `## i.`, `## ii.`, … `## xxxix.`) in one continuous sequence in nav order: **i.–iv.** Mental Model → **v.–viii.** Theoretical Foundations → **ix.–x.** Tokenomics → **xi.–xii.** Miliarium registry (`Miliarium_Aureum.md`) → **xiii.–xv.** Manifest → **xvi.–xx.** Sectors → **xxi.–xxv.** Bootstrap → **xxvi.** Transitions → **xxvii.–xxx.** Constitution → **xxxi.–xxxv.** Glossary → **xxxvi.–xl.** Appendices. In `Miliarium_Aureum.md`, the registry block is **Section xi** and the AuMM pool block is **Section xii**. **`overview.md`** uses unnumbered `##` headings (not in the sequence).
 
 ## Local preview
 
