@@ -7,12 +7,12 @@
 
 ## Composition
 
-| Component | Token | Weight | Role |
-|:----------|:------|:-------|:-----|
-| ixEDEL | 46% | ERC-20 (DTF) | Primary price discovery — concentrated ixEDEL liquidity |
-| waEthUSDC | 18% | ERC-4626 | Aave V3 stataToken wrapper for USDC |
-| waEthUSDT | 18% | ERC-4626 | Aave V3 stataToken wrapper for USDT |
-| svZCHF | 18% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
+| Component | Token | Weight | Standard | Role |
+|:----------|:------|:-------|:---------|:-----|
+| ixEDEL hub | ixEDEL | 46% | ERC-20 (DTF) | Primary price discovery — concentrated ixEDEL liquidity |
+| Stablecoin A | waEthUSDC | 18% | ERC-4626 | Aave V3 stataToken wrapper for USDC |
+| Stablecoin B | waEthUSDT | 18% | ERC-4626 | Aave V3 stataToken wrapper for USDT |
+| Stablecoin C | svZCHF | 18% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
 
 **ERC-4626 composition:** 54% (waEthUSDC + waEthUSDT + svZCHF) — exceeds 52% threshold.
 

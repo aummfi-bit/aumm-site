@@ -7,16 +7,16 @@
 
 ## Composition
 
-| Component | Token | Weight | Role |
-|:----------|:------|:-------|:-----|
-| ixEDEL | 20% | ERC-20 (DTF) | Cross-pool arbitrage routing (overweight vs standard 16%) |
-| svZCHF | 16% | ERC-4626 | Swiss Franc anchor — Frankencoin savings vault |
-| st-EURA | 16% | ERC-20 | Staked EURA — Angle Protocol Euro stablecoin |
-| aEURS | 16% | ERC-4626 | Aave-wrapped EURS (Stasis Euro) |
-| s-tGBP | 16% | ERC-20 | Staked tGBP — tokenised British Pound |
-| [Partner Stable] | 16% | TBD | Reserved slot for strategic partner stablecoin |
+| Component | Token | Weight | Standard | Role |
+|:----------|:------|:-------|:---------|:-----|
+| Routing Anchor | ixEDEL | 20% | ERC-20 (DTF) | Cross-pool arbitrage routing (overweight vs standard 16%) |
+| CHF Stable | svZCHF | 16% | ERC-4626 | Swiss Franc anchor — Frankencoin savings vault |
+| EUR Stable A | st-EURA | 16% | ERC-20 | Staked EURA — Angle Protocol Euro stablecoin |
+| EUR Stable B | aEURS | 16% | ERC-4626 | Aave-wrapped EURS (Stasis Euro) |
+| GBP Stable | s-tGBP | 16% | ERC-20 | Staked tGBP — tokenised British Pound |
+| USD Stable | sDAI | 16% | ERC-4626 | Maker/Sky savings DAI — USD stable yield |
 
-**ERC-4626 composition:** 32% minimum (svZCHF + aEURS) — may require Partner Stable to be ERC-4626 to meet 52% gate, or may qualify under a non-standard exemption given its routing infrastructure role.
+**ERC-4626 composition:** 48% (svZCHF + aEURS + sDAI) — requires non-standard exemption from the 52% gate given its routing infrastructure role. See `bootstrap.md` §xxiii.
 
 ## Profile
 
@@ -39,7 +39,7 @@
 
 **Risk profile:**
 - FX volatility (EUR, GBP, CHF can move 2%+ on central bank decisions)
-- Partner Stable risk (TBD — depends on final selection)
+- sDAI smart contract risk (Maker/Sky DSR vault)
 - Regulatory risk (FX stablecoin regulation varies by jurisdiction)
 - Multi-currency IL (four currencies diverging creates complex IL dynamics)
 - 4626 Quality Gate compliance requires monitoring (currently borderline)
@@ -48,7 +48,7 @@
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | Monitoring required — 32% confirmed ERC-4626; Partner Stable selection critical |
+| 4626 Quality Gate | 48% ERC-4626 (svZCHF + aEURS + sDAI) — non-standard exemption for routing infrastructure |
 | Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |

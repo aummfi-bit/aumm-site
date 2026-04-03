@@ -6,6 +6,8 @@
 - **AuMT** (Aureum Market Tessera): LP participation token — your tessera. Proves active liquidity position in a qualifying pool. Carries governance weight proportional to the USD value of the underlying LP position and time held. AuMT in non-qualifying pools carries zero weight.
 - **Tessera**: Roman term for a small tablet used as a ticket, voucher, or token of identity — the conceptual name for AuMT. In Rome, a tessera proved you belonged and carried rights: entry, grain distribution, voting in assemblies. Your tessera proves your stake in the protocol's liquidity and carries the same rights — emissions, governance power, LP bonus eligibility.
 
+- **ixEDEL**: the routing anchor token held by 26 of the 28 Miliarium pools (typically at 16% weight). ixEDEL is a **Reserve Protocol DTF** (Diversified Token Fund) — a basket token whose constituents are governed by the Reserve Protocol. It serves as the shared medium through which cross-pool trades route: when a trader swaps between any two ixEDEL-holding pools, the trade passes through ixEDEL on both legs, generating fees in both pools. Primary price discovery happens in **ixEdelweiss** (slot 05), which holds 46% ixEDEL. See `aureum_mental_model.md` §iii (Constellation Routing) and `miliarium_profiles/05_ixEdelweiss.md`.
+
 ## xxxii. Core Systems
 
 - **Aequilibrium**: the AMM engine. Derived from Balancer V3's Certora-verified smart contracts. Pool math, vault, SOR, and hooks are byte-identical to the audited code. Only the tokenomics layer is new.
@@ -37,7 +39,7 @@
 - **Efficiency Tournament**: relative ranking of all gauged pools above $10K TVL by efficiency ratio: `(swap_fees + ERC-4626_yield_revenue_to_DAO) / emissions_received`, using a 3-epoch (6-week) moving average. Tiered caps for the bottom 15%: above 15th = no cap; 10th–15th = 1% of total emissions; 5th–10th = 0.5%; below 5th = 0.1%. Excess emissions from capped pools are redistributed to uncapped pools pro-rata by CCB share. Activates at month 13. Price-agnostic by design. See `bootstrap.md` section xxiii.
 - **Volume Percentile Floor**: pools must stay above the 15th volume percentile (trailing 3-epoch (6-week) fee + yield revenue distribution) to retain emissions. Catches dead pools. Graduated during bootstrap phase: 5th percentile at month 3, 10th at month 6, 15th at month 13.
 - **Hysteresis Buffer**: prevents binary oscillation around the volume floor. Three zones: Safe (above 15th, normal emissions), Warning (10th–15th, emissions continue, 3-epoch (6-week) recovery window), Cut (below 10th, emissions cease immediately, redistributed to remaining eligible pools).
-- **LP Bonus**: 50% of all swap fee revenue is distributed to LPs as an additional yield stream, proportional to their governance participation. Provides direct incentive to both provide liquidity and participate in governance.
+- **LP Bonus**: 50% of all swap fee revenue is distributed to LPs as an additional yield stream, proportional to their share of pool liquidity. Provides direct incentive to provide and maintain liquidity.
 
 ## xxxiii. Launch Structure
 

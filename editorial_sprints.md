@@ -1,3 +1,5 @@
+> **Internal document — not part of the public protocol specification.**
+
 # Editorial Sprints — Aureum Protocol Documentation
 
 Fixes organised by dependency order. Each sprint is self-contained and can be merged independently. Sprints are numbered in the recommended execution sequence.

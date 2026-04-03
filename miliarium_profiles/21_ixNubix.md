@@ -10,13 +10,13 @@
 
 Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section xi, slot 21).
 
-| Component | Token | Weight |
-|:----------|:------|:-------|
-| Yield Core A | svZCHF | 26% |
-| Yield Core B | sUSDS | 26% |
-| Routing Anchor | ixEDEL | 16% |
-| Theme Asset A | GOOGLon | 16% |
-| Theme Asset B | AMZNon | 16% |
+| Component | Token | Weight | Standard | Role |
+|:----------|:------|:-------|:---------|:-----|
+| Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
+| Yield Core B | sUSDS | 26% | ERC-4626 | Sky savings rate vault |
+| Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
+| Theme Asset A | GOOGLon | 16% | ERC-20 | Tokenized GOOGL ETF |
+| Theme Asset B | AMZNon | 16% | ERC-20 | Tokenized AMZN ETF |
 
 ## Profile
 

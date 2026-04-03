@@ -1,24 +1,22 @@
 # Project Aureum — Protocol Design Document
 
-*CONFIDENTIAL — Founding Team Only*
 *Final Version — April 2026*
 *aumm.fi*
 
 ---
 
-This document has been reorganised into dedicated sections accessible via the site navigation:
+This document has been reorganised into the dedicated sections listed below. Start with **[overview.md](overview.md)** for a reading guide.
 
-| Tab | Content |
-|-----|---------|
-| **Overview** | Dashboard, Founding Team, Treasury, Risk Factors |
-| **Rules > Bootstrap** | Pool bootstrapping under immutable automatic rules |
-| **Rules > Transitions** | Equal through Month 10 → Months 11–12 linear α blend → post–Year-1 pure full CCB |
-| **Rules > Constitution** | Immutable parameters and pure Real DeFi constraints |
-| **Mental Model** | Five-section conceptual overview |
-| **Theoretical Foundations** | CCB formula, score mechanics, two-step distribution |
-| **Tokenomics** | Token design, supply schedule, value capture, fee splits |
-| **Miliarium Aureum** | All 28 Miliarium pools, compositions, routing |
-| **Glossary** | Term definitions |
-| **Appendices** | AMM Architecture, Fair Launch Analysis, Yield Basis, Competitive Position |
-
-See also: [CCB Multiplier Engine](theoretical_foundation.md) (section vii) and [Formulas F-8](formulas.md) for the full multiplier update rule.
+| Section | File |
+|:--------|:-----|
+| Overview, Founding Team, Treasury, Risk Factors | [`overview.md`](overview.md) |
+| Conceptual architecture, emission regimes, routing | [`aureum_mental_model.md`](aureum_mental_model.md) |
+| Token design, supply, governance, value capture | [`tokenomics.md`](tokenomics.md) |
+| Research foundations, CCB narrative | [`theoretical_foundation.md`](theoretical_foundation.md) |
+| Formal protocol formulas | [`formulas.md`](formulas.md) |
+| Immutable parameters, governance scope | [`constitution.md`](constitution.md) |
+| Pool bootstrapping, anti-gaming, gauge gating | [`bootstrap.md`](bootstrap.md) |
+| Month-by-month launch timeline | [`transitions.md`](transitions.md) |
+| 28 Miliarium pools — compositions, sectors | [`Miliarium_Aureum.md`](Miliarium_Aureum.md) |
+| Term definitions | [`aureum_glossary.md`](aureum_glossary.md) |
+| AMM architecture, competitive analysis | [`appendices.md`](appendices.md) |

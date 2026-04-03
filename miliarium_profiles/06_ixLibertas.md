@@ -7,15 +7,15 @@
 
 ## Composition
 
-| Component | Token | Weight | Role |
-|:----------|:------|:-------|:-----|
-| scrvUSD | 15% | ERC-4626 | Curve savings vault for crvUSD |
-| PYUSD | 15% | ERC-20 | PayPal USD stablecoin |
-| GHO | 14% | ERC-4626 | Aave GHO stablecoin |
-| sUSDS | 14% | ERC-4626 | Sky savings rate vault |
-| sfrxUSD | 14% | ERC-4626 | Frax savings vault |
-| USDT | 14% | ERC-20 | Tether USD |
-| USDC | 14% | ERC-20 | Circle USD Coin |
+| Component | Token | Weight | Standard | Role |
+|:----------|:------|:-------|:---------|:-----|
+| USD Stable 1 | scrvUSD | 15% | ERC-4626 | Curve savings vault for crvUSD |
+| USD Stable 2 | PYUSD | 15% | ERC-20 | PayPal USD stablecoin |
+| USD Stable 3 | GHO | 14% | ERC-4626 | Aave GHO stablecoin |
+| USD Stable 4 | sUSDS | 14% | ERC-4626 | Sky savings rate vault |
+| USD Stable 5 | sfrxUSD | 14% | ERC-4626 | Frax savings vault |
+| USD Stable 6 | USDT | 14% | ERC-20 | Tether USD |
+| USD Stable 7 | USDC | 14% | ERC-20 | Circle USD Coin |
 
 **No ixEDEL.** **ixHelvetia** (slot 01) also omits ixEDEL; here the absence is intentional for a pure seven-token USD hub.
 

@@ -167,4 +167,79 @@ Era 1+ (years 4+):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/3)
 
 ---
 
+### F-10. Treasury Emission Decline Schedule
+
+**Purpose:** Define the rate at which the treasury's share of per-block emissions declines from genesis to zero, ensuring the treasury accumulates enough capital to seed the AuMM pool and operate the price ceiling without retaining permanent emission access.
+
+**Effect:** The treasury share declines linearly from 75% at block 0 to 50% at month 6, then linearly from 50% to 0% at month 10. After month 10, the treasury never receives AuMM again.
+
+```
+if block < month_6_block:
+    treasury_share = 0.75 − (0.25 × block / month_6_block)
+
+else if block < month_10_block:
+    treasury_share = 0.50 − (0.50 × (block − month_6_block) / (month_10_block − month_6_block))
+
+else:
+    treasury_share = 0
+```
+
+LP share = 1 − treasury_share. The LP share increases monotonically from 25% at genesis to 100% at month 10+.
+
+---
+
+### F-11. Price Ceiling Stabilization (FDV/TVL)
+
+**Purpose:** Define the price ceiling trigger, sell mechanics, and revenue routing that convert AuMM overvaluation into permanent pool depth.
+
+**Effect:** When the smoothed FDV/TVL ratio exceeds 2, the treasury sells a fixed fraction of its AuMM pool balance daily, pushing the price down. Revenue is locked as permanent liquidity in the weakest Miliarium pools.
+
+```
+FDV = 21_000_000 × AuMM_price
+TVL = total_protocol_TVL
+
+alpha_21 = 2 / (21 + 1)                                       // ≈ 0.0909
+
+FDV_TVL_EMA(today) = alpha_21 × (FDV / TVL)
+                   + (1 − alpha_21) × FDV_TVL_EMA(yesterday)
+
+if FDV_TVL_EMA ≥ 2 AND month ∈ [6, 12] AND treasury_inventory > 0:
+    sell_amount = 0.0075 × AuMM_pool_balance                  // 0.75% per day
+    sell_amount = min(sell_amount, 0.80 × treasury_assets)     // cap at 80%
+    // execute once per day; revenue → permanent locked liquidity
+    // in lowest-TVL Miliarium pools meeting 4626 Quality Gate
+```
+
+AuMM pool is seeded at FDV/TVL = 1. Stabilization shuts off permanently at month 12; all remaining inventory is burned.
+
+---
+
+### F-12. Efficiency Tournament
+
+**Purpose:** Rank all gauged pools by capital efficiency and cap emissions for the least productive, preventing extractive pools from consuming disproportionate emission share.
+
+**Effect:** Pools in the bottom 15% of the efficiency ranking have their emissions capped at tiered levels. Excess emissions are redistributed to uncapped pools pro-rata by CCB share. Activates at month 13.
+
+```
+efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)
+                         / emissions_received_i
+// 3-epoch (6-week) moving average
+
+rank pools by efficiency_ratio (highest = rank 1)
+
+if rank > 85th percentile:                                     // bottom 15%
+    if rank ∈ [85th, 90th):   emission_cap = 0.01 × total_emissions
+    if rank ∈ [90th, 95th):   emission_cap = 0.005 × total_emissions
+    if rank ≥ 95th:           emission_cap = 0.001 × total_emissions
+else:
+    emission_cap = none                                        // uncapped
+
+excess = Σ (uncapped_emission − capped_emission) for all capped pools
+redistribute excess to uncapped pools pro-rata by CCB_share
+```
+
+Efficiency ranking is price-agnostic — both the numerator (revenue) and the denominator (emissions) are measured in the same unit. See `bootstrap.md` §xxiii.
+
+---
+
 *All formulas are immutable from block 0. See Immutable Parameters (`constitution.md` §xxix) for the full list.*

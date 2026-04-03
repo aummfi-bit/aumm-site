@@ -66,7 +66,7 @@ Aureum continuously filters unproductive pools. Volume percentile floor: must st
 
 ### 4. Constellation Routing
 
-Twenty-six of the 28 Miliarium pools hold **ixEDEL** as a routing anchor (typically 16% of weight). When a trader swaps between any two pools — say ixAurebit (wrapped BTC) to ixEquitix (equities) — the trade routes through ixEDEL: pool A sells ixEDEL, ixEdelweiss reprices it, pool B buys ixEDEL. Fees are generated on **both legs** of the route, and the shared token creates a continuous arbitrage surface that aggregators exploit 24/7.
+Twenty-six of the 28 Miliarium pools hold **ixEDEL** as a routing anchor (typically 16% of weight; ixAetheron uses 15% due to its non-standard ETH-native yield core). When a trader swaps between any two pools — say ixAurebit (wrapped BTC) to ixEquitix (equities) — the trade routes through ixEDEL: pool A sells ixEDEL, ixEdelweiss reprices it, pool B buys ixEDEL. Fees are generated on **both legs** of the route, and the shared token creates a continuous arbitrage surface that aggregators exploit 24/7.
 
 **ixEdelweiss (slot 05)** is the routing hub — the Miliarium Aureum monument itself. It holds 46% ixEDEL and exists primarily for price discovery and deep cross-pool routing. The other 25 ixEDEL-holding pools are spokes: they each carry a 16% ixEDEL anchor that connects them to the hub and to each other.
 

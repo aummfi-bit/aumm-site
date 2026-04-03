@@ -191,4 +191,3 @@ See Immutable Parameters (`constitution.md` §xxix).
 
 ---
 
-*This document is confidential and intended for founding team discussion only. Do not distribute.*

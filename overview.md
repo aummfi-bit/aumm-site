@@ -22,10 +22,10 @@ Two tracks, depending on what you need:
 
 | Step | File | What you learn |
 |:-----|:-----|:---------------|
-| 1 | `constitution.md` | Immutable parameters, governance scope, emission operating rules |
-| 2 | `formulas.md` | Every formula: EMA, CCB score, multiplier update, governance power |
-| 3 | `bootstrap.md` §xxi–xxv | Anti-gaming engine, Incendiary Boost, gauge gating |
-| 4 | `theoretical_foundation.md` | Research foundations, CCB narrative, multiplier engine |
+| 1 | `theoretical_foundation.md` | Research foundations, CCB narrative, multiplier engine — read this first for context on the systems the other files formalize |
+| 2 | `constitution.md` | Immutable parameters, governance scope, emission operating rules |
+| 3 | `formulas.md` | Every formula: EMA, CCB score, multiplier update, governance power |
+| 4 | `bootstrap.md` §xxi–xxv | Anti-gaming engine, Incendiary Boost, gauge gating |
 | 5 | `appendices.md` §xxxvi | AMM architecture provenance, audit scope |
 
 ### File index
@@ -66,7 +66,7 @@ Two tracks, depending on what you need:
 ## Emission Regime
 
 - **Through end of Month 10:** equal **1/28** split across the 28 Miliarium pools.
-- **Months 11–12:** linear transition from equal to CCB (**α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB).
+- **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — the protocol's fully automatic emission allocator; see `aureum_glossary.md`). **α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB.
 - **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a separate priority skim. See `constitution.md` §xxviii–xxix for the full rules and immutable parameters.
 - No governance voting controls emission allocation.
 
@@ -89,7 +89,7 @@ The founding team earns tokens by being early LPs — same mechanism as everyone
 
 ## Risk Factors
 
-- **Fork risk.** Aequilibrium inherits Balancer V3's smart contract security via byte-identical pool contracts, but the new tokenomics contracts require independent audit. Until audited, the new code carries unverified risk.
+- **Fork risk.** Aequilibrium (the protocol's AMM engine, derived from Balancer V3's Certora-verified contracts) inherits Balancer V3's smart contract security via byte-identical pool contracts, but the new tokenomics contracts require independent audit. Until audited, the new code carries unverified risk.
 - **Liquidity risk.** Genesis pools will have minimal TVL. Bootstrapping requires the founding team's capital and early LP adoption. If depth doesn't reach aggregator thresholds, the routing thesis never activates.
 - **Regulatory risk.** Fair-launch tokens with no pre-mine have the strongest regulatory position (no securities argument), but the regulatory landscape is uncertain.
 - **Team risk.** Founding team is small and self-funded. Key-person dependency is high in early phases.

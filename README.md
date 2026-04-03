@@ -55,6 +55,6 @@ python3 scripts/generate_llms_manifest.py
 
 Use `BASE_URL=https://example.com` if you need a different origin in the output.
 
-## License / confidentiality
+## License
 
-Content is marked confidential where noted in-page (e.g. footer). Treat distribution accordingly.
+Protocol design documentation for Project Aureum. Internal process files (`aureum_schedule.md`, `editorial_sprints.md`) are marked accordingly and are not part of the public specification.
