@@ -6,10 +6,17 @@
 
 ## xxi. Cold-Start Design
 
-The protocol keeps permissionless pool creation while limiting governance to non-emission actions.
+### Pool Creation and Gauge Approval
 
-- Any builder can deploy pools from block 0.
-- Core emission allocation remains automatic and immutable.
+**Pool creation is permissionless from block 0.** Anyone can deploy any pool with any token composition at any time. The Aequilibrium factory is open. This never changes.
+
+A pool only becomes eligible for AuMM emissions after qualified LPs approve a gauge through governance. This is the single gatekeeping step. Without it, an attacker deploys a pool and immediately starts extracting emissions. With it, existing LPs must collectively decide that the new pool deserves a share of the emission budget.
+
+**The eligibility criteria are immutable.** Once a gauge is approved, the pool must still meet every anti-gaming criterion to receive emissions. Governance cannot waive, modify, or relax these rules. A gauge vote says "this pool may compete for emissions." The contract decides whether it actually qualifies.
+
+This separates the three concerns cleanly: permissionless creation (anyone can build, from day one), democratic gauge approval (LPs decide what competes), immutable rules (the contract enforces discipline, always).
+
+Core emission allocation remains automatic and immutable.
 
 ## xxii. Incendiary Boost
 
