@@ -66,6 +66,22 @@ AuMT in pools that fail any eligibility criterion carries zero governance weight
 
 - **Voting power = dampened AuMT.** `(AuMT_value × time_in_pool)^(1/4)` — same formula as protocol governance. 14-day qualification, 6-month on-ramp, any withdrawal resets to zero. See `aureum_glossary.md` (section xxxv) for the full rule set.
 
+#### Minimum Qualification Period and Governance On-Ramp
+
+**Days 0–14: Zero governance weight.** Voting power requires at least **14 days (one full governance cycle)** of continuous qualified AuMT holding before any contribution to the governance power calculation. During this period, `time_in_pool = 0` in the formula — the position is invisible to governance.
+
+**Days 14–180: Governance on-ramp.** After the 14-day qualification, `time_in_pool` begins accruing from zero. Because the governance formula uses `(qualified_AuMT_value × time_in_pool)^(1/4)`, voting power grows sublinearly with time. An LP at day 14 has minimal power. By month 6 (day 180), they reach **full voting weight**. This 6-month on-ramp ensures that governance power reflects sustained commitment, not recent capital deployment.
+
+**Any withdrawal resets everything to zero.** If an LP removes liquidity from a qualified pool — any amount, even 1% — their governance power for that position drops to zero immediately, `time_in_pool` resets to zero, and the 14-day qualification clock restarts from scratch. The 6-month on-ramp begins again.
+
+This eliminates:
+
+- **Flash-LP attacks:** Borrow capital, deposit, vote, withdraw in the same block or day
+- **Snapshot-based manipulation:** Accumulate AuMT moments before a governance snapshot, then exit
+- **Cycle-boundary gaming:** Deposit at the end of a cycle to vote, remove at the start of the next
+- **Ghost governance:** Withdraw most liquidity while retaining outsized governance weight from original position's time-weighting
+- **Capital-rotation attacks:** Deposit large capital, vote immediately, then move capital elsewhere — the 6-month on-ramp means new capital has negligible governance power
+
 ### Token Properties
 
 AuMM is a **100% liquid token**. There is no locking, no staking, no ve-mechanism, no wrapper. You hold AuMM, you can sell it at any time.
