@@ -2,6 +2,37 @@
 
 Fixes organised by priority. Each sprint is self-contained and can be merged independently.
 
+## Execution Order
+
+The sprints are numbered by topic, not by execution order. The recommended sequence accounts for dependencies between sprints:
+
+### Phase 1 — Foundation (do first)
+| Sprint | Why first |
+|--------|-----------|
+| **10 — Canonicalisation** | Standardises terms, deduplicates parameters, and designates canonical sources. Every subsequent sprint writes new prose — that prose should use the canonical terms from day one, not get rewritten later. |
+| **3 — Reading Guide** | Defines the audience tracks. Knowing who reads what frames the tone and depth of every rewrite that follows. |
+
+### Phase 2 — Critical rewrites
+| Sprint | Dependency |
+|--------|------------|
+| **1 — CCB Rewrite** | Uses canonical terms from Sprint 10; §vi–§vii rewrite replaces parameter restatements with cross-references established in Sprint 10. |
+| **2 — Constellation Routing** | Uses standardised "28 Miliarium pools" term from Sprint 10; new prose targets the audience tracks defined in Sprint 3. |
+
+### Phase 3 — Content additions (largely independent of each other)
+| Sprint | Notes |
+|--------|-------|
+| **4 — Miniature Economy** | Adds to `aureum_mental_model.md` and `theoretical_foundation.md`. |
+| **5 — Equal→CCB Motivation** | Adds to `aureum_mental_model.md` and `transitions.md`. |
+| **6 — Governance Exponents** | Adds to `tokenomics.md` and `constitution.md`. |
+| **7 — Deflationary Crossover** | Adds to `tokenomics.md`. |
+
+### Phase 4 — Precision and cleanup
+| Sprint | Notes |
+|--------|-------|
+| **11 — bootstrap.md tightening** | Minor presentation improvements; most structural issues already addressed. |
+| **8 — Composition Challenge** | ⚠️ **Requires design decisions** — worked examples need protocol-level rulings on edge cases (e.g. does a Bitcoin L2 token qualify as "economically similar" to cbBTC?). These are not editorial choices. |
+| **9 — Price Ceiling / Low-Turnout** | ⚠️ **Requires design decisions** — specific numbers must be decided before an editor can write them: the price ceiling multiple, the turnout threshold percentage, which proposal types auto-fail vs. enter timelock, and the timelock duration. |
+
 ---
 
 ## Sprint 1 — CCB Explanation Rewrite
@@ -92,6 +123,7 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 ## Sprint 8 — Composition Challenge Mechanics
 **Files:** `bootstrap.md`, `constitution.md`
 **Impact:** Medium — the mechanic is described clearly in §xxiv but lacks worked examples for the edge cases real operators will face.
+**⚠️ Prerequisite:** This sprint requires design decisions on edge-case rulings before editorial work can begin. The worked examples cannot be written until the protocol team decides what qualifies as "economically similar."
 
 ### Tasks
 - [ ] Add a concrete worked example to `bootstrap.md` §xxiv: the cbBTC delisting scenario — what clearly qualifies (tBTC — same asset type), what clearly doesn't (physical gold — different asset class), and what is borderline (Bitcoin L2 token — requires 2/3 to judge "similar economic properties")
@@ -103,6 +135,7 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 ## Sprint 9 — Price Ceiling and Low-Turnout Precision
 **Files:** `tokenomics.md`, `constitution.md`
 **Impact:** Medium — both mechanisms are currently described in terms too vague to be actionable.
+**⚠️ Prerequisite:** This sprint requires the protocol team to decide specific parameter values: the price ceiling multiple, the fundamental metric, the turnout threshold, proposal-type routing rules, and timelock duration. These are design decisions, not editorial ones.
 
 ### Tasks
 - [ ] **Price ceiling** (`tokenomics.md` §x): specify what "fixed multiple of trailing fundamentals" means — define the fundamental metric (protocol revenue per circulating AuMM), the multiple, and how the ceiling is calculated on-chain
@@ -135,4 +168,4 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ---
 
-*Each sprint should be committed and merged independently. Sprints 1–3 have the highest reader impact and should be prioritised first.*
+*Each sprint should be committed and merged independently. See Execution Order at the top for the recommended sequence.*
