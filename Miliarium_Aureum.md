@@ -84,7 +84,7 @@ Savings, staking / LST, FX, ixEDEL price-discovery venue, USD hub, and multi-cur
 <td><strong>ixCambio</strong></td>
 <td>svZCHF 16%</td>
 <td>ixEDEL 20%</td>
-<td>st-EURA 16%, aEURS 16%, s-tGBP 16%, sDAI 16%</td>
+<td>st-EURA 16%, aEURS 16%, s-tGBP 16%, [Partner Stable] 16%</td>
 </tr>
 </tbody>
 </table>
