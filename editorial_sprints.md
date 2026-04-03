@@ -6,12 +6,12 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ## Sprint 1 — CCB Explanation Rewrite
 **Files:** `theoretical_foundation.md`
-**Impact:** Critical — the protocol's core mechanic is currently fragmented across 350 lines and leaves readers unable to state plainly how emissions are decided.
+**Impact:** Critical — the protocol's core mechanic spans §vi–§vii (~76 lines) but mixes scoring inputs with multiplier mechanics, and the FAQ block introduces new notation mid-explanation.
 
 ### Tasks
 - [ ] Rewrite §vi opening: separate the EMA-as-scoring-input from the multiplier-as-adjustment into clearly distinct paragraphs before any detail
 - [ ] Restructure §vi into three clean subsections: (1) What the EMA does and why, (2) How pools score and compete — normalisation across all eligible pools, (3) How the block reward flows after Incendiary skim
-- [ ] Restructure §vii opening to clearly state upfront: "The CCB multiplier is a *separate layer on top of* the base score. It applies only to the 28 Miliarium pools. Non-Miliarium pools use a neutral multiplier of 1."
+- [x] ~~Restructure §vii opening to clearly state upfront: "The CCB multiplier is a *separate layer on top of* the base score."~~ — Already done (lines 70–71 of `theoretical_foundation.md` explicitly state "a **separate** layer that applies **only** to the 28 immutable Miliarium Aureum pools… sits **on top of** each Miliarium pool's TVL EMA")
 - [ ] Move the FAQ block (§vii bottom) to a collapsible or appendix section — the Q&A format introduces new concepts mid-explanation and stalls comprehension
 - [ ] Remove all within-section back-references ("as explained above", "read Section vi first") and make each subsection self-standing
 
@@ -91,7 +91,7 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ## Sprint 8 — Composition Challenge Mechanics
 **Files:** `bootstrap.md`, `constitution.md`
-**Impact:** Medium — the mechanic is described but ambiguous for edge cases that real operators will face.
+**Impact:** Medium — the mechanic is described clearly in §xxiv but lacks worked examples for the edge cases real operators will face.
 
 ### Tasks
 - [ ] Add a concrete worked example to `bootstrap.md` §xxiv: the cbBTC delisting scenario — what clearly qualifies (tBTC — same asset type), what clearly doesn't (physical gold — different asset class), and what is borderline (Bitcoin L2 token — requires 2/3 to judge "similar economic properties")
@@ -125,12 +125,12 @@ Fixes organised by priority. Each sprint is self-contained and can be merged ind
 
 ## Sprint 11 — bootstrap.md Restructure
 **Files:** `bootstrap.md`
-**Impact:** Medium — the gauge-as-prerequisite is buried at the end of §xxi instead of stated upfront; the sequence is unclear on first read.
+**Impact:** Medium — the gauge prerequisite and boost mechanisms are stated (§xxi line 13 leads with "This is the single gatekeeping step"; the Bootstrapping Sequence table at lines 23–30 separates the two boosts), but the presentation can be tightened.
 
 ### Tasks
-- [ ] Move "All layers require gauge approval first" to the opening sentence of §xxi, not the closing
-- [ ] Restructure §xxi to state the prerequisite model clearly: "Gauge approval is the single gate. Without it: no emissions, no Incendiary Boost, no 90-day multiplier. With it: the following mechanisms become available…"
-- [ ] Introduce Incendiary Boost and 90-day gauge boost explicitly as *optional, post-approval* mechanisms
+- [x] ~~Move "All layers require gauge approval first" to the opening sentence of §xxi~~ — Already done (line 13: "A pool only becomes eligible for AuMM emissions after qualified LPs approve a gauge through governance. This is the single gatekeeping step.")
+- [ ] Add a negative-path sentence after the opening: "Without gauge approval: no emissions, no Incendiary Boost, no 90-day multiplier"
+- [ ] Make the Incendiary vs. 90-day boost distinction more prominent — currently in a table row; add a brief prose paragraph restating: 90-day boost is automatic on gauge approval, Incendiary is operator-funded and stacks on top
 - [ ] Clarify that a pool can have the 90-day boost *without* Incendiary (automatic on gauge approval) and *with* Incendiary (operator-funded, stacked on top)
 
 ---
