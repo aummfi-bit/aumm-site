@@ -60,7 +60,7 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims are skimmed from the block reward first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL. The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value) and its Incendiary multiplier, then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, clamped to a fixed band. No voting layer, no Bubble multiplier, no human override. See `formulas.md` for all formal definitions.
+Incendiary Boost claims are skimmed from the block reward first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL. The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value) and its Incendiary multiplier, then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, clamped to a fixed band. No voting layer, no human override. See `formulas.md` for all formal definitions.
 
 ## xxix. Immutable Parameters
 

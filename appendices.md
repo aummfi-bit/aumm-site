@@ -17,7 +17,7 @@ Aequilibrium is derived from Balancer V3's open-source, Certora-verified smart c
 | Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming, unqualified-vote-to-burn |
 | Token contract | **New** | BTC-style emission schedule, immutable supply cap |
 | Fee distributor | **New** | 50/25/25 swap fee split + yield fee split + buyback-and-burn |
-| Governance | **New** | LP-weighted voting (AuMT for protocol governance and Bubble voting), no ve-locking |
+| Governance | **New** | LP-weighted voting (AuMT for protocol governance), 90-day gauge boost, no ve-locking |
 
 ### What's Unchanged (Critical)
 
@@ -31,20 +31,20 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - AuMT pool token wrapper (Aureum Market Tessera)
 - CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone)
 - Incendiary Boost engine (AuMM escrow, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
-- Bubble multiplier voting (90-day window, tessera-weighted averaging, expiry logic)
+- 90-day gauge boost (1.2x fixed CCB multiplier for new gauges, automatic expiry)
 - CCB multiplier engine (slope calculation, dead zone, +/-0.05 adjustments, [0.75–1.25] clamping)
-- Sandbox fast-track (top 10% efficiency detection, automatic gauge approval)
+- Sandbox fast-track (top 10% efficiency sustained for 3 epochs, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
-- Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 2-epoch smoothing, gauge revocation logic)
-- Pioneer pool tag registry (25 pre-defined pools, non-transferable, revocation on gauge loss, locked treasury deposits)
+- Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)
+- Miliarium Aureum pool registry (28 pools, non-transferable, revocation on gauge loss, locked treasury deposits)
 - Token supply tracker (cumulative emitted, cumulative burned, net circulating, burn rate)
 - Minimum qualification period enforcer (14-day continuous hold check)
 - Quorum calculator and timelock router
 - Unqualified-vote-to-burn router
 - Fee splitter (swap fees: 50/25/25 + yield fees: 25/75)
-- Governance voting (AuMT for protocol governance and Bubble voting — with phased fourth root→cube root dampening)
+- Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, CCB multiplier logic, Bubble multiplier voting, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Pioneer pool tag system, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM-burn governance hooks, price ceiling mechanism, Miliarium Aureum pool registry, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 

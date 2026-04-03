@@ -9,7 +9,7 @@ The CCB draws from established research across multiple disciplines:
 
 **Monetary Rules:** Friedman’s k-percent rule (fixed money supply growth) is the intellectual ancestor of the fixed-emission, halving-based schedule.
 
-**Governance Minimization:** Buterin and Meisser argue governance is a security surface. The ±10% Pioneer multiplier collapses the governance attack surface to near-zero.
+**Governance Minimization:** Buterin and Meisser argue governance is a security surface. The [0.75–1.25] CCB multiplier collapses the governance attack surface to near-zero.
 
 **Signal Processing:** The EMA is a low-pass filter — “market hype” is noise, “sustained liquidity commitment” is the signal.
 
@@ -53,6 +53,10 @@ After **Incendiary Boost** claims are paid from the block (below), each **eligib
 ### Incendiary first, then CCB
 
 **Incendiary Boost** claims are paid out of the block reward **before** the remainder is split by the CCB. Incendiary is not a multiplier inside the CCB score; it is a **first claim** on the fixed per-block mint. What is left after those claims is what the CCB allocates by scores. Details are in `bootstrap.md` and `constitution.md`.
+
+### AuMM pool excluded from the CCB denominator
+
+The AuMM trading pool (AuMM / svZCHF · sUSDS) receives **no emissions** (see `Miliarium_Aureum.md` Section xii). Its TVL is therefore **excluded** from the total-protocol-TVL denominator used to compute CCB shares. Only emission-eligible pools contribute to the denominator — otherwise the AuMM pool's liquidity would dilute the scores of pools that actually receive emissions.
 
 ### Why this design
 

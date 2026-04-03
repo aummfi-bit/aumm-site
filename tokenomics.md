@@ -30,7 +30,7 @@ The old cycle-based emission table is removed. Emissions are specified only in p
 - **Through end of Month 10 (Year 1):** emissions to the Miliarium tranche are split **equally** across the 28 pools (**1/28** each).
 - **Months 11–12 (Year 1):** a **two-month linear transition** that blends each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping linearly from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At the midpoint, the mix is half equal and half CCB. See `constitution.md` and `formulas.md`.
 - **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL, CCB multiplier, and Incendiary multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
-- No voting, no Bubble multipliers, and no discretionary overrides.
+- No voting and no discretionary overrides.
 
 ### Governance: The "LP = Power" Model
 
@@ -126,6 +126,16 @@ AuMM accrues value exclusively through **buyback and burn** — the same mechani
 ### The Day-One Revenue Guarantee
 
 Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has treasury income from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It's architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. During the treasury emission phase (months 0–10), this revenue accumulates alongside AuMM emissions, building the capital needed to seed the AuMM trading pool at month 6, fund the price ceiling stabilization mechanism, and activate buyback-and-burn from month 6 onward.
+
+### Price Ceiling Stabilization (Months 6–10)
+
+At month 6, the treasury seeds the AuMM trading pool (AuMM / svZCHF · sUSDS) using accumulated protocol revenue. From month 6 through month 10, the treasury operates a **price ceiling mechanism** that converts AuMM overvaluation into permanent pool depth.
+
+The ceiling price is derived from a **7-day SMA of AuMM's price** read from the internal AuMM/stablecoin trading pool — not an external oracle. The pool's **0.75% swap fee** makes short-term price manipulation expensive (an attacker must pay the fee on every trade used to move the reference price, and the 7-day averaging window smooths out single-day spikes).
+
+When AuMM's spot price exceeds the ceiling (deployed at a governance-voted multiple of trailing fundamentals), the treasury sells AuMM from its stabilization inventory into the pool, pushing the price back down. Revenue from these sales is deposited as **permanent locked liquidity** into Miliarium Aureum pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw this liquidity.
+
+The ceiling is capped at **80% of treasury assets** — the treasury can never fully deplete itself on stabilization. At **month 10**, excess AuMM in the stabilization inventory is permanently burned, and the treasury's emission share drops to zero. All stabilization parameters are immutable in contract.
 
 ### The Deflationary Crossover
 

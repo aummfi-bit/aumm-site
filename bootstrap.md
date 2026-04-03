@@ -20,12 +20,39 @@ Core emission allocation remains automatic and immutable.
 
 ## xxii. Incendiary Boost
 
-Incendiary Boost remains a proof-of-conviction mechanism:
+Incendiary Boost is a proof-of-conviction bootstrap mechanism. A pool operator deposits AuMM into a smart-contract-controlled escrow. That exact amount of AuMM is emitted to the pool equally over 30 days as a supplementary emission stream. The escrowed AuMM is permanently burned — the operator sacrifices conviction capital to activate the protocol's routing engine.
 
-- operator escrows AuMM
-- supplementary emissions stream for 30 days
-- escrowed AuMM is burned
-- all logic executes on-chain with no admin controls
+### The Efficiency Scalar
+
+The Incendiary emission rate is pegged to the 85th percentile of the Efficiency Tournament, scaled by the pool's own performance:
+
+```
+E_inc = E_85th × (2 - R)
+```
+
+Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th efficiency percentile, and `R` is the target pool's normalized efficiency rank (0 = most efficient, 1 = least efficient).
+
+| Pool Efficiency | R | Multiplier (2 - R) | Effect |
+|-----------------|------|-------------------|--------|
+| Most efficient in protocol | ≈ 0 | 2.0x | Massive reward for utility |
+| At 85th percentile cutoff | ≈ 0.85 | 1.15x | Modest boost |
+| Below 85th percentile | > 0.85 | < 1.15x | Diminishing returns |
+
+### Priority Skim
+
+Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on block rewards. The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the block emission, then distributes the remainder via the CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every existing pool's emission share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed AuMM is permanently burned, making AuMM scarcer for all holders long-term in exchange for the privilege of skipping the EMA queue.
+
+### Renewal Rule
+
+The Incendiary slot locks after 30 days. A second boost is only possible if the pool **is at or above the 85th percentile** in the Efficiency Tournament at the time of renewal request. No cycling boosts on underperforming pools.
+
+### Anti-Wash-Trading
+
+The 30-day limit plus the efficiency rank requirement makes wash trading uneconomical: the attacker pays more in swap fees (routed to buyback-and-burn) than they can extract in boosted emissions. The protocol wins the fee-vs-emission spread.
+
+### Immutable Parameters
+
+All Incendiary Boost parameters are immutable from block 0: 30-day duration, 85th percentile peg, efficiency scalar formula, priority skim, and burn-on-escrow.
 
 ## xxiii. Anti-Gaming Engine
 
@@ -40,7 +67,7 @@ Pools must meet ALL criteria to remain eligible for AuMM emissions:
 | Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
 | No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
 
-All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax these rules. The CCB multiplier applies automatically to the 28 Miliarium Aureum pools (see `theoretical_foundation.md` section vii and `formulas.md` F-8). No Bubble voting and no voting over emission allocation.
+All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax these rules. The CCB multiplier applies automatically to the 28 Miliarium Aureum pools (see `theoretical_foundation.md` section vii and `formulas.md` F-8). No voting over emission allocation. New gauges receive a **90-day 1.2x CCB multiplier** as a cold-start bootstrap — a fixed boost that expires automatically, with no vote and no renewal.
 
 ### Why TVL-Based Governance Eliminates the Wrapper Problem
 
@@ -61,7 +88,7 @@ New pools need time to get discovered by aggregators, indexed by bots, and build
 | Months 6–12 | 10th percentile | Exempt | Higher bar, still in discovery phase. Treasury stabilization active. |
 | Month 13+ | 15th percentile | **Active** | Full discipline. Both volume percentile floor and efficiency-based emission caps apply. Aligned with treasury exit. |
 
-Percentile rankings are calculated against the protocol's own pool activity distribution — specifically, the trailing 2-epoch (4-week) rolling window of fee + yield revenue across all emission-eligible pools. This is a relative measure: as the protocol grows, the absolute bar rises organically.
+Percentile rankings are calculated against the protocol's own pool activity distribution — specifically, the trailing 3-epoch (6-week) rolling window of fee + yield revenue across all emission-eligible pools. This is a relative measure: as the protocol grows, the absolute bar rises organically.
 
 **Gaming the grace period.** The exploit vector for the grace period is the gauge, not the pool. An attacker deploys a pool, gets a gauge approved, and milks the grace window before the fee/percentile checks activate. Switching deployer wallets or swapping one token to argue "different composition" doesn't help the attacker because the percentile floor is protocol-wide — a pool that generates no organic activity sits at the bottom of the distribution regardless of who deployed it or how many times it's been redeployed. The graduated percentile ramp is the natural defence: a pool earning zero fees can't stay above the 5th percentile for long, even with generous AuMM emission allocation.
 
@@ -72,18 +99,18 @@ Binary thresholds with no dead zone create oscillation — a pool at the 14th pe
 | Zone | Volume Percentile | Status | Action |
 |------|------------------|--------|--------|
 | **Safe** | Above 15th | Fully eligible | Normal emissions, no flags |
-| **Warning** | 10th–15th | Flagged | Emissions continue normally. Pool must recover above the 15th percentile within 2 epochs (4 weeks). |
+| **Warning** | 10th–15th | Flagged | Emissions continue normally. Pool must recover above the 15th percentile within 3 epochs (6 weeks). |
 | **Cut** | Below 10th | Disqualified | Emissions cease immediately. Unallocated emissions are redistributed to remaining eligible pools. |
 
-Emissions continue during the warning period. Cutting emissions from a pool in the warning zone reduces its attractiveness exactly when it needs to attract more volume — that's a death sentence disguised as a second chance. The 2-epoch recovery window gives the pool a genuine opportunity to recover while creating a hard deadline.
+Emissions continue during the warning period. Cutting emissions from a pool in the warning zone reduces its attractiveness exactly when it needs to attract more volume — that's a death sentence disguised as a second chance. The 3-epoch recovery window gives the pool a genuine opportunity to recover while creating a hard deadline.
 
-Re-qualification after disqualification requires the pool to sustain activity above the 15th percentile for 2 epochs (4 weeks) with no emissions. If it can generate organic activity without emission subsidies, it earned its way back.
+Re-qualification after disqualification requires the pool to sustain activity above the 15th percentile for 3 epochs (6 weeks) with no emissions. If it can generate organic activity without emission subsidies, it earned its way back.
 
 ### Emission Efficiency Tournament
 
 The efficiency tournament is a relative ranking system that is entirely price-agnostic — designed to throttle inefficient pools without penalising productive pools during AuMM price appreciation.
 
-All gauged pools **above $10K TVL** are ranked by their efficiency ratio — `(swap_fees + ERC-4626_yield_revenue_to_DAO) / emissions_received` — using a **2-epoch (4-week) moving average** to prevent single-day glitches. Pools below $10K TVL are excluded from the ranking entirely and receive zero emissions regardless of gauge status. Higher ratio = more efficient (more revenue per unit of emission). The least efficient gauged pools receive hard emission caps regardless of their CCB-derived share:
+All gauged pools **above $10K TVL** are ranked by their efficiency ratio — `(swap_fees + ERC-4626_yield_revenue_to_DAO) / emissions_received` — using a **3-epoch (6-week) moving average** to prevent single-day glitches. Pools below $10K TVL are excluded from the ranking entirely and receive zero emissions regardless of gauge status. Higher ratio = more efficient (more revenue per unit of emission). The least efficient gauged pools receive hard emission caps regardless of their CCB-derived share:
 
 | Efficiency Rank (gauged pools above $10K TVL) | Emission Cap | Effect |
 |-----------------------------------------------|-------------|--------|
@@ -108,7 +135,7 @@ The efficiency tournament is price-agnostic by design — it prevents the reflex
 
 Pools that fail the anti-gaming criteria face a two-stage process:
 
-**Stage 1: Disqualification.** A pool that falls below the 10th volume percentile (or fails other structural criteria) is disqualified — emissions cease immediately. The gauge remains intact. If the pool recovers above the 15th percentile for 2 epochs (4 weeks) with no emissions, it re-qualifies automatically.
+**Stage 1: Disqualification.** A pool that falls below the 10th volume percentile (or fails other structural criteria) is disqualified — emissions cease immediately. The gauge remains intact. If the pool recovers above the 15th percentile for 3 epochs (6 weeks) with no emissions, it re-qualifies automatically.
 
 **Stage 2: Gauge revocation.** A pool that remains disqualified for **4 consecutive epochs (8 weeks)** has its gauge permanently revoked. To restart emissions, the pool operator must submit a new gauge proposal (burn 100 svZCHF/sUSDS equivalent in AuMM) and win a fresh AuMT governance vote. This prevents dead pools from holding gauge slots indefinitely.
 
