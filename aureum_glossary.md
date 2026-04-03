@@ -67,6 +67,4 @@
 - **General Proposal** (treasury/fee): 1,000 svZCHF/sUSDS equivalent in AuMM (burned).
 - **Composition Challenge**: replace a Miliarium pool token (for delistings/failures). Requires 2/3 protocol-wide tessera-weighted approval. Like-for-like renewal only.
 - **On-Chain-Only Proposal Rule**: every proposal must cite verifiable on-chain state only — contract addresses, block ranges, deterministic metrics. Off-chain claims are invalid.
-- **Unqualified-Vote-to-Burn**: if CCB directs emissions toward a pool that fails eligibility criteria, those emissions are not distributed — they route to buyback-and-burn. Misdirected votes still benefit all remaining holders.
-
 See Immutable Parameters in `constitution.md`.

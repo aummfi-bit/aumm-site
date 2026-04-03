@@ -14,7 +14,7 @@ Aequilibrium is derived from Balancer V3's open-source, Certora-verified smart c
 | Hooks (StableSurge etc.) | Balancer V3 (Certora verified) | None |
 | ERC-4626 rate providers | Balancer V3 (Certora verified) | None |
 | Smart Order Router | Balancer V3 | None |
-| Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming, unqualified-vote-to-burn |
+| Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming |
 | Token contract | **New** | BTC-style emission schedule, immutable supply cap |
 | Fee distributor | **New** | 50/25/25 swap fee split + yield fee split + buyback-and-burn |
 | Governance | **New** | LP-weighted voting (AuMT for protocol governance), 90-day gauge boost, no ve-locking |
@@ -40,7 +40,6 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Token supply tracker (cumulative emitted, cumulative burned, net circulating, burn rate)
 - Minimum qualification period enforcer (14-day continuous hold check)
 - Quorum calculator and timelock router
-- Unqualified-vote-to-burn router
 - Fee splitter (swap fees: 50/25/25 + yield fees: 25/75)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
@@ -80,7 +79,7 @@ The deeper structural failure: SushiSwap was a fair launch of a **commodity prod
 |-------------|-----------------|-------------|
 | **Bootstrap Paradox** | No capital to seed liquidity | Founding team seeds pools with existing assets (ixEDEL, svZCHF). ERC-4626 pools generate 2-2.8% native yield from day one — LPs have a reason to stay before any AuMM emission has value. |
 | **Builder Burnout** | Devs work for free, farmers dump | Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. Treasury funded by protocol fees (25% swap + 75% yield), not by token sales. Audit costs funded by treasury once fees accumulate. |
-| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. The treasury receives a declining share of emissions (75%→50%→0% over months 0–10) for seeding the AuMM trading pool and operating a price ceiling that converts overvaluation into pool depth. Deployed at a governance-voted multiple, capped at 80% of treasury assets. Excess AuMM serves as stabilization inventory (months 6–10), then burned at month 10. Treasury emission share hits zero permanently at month 10. All mechanisms immutable in contract. No human can change the supply curve or the stabilization rules. |
+| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. The treasury receives a declining share of emissions (75%→50%→0% over months 0–10) for seeding the AuMM trading pool and operating a price ceiling that converts overvaluation into pool depth. Deployed at a fixed multiple, capped at 80% of treasury assets. Excess AuMM serves as stabilization inventory (months 6–10), then burned at month 10. Treasury emission share hits zero permanently at month 10. All mechanisms immutable in contract. No human can change the supply curve or the stabilization rules. |
 | **Vampire Attack Dependency** | Liquidity rented via incentives, leaves when APR drops | Constituent tokens (WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay. |
 | **Governance Capture** | Token-weighted voting = capital buys control | Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 1 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power). |
 | **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. Buyback-and-burn creates deflationary pressure that partially offsets price declines. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
@@ -136,7 +135,6 @@ Curve's Yield Basis protocol (March 2026) independently validated the same core 
 | LP = miner | No | No | No | Partial | Yes |
 | LP = governor | No | No | No | No | Yes |
 | Emissions to governance staking | Yes (80/20) | N/A | Yes (veCRV) | No | No (banned) |
-| Unqualified votes to burn | No | N/A | No | No | Yes |
 | Constellation routing network | No | No | No | No | Yes (ixEDEL hub by network effect) |
 | Buyback-and-burn from day 1 | No | No | No | No | Yes |
 
@@ -160,6 +158,34 @@ The model works. And it is architecturally the opposite of Aureum on every dimen
 | LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |
 
 Prop AMMs solved the routing problem through centralisation. Aureum solves the same problem through architecture — multi-asset pools with native yield, constellation routing, and aggregator-competitive fees — without concentrating control in a single team. The question is whether decentralised infrastructure can match the execution quality of a proprietary trading desk. The ERC-4626 yield floor, the multi-pair capital efficiency, and the cross-pool arbitrage engine are the mechanisms that make it possible.
+
+---
+
+## xl. Proof of Real Yield Dashboard
+
+The aumm.fi frontend displays per-pool yield transparency that reframes how LPs evaluate returns.
+
+**Per pool, the dashboard shows:**
+
+| Metric | Definition |
+|--------|-----------|
+| Real yield % | Portion of returns from swap fees + ERC-4626 vault yield (non-inflationary sources) |
+| Emission yield % | Portion from AuMM emissions (inflationary) |
+| Efficiency score | Pool's efficiency ratio vs. protocol average |
+| Revenue per $1 of emissions | How much protocol revenue each dollar of emission generates |
+
+**The framing:** *"This pool earns 68% of returns from real yield, not inflation."*
+
+Most AMMs report a single blended APR that mixes real revenue with token emissions. LPs see "80% APR" without knowing that 75% of it is inflation that dilutes the token they're earning. Aureum separates the two, making the quality of returns visible.
+
+When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% emission yield," the conversation shifts from "which number is bigger" to "which return is sustainable." Lower headline APR, higher quality return. The dashboard makes that argument visually without saying a word about competitors.
+
+**Token supply transparency.** The dashboard also publishes in real time:
+
+- **Total AuMM emitted** — cumulative tokens distributed to LPs and treasury since block 0
+- **Total AuMM burned** — cumulative tokens destroyed through governance deposits, excess burns, and buyback-and-burn
+- **Net circulating supply** — emitted minus burned
+- **Burn rate** — trailing 30-day annualised burn rate as % of circulating supply
 
 See Immutable Parameters in `constitution.md`.
 

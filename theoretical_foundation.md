@@ -15,8 +15,6 @@ The CCB draws from established research across multiple disciplines:
 
 **Automatic Stabilizers:** The EMA acts like fiscal automatic stabilizers (unemployment insurance) — elevating yield during crashes without requiring a governance vote.
 
-**Mechanism Design (Roth/Maskin):** Routing unqualified votes to buyback-and-burn makes every outcome — productive allocation or misdirected votes — beneficial to protocol health.
-
 **Hysteresis:** The EMA gives Aureum institutional memory. Most DeFi is memoryless and reflexive.
 
 ### Prior work by the founding team

@@ -18,6 +18,17 @@ This separates the three concerns cleanly: permissionless creation (anyone can b
 
 Core emission allocation remains automatic and immutable.
 
+### The Bootstrapping Sequence
+
+| Phase | Days | Driver | Purpose |
+|-------|------|--------|---------|
+| Gauge approval | Day 0 | AuMT governance vote | Quality gate — pool must pass governance before any boost |
+| Incendiary Boost | Days 1–30 | AuMM escrow by operator | Proof of conviction — builder buys into the ecosystem |
+| 90-day gauge boost | Days 1–90 | Fixed 1.2x CCB multiplier (automatic) | Cold-start emission ramp — expires without vote or renewal |
+| CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
+
+All layers require gauge approval first. No pool can access the Incendiary Boost or the 90-day gauge boost without passing governance. At day 91, the fixed boost expires. By this point, a successful pool has 90 days of TVL data baked into its EMA. The mechanical CCB weight takes the baton seamlessly. Failed pools lose both the boost and the EMA weight — they die naturally.
+
 ## xxii. Incendiary Boost
 
 Incendiary Boost is a proof-of-conviction bootstrap mechanism. A pool operator deposits AuMM into a smart-contract-controlled escrow. That exact amount of AuMM is emitted to the pool equally over 30 days as a supplementary emission stream. The escrowed AuMM is permanently burned — the operator sacrifices conviction capital to activate the protocol's routing engine.

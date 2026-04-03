@@ -5,7 +5,7 @@ The 28 pools are pre-defined at launch and locked from block 0. No open slots.
 ### Scope
 
 - There are **28** immutable Miliarium Aureum pools (the founding constellation).
-- Through **end of Month 10**, emissions are **equal** (1/28 each). **Months 11–12** blend **linearly** from equal to CCB (see `constitution.md`). **After Year 1**, allocation is **pure CCB** (EMA TVL × CCB multiplier × Incendiary).
+- Through **end of Month 10**, emissions are **equal** (1/28 each). **Months 11–12** blend **linearly** from equal to CCB (see `constitution.md`). **After Year 1**, allocation is **pure CCB** (EMA TVL × CCB multiplier). Incendiary Boost is a separate priority skim.
 
 ### AuMM vs the 28 pools
 

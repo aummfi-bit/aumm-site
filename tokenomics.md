@@ -15,15 +15,17 @@
 
 ### Emission Schedule
 
-| Era | Years | Blocks per Era | Block Reward (AuMM) | Era Emission | Cumulative Supply | % of Total |
-|-----|-------|----------------|---------------------|-------------|-------------------|------------|
-| 0 | 0-4 | 10,512,000 | 1.00 | 10,512,000 | 10,512,000 | 50.06% |
-| 1 | 4-8 | 10,512,000 | 0.50 | 5,256,000 | 15,768,000 | 75.09% |
-| 2 | 8-12 | 10,512,000 | 0.25 | 2,628,000 | 18,396,000 | 87.60% |
-| 3 | 12-16 | 10,512,000 | 0.125 | 1,314,000 | 19,710,000 | 93.86% |
-| 4+ | ... | ... | halving continues | ... | approaches 21,000,000 | approaches 100% |
+| Era | Years | Block Reward (AuMM) | Era Emission | Annual Emission (approx.) | Cumulative Supply | % of Total |
+|-----|-------|---------------------|-------------|--------------------------|-------------------|------------|
+| 0 | 0–4 | 1.00 | 10,512,000 | 2,628,000 | 10,512,000 | 50.06% |
+| 1 | 4–8 | 0.50 | 5,256,000 | 1,314,000 | 15,768,000 | 75.09% |
+| 2 | 8–12 | 0.25 | 2,628,000 | 657,000 | 18,396,000 | 87.60% |
+| 3 | 12–16 | 0.125 | 1,314,000 | 328,500 | 19,710,000 | 93.86% |
+| 4 | 16–20 | 0.0625 | 657,000 | 164,250 | 20,367,000 | 96.98% |
+| 5 | 20–24 | 0.03125 | 328,500 | 82,125 | 20,695,500 | 98.55% |
+| 6+ | 24+ | halving continues | diminishing | diminishing | approaches 21,000,000 | approaches 100% |
 
-The old cycle-based emission table is removed. Emissions are specified only in per-block terms.
+Each era spans 10,512,000 blocks (~4 years at 12 s/block). Emissions are specified in per-block terms only — no cycle-based accounting.
 
 ### Emission Distribution
 
@@ -31,6 +33,22 @@ The old cycle-based emission table is removed. Emissions are specified only in p
 - **Months 11–12 (Year 1):** a **two-month linear transition** that blends each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping linearly from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At the midpoint, the mix is half equal and half CCB. See `constitution.md` and `formulas.md`.
 - **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL and CCB multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
 - No voting and no discretionary overrides.
+
+### Per-Block Streaming
+
+Emissions stream continuously per Ethereum block (~12 seconds). Each block, the protocol accrues AuMM to LPs in eligible pools proportional to:
+
+```
+lp_reward_per_block = emission_per_block × (LP_value_in_pool × pool_weight) / total_weighted_LP_value
+```
+
+Where `emission_per_block` is the current era's block reward (see table above), `LP_value_in_pool` is the USD value of the LP's AuMT position, `pool_weight` is the CCB-derived weight for that pool (updated at bi-weekly cycle boundaries), and `total_weighted_LP_value` is the sum across all eligible pools.
+
+Deposit — start accruing. Withdraw — stop accruing. No snapshots, no pro-rata, no epoch-boundary gaming. An LP earns exactly what they earned up to the block they withdrew. At the halving block, the per-block rate drops 50%.
+
+**No lock required.** LPs earn tokens while they provide liquidity. Remove liquidity, stop earning. No vesting. No cliff. Tokens are liquid immediately.
+
+**Gauge weights update bi-weekly.** Emissions stream continuously, but the pool weights that determine how emissions are distributed across pools change only at bi-weekly governance cycle boundaries. Continuous, manipulation-resistant accrual paired with deliberate, algorithmic allocation.
 
 ### Governance: The "LP = Power" Model
 
@@ -133,9 +151,13 @@ At month 6, the treasury seeds the AuMM trading pool (AuMM / svZCHF · sUSDS) us
 
 The ceiling price is derived from a **7-day SMA of AuMM's price** read from the internal AuMM/stablecoin trading pool — not an external oracle. The pool's **0.75% swap fee** makes short-term price manipulation expensive (an attacker must pay the fee on every trade used to move the reference price, and the 7-day averaging window smooths out single-day spikes).
 
-When AuMM's spot price exceeds the ceiling (deployed at a governance-voted multiple of trailing fundamentals), the treasury sells AuMM from its stabilization inventory into the pool, pushing the price back down. Revenue from these sales is deposited as **permanent locked liquidity** into Miliarium Aureum pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw this liquidity.
+When AuMM's spot price exceeds the ceiling (deployed at a fixed multiple of trailing fundamentals), the treasury sells AuMM from its stabilization inventory into the pool, pushing the price back down. Revenue from these sales is deposited as **permanent locked liquidity** into Miliarium Aureum pools meeting the 4626 Quality Gate and $10K+ TVL. The treasury can never withdraw this liquidity.
 
 The ceiling is capped at **80% of treasury assets** — the treasury can never fully deplete itself on stabilization. At **month 10**, excess AuMM in the stabilization inventory is permanently burned, and the treasury's emission share drops to zero. All stabilization parameters are immutable in contract.
+
+### The Self-Reinforcing Loop
+
+The AuMM trading pool holds ERC-4626 yield-bearing tokens (svZCHF, sUSDS, waEthUSDC) as 75% of its TVL. The protocol captures 10% of the yield those tokens generate. 25% of that yield fee goes to buyback-and-burn of AuMM. So the AuMM trading pool feeds the deflationary mechanism that makes AuMM scarcer — even though the pool itself receives no emissions. Higher TVL in the trading pool means more yield fee revenue, more buyback-and-burn, and fewer AuMM in circulation. The pool's own existence tightens the supply of the token it trades.
 
 ### The Deflationary Crossover
 

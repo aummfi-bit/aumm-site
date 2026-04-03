@@ -33,9 +33,23 @@
 - Treasury and fee proposals are active within immutable bounds.
 - All proposals must reference verifiable on-chain data only.
 
-## Risk Notes
+## Founding Team
 
-- New tokenomics and automation contracts still require full audit.
-- Early TVL bootstrapping remains execution-sensitive.
+| Role | Contributor | Brings |
+|------|------------|--------|
+| Architecture & Thesis | **Sagix** | Pool design, routing topology, aggregator relationships, cross-protocol integrations (Frankencoin, Reserve), published research |
+| Smart Contracts | **TBD** | Solidity expertise, governance vault infrastructure, Balancer V3 codebase familiarity |
+| Frontend & UX | **TBD** | Frontend experience, emission dashboard, LP interface |
+| Founding Liquidity | **TBD** (aligned capital partner) | Seed capital for genesis pools, long-term LP commitment |
+
+The founding team earns tokens by being early LPs — same mechanism as everyone else. The only advantage is being first: deploying pools, providing initial liquidity, and earning the highest emission rate before anyone else arrives. As more LPs join, per-LP emissions decline. Early believers rewarded. No allocation. No vesting.
+
+## Risk Factors
+
+- **Fork risk.** Aequilibrium inherits Balancer V3's smart contract security via byte-identical pool contracts, but the new tokenomics contracts require independent audit. Until audited, the new code carries unverified risk.
+- **Liquidity risk.** Genesis pools will have minimal TVL. Bootstrapping requires the founding team's capital and early LP adoption. If depth doesn't reach aggregator thresholds, the routing thesis never activates.
+- **Regulatory risk.** Fair-launch tokens with no pre-mine have the strongest regulatory position (no securities argument), but the regulatory landscape is uncertain.
+- **Team risk.** Founding team is small and self-funded. Key-person dependency is high in early phases.
+- **Market risk.** Launching during a bear market or period of DeFi apathy could delay adoption regardless of architectural merit.
 
 See Immutable Parameters in `constitution.md`.

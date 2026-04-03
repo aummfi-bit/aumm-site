@@ -7,25 +7,55 @@
 ## xxvi. Launch Procedures
 
 - Pool creation is permissionless from block 0.
-- All launch mechanics are immutable from block 0.
+- All launch mechanics described below are **immutable from block 0**. They execute on schedule and self-terminate.
 
 Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Year 1** is Months 1–12.
 
-### Through end of Month 10 (equal regime)
+### Month-by-Month Timeline
 
-- Emissions to the Miliarium Aureum tranche are split equally (**1/28**) across the 28 immutable pools.
-- Non-Miliarium pools can exist and build liquidity but do not receive this equal tranche.
+**Month 1 — Genesis.**
+- Aequilibrium factory opens. Pool creation is permissionless.
+- Equal 1/28 emission begins across the 28 Miliarium Aureum pools.
+- Non-Miliarium pools can exist and build liquidity but receive no emissions.
+- Treasury emission phase starts: a declining share of per-block emissions flows to the protocol treasury (75% initially, declining to 50% by month 6, then to 0% by month 10).
 
-### Months 11–12 (two-month linear transition)
+**Month 2 — TVL measurement window opens.**
+- On-chain TVL data begins accumulating for AuMM trading pool pricing.
 
-- **α** runs **linearly** from **0** at the **first block of Month 11** to **1** at the **last block of Year 1**.
-- Each pool’s emission share is a blend of its equal one-twenty-eighth and its CCB-derived share for that block (see `constitution.md` and `formulas.md`).
-- **Halfway** through this window, **α = 0.5** — the mix is **half** equal and **half** CCB.
+**Month 6 — AuMM trading pool launch.**
+- Treasury seeds the AuMM / svZCHF · sUSDS trading pool using accumulated protocol revenue at a fixed 1x multiple of trailing fundamentals.
+- Buyback-and-burn activates one week later.
+- Price ceiling stabilization mechanism begins (see `tokenomics.md`).
 
-### First block after Year 1 (full CCB)
+**Months 6–10 — Price ceiling stabilization active.**
+- If 7-day SMA FDV exceeds the ceiling, treasury sells AuMM at a controlled rate into the pool.
+- Sale proceeds deposited as permanent locked liquidity in qualifying Miliarium pools.
+- Capped at 80% of treasury assets.
+
+**Month 10 — Hard stop.**
+- Stabilization shuts off permanently.
+- Treasury deposits max 80% of remaining stablecoin balance plus corresponding AuMM at 30-day SMA price (price-neutral entry).
+- All leftover AuMM burned.
+- Treasury emission share drops to 0% — permanent.
+
+**Month 11 — Gauge proposals open, CCB transition begins.**
+- Non-Miliarium pools can submit gauge proposals (burn 100 svZCHF/sUSDS equivalent in AuMM).
+- All pools begin ranking in the Efficiency Tournament.
+- Sandbox fast-track active: non-gauged pools sustaining top 10% efficiency for 3 epochs (6 weeks) earn automatic gauge approval.
+- CCB transition begins: **α** runs **linearly** from **0** at the first block of Month 11 to **1** at the last block of Year 1.
+- Each pool's emission share is a blend of its equal one-twenty-eighth and its CCB-derived share. At the midpoint, **α = 0.5** — half equal, half CCB.
+
+**End of Year 1 — CCB transition complete.**
+- α = 1. Allocation is pure CCB.
+
+### After Year 1 (full CCB)
 
 - Allocation is **pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See `constitution.md` and `formulas.md`.
 - Allocation remains automatic: no voting, no discretionary multipliers, no transition council.
+- Efficiency tournament fully active — bottom 15% capped, excess redistributed.
+- Volume percentile floor at full discipline (15th percentile).
+- New gauged pools receive emissions alongside the 28 Miliarium pools.
+- Incendiary Boost available for all gauged pools.
 - Governance continues for non-emission proposals (gauges, treasury, fees) under immutable constraints.
 
 ### Post-activation

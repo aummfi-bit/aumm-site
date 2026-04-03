@@ -29,6 +29,20 @@ Qualified AuMT holders can submit proposals and vote on:
 
 Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
 
+### Quorum and Deposit Requirements
+
+| Decision Type | Quorum | Deposit (AuMM, burned) | Failure Mode |
+|--------------|--------|------------------------|-------------|
+| Gauge approval | No quorum | 100 svZCHF/sUSDS equivalent | Simple majority of votes cast |
+| Gauge challenge (revocation) | No quorum | 1,000 svZCHF/sUSDS equivalent | Simple majority to revoke |
+| Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail if quorum not met |
+| Treasury spends >10% of balance | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Auto-fail → 14-day timelock + public review |
+| Composition challenge | 2/3 supermajority | 1,000 svZCHF/sUSDS equivalent | Fails without supermajority |
+
+All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action creates deflationary pressure on AuMM.
+
+Uncontested proposals with very low turnout do not pass silently. They either auto-fail or route to a timelock with a mandatory public review period (see `tokenomics.md` Low-Turnout Safeguard).
+
 ### Composition Challenge Rule (Miliarium Aureum)
 
 Composition challenges are governance-gated non-emission actions and pass only with a **2/3 supermajority** of protocol-wide tessera-weighted votes.
@@ -81,4 +95,15 @@ The following are immutable from block 0 and cannot be changed by any means:
 - No privileged signer exists.
 - Treasury execution is contract-enforced only.
 - Treasury spends require successful qualified AuMT vote and timelock execution.
+
+### Allocation
+
+| Category | Share | Notes |
+|----------|-------|-------|
+| Audits & Security | 40% | Ongoing audit coverage, bug bounties, formal verification |
+| Development | 30% | Smart contract maintenance, frontend, integrations |
+| Operations | 20% | Infrastructure, RPC, subgraph, monitoring |
+| Reserve | 10% | Emergency fund |
+
+The treasury never sells AuMM to fund operations. AuMM received during the treasury emission phase (months 0–10) is used exclusively for protocol-owned liquidity: seeding the AuMM trading pool at month 6 and operating the price ceiling stabilization mechanism (months 6–10). All leftover AuMM is burned at month 10. After month 10, the treasury never receives AuMM again. Development, audits, and operations are funded entirely from stablecoin fee revenue.
 
