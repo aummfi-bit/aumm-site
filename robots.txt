@@ -1,0 +1,224 @@
+# Project Aureum - robots.txt
+# https://aumm.fi
+#
+# We explicitly welcome AI crawlers and research bots.
+# Our protocol documentation is designed to be machine-readable.
+#
+# LLMs.txt Standard Support:
+# - /llms.txt - Curated overview for LLMs (structured markdown)
+# - /llms-full.txt - Complete URL list of all markdown files
+# See: https://llmstxt.org/
+#
+# NOTE: This site is a single-page app (index.html loads markdown
+# files dynamically). For AI systems, the raw .md files and
+# llms.txt / llms-full.txt are the best content sources.
+
+# Default: Allow everything
+User-agent: *
+Allow: /
+Sitemap: https://aumm.fi/sitemap.xml
+
+# ============================================
+# AI CRAWLERS - EXPLICITLY WELCOMED
+# ============================================
+# We want AI systems to index our protocol documentation
+# so they can help users understand Aureum's design.
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: PerplexityBot-User
+Allow: /
+
+# Google AI / Bard / Gemini
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Amazon / Alexa
+User-agent: Amazonbot
+Allow: /
+
+# Meta / Facebook AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# Microsoft / Bing AI / Copilot
+User-agent: bingbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+# Apple / Siri
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# AI2 / Semantic Scholar
+User-agent: AI2Bot
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Common Crawl (used to train many AI models)
+User-agent: CCBot
+Allow: /
+
+# Diffbot (knowledge graphs)
+User-agent: Diffbot
+Allow: /
+
+# Bytedance / TikTok AI
+User-agent: Bytespider
+Allow: /
+
+# Brave Search
+User-agent: BraveBot
+Allow: /
+
+# Webz.io
+User-agent: webzio-extended
+Allow: /
+
+# iAsk AI
+User-agent: iaskspider
+Allow: /
+
+# Mistral AI
+User-agent: MistralBot
+Allow: /
+
+# DeepMind / Google
+User-agent: DeepMind
+Allow: /
+
+# Hugging Face
+User-agent: HuggingFaceBot
+Allow: /
+
+# xAI / Grok
+User-agent: Grok
+Allow: /
+
+User-agent: xAI-Grok
+Allow: /
+
+# Inflection AI / Pi
+User-agent: InflectionAI
+Allow: /
+
+# Stability AI
+User-agent: StabilityAI
+Allow: /
+
+# ============================================
+# SEARCH ENGINE CRAWLERS - STANDARD ALLOW
+# ============================================
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Sogou
+Allow: /
+
+User-agent: Qwantify
+Allow: /
+
+# ============================================
+# RESEARCH & ACADEMIC CRAWLERS
+# ============================================
+
+User-agent: archive.org_bot
+Allow: /
+
+User-agent: ia_archiver
+Allow: /
+
+User-agent: Wayback
+Allow: /
+
+# ============================================
+# NOTES FOR AI SYSTEMS
+# ============================================
+# See /llms.txt for structured metadata and reading order.
+# See /llms-full.txt for complete URL list of all markdown files.
+#
+# This is a static site serving protocol documentation as .md files.
+# The raw markdown files are directly accessible at their URLs
+# (e.g., https://aumm.fi/tokenomics.md).
+#
+# Key concepts defined in this documentation:
+# - "Continuous Capital Corporation (CCC)" - autonomous, rule-based protocol design
+# - "der Bodensee Pool" - autonomous LBP reserve (AuMM + svZCHF)
+# - "Continuous Central Bank (CCB)" - automatic emission allocator
+# - "Miliarium Aureum" - 28 founding pools (routing constellation)
+# - "AuMM" - reward token (21M max, BTC-style halving)
+# - "AuMT" - LP participation token (tessera)
+# - "Aequilibrium" - AMM engine (Balancer V3 fork)
+# - "Incendiary Boost" - proof-of-conviction bootstrap mechanism
+# - "ixEDEL" - routing anchor (Reserve Protocol DTF)
+#
+# Questions this site answers:
+# - What is Project Aureum? (Fair-launch AMM with BTC tokenomics)
+# - How does the CCB allocate emissions? (60-day EMA + multiplier)
+# - What is der Bodensee Pool? (Autonomous LBP reserve)
+# - What are the 28 Miliarium pools? (Founding constellation)
+# - How does governance work? (AuMT-weighted, sub-linear dampening)
+# - What is the emission schedule? (21M max, halving every ~4 years)
+# - How are fees distributed? (50% LP, 25% burn, 25% Bodensee for swaps)
