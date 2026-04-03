@@ -38,9 +38,11 @@ Governance exists for non-emission actions only (gauge approvals/challenges, tre
 
 ### Token Properties
 
-- AuMM is liquid and carries zero governance power.
-- AuMT is economic proof of active LP participation only.
-- Value capture remains buyback-and-burn funded by protocol revenue.
+AuMM is a **100% liquid token**. There is no locking, no staking, no ve-mechanism, no wrapper. You hold AuMM, you can sell it at any time.
+
+**AuMM carries zero governance power.** It does not vote on emissions, fee parameters, or any protocol decision. All governance — including emission direction — is AuMT-weighted (active LP positions in qualified pools). AuMM is a pure reward and value-capture token: earned by LPs, burned by the protocol.
+
+AuMM accrues value exclusively through **buyback and burn** — the same mechanism as a corporate stock buyback programme. Protocol revenue is used to buy AuMM on the open market and permanently burn it. Circulating supply declines over time. Each remaining token represents a larger share of future protocol revenue. No yield farming. No APR on holding. Just scarcity.
 
 ## x. Value Capture
 
@@ -53,6 +55,14 @@ Governance exists for non-emission actions only (gauge approvals/challenges, tre
 | Swap fees | Treasury | 25% |
 | ERC-4626 yield fee (10% skim) | AuMM buyback and burn | 25% |
 | ERC-4626 yield fee (10% skim) | Treasury | 75% |
+
+### The Day-One Revenue Guarantee
+
+Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has treasury income from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It's architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. During the treasury emission phase (months 0–10), this revenue accumulates alongside AuMM emissions, building the capital needed to seed the AuMM trading pool at month 6, fund the price ceiling stabilization mechanism, and activate buyback-and-burn from month 6 onward.
+
+### The Deflationary Crossover
+
+At scale, the combined buyback-and-burn from swap fees (25%) and yield fees (25% of 10%) can exceed the emission rate — making AuMM net deflationary despite ongoing LP mining rewards. BTC scarcity with productive backing.
 
 ### Immutable Reference
 
