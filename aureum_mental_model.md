@@ -62,16 +62,3 @@ Aureum continuously filters unproductive pools. Volume percentile floor: must st
 - **Months 11–12 (two-month transition):** blend linearly from equal to CCB over the window. At the midpoint, the mix is half equal and half CCB. See `formulas.md` for the blend formula.
 - **After Year 1:** emissions follow only the CCB — each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. No vote. See `constitution.md` and `formulas.md`.
 
-## v. The Feedback Loop
-
-LPs provide liquidity → earn AuMM. Pools generate real fees + ERC-4626 yield → protocol earns revenue. Revenue → buyback and burn AuMM. Supply decreases → each AuMM backs more protocol revenue. Higher yield per token → attracts more productive capital. Good pools gain share. Bad pools lose share or get removed. The system self-corrects.
-
-## vi. Why It Matters
-
-The protocol minimizes human discretion and maximizes deterministic execution. Allocation follows capital behavior, not governance behavior.
-
-**Governance in one sentence:** Power = productive liquidity held over time. No tokens to buy. No locks to game. You must provide liquidity, stay committed, and perform.
-
-Proposal governance is still active for gauges, treasury, and fee proposals, and must rely on on-chain verifiable data only. See Immutable Parameters in `constitution.md`.
-
-*Most DeFi systems ask "Who should decide?" Aureum asks "What should the system do automatically?" — and encodes the answer into immutable rules.*
