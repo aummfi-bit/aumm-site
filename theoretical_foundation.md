@@ -3,7 +3,7 @@
 
 The CCB draws from established research across multiple disciplines:
 
-**Autonomous Corporate Logic:** Meisser’s “Continuous Capital Corporation” (2022) argues that a corporation can operate via continuous algorithms rather than board meetings — the foundational logic for the CCB as an autonomous institution.
+**Continuous Capital Corporation (CCC):** Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and its implementation in Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts the CCC as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are all algorithmic and immutable from block 0. There is no treasury that receives AuMM emissions.
 
 **Pro-Cyclicality:** BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.
 
@@ -42,11 +42,11 @@ Each **eligible** pool gets a **CCB score** combining its smoothed TVL (EMA) and
 
 The CCB turns scores into **shares**: each pool’s share is its score divided by the sum of scores of all eligible pools. Allocation is **relative** — a pool’s emissions depend on how it compares to every other eligible pool, not on a fixed headline percentage.
 
-The AuMM trading pool (AuMM / svZCHF · sUSDS) receives **no emissions** (see `Miliarium_Aureum.md` §xii). Its TVL is **excluded** from the denominator so that it does not dilute the scores of emission-eligible pools.
+der Bodensee Pool (AuMM / svZCHF LBP) receives **no emissions** (see `Miliarium_Aureum.md` §xii). Its TVL is **excluded** from the denominator so that it does not dilute the scores of emission-eligible pools.
 
 ### 3. How the block emission flows
 
-**Through the end of Month 10:** the Miliarium emission tranche is split **evenly** — each of the 28 Miliarium pools gets one twenty-eighth. Other pools may exist on the AMM but do not receive this equal slice.
+**Through the end of Month 10:** 100% of block emissions flow to LPs — the Miliarium tranche is split **evenly**, each of the 28 Miliarium pools gets one twenty-eighth. There is no treasury share. Other pools may exist on the AMM but do not receive this equal slice.
 
 **Months 11–12:** the protocol ramps from equal toward full CCB. Early in the window the mix is mostly equal; by the last block of Year 1 it is fully CCB. At the midpoint, the blend is half equal and half CCB. Exact block math is fixed on-chain — see `constitution.md` §xxviii.
 
@@ -56,7 +56,7 @@ The AuMM trading pool (AuMM / svZCHF · sUSDS) receives **no emissions** (see `M
 
 ### Design rationale
 
-Capital in productive, eligible pools is the **only** input to emission weight. Rules are deterministic and immutable. Governance does not set weights; it remains available only for non-emission actions (gauges, treasury, fees, composition challenges) under the on-chain-data-only proposal rules in `constitution.md`. For full formal definitions of every formula, see `formulas.md`.
+Capital in productive, eligible pools is the **only** input to emission weight. Rules are deterministic and immutable. Governance does not set weights; it remains available only for non-emission actions (gauges, fees, composition challenges) under the on-chain-data-only proposal rules in `constitution.md`. For full formal definitions of every formula, see `formulas.md`.
 
 ---
 

@@ -58,7 +58,7 @@ Emission allocation is driven by the **Continuous Central Bank (CCB)** — not b
 
 #### Protocol Governance (Non-Emission Decisions)
 
-For decisions beyond emission direction (fee parameters, treasury, gauge approvals/challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
+For decisions beyond emission direction (fee parameters, gauge approvals/challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
 
 ```
 Era 0 (years 0–4, pre-halving):        voting_power = (qualified_AuMT_value × time_in_pool)^(1/4)
@@ -106,7 +106,7 @@ This eliminates:
 
 Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** regardless of vote outcome. There is no timelock fallback — the proposal simply fails and must be resubmitted.
 
-This applies uniformly: gauge approvals, gauge challenges, fee changes, treasury spends, and composition challenges all share the same 20% floor. The burn deposit filters low-effort spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+This applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. The burn deposit filters low-effort spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 
 #### Anti-Market Buying
 
@@ -119,11 +119,10 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 **What governance controls:**
 
 - Fee parameters (swap fee %, yield fee %)
-- Treasury allocation (within defined bounds)
 - Gauge approvals and challenges (with timelock)
 - Miliarium Aureum composition challenges (2/3 supermajority)
 
-**What governance cannot control:** See Immutable Parameters (`constitution.md` §xxix) for the full list. In short: emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, and all launch mechanics are immutable in contract.
+**What governance cannot control:** See Immutable Parameters (`constitution.md` §xxix) for the full list. In short: emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, der Bodensee Pool parameters, and all launch mechanics are immutable in contract.
 
 ### Token Properties
 
@@ -141,43 +140,44 @@ AuMM accrues value exclusively through **buyback and burn** — the same mechani
 |--------|-------------|-------|
 | Swap fees | LP bonus | 50% |
 | Swap fees | AuMM buyback and burn | 25% |
-| Swap fees | Treasury | 25% |
+| Swap fees | der Bodensee Pool | 25% |
 | ERC-4626 yield fee (10% skim) | AuMM buyback and burn | 25% |
-| ERC-4626 yield fee (10% skim) | Treasury | 75% |
+| ERC-4626 yield fee (10% skim) | der Bodensee Pool | 75% |
+
+There is no treasury. All protocol revenue flows to two destinations only: buyback-and-burn (deflationary pressure) and der Bodensee Pool (autonomous reserve depth). Both are contract-enforced and immutable.
 
 ### The Day-One Revenue Guarantee
 
-Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has treasury income from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It's architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. During the treasury emission phase (months 0–10), this revenue accumulates alongside AuMM emissions, building the capital needed to seed the AuMM trading pool at month 6, fund the price ceiling stabilization mechanism (months 6–12), and activate buyback-and-burn from month 6 onward.
+Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has revenue from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It’s architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, yield fee revenue flows into der Bodensee Pool as one-sided svZCHF inflows, deepening the autonomous reserve. Buyback-and-burn activates as soon as der Bodensee Pool has sufficient AuMM liquidity for market purchases.
 
-### Price Ceiling Stabilization (Months 6–12)
+### der Bodensee Pool (Autonomous Reserve)
 
-At month 6, the treasury seeds the AuMM trading pool (AuMM / svZCHF · sUSDS) using accumulated protocol revenue. From month 6 through month 12, the treasury operates a **price ceiling mechanism** that converts AuMM overvaluation into permanent pool depth.
+der Bodensee Pool is the protocol’s self-regulating reserve — a two-token Liquidity Bootstrapping Pool (AuMM + svZCHF) with linear time-decay weights. It replaces any discretionary treasury or manual price stabilization mechanism.
 
-#### The FDV/TVL ratio
+#### Weight decay
 
-The ceiling metric is the protocol’s **fully diluted valuation relative to its total value locked**:
+| Parameter | Value |
+|-----------|-------|
+| Tokens | AuMM + svZCHF |
+| Genesis weights | 90% AuMM / 10% svZCHF |
+| End weights (18 months) | 48% AuMM / 52% svZCHF |
+| Decay | Linear, automatic via block timestamp |
+| Post-18-month | Weights fixed permanently at 48/52 |
+| Emissions | Zero — der Bodensee Pool receives no AuMM emissions |
 
-```
-FDV/TVL = (21,000,000 × AuMM_price) / total_protocol_TVL
-```
+At genesis, the high AuMM weight means the pool prices AuMM low relative to svZCHF — a natural starting point for a new token. As the AuMM weight declines linearly over 18 months, the pool progressively requires more svZCHF per unit of AuMM, creating organic price discovery driven by time-decay and real revenue inflows rather than speculative demand or manual intervention.
 
-Both inputs are readable on-chain with no external oracle. The AuMM trading pool is seeded at **FDV/TVL = 1** (fully diluted valuation equals protocol TVL at launch). The ratio is smoothed using a **21-day EMA** to filter short-term spikes — the pool’s **0.75% swap fee** makes single-day price manipulation expensive, and the EMA window ensures that transient volatility does not trigger unnecessary sells.
+#### One-sided revenue inflows
 
-For context, established AMM protocols (Uniswap, Aerodrome, Cetus) trade at FDV/TVL multiples ranging from roughly 0.5 to 2. The ceiling is set at the upper bound of this range.
+All protocol fee revenue (25% of swap fees + 75% of ERC-4626 yield fees) enters der Bodensee Pool as **one-sided svZCHF inflows**. This deepens the svZCHF side over time, strengthening the reserve and creating continuous buy pressure on AuMM within the pool. The combination of declining AuMM weight and growing svZCHF reserves produces a self-reinforcing price floor that tightens as the protocol matures.
 
-#### Ceiling trigger and sell mechanics
+#### CCC alignment
 
-When the **EMA(21) of FDV/TVL ≥ 2**, the treasury sells **0.75% of the AuMM pool’s AuMM balance per day** into the pool, pushing the price down. Sells execute **once per day, every day** the EMA remains at or above the threshold, and stop automatically when EMA(21) drops below 2.
-
-Revenue from ceiling sells is deposited as **permanent locked liquidity** into the Miliarium Aureum pools with the **lowest TVL** that meet the 4626 Quality Gate. The treasury can never withdraw this liquidity. Speculation above fair value directly strengthens the weakest pools in the constellation.
-
-#### Limits and expiry
-
-The ceiling is capped at **80% of treasury assets** — the treasury can never fully deplete itself on stabilization. If the stabilization inventory runs out, the mechanism stops naturally. The treasury's emission share drops to zero at **month 10** (no new AuMM after that point); the ceiling continues on existing inventory. At **month 12**, any excess AuMM remaining in the stabilization inventory is permanently burned. All stabilization parameters are immutable in contract.
+der Bodensee Pool is a Continuous Capital Corporation (CCC) reserve in the spirit of Meisser’s thesis and Frankencoin’s implementation: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can receive, hold, or sell newly emitted tokens. The pool’s weight evolution and revenue routing are immutable from block 0. See `formulas.md` F-11 for the formal weight decay definition.
 
 ### The Self-Reinforcing Loop
 
-The AuMM trading pool holds ERC-4626 yield-bearing tokens (svZCHF, sUSDS, waEthUSDC) as 75% of its TVL. The protocol captures 10% of the yield those tokens generate. 25% of that yield fee goes to buyback-and-burn of AuMM. So the AuMM trading pool feeds the deflationary mechanism that makes AuMM scarcer — even though the pool itself receives no emissions. Higher TVL in the trading pool means more yield fee revenue, more buyback-and-burn, and fewer AuMM in circulation. The pool's own existence tightens the supply of the token it trades.
+der Bodensee Pool holds svZCHF — an ERC-4626 yield-bearing savings vault. The protocol captures 10% of the yield those tokens generate. 25% of that yield fee goes to buyback-and-burn of AuMM; 75% flows back into der Bodensee Pool as additional svZCHF depth. So der Bodensee Pool feeds the deflationary mechanism that makes AuMM scarcer — even though the pool itself receives no emissions. Higher TVL in der Bodensee Pool means more yield fee revenue, more buyback-and-burn, and fewer AuMM in circulation. The pool’s own existence tightens the supply of the token it trades.
 
 ### The Deflationary Crossover
 

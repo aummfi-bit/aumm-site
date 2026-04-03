@@ -110,8 +110,8 @@ New pools need time to get discovered by aggregators, indexed by bots, and build
 |----------|------------------------|-----------------|-------|
 | Months 0–3 | None | Exempt | Full experimentation window. Pool must still meet structural criteria (ERC-4626 composition, no self-referential tokens). |
 | Months 3–6 | 5th percentile | Exempt | First signal required: pool must demonstrate it's not completely dead. |
-| Months 6–12 | 10th percentile | Exempt | Higher bar, still in discovery phase. Treasury stabilization active. |
-| Month 13+ | 15th percentile | **Active** | Full discipline. Both volume percentile floor and efficiency-based emission caps apply. Aligned with treasury exit. |
+| Months 6–12 | 10th percentile | Exempt | Higher bar, still in discovery phase. |
+| Month 13+ | 15th percentile | **Active** | Full discipline. Both volume percentile floor and efficiency-based emission caps apply. |
 
 Percentile rankings are calculated against the protocol's own pool activity distribution — specifically, the trailing 3-epoch (6-week) rolling window of fee + yield revenue across all emission-eligible pools. This is a relative measure: as the protocol grows, the absolute bar rises organically.
 
@@ -172,7 +172,7 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 ### Governance Proposals
 
-Any qualified AuMT holder can submit a governance proposal — fee parameter changes, treasury spending. Proposals require burning **1,000 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM**. The AuMM is burned automatically on submission — non-refundable regardless of outcome.
+Any qualified AuMT holder can submit a governance proposal — fee parameter changes. Proposals require burning **1,000 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM**. The AuMM is burned automatically on submission — non-refundable regardless of outcome.
 
 Every governance action creates deflationary pressure on AuMM. The deposit filters spam (proposers must hold and sacrifice AuMM), funds no one (tokens are destroyed, not transferred), and tightens supply. Self-regulating.
 

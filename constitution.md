@@ -23,7 +23,6 @@ Qualified AuMT holders can submit proposals and vote on:
 
 - gauge approvals
 - gauge challenges (revocation)
-- treasury disbursements
 - fee parameter changes within immutable bounds
 - Miliarium Aureum composition challenges
 
@@ -36,7 +35,6 @@ Governance cannot alter emission formulas, halving math, CCB multiplier constant
 | Gauge approval | 20% of total qualified voting power | 100 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Gauge challenge (revocation) | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
-| Treasury spends >10% of balance | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 
 All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action creates deflationary pressure on AuMM.
@@ -89,28 +87,15 @@ The following are immutable from block 0 and cannot be changed by any means:
 
 - Maximum AuMM supply: 21,000,000
 - Emission halving schedule and block emission rates
-- Fee splits, including 25% protocol revenue to AuMM buyback-and-burn
+- Fee splits: 25% of swap fees and 25% of ERC-4626 yield fees to AuMM buyback-and-burn; 25% of swap fees and 75% of ERC-4626 yield fees to der Bodensee Pool; 50% of swap fees to LP bonus
+- der Bodensee Pool parameters: start weights 90% AuMM / 10% svZCHF, end weights 48% AuMM / 52% svZCHF, 18-month linear decay, one-sided svZCHF inflows, zero emissions
 - CCB multiplier rules: step size ±0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
 - List of 28 Miliarium Aureum pools (locked at launch; see `Miliarium_Aureum.md`)
 - Core AMM mathematics, CCB formula, and eligibility criteria
 - Any withdrawal resets AuMT power
 - No admin keys, no multisig, no upgradability, no pause functions
 
-## xxx. Treasury Model
+## xxx. No Treasury
 
-- Treasury is fully on-chain and non-custodial from genesis.
-- No privileged signer exists.
-- Treasury execution is contract-enforced only.
-- Treasury spends require successful qualified AuMT vote and timelock execution.
-
-### Allocation
-
-| Category | Share | Notes |
-|----------|-------|-------|
-| Audits & Security | 40% | Ongoing audit coverage, bug bounties, formal verification |
-| Development | 30% | Smart contract maintenance, frontend, integrations |
-| Operations | 20% | Infrastructure, RPC, subgraph, monitoring |
-| Reserve | 10% | Emergency fund |
-
-The treasury never sells AuMM to fund operations. AuMM received during the treasury emission phase (months 0–10) is used exclusively for protocol-owned liquidity: seeding the AuMM trading pool at month 6 and operating the price ceiling stabilization mechanism (months 6–12). After month 10, the treasury never receives new AuMM — the ceiling continues using existing inventory until month 12. All leftover AuMM is burned at month 12. Development, audits, and operations are funded entirely from stablecoin fee revenue.
+There is no treasury. The protocol has no entity, contract, or mechanism that receives AuMM emissions, holds discretionary funds, or disburses capital by vote. All protocol revenue (swap fees + ERC-4626 yield fees) flows automatically to two immutable destinations: **AuMM buyback-and-burn** and **der Bodensee Pool**. This design follows the Continuous Capital Corporation (CCC) philosophy: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can be captured, redirected, or extracted from. The system is fully autonomous from block 0.
 

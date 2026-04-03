@@ -2,7 +2,7 @@
 
 ## xxxi. Core Tokens
 
-- **AuMM** (Aureum Market Maker): reward token with 21,000,000 max supply and immutable halving schedule. Earned by LPs, burned by the protocol. Carries zero governance power. Not a Miliarium Aureum pool slot — the 28 Miliarium pools are the ix-named registry in `Miliarium_Aureum.md`. Trading liquidity is **AuMM / svZCHF** and **AuMM / sUSDS**; that venue receives **no** emissions (emissions go to the 28 pools + gauges). See `tokenomics.md`.
+- **AuMM** (Aureum Market Maker): reward token with 21,000,000 max supply and immutable halving schedule. Earned by LPs, burned by the protocol. Carries zero governance power. Not a Miliarium Aureum pool slot — the 28 Miliarium pools are the ix-named registry in `Miliarium_Aureum.md`. AuMM price discovery happens in **der Bodensee Pool** (AuMM + svZCHF LBP); that venue receives **no** emissions (emissions go to the 28 pools + gauges). See `tokenomics.md`.
 - **AuMT** (Aureum Market Tessera): LP participation token — your tessera. Proves active liquidity position in a qualifying pool. Carries governance weight proportional to the USD value of the underlying LP position and time held. AuMT in non-qualifying pools carries zero weight.
 - **Tessera**: Roman term for a small tablet used as a ticket, voucher, or token of identity — the conceptual name for AuMT. In Rome, a tessera proved you belonged and carried rights: entry, grain distribution, voting in assemblies. Your tessera proves your stake in the protocol's liquidity and carries the same rights — emissions, governance power, LP bonus eligibility.
 
@@ -26,9 +26,13 @@
 
 - **Priority Skim**: the mechanism by which Incendiary Boost emissions are subtracted from the fixed block emission *before* CCB distribution. The total block emission never changes — Incendiary claims reduce the remainder available to all other pools, directly diluting their share. This ensures bootstrapping new pools has a real cost borne by the entire emission economy, not free inflation.
 
-- **Buyback-and-burn**: the protocol's value capture mechanism. Protocol revenue (25% of swap fees + 25% of ERC-4626 yield fees) is used to buy AuMM on the open market and permanently burn it. Circulating supply declines over time. No yield on holding — pure scarcity mechanics.
+- **Buyback-and-burn**: the protocol's value capture mechanism. Protocol revenue (25% of swap fees + 25% of ERC-4626 yield fees) is used to buy AuMM on the open market and permanently burn it. Circulating supply declines over time. No yield on holding — pure scarcity mechanics. The remaining protocol revenue (25% of swap fees + 75% of yield fees) flows to der Bodensee Pool.
 
 - **Deflationary Crossover**: the point at which the protocol's burn rate (buyback-and-burn + Incendiary burns) exceeds the emission rate, causing net circulating supply to contract. As the halving schedule reduces emissions while protocol revenue grows with TVL and volume, the crossover becomes increasingly likely with each era. Beyond the crossover, AuMM becomes net-deflationary — every block destroys more tokens than it creates.
+
+- **der Bodensee Pool (LBP)**: the protocol's autonomous reserve — a two-token Liquidity Bootstrapping Pool (AuMM + svZCHF) with linear time-decay weights over 18 months. Genesis weights: 90% AuMM / 10% svZCHF. End weights: 48% AuMM / 52% svZCHF (fixed permanently after 18 months). All protocol fee revenue (25% of swap fees + 75% of ERC-4626 yield fees) flows one-sided into the svZCHF side. Receives zero AuMM emissions. Acts as the self-regulating reserve in the CCC design — price discovery is forced by time-decay and real revenue inflows, not by manual intervention. See `tokenomics.md` and `formulas.md` F-11.
+
+- **Continuous Capital Corporation (CCC)**: Aureum's design philosophy, drawn from Meisser's 2024 PhD thesis *Essays in Decentralized Finance* and Frankencoin's implementation. An autonomous, rule-based system that allocates capital and manages reserves according to fixed on-chain rules without discretionary management or a separate treasury. Aureum implements CCC through algorithmic emission allocation (CCB), autonomous reserve management (der Bodensee Pool), and immutable fee routing.
 
 ## Pool Concepts
 
@@ -71,7 +75,7 @@
 - **Withdrawal Reset**: any withdrawal from a qualifying pool — any amount — resets governance power to zero and restarts the 14-day qualification clock.
 - **Gauge Proposal**: submit gauge request with 100 svZCHF/sUSDS equivalent in AuMM (burned).
 - **Gauge Challenge**: challenge/revoke active gauge with 1,000 svZCHF/sUSDS equivalent in AuMM (burned).
-- **General Proposal** (treasury/fee): 1,000 svZCHF/sUSDS equivalent in AuMM (burned).
+- **General Proposal** (fee parameters): 1,000 svZCHF/sUSDS equivalent in AuMM (burned).
 - **Composition Challenge**: deprecate a Miliarium pool and launch a replacement into the same slot via the standard bootstrap path (for delistings/failures). Pool composition is immutable on-chain — no in-place token swap. Requires 2/3 protocol-wide tessera-weighted approval. Like-for-like renewal only (same sector, risk, template role). See `bootstrap.md` §xxiv.
 - **On-Chain-Only Proposal Rule**: every proposal must cite verifiable on-chain state only — contract addresses, block ranges, deterministic metrics. Off-chain claims are invalid.
 See Immutable Parameters (`constitution.md` §xxix).

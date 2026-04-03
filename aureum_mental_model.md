@@ -21,12 +21,13 @@ The architecture deserves a second chance under a clean economic model. Project 
 
 ## ii. Core Principles
 
-- **Fair launch.** No pre-mine, no team allocation, no VC. Treasury emission phase (months 0–10) seeds protocol-owned liquidity only.
+- **Fair launch.** No pre-mine, no team allocation, no VC, **no treasury emission share**. 100% of emissions go to LPs from block 0.
 - **Fixed supply.** 21,000,000 maximum. Per-block halving schedule. Declining emission rate.
 - **Mining is LP.** Productive capital in, tokens out. No staking rewards or bribe markets.
 - **Anti-capture by design.** Governance power derives exclusively from active LP positions with a 6-month on-ramp.
 - **Ethereum only.** Single chain for maximum composability and aggregator coverage.
 - **Immutable.** No multisig, no admin keys, no upgradeability, no pause. No emission voting; governance exists only for non-emission actions.
+- **Continuous Capital Corporation.** Fully autonomous, rule-based system — no discretionary treasury, no manual intervention. Capital allocation (CCB) and reserve management (der Bodensee Pool) are algorithmic and on-chain. Aligned with Meisser's CCC thesis and Frankencoin's implementation.
 
 ## The Roman Infrastructure
 
@@ -54,7 +55,7 @@ The 28 Miliarium pools are not a random collection of liquidity venues — they 
 
 ### 1. Capital Allocation (The Continuous Central Bank)
 
-Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (see `theoretical_foundation.md` §vi). The 28 Miliarium pools carry an algorithmic CCB multiplier (see `constitution.md` §xxix for bounds) that nudges their share based on TVL trends — no voting, no human override. Strictly zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation.
+Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (see `theoretical_foundation.md` §vi). The 28 Miliarium pools carry an algorithmic CCB multiplier (see `constitution.md` §xxix for bounds) that nudges their share based on TVL trends — no voting, no human override. Strictly zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation. All protocol fee revenue flows to der Bodensee Pool (the autonomous reserve) and buyback-and-burn — there is no separate treasury.
 
 ### 2. Bootstrapping (Starting New Pools)
 
@@ -76,7 +77,7 @@ In Roman terms: **ixEDEL is the via** (the road that connects every province), *
 
 ## iv. Emission Regimes
 
-- **Through end of Month 10:** emissions to the 28 Miliarium pools are **purely equal** (**1/28** each). Other pools may exist but do not receive this equal tranche.
+- **Through end of Month 10:** 100% of emissions to the 28 Miliarium pools, split **purely equal** (**1/28** each). No treasury share — LPs receive all emissions from block 0. Other pools may exist but do not receive this equal tranche.
 - **Months 11–12 (two-month transition):** blend linearly from equal to CCB over the window. At the midpoint, the mix is half equal and half CCB. See `formulas.md` for the blend formula.
 - **After Year 1:** emissions follow only the CCB — each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. No vote. See `constitution.md` and `formulas.md`.
 

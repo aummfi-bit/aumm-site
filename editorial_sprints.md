@@ -137,13 +137,12 @@ Fixes organised by dependency order. Each sprint is self-contained and can be me
 
 ---
 
-## Sprint 11 — Price Ceiling and Low-Turnout Precision
-**Files:** `tokenomics.md`, `constitution.md`
-**Impact:** Medium — both mechanisms are currently described in terms too vague to be actionable.
-**⚠️ Prerequisite:** This sprint requires the protocol team to decide specific parameter values: the price ceiling multiple, the fundamental metric, the turnout threshold, proposal-type routing rules, and timelock duration. These are design decisions, not editorial ones.
+## Sprint 11 — der Bodensee Pool and Low-Turnout Precision
+**Files:** `tokenomics.md`, `constitution.md`, `formulas.md`
+**Impact:** Medium — der Bodensee Pool parameters and low-turnout safeguard need precise specification.
 
 ### Tasks
-- [x] **Price ceiling** (`tokenomics.md` §x): specify what "fixed multiple of trailing fundamentals" means — define the fundamental metric (protocol revenue per circulating AuMM), the multiple, and how the ceiling is calculated on-chain
+- [x] **der Bodensee Pool** (`tokenomics.md` §x, `formulas.md` F-11): define LBP weight decay parameters (90/10 → 48/52 over 18 months), one-sided svZCHF inflow routing, and immutable constraints
 - [x] **Low-turnout safeguard** (`tokenomics.md` §ix, `constitution.md` §xxvii): replace "very low turnout" with a specific threshold; specify which proposal types auto-fail vs. enter timelock; specify the timelock duration
 
 ---
