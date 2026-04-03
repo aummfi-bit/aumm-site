@@ -8,6 +8,7 @@ https://aumm.fi/miliarium_profiles/sectors.md
 https://aumm.fi/bootstrap.md
 https://aumm.fi/transitions.md
 https://aumm.fi/constitution.md
+https://aumm.fi/formulas.md
 https://aumm.fi/aureum_glossary.md
 https://aumm.fi/appendices.md
 https://aumm.fi/aureum_schedule.md

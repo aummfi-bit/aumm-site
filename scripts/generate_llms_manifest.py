@@ -27,6 +27,7 @@ CORE_PATHS: list[str] = [
     "bootstrap.md",
     "transitions.md",
     "constitution.md",
+    "formulas.md",
     "aureum_glossary.md",
     "appendices.md",
 ]

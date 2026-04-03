@@ -11,12 +11,14 @@ Static protocol documentation for **Project Aureum**: immutable AMM rules, **Mil
 ## Suggested reading order
 
 1. `overview.md` — protocol character at a glance  
-2. `constitution.md` — immutable operating law  
-3. `theoretical_foundation.md` — CCB, multiplier engine, research framing  
-4. `tokenomics.md` — AuMM supply and emission distribution  
-5. `Miliarium_Aureum.md` — canonical 01–28 registry  
-6. `miliarium_profiles/manifest.md` and `sectors.md` — registry table and taxonomy  
-7. `bootstrap.md`, `transitions.md`, `appendices.md` — as needed  
+2. `aureum_mental_model.md` — three-layer mental model, feedback loop, governance summary  
+3. `constitution.md` — immutable operating law  
+4. `theoretical_foundation.md` — CCB, multiplier engine, research framing  
+5. `tokenomics.md` — AuMM supply and emission distribution  
+6. `formulas.md` — formal emission, CCB, and governance formulas  
+7. `Miliarium_Aureum.md` — canonical 01–28 registry  
+8. `miliarium_profiles/manifest.md` and `sectors.md` — registry table and taxonomy  
+9. `bootstrap.md`, `transitions.md`, `appendices.md`, `aureum_glossary.md` — as needed  
 
 Then read individual `miliarium_profiles/NN_ix*.md` files for pool-specific composition and notes.
 
