@@ -29,7 +29,7 @@ The old cycle-based emission table is removed. Emissions are specified only in p
 
 - **Through end of Month 10 (Year 1):** emissions to the Miliarium tranche are split **equally** across the 28 pools (**1/28** each).
 - **Months 11–12 (Year 1):** a **two-month linear transition** that blends each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping linearly from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At the midpoint, the mix is half equal and half CCB. See `constitution.md` and `formulas.md`.
-- **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL, MAMAR multiplier, and Incendiary multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
+- **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL, CCB multiplier, and Incendiary multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
 - No voting, no Bubble multipliers, and no discretionary overrides.
 
 ### Governance: The "LP = Power" Model

@@ -18,8 +18,8 @@
 
 ## Phase 3 - Automatic Regime Activation
 
-- activate full CCB + MAMAR from the first block after Year 1 (α = 1)
-- verify EMA(60) and MAMAR outputs match immutable constants
+- activate full full CCB (multiplier + Incendiary) from the first block after Year 1 (α = 1)
+- verify EMA(60) and CCB multiplier outputs match immutable constants
 - validate no discretionary controls in production wiring
 
 ## Phase 4 - Audit and Publication

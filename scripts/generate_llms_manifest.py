@@ -32,7 +32,6 @@ CORE_PATHS: list[str] = [
 ]
 
 SECONDARY_PATHS: list[str] = [
-    "MAMAR.md",
     "aureum_schedule.md",
     "project_aureum_design_final.md",
 ]

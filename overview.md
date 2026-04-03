@@ -24,7 +24,7 @@
 
 - **Through end of Month 10:** equal **1/28** split across the 28 Miliarium Aureum pools.
 - **Months 11–12:** linear transition from equal to CCB (**α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB).
-- **After Year 1:** pure CCB — **TVL EMA(60) × MAMAR × Incendiary** scores, normalized across eligible pools (see `constitution.md`).
+- **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier × Incendiary** scores, normalized across eligible pools (see `constitution.md`).
 - No governance voting controls emission allocation.
 
 ## Governance (Non-Emission)

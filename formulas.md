@@ -48,7 +48,7 @@ Incendiary Boost provides a 30-day supplementary emission stream pegged to the 8
 share_i(block) = (1 − α(block)) × (1/28) + α(block) × CCB_share_i(block)
 ```
 
-Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime (MAMAR and Incendiary inside the CCB leg).
+Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime (CCB multiplier and Incendiary inside the CCB leg).
 
 ---
 
@@ -73,15 +73,15 @@ The EMA runs continuously for **each pool** individually. Half-life is approxima
 
 ### F-5. CCB Score
 
-**Purpose:** Combine a pool's smoothed TVL with its MAMAR multiplier and Incendiary multiplier into a single composite score that determines how much of the remaining block emission it receives.
+**Purpose:** Combine a pool's smoothed TVL with its CCB multiplier and Incendiary multiplier into a single composite score that determines how much of the remaining block emission it receives.
 
-**Effect:** Pools with higher sustained TVL, favorable MAMAR positioning, and active Incendiary terms earn proportionally larger scores. The score is **relative** — a pool's emissions depend on how it compares to every other eligible pool, not on a fixed percentage.
+**Effect:** Pools with higher sustained TVL, favorable CCB multiplier positioning, and active Incendiary terms earn proportionally larger scores. The score is **relative** — a pool's emissions depend on how it compares to every other eligible pool, not on a fixed percentage.
 
 ```
-Score(pool_i) = TVL_EMA60(pool_i) × MAMAR_mult(pool_i) × Incendiary_mult(pool_i)
+Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i) × Incendiary_mult(pool_i)
 ```
 
-**MAMAR_mult** applies only to the 28 Miliarium pools (all others use 1). **Incendiary_mult** is the term defined in `constitution.md` (distinct from Incendiary Boost claims).
+**CCB_mult** applies only to the 28 Miliarium pools (all others use 1). **Incendiary_mult** is the term defined in `constitution.md` (distinct from Incendiary Boost claims).
 
 ---
 
@@ -118,7 +118,7 @@ Incendiary_total = Σ active Incendiary Boost claims this block
 Remaining = block_emission - Incendiary_total
 
 // Step 3 — CCB scoring
-Score(pool_i) = TVL_EMA60(pool_i) × MAMAR_mult(pool_i)
+Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i)
 
 // Step 4 — Share and distribute
 CCB_share(pool_i) = Remaining × Score(pool_i) / Σ Score(all eligible pools)
@@ -129,7 +129,7 @@ Total_emission(pool_i) = CCB_share(pool_i) + Incendiary_claim(pool_i)
 
 ---
 
-### F-8. MAMAR Multiplier Update
+### F-8. CCB Multiplier Update
 
 **Purpose:** Automatically adjust the emission multiplier for each of the 28 Miliarium pools every bi-weekly cycle, replacing human governance voting over emission weights with a deterministic, oracle-free rule.
 
@@ -146,7 +146,7 @@ Where:
 - **clamp [0.75, 1.25]** = hard floor and ceiling; the multiplier can never leave this band
 - **dead zone 0.1%** = if the TVL ratio is within 0.1% of neutral, no step is applied — prevents noise from triggering constant micro-adjustments
 
-Only **i ∈ {28 Miliarium pools}** receive MAMAR updates; for any other eligible pool, **MAMAR_mult = 1**.
+Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any other eligible pool, **CCB_mult = 1**.
 
 ---
 

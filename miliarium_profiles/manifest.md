@@ -63,7 +63,7 @@ Active → Warning → Disqualified ⇄ Composition Challenge (renewal pathway)
 
 | Status | Condition | Emissions | Recovery |
 |:-------|:----------|:----------|:---------|
-| **Active** | Above 15th volume percentile, passes all criteria | Full emissions + MAMAR | — |
-| **Warning** | 10th–15th volume percentile | Emissions continue (2-cycle grace) | Return above 15th percentile |
-| **Disqualified** | Below 10th volume percentile | Zero (routed to buyback-and-burn) | Sustain above 15th for 4 weeks, or Miliarium Aureum Composition Challenge |
-| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | 2/3 protocol-wide tessera-weighted vote | Approved if replacement preserves same asset type or similar economic properties; slot remains active with MAMAR |
+| **Active** | Above 15th volume percentile, passes all criteria | Full emissions + CCB multiplier | — |
+| **Warning** | 10th–15th volume percentile | Emissions continue (2-epoch grace) | Return above 15th percentile |
+| **Disqualified** | Below 10th volume percentile | Zero (redistributed to remaining eligible pools) | Sustain above 15th for 2 epochs (4 weeks), or Miliarium Aureum Composition Challenge |
+| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | 2/3 protocol-wide tessera-weighted vote | Approved if replacement preserves same asset type or similar economic properties; slot remains active with CCB multiplier |
