@@ -56,16 +56,18 @@ Two tracks, depending on what you need:
 - No voting over emissions
 - Oracle-free core operation
 
-## Treasury
+## No Treasury
 
-- Treasury revenue is stablecoin-denominated protocol revenue.
-- Treasury custody is fully on-chain and non-custodial from genesis.
-- No founding-team signer, council, or progressive decentralization phase.
-- Treasury spending is governance-gated (qualified AuMT vote + timelock), with no multisig path.
+There is no treasury. All protocol revenue flows automatically to two immutable destinations:
+
+- **AuMM buyback-and-burn** (25% of swap fees + 25% of ERC-4626 yield fees) — deflationary pressure.
+- **der Bodensee Pool** (25% of swap fees + 75% of ERC-4626 yield fees) — autonomous reserve depth.
+
+No founding-team signer, council, or progressive decentralization phase. No entity receives AuMM emissions. The system is a Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 
-- **Through end of Month 10:** equal **1/28** split across the 28 Miliarium pools.
+- **Through end of Month 10:** equal **1/28** split across the 28 Miliarium pools. **100% of emissions to LPs from block 0** — no treasury share.
 - **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — the protocol's fully automatic emission allocator; see `aureum_glossary.md`). **α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB.
 - **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a separate priority skim. See `constitution.md` §xxviii–xxix for the full rules and immutable parameters.
 - No governance voting controls emission allocation.
@@ -73,7 +75,7 @@ Two tracks, depending on what you need:
 ## Governance (Non-Emission)
 
 - Gauge proposal and gauge challenge votes are active.
-- Treasury and fee proposals are active within immutable bounds.
+- Fee proposals are active within immutable bounds.
 - All proposals must reference verifiable on-chain data only.
 
 ## Founding Team

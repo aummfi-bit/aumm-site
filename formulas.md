@@ -167,54 +167,7 @@ Era 1+ (years 4+):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/3)
 
 ---
 
-### F-10. Treasury Emission Decline Schedule
-
-**Purpose:** Define the rate at which the treasury's share of per-block emissions declines from genesis to zero, ensuring the treasury accumulates enough capital to seed the AuMM pool and operate the price ceiling without retaining permanent emission access.
-
-**Effect:** The treasury share declines linearly from 75% at block 0 to 50% at month 6, then linearly from 50% to 0% at month 10. After month 10, the treasury never receives AuMM again.
-
-```
-if block < month_6_block:
-    treasury_share = 0.75 − (0.25 × block / month_6_block)
-
-else if block < month_10_block:
-    treasury_share = 0.50 − (0.50 × (block − month_6_block) / (month_10_block − month_6_block))
-
-else:
-    treasury_share = 0
-```
-
-LP share = 1 − treasury_share. The LP share increases monotonically from 25% at genesis to 100% at month 10+.
-
----
-
-### F-11. Price Ceiling Stabilization (FDV/TVL)
-
-**Purpose:** Define the price ceiling trigger, sell mechanics, and revenue routing that convert AuMM overvaluation into permanent pool depth.
-
-**Effect:** When the smoothed FDV/TVL ratio exceeds 2, the treasury sells a fixed fraction of its AuMM pool balance daily, pushing the price down. Revenue is locked as permanent liquidity in the weakest Miliarium pools.
-
-```
-FDV = 21_000_000 × AuMM_price
-TVL = total_protocol_TVL
-
-alpha_21 = 2 / (21 + 1)                                       // ≈ 0.0909
-
-FDV_TVL_EMA(today) = alpha_21 × (FDV / TVL)
-                   + (1 − alpha_21) × FDV_TVL_EMA(yesterday)
-
-if FDV_TVL_EMA ≥ 2 AND month ∈ [6, 12] AND treasury_inventory > 0:
-    sell_amount = 0.0075 × AuMM_pool_balance                  // 0.75% per day
-    sell_amount = min(sell_amount, 0.80 × treasury_assets)     // cap at 80%
-    // execute once per day; revenue → permanent locked liquidity
-    // in lowest-TVL Miliarium pools meeting 4626 Quality Gate
-```
-
-AuMM pool is seeded at FDV/TVL = 1. Stabilization shuts off permanently at month 12; all remaining inventory is burned.
-
----
-
-### F-12. Efficiency Tournament
+### F-10. Efficiency Tournament
 
 **Purpose:** Rank all gauged pools by capital efficiency and cap emissions for the least productive, preventing extractive pools from consuming disproportionate emission share.
 
@@ -239,6 +192,26 @@ redistribute excess to uncapped pools pro-rata by CCB_share
 ```
 
 Efficiency ranking is price-agnostic — both the numerator (revenue) and the denominator (emissions) are measured in the same unit. See `bootstrap.md` §xxiii.
+
+---
+
+### F-11. der Bodensee Pool Weight Decay
+
+**Purpose:** Define the linear time-decay of token weights in der Bodensee Pool (the protocol's autonomous reserve), replacing any discretionary price discovery or stabilization mechanism.
+
+**Effect:** der Bodensee Pool is a two-token Liquidity Bootstrapping Pool (AuMM + svZCHF) whose weights shift linearly from genesis to the 18-month endpoint. Protocol fee revenue flows one-sided into the svZCHF side. Price discovery is forced by the combination of time-decay and real revenue inflows — no oracle, no manual trigger.
+
+```
+genesis_block = block_0
+end_block     = genesis_block + 18_months_in_blocks          // ~3,942,000 blocks at 12 s/block
+
+t = min( (current_block − genesis_block) / (end_block − genesis_block),  1 )
+
+weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
+weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
+```
+
+At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF**. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. All protocol fee revenue (25% of swap fees + 75% of ERC-4626 yield fees) enters as one-sided svZCHF inflows. der Bodensee Pool receives **zero** AuMM emissions. Weight decay parameters are immutable from block 0.
 
 ---
 

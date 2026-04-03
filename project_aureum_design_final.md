@@ -9,7 +9,7 @@ This document has been reorganised into the dedicated sections listed below. Sta
 
 | Section | File |
 |:--------|:-----|
-| Overview, Founding Team, Treasury, Risk Factors | [`overview.md`](overview.md) |
+| Overview, Founding Team, Risk Factors | [`overview.md`](overview.md) |
 | Conceptual architecture, emission regimes, routing | [`aureum_mental_model.md`](aureum_mental_model.md) |
 | Token design, supply, governance, value capture | [`tokenomics.md`](tokenomics.md) |
 | Research foundations, CCB narrative | [`theoretical_foundation.md`](theoretical_foundation.md) |

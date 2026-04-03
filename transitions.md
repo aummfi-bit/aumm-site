@@ -15,27 +15,18 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 
 **Month 1 — Genesis.**
 - Aequilibrium factory opens. Pool creation is permissionless.
-- Equal 1/28 emission begins across the 28 Miliarium pools.
+- Equal 1/28 emission begins across the 28 Miliarium pools. **100% of emissions go to LPs from block 0** — there is no treasury emission share.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
-- Treasury emission phase starts: a declining share of per-block emissions flows to the protocol treasury (75% initially, declining to 50% by month 6, then to 0% by month 10).
+- der Bodensee Pool launches at genesis with **90% AuMM / 10% svZCHF** weights. Linear time-decay begins.
+- Protocol fee revenue starts flowing into der Bodensee Pool as one-sided svZCHF inflows.
 
 **Month 2 — TVL measurement window opens.**
-- On-chain TVL data begins accumulating for AuMM trading pool pricing.
+- On-chain TVL data begins accumulating for EMA(60) signal.
 
-**Month 6 — AuMM trading pool launch.**
-- Treasury seeds the AuMM / svZCHF · sUSDS trading pool using accumulated protocol revenue at **FDV/TVL = 1**.
-- Buyback-and-burn activates one week later.
-- Price ceiling stabilization mechanism begins (see `tokenomics.md`).
-
-**Months 6–12 — Price ceiling stabilization active.**
-- Ceiling metric: EMA(21) of FDV/TVL = (21M × AuMM price) / total protocol TVL. Pool seeded at FDV/TVL = 1.
-- When EMA(21) of FDV/TVL ≥ 2, treasury sells 0.75% of the AuMM pool's balance per day until EMA drops below 2.
-- Sale proceeds deposited as permanent locked liquidity in the lowest-TVL Miliarium pools meeting the 4626 Quality Gate.
-- Capped at 80% of treasury assets. If inventory runs out, the mechanism stops naturally.
-
-**Month 10 — Treasury emission share drops to 0%.**
-- Treasury receives no new AuMM after this point — permanent.
-- Price ceiling continues using existing stabilization inventory through month 12.
+**Months 1–18 — der Bodensee Pool weight decay active.**
+- AuMM weight declines linearly from 90% → 48%; svZCHF weight rises from 10% → 52%.
+- Buyback-and-burn activates as soon as der Bodensee Pool has sufficient AuMM liquidity for market purchases.
+- Price discovery is forced by time-decay + real revenue inflows — no oracle, no manual trigger.
 
 **Month 11 — Gauge proposals open, CCB transition begins.**
 - Non-Miliarium pools can submit gauge proposals (burn 100 svZCHF/sUSDS equivalent in AuMM).
@@ -45,13 +36,12 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - Each pool's emission share is a blend of its equal one-twenty-eighth and its CCB-derived share. At the midpoint, **α = 0.5** — half equal, half CCB.
 - Pools that performed well under equal allocation may see their share decline if their TVL lags the protocol average. This is by design — the transition rewards sustained capital, not historical incumbency.
 
-**Month 12 — Hard stop.**
-- Price ceiling stabilization shuts off permanently.
-- Treasury deposits max 80% of remaining stablecoin balance plus corresponding AuMM at 30-day SMA price (price-neutral entry).
-- All leftover AuMM burned.
-
 **End of Year 1 — CCB transition complete.**
 - α = 1. Allocation is pure CCB.
+
+**Month 18 — der Bodensee Pool weights stabilize.**
+- Weights reach final state: 48% AuMM / 52% svZCHF. Fixed permanently from this point.
+- Protocol fee revenue continues flowing into der Bodensee Pool indefinitely.
 
 ### After Year 1 (full CCB)
 
@@ -61,7 +51,8 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - Volume percentile floor at full discipline (15th percentile).
 - New gauged pools receive emissions alongside the 28 Miliarium pools.
 - Incendiary Boost available for all gauged pools.
-- Governance continues for non-emission proposals (gauges, treasury, fees) under immutable constraints.
+- Governance continues for non-emission proposals (gauges, fees) under immutable constraints.
+- der Bodensee Pool continues receiving all protocol fee revenue as one-sided svZCHF inflows.
 
 ### Post-activation
 
