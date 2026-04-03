@@ -1,41 +1,46 @@
 # Editorial Sprints — Aureum Protocol Documentation
 
-Fixes organised by priority. Each sprint is self-contained and can be merged independently.
+Fixes organised by dependency order. Each sprint is self-contained and can be merged independently. Sprints are numbered in the recommended execution sequence.
 
 ## Execution Order
 
-The sprints are numbered by topic, not by execution order. The recommended sequence accounts for dependencies between sprints:
-
-### Phase 1 — Foundation (do first)
-| Sprint | Why first |
-|--------|-----------|
-| **10 — Canonicalisation** | Standardises terms, deduplicates parameters, and designates canonical sources. Every subsequent sprint writes new prose — that prose should use the canonical terms from day one, not get rewritten later. |
-| **3 — Reading Guide** | Defines the audience tracks. Knowing who reads what frames the tone and depth of every rewrite that follows. |
-
-### Phase 2 — Critical rewrites
-| Sprint | Dependency |
-|--------|------------|
-| **1 — CCB Rewrite** | Uses canonical terms from Sprint 10; §vi–§vii rewrite replaces parameter restatements with cross-references established in Sprint 10. |
-| **2 — Constellation Routing** | Uses standardised "28 Miliarium pools" term from Sprint 10; new prose targets the audience tracks defined in Sprint 3. |
-
-### Phase 3 — Content additions (largely independent of each other)
-| Sprint | Notes |
-|--------|-------|
-| **4 — Miniature Economy** | Adds to `aureum_mental_model.md` and `theoretical_foundation.md`. |
-| **5 — Equal→CCB Motivation** | Adds to `aureum_mental_model.md` and `transitions.md`. |
-| **6 — Governance Exponents** | Adds to `tokenomics.md` and `constitution.md`. |
-| **7 — Deflationary Crossover** | Adds to `tokenomics.md`. |
-
-### Phase 4 — Precision and cleanup
-| Sprint | Notes |
-|--------|-------|
-| **11 — bootstrap.md tightening** | Minor presentation improvements; most structural issues already addressed. |
-| **8 — Composition Challenge** | ⚠️ **Requires design decisions** — worked examples need protocol-level rulings on edge cases (e.g. does a Bitcoin L2 token qualify as "economically similar" to cbBTC?). These are not editorial choices. |
-| **9 — Price Ceiling / Low-Turnout** | ⚠️ **Requires design decisions** — specific numbers must be decided before an editor can write them: the price ceiling multiple, the turnout threshold percentage, which proposal types auto-fail vs. enter timelock, and the timelock duration. |
+| Phase | Sprints | Rationale |
+|-------|---------|-----------|
+| **1 — Foundation** | 1, 2 | Canonicalise terms and define audience tracks before writing new prose. |
+| **2 — Critical rewrites** | 3, 4 | CCB and constellation routing rewrites, now using canonical terms and targeting defined audiences. |
+| **3 — Content additions** | 5, 6, 7, 8 | Largely independent of each other; each adds missing motivation, rationale, or worked examples. |
+| **4 — Precision and cleanup** | 9, 10, 11 | Sprint 9 is minor tightening. Sprints 10–11 require protocol-level design decisions before editorial work can begin. |
 
 ---
 
-## Sprint 1 — CCB Explanation Rewrite
+## Sprint 1 — Repetition and Parameter Canonicalisation
+**Files:** `constitution.md`, all files referencing CCB parameters
+**Impact:** High — CCB multiplier parameters are restated in 7 files; "28 Miliarium Aureum pools" appears 34 times with inconsistent variants. This must be resolved first so every subsequent sprint writes prose using canonical terms.
+
+### Tasks
+- [ ] Designate `constitution.md` §xxix as the canonical source for all immutable parameters
+- [ ] In every other file that restates CCB multiplier bounds, step size, dead zone, or EMA horizon: replace the inline restatement with a citation — "See Immutable Parameters (`constitution.md` §xxix)"
+- [ ] Standardise the primary term for the founding pools: choose one form (e.g. "the 28 Miliarium pools") and apply it consistently; reserve "immutable" qualifier only for sentences where immutability is the point
+- [ ] Standardise "block emission rate" as the primary term (replacing "block reward," "per-block emission," "emission_per_block" — keep the formula variable name in `formulas.md` only)
+- [ ] Audit the EMA explanation: it appears in 5 files; designate `theoretical_foundation.md` §vi as canonical; replace full re-explanations in other files with one-sentence summaries + cross-reference
+
+---
+
+## Sprint 2 — Reading Guide and Audience Tracks
+**Files:** `overview.md`
+**Impact:** High — no reading order is defined; new readers start randomly and get lost. Defining audience tracks now frames the tone and depth of every subsequent rewrite.
+
+### Tasks
+- [ ] Add a "How to Read This Documentation" section at the top of `overview.md`
+- [ ] Define two tracks explicitly:
+  - **LP / Investor track:** overview → aureum_mental_model → tokenomics (§ix–x) → one pool profile → appendices (xxxvii, xxxix)
+  - **Builder / Auditor track:** constitution → formulas → bootstrap (§xxiii–xxv) → theoretical_foundation → appendices (xxxvi)
+- [ ] Add a one-line description of each file's purpose and audience to the reading guide
+- [ ] Cross-link the reading guide from `README.md`
+
+---
+
+## Sprint 3 — CCB Explanation Rewrite
 **Files:** `theoretical_foundation.md`
 **Impact:** Critical — the protocol's core mechanic spans §vi–§vii (~76 lines) but mixes scoring inputs with multiplier mechanics, and the FAQ block introduces new notation mid-explanation.
 
@@ -48,7 +53,7 @@ The sprints are numbered by topic, not by execution order. The recommended seque
 
 ---
 
-## Sprint 2 — Constellation Routing Explanation
+## Sprint 4 — Constellation Routing Explanation
 **Files:** `aureum_mental_model.md`
 **Impact:** Critical — 26 of 28 pools hold ixEDEL but the routing mechanic is never plainly stated anywhere.
 
@@ -60,21 +65,7 @@ The sprints are numbered by topic, not by execution order. The recommended seque
 
 ---
 
-## Sprint 3 — Reading Guide and Audience Tracks
-**Files:** `overview.md`
-**Impact:** High — no reading order is defined; new readers start randomly and get lost.
-
-### Tasks
-- [ ] Add a "How to Read This Documentation" section at the top of `overview.md`
-- [ ] Define two tracks explicitly:
-  - **LP / Investor track:** overview → aureum_mental_model → tokenomics (§ix–x) → one pool profile → appendices (xxxvii, xxxix)
-  - **Builder / Auditor track:** constitution → formulas → bootstrap (§xxiii–xxv) → theoretical_foundation → appendices (xxxvi)
-- [ ] Add a one-line description of each file's purpose and audience to the reading guide
-- [ ] Cross-link the reading guide from `README.md`
-
----
-
-## Sprint 4 — "Miniature Economy" and 28-Pool Rationale
+## Sprint 5 — "Miniature Economy" and 28-Pool Rationale
 **Files:** `aureum_mental_model.md`, `miliarium_profiles/sectors.md`
 **Impact:** High — the "miniature economy" framing is the strongest conceptual hook but is buried in a taxonomy file; the number 28 is never justified.
 
@@ -86,7 +77,7 @@ The sprints are numbered by topic, not by execution order. The recommended seque
 
 ---
 
-## Sprint 5 — Equal → CCB Transition Motivation
+## Sprint 6 — Equal → CCB Transition Motivation
 **Files:** `aureum_mental_model.md`, `transitions.md`
 **Impact:** High — the mechanics are clear but the *why* is absent: why two months, what pool operators should expect, what this means for LP ROI calculations.
 
@@ -97,7 +88,7 @@ The sprints are numbered by topic, not by execution order. The recommended seque
 
 ---
 
-## Sprint 6 — Governance Exponent Justification
+## Sprint 7 — Governance Exponent Justification
 **Files:** `tokenomics.md`, `constitution.md`
 **Impact:** High — 4th root (Era 0) and cube root (Era 1+) are stated and the transition is now correctly described as permanent, but *why those specific exponents* is not argued anywhere.
 
@@ -108,7 +99,7 @@ The sprints are numbered by topic, not by execution order. The recommended seque
 
 ---
 
-## Sprint 7 — Deflationary Crossover Worked Example
+## Sprint 8 — Deflationary Crossover Worked Example
 **Files:** `tokenomics.md`
 **Impact:** Medium — the concept is mentioned but feels aspirational without numbers; a worked example makes it real.
 
@@ -120,43 +111,7 @@ The sprints are numbered by topic, not by execution order. The recommended seque
 
 ---
 
-## Sprint 8 — Composition Challenge Mechanics
-**Files:** `bootstrap.md`, `constitution.md`
-**Impact:** Medium — the mechanic is described clearly in §xxiv but lacks worked examples for the edge cases real operators will face.
-**⚠️ Prerequisite:** This sprint requires design decisions on edge-case rulings before editorial work can begin. The worked examples cannot be written until the protocol team decides what qualifies as "economically similar."
-
-### Tasks
-- [ ] Add a concrete worked example to `bootstrap.md` §xxiv: the cbBTC delisting scenario — what clearly qualifies (tBTC — same asset type), what clearly doesn't (physical gold — different asset class), and what is borderline (Bitcoin L2 token — requires 2/3 to judge "similar economic properties")
-- [ ] Clarify whether a composition challenge can replace both theme assets simultaneously or must be done in two separate votes
-- [ ] Clarify "like-for-like renewal only" more precisely: same sector, same risk profile, same template role (yield core vs. routing vs. theme)
-
----
-
-## Sprint 9 — Price Ceiling and Low-Turnout Precision
-**Files:** `tokenomics.md`, `constitution.md`
-**Impact:** Medium — both mechanisms are currently described in terms too vague to be actionable.
-**⚠️ Prerequisite:** This sprint requires the protocol team to decide specific parameter values: the price ceiling multiple, the fundamental metric, the turnout threshold, proposal-type routing rules, and timelock duration. These are design decisions, not editorial ones.
-
-### Tasks
-- [ ] **Price ceiling** (`tokenomics.md` §x): specify what "fixed multiple of trailing fundamentals" means — define the fundamental metric (protocol revenue per circulating AuMM), the multiple, and how the ceiling is calculated on-chain
-- [ ] **Low-turnout safeguard** (`tokenomics.md` §ix, `constitution.md` §xxvii): replace "very low turnout" with a specific threshold; specify which proposal types auto-fail vs. enter timelock; specify the timelock duration
-
----
-
-## Sprint 10 — Repetition and Parameter Canonicalisation
-**Files:** `constitution.md`, all files referencing CCB parameters
-**Impact:** Medium — CCB multiplier parameters are restated in 7 files; "28 Miliarium Aureum pools" appears 34 times with inconsistent variants.
-
-### Tasks
-- [ ] Designate `constitution.md` §xxix as the canonical source for all immutable parameters
-- [ ] In every other file that restates CCB multiplier bounds, step size, dead zone, or EMA horizon: replace the inline restatement with a citation — "See Immutable Parameters (`constitution.md` §xxix)"
-- [ ] Standardise the primary term for the founding pools: choose one form (e.g. "the 28 Miliarium pools") and apply it consistently; reserve "immutable" qualifier only for sentences where immutability is the point
-- [ ] Standardise "block emission rate" as the primary term (replacing "block reward," "per-block emission," "emission_per_block" — keep the formula variable name in `formulas.md` only)
-- [ ] Audit the EMA explanation: it appears in 5 files; designate `theoretical_foundation.md` §vi as canonical; replace full re-explanations in other files with one-sentence summaries + cross-reference
-
----
-
-## Sprint 11 — bootstrap.md Restructure
+## Sprint 9 — bootstrap.md Restructure
 **Files:** `bootstrap.md`
 **Impact:** Medium — the gauge prerequisite and boost mechanisms are stated (§xxi line 13 leads with "This is the single gatekeeping step"; the Bootstrapping Sequence table at lines 23–30 separates the two boosts), but the presentation can be tightened.
 
@@ -168,4 +123,27 @@ The sprints are numbered by topic, not by execution order. The recommended seque
 
 ---
 
-*Each sprint should be committed and merged independently. See Execution Order at the top for the recommended sequence.*
+## Sprint 10 — Composition Challenge Mechanics
+**Files:** `bootstrap.md`, `constitution.md`
+**Impact:** Medium — the mechanic is described clearly in §xxiv but lacks worked examples for the edge cases real operators will face.
+**⚠️ Prerequisite:** This sprint requires design decisions on edge-case rulings before editorial work can begin. The worked examples cannot be written until the protocol team decides what qualifies as "economically similar."
+
+### Tasks
+- [ ] Add a concrete worked example to `bootstrap.md` §xxiv: the cbBTC delisting scenario — what clearly qualifies (tBTC — same asset type), what clearly doesn't (physical gold — different asset class), and what is borderline (Bitcoin L2 token — requires 2/3 to judge "similar economic properties")
+- [ ] Clarify whether a composition challenge can replace both theme assets simultaneously or must be done in two separate votes
+- [ ] Clarify "like-for-like renewal only" more precisely: same sector, same risk profile, same template role (yield core vs. routing vs. theme)
+
+---
+
+## Sprint 11 — Price Ceiling and Low-Turnout Precision
+**Files:** `tokenomics.md`, `constitution.md`
+**Impact:** Medium — both mechanisms are currently described in terms too vague to be actionable.
+**⚠️ Prerequisite:** This sprint requires the protocol team to decide specific parameter values: the price ceiling multiple, the fundamental metric, the turnout threshold, proposal-type routing rules, and timelock duration. These are design decisions, not editorial ones.
+
+### Tasks
+- [ ] **Price ceiling** (`tokenomics.md` §x): specify what "fixed multiple of trailing fundamentals" means — define the fundamental metric (protocol revenue per circulating AuMM), the multiple, and how the ceiling is calculated on-chain
+- [ ] **Low-turnout safeguard** (`tokenomics.md` §ix, `constitution.md` §xxvii): replace "very low turnout" with a specific threshold; specify which proposal types auto-fail vs. enter timelock; specify the timelock duration
+
+---
+
+*Each sprint should be committed and merged independently. Sprints are numbered in execution order.*
