@@ -49,7 +49,7 @@
 ## Eras
 
 - **Era 0 (years 0–4, pre-halving)**: block reward 1.00 AuMM. Governance dampening exponent: fourth root. Maximum compression protects against whale capture when protocol TVL is lowest.
-- **Era 1 (years 4–8, post-first-halving)**: block reward 0.50 AuMM. Governance dampening exponent transitions to cube root at the halving block. TVL growth has naturally diluted individual power — the exponent relaxes accordingly.
+- **Era 1+ (year 4 onward, post-first-halving)**: block reward 0.50 AuMM in Era 1, continuing to halve each era. Governance dampening exponent transitions permanently to cube root at the first halving block — subsequent halvings affect block reward rate only, not governance mechanics. TVL growth has naturally diluted individual power — the exponent relaxes accordingly.
 
 ## xxxiv. Controls (Immutable)
 

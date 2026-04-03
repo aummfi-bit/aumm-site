@@ -61,8 +61,8 @@ Emission allocation is driven by the **Continuous Central Bank (CCB)** — not b
 For decisions beyond emission direction (fee parameters, treasury, gauge approvals/challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
 
 ```
-Era 0 (years 0–4, pre-halving):   voting_power = (qualified_AuMT_value × time_in_pool)^(1/4)
-Era 1 (years 4–8, post-halving):  voting_power = (qualified_AuMT_value × time_in_pool)^(1/3)
+Era 0 (years 0–4, pre-halving):        voting_power = (qualified_AuMT_value × time_in_pool)^(1/4)
+Era 1+ (year 4 onward, post-halving):  voting_power = (qualified_AuMT_value × time_in_pool)^(1/3)
 ```
 
 **`qualified_AuMT_value` is the USD-denominated value of the liquidity the tessera represents** — not the number of AuMT tokens held. Each tessera is a proportional claim on its pool's TVL. An AuMT representing a $50K position in ixAppia carries more governance weight than an AuMT representing a $5K position in a smaller pool, because the underlying locked value is different. Different pools have different TVLs and different token compositions; the governance formula normalises across all of them by pricing each tessera at the current market value of the liquidity it represents.
@@ -74,7 +74,7 @@ The dampening exponent transitions from fourth root to cube root at the first ha
 **Why the transition matters:**
 
 - **Era 0 (fourth root):** A $100M position has 18x the governance weight of a $1K position. At low TVL, a single whale can represent 20%+ of the entire protocol. Maximum compression prevents single-actor capture when the protocol is most vulnerable. The whale still has more governance weight than a small LP — they just can't steamroll every vote.
-- **Era 1 (cube root):** A $100M position has 46x the governance weight of a $1K position. By year 4, TVL growth has naturally diluted individual power — a $10M whale in a $200M protocol is 5%, not 20%. The ecosystem no longer needs training wheels. The exponent relaxes because the primary decentralization force is now TVL distribution, not governance math.
+- **Era 1+ (cube root, permanent from year 4):** A $100M position has 46x the governance weight of a $1K position. By year 4, TVL growth has naturally diluted individual power — a $10M whale in a $200M protocol is 5%, not 20%. The ecosystem no longer needs training wheels. The exponent relaxes at the first halving block and stays at cube root permanently — subsequent halvings affect block reward rate only, not governance mechanics.
 
 The transition trigger is the halving block itself — immutable in the contract, no governance vote required, no discretionary timing.
 
