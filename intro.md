@@ -43,12 +43,5 @@
   { "text": "", "spacer": true, "pause": 800 },
   { "text": "$AuMT proves you are participating.", "highlight": "$AuMT", "pause": 700 },
   { "text": "$AuMM drives value to your participation.", "highlight": "$AuMM", "pause": 1200 },
-  { "text": "", "spacer": true, "pause": 800 },
-  { "text": "AUREUM", "cta": true, "pause": 600 },
-  { "text": "MILES AHEAD", "cta": true, "pause": 1200 },
-  { "text": "", "spacer": true, "pause": 700 },
-  { "text": "Imagine mining BTC with capital, not electricity.", "pause": 800 },
-  { "text": "Imagine BTC with a buy back and burn program sponsored by real fees.", "pause": 800 },
-  { "text": "Imagine your capital is liquidity generating real fees that buy back and burn the scarce token.", "pause": 900 },
   { "text": "Meet $AuMM.", "cta": true, "highlight": "$AuMM", "pause": 0 }
 ]
