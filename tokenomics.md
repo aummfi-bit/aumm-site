@@ -82,6 +82,27 @@ This eliminates:
 - **Ghost governance:** Withdraw most liquidity while retaining outsized governance weight from original position's time-weighting
 - **Capital-rotation attacks:** Deposit large capital, vote immediately, then move capital elsewhere — the 6-month on-ramp means new capital has negligible governance power
 
+#### Low-Turnout Safeguard
+
+Uncontested proposals with very low turnout do not pass silently. They either auto-fail or route to a timelock with a mandatory public review period. This prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+
+#### Anti-Market Buying
+
+Only active liquidity providers in **emission-qualified pools** possess governance voting power. AuMT held in pools that do not meet eligibility criteria carries zero voting weight. You cannot buy governance power on the open market, and you cannot earn it by parking capital in unproductive pools. You must be providing liquidity to pools that meet every anti-gaming criterion.
+
+Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum compression when the protocol is smallest and most vulnerable, relaxing as TVL growth naturally decentralizes power. Time-weighting rewards commitment without requiring lock mechanisms.
+
+#### Governance Scope
+
+**What governance controls:**
+
+- Fee parameters (swap fee %, yield fee %)
+- Treasury allocation (within defined bounds)
+- Gauge approvals and challenges (with timelock)
+- Miliarium Aureum composition challenges (2/3 supermajority)
+
+**What governance cannot control:** See Immutable Parameters in `constitution.md` for the full list. In short: emission schedule, maximum supply, CCB engine parameters (60-day EMA, Miliarium Aureum emissions, Incendiary Boost mechanics, Sandbox fast-track threshold), governance dampening transition, eligibility criteria, fee distribution split, and all launch mechanics are immutable in contract.
+
 ### Token Properties
 
 AuMM is a **100% liquid token**. There is no locking, no staking, no ve-mechanism, no wrapper. You hold AuMM, you can sell it at any time.
