@@ -41,6 +41,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 | Miliarium → Registry | [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) |
 | Miliarium → Manifest | [`06_miliarium_manifest.md`](https://aumm.fi/06_miliarium_manifest.md) |
 | Miliarium → Sectors | [`07_miliarium_sectors.md`](https://aumm.fi/07_miliarium_sectors.md) |
+| Miliarium → Tokens | [`07a_tokens.md`](https://aumm.fi/07a_tokens.md) |
 | Governance → Constitution | [`10_constitution.md`](https://aumm.fi/10_constitution.md) |
 | Governance → Bootstrap | [`08_bootstrap.md`](https://aumm.fi/08_bootstrap.md) |
 | Governance → Transitions | [`09_transitions.md`](https://aumm.fi/09_transitions.md) |
@@ -67,7 +68,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 5. [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) — AuMM supply, fees, governance voting  
 6. [`11_formulas.md`](https://aumm.fi/11_formulas.md) — F-0–F-12 (emissions, CCB, governance power, efficiency tournament, **F-12 gauge-challenge deposit** for non-Miliarium targets)  
 7. [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) — 28-pool registry  
-8. [`06_miliarium_manifest.md`](https://aumm.fi/06_miliarium_manifest.md), [`07_miliarium_sectors.md`](https://aumm.fi/07_miliarium_sectors.md)  
+8. [`06_miliarium_manifest.md`](https://aumm.fi/06_miliarium_manifest.md), [`07_miliarium_sectors.md`](https://aumm.fi/07_miliarium_sectors.md), [`07a_tokens.md`](https://aumm.fi/07a_tokens.md) (token inventory)  
 9. [`08_bootstrap.md`](https://aumm.fi/08_bootstrap.md), [`09_transitions.md`](https://aumm.fi/09_transitions.md), [`12_aureum_glossary.md`](https://aumm.fi/12_aureum_glossary.md), [`13_appendices.md`](https://aumm.fi/13_appendices.md), [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) — as needed  
 
 Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.

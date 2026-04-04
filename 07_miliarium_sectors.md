@@ -2,7 +2,7 @@
 
 *How the 28 Miliarium pools map to a diversified on-chain economy.*
 
-Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum](05_miliarium_aureum.md) (**slots 01–28**). Connector pools are **05–07** (Edelweiss, Libertas, Cambio). One profile per pool: **`NN_ixCanonicalName.md`** in [manifest](06_miliarium_manifest.md).
+Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum](05_miliarium_aureum.md) (**slots 01–28**). Connector pools are **05–07** (Edelweiss, Libertas, Cambio). One profile per pool: **`NN_ixCanonicalName.md`** in [manifest](06_miliarium_manifest.md). **Deduplicated token list (ticker, ERC type, pools):** [07a_tokens.md](07a_tokens.md).
 
 ## xvi. Mapping and slot ranges
 

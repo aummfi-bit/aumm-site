@@ -5,6 +5,7 @@ https://aumm.fi/04_tokenomics.md
 https://aumm.fi/05_miliarium_aureum.md
 https://aumm.fi/06_miliarium_manifest.md
 https://aumm.fi/07_miliarium_sectors.md
+https://aumm.fi/07a_tokens.md
 https://aumm.fi/08_bootstrap.md
 https://aumm.fi/09_transitions.md
 https://aumm.fi/10_constitution.md
