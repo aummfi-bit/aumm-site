@@ -30,7 +30,7 @@ Or: `npx --yes serve -p 8080`
 
 ## UI notes
 
-- **Intro** is driven by `01_intro.md` (JSON array of typed lines).
+- **Intro** is driven by `01_intro.json` (JSON array of typed lines).
 - After the intro, a gate prompts for the Tessera (see `index.html`); this is a presentation layer for the static bundle.
 - **Miliarium ▾** in the nav opens **Registry** (`05_miliarium_aureum.md`), **Manifest**, **Sectors**, and in-app rendering of pool profile files so `.md` links do not open as raw files.
 

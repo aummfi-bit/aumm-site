@@ -4,7 +4,7 @@ Static protocol documentation for **Project Aureum**: immutable AMM rules, **Mil
 
 **Full URL list (one per line, for crawlers and RAG):** https://aumm.fi/llms-full.txt
 
-**Excluded from the corpus:** `01_intro.md` (JSON lines for the intro animation, not prose documentation).
+**Excluded from the corpus:** `01_intro.json` (JSON lines for the intro animation, not prose documentation).
 
 **Repository layout:** See `README.md` in this bundle for editors and section numbering.
 

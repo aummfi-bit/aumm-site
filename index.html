@@ -685,8 +685,8 @@ loadMd('12_aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('13_appendices.md', 'appendices-body', 'appendices');
 loadMd('14_ux_ui.md', 'ux-ui-body', 'ux_ui');
 
-// Load intro lines from 01_intro.md and start animation
-fetch('01_intro.md', fetchMdOpts)
+// Load intro lines from 01_intro.json and start animation
+fetch('01_intro.json', fetchMdOpts)
   .then(function(r) { return r.text(); })
   .then(function(text) {
     introLines = JSON.parse(text);
