@@ -5,15 +5,15 @@ The 28 pools are pre-defined at launch and locked from block 0. No open slots.
 ### Scope
 
 - There are **28** Miliarium Aureum pools (the founding constellation), immutable from block 0.
-- Through **end of Month 10**, the **LP emission tranche** is split **equal** (**1/28 of the tranche** each). **Months 11–12** blend **linearly** from equal to CCB (see `constitution.md`). **After Year 1**, allocation is **pure CCB** (EMA TVL × CCB multiplier). Incendiary Boost is a separate priority skim on the LP tranche.
+- Through **end of Month 10**, the **LP emission tranche** is split **equal** (**1/28 of the tranche** each). **Months 11–12** blend **linearly** from equal to CCB (see `10_constitution.md`). **After Year 1**, allocation is **pure CCB** (EMA TVL × CCB multiplier). Incendiary Boost is a separate priority skim on the LP tranche.
 
 ### AuMM vs the 28 pools
 
-**AuMM** is the reward **token** (`tokenomics.md`), not a Miliarium slot. **der Bodensee Pool** (AuMM + svZCHF LBP) is at the end of this file — **Section xii** (bootstrap AuMM **Months 1–10** only).
+**AuMM** is the reward **token** (`04_tokenomics.md`), not a Miliarium slot. **der Bodensee Pool** (AuMM + svZCHF LBP) is at the end of this file — **Section xii** (bootstrap AuMM **Months 1–10** only).
 
 ### Canonical registry
 
-The registry tables in Section xi are the binding list of pools and compositions (one ordered list **01–28**, split by sector for readability). Emission allocation is not vote-controlled; governance applies only to non-emission actions (see `constitution.md`, `bootstrap.md`).
+The registry tables in Section xi are the binding list of pools and compositions (one ordered list **01–28**, split by sector for readability). Emission allocation is not vote-controlled; governance applies only to non-emission actions (see `10_constitution.md`, `08_bootstrap.md`).
 
 ---
 
@@ -146,17 +146,17 @@ With shared **svZCHF** and **ixEDEL** across most pools, arbitrage layers includ
 
 ### Miliarium Aureum benefits
 
-**1. CCB emission multiplier.** Miliarium pools are the only pools eligible for the automatic CCB multiplier (see `theoretical_foundation.md` §vii and `formulas.md` F-8; for numeric bounds, see `constitution.md` §xxix).
+**1. CCB emission multiplier.** Miliarium pools are the only pools eligible for the automatic CCB multiplier (see `03_theoretical_foundation.md` §vii and `11_formulas.md` F-8; for numeric bounds, see `10_constitution.md` §xxix).
 
 **2. der Bodensee Pool revenue routing.** All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) flows into der Bodensee Pool as one-sided svZCHF inflows, deepening the autonomous reserve that provides AuMM price discovery and liquidity depth for the entire constellation.
 
-**Permanent slots.** The 28 Miliarium slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: the old pool’s gauge is revoked and a replacement pool with the updated composition is launched into the same slot, following the standard bootstrap path (gauge proposal, vote, 90-day boost). Like-for-like means same sector, same risk, same template role (see `bootstrap.md` §xxiv for worked examples and `constitution.md` §xxvii for the binding rule).
+**Permanent slots.** The 28 Miliarium slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: the old pool’s gauge is revoked and a replacement pool with the updated composition is launched into the same slot, following the standard bootstrap path (gauge proposal, vote, 90-day boost). Like-for-like means same sector, same risk, same template role (see `08_bootstrap.md` §xxiv for worked examples and `10_constitution.md` §xxvii for the binding rule).
 
-**Beyond the 28.** The Miliarium pools are a curated economic blueprint, not the full economy. If a token or asset class is missing, the path is a new permissionless pool and a gauge vote — not a composition challenge. The community is encouraged to deploy pools for new stablecoins, tokenized RWAs, and crypto tokens with meaningful volume. See `bootstrap.md` §xxi for gauge approval mechanics.
+**Beyond the 28.** The Miliarium pools are a curated economic blueprint, not the full economy. If a token or asset class is missing, the path is a new permissionless pool and a gauge vote — not a composition challenge. The community is encouraged to deploy pools for new stablecoins, tokenized RWAs, and crypto tokens with meaningful volume. See `08_bootstrap.md` §xxi for gauge approval mechanics.
 
 ### Pool profiles
 
-Each Miliarium pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column in Section xi). In the site UI, open **Miliarium ▾** in the nav for **Manifest** (full registry table), **Sectors** (taxonomy), and **Registry** (this document). The same links work here: [manifest](miliarium_profiles/manifest.md) · [sector taxonomy](miliarium_profiles/sectors.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
+Each Miliarium pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column in Section xi). In the site UI, open **Miliarium ▾** in the nav for **Manifest** (full registry table), **Sectors** (taxonomy), and **Registry** (this document). The same links work here: [manifest](06_miliarium_manifest.md) · [sector taxonomy](07_miliarium_sectors.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
 
 ---
 
@@ -166,15 +166,15 @@ The **28** Miliarium pools in **Section xi** are the full **Miliarium Aureum** f
 
 **der Bodensee Pool** — the protocol’s autonomous reserve and AuMM price-discovery venue. A two-token Liquidity Bootstrapping Pool (**AuMM + svZCHF**) with linear time-decay weights: **90% AuMM / 10% svZCHF** at genesis, decaying to **48% AuMM / 52% svZCHF** over 18 months. All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) flows one-sided into the svZCHF side. This is **not** one of the immutable ix pools above.
 
-**Emissions:** **Months 1–10**, der Bodensee Pool receives a **linearly decaying one-sided AuMM bootstrap** (80% of block emission at genesis → 0% at end of Month 10; see `formulas.md` F-0). **After Month 10**, it receives **no** further AuMM via emission. **AuMM** is also **minted** to LPs of the **28** Miliarium pools (and gauge-eligible pools per **`bootstrap.md`**) from the **LP emission tranche**. LPs in der Bodensee Pool earn **swap fees** on their liquidity; they do **not** receive the per-block **LP-tranche** emission stream (that accrues to the 28 + gauges).
+**Emissions:** **Months 1–10**, der Bodensee Pool receives a **linearly decaying one-sided AuMM bootstrap** (80% of block emission at genesis → 0% at end of Month 10; see `11_formulas.md` F-0). **After Month 10**, it receives **no** further AuMM via emission. **AuMM** is also **minted** to LPs of the **28** Miliarium pools (and gauge-eligible pools per **`08_bootstrap.md`**) from the **LP emission tranche**. LPs in der Bodensee Pool earn **swap fees** on their liquidity; they do **not** receive the per-block **LP-tranche** emission stream (that accrues to the 28 + gauges).
 
 | Concept | What it is |
 |:--------|:-----------|
-| **AuMM (token)** | Emission, halving, and fee routing — **`tokenomics.md`**. |
+| **AuMM (token)** | Emission, halving, and fee routing — **`04_tokenomics.md`**. |
 | **der Bodensee Pool** | AuMM + svZCHF LBP with time-decay weights; autonomous reserve; **Months 1–10** one-sided AuMM bootstrap; **after Month 10**, no AuMM via emission to this pool. |
 
-**Summary:** Read **Section xi** for the **only** locked founding pools and LP-tranche emission destinations. Read **`tokenomics.md`** for **AuMM** the asset; this section defines **der Bodensee Pool** vs the **28** Miliarium pools.
+**Summary:** Read **Section xi** for the **only** locked founding pools and LP-tranche emission destinations. Read **`04_tokenomics.md`** for **AuMM** the asset; this section defines **der Bodensee Pool** vs the **28** Miliarium pools.
 
 ---
 
-See Immutable Parameters (`constitution.md` §xxix).
+See Immutable Parameters (`10_constitution.md` §xxix).

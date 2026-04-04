@@ -16,26 +16,26 @@ Fixes organised by dependency order. Each sprint is self-contained and can be me
 ---
 
 ## Sprint 1 — Repetition and Parameter Canonicalisation
-**Files:** `constitution.md`, all files referencing CCB parameters
+**Files:** `10_constitution.md`, all files referencing CCB parameters
 **Impact:** High — CCB multiplier parameters are restated in 7 files; "28 Miliarium Aureum pools" appears 34 times with inconsistent variants. This must be resolved first so every subsequent sprint writes prose using canonical terms.
 
 ### Tasks
-- [x] Designate `constitution.md` §xxix as the canonical source for all immutable parameters
-- [x] In every other file that restates CCB multiplier bounds, step size, dead zone, or EMA horizon: replace the inline restatement with a citation — "See Immutable Parameters (`constitution.md` §xxix)"
+- [x] Designate `10_constitution.md` §xxix as the canonical source for all immutable parameters
+- [x] In every other file that restates CCB multiplier bounds, step size, dead zone, or EMA horizon: replace the inline restatement with a citation — "See Immutable Parameters (`10_constitution.md` §xxix)"
 - [x] Standardise the primary term for the founding pools: choose one form (e.g. "the 28 Miliarium pools") and apply it consistently; reserve "immutable" qualifier only for sentences where immutability is the point
-- [x] Standardise "block emission rate" as the primary term (replacing "block reward," "per-block emission," "emission_per_block" — keep the formula variable name in `formulas.md` only)
-- [x] Audit the EMA explanation: it appears in 5 files; designate `theoretical_foundation.md` §vi as canonical; replace full re-explanations in other files with one-sentence summaries + cross-reference
+- [x] Standardise "block emission rate" as the primary term (replacing "block reward," "per-block emission," "emission_per_block" — keep the formula variable name in `11_formulas.md` only)
+- [x] Audit the EMA explanation: it appears in 5 files; designate `03_theoretical_foundation.md` §vi as canonical; replace full re-explanations in other files with one-sentence summaries + cross-reference
 
 ---
 
 ## Sprint 2 — Reading Guide and Audience Tracks
-**Files:** `overview.md`
+**Files:** `15_overview.md`
 **Impact:** High — no reading order is defined; new readers start randomly and get lost. Defining audience tracks now frames the tone and depth of every subsequent rewrite.
 
 ### Tasks
-- [x] Add a "How to Read This Documentation" section at the top of `overview.md`
+- [x] Add a "How to Read This Documentation" section at the top of `15_overview.md`
 - [x] Define two tracks explicitly:
-  - **LP / Investor track:** overview → aureum_mental_model → tokenomics (§ix–x) → one pool profile → appendices (xxxvii, xxxix)
+  - **LP / Investor track:** overview → 02_mental_model → tokenomics (§ix–x) → one pool profile → appendices (xxxvii, xxxix)
   - **Builder / Auditor track:** constitution → formulas → bootstrap (§xxiii–xxv) → theoretical_foundation → appendices (xxxvi)
 - [x] Add a one-line description of each file's purpose and audience to the reading guide
 - [x] Cross-link the reading guide from `README.md`
@@ -43,20 +43,20 @@ Fixes organised by dependency order. Each sprint is self-contained and can be me
 ---
 
 ## Sprint 3 — CCB Explanation Rewrite
-**Files:** `theoretical_foundation.md`
+**Files:** `03_theoretical_foundation.md`
 **Impact:** Critical — the protocol's core mechanic spans §vi–§vii (~76 lines) but mixes scoring inputs with multiplier mechanics, and the FAQ block introduces new notation mid-explanation.
 
 ### Tasks
 - [x] Rewrite §vi opening: separate the EMA-as-scoring-input from the multiplier-as-adjustment into clearly distinct paragraphs before any detail
 - [x] Restructure §vi into three clean subsections: (1) What the EMA does and why, (2) How pools score and compete — normalisation across all eligible pools, (3) How the block reward flows after Incendiary skim
-- [x] ~~Restructure §vii opening to clearly state upfront: "The CCB multiplier is a *separate layer on top of* the base score."~~ — Already done (lines 70–71 of `theoretical_foundation.md` explicitly state "a **separate** layer that applies **only** to the 28 immutable Miliarium Aureum pools… sits **on top of** each Miliarium pool's TVL EMA")
+- [x] ~~Restructure §vii opening to clearly state upfront: "The CCB multiplier is a *separate layer on top of* the base score."~~ — Already done (lines 70–71 of `03_theoretical_foundation.md` explicitly state "a **separate** layer that applies **only** to the 28 immutable Miliarium Aureum pools… sits **on top of** each Miliarium pool's TVL EMA")
 - [x] Move the FAQ block (§vii bottom) to a collapsible or appendix section — the Q&A format introduces new concepts mid-explanation and stalls comprehension
 - [x] Remove all within-section back-references ("as explained above", "read Section vi first") and make each subsection self-standing
 
 ---
 
 ## Sprint 4 — Constellation Routing Explanation
-**Files:** `aureum_mental_model.md`
+**Files:** `02_mental_model.md`
 **Impact:** Critical — 26 of 28 pools hold ixEDEL but the routing mechanic is never plainly stated anywhere.
 
 ### Tasks
@@ -68,53 +68,53 @@ Fixes organised by dependency order. Each sprint is self-contained and can be me
 ---
 
 ## Sprint 5 — "Miniature Economy" and 28-Pool Rationale
-**Files:** `aureum_mental_model.md`, `miliarium_profiles/sectors.md`
+**Files:** `02_mental_model.md`, `07_miliarium_sectors.md`
 **Impact:** High — the "miniature economy" framing is the strongest conceptual hook but is buried in a taxonomy file; the number 28 is never justified.
 
 ### Tasks
-- [x] Move the "miniature economy" concept from `sectors.md` §xvii into `aureum_mental_model.md` §ii (Core Principles) or the Roman Infrastructure section
+- [x] Move the "miniature economy" concept from `07_miliarium_sectors.md` §xvii into `02_mental_model.md` §ii (Core Principles) or the Roman Infrastructure section
 - [x] Add an explanation for why 28 pools: enough sectors to weather macro rotation, small enough for on-chain CCB multiplier tracking — state this directly rather than leaving readers to infer it
-- [x] In `sectors.md` §xvii, keep the design principle but reference back to `aureum_mental_model.md` as the canonical intro
-- [x] Add one sentence to the CCB description in `theoretical_foundation.md` connecting the miniature economy framing: "The CCB acts as the central bank of this miniature economy — tightening yield during booms, loosening during busts, automatically"
+- [x] In `07_miliarium_sectors.md` §xvii, keep the design principle but reference back to `02_mental_model.md` as the canonical intro
+- [x] Add one sentence to the CCB description in `03_theoretical_foundation.md` connecting the miniature economy framing: "The CCB acts as the central bank of this miniature economy — tightening yield during booms, loosening during busts, automatically"
 
 ---
 
 ## Sprint 6 — Equal → CCB Transition Motivation
-**Files:** `aureum_mental_model.md`, `transitions.md`
+**Files:** `02_mental_model.md`, `09_transitions.md`
 **Impact:** High — the mechanics are clear but the *why* is absent: why two months, what pool operators should expect, what this means for LP ROI calculations.
 
 ### Tasks
-- [x] Add a motivation paragraph to `aureum_mental_model.md` §iv (Emission Regimes) explaining: why 2 months (gradual vs. abrupt), what pools should expect (emission share will shift; some gain, some lose), and that the TVL EMA needs time to stabilise with real data
-- [x] In `transitions.md` §xxvi (Month 11 entry), add a plain-English note: "Pools that performed well under equal allocation may see their share decline if their TVL lags the protocol average. This is by design — the transition rewards sustained capital, not historical incumbency."
+- [x] Add a motivation paragraph to `02_mental_model.md` §iv (Emission Regimes) explaining: why 2 months (gradual vs. abrupt), what pools should expect (emission share will shift; some gain, some lose), and that the TVL EMA needs time to stabilise with real data
+- [x] In `09_transitions.md` §xxvi (Month 11 entry), add a plain-English note: "Pools that performed well under equal allocation may see their share decline if their TVL lags the protocol average. This is by design — the transition rewards sustained capital, not historical incumbency."
 - [x] Add a note clarifying that the equal regime gives all 28 pools identical treatment regardless of TVL — intentional to bootstrap the constellation before the EMA has meaningful data
 
 ---
 
 ## Sprint 7 — Governance Exponent Justification
-**Files:** `tokenomics.md`, `constitution.md`
+**Files:** `04_tokenomics.md`, `10_constitution.md`
 **Impact:** High — 4th root (Era 0) and cube root (Era 1+) are stated and the transition is now correctly described as permanent, but *why those specific exponents* is not argued anywhere.
 
 ### Tasks
-- [x] In `tokenomics.md` §ix, expand the Era 0 / Era 1+ explanation to argue the design goal: "Governance dampening exponents are chosen to prevent large-capital capture while preserving meaningful voting power for productive LPs."
+- [x] In `04_tokenomics.md` §ix, expand the Era 0 / Era 1+ explanation to argue the design goal: "Governance dampening exponents are chosen to prevent large-capital capture while preserving meaningful voting power for productive LPs."
 - [x] Add the worked example: at genesis a $100M LP in a $1M protocol is 100% of TVL — 4th root compression is necessary; by year 4 in a $1B protocol the same LP is 10% — cube root reflects natural dilution
-- [x] In `constitution.md` §xxix (Immutable Parameters), add a brief context paragraph before the list explaining *why* each class of parameter is immutable: economic constants, anti-gaming safeguards, and anti-capture mechanics
+- [x] In `10_constitution.md` §xxix (Immutable Parameters), add a brief context paragraph before the list explaining *why* each class of parameter is immutable: economic constants, anti-gaming safeguards, and anti-capture mechanics
 
 ---
 
 ## Sprint 8 — Deflationary Crossover Worked Example
-**Files:** `tokenomics.md`
+**Files:** `04_tokenomics.md`
 **Impact:** Medium — the concept is mentioned but feels aspirational without numbers; a worked example makes it real.
 
 ### Tasks
-- [x] Add a worked example to `tokenomics.md` §x ("The Deflationary Crossover") using a realistic TVL and volume assumption (e.g. $100M TVL, $20M average daily volume)
+- [x] Add a worked example to `04_tokenomics.md` §x ("The Deflationary Crossover") using a realistic TVL and volume assumption (e.g. $100M TVL, $20M average daily volume)
 - [x] Show the calculation: swap fee burn + yield fee burn vs. Era 0 emission rate vs. Era 1+ emission rate
 - [x] State clearly at which era the crossover is structurally expected and what drives it (TVL growth, not token price)
 - [x] Add a note: "This calculation is illustrative; actual crossover depends on protocol TVL and fee revenue at the time"
 
 ---
 
-## Sprint 9 — bootstrap.md Restructure
-**Files:** `bootstrap.md`
+## Sprint 9 — 08_bootstrap.md Restructure
+**Files:** `08_bootstrap.md`
 **Impact:** Medium — the gauge prerequisite and boost mechanisms are stated (§xxi line 13 leads with "This is the single gatekeeping step"; the Bootstrapping Sequence table at lines 23–30 separates the two boosts), but the presentation can be tightened.
 
 ### Tasks
@@ -126,24 +126,24 @@ Fixes organised by dependency order. Each sprint is self-contained and can be me
 ---
 
 ## Sprint 10 — Composition Challenge Mechanics
-**Files:** `bootstrap.md`, `constitution.md`
+**Files:** `08_bootstrap.md`, `10_constitution.md`
 **Impact:** Medium — the mechanic is described clearly in §xxiv but lacks worked examples for the edge cases real operators will face.
 **⚠️ Prerequisite:** This sprint requires design decisions on edge-case rulings before editorial work can begin. The worked examples cannot be written until the protocol team decides what qualifies as "economically similar."
 
 ### Tasks
-- [x] Add a concrete worked example to `bootstrap.md` §xxiv: the cbBTC delisting scenario — what clearly qualifies (tBTC — same asset type), what clearly doesn't (physical gold — different asset class), and what is borderline (Bitcoin L2 token — requires 2/3 to judge "similar economic properties")
+- [x] Add a concrete worked example to `08_bootstrap.md` §xxiv: the cbBTC delisting scenario — what clearly qualifies (tBTC — same asset type), what clearly doesn't (physical gold — different asset class), and what is borderline (Bitcoin L2 token — requires 2/3 to judge "similar economic properties")
 - [x] Clarify whether a composition challenge can replace both theme assets simultaneously or must be done in two separate votes
 - [x] Clarify "like-for-like renewal only" more precisely: same sector, same risk profile, same template role (yield core vs. routing vs. theme)
 
 ---
 
 ## Sprint 11 — der Bodensee Pool and Low-Turnout Precision
-**Files:** `tokenomics.md`, `constitution.md`, `formulas.md`
+**Files:** `04_tokenomics.md`, `10_constitution.md`, `11_formulas.md`
 **Impact:** Medium — der Bodensee Pool parameters and low-turnout safeguard need precise specification.
 
 ### Tasks
-- [x] **der Bodensee Pool** (`tokenomics.md` §x, `formulas.md` F-11): define LBP weight decay parameters (90/10 → 48/52 over 18 months), one-sided svZCHF inflow routing, and immutable constraints
-- [x] **Low-turnout safeguard** (`tokenomics.md` §ix, `constitution.md` §xxvii): replace "very low turnout" with a specific threshold; specify which proposal types auto-fail vs. enter timelock; specify the timelock duration
+- [x] **der Bodensee Pool** (`04_tokenomics.md` §x, `11_formulas.md` F-11): define LBP weight decay parameters (90/10 → 48/52 over 18 months), one-sided svZCHF inflow routing, and immutable constraints
+- [x] **Low-turnout safeguard** (`04_tokenomics.md` §ix, `10_constitution.md` §xxvii): replace "very low turnout" with a specific threshold; specify which proposal types auto-fail vs. enter timelock; specify the timelock duration
 
 ---
 

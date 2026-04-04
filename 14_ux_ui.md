@@ -91,7 +91,7 @@
 ## 10. Sector Rotation View
 
 - [ ] **Sector heatmap** — Yield / Bonds / Crypto / Stocks / Metals; colour by 24h fee generation or TVL change
-- [ ] **Macro regime indicator** — qualitative view of which sectors are leading/lagging (maps to the correlation matrix in `sectors.md`)
+- [ ] **Macro regime indicator** — qualitative view of which sectors are leading/lagging (maps to the correlation matrix in `07_miliarium_sectors.md`)
 - [ ] **Sector-level TVL and volume aggregates** — time series per sector
 
 ---
@@ -129,7 +129,7 @@ When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% e
 - [ ] **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost escrow
 - [ ] **der Bodensee Pool reserve depth** — current svZCHF reserves and AuMM/svZCHF ratio
 
-See Immutable Parameters (`constitution.md` §xxix).
+See Immutable Parameters (`10_constitution.md` §xxix).
 
 ---
 

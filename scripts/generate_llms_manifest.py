@@ -17,19 +17,20 @@ DEFAULT_BASE = "https://aumm.fi"
 
 # Order matches site nav / plan (index.html loadMd batch + secondary specs).
 CORE_PATHS: list[str] = [
-    "overview.md",
-    "aureum_mental_model.md",
-    "theoretical_foundation.md",
-    "tokenomics.md",
-    "Miliarium_Aureum.md",
-    "miliarium_profiles/manifest.md",
-    "miliarium_profiles/sectors.md",
-    "bootstrap.md",
-    "transitions.md",
-    "constitution.md",
-    "formulas.md",
-    "aureum_glossary.md",
-    "appendices.md",
+    "15_overview.md",
+    "02_mental_model.md",
+    "03_theoretical_foundation.md",
+    "04_tokenomics.md",
+    "05_miliarium_aureum.md",
+    "06_miliarium_manifest.md",
+    "07_miliarium_sectors.md",
+    "08_bootstrap.md",
+    "09_transitions.md",
+    "10_constitution.md",
+    "11_formulas.md",
+    "12_aureum_glossary.md",
+    "13_appendices.md",
+    "14_ux_ui.md",
 ]
 
 SECONDARY_PATHS: list[str] = [

@@ -29,9 +29,9 @@ Each era spans 10,512,000 blocks (~4 years at 12 s/block). Emissions are specifi
 
 ### Emission Distribution
 
-- **Through end of Month 10 (Year 1):** each block’s emission is split in two: a **der Bodensee bootstrap** share and an **LP tranche**. The bootstrap share is **80% of block emission at genesis**, decaying **linearly to zero** by the **final block of Month 10**; it is minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens — same mechanic as one-sided svZCHF fee inflows; see `formulas.md` F-0). The **LP tranche** is the remainder of the block emission. The **28 Miliarium pools** each receive **1/28 of the LP tranche** (not of the full block emission while the bootstrap share is positive).
-- **Months 11–12 (Year 1):** a **two-month linear transition** that blends each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping linearly from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At the midpoint, the mix is half equal and half CCB. See `constitution.md` and `formulas.md`.
-- **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL and CCB multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
+- **Through end of Month 10 (Year 1):** each block’s emission is split in two: a **der Bodensee bootstrap** share and an **LP tranche**. The bootstrap share is **80% of block emission at genesis**, decaying **linearly to zero** by the **final block of Month 10**; it is minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens — same mechanic as one-sided svZCHF fee inflows; see `11_formulas.md` F-0). The **LP tranche** is the remainder of the block emission. The **28 Miliarium pools** each receive **1/28 of the LP tranche** (not of the full block emission while the bootstrap share is positive).
+- **Months 11–12 (Year 1):** a **two-month linear transition** that blends each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping linearly from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At the midpoint, the mix is half equal and half CCB. See `10_constitution.md` and `11_formulas.md`.
+- **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL and CCB multiplier, then normalized across all eligible pools. See `10_constitution.md` and `11_formulas.md`.
 - No voting and no discretionary overrides.
 
 ### Per-Block Streaming
@@ -54,7 +54,7 @@ Deposit — start accruing. Withdraw — stop accruing. No snapshots, no pro-rat
 
 #### Emission Direction: The CCB Engine
 
-Emission allocation is driven by the **Continuous Central Bank (CCB)** — not by direct gauge voting. Each pool's base emission weight is its 60-day EMA of on-chain TVL as a share of total protocol TVL. Capital allocates itself. See `theoretical_foundation.md` (sections vi–vii) and `constitution.md` for the full mechanics.
+Emission allocation is driven by the **Continuous Central Bank (CCB)** — not by direct gauge voting. Each pool's base emission weight is its 60-day EMA of on-chain TVL as a share of total protocol TVL. Capital allocates itself. See `03_theoretical_foundation.md` (sections vi–vii) and `10_constitution.md` for the full mechanics.
 
 #### Protocol Governance (Non-Emission Decisions)
 
@@ -84,7 +84,7 @@ AuMT in pools that fail any eligibility criterion carries zero governance weight
 
 **Governance power for non-emission decisions derives exclusively from active, qualified AuMT positions. AuMT in non-qualified pools carries zero weight. Voting power cannot be purchased on the open market.**
 
-- **Voting power = dampened AuMT.** `(AuMT_value × time_in_pool)^(1/4)` — same formula as protocol governance. 14-day qualification, 6-month on-ramp, any withdrawal resets to zero. See `aureum_glossary.md` (section xxxv) for the full rule set.
+- **Voting power = dampened AuMT.** `(AuMT_value × time_in_pool)^(1/4)` — same formula as protocol governance. 14-day qualification, 6-month on-ramp, any withdrawal resets to zero. See `12_aureum_glossary.md` (section xxxv) for the full rule set.
 
 #### Minimum Qualification Period and Governance On-Ramp
 
@@ -122,7 +122,7 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 - Gauge approvals and challenges (with timelock)
 - Miliarium Aureum composition challenges (2/3 supermajority)
 
-**What governance cannot control:** See Immutable Parameters (`constitution.md` §xxix) for the full list. In short: emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, der Bodensee Pool parameters, and all launch mechanics are immutable in contract.
+**What governance cannot control:** See Immutable Parameters (`10_constitution.md` §xxix) for the full list. In short: emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, der Bodensee Pool parameters, and all launch mechanics are immutable in contract.
 
 ### Token Properties
 
@@ -171,7 +171,7 @@ All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fee
 
 #### CCC alignment
 
-der Bodensee Pool is a Continuous Capital Corporation (CCC) reserve in the spirit of Meisser’s thesis and Frankencoin’s implementation: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can receive, hold, or sell newly emitted tokens. The pool’s weight evolution and revenue routing are immutable from block 0. See `formulas.md` F-11 for the formal weight decay definition.
+der Bodensee Pool is a Continuous Capital Corporation (CCC) reserve in the spirit of Meisser’s thesis and Frankencoin’s implementation: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can receive, hold, or sell newly emitted tokens. The pool’s weight evolution and revenue routing are immutable from block 0. See `11_formulas.md` F-11 for the formal weight decay definition.
 
 ### The Self-Reinforcing Loop
 
@@ -195,4 +195,4 @@ As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale
 
 ### Immutable Reference
 
-See Immutable Parameters (`constitution.md` §xxix).
+See Immutable Parameters (`10_constitution.md` §xxix).

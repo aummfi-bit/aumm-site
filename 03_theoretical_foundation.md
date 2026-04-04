@@ -3,7 +3,7 @@
 
 The CCB draws from established research across multiple disciplines:
 
-**Continuous Capital Corporation (CCC):** Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and its implementation in Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts the CCC as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are all algorithmic and immutable from block 0. There is no treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see `formulas.md` F-0); thereafter emissions accrue to LPs per the fixed rules.
+**Continuous Capital Corporation (CCC):** Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and its implementation in Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts the CCC as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are all algorithmic and immutable from block 0. There is no treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see `11_formulas.md` F-0); thereafter emissions accrue to LPs per the fixed rules.
 
 **Pro-Cyclicality:** BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.
 
@@ -42,21 +42,21 @@ Each **eligible** pool gets a **CCB score** combining its smoothed TVL (EMA) and
 
 The CCB turns scores into **shares**: each pool’s share is its score divided by the sum of scores of all eligible pools. Allocation is **relative** — a pool’s emissions depend on how it compares to every other eligible pool, not on a fixed headline percentage.
 
-der Bodensee Pool (AuMM / svZCHF LBP) receives **bootstrap** AuMM **Months 1–10** only (one-sided deposits; see `Miliarium_Aureum.md` §xii). Its TVL is **excluded** from the CCB denominator so that it does not dilute the scores of emission-eligible pools.
+der Bodensee Pool (AuMM / svZCHF LBP) receives **bootstrap** AuMM **Months 1–10** only (one-sided deposits; see `05_miliarium_aureum.md` §xii). Its TVL is **excluded** from the CCB denominator so that it does not dilute the scores of emission-eligible pools.
 
 ### 3. How the block emission flows
 
 **Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (80% at genesis, linear decay to 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the 28 Miliarium pools — **one twenty-eighth of the LP tranche** each. There is no treasury wallet. Other pools may exist on the AMM but do not receive this equal slice.
 
-**Months 11–12:** the protocol ramps from equal toward full CCB. Early in the window the mix is mostly equal; by the last block of Year 1 it is fully CCB. At the midpoint, the blend is half equal and half CCB. Exact block math is fixed on-chain — see `constitution.md` §xxviii.
+**Months 11–12:** the protocol ramps from equal toward full CCB. Early in the window the mix is mostly equal; by the last block of Year 1 it is fully CCB. At the midpoint, the blend is half equal and half CCB. Exact block math is fixed on-chain — see `10_constitution.md` §xxviii.
 
 **After Year 1:** allocation is pure CCB. Every eligible pool competes on the same score logic, and shares are normalized so the whole LP emission pie (after Incendiary) is distributed.
 
-**Incendiary priority skim.** Incendiary Boost claims are paid out of the **LP emission tranche** **after** the der Bodensee bootstrap skim (zero after Month 10) **before** the remainder is split by equal blend or CCB. Incendiary is not a multiplier inside the CCB score; it is a first claim on the LP tranche. What is left after those claims is what the regime allocates. Details are in `bootstrap.md` §xxii and `constitution.md` §xxviii.
+**Incendiary priority skim.** Incendiary Boost claims are paid out of the **LP emission tranche** **after** the der Bodensee bootstrap skim (zero after Month 10) **before** the remainder is split by equal blend or CCB. Incendiary is not a multiplier inside the CCB score; it is a first claim on the LP tranche. What is left after those claims is what the regime allocates. Details are in `08_bootstrap.md` §xxii and `10_constitution.md` §xxviii.
 
 ### Design rationale
 
-Capital in productive, eligible pools is the **only** input to emission weight. Rules are deterministic and immutable. Governance does not set weights; it remains available only for non-emission actions (gauges, fees, composition challenges) under the on-chain-data-only proposal rules in `constitution.md`. For full formal definitions of every formula, see `formulas.md`.
+Capital in productive, eligible pools is the **only** input to emission weight. Rules are deterministic and immutable. Governance does not set weights; it remains available only for non-emission actions (gauges, fees, composition challenges) under the on-chain-data-only proposal rules in `10_constitution.md`. For full formal definitions of every formula, see `11_formulas.md`.
 
 ---
 
@@ -76,25 +76,25 @@ Liquidity mining often **rewards whatever grew last week**, which can overpay ho
 
 ### Guards so the rule does not thrash
 
-Multipliers are **clamped** to an immutable band so no pool can be rewarded or punished without limit. A **dead zone** ignores tiny wiggles in the ratios so the system does not constantly flip on noise. Steps are **small and discrete** on a fixed cadence (bi-weekly cycle), not continuous social-media sentiment. All numeric bounds (step size, clamp range, dead zone, EMA horizon) are **immutable from block 0** — see Immutable Parameters (`constitution.md` §xxix) for the exact values.
+Multipliers are **clamped** to an immutable band so no pool can be rewarded or punished without limit. A **dead zone** ignores tiny wiggles in the ratios so the system does not constantly flip on noise. Steps are **small and discrete** on a fixed cadence (bi-weekly cycle), not continuous social-media sentiment. All numeric bounds (step size, clamp range, dead zone, EMA horizon) are **immutable from block 0** — see Immutable Parameters (`10_constitution.md` §xxix) for the exact values.
 
 ### How the multiplier lines up with Section vi
 
-The CCB always uses **per-pool** smoothed TVL as the backbone of the score. The multiplier **only** adjusts an extra factor for the **28** so that **relative** performance inside the founding constellation can be **taxed or subsidised** without human intervention. The formal update rule is in `formulas.md` (F-8); `aureum_glossary.md` covers the same mechanics in glossary form.
+The CCB always uses **per-pool** smoothed TVL as the backbone of the score. The multiplier **only** adjusts an extra factor for the **28** so that **relative** performance inside the founding constellation can be **taxed or subsidised** without human intervention. The formal update rule is in `11_formulas.md` (F-8); `12_aureum_glossary.md` covers the same mechanics in glossary form.
 
 ### How the multiplier updates
 
-Only the 28 Miliarium pools receive CCB multiplier updates; for any other eligible pool the multiplier is neutral (effectively one). Each bi-weekly cycle, a pool’s multiplier is adjusted by two small steps — one driven by the direction of total protocol TVL (macro pressure) and one by the pool’s TVL relative to the Miliarium average (intra-constellation pressure) — then clamped to a hard floor and ceiling so no pool can be rewarded or punished without limit. Initial multiplier is 1.00. For all numeric bounds (step size, clamp range, dead zone), see Immutable Parameters (`constitution.md` §xxix). For the formal update rule, see `formulas.md`.
+Only the 28 Miliarium pools receive CCB multiplier updates; for any other eligible pool the multiplier is neutral (effectively one). Each bi-weekly cycle, a pool’s multiplier is adjusted by two small steps — one driven by the direction of total protocol TVL (macro pressure) and one by the pool’s TVL relative to the Miliarium average (intra-constellation pressure) — then clamped to a hard floor and ceiling so no pool can be rewarded or punished without limit. Initial multiplier is 1.00. For all numeric bounds (step size, clamp range, dead zone), see Immutable Parameters (`10_constitution.md` §xxix). For the formal update rule, see `11_formulas.md`.
 
 ---
 
 ## vii-a. CCB and the Multiplier — Plain-English FAQ
 
-**If one Miliarium pool is gaining share of TVL among the 28, what happens?** Two forces: its **TVL EMA** in the CCB score tends to rise as it takes share from siblings, which pushes its **weight up**. The CCB multiplier’s **within-the-28** channel compares each pool to the **Miliarium average** — pools **growing faster than that average** get a **downward** nudge on the multiplier (hot flows taxed), **within the immutable band** (see `constitution.md` §xxix). Net effect on that pool’s emissions depends on both; it is not “always more” or “always less.”
+**If one Miliarium pool is gaining share of TVL among the 28, what happens?** Two forces: its **TVL EMA** in the CCB score tends to rise as it takes share from siblings, which pushes its **weight up**. The CCB multiplier’s **within-the-28** channel compares each pool to the **Miliarium average** — pools **growing faster than that average** get a **downward** nudge on the multiplier (hot flows taxed), **within the immutable band** (see `10_constitution.md` §xxix). Net effect on that pool’s emissions depends on both; it is not “always more” or “always less.”
 
 **If a pool shrinks relative to total protocol TVL (capital moves elsewhere), what happens?** The **CCB score** uses **per-pool** TVL EMA against **all eligible pools** in the denominator. If this pool’s smoothed TVL is lower relative to **other** eligible pools (including non-Miliarium gauges), its **share of total emissions** tends to fall. The CCB multiplier does not define “relative to total protocol TVL” for **delta_intra** — that is **vs the Miliarium average** only. **delta_global** keys off **aggregate protocol TVL direction** (roughly: boom vs bust pressure on multipliers), not “Miliarium vs the rest” as a separate basket.
 
-**What is the step size on the CCB multiplier?** See Immutable Parameters (`constitution.md` §xxix) for the exact step size, clamp band, and dead zone — all immutable from block 0.
+**What is the step size on the CCB multiplier?** See Immutable Parameters (`10_constitution.md` §xxix) for the exact step size, clamp band, and dead zone — all immutable from block 0.
 
 **If Miliarium pools as a group lose share of protocol TVL (liquidity shifts to other eligible pools), what happens to emissions to the MA pools?** There is **no** fixed “28-pool basket” guarantee in the written rules. After the equal regime, each pool competes **individually**; **CCB_share** is **Score / sum(scores over all eligible pools)**. If the **non-Miliarium** eligible pools grow their scores faster, **MA pools as a group** can receive a **smaller** fraction of the same CCB pie. **delta_global** is **not** a dedicated “protect the constellation’s share” lever — it is **aggregate** protocol TVL **direction** for multiplier pressure across the 28.
 
@@ -102,4 +102,4 @@ Only the 28 Miliarium pools receive CCB multiplier updates; for any other eligib
 
 ## viii. Immutable Reference
 
-See Immutable Parameters (`constitution.md` §xxix).
+See Immutable Parameters (`10_constitution.md` §xxix).

@@ -666,27 +666,27 @@ function loadProfileMd(path) {
 }
 
 // Load overview
-loadMd('overview.md', 'overview-body', 'overview');
+loadMd('15_overview.md', 'overview-body', 'overview');
 
 // Load rules tabs
-loadMd('bootstrap.md', 'bootstrap-body', 'bootstrap');
-loadMd('transitions.md', 'transitions-body', 'transitions');
-loadMd('constitution.md', 'constitution-body', 'constitution');
-loadMd('formulas.md', 'formulas-body', 'formulas');
+loadMd('08_bootstrap.md', 'bootstrap-body', 'bootstrap');
+loadMd('09_transitions.md', 'transitions-body', 'transitions');
+loadMd('10_constitution.md', 'constitution-body', 'constitution');
+loadMd('11_formulas.md', 'formulas-body', 'formulas');
 
 // Load other tabs
-loadMd('theoretical_foundation.md', 'foundations-body', 'foundations');
-loadMd('aureum_mental_model.md', 'mental-model-body', 'model');
-loadMd('tokenomics.md', 'tokenomics-body', 'tokenomics');
-loadMd('Miliarium_Aureum.md', 'miliarium-body', 'miliarium');
-loadMd('miliarium_profiles/manifest.md', 'manifest-body', 'miliarium-manifest');
-loadMd('miliarium_profiles/sectors.md', 'sectors-body', 'miliarium-sectors');
-loadMd('aureum_glossary.md', 'glossary-body', 'glossary');
-loadMd('appendices.md', 'appendices-body', 'appendices');
-loadMd('ux_ui.md', 'ux-ui-body', 'ux_ui');
+loadMd('03_theoretical_foundation.md', 'foundations-body', 'foundations');
+loadMd('02_mental_model.md', 'mental-model-body', 'model');
+loadMd('04_tokenomics.md', 'tokenomics-body', 'tokenomics');
+loadMd('05_miliarium_aureum.md', 'miliarium-body', 'miliarium');
+loadMd('06_miliarium_manifest.md', 'manifest-body', 'miliarium-manifest');
+loadMd('07_miliarium_sectors.md', 'sectors-body', 'miliarium-sectors');
+loadMd('12_aureum_glossary.md', 'glossary-body', 'glossary');
+loadMd('13_appendices.md', 'appendices-body', 'appendices');
+loadMd('14_ux_ui.md', 'ux-ui-body', 'ux_ui');
 
-// Load intro lines from intro.md and start animation
-fetch('intro.md', fetchMdOpts)
+// Load intro lines from 01_intro.md and start animation
+fetch('01_intro.md', fetchMdOpts)
   .then(function(r) { return r.text(); })
   .then(function(text) {
     introLines = JSON.parse(text);
@@ -701,17 +701,17 @@ mainDoc.addEventListener('click', function(e) {
   if (!href || href.charAt(0) === '#') return;
   if (/^https?:\/\//i.test(href)) return;
   var norm = href.split('#')[0];
-  if (norm === 'miliarium_profiles/manifest.md' || /(^|[\\/])manifest\.md$/i.test(norm)) {
+  if (/06_miliarium_manifest\.md$/i.test(norm) || norm === 'miliarium_profiles/manifest.md' || /(^|[\\/])manifest\.md$/i.test(norm)) {
     e.preventDefault();
     switchTab('miliarium-manifest');
     return;
   }
-  if (norm === 'miliarium_profiles/sectors.md' || /(^|[\\/])sectors\.md$/i.test(norm)) {
+  if (/07_miliarium_sectors\.md$/i.test(norm) || norm === 'miliarium_profiles/sectors.md' || /(^|[\\/])sectors\.md$/i.test(norm)) {
     e.preventDefault();
     switchTab('miliarium-sectors');
     return;
   }
-  if (/Miliarium_Aureum\.md$/i.test(norm) || norm.indexOf('Miliarium_Aureum.md') >= 0) {
+  if (/05_miliarium_aureum\.md$/i.test(norm) || /Miliarium_Aureum\.md$/i.test(norm)) {
     e.preventDefault();
     switchTab('miliarium');
     return;

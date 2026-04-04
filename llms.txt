@@ -4,21 +4,21 @@ Static protocol documentation for **Project Aureum**: immutable AMM rules, **Mil
 
 **Full URL list (one per line, for crawlers and RAG):** https://aumm.fi/llms-full.txt
 
-**Excluded from the corpus:** `intro.md` (JSON lines for the intro animation, not prose documentation).
+**Excluded from the corpus:** `01_intro.md` (JSON lines for the intro animation, not prose documentation).
 
 **Repository layout:** See `README.md` in this bundle for editors and section numbering.
 
 ## Suggested reading order
 
-1. `overview.md` — protocol character at a glance  
-2. `aureum_mental_model.md` — three-layer mental model, feedback loop, governance summary  
-3. `constitution.md` — immutable operating law  
-4. `theoretical_foundation.md` — CCB, multiplier engine, research framing  
-5. `tokenomics.md` — AuMM supply and emission distribution  
-6. `formulas.md` — formal emission, CCB, and governance formulas  
-7. `Miliarium_Aureum.md` — canonical 01–28 registry  
-8. `miliarium_profiles/manifest.md` and `sectors.md` — registry table and taxonomy  
-9. `bootstrap.md`, `transitions.md`, `appendices.md`, `aureum_glossary.md` — as needed  
+1. `15_overview.md` — protocol character at a glance  
+2. `02_mental_model.md` — three-layer mental model, feedback loop, governance summary  
+3. `10_constitution.md` — immutable operating law  
+4. `03_theoretical_foundation.md` — CCB, multiplier engine, research framing  
+5. `04_tokenomics.md` — AuMM supply and emission distribution  
+6. `11_formulas.md` — formal emission, CCB, and governance formulas  
+7. `05_miliarium_aureum.md` — canonical 01–28 registry  
+8. `06_miliarium_manifest.md` and `07_miliarium_sectors.md` — registry table and taxonomy  
+9. `08_bootstrap.md`, `09_transitions.md`, `13_appendices.md`, `12_aureum_glossary.md` — as needed  
 
 Then read individual `miliarium_profiles/NN_ix*.md` files for pool-specific composition and notes.
 

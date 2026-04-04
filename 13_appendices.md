@@ -29,10 +29,10 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
 - AuMT pool token wrapper (Aureum Market Tessera)
-- CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see `constitution.md` §xxix for all numeric bounds)
+- CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see `10_constitution.md` §xxix for all numeric bounds)
 - Incendiary Boost engine (svZCHF/sUSDS escrow into der Bodensee, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
 - 90-day gauge boost (1.2x fixed CCB multiplier for new gauges, automatic expiry)
-- CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see `constitution.md` §xxix)
+- CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see `10_constitution.md` §xxix)
 - Sandbox fast-track (top 10% efficiency sustained for 3 epochs, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)

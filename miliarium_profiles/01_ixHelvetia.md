@@ -40,9 +40,9 @@
 | Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF (per constitution) |
 | Volume percentile floor | Per protocol schedule |
 | Efficiency tournament | Per protocol schedule |
-| CCB multiplier | Immutable band, initialised at 1.0 — see `constitution.md` §xxix |
-| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `bootstrap.md` §xxiv |
+| CCB multiplier | Immutable band, initialised at 1.0 — see `10_constitution.md` §xxix |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `08_bootstrap.md` §xxiv |
 
 ## Cross-References
 
-- [Manifest](manifest.md) | [Sectors](sectors.md) | [CCB Multiplier](../theoretical_foundation.md) | [Miliarium Aureum registry](../Miliarium_Aureum.md)
+- [Manifest](../06_miliarium_manifest.md) | [Sectors](../07_miliarium_sectors.md) | [CCB Multiplier](../03_theoretical_foundation.md) | [Miliarium Aureum registry](../05_miliarium_aureum.md)

@@ -2,7 +2,7 @@
 
 *How the 28 Miliarium pools map to a diversified on-chain economy.*
 
-Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum](../Miliarium_Aureum.md) (**slots 01–28**). Connector pools are **05–07** (Edelweiss, Libertas, Cambio). One profile per pool: **`NN_ixCanonicalName.md`** in [manifest](manifest.md).
+Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum](05_miliarium_aureum.md) (**slots 01–28**). Connector pools are **05–07** (Edelweiss, Libertas, Cambio). One profile per pool: **`NN_ixCanonicalName.md`** in [manifest](06_miliarium_manifest.md).
 
 ## xvi. Mapping and slot ranges
 
@@ -16,7 +16,7 @@ Binding compositions, slot order, and stock subclasses are in [Miliarium Aureum]
 | Stocks | ixEquitix, ixInnovix, ixGigantus, ixMagnix, ixNubix, ixMoneta, ixColossix, ixVitalix, ixMedicix, ixMercatura |
 | Metals | ixAurix, ixMetallum |
 
-Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](../Miliarium_Aureum.md) Section xi registry (Stocks table).
+Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthcare, fintech) are in the [Miliarium Aureum](05_miliarium_aureum.md) Section xi registry (Stocks table).
 
 ### Slot ranges (canonical)
 
@@ -32,7 +32,7 @@ Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthca
 
 ## xvii. Design Principle
 
-The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. For the conceptual introduction to the miniature economy framing and why 28 pools, see `aureum_mental_model.md` (The Miniature Economy). Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
+The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. For the conceptual introduction to the miniature economy framing and why 28 pools, see `02_mental_model.md` (The Miniature Economy). Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
 
 - **Sector rotation dynamics** — when tech sells off, capital rotates to treasuries or gold; the protocol captures fees on both legs
 - **Aggregator diversity** — each sector attracts different external volume sources (crypto aggregators, equity wrappers, FX corridors)
@@ -119,8 +119,8 @@ This diversity is the structural defence against protocol-wide volume collapse. 
 
 ## xx. Cross-References
 
-- Pool compositions and weights → [Miliarium Aureum](../Miliarium_Aureum.md)
-- CCB emission multipliers → [Theoretical Foundation § vii](../theoretical_foundation.md) · [Formulas F-8](../formulas.md) · [Immutable Parameters](../constitution.md) §xxix
-- Performance discipline → [Constitution: Anti-Gaming Criteria](../constitution.md)
-- Bootstrapping mechanics → [Bootstrap Rules](../bootstrap.md)
-- Individual pool profiles → [Manifest](manifest.md)
+- Pool compositions and weights → [Miliarium Aureum](05_miliarium_aureum.md)
+- CCB emission multipliers → [Theoretical Foundation § vii](03_theoretical_foundation.md) · [Formulas F-8](11_formulas.md) · [Immutable Parameters](10_constitution.md) §xxix
+- Performance discipline → [Constitution: Anti-Gaming Criteria](10_constitution.md)
+- Bootstrapping mechanics → [Bootstrap Rules](08_bootstrap.md)
+- Individual pool profiles → [Manifest](06_miliarium_manifest.md)

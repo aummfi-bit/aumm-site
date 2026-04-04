@@ -6,7 +6,7 @@
 
 ## xiii. Pool Registry
 
-*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) Section xi registry). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
+*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`05_miliarium_aureum.md`](05_miliarium_aureum.md) Section xi registry). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
 
 | Slot | Pool Name | Registry category | Sector | Yield Core A (26%) | Yield Core B (26%) | Routing Anchor (16%) | Theme Asset A (16%) | Theme Asset B (16%) | Template |
 |:-----|:----------|:------------------|:-------|:-------------------|:-------------------|:---------------------|:-------------------|:-------------------|:---------|
@@ -46,12 +46,12 @@
 | Yield | 01–07 | 7 | Frankencoin MMA, LST/staking, LST/flux, FX, ixEDEL venue, USD hub, multi-currency FX |
 | Bonds | 08–11 | 4 | Short / ultra-short, HY, aggregate + TIPS, long Treasury |
 | Crypto-native governance & protocols | 12–16 | 5 | DeFi infrastructure, BTC, lending stack |
-| Stocks | 17–26 | 10 | Tokenised equities and fintech (see Subclass column in [Miliarium Aureum](../Miliarium_Aureum.md)) |
+| Stocks | 17–26 | 10 | Tokenised equities and fintech (see Subclass column in [Miliarium Aureum](../05_miliarium_aureum.md)) |
 | Metals | 27–28 | 2 | Gold + silver/uranium |
 
 **Total: 28 Miliarium pools.** **Registry category** is the five-way split above. **Sector** is the finer label used in profile files.
 
-Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../Miliarium_Aureum.md) Section xi).
+Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../05_miliarium_aureum.md) Section xi).
 
 ## xv. Status Tracking
 

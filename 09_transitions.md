@@ -51,7 +51,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 
 ### After Year 1 (full CCB)
 
-- Allocation is **pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See `constitution.md` and `formulas.md`.
+- Allocation is **pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See `10_constitution.md` and `11_formulas.md`.
 - Allocation remains automatic: no voting, no discretionary multipliers, no transition council.
 - Efficiency tournament fully active — bottom 15% capped, excess redistributed.
 - Volume percentile floor at full discipline (15th percentile).
@@ -66,4 +66,4 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - Protocol continues under immutable, on-chain rules only.
 - Proposal and voting workflows remain active for non-emission actions, with on-chain-data-only proposal validation.
 
-See Immutable Parameters (`constitution.md` §xxix).
+See Immutable Parameters (`10_constitution.md` §xxix).

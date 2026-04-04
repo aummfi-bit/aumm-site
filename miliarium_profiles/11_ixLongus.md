@@ -7,7 +7,7 @@
 
 ## Composition
 
-Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section xi, slot 11).
+Binding weights are in [`05_miliarium_aureum.md`](../05_miliarium_aureum.md) (Section xi, slot 11).
 
 | Component | Token | Weight | Standard | Role |
 |:----------|:------|:-------|:---------|:-----|
@@ -48,9 +48,9 @@ Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section 
 | Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
-| CCB multiplier | Immutable band, initialised at 1.0 — see `constitution.md` §xxix |
-| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `bootstrap.md` §xxiv |
+| CCB multiplier | Immutable band, initialised at 1.0 — see `10_constitution.md` §xxix |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `08_bootstrap.md` §xxiv |
 
 ## Cross-References
 
-- [Manifest](manifest.md) | [Sectors](sectors.md) | [CCB Multiplier](../theoretical_foundation.md)
+- [Manifest](../06_miliarium_manifest.md) | [Sectors](../07_miliarium_sectors.md) | [CCB Multiplier](../03_theoretical_foundation.md)

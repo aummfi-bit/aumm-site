@@ -2,7 +2,7 @@
 
 *Every formula that governs Aureum emission allocation, multiplier adjustment, and governance power — organized by protocol phase.*
 
-All parameters listed here are **immutable from block 0**. See Immutable Parameters (`constitution.md` §xxix).
+All parameters listed here are **immutable from block 0**. See Immutable Parameters (`10_constitution.md` §xxix).
 
 ---
 
@@ -168,7 +168,7 @@ Where:
 - **clamp** = hard floor and ceiling; the multiplier can never leave this band
 - **dead zone** = if the TVL ratio is within the dead zone of neutral, no step is applied — prevents noise from triggering constant micro-adjustments
 
-Step size, clamp bounds, and dead zone threshold are all immutable from block 0 — see Immutable Parameters (`constitution.md` §xxix) for exact values.
+Step size, clamp bounds, and dead zone threshold are all immutable from block 0 — see Immutable Parameters (`10_constitution.md` §xxix) for exact values.
 
 Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any other eligible pool, **CCB_mult = 1**.
 
@@ -213,7 +213,7 @@ excess = Σ (uncapped_emission − capped_emission) for all capped pools
 redistribute excess to uncapped pools pro-rata by CCB_share
 ```
 
-Efficiency ranking is price-agnostic — both the numerator (revenue) and the denominator (emissions) are measured in the same unit. See `bootstrap.md` §xxiii.
+Efficiency ranking is price-agnostic — both the numerator (revenue) and the denominator (emissions) are measured in the same unit. See `08_bootstrap.md` §xxiii.
 
 ---
 
@@ -237,4 +237,4 @@ At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF**. By the 18-month e
 
 ---
 
-*All formulas are immutable from block 0. See Immutable Parameters (`constitution.md` §xxix) for the full list.*
+*All formulas are immutable from block 0. See Immutable Parameters (`10_constitution.md` §xxix) for the full list.*

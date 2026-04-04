@@ -6,14 +6,14 @@
 
 ## Required Changes
 
-### R-1. Era labeling error in appendices.md
+### R-1. Era labeling error in 13_appendices.md
 
-**File:** `appendices.md:84`
+**File:** `13_appendices.md:84`
 **Issue:** The Governance Capture row says "fourth root in Era 1" — should be **Era 0**.
 **Evidence:** Every other file uses "Era 0" for fourth root:
-- `tokenomics.md:76` — "Era 0 (fourth root)"
-- `formulas.md:159` — "Era 0 uses fourth-root dampening"
-- `aureum_glossary.md:57` — "Era 0 (years 0-4, pre-halving): ... fourth root"
+- `04_tokenomics.md:76` — "Era 0 (fourth root)"
+- `11_formulas.md:159` — "Era 0 uses fourth-root dampening"
+- `12_aureum_glossary.md:57` — "Era 0 (years 0-4, pre-halving): ... fourth root"
 
 **Fix:** Change "fourth root in Era 1" to "fourth root in Era 0" in the Governance Capture row.
 
@@ -44,11 +44,11 @@
 
 ---
 
-### R-3. Governance dampening exponents missing from constitution.md canonical list
+### R-3. Governance dampening exponents missing from 10_constitution.md canonical list
 
-**File:** `constitution.md` — Section xxix (Immutable Parameters)
+**File:** `10_constitution.md` — Section xxix (Immutable Parameters)
 
-**Issue:** The explanatory paragraph at line 84 mentions "governance dampening exponents" as one of three classes of immutable parameters, and the glossary (`aureum_glossary.md:72`) explicitly says "both exponents are immutable." However, the bullet list of canonical immutable parameters (lines 88-96) does not include them.
+**Issue:** The explanatory paragraph at line 84 mentions "governance dampening exponents" as one of three classes of immutable parameters, and the glossary (`12_aureum_glossary.md:72`) explicitly says "both exponents are immutable." However, the bullet list of canonical immutable parameters (lines 88-96) does not include them.
 
 The bullet list currently ends with:
 ```
@@ -77,9 +77,9 @@ This ensures the canonical source explicitly states the values that every other 
 
 ---
 
-### R-5. TBD founding team roles in overview.md
+### R-5. TBD founding team roles in 15_overview.md
 
-**File:** `overview.md:86-88`
+**File:** `15_overview.md:86-88`
 
 **Issue:** Three of four founding team roles are marked **TBD**:
 - Smart Contracts — TBD
@@ -102,7 +102,7 @@ Only Architecture & Thesis is assigned (Sagix).
 
 ### S-3. Only ixLibertas named as no-ixEDEL exception
 
-**File:** `aureum_mental_model.md:74`
+**File:** `02_mental_model.md:74`
 
 **Issue:** The text says:
 
@@ -116,28 +116,28 @@ But ixHelvetia (slot 01) also has no ixEDEL. The earlier sentence ("Twenty-six o
 
 ---
 
-### S-4. llms.txt reading order vs overview.md Builder track
+### S-4. llms.txt reading order vs 15_overview.md Builder track
 
-**File:** `llms.txt` (lines 12-21) vs `overview.md` (lines 22-29)
+**File:** `llms.txt` (lines 12-21) vs `15_overview.md` (lines 22-29)
 
 **Issue:** The two recommended reading orders differ for the Builder/Auditor audience:
 
-| Step | llms.txt | overview.md Builder track |
+| Step | llms.txt | 15_overview.md Builder track |
 |:-----|:---------|:--------------------------|
-| 1 | overview.md | theoretical_foundation.md |
-| 2 | aureum_mental_model.md | constitution.md |
-| 3 | **constitution.md** | formulas.md |
-| 4 | **theoretical_foundation.md** | bootstrap.md |
+| 1 | 15_overview.md | 03_theoretical_foundation.md |
+| 2 | 02_mental_model.md | 10_constitution.md |
+| 3 | **10_constitution.md** | 11_formulas.md |
+| 4 | **03_theoretical_foundation.md** | 08_bootstrap.md |
 
-`llms.txt` puts constitution before theoretical_foundation; the Builder track in `overview.md` puts theoretical_foundation first "for context on the systems the other files formalize."
+`llms.txt` puts constitution before theoretical_foundation; the Builder track in `15_overview.md` puts theoretical_foundation first "for context on the systems the other files formalize."
 
-**Suggested fix:** Align `llms.txt` with the `overview.md` Builder track order, or add a note in `llms.txt` that the order there is optimised for LLM/RAG ingestion (broad → narrow) rather than human reading.
+**Suggested fix:** Align `llms.txt` with the `15_overview.md` Builder track order, or add a note in `llms.txt` that the order there is optimised for LLM/RAG ingestion (broad → narrow) rather than human reading.
 
 ---
 
-### S-5. Explicit weight basis note in Miliarium_Aureum.md
+### S-5. Explicit weight basis note in 05_miliarium_aureum.md
 
-**File:** `Miliarium_Aureum.md` — Section xi (near the standardised template table, line ~26)
+**File:** `05_miliarium_aureum.md` — Section xi (near the standardised template table, line ~26)
 
 **Issue:** Pool weight percentages (52/16/32, 80/20, etc.) are USD-value-based per the Balancer V3 architecture, but this is never explicitly stated in the registry.
 
@@ -149,9 +149,9 @@ But ixHelvetia (slot 01) also has no ixEDEL. The earlier sentence ("Twenty-six o
 
 ### S-6. Consolidated "eligible pools" definition
 
-**File:** `constitution.md` — Section xxviii
+**File:** `10_constitution.md` — Section xxviii
 
-**Issue:** What constitutes an "eligible pool" for CCB emissions is spread across `constitution.md`, `bootstrap.md`, and `formulas.md`. A reader of the constitution alone may not have full clarity.
+**Issue:** What constitutes an "eligible pool" for CCB emissions is spread across `10_constitution.md`, `08_bootstrap.md`, and `11_formulas.md`. A reader of the constitution alone may not have full clarity.
 
 **Suggested fix:** Add a one-line definition early in Section xxviii:
 
@@ -163,14 +163,14 @@ But ixHelvetia (slot 01) also has no ixEDEL. The earlier sentence ("Twenty-six o
 
 | # | Type | File | Severity |
 |:--|:-----|:-----|:---------|
-| R-1 | Required | `appendices.md:84` | HIGH — factual error |
+| R-1 | Required | `13_appendices.md:84` | HIGH — factual error |
 | R-2 | Required | 6 pool profiles | HIGH — incomplete content |
-| R-3 | Required | `constitution.md §xxix` | MEDIUM — missing canonical parameter |
+| R-3 | Required | `10_constitution.md §xxix` | MEDIUM — missing canonical parameter |
 | R-4 | Required | `robots.txt:19` | MEDIUM — references missing sitemap.xml |
-| R-5 | Required | `overview.md:86-88` | LOW — TBD team roles (pre-launch) |
-| S-1 | ~~RESOLVED~~ | `tokenomics.md` | Buyback-and-burn removed; fee model redesigned |
-| S-2 | ~~RESOLVED~~ | `overview.md` | Same as S-1 |
-| S-3 | Suggested | `aureum_mental_model.md:74` | LOW — completeness |
+| R-5 | Required | `15_overview.md:86-88` | LOW — TBD team roles (pre-launch) |
+| S-1 | ~~RESOLVED~~ | `04_tokenomics.md` | Buyback-and-burn removed; fee model redesigned |
+| S-2 | ~~RESOLVED~~ | `15_overview.md` | Same as S-1 |
+| S-3 | Suggested | `02_mental_model.md:74` | LOW — completeness |
 | S-4 | Suggested | `llms.txt` | LOW — alignment |
-| S-5 | Suggested | `Miliarium_Aureum.md` | LOW — explicitness |
-| S-6 | Suggested | `constitution.md §xxviii` | LOW — clarity |
+| S-5 | Suggested | `05_miliarium_aureum.md` | LOW — explicitness |
+| S-6 | Suggested | `10_constitution.md §xxviii` | LOW — clarity |

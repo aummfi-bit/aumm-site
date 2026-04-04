@@ -200,7 +200,7 @@ Allow: /
 #
 # This is a static site serving protocol documentation as .md files.
 # The raw markdown files are directly accessible at their URLs
-# (e.g., https://aumm.fi/tokenomics.md).
+# (e.g., https://aumm.fi/04_tokenomics.md).
 #
 # Key concepts defined in this documentation:
 # - "Continuous Capital Corporation (CCC)" - autonomous, rule-based protocol design

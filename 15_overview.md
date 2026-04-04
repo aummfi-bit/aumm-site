@@ -12,38 +12,38 @@ Two tracks, depending on what you need:
 
 | Step | File | What you learn |
 |:-----|:-----|:---------------|
-| 1 | `overview.md` (this file) | Protocol character, team, risk factors |
-| 2 | `aureum_mental_model.md` | Three-layer architecture, emission regimes, constellation routing |
-| 3 | `tokenomics.md` §ix–x | Token design, fee splits, value capture |
+| 1 | `15_overview.md` (this file) | Protocol character, team, risk factors |
+| 2 | `02_mental_model.md` | Three-layer architecture, emission regimes, constellation routing |
+| 3 | `04_tokenomics.md` §ix–x | Token design, fee splits, value capture |
 | 4 | Any pool profile in `miliarium_profiles/` | Composition, sector thesis, volume drivers for one pool |
-| 5 | `appendices.md` §xxxvii, §xxxix | Why fair-launch AMMs failed before and how Aureum differs; competitive position |
+| 5 | `13_appendices.md` §xxxvii, §xxxix | Why fair-launch AMMs failed before and how Aureum differs; competitive position |
 
 **Builder / Auditor track** — understand the contract logic and formal rules:
 
 | Step | File | What you learn |
 |:-----|:-----|:---------------|
-| 1 | `theoretical_foundation.md` | Research foundations, CCB narrative, multiplier engine — read this first for context on the systems the other files formalize |
-| 2 | `constitution.md` | Immutable parameters, governance scope, emission operating rules |
-| 3 | `formulas.md` | Every formula: EMA, CCB score, multiplier update, governance power |
-| 4 | `bootstrap.md` §xxi–xxv | Anti-gaming engine, Incendiary Boost, gauge gating |
-| 5 | `appendices.md` §xxxvi | AMM architecture provenance, audit scope |
+| 1 | `03_theoretical_foundation.md` | Research foundations, CCB narrative, multiplier engine — read this first for context on the systems the other files formalize |
+| 2 | `10_constitution.md` | Immutable parameters, governance scope, emission operating rules |
+| 3 | `11_formulas.md` | Every formula: EMA, CCB score, multiplier update, governance power |
+| 4 | `08_bootstrap.md` §xxi–xxv | Anti-gaming engine, Incendiary Boost, gauge gating |
+| 5 | `13_appendices.md` §xxxvi | AMM architecture provenance, audit scope |
 
 ### File index
 
 | File | Purpose | Primary audience |
 |:-----|:--------|:-----------------|
-| `overview.md` | Protocol at a glance — character, team, risks | Everyone |
-| `aureum_mental_model.md` | Conceptual architecture: thesis, principles, three layers, emission regimes, routing | LP / Investor |
-| `tokenomics.md` | Token design, emission schedule, fee splits, governance model, value capture | LP / Investor |
-| `theoretical_foundation.md` | Research foundations, CCB allocation narrative, multiplier engine | Builder / Auditor |
-| `formulas.md` | Formal definitions of every protocol formula | Builder / Auditor |
-| `constitution.md` | Immutable operating law: governance scope, emission rules, parameter list | Builder / Auditor |
-| `bootstrap.md` | Pool bootstrapping: gauge gating, Incendiary Boost, anti-gaming criteria | Builder / Auditor |
-| `transitions.md` | Month-by-month launch timeline from equal through CCB | Both |
-| `Miliarium_Aureum.md` | Canonical registry of the 28 Miliarium pools: compositions, sector tables | Both |
+| `15_overview.md` | Protocol at a glance — character, team, risks | Everyone |
+| `02_mental_model.md` | Conceptual architecture: thesis, principles, three layers, emission regimes, routing | LP / Investor |
+| `04_tokenomics.md` | Token design, emission schedule, fee splits, governance model, value capture | LP / Investor |
+| `03_theoretical_foundation.md` | Research foundations, CCB allocation narrative, multiplier engine | Builder / Auditor |
+| `11_formulas.md` | Formal definitions of every protocol formula | Builder / Auditor |
+| `10_constitution.md` | Immutable operating law: governance scope, emission rules, parameter list | Builder / Auditor |
+| `08_bootstrap.md` | Pool bootstrapping: gauge gating, Incendiary Boost, anti-gaming criteria | Builder / Auditor |
+| `09_transitions.md` | Month-by-month launch timeline from equal through CCB | Both |
+| `05_miliarium_aureum.md` | Canonical registry of the 28 Miliarium pools: compositions, sector tables | Both |
 | `miliarium_profiles/` | One profile per pool plus manifest and sector taxonomy | LP / Investor |
-| `aureum_glossary.md` | Term definitions and system summaries | Both |
-| `appendices.md` | AMM architecture, fair-launch analysis, Yield Basis, competitive position | Both |
+| `12_aureum_glossary.md` | Term definitions and system summaries | Both |
+| `13_appendices.md` | AMM architecture, fair-launch analysis, Yield Basis, competitive position | Both |
 
 ---
 
@@ -62,13 +62,13 @@ There is no treasury. All protocol revenue flows automatically to one immutable 
 
 - **der Bodensee Pool** (50% of swap fees + 100% of ERC-4626 yield fees) — autonomous reserve depth via one-sided svZCHF inflows.
 
-The remaining 50% of swap fees returns directly to LPs as LP bonus. No founding-team signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see `formulas.md` F-0). The system is a Continuous Capital Corporation (CCC) from block 0.
+The remaining 50% of swap fees returns directly to LPs as LP bonus. No founding-team signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see `11_formulas.md` F-0). The system is a Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 
 - **Through end of Month 10:** each block, a **decaying der Bodensee bootstrap** (80% at genesis → 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool; the **LP tranche** is split **1/28** across the 28 Miliarium pools. **100% of the LP tranche** goes to LPs from block 0 — no treasury share.
-- **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — the protocol's fully automatic emission allocator; see `aureum_glossary.md`). **α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB.
-- **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. See `constitution.md` §xxviii–xxix for the full rules and immutable parameters.
+- **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — the protocol's fully automatic emission allocator; see `12_aureum_glossary.md`). **α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB.
+- **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. See `10_constitution.md` §xxviii–xxix for the full rules and immutable parameters.
 - No governance voting controls emission allocation.
 
 ## Governance (Non-Emission)
@@ -96,4 +96,4 @@ The founding team earns tokens by being early LPs — same mechanism as everyone
 - **Team risk.** Founding team is small and self-funded. Key-person dependency is high in early phases.
 - **Market risk.** Launching during a bear market or period of DeFi apathy could delay adoption regardless of architectural merit.
 
-See Immutable Parameters (`constitution.md` §xxix).
+See Immutable Parameters (`10_constitution.md` §xxix).
