@@ -18,8 +18,37 @@ Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section 
 | Theme Asset A | BLKon | 16% | ERC-20 | Tokenized BLK ETF |
 | Theme Asset B | BACon | 16% | ERC-20 | Tokenized BAC ETF |
 
+**ERC-4626 composition:** 52% (svZCHF + sUSDS)
+
 ## Profile
 
-**Role:** Large financial-institution equities — asset management and banking exposure within the stock constellation.
+**Real-world analogue:** Financials sector fund — concentrated exposure to the largest asset manager and a major US bank, like a two-stock financials ETF.
 
-**Volume drivers:** Sector rotation, rate and credit narratives, tokenised equity depth.
+**Theme rationale:** BLKon (BlackRock) and BACon (Bank of America) represent the two pillars of traditional finance infrastructure — asset management and commercial banking. This pool pairs with **ixMoneta** (JPM/GS for investment banking) for broad financial sector coverage.
+
+**Volume drivers:**
+- Interest rate decision flows (financials are rate-sensitive)
+- Earnings season volatility (quarterly bank results)
+- Sector rotation between financials and tech
+- Credit cycle narratives (loan growth, asset management AUM)
+
+**Risk profile:**
+- Financial sector systemic risk (banking crises, credit events)
+- Single-name concentration risk (two stocks)
+- Tokenised equity issuer risk (counterparty, regulatory)
+- Rate sensitivity (rising rates boost bank margins but hurt bond portfolios)
+
+## Performance Discipline
+
+| Criterion | Requirement |
+|:----------|:-----------|
+| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + sUSDS (26%) |
+| Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
+| Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
+| Efficiency tournament | Bottom 15% → emission cap (month 13+) |
+| CCB multiplier | Immutable band, initialised at 1.0 — see `constitution.md` §xxix |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `bootstrap.md` §xxiv |
+
+## Cross-References
+
+- [Manifest](manifest.md) | [Sectors](sectors.md) | [CCB Multiplier](../theoretical_foundation.md) | [Miliarium Aureum registry](../Miliarium_Aureum.md)

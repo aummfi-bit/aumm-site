@@ -92,6 +92,7 @@ The following are immutable from block 0 and cannot be changed by any means:
 - CCB multiplier rules: step size ±0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
 - List of 28 Miliarium Aureum pools (locked at launch; see `Miliarium_Aureum.md`)
 - Core AMM mathematics, CCB formula, and eligibility criteria
+- Governance dampening exponents: fourth root (Era 0, years 0–4), cube root (Era 1+, from first halving block onward) — transition is permanent and occurs once
 - Any withdrawal resets AuMT power
 - No admin keys, no multisig, no upgradability, no pause functions
 

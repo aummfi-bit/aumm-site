@@ -18,8 +18,37 @@ Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section 
 | Theme Asset A | GOOGLon | 16% | ERC-20 | Tokenized GOOGL ETF |
 | Theme Asset B | AMZNon | 16% | ERC-20 | Tokenized AMZN ETF |
 
+**ERC-4626 composition:** 52% (svZCHF + sUSDS)
+
 ## Profile
 
-**Role:** Mega-cap consumer-internet names — concentrated large-cap exposure alongside the broader equity sleeves.
+**Real-world analogue:** Consumer internet ETF — concentrated exposure to the two dominant platforms in search and e-commerce, like a focused mega-cap tech holding.
 
-**Volume drivers:** Tokenised equity wrappers, 24/7 single-name flow, cross-venue arbitrage vs TradFi listings.
+**Theme rationale:** GOOGLon (Alphabet) and AMZNon (Amazon) represent the consumer internet duopoly — advertising and cloud (Google) plus e-commerce and cloud (Amazon). This pool complements **ixGigantus** (NVDA/TSLA hardware) and **ixMagnix** (MSFT/AAPL software) for full mega-cap tech coverage.
+
+**Volume drivers:**
+- 24/7 single-name equity trading demand
+- Earnings season volatility (GOOGL and AMZN report quarterly)
+- Cross-venue arbitrage vs TradFi listings
+- Sector rotation between tech sub-themes (hardware → software → internet)
+
+**Risk profile:**
+- Single-name concentration risk (two stocks, not a diversified index)
+- US tech regulatory risk (antitrust, AI regulation)
+- Tokenised equity issuer risk (counterparty, regulatory)
+- Higher IL risk than broad index pools (single names are more volatile)
+
+## Performance Discipline
+
+| Criterion | Requirement |
+|:----------|:-----------|
+| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + sUSDS (26%) |
+| Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
+| Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
+| Efficiency tournament | Bottom 15% → emission cap (month 13+) |
+| CCB multiplier | Immutable band, initialised at 1.0 — see `constitution.md` §xxix |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `bootstrap.md` §xxiv |
+
+## Cross-References
+
+- [Manifest](manifest.md) | [Sectors](sectors.md) | [CCB Multiplier](../theoretical_foundation.md) | [Miliarium Aureum registry](../Miliarium_Aureum.md)

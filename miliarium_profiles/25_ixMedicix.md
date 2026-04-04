@@ -18,8 +18,37 @@ Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section 
 | Theme Asset A | JNJon | 16% | ERC-20 | Tokenized JNJ ETF |
 | Theme Asset B | ABBVon | 16% | ERC-20 | Tokenized ABBV ETF |
 
+**ERC-4626 composition:** 52% (svZCHF + sUSDS)
+
 ## Profile
 
-**Role:** Diversified pharma and healthcare blue-chips — defensive equity sleeve paired with **ixVitalix** (slot 24).
+**Real-world analogue:** Diversified pharma fund — established healthcare blue-chips with strong dividend histories, like the defensive sleeve of a balanced equity portfolio.
 
-**Volume drivers:** Healthcare sector flows, dividend and quality narratives, tokenised equity routing.
+**Theme rationale:** JNJon (Johnson & Johnson) and ABBVon (AbbVie) are diversified pharma giants with defensive characteristics — stable revenue, high dividends, low beta vs the broad market. This pool pairs with **ixVitalix** (LLY/NVO for growth pharma) for full healthcare sector coverage.
+
+**Volume drivers:**
+- Healthcare sector rotation (defensive during risk-off, lagging during risk-on)
+- Drug pipeline and FDA approval events
+- Dividend and quality narratives (JNJ and ABBV are classic dividend aristocrats)
+- Cross-venue arbitrage vs TradFi listings
+
+**Risk profile:**
+- Drug pipeline risk (patent cliffs, FDA rejections)
+- Single-name concentration risk (two stocks)
+- Tokenised equity issuer risk (counterparty, regulatory)
+- Lower volatility than tech pools but higher than bond pools
+
+## Performance Discipline
+
+| Criterion | Requirement |
+|:----------|:-----------|
+| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + sUSDS (26%) |
+| Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
+| Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
+| Efficiency tournament | Bottom 15% → emission cap (month 13+) |
+| CCB multiplier | Immutable band, initialised at 1.0 — see `constitution.md` §xxix |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `bootstrap.md` §xxiv |
+
+## Cross-References
+
+- [Manifest](manifest.md) | [Sectors](sectors.md) | [CCB Multiplier](../theoretical_foundation.md) | [Miliarium Aureum registry](../Miliarium_Aureum.md)

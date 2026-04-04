@@ -16,7 +16,6 @@
 # Default: Allow everything
 User-agent: *
 Allow: /
-Sitemap: https://aumm.fi/sitemap.xml
 
 # ============================================
 # AI CRAWLERS - EXPLICITLY WELCOMED

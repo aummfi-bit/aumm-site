@@ -17,6 +17,37 @@ Binding weights are in [`Miliarium_Aureum.md`](../Miliarium_Aureum.md) (Section 
 | Theme Asset A | HYGon | 16% | ERC-20 | Tokenized HYG ETF |
 | Theme Asset B | FLHYon | 16% | ERC-20 | Tokenized FLHY ETF |
 
+**ERC-4626 composition:** 52% (svZCHF + waEthUSDC)
+
 ## Profile
 
-**Role:** US high-yield corporate credit — spread and risk-on/risk-off flows for the bond constellation.
+**Real-world analogue:** High-yield corporate bond fund — the credit-risk sleeve of a fixed-income portfolio, capturing spread premium above Treasuries.
+
+**Theme rationale:** HYGon (iShares iBoxx High Yield Corporate Bond ETF) and FLHYon (Franklin High Yield Corporate ETF) provide exposure to below-investment-grade US corporate debt. This is the risk-on end of the bond constellation, pairing with **ixBrevis** (cash-like) and **ixMediox** (aggregate + TIPS) for a complete credit spectrum.
+
+**Volume drivers:**
+- Credit spread widening/tightening events
+- Risk-on/risk-off rotation (high yield correlates with equities)
+- Duration rotation within the bond constellation (ixAltrix ↔ ixBrevis)
+- Rate cut/hike narratives (high yield benefits from cuts)
+
+**Risk profile:**
+- Credit risk (high-yield bonds can lose 10–20% in spread widening events)
+- Tokenised ETF issuer risk (counterparty, regulatory)
+- Higher IL risk than ixBrevis (HY bonds are more volatile)
+- Smart contract risk (Aave stataToken wrapper)
+
+## Performance Discipline
+
+| Criterion | Requirement |
+|:----------|:-----------|
+| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + waEthUSDC (26%) |
+| Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
+| Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
+| Efficiency tournament | Bottom 15% → emission cap (month 13+) |
+| CCB multiplier | Immutable band, initialised at 1.0 — see `constitution.md` §xxix |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see `bootstrap.md` §xxiv |
+
+## Cross-References
+
+- [Manifest](manifest.md) | [Sectors](sectors.md) | [CCB Multiplier](../theoretical_foundation.md) | [Miliarium Aureum registry](../Miliarium_Aureum.md)
