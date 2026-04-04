@@ -11,7 +11,8 @@
 ## Phase 2 - Equal regime (through Month 10)
 
 - deploy and seed the 28 Miliarium pools
-- activate equal 1/28 emission distribution through end of Month 10
+- activate der Bodensee bootstrap emission (80% at genesis, linear decay to zero by end of Month 10; one-sided AuMM per `formulas.md` F-0)
+- activate equal 1/28 of the **LP emission tranche** through end of Month 10
 - run telemetry and invariants for immutable execution checks
 
 ## Phase 2b - Transition (Months 11–12)

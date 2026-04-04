@@ -15,7 +15,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 
 **Month 1 — Genesis.**
 - Aequilibrium factory opens. Pool creation is permissionless.
-- Equal 1/28 emission begins across the 28 Miliarium pools. **100% of emissions go to LPs from block 0** — there is no treasury emission share.
+- **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission is minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/28** across the 28 Miliarium pools. **100% of the LP tranche** goes to LPs from block 0 — there is no treasury wallet.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
 - der Bodensee Pool launches at genesis with **90% AuMM / 10% svZCHF** weights. Linear time-decay begins.
 - Protocol fee revenue starts flowing into der Bodensee Pool as one-sided svZCHF inflows.
@@ -23,10 +23,16 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 **Month 2 — TVL measurement window opens.**
 - On-chain TVL data begins accumulating for EMA(60) signal.
 
+**Months 1–10 — der Bodensee emission bootstrap (linear decay).**
+- The Bodensee share of block emission decays **linearly** from **80% at genesis** to **0%** at the **final block of Month 10**. The LP tranche grows correspondingly (20% → 100% of block emission). Weighted-pool math prices AuMM alongside one-sided svZCHF fee inflows.
+
 **Months 1–18 — der Bodensee Pool weight decay active.**
 - AuMM weight declines linearly from 90% → 48%; svZCHF weight rises from 10% → 52%.
 - All protocol-captured fee revenue enters der Bodensee Pool as one-sided svZCHF inflows from block 0.
 - Price discovery is forced by time-decay + real revenue inflows — no oracle, no manual trigger.
+
+**End of Month 10 — Bootstrap emissions complete.**
+- Bodensee AuMM bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still split **1/28** across the 28 Miliarium pools until Month 11.
 
 **Month 11 — Gauge proposals open, CCB transition begins.**
 - Non-Miliarium pools can submit gauge proposals (deposit 100 svZCHF/sUSDS into der Bodensee Pool).

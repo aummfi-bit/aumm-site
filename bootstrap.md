@@ -29,7 +29,7 @@ Core emission allocation remains automatic and immutable.
 | Phase | Days | Driver | Purpose |
 |-------|------|--------|---------|
 | Gauge approval | Day 0 | AuMT governance vote | Quality gate — pool must pass governance before any boost |
-| Incendiary Boost | Days 1–30 | AuMM escrow by operator | Proof of conviction — builder buys into the ecosystem |
+| Incendiary Boost | Days 1–30 | svZCHF/sUSDS escrow into der Bodensee | Proof of conviction — operator deepens the autonomous reserve |
 | 90-day gauge boost | Days 1–90 | Fixed 1.2x CCB multiplier (automatic) | Cold-start emission ramp — expires without vote or renewal |
 | CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
 
@@ -41,7 +41,7 @@ The bootstrapping sequence provides two distinct emission boosts that serve diff
 
 **90-day gauge boost (automatic).** Every newly approved gauge receives a fixed **1.2x CCB multiplier** for 90 days. This is automatic — it activates the moment the gauge passes governance and expires on its own, with no vote and no renewal. A pool can have the 90-day boost **without** Incendiary: the gauge boost is the baseline cold-start ramp that every approved pool gets for free.
 
-**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** deposit AuMM to activate a 30-day supplementary emission stream on top of whatever the pool is already earning. The escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool. A pool can have both the 90-day gauge boost **and** Incendiary running simultaneously — the effects stack. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below). They are mechanically independent.
+**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** escrow **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow via smart-contract escrow) to activate a 30-day supplementary emission stream on top of whatever the pool is already earning. A pool can have both the 90-day gauge boost **and** Incendiary running simultaneously — the effects stack. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below). They are mechanically independent.
 
 ## xxii. Incendiary Boost
 
@@ -65,7 +65,7 @@ Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th
 
 ### Priority Skim
 
-Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on each block emission. The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the block emission, then distributes the remainder via the CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every existing pool's emission share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool, deepening the autonomous reserve in exchange for the privilege of skipping the EMA queue.
+Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on the **LP emission tranche** — i.e. **after** the der Bodensee bootstrap one-sided AuMM skim in Months 1–10 (`formulas.md` F-0; zero thereafter). The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the LP tranche, then distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every other pool's LP-tranche share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool, deepening the autonomous reserve in exchange for the privilege of skipping the EMA queue.
 
 ### Renewal Rule
 

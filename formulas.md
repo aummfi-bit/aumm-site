@@ -8,14 +8,34 @@ All parameters listed here are **immutable from block 0**. See Immutable Paramet
 
 ## Bootstrap Phase (Months 1–10)
 
-### F-1. Equal Emission Split
+### F-0. der Bodensee Bootstrap Emission Decay
 
-**Purpose:** Guarantee every founding pool an identical share of emissions during the cold-start period, removing any advantage from early TVL differences and giving the constellation time to build liquidity organically.
+**Purpose:** Deepen der Bodensee Pool reserves with one-sided AuMM inflows during the cold-start period, aligned with svZCHF fee inflows, so weighted-pool price discovery begins from block 0 without allocating emissions to any treasury or wallet.
 
-**Effect:** Each of the 28 Miliarium Aureum pools receives exactly the same fraction of the Miliarium emission tranche every block. No pool can outcompete another on emissions during this window.
+**Effect:** A linearly decaying fraction of each block’s emission is minted as a **one-sided AuMM deposit** into der Bodensee Pool (no LP tokens minted — same mechanic as one-sided svZCHF fee inflows). The remainder of the block emission is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). After the final block of Month 10, **bodensee_share = 0**; 100% of emissions go to LPs under the equal regime until Month 11.
 
 ```
-share_i = 1 / 28
+month_10_end_block = last_block_of_Month_10
+t = min( (block − genesis_block) / (month_10_end_block − genesis_block),  1 )
+
+bodensee_share(block) = 0.80 × max(0, 1 − t)
+lp_share(block)       = 1 − bodensee_share(block)
+```
+
+AuMM routed to der Bodensee Pool in block **b** equals **bodensee_share(b) × block_emission(b)**.
+
+---
+
+### F-1. Equal Emission Split
+
+**Purpose:** Guarantee every founding pool an identical share of the **LP emission tranche** during the cold-start period, removing any advantage from early TVL differences and giving the constellation time to build liquidity organically.
+
+**Effect:** Each of the 28 Miliarium Aureum pools receives exactly **one twenty-eighth** of the LP tranche every block — not one twenty-eighth of the full block emission when **bodensee_share > 0** (see F-0). No pool can outcompete another on emissions during this window.
+
+```
+share_of_LP_tranche_i = 1 / 28
+
+emission_to_pool_i(block) = lp_share(block) × block_emission(block) × (1 / 28)
 ```
 
 Where **i** ranges over the 28 Miliarium Aureum pools.
@@ -26,10 +46,12 @@ Where **i** ranges over the 28 Miliarium Aureum pools.
 
 **Purpose:** Allow operators to commit conviction capital (escrowed svZCHF/sUSDS deposited one-sided into der Bodensee Pool) in exchange for a time-limited supplementary emission stream, funded from the same fixed block emission — not from new inflation.
 
-**Effect:** Incendiary claims are subtracted from the block emission **before** the CCB distributes the remainder. This ensures boosted pools receive their committed stream without inflating total supply. Whatever is left after Incendiary claims is what the CCB allocates.
+**Effect:** Incendiary claims are subtracted from the **LP emission tranche** (after F-0’s der Bodensee bootstrap skim) **before** that tranche is split across pools (equal or CCB). This ensures boosted pools receive their committed stream without inflating total supply. Whatever is left after Incendiary claims is what the equal split (Months 1–10) or CCB (later) allocates.
 
 ```
-Remaining(block) = block_emission(block) − Incendiary_claims(block)
+lp_tranche(block) = lp_share(block) × block_emission(block)
+
+Remaining(block) = lp_tranche(block) − Incendiary_claims(block)
 ```
 
 Incendiary Boost provides a 30-day supplementary emission stream pegged to the 85th efficiency percentile. Escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool.
@@ -42,13 +64,13 @@ Incendiary Boost provides a 30-day supplementary emission stream pegged to the 8
 
 **Purpose:** Gradually shift from the equal regime to fully automatic CCB allocation over a two-month window, avoiding a sudden jump that could destabilize pool economics overnight.
 
-**Effect:** Each pool's emission share is a weighted mix of its equal share (1/28) and what the CCB formula would give it. The blend parameter **α** starts at zero (pure equal) and rises linearly to one (pure CCB) over the two-month window. At the midpoint, the mix is exactly half equal and half CCB.
+**Effect:** Each pool's fractional share of the **post-Incendiary LP emission tranche** (F-2) is a weighted mix of its equal share (1/28) and what the CCB formula would give it. The blend parameter **α** starts at zero (pure equal) and rises linearly to one (pure CCB) over the two-month window. At the midpoint, the mix is exactly half equal and half CCB. During Months 11–12, **bodensee_share = 0**, so the LP tranche equals the full block emission before Incendiary.
 
 ```
 share_i(block) = (1 − α(block)) × (1/28) + α(block) × CCB_share_i(block)
 ```
 
-Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime (CCB multiplier and Incendiary inside the CCB leg).
+Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime (CCB multiplier and Incendiary inside the CCB leg where applicable). Multiply **share_i** by **Remaining(block)** from F-2 to get AuMM to pool **i** for this leg.
 
 ---
 
@@ -75,7 +97,7 @@ The EMA runs continuously for **each pool** individually. Half-life is approxima
 
 **Purpose:** Combine a pool's smoothed TVL with its CCB multiplier into a single composite score that determines how much of the remaining block emission it receives.
 
-**Effect:** Pools with higher sustained TVL and favorable CCB multiplier positioning earn proportionally larger scores. The score is **relative** — a pool's emissions depend on how it compares to every other eligible pool, not on a fixed percentage. Incendiary Boost effects are handled separately via the priority skim (F-2), not inside the CCB score.
+**Effect:** Pools with higher sustained TVL and favorable CCB multiplier positioning earn proportionally larger scores. The score is **relative** — a pool's emissions depend on how it compares to every other eligible pool, not on a fixed percentage. Incendiary Boost effects are handled separately via the priority skim (F-2) on the LP tranche, not inside the CCB score.
 
 ```
 Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i)
@@ -211,7 +233,7 @@ weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
 weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
 ```
 
-At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF**. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) enters as one-sided svZCHF inflows. der Bodensee Pool receives **zero** AuMM emissions. Weight decay parameters are immutable from block 0.
+At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF**. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) enters as one-sided svZCHF inflows. During **Months 1–10**, der Bodensee Pool also receives a **linearly decaying one-sided AuMM bootstrap** (80% of block emission at genesis → 0% at end of Month 10; see F-0). **After Month 10**, no further AuMM is routed to der Bodensee via emission — only fee inflows and governance/Incendiary svZCHF/sUSDS deposits. Weight decay parameters are immutable from block 0.
 
 ---
 

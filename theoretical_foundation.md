@@ -3,7 +3,7 @@
 
 The CCB draws from established research across multiple disciplines:
 
-**Continuous Capital Corporation (CCC):** Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and its implementation in Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts the CCC as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are all algorithmic and immutable from block 0. There is no treasury that receives AuMM emissions.
+**Continuous Capital Corporation (CCC):** Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and its implementation in Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts the CCC as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are all algorithmic and immutable from block 0. There is no treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see `formulas.md` F-0); thereafter emissions accrue to LPs per the fixed rules.
 
 **Pro-Cyclicality:** BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.
 
@@ -42,17 +42,17 @@ Each **eligible** pool gets a **CCB score** combining its smoothed TVL (EMA) and
 
 The CCB turns scores into **shares**: each pool’s share is its score divided by the sum of scores of all eligible pools. Allocation is **relative** — a pool’s emissions depend on how it compares to every other eligible pool, not on a fixed headline percentage.
 
-der Bodensee Pool (AuMM / svZCHF LBP) receives **no emissions** (see `Miliarium_Aureum.md` §xii). Its TVL is **excluded** from the denominator so that it does not dilute the scores of emission-eligible pools.
+der Bodensee Pool (AuMM / svZCHF LBP) receives **bootstrap** AuMM **Months 1–10** only (one-sided deposits; see `Miliarium_Aureum.md` §xii). Its TVL is **excluded** from the CCB denominator so that it does not dilute the scores of emission-eligible pools.
 
 ### 3. How the block emission flows
 
-**Through the end of Month 10:** 100% of block emissions flow to LPs — the Miliarium tranche is split **evenly**, each of the 28 Miliarium pools gets one twenty-eighth. There is no treasury share. Other pools may exist on the AMM but do not receive this equal slice.
+**Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (80% at genesis, linear decay to 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the 28 Miliarium pools — **one twenty-eighth of the LP tranche** each. There is no treasury wallet. Other pools may exist on the AMM but do not receive this equal slice.
 
 **Months 11–12:** the protocol ramps from equal toward full CCB. Early in the window the mix is mostly equal; by the last block of Year 1 it is fully CCB. At the midpoint, the blend is half equal and half CCB. Exact block math is fixed on-chain — see `constitution.md` §xxviii.
 
-**After Year 1:** allocation is pure CCB. Every eligible pool competes on the same score logic, and shares are normalized so the whole emission pie (after Incendiary) is distributed.
+**After Year 1:** allocation is pure CCB. Every eligible pool competes on the same score logic, and shares are normalized so the whole LP emission pie (after Incendiary) is distributed.
 
-**Incendiary priority skim.** Incendiary Boost claims are paid out of the block emission **before** the remainder is split by the CCB. Incendiary is not a multiplier inside the CCB score; it is a first claim on the fixed per-block mint. What is left after those claims is what the CCB allocates. Details are in `bootstrap.md` §xxii and `constitution.md` §xxviii.
+**Incendiary priority skim.** Incendiary Boost claims are paid out of the **LP emission tranche** **after** the der Bodensee bootstrap skim (zero after Month 10) **before** the remainder is split by equal blend or CCB. Incendiary is not a multiplier inside the CCB score; it is a first claim on the LP tranche. What is left after those claims is what the regime allocates. Details are in `bootstrap.md` §xxii and `constitution.md` §xxviii.
 
 ### Design rationale
 

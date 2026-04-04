@@ -14,6 +14,7 @@
 <meta name="twitter:title" content="AUREUM — Protocol Design">
 <meta name="twitter:description" content="Project Aureum: immutable AMM protocol with Miliarium Aureum founding pools, CCB emission logic, and canonical pool registry.">
 <meta name="twitter:image" content="https://aumm.fi/aureum.jpeg">
+<link rel="apple-touch-icon" href="./aureum.jpeg">
 <link rel="llms-txt" href="/llms.txt">
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -215,6 +216,7 @@
         </div>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
         <button class="tab-btn" data-tab="appendices">Appendices</button>
+        <button class="tab-btn" data-tab="ux_ui">UX / UI</button>
       </div>
       <div class="theme-toggle">
         <button class="theme-btn active" data-theme="au">Au</button>
@@ -242,6 +244,7 @@
     <button class="rules-sub" data-tab="formulas">Formulas</button>
     <button data-tab="glossary">Glossary</button>
     <button data-tab="appendices">Appendices</button>
+    <button data-tab="ux_ui">UX / UI</button>
     <div class="mobile-theme-row">
       <button class="theme-btn" data-theme="au">Au</button>
       <button class="theme-btn" data-theme="day">Day</button>
@@ -336,6 +339,12 @@
       <div class="footer">AUREUM — Appendices</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-ux_ui">
+    <div class="content">
+      <div id="ux-ui-body"></div>
+      <div class="footer">AUREUM — UX / UI</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-intro">
     <div id="intro-tab-wrap">
       <div id="intro-tab-terminal"></div>
@@ -358,6 +367,7 @@ var menus = {
   'miliarium-sectors': [],
   'miliarium-profile': [],
   appendices: [],
+  ux_ui: [],
   intro: []
 };
 var rulesTabs = ['bootstrap', 'transitions', 'constitution', 'formulas'];
@@ -673,6 +683,7 @@ loadMd('miliarium_profiles/manifest.md', 'manifest-body', 'miliarium-manifest');
 loadMd('miliarium_profiles/sectors.md', 'sectors-body', 'miliarium-sectors');
 loadMd('aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('appendices.md', 'appendices-body', 'appendices');
+loadMd('ux_ui.md', 'ux-ui-body', 'ux_ui');
 
 // Load intro lines from intro.md and start animation
 fetch('intro.md', fetchMdOpts)

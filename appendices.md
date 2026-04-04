@@ -30,7 +30,7 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
 - AuMT pool token wrapper (Aureum Market Tessera)
 - CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see `constitution.md` §xxix for all numeric bounds)
-- Incendiary Boost engine (AuMM escrow, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
+- Incendiary Boost engine (svZCHF/sUSDS escrow into der Bodensee, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
 - 90-day gauge boost (1.2x fixed CCB multiplier for new gauges, automatic expiry)
 - CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see `constitution.md` §xxix)
 - Sandbox fast-track (top 10% efficiency sustained for 3 epochs, automatic gauge approval)
@@ -79,7 +79,7 @@ The deeper structural failure: SushiSwap was a fair launch of a **commodity prod
 |-------------|-----------------|-------------|
 | **Bootstrap Paradox** | No capital to seed liquidity | Founding team seeds pools with existing assets (ixEDEL, svZCHF). ERC-4626 pools generate 2-2.8% native yield from day one — LPs have a reason to stay before any AuMM emission has value. |
 | **Builder Burnout** | Devs work for free, farmers dump | Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. der Bodensee Pool accumulates all protocol-captured revenue (50% swap fees + 100% yield fees) from block 0 as one-sided svZCHF inflows, building autonomous reserve depth. No token sales fund development. |
-| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. No treasury. 100% of emissions flow to LPs from block 0. All protocol-captured revenue flows to one immutable destination: der Bodensee Pool (autonomous LBP reserve with linear weight decay) as one-sided svZCHF inflows. No human can redirect revenue, change the supply curve, or extract AuMM. The system is a Continuous Capital Corporation — fully rule-based from genesis. |
+| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. No treasury. **100% of the LP emission tranche** flows to LPs from block 0; **Months 1–10** the remainder of each block’s emission is one-sided AuMM into der Bodensee Pool (decaying to zero by month-end — no wallet receives it). All protocol-captured revenue flows to der Bodensee Pool as one-sided svZCHF inflows. No human can redirect revenue, change the supply curve, or extract bootstrap AuMM. The system is a Continuous Capital Corporation — fully rule-based from genesis. |
 | **Vampire Attack Dependency** | Liquidity rented via incentives, leaves when APR drops | Constituent tokens (WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay. |
 | **Governance Capture** | Token-weighted voting = capital buys control | Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 0 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power). |
 | **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. All protocol-captured revenue deepens der Bodensee Pool reserves, strengthening the AuMM price floor. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
@@ -152,7 +152,7 @@ The model works. And it is architecturally the opposite of Aureum on every dimen
 | Pricing logic | Private algorithms, off-chain oracles | On-chain weighted pool math, formally verified |
 | Transparency | Opaque — users cannot assess fairness or execution quality | Fully transparent — pool weights, fees, and rules are on-chain |
 | Governance | None — one team controls all parameters | AuMT-weighted — LPs govern protocol decisions |
-| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — no treasury, 100% of emissions to LPs from block 0. All protocol-captured revenue flows to der Bodensee Pool (autonomous reserve) as one-sided svZCHF inflows. |
+| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — no treasury; **LP tranche** to LPs from block 0; **Months 1–10** decaying bootstrap AuMM one-sided into der Bodensee Pool. All protocol-captured revenue flows to der Bodensee Pool (autonomous reserve) as one-sided svZCHF inflows. |
 | Failure mode | Single team goes down, 35%+ of chain volume disappears | Permissionless — no single point of failure, pools exist independently |
 | Chain dependency | Requires sub-second block times for active quoting — Solana-native | Passive LP model designed for Ethereum's 12-second blocks |
 | LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |
@@ -160,34 +160,3 @@ The model works. And it is architecturally the opposite of Aureum on every dimen
 Prop AMMs solved the routing problem through centralisation. Aureum solves the same problem through architecture — multi-asset pools with native yield, constellation routing, and aggregator-competitive fees — without concentrating control in a single team. The question is whether decentralised infrastructure can match the execution quality of a proprietary trading desk. The ERC-4626 yield floor, the multi-pair capital efficiency, and the cross-pool arbitrage engine are the mechanisms that make it possible.
 
 ---
-
-## xl. Proof of Real Yield Dashboard
-
-The aumm.fi frontend displays per-pool yield transparency that reframes how LPs evaluate returns.
-
-**Per pool, the dashboard shows:**
-
-| Metric | Definition |
-|--------|-----------|
-| Real yield % | Portion of returns from swap fees + ERC-4626 vault yield (non-inflationary sources) |
-| Emission yield % | Portion from AuMM emissions (inflationary) |
-| Efficiency score | Pool's efficiency ratio vs. protocol average |
-| Revenue per $1 of emissions | How much protocol revenue each dollar of emission generates |
-
-**The framing:** *"This pool earns 68% of returns from real yield, not inflation."*
-
-Most AMMs report a single blended APR that mixes real revenue with token emissions. LPs see "80% APR" without knowing that 75% of it is inflation that dilutes the token they're earning. Aureum separates the two, making the quality of returns visible.
-
-When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% emission yield," the conversation shifts from "which number is bigger" to "which return is sustainable." Lower headline APR, higher quality return. The dashboard makes that argument visually without saying a word about competitors.
-
-**Token supply transparency.** The dashboard also publishes in real time:
-
-- **Total AuMM emitted** — cumulative tokens distributed to LPs since block 0
-- **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost escrow
-- **der Bodensee Pool reserve depth** — current svZCHF reserves and AuMM/svZCHF ratio
-- **der Bodensee Pool reserve depth** — total svZCHF inflows and current AuMM/svZCHF ratio
-
-See Immutable Parameters (`constitution.md` §xxix).
-
----
-

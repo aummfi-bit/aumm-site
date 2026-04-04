@@ -6,7 +6,7 @@
 
 ## 1. Protocol Overview Dashboard
 
-- [ ] **Emission schedule status** — current era, block emission rate, next halving countdown (blocks + estimated time), cumulative emitted vs 21M cap (progress bar)
+- [ ] **Emission schedule status** — current era, block emission rate, next halving countdown (blocks + estimated time), cumulative emitted vs 21M cap (progress bar); **der Bodensee bootstrap** — current bootstrap share % of block emission, blocks remaining until Month 10 end (when bootstrap reaches 0%)
 - [ ] **TVL** — protocol-wide and per-pool, with EMA(60) overlay
 - [ ] **FDV / FDV-to-TVL ratio** — chart with historical
 - [ ] **TradingView-style charts** — TVL, FDV, FDV/TVL, AuMM price, all with the 60-day EMA plotted alongside spot
@@ -17,6 +17,7 @@
 
 ## 2. der Bodensee Pool
 
+- [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (80% → 0% linear by end of Month 10), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees
 - [ ] **Weight decay visualisation** — current AuMM/svZCHF weights vs target (90/10 → 48/52), time remaining to stabilisation, progress bar or animated gauge
 - [ ] **Reserve depth** — total svZCHF accumulated (from fee revenue + governance deposits + Incendiary escrow)
 - [ ] **AuMM price** — derived from pool weights and reserves (no oracle)
@@ -100,6 +101,35 @@
 - [ ] **Gauge registry** — all non-Miliarium gauged pools with status, TVL, efficiency rank, emission share
 - [ ] **Sandbox pools** — non-gauged pools ranked by efficiency, Fast-Track progress (top 10% for 3 epochs = auto-gauge)
 - [ ] **Gauge boost countdown** — 90-day boost timer for newly gauged pools (1.2x multiplier)
+
+---
+
+## 12. Proof of Real Yield Dashboard
+
+The aumm.fi frontend displays per-pool yield transparency that reframes how LPs evaluate returns.
+
+**Per pool, the dashboard shows:**
+
+| Metric | Definition |
+|--------|-----------|
+| Real yield % | Portion of returns from swap fees + ERC-4626 vault yield (non-inflationary sources) |
+| Emission yield % | Portion from AuMM emissions (inflationary) |
+| Efficiency score | Pool's efficiency ratio vs. protocol average |
+| Revenue per $1 of emissions | How much protocol revenue each dollar of emission generates |
+
+**The framing:** *"This pool earns 68% of returns from real yield, not inflation."*
+
+Most AMMs report a single blended APR that mixes real revenue with token emissions. LPs see "80% APR" without knowing that 75% of it is inflation that dilutes the token they're earning. Aureum separates the two, making the quality of returns visible.
+
+When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% emission yield," the conversation shifts from "which number is bigger" to "which return is sustainable." Lower headline APR, higher quality return. The dashboard makes that argument visually without saying a word about competitors.
+
+**Token supply transparency.** The dashboard also publishes in real time:
+
+- [ ] **Total AuMM emitted** — cumulative tokens distributed to LPs since block 0
+- [ ] **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost escrow
+- [ ] **der Bodensee Pool reserve depth** — current svZCHF reserves and AuMM/svZCHF ratio
+
+See Immutable Parameters (`constitution.md` §xxix).
 
 ---
 

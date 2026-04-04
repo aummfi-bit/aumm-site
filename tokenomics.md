@@ -29,7 +29,7 @@ Each era spans 10,512,000 blocks (~4 years at 12 s/block). Emissions are specifi
 
 ### Emission Distribution
 
-- **Through end of Month 10 (Year 1):** emissions to the Miliarium tranche are split **equally** across the 28 Miliarium pools (**1/28** each).
+- **Through end of Month 10 (Year 1):** each block’s emission is split in two: a **der Bodensee bootstrap** share and an **LP tranche**. The bootstrap share is **80% of block emission at genesis**, decaying **linearly to zero** by the **final block of Month 10**; it is minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens — same mechanic as one-sided svZCHF fee inflows; see `formulas.md` F-0). The **LP tranche** is the remainder of the block emission. The **28 Miliarium pools** each receive **1/28 of the LP tranche** (not of the full block emission while the bootstrap share is positive).
 - **Months 11–12 (Year 1):** a **two-month linear transition** that blends each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping linearly from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At the midpoint, the mix is half equal and half CCB. See `constitution.md` and `formulas.md`.
 - **After Year 1:** pure CCB weighting — each pool is scored by its smoothed TVL and CCB multiplier, then normalized across all eligible pools. See `constitution.md` and `formulas.md`.
 - No voting and no discretionary overrides.
@@ -161,7 +161,7 @@ der Bodensee Pool is the protocol’s self-regulating reserve — a two-token Li
 | End weights (18 months) | 48% AuMM / 52% svZCHF |
 | Decay | Linear, automatic via block timestamp |
 | Post-18-month | Weights fixed permanently at 48/52 |
-| Emissions | Zero — der Bodensee Pool receives no AuMM emissions |
+| Emissions (AuMM) | **Months 1–10:** linear decay — **80%** of block emission at genesis as one-sided AuMM → **0%** at end of Month 10. **After Month 10:** no further AuMM via emission; only fee and escrow inflows |
 
 At genesis, the high AuMM weight means the pool prices AuMM low relative to svZCHF — a natural starting point for a new token. As the AuMM weight declines linearly over 18 months, the pool progressively requires more svZCHF per unit of AuMM, creating organic price discovery driven by time-decay and real revenue inflows rather than speculative demand or manual intervention.
 
@@ -175,7 +175,7 @@ der Bodensee Pool is a Continuous Capital Corporation (CCC) reserve in the spiri
 
 ### The Self-Reinforcing Loop
 
-der Bodensee Pool holds svZCHF — an ERC-4626 yield-bearing savings vault. The protocol captures 10% of the yield those tokens generate. 100% of that yield fee flows back into der Bodensee Pool as additional svZCHF depth. So der Bodensee Pool feeds its own growth — even though the pool itself receives no emissions. Higher TVL in der Bodensee Pool means more yield fee revenue, more svZCHF depth, and a stronger AuMM price floor. The pool’s own existence deepens the reserve of the token it trades.
+der Bodensee Pool holds svZCHF — an ERC-4626 yield-bearing savings vault. The protocol captures 10% of the yield those tokens generate. 100% of that yield fee flows back into der Bodensee Pool as additional svZCHF depth. So der Bodensee Pool feeds its own growth — and during **Months 1–10** it also receives one-sided AuMM bootstrap emissions (decaying to zero by month-end); **after** bootstrap emissions end, growth continues from fees and escrow alone. Higher TVL in der Bodensee Pool means more yield fee revenue, more svZCHF depth, and a stronger AuMM price floor. The pool’s own existence deepens the reserve of the token it trades.
 
 ### Reserve Depth Growth
 

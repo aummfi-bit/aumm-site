@@ -67,15 +67,16 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Equal regime (through end of Month 10)
 
-- From **genesis through the final block of Month 10**, 100% of block emissions to the Miliarium Aureum tranche are split **equally** across the **28** Miliarium pools (**1/28** each).
+- Each block’s emission is split between **der Bodensee bootstrap** and the **LP tranche**. The bootstrap share is **80% of block emission at genesis**, decaying **linearly to zero** by the **final block of Month 10**; it is minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). See `formulas.md` F-0.
+- From **genesis through the final block of Month 10**, the **LP tranche** (after the bootstrap skim) is split **equally** across the **28** Miliarium pools — **1/28 of the LP tranche** each (not 1/28 of the full block emission while the bootstrap share is positive). **100% of the LP tranche** goes to LPs — no treasury wallet.
 
 ### Transition regime (Months 11–12)
 
-**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. A blend parameter runs from zero (pure equal) at the first block of Month 11 to one (pure CCB) at the last block of Year 1. At the midpoint of the window the mix is exactly half equal and half CCB. The CCB leg uses the same score as post–Year-1 (smoothed TVL × CCB multiplier). See `formulas.md` for the formal blend formula.
+**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. A blend parameter runs from zero (pure equal) at the first block of Month 11 to one (pure CCB) at the last block of Year 1. At the midpoint of the window the mix is exactly half equal and half CCB. The CCB leg uses the same score as post–Year-1 (smoothed TVL × CCB multiplier). See `formulas.md` for the formal blend formula. (Bootstrap is zero from Month 11 onward; the LP tranche equals the full block emission.)
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims are skimmed from the block emission first; the remainder is what the CCB splits. Each pool carries a 60-day exponential moving average of its on-chain TVL (see `theoretical_foundation.md` §vi for the canonical EMA explanation). The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, within the immutable band defined in §xxix below. No voting layer, no human override. See `formulas.md` for all formal definitions.
+Incendiary Boost claims are skimmed from the **LP emission tranche** (after any der Bodensee bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day exponential moving average of its on-chain TVL (see `theoretical_foundation.md` §vi for the canonical EMA explanation). The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, within the immutable band defined in §xxix below. No voting layer, no human override. See `formulas.md` for all formal definitions.
 
 ## xxix. Immutable Parameters (Canonical Source)
 
@@ -88,7 +89,7 @@ The following are immutable from block 0 and cannot be changed by any means:
 - Maximum AuMM supply: 21,000,000
 - Emission halving schedule and block emission rates
 - Fee splits: 50% of swap fees to LP bonus; 50% of swap fees and 100% of ERC-4626 yield fees to der Bodensee Pool as one-sided svZCHF inflows
-- der Bodensee Pool parameters: start weights 90% AuMM / 10% svZCHF, end weights 48% AuMM / 52% svZCHF, 18-month linear decay, one-sided svZCHF inflows, zero emissions
+- der Bodensee Pool parameters: start weights 90% AuMM / 10% svZCHF, end weights 48% AuMM / 52% svZCHF, 18-month linear decay, one-sided svZCHF inflows, **Months 1–10** one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10, linear decay)
 - CCB multiplier rules: step size ±0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
 - List of 28 Miliarium Aureum pools (locked at launch; see `Miliarium_Aureum.md`)
 - Core AMM mathematics, CCB formula, and eligibility criteria
@@ -98,5 +99,5 @@ The following are immutable from block 0 and cannot be changed by any means:
 
 ## xxx. No Treasury
 
-There is no treasury. The protocol has no entity, contract, or mechanism that receives AuMM emissions, holds discretionary funds, or disburses capital by vote. All protocol-captured revenue (50% of swap fees + 100% of ERC-4626 yield fees) flows automatically to one immutable destination: **der Bodensee Pool** as one-sided svZCHF inflows. The remaining 50% of swap fees returns directly to LPs as LP bonus. This design follows the Continuous Capital Corporation (CCC) philosophy: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can be captured, redirected, or extracted from. The system is fully autonomous from block 0.
+There is no treasury. The protocol has no entity or wallet that receives AuMM for discretionary use, and no mechanism that holds discretionary funds or disburses capital by vote. **der Bodensee Pool** receives **Months 1–10** bootstrap AuMM as **one-sided pool deposits** (not extractable, no LP tokens minted — same class as one-sided svZCHF fee inflows). All protocol-captured revenue (50% of swap fees + 100% of ERC-4626 yield fees) flows automatically to **der Bodensee Pool** as one-sided svZCHF inflows. The remaining 50% of swap fees returns directly to LPs as LP bonus. This design follows the Continuous Capital Corporation (CCC) philosophy: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can be captured, redirected, or extracted from. The system is fully autonomous from block 0.
 

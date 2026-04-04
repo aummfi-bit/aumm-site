@@ -62,13 +62,13 @@ There is no treasury. All protocol revenue flows automatically to one immutable 
 
 - **der Bodensee Pool** (50% of swap fees + 100% of ERC-4626 yield fees) — autonomous reserve depth via one-sided svZCHF inflows.
 
-The remaining 50% of swap fees returns directly to LPs as LP bonus. No founding-team signer, council, or progressive decentralization phase. No entity receives AuMM emissions. The system is a Continuous Capital Corporation (CCC) from block 0.
+The remaining 50% of swap fees returns directly to LPs as LP bonus. No founding-team signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see `formulas.md` F-0). The system is a Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 
-- **Through end of Month 10:** equal **1/28** split across the 28 Miliarium pools. **100% of emissions to LPs from block 0** — no treasury share.
+- **Through end of Month 10:** each block, a **decaying der Bodensee bootstrap** (80% at genesis → 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool; the **LP tranche** is split **1/28** across the 28 Miliarium pools. **100% of the LP tranche** goes to LPs from block 0 — no treasury share.
 - **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — the protocol's fully automatic emission allocator; see `aureum_glossary.md`). **α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB.
-- **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a separate priority skim. See `constitution.md` §xxviii–xxix for the full rules and immutable parameters.
+- **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. See `constitution.md` §xxviii–xxix for the full rules and immutable parameters.
 - No governance voting controls emission allocation.
 
 ## Governance (Non-Emission)
