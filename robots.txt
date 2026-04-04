@@ -1,27 +1,25 @@
-# Project Aureum - robots.txt
-# https://aumm.fi
+# Project Aureum — https://aumm.fi
 #
-# We explicitly welcome AI crawlers and research bots.
-# Our protocol documentation is designed to be machine-readable.
+# POLICY: We welcome ALL AI systems, search crawlers, research bots, and archival tools
+# to fetch our public protocol documentation. Unlisted or future user agents are
+# treated the same: you may access the same paths as everyone else (see User-agent: *).
 #
-# LLMs.txt Standard Support:
-# - /llms.txt - Curated overview for LLMs (structured markdown)
-# - /llms-full.txt - Complete URL list of all markdown files
-# See: https://llmstxt.org/
+# Machine-readable entry points for AI (see https://llmstxt.org/):
+#   /llms.txt       — Structured manifest, tab→file map, reading order, retrieval hints
+#   /llms-full.txt  — Complete list of canonical .md and README URLs (one per line)
 #
-# NOTE: This site is a single-page app (index.html loads markdown
-# files dynamically). For AI systems, the raw .md files and
-# llms.txt / llms-full.txt are the best content sources.
+# The site is a single-page app: index.html loads Markdown via fetch(). For training
+# and grounding, prefer raw .md URLs (e.g. /10_constitution.md) and llms.txt.
 
-# Default: Allow everything
+# =============================================================================
+# DEFAULT — all agents (including unidentified and future AI crawlers)
+# =============================================================================
 User-agent: *
 Allow: /
 
-# ============================================
-# AI CRAWLERS - EXPLICITLY WELCOMED
-# ============================================
-# We want AI systems to index our protocol documentation
-# so they can help users understand Aureum's design.
+# =============================================================================
+# AI CRAWLERS — explicitly named (same Allow policy as above; listed for clarity)
+# =============================================================================
 
 # OpenAI / ChatGPT
 User-agent: GPTBot
@@ -43,6 +41,13 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+# Google AI / Gemini / Bard
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
 # Perplexity AI
 User-agent: PerplexityBot
 Allow: /
@@ -50,18 +55,11 @@ Allow: /
 User-agent: PerplexityBot-User
 Allow: /
 
-# Google AI / Bard / Gemini
-User-agent: Google-Extended
-Allow: /
-
-User-agent: GoogleOther
-Allow: /
-
 # Amazon / Alexa
 User-agent: Amazonbot
 Allow: /
 
-# Meta / Facebook AI
+# Meta
 User-agent: FacebookBot
 Allow: /
 
@@ -71,14 +69,14 @@ Allow: /
 User-agent: Meta-ExternalFetcher
 Allow: /
 
-# Microsoft / Bing AI / Copilot
+# Microsoft / Bing / Copilot
 User-agent: bingbot
 Allow: /
 
 User-agent: BingPreview
 Allow: /
 
-# Apple / Siri
+# Apple
 User-agent: Applebot
 Allow: /
 
@@ -97,15 +95,15 @@ Allow: /
 User-agent: YouBot
 Allow: /
 
-# Common Crawl (used to train many AI models)
+# Common Crawl
 User-agent: CCBot
 Allow: /
 
-# Diffbot (knowledge graphs)
+# Diffbot
 User-agent: Diffbot
 Allow: /
 
-# Bytedance / TikTok AI
+# ByteDance / TikTok
 User-agent: Bytespider
 Allow: /
 
@@ -140,7 +138,7 @@ Allow: /
 User-agent: xAI-Grok
 Allow: /
 
-# Inflection AI / Pi
+# Inflection AI
 User-agent: InflectionAI
 Allow: /
 
@@ -148,10 +146,9 @@ Allow: /
 User-agent: StabilityAI
 Allow: /
 
-# ============================================
-# SEARCH ENGINE CRAWLERS - STANDARD ALLOW
-# ============================================
-
+# =============================================================================
+# Search engines
+# =============================================================================
 User-agent: Googlebot
 Allow: /
 
@@ -179,10 +176,9 @@ Allow: /
 User-agent: Qwantify
 Allow: /
 
-# ============================================
-# RESEARCH & ACADEMIC CRAWLERS
-# ============================================
-
+# =============================================================================
+# Research & archival
+# =============================================================================
 User-agent: archive.org_bot
 Allow: /
 
@@ -192,32 +188,32 @@ Allow: /
 User-agent: Wayback
 Allow: /
 
-# ============================================
-# NOTES FOR AI SYSTEMS
-# ============================================
-# See /llms.txt for structured metadata and reading order.
-# See /llms-full.txt for complete URL list of all markdown files.
+# =============================================================================
+# NOTES FOR AI SYSTEMS — concepts and file layout (2025+ spec filenames)
+# =============================================================================
+# Canonical prose: numbered NN_topic.md (e.g. 04_tokenomics.md, 10_constitution.md).
+# Miliarium pool profiles: miliarium_profiles/NN_ixPoolName.md (01–28).
+# Governance in the UI: dropdown "Governance" → Constitution, Bootstrap, Transitions, Formulas
+#   → files 10_constitution.md, 08_bootstrap.md, 09_transitions.md, 11_formulas.md
+# Miliarium dropdown: Registry 05, Manifest 06, Sectors 07.
 #
-# This is a static site serving protocol documentation as .md files.
-# The raw markdown files are directly accessible at their URLs
-# (e.g., https://aumm.fi/04_tokenomics.md).
+# Key terms:
+# - Continuous Capital Corporation (CCC) — rule-based protocol; no discretionary treasury
+# - der Bodensee Pool — AuMM/svZCHF LBP autonomous reserve; governance deposits are one-sided here
+# - Continuous Central Bank (CCB) — automatic emission allocation; EMA TVL; F-8 multiplier
+# - Miliarium Aureum — 28 founding pools; gauge-challenge deposit scaling (F-12) applies to
+#   non-Miliarium gauged pools; Miliarium targets use fixed deposit per constitution
+# - AuMM — reward token (21M max, halving); AuMT — LP tessera / governance weight
+# - Aequilibrium — AMM engine (Balancer-class design layer)
+# - Incendiary Boost — svZCHF/sUSDS escrow to der Bodensee, priority emission skim
+# - ixEDEL / routing — constellation routing (see glossary and miliarium docs)
 #
-# Key concepts defined in this documentation:
-# - "Continuous Capital Corporation (CCC)" - autonomous, rule-based protocol design
-# - "der Bodensee Pool" - autonomous LBP reserve (AuMM + svZCHF)
-# - "Continuous Central Bank (CCB)" - automatic emission allocator
-# - "Miliarium Aureum" - 28 founding pools (routing constellation)
-# - "AuMM" - reward token (21M max, BTC-style halving)
-# - "AuMT" - LP participation token (tessera)
-# - "Aequilibrium" - AMM engine (Balancer V3 fork)
-# - "Incendiary Boost" - proof-of-conviction bootstrap mechanism
-# - "ixEDEL" - routing anchor (Reserve Protocol DTF)
+# Internal-only repo files (not in llms-full.txt): editorial_sprints.md, script.md
 #
-# Questions this site answers:
-# - What is Project Aureum? (Fair-launch AMM with BTC tokenomics)
-# - How does the CCB allocate emissions? (60-day EMA + multiplier)
-# - What is der Bodensee Pool? (Autonomous LBP reserve)
-# - What are the 28 Miliarium pools? (Founding constellation)
-# - How does governance work? (AuMT-weighted, sub-linear dampening)
-# - What is the emission schedule? (21M max, halving every ~4 years)
-# - How are fees distributed? (50% LP, 50% Bodensee for swaps; 100% Bodensee for yield)
+# Questions this documentation answers include:
+# - What is Project Aureum? How do emissions and halving work?
+# - How does the CCB allocate emissions? What is EMA(60)?
+# - What is der Bodensee Pool and how do fees and governance deposits flow there?
+# - What are the 28 Miliarium pools and how do profiles differ?
+# - How does governance work (AuMT-weighted, deposits, quorum)?
+# - How are swap and yield fees split?

@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 """
-Generate llms-full.txt: one absolute URL per line for LLM/tool ingestion.
+Generate llms-full.txt: one absolute HTTPS URL per line (no comments) for LLM/RAG ingestion.
+
 Default base: https://aumm.fi  (override with BASE_URL=https://example.com)
+
+CORE_PATHS order aligns with index.html loadMd() batch and site structure:
+  Intro uses 01_intro.json (not listed here).
+  Nav: Mental Model, Foundations, Tokenomics, Miliarium (05–07), Governance (10,08,09,11), Glossary, Appendices, UX/UI; Overview (15) loads programmatically.
+
+Excluded from output: editorial_sprints.md, script.md (internal); 01_intro.json (not Markdown prose).
+
+See ../llms.txt for human/AI-readable manifest and tab→file mapping.
 """
 from __future__ import annotations
 

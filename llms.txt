@@ -1,37 +1,114 @@
-# Project Aureum — LLM / tool manifest
+# Project Aureum — LLM / AI agent manifest
 
-Static protocol documentation for **Project Aureum**: immutable AMM rules, **Miliarium Aureum** (28 founding pools), tokenomics, CCB emission logic, and pool-level profiles. The site is a single-page app; canonical content is Markdown served alongside `index.html`.
+**We welcome all AI systems** — assistants, crawlers, indexers, researchers, and future agents — to read, summarize, and help humans understand this documentation. Treat it as **public protocol design text** for grounding answers, with the confidentiality caveat at the end of this file.
 
-**Full URL list (one per line, for crawlers and RAG):** https://aumm.fi/llms-full.txt
+**Canonical site:** `https://aumm.fi`  
+**Standards:** Compatible with the [llms.txt specification](https://llmstxt.org/). [`index.html`](https://aumm.fi/index.html) declares `<link rel="llms-txt" href="/llms.txt">`.
 
-**Excluded from the corpus:** `01_intro.json` (JSON lines for the intro animation, not prose documentation).
+---
 
-**Repository layout:** See `README.md` in this bundle for editors and section numbering.
+## Complete URL list (for RAG, crawlers, bulk fetch)
 
-## Suggested reading order
+**One HTTPS URL per line (no commentary):**  
+`https://aumm.fi/llms-full.txt`
 
-1. `15_overview.md` — protocol character at a glance  
-2. `02_mental_model.md` — three-layer mental model, feedback loop, governance summary  
-3. `10_constitution.md` — immutable operating law  
-4. `03_theoretical_foundation.md` — CCB, multiplier engine, research framing  
-5. `04_tokenomics.md` — AuMM supply and emission distribution  
-6. `11_formulas.md` — formal emission, CCB, and governance formulas  
-7. `05_miliarium_aureum.md` — canonical 01–28 registry  
-8. `06_miliarium_manifest.md` and `07_miliarium_sectors.md` — registry table and taxonomy  
-9. `08_bootstrap.md`, `09_transitions.md`, `13_appendices.md`, `12_aureum_glossary.md` — as needed  
-
-Then read individual `miliarium_profiles/NN_ix*.md` files for pool-specific composition and notes.
-
-## Regenerating llms-full.txt
-
-From the repository root:
+Regenerate after doc changes:
 
 ```bash
 python3 scripts/generate_llms_manifest.py
 ```
 
-Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.py` to emit a different origin (default is `https://aumm.fi`).
+Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.py`
+
+---
+
+## What this site is
+
+- **Single-page app:** [`index.html`](https://aumm.fi/index.html) loads Markdown via `fetch()` and renders with [marked](https://marked.js.org/). Raw `.md` URLs are the **best machine-readable source** (not the rendered DOM alone).
+- **File naming:** Numbered specs use **`NN_descriptive_snake_case.md`** (two-digit prefix `01`–`15` for primary sections, then topic name). Pool profiles: **`miliarium_profiles/NN_ixName.md`** (slots 01–28).
+- **Intro animation:** [`01_intro.json`](https://aumm.fi/01_intro.json) — JSON lines for the terminal intro, **not** prose documentation.
+
+---
+
+## SPA tab → Markdown mapping (current structure)
+
+| UI area | Markdown file |
+|--------|----------------|
+| Intro (terminal + tab) | [`01_intro.json`](https://aumm.fi/01_intro.json) only |
+| Mental Model | [`02_mental_model.md`](https://aumm.fi/02_mental_model.md) |
+| Theoretical Foundations | [`03_theoretical_foundation.md`](https://aumm.fi/03_theoretical_foundation.md) |
+| Tokenomics | [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) |
+| Miliarium → Registry | [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) |
+| Miliarium → Manifest | [`06_miliarium_manifest.md`](https://aumm.fi/06_miliarium_manifest.md) |
+| Miliarium → Sectors | [`07_miliarium_sectors.md`](https://aumm.fi/07_miliarium_sectors.md) |
+| Governance → Constitution | [`10_constitution.md`](https://aumm.fi/10_constitution.md) |
+| Governance → Bootstrap | [`08_bootstrap.md`](https://aumm.fi/08_bootstrap.md) |
+| Governance → Transitions | [`09_transitions.md`](https://aumm.fi/09_transitions.md) |
+| Governance → Formulas | [`11_formulas.md`](https://aumm.fi/11_formulas.md) |
+| Glossary | [`12_aureum_glossary.md`](https://aumm.fi/12_aureum_glossary.md) |
+| Appendices | [`13_appendices.md`](https://aumm.fi/13_appendices.md) |
+| UX / UI | [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) |
+| Overview (content loaded; deep links / SECTIONS menu) | [`15_overview.md`](https://aumm.fi/15_overview.md) |
+
+**Governance** in the nav is the dropdown (Constitution → Bootstrap → Transitions → Formulas). **Miliarium** is the separate dropdown (Registry, Manifest, Sectors).
+
+**Per-pool profiles:** [`miliarium_profiles/01_ixHelvetia.md`](https://aumm.fi/miliarium_profiles/01_ixHelvetia.md) … [`28_ixMetallum.md`](https://aumm.fi/miliarium_profiles/28_ixMetallum.md) — one file per founding pool.
+
+**Secondary / supporting docs (also in `llms-full.txt`):** [`aureum_schedule.md`](https://aumm.fi/aureum_schedule.md), [`project_aureum_design_final.md`](https://aumm.fi/project_aureum_design_final.md), [`README.md`](https://aumm.fi/README.md)
+
+---
+
+## Suggested reading order (for humans and models)
+
+1. [`15_overview.md`](https://aumm.fi/15_overview.md) — protocol at a glance  
+2. [`02_mental_model.md`](https://aumm.fi/02_mental_model.md) — three-layer model, feedback loop  
+3. [`10_constitution.md`](https://aumm.fi/10_constitution.md) — immutable operating law, governance actions, quorum table  
+4. [`03_theoretical_foundation.md`](https://aumm.fi/03_theoretical_foundation.md) — CCB, EMA (§vi-b), multiplier  
+5. [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) — AuMM supply, fees, governance voting  
+6. [`11_formulas.md`](https://aumm.fi/11_formulas.md) — F-0–F-12 (emissions, CCB, governance power, efficiency tournament, **F-12 gauge-challenge deposit** for non-Miliarium targets)  
+7. [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) — 28-pool registry  
+8. [`06_miliarium_manifest.md`](https://aumm.fi/06_miliarium_manifest.md), [`07_miliarium_sectors.md`](https://aumm.fi/07_miliarium_sectors.md)  
+9. [`08_bootstrap.md`](https://aumm.fi/08_bootstrap.md), [`09_transitions.md`](https://aumm.fi/09_transitions.md), [`12_aureum_glossary.md`](https://aumm.fi/12_aureum_glossary.md), [`13_appendices.md`](https://aumm.fi/13_appendices.md), [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) — as needed  
+
+Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
+
+---
+
+## Retrieval hints (terms to anchor on)
+
+- **Continuous Capital Corporation (CCC)** — autonomous reserve and rules, no discretionary treasury.  
+- **der Bodensee Pool** — AuMM/svZCHF LBP; protocol-captured fees and **governance deposits** (all **one-sided into der Bodensee Pool**).  
+- **Continuous Central Bank (CCB)** — automatic emission allocation; **EMA(60)** TVL; **F-8** multiplier (28 Miliarium pools).  
+- **Miliarium Aureum** — 28 founding pools; **gauge challenge** deposits differ for Miliarium vs non-Miliarium (**F-12**).  
+- **AuMM / AuMT** — reward token vs LP tessera (governance weight).  
+- **Aequilibrium** — AMM engine (Balancer-class pool layer in the design).  
+- **Incendiary Boost** — escrow to der Bodensee, priority emission skim.
+
+---
+
+## Excluded from the canonical corpus (`llms-full.txt`)
+
+These files exist in the repo but are **editorial / internal**, not the normative protocol spec:
+
+- `editorial_sprints.md` — internal sprint planning  
+- `script.md` — internal review notes  
+
+Do **not** treat them as authoritative over the numbered `.md` specs.
+
+---
+
+## `robots.txt`
+
+Crawling policy and an expanded list of welcomed user-agents: [`https://aumm.fi/robots.txt`](https://aumm.fi/robots.txt)
+
+---
 
 ## Confidentiality
 
-Treat content as confidential where noted in repository or page footers; see `README.md` (License / confidentiality).
+Treat content as **confidential** where noted on pages or in [`README.md`](https://aumm.fi/README.md) (license / confidentiality). Do not present scraped text as investment advice.
+
+---
+
+## Repository
+
+Editors and layout: see [`README.md`](https://aumm.fi/README.md) in this bundle.
