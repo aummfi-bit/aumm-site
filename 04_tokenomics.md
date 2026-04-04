@@ -54,7 +54,7 @@ Deposit — start accruing. Withdraw — stop accruing. No snapshots, no pro-rat
 
 #### Emission Direction: The CCB Engine
 
-Emission allocation is driven by the **Continuous Central Bank (CCB)** — not by direct gauge voting. Each pool's base emission weight is its 60-day EMA of on-chain TVL as a share of total protocol TVL. Capital allocates itself. See [Theoretical foundations (§§vi–vii)](03_theoretical_foundation.md) and the [Constitution](10_constitution.md) for the full mechanics.
+Emission allocation is driven by the **Continuous Central Bank (CCB)** — not by direct gauge voting. Each pool's base emission weight is its 60-day EMA of on-chain TVL as a share of total protocol TVL. Capital allocates itself. See [Theoretical foundations](03_theoretical_foundation.md) (CCB §§vi–vii; **EMA** §vi-b) and the [Constitution](10_constitution.md) for the full mechanics.
 
 #### Protocol Governance (Non-Emission Decisions)
 
@@ -106,7 +106,7 @@ This eliminates:
 
 Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** regardless of vote outcome. There is no timelock fallback — the proposal simply fails and must be resubmitted.
 
-This applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. The deposit filters low-effort spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+This applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. **Deposit amounts** are proposal-specific (see [Constitution §xxvii](10_constitution.md); gauge challenges against **non-Miliarium** pools follow [F-12](11_formulas.md), with a **fixed** deposit for **Miliarium Aureum** targets). The deposit filters low-effort spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 
 #### Anti-Market Buying
 

@@ -2,15 +2,9 @@
 
 ## vi. CCB: Fully Automatic Allocation
 
-The **Continuous Central Bank (CCB)** is the protocol’s automatic rule that decides how each block’s AuMM emission is split across pools. It has two distinct layers: a **scoring layer** built from each pool’s smoothed TVL (the EMA), and a **multiplier layer** that fine-tunes allocation among the 28 Miliarium pools only (§vii). No committee, no vote, no discretion — the same rules apply at every block, using only on-chain state the contracts can read. The CCB acts as the central bank of the Miliarium economy — tightening yield during booms, loosening during busts, automatically.
+The **Continuous Central Bank (CCB)** is the protocol’s automatic rule that decides how each block’s AuMM emission is split across pools. It has two distinct layers: a **scoring layer** built from each pool’s smoothed TVL (the EMA; see §vi-b), and a **multiplier layer** that fine-tunes allocation among the 28 Miliarium pools only (§vii). No committee, no vote, no discretion — the same rules apply at every block, using only on-chain state the contracts can read. The CCB acts as the central bank of the Miliarium economy — tightening yield during booms, loosening during busts, automatically.
 
-### 1. What the EMA does and why
-
-For **each** pool separately, the protocol maintains a **60-day exponential moving average** of that pool’s on-chain TVL. Think of it as a **smoothed** picture of how much capital is committed there: today’s raw TVL moves the average only a little; big moves take **weeks** to fully show up. That is intentional — the EMA is a low-pass filter that suppresses one-day noise (hype, panic, a single whale) and passes only **sustained** liquidity commitment.
-
-If a pool’s smoothed TVL is **falling**, its weight in the CCB score tends to fall over time relative to pools whose smoothed TVL is flat or rising. The drop is **not** instantaneous: yesterday’s EMA still counts, so a sudden exit does not erase the pool’s share in one block. Conversely, if TVL collapses and stays low, the average eventually reflects that, and the pool’s share of total emissions shrinks. The 28 Miliarium pools are still individual pools with their own EMA series — there is no special carve-out that ignores TVL. What is special about the 28 is the **CCB multiplier** (§vii): only they get automatic adjustments that can soften how harshly a relative decline hits compared to a raw TVL-only rule.
-
-### 2. How pools score and compete
+### 1. How pools score and compete
 
 Each **eligible** pool gets a **CCB score** combining its smoothed TVL (EMA) and a **CCB multiplier**. The multiplier applies **only** to the 28 Miliarium pools; for all other eligible pools it is effectively one. Gauge-eligible pools that are not among the 28 still compete on smoothed TVL — they just do not receive the bi-weekly multiplier adjustments described in §vii.
 
@@ -18,7 +12,7 @@ The CCB turns scores into **shares**: each pool’s share is its score divided b
 
 der Bodensee Pool (AuMM / svZCHF LBP) receives **bootstrap** AuMM **Months 1–10** only (one-sided deposits; see [Miliarium Aureum registry (§xii — der Bodensee)](05_miliarium_aureum.md)). Its TVL is **excluded** from the CCB denominator so that it does not dilute the scores of emission-eligible pools.
 
-### 3. How the block emission flows
+### 2. How the block emission flows
 
 **Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (80% at genesis, linear decay to 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the 28 Miliarium pools — **one twenty-eighth of the LP tranche** each. There is no treasury wallet. Other pools may exist on the AMM but do not receive this equal slice.
 
@@ -72,13 +66,21 @@ Liquidity mining often **rewards whatever grew last week**, which can overpay ho
 
 Multipliers are **clamped** to an immutable band so no pool can be rewarded or punished without limit. A **dead zone** ignores tiny wiggles in the ratios so the system does not constantly flip on noise. Steps are **small and discrete** on a fixed cadence (bi-weekly cycle), not continuous social-media sentiment. All numeric bounds (step size, clamp range, dead zone, EMA horizon) are **immutable from block 0** — see [Immutable Parameters (§xxix)](10_constitution.md) for the exact values.
 
-### How the multiplier lines up with Section vi
+### How the multiplier lines up with Sections vi–vi-b
 
 The CCB always uses **per-pool** smoothed TVL as the backbone of the score. The multiplier **only** adjusts an extra factor for the **28** so that **relative** performance inside the founding constellation can be **taxed or subsidised** without human intervention. The formal update rule is in [Protocol formulas (F-8)](11_formulas.md); [Glossary](12_aureum_glossary.md) covers the same mechanics in glossary form.
 
 ### How the multiplier updates
 
 Only the 28 Miliarium pools receive CCB multiplier updates; for any other eligible pool the multiplier is neutral (effectively one). Each bi-weekly cycle, a pool’s multiplier is adjusted by two small steps — one driven by the direction of total protocol TVL (macro pressure) and one by the pool’s TVL relative to the Miliarium average (intra-constellation pressure) — then clamped to a hard floor and ceiling so no pool can be rewarded or punished without limit. Initial multiplier is 1.00. For all numeric bounds (step size, clamp range, dead zone), see [Immutable Parameters (§xxix)](10_constitution.md). For the formal update rule, see [Protocol formulas](11_formulas.md).
+
+---
+
+## vi-b. EMA — sustained liquidity signal
+
+For **each** pool separately, the protocol maintains a **60-day exponential moving average** of that pool’s on-chain TVL. Think of it as a **smoothed** picture of how much capital is committed there: today’s raw TVL moves the average only a little; big moves take **weeks** to fully show up. That is intentional — the EMA is a low-pass filter that suppresses one-day noise (hype, panic, a single whale) and passes only **sustained** liquidity commitment.
+
+If a pool’s smoothed TVL is **falling**, its weight in the CCB score tends to fall over time relative to pools whose smoothed TVL is flat or rising. The drop is **not** instantaneous: yesterday’s EMA still counts, so a sudden exit does not erase the pool’s share in one block. Conversely, if TVL collapses and stays low, the average eventually reflects that, and the pool’s share of total emissions shrinks. The 28 Miliarium pools are still individual pools with their own EMA series — there is no special carve-out that ignores TVL. What is special about the 28 is the **CCB multiplier** (§vii): only they get automatic adjustments that can soften how harshly a relative decline hits compared to a raw TVL-only rule.
 
 ---
 

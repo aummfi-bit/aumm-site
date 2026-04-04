@@ -184,7 +184,13 @@ If approved by vote, the pool becomes emission-eligible subject to immutable cri
 
 ### Gauge Challenge
 
-Any qualified AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. Challenge deposit: **1,000 svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool**. A challenge triggers a governance vote: if the challenge succeeds (majority votes to revoke), the gauge is removed and the pool loses emission eligibility. If the challenge fails, the deposit is still in Bodensee — the challenger accepted that risk.
+Any qualified AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. **Deposit rules depend on the target pool:** the **scaled** deposit in [F-12](11_formulas.md) applies only to **non-Miliarium** gauged pools. The **28 Miliarium Aureum** pools use the **flat** deposit only — **F-12 does not apply** to them.
+
+**Target is a non-Miliarium gauged pool:** challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). Convert the result to **svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool**.
+
+**Target is one of the 28 Miliarium Aureum pools:** challenge deposit remains **1,000 svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool** — the F-12 formula **does not** apply. Structural or composition-level change for those slots is primarily the **composition challenge** path, not nuisance revocation economics.
+
+A challenge triggers a governance vote: if the challenge succeeds (majority votes to revoke), the gauge is removed and the pool loses emission eligibility. If the challenge fails, the deposit is still in Bodensee — the challenger accepted that risk.
 
 This creates a community enforcement layer on top of the immutable anti-gaming criteria. The contract catches pools that fail the volume percentile floor or the efficiency caps automatically. Gauge challenges catch pools that technically pass the criteria but are extractive in ways the contract can't detect — coordinated wash trading, circular routing schemes, or pools that exist solely to farm emissions for a single actor.
 

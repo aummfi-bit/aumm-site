@@ -1,6 +1,6 @@
 # Protocol Formulas
 
-*Every formula that governs Aureum emission allocation, multiplier adjustment, and governance power — organized by protocol phase.*
+*Every formula that governs Aureum emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase.*
 
 All parameters listed here are **immutable from block 0**. See [Immutable Parameters (§xxix)](10_constitution.md).
 
@@ -234,6 +234,30 @@ weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
 ```
 
 At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF** **weights** with **minimal seed balances: 1 AuMM and 1 svZCHF** at deployment. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. **Protocol-captured** fee revenue — **50% of swap fees on non–der Bodensee pools** plus **100% of ERC-4626 yield fees** — enters as one-sided svZCHF inflows. **Swaps inside der Bodensee** pay **0.75%**, fully to der Bodensee LPs in-pool. During **Months 1–10**, der Bodensee Pool also receives a **linearly decaying one-sided AuMM bootstrap** (80% of block emission at genesis → 0% at end of Month 10; see F-0). **After Month 10**, no further AuMM is routed to der Bodensee via emission — only protocol-captured fee inflows, **in-pool** swap fees, and governance/Incendiary svZCHF/sUSDS deposits. Weight decay parameters are immutable from block 0.
+
+---
+
+### F-12. Gauge Challenge Deposit (Non-Miliarium Gauged Pools Only)
+
+**Purpose:** Scale the gauge-challenge deposit so nuisance challenges against **large, efficient** non-Miliarium gauges require meaningful skin in the game, while keeping a lower bar for challenging tail or weak pools. **This formula does not apply to the 28 Miliarium Aureum pools** — those use the **flat** deposit in [Constitution (§xxvii)](10_constitution.md).
+
+**Effect:** For a gauge challenge whose **target pool is not** one of the 28 Miliarium Aureum slots, the challenger deposits the **greater** of:
+
+1. **10 BTC** expressed in **CHF**, then in **svZCHF or sUSDS equivalent (whichever is higher)** at submission time — same valuation policy as other governance deposits; and  
+2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF/sUSDS equivalent for the one-sided der Bodensee deposit.
+
+**Elite tail convention:** **p_tvl** and **p_eff** use **rank / N** (not CDF-from-bottom). Among **all gauged pools** (including Miliarium), **N** = count of gauged pools. Sort by **spot TVL**; **rank 1** = highest TVL → **p_tvl = rank / N**. Independently sort by **efficiency ratio** as in F-10 (3-epoch moving average); **rank 1** = highest efficiency → **p_eff = rank / N**. **Ties** break deterministically (e.g. lower pool contract address hex first).
+
+Then **(1 − p_tvl)** and **(1 − p_eff)** are large when the target is **elite** on both dimensions (rank 1 ⇒ **p ≈ 1/N** ⇒ factors near **1 − 1/N**). The lowest-TVL or lowest-efficiency pool has **p ≈ 1** on that axis → that factor → **0** (the **10 BTC** floor typically binds).
+
+```
+deposit_CHF_component = 1_000_000 × sqrt((1 − p_tvl) × (1 − p_eff))
+
+gauge_challenge_deposit = max( 10_BTC_in_CHF ,  deposit_CHF_component )
+// then convert to svZCHF/sUSDS equivalent for der Bodensee; non-refundable
+```
+
+**Miliarium Aureum exclusion:** If the challenged pool **is** one of the **28 Miliarium Aureum** registry pools, **do not** use F-12 — use the **fixed** gauge-challenge deposit (1,000 svZCHF/sUSDS equivalent). Slot-level structural change for those pools follows **composition challenge**, not this scaling rule.
 
 ---
 

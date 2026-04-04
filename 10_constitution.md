@@ -6,6 +6,15 @@
 
 ## xxvii. Protocol Control Model
 
+### AUREUM Governance Actions (aumm.fi)
+
+- **Gauge Proposal** — new pool **emission eligibility** (gauge approval). Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Proposal).
+- **Gauge Challenge** — **revoke** an existing gauge. Non-Miliarium targets: scaled deposit [F-12](11_formulas.md). **Miliarium Aureum (28):** flat deposit only — F-12 does not apply. Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Challenge).
+- **Fee proposals** — **swap / yield fee** changes **within immutable bounds**. Voting model: [Tokenomics](04_tokenomics.md) §ix (Governance); mechanics: [Bootstrap](08_bootstrap.md) §xxiv (Governance Proposals).
+- **Miliarium Aureum Composition Challenge** — **2/3 supermajority** tessera-weighted vote to deprecate a pool and **replace** assets in-slot (like-for-like). Details: [Bootstrap](08_bootstrap.md) §xxiv (Miliarium Aureum Composition Challenge) and **### Composition Challenge Rule** below.
+
+Deposits, minimum turnout, and approval thresholds: **### Quorum and Deposit Requirements** below.
+
 Aureum is immutable and non-custodial from block 0:
 
 - no admin keys
@@ -19,25 +28,19 @@ All core contracts are immutable from block 0. Governance exists for non-emissio
 
 ### Governance Scope (Non-Emission Only)
 
-Qualified AuMT holders can submit proposals and vote on:
-
-- gauge approvals
-- gauge challenges (revocation)
-- fee parameter changes within immutable bounds
-- Miliarium Aureum composition challenges
-
-Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
+Qualified AuMT holders submit and vote on the **four governance actions** listed above. Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
 
 ### Quorum and Deposit Requirements
 
 | Decision Type | Minimum Turnout | Deposit (svZCHF/sUSDS, to der Bodensee Pool) | Approval Threshold | Failure Mode |
 |--------------|-----------------|------------------------|--------------------|-------------|
 | Gauge approval | 20% of total qualified voting power | 100 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
-| Gauge challenge (revocation) | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
+| Gauge challenge (revocation) — non-Miliarium gauged pool | 20% of total qualified voting power | Per [F-12](11_formulas.md): **max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))** in svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
+| Gauge challenge (revocation) — Miliarium Aureum (28 pools) | 20% of total qualified voting power | **1,000** svZCHF/sUSDS equivalent — **F-12 does not apply** | Simple majority | Auto-fail if turnout < 20% |
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 
-All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action deepens der Bodensee Pool reserves.
+All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action deepens der Bodensee Pool reserves. **Gauge challenge:** the scaled deposit in [F-12](11_formulas.md) applies only when the **target pool is not** one of the **28 Miliarium Aureum** registry pools; for those, use the **fixed 1,000** row above.
 
 **Low-Turnout Safeguard.** Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** — no timelock, no fallback. The proposal must be resubmitted. This is uniform across all proposal types (see [Tokenomics](04_tokenomics.md) Low-Turnout Safeguard).
 
@@ -61,7 +64,7 @@ All proposals must reference verifiable on-chain state only. A valid proposal mu
 
 ## xxviii. Emission Operating Rules
 
-*Narrative treatment: [Theoretical foundations (§§vi–vii)](03_theoretical_foundation.md).*
+*Narrative treatment: [Theoretical foundations](03_theoretical_foundation.md) (§§vi–vii; EMA §vi-b).*
 
 Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block ranges from genesis; **Year 1** is Months 1–12 inclusive.
 
@@ -76,7 +79,7 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims are skimmed from the **LP emission tranche** (after any der Bodensee bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day exponential moving average of its on-chain TVL (see [Theoretical foundations (§vi — EMA)](03_theoretical_foundation.md) for the canonical EMA explanation). The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, within the immutable band defined in §xxix below. No voting layer, no human override. See [Protocol formulas](11_formulas.md) for all formal definitions.
+Incendiary Boost claims are skimmed from the **LP emission tranche** (after any der Bodensee bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day exponential moving average of its on-chain TVL (see [Theoretical foundations (§vi-b — EMA)](03_theoretical_foundation.md) for the canonical EMA explanation). The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, within the immutable band defined in §xxix below. No voting layer, no human override. See [Protocol formulas](11_formulas.md) for all formal definitions.
 
 ## xxix. Immutable Parameters (Canonical Source)
 
