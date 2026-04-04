@@ -220,4 +220,4 @@ Allow: /
 # - What are the 28 Miliarium pools? (Founding constellation)
 # - How does governance work? (AuMT-weighted, sub-linear dampening)
 # - What is the emission schedule? (21M max, halving every ~4 years)
-# - How are fees distributed? (50% LP, 25% burn, 25% Bodensee for swaps)
+# - How are fees distributed? (50% LP, 50% Bodensee for swaps; 100% Bodensee for yield)

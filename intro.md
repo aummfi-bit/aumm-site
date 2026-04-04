@@ -28,7 +28,7 @@
   { "text": "", "spacer": true, "pause": 500 },
   { "text": "21 million tokens. Fixed supply. BTC scarcity.", "pause": 700 },
   { "text": "Immutable smart contracts. No admin keys.", "pause": 600 },
-  { "text": "Buyback and burn \u2014 financed by real fees.", "pause": 700 },
+  { "text": "Autonomous reserve \u2014 deepened by real fees.", "pause": 700 },
   { "text": "", "spacer": true, "pause": 400 },
   { "text": "The best AMM architecture ever built", "pause": 600 },
   { "text": "meets the tokenomics it always deserved.", "pause": 900 },

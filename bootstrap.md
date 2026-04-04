@@ -73,7 +73,7 @@ The Incendiary slot locks after 30 days. A second boost is only possible if the 
 
 ### Anti-Wash-Trading
 
-The 30-day limit plus the efficiency rank requirement makes wash trading uneconomical: the attacker pays more in swap fees (routed to buyback-and-burn) than they can extract in boosted emissions. The protocol wins the fee-vs-emission spread.
+The 30-day limit plus the efficiency rank requirement makes wash trading uneconomical: the attacker pays more in swap fees (routed to der Bodensee Pool) than they can extract in boosted emissions. The protocol wins the fee-vs-emission spread.
 
 ### Immutable Parameters
 

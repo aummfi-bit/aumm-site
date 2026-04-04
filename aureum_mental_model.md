@@ -1,8 +1,8 @@
 # Aureum Protocol
 
 > Imagine mining BTC with capital, not electricity.  
-> Imagine BTC with a buy back and burn program sponsored by real fees.  
-> Imagine your capital is liquidity generating real fees that buy back and burn the scarce token.  
+> Imagine BTC backed by an autonomous reserve funded by real fees.  
+> Imagine your capital is liquidity generating real fees that deepen the reserve behind the scarce token.  
 > Meet $AuMM.
 
 ## i. One Line
@@ -35,7 +35,7 @@ The protocol's naming follows the architecture of Roman infrastructure — becau
 
 The **Miliarium Aureum** (Golden Milestone) was the monument in the Roman Forum from which all distances in the Empire were measured. Every road radiated from it. In this protocol, the Miliarium Aureum is the founding constellation of 28 pools — the routing hub that connects every pool through cross-pool arbitrage, shared aggregator paths, and deeper effective liquidity.
 
-**AuMM** (Aureum Market Maker) is the reward token — mined by providing liquidity, burned by the protocol. BTC-style scarcity.
+**AuMM** (Aureum Market Maker) is the reward token — mined by providing liquidity, backed by protocol revenue flowing into der Bodensee Pool. BTC-style scarcity.
 
 **AuMT** (Aureum Market Tessera) is the proof-of-participation token — your tessera. In Rome, a tessera was a small tablet that served as a ticket, a voucher, or a token of identity. It proved you belonged and carried rights: entry, grain distribution, voting in assemblies. Your AuMT proves your stake in the protocol's liquidity and carries the same rights — emissions, governance power, LP bonus eligibility.
 
@@ -55,7 +55,7 @@ The 28 Miliarium pools are not a random collection of liquidity venues — they 
 
 ### 1. Capital Allocation (The Continuous Central Bank)
 
-Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (see `theoretical_foundation.md` §vi). The 28 Miliarium pools carry an algorithmic CCB multiplier (see `constitution.md` §xxix for bounds) that nudges their share based on TVL trends — no voting, no human override. Strictly zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation. All protocol fee revenue flows to der Bodensee Pool (the autonomous reserve) and buyback-and-burn — there is no separate treasury.
+Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (see `theoretical_foundation.md` §vi). The 28 Miliarium pools carry an algorithmic CCB multiplier (see `constitution.md` §xxix for bounds) that nudges their share based on TVL trends — no voting, no human override. Strictly zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded. Short-term hype is ignored. Market crashes trigger higher relative yield (anticyclical floor). Think of it as a central bank that automatically rewards persistent liquidity, not speculation. All protocol-captured fee revenue flows to der Bodensee Pool (the autonomous reserve) as one-sided svZCHF inflows — there is no separate treasury.
 
 ### 2. Bootstrapping (Starting New Pools)
 

@@ -128,9 +128,9 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 
 AuMM is a **100% liquid token**. There is no locking, no staking, no ve-mechanism, no wrapper. You hold AuMM, you can sell it at any time.
 
-**AuMM carries zero governance power.** It does not vote on emissions, fee parameters, or any protocol decision. All governance — including emission direction — is AuMT-weighted (active LP positions in qualified pools). AuMM is a pure reward and value-capture token: earned by LPs, burned by the protocol.
+**AuMM carries zero governance power.** It does not vote on emissions, fee parameters, or any protocol decision. All governance — including emission direction — is AuMT-weighted (active LP positions in qualified pools). AuMM is a pure reward and value-capture token: earned by LPs, supported by protocol revenue.
 
-AuMM accrues value exclusively through **buyback and burn** — the same mechanism as a corporate stock buyback programme. Protocol revenue is used to buy AuMM on the open market and permanently burn it. Circulating supply declines over time. Each remaining token represents a larger share of future protocol revenue. No yield farming. No APR on holding. Just scarcity.
+AuMM accrues value through **der Bodensee Pool** — the protocol's autonomous reserve. All protocol-captured revenue enters der Bodensee Pool as one-sided svZCHF inflows, continuously deepening the AuMM/svZCHF liquidity and strengthening the price floor. The combination of linear weight decay (90% → 48% AuMM over 18 months) and growing svZCHF reserves creates a self-reinforcing price support mechanism. No yield farming. No APR on holding. Value backed by real revenue.
 
 ## x. Value Capture
 
@@ -139,16 +139,14 @@ AuMM accrues value exclusively through **buyback and burn** — the same mechani
 | Stream | Destination | Share |
 |--------|-------------|-------|
 | Swap fees | LP bonus | 50% |
-| Swap fees | AuMM buyback and burn | 25% |
-| Swap fees | der Bodensee Pool | 25% |
-| ERC-4626 yield fee (10% skim) | AuMM buyback and burn | 25% |
-| ERC-4626 yield fee (10% skim) | der Bodensee Pool | 75% |
+| Swap fees | der Bodensee Pool | 50% |
+| ERC-4626 yield fee (10% skim) | der Bodensee Pool | 100% |
 
-There is no treasury. All protocol revenue flows to two destinations only: buyback-and-burn (deflationary pressure) and der Bodensee Pool (autonomous reserve depth). Both are contract-enforced and immutable.
+There is no treasury. All protocol-captured revenue flows to one immutable destination: **der Bodensee Pool** as one-sided svZCHF inflows (autonomous reserve depth). The remaining 50% of swap fees returns directly to LPs as LP bonus. Both flows are contract-enforced and immutable.
 
 ### The Day-One Revenue Guarantee
 
-Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has revenue from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It’s architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, yield fee revenue flows into der Bodensee Pool as one-sided svZCHF inflows, deepening the autonomous reserve. Buyback-and-burn activates as soon as der Bodensee Pool has sufficient AuMM liquidity for market purchases.
+Because ERC-4626 pools generate yield fee revenue regardless of trading volume, the protocol has revenue from the first block. This is not dependent on routing, aggregator integration, or TVL growth. It’s architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, all fee revenue flows into der Bodensee Pool as one-sided svZCHF inflows, deepening the autonomous reserve.
 
 ### der Bodensee Pool (Autonomous Reserve)
 
@@ -169,7 +167,7 @@ At genesis, the high AuMM weight means the pool prices AuMM low relative to svZC
 
 #### One-sided revenue inflows
 
-All protocol fee revenue (25% of swap fees + 75% of ERC-4626 yield fees) enters der Bodensee Pool as **one-sided svZCHF inflows**. This deepens the svZCHF side over time, strengthening the reserve and creating continuous buy pressure on AuMM within the pool. The combination of declining AuMM weight and growing svZCHF reserves produces a self-reinforcing price floor that tightens as the protocol matures.
+All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) enters der Bodensee Pool as **one-sided svZCHF inflows**. This deepens the svZCHF side over time, strengthening the reserve and creating continuous buy pressure on AuMM within the pool. The combination of declining AuMM weight and growing svZCHF reserves produces a self-reinforcing price floor that tightens as the protocol matures.
 
 #### CCC alignment
 
@@ -177,29 +175,23 @@ der Bodensee Pool is a Continuous Capital Corporation (CCC) reserve in the spiri
 
 ### The Self-Reinforcing Loop
 
-der Bodensee Pool holds svZCHF — an ERC-4626 yield-bearing savings vault. The protocol captures 10% of the yield those tokens generate. 25% of that yield fee goes to buyback-and-burn of AuMM; 75% flows back into der Bodensee Pool as additional svZCHF depth. So der Bodensee Pool feeds the deflationary mechanism that makes AuMM scarcer — even though the pool itself receives no emissions. Higher TVL in der Bodensee Pool means more yield fee revenue, more buyback-and-burn, and fewer AuMM in circulation. The pool’s own existence tightens the supply of the token it trades.
+der Bodensee Pool holds svZCHF — an ERC-4626 yield-bearing savings vault. The protocol captures 10% of the yield those tokens generate. 100% of that yield fee flows back into der Bodensee Pool as additional svZCHF depth. So der Bodensee Pool feeds its own growth — even though the pool itself receives no emissions. Higher TVL in der Bodensee Pool means more yield fee revenue, more svZCHF depth, and a stronger AuMM price floor. The pool’s own existence deepens the reserve of the token it trades.
 
-### The Deflationary Crossover
+### Reserve Depth Growth
 
-At scale, the combined buyback-and-burn from swap fees (25%) and yield fees (25% of 10%) can exceed the emission rate — making AuMM net deflationary despite ongoing LP mining rewards. BTC scarcity with productive backing.
+At scale, the combined protocol-captured revenue from swap fees (50%) and yield fees (100% of the 10% skim) flows entirely into der Bodensee Pool, continuously deepening the AuMM/svZCHF reserve.
 
 **Worked example.** Assume $100M protocol TVL and $20M average daily volume at maturity:
 
-| Burn source | Calculation | Annual burn (AuMM) |
-|:------------|:------------|:-------------------|
-| Swap fee burn | $20M/day × 0.05% fee × 25% to burn × 365 days = $912,500/year in buy pressure | Depends on AuMM price |
-| Yield fee burn | $100M TVL × ~52% ERC-4626 weight × 2.5% avg yield × 10% skim × 25% to burn = $32,500/year in buy pressure | Depends on AuMM price |
-| **Total annual burn pressure** | | **~$945,000/year** in AuMM purchased and destroyed |
+| Revenue source | Calculation | Annual svZCHF inflow |
+|:---------------|:------------|:---------------------|
+| Swap fee revenue | $20M/day × 0.05% fee × 50% to Bodensee × 365 days | ~$1,825,000/year |
+| Yield fee revenue | $100M TVL × ~52% ERC-4626 weight × 2.5% avg yield × 10% skim × 100% to Bodensee | ~$130,000/year |
+| **Total annual reserve inflow** | | **~$1,955,000/year** in svZCHF depth |
 
-| Era | Annual emission (AuMM) | Crossover at $1 AuMM? | Crossover at $0.50 AuMM? |
-|:----|:----------------------|:----------------------|:-------------------------|
-| 0 (years 0–4) | 2,628,000 | No ($945K < $2.63M) | No ($945K < $1.31M) |
-| 1 (years 4–8) | 1,314,000 | No (but closer) | Yes ($945K > $657K) |
-| 2 (years 8–12) | 657,000 | Yes ($945K > $657K) | Yes |
+As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, accelerating reserve growth. Higher TVL means more fees, deeper reserves, and a stronger AuMM price floor. The halving schedule reduces emission dilution every four years while revenue scales with TVL — the reserve grows faster than new supply enters the market.
 
-The crossover is structurally expected during **Era 1 or Era 2**, driven primarily by TVL growth and fee revenue — not by AuMM price appreciation. As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, pulling the crossover earlier. Higher TVL means more fees, more burn, and a lower crossover threshold.
-
-*This calculation is illustrative; actual crossover timing depends on protocol TVL, trading volume, and fee revenue at the time. The key structural point is that emissions halve every four years while revenue scales with TVL — the curves must eventually cross.*
+*AuMM burns still occur through governance deposit burns (gauge proposals, challenges, fee changes) and Incendiary Boost escrow burns, but these are governance-driven, not revenue-driven.*
 
 ### Immutable Reference
 

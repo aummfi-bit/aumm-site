@@ -14,7 +14,7 @@ Two tracks, depending on what you need:
 |:-----|:-----|:---------------|
 | 1 | `overview.md` (this file) | Protocol character, team, risk factors |
 | 2 | `aureum_mental_model.md` | Three-layer architecture, emission regimes, constellation routing |
-| 3 | `tokenomics.md` §ix–x | Token design, fee splits, value capture, deflationary crossover |
+| 3 | `tokenomics.md` §ix–x | Token design, fee splits, value capture |
 | 4 | Any pool profile in `miliarium_profiles/` | Composition, sector thesis, volume drivers for one pool |
 | 5 | `appendices.md` §xxxvii, §xxxix | Why fair-launch AMMs failed before and how Aureum differs; competitive position |
 
@@ -58,12 +58,11 @@ Two tracks, depending on what you need:
 
 ## No Treasury
 
-There is no treasury. All protocol revenue flows automatically to two immutable destinations:
+There is no treasury. All protocol revenue flows automatically to one immutable destination:
 
-- **AuMM buyback-and-burn** (25% of swap fees + 25% of ERC-4626 yield fees) — deflationary pressure.
-- **der Bodensee Pool** (25% of swap fees + 75% of ERC-4626 yield fees) — autonomous reserve depth.
+- **der Bodensee Pool** (50% of swap fees + 100% of ERC-4626 yield fees) — autonomous reserve depth via one-sided svZCHF inflows.
 
-No founding-team signer, council, or progressive decentralization phase. No entity receives AuMM emissions. The system is a Continuous Capital Corporation (CCC) from block 0.
+The remaining 50% of swap fees returns directly to LPs as LP bonus. No founding-team signer, council, or progressive decentralization phase. No entity receives AuMM emissions. The system is a Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 

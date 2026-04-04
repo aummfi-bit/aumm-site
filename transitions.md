@@ -25,7 +25,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 
 **Months 1–18 — der Bodensee Pool weight decay active.**
 - AuMM weight declines linearly from 90% → 48%; svZCHF weight rises from 10% → 52%.
-- Buyback-and-burn activates as soon as der Bodensee Pool has sufficient AuMM liquidity for market purchases.
+- All protocol-captured fee revenue enters der Bodensee Pool as one-sided svZCHF inflows from block 0.
 - Price discovery is forced by time-decay + real revenue inflows — no oracle, no manual trigger.
 
 **Month 11 — Gauge proposals open, CCB transition begins.**

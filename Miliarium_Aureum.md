@@ -148,7 +148,7 @@ With shared **svZCHF** and **ixEDEL** across most pools, arbitrage layers includ
 
 **1. CCB emission multiplier.** Miliarium pools are the only pools eligible for the automatic CCB multiplier (see `theoretical_foundation.md` §vii and `formulas.md` F-8; for numeric bounds, see `constitution.md` §xxix).
 
-**2. der Bodensee Pool revenue routing.** All protocol fee revenue (25% of swap fees + 75% of ERC-4626 yield fees) flows into der Bodensee Pool as one-sided svZCHF inflows, deepening the autonomous reserve that provides AuMM price discovery and liquidity depth for the entire constellation.
+**2. der Bodensee Pool revenue routing.** All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) flows into der Bodensee Pool as one-sided svZCHF inflows, deepening the autonomous reserve that provides AuMM price discovery and liquidity depth for the entire constellation.
 
 **Permanent slots.** The 28 Miliarium slots are permanent protocol infrastructure — the number never decreases. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: the old pool’s gauge is revoked and a replacement pool with the updated composition is launched into the same slot, following the standard bootstrap path (gauge proposal, vote, 90-day boost). Like-for-like means same sector, same risk, same template role (see `bootstrap.md` §xxiv for worked examples and `constitution.md` §xxvii for the binding rule).
 
@@ -164,13 +164,13 @@ Each Miliarium pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md
 
 The **28** Miliarium pools in **Section xi** are the full **Miliarium Aureum** founding set. **AuMM** is separate: it is the **reward token**, not a numbered ix slot.
 
-**der Bodensee Pool** — the protocol’s autonomous reserve and AuMM price-discovery venue. A two-token Liquidity Bootstrapping Pool (**AuMM + svZCHF**) with linear time-decay weights: **90% AuMM / 10% svZCHF** at genesis, decaying to **48% AuMM / 52% svZCHF** over 18 months. All protocol fee revenue (25% of swap fees + 75% of ERC-4626 yield fees) flows one-sided into the svZCHF side. This is **not** one of the immutable ix pools above.
+**der Bodensee Pool** — the protocol’s autonomous reserve and AuMM price-discovery venue. A two-token Liquidity Bootstrapping Pool (**AuMM + svZCHF**) with linear time-decay weights: **90% AuMM / 10% svZCHF** at genesis, decaying to **48% AuMM / 52% svZCHF** over 18 months. All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) flows one-sided into the svZCHF side. This is **not** one of the immutable ix pools above.
 
 **Emissions:** der Bodensee Pool receives **no** protocol emissions. **AuMM** is what gets **minted** and **paid** to LPs of the **28** Miliarium pools (and gauge-eligible pools per **`bootstrap.md`**). LPs in der Bodensee Pool earn **swap fees** only, **not** the per-block emission stream.
 
 | Concept | What it is |
 |:--------|:-----------|
-| **AuMM (token)** | Emission, halving, and fee routing to buyback-and-burn — **`tokenomics.md`**. |
+| **AuMM (token)** | Emission, halving, and fee routing — **`tokenomics.md`**. |
 | **der Bodensee Pool** | AuMM + svZCHF LBP with time-decay weights; autonomous reserve; **no emissions** to this pool. |
 
 **Summary:** Read **Section xi** for the **only** locked founding pools and emission destinations. Read **`tokenomics.md`** for **AuMM** the asset; this section defines **der Bodensee Pool** vs the **28** Miliarium pools.

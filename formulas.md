@@ -211,7 +211,7 @@ weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
 weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
 ```
 
-At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF**. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. All protocol fee revenue (25% of swap fees + 75% of ERC-4626 yield fees) enters as one-sided svZCHF inflows. der Bodensee Pool receives **zero** AuMM emissions. Weight decay parameters are immutable from block 0.
+At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF**. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) enters as one-sided svZCHF inflows. der Bodensee Pool receives **zero** AuMM emissions. Weight decay parameters are immutable from block 0.
 
 ---
 

@@ -94,35 +94,9 @@ Only Architecture & Thesis is assigned (Sagix).
 
 ## Suggested Improvements
 
-### S-1. "Two destinations" phrasing in tokenomics.md
+### ~~S-1. RESOLVED~~ — buyback-and-burn removed; fee model redesigned (single destination: der Bodensee Pool)
 
-**File:** `tokenomics.md:147`
-
-**Issue:** Immediately after the fee split table (which shows three rows: LP bonus 50%, buyback-and-burn 25%, der Bodensee 25%), the text says:
-
-> "There is no treasury. All protocol revenue flows to two destinations only: buyback-and-burn (deflationary pressure) and der Bodensee Pool (autonomous reserve depth)."
-
-The intent is correct — LP bonus is the LP's own share of swap fees, not "protocol revenue" in the captured sense. But a reader scanning the table and then the sentence will see 3 rows → "two only" and be confused.
-
-**Suggested fix:** Add a parenthetical or adjust to:
-
-> "There is no treasury. Protocol-captured revenue flows to two destinations only: buyback-and-burn (deflationary pressure) and der Bodensee Pool (autonomous reserve depth). The remaining 50% of swap fees returns directly to LPs as LP bonus."
-
----
-
-### S-2. Same "two destinations" phrasing in overview.md
-
-**File:** `overview.md:61`
-
-**Issue:** Same pattern as S-1:
-
-> "All protocol revenue flows automatically to two immutable destinations:"
-
-Then lists buyback-and-burn and der Bodensee Pool. LP bonus (50% of swap fees) is not mentioned at all on this page.
-
-**Suggested fix:** After the two bullet points, add:
-
-> "50% of swap fees returns directly to LPs as LP bonus (see `tokenomics.md` §x)."
+### ~~S-2. RESOLVED~~ — same as S-1
 
 ---
 
@@ -194,8 +168,8 @@ But ixHelvetia (slot 01) also has no ixEDEL. The earlier sentence ("Twenty-six o
 | R-3 | Required | `constitution.md §xxix` | MEDIUM — missing canonical parameter |
 | R-4 | Required | `robots.txt:19` | MEDIUM — references missing sitemap.xml |
 | R-5 | Required | `overview.md:86-88` | LOW — TBD team roles (pre-launch) |
-| S-1 | Suggested | `tokenomics.md:147` | LOW — clarity |
-| S-2 | Suggested | `overview.md:61` | LOW — clarity |
+| S-1 | ~~RESOLVED~~ | `tokenomics.md` | Buyback-and-burn removed; fee model redesigned |
+| S-2 | ~~RESOLVED~~ | `overview.md` | Same as S-1 |
 | S-3 | Suggested | `aureum_mental_model.md:74` | LOW — completeness |
 | S-4 | Suggested | `llms.txt` | LOW — alignment |
 | S-5 | Suggested | `Miliarium_Aureum.md` | LOW — explicitness |

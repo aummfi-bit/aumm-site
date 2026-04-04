@@ -87,7 +87,7 @@ The following are immutable from block 0 and cannot be changed by any means:
 
 - Maximum AuMM supply: 21,000,000
 - Emission halving schedule and block emission rates
-- Fee splits: 25% of swap fees and 25% of ERC-4626 yield fees to AuMM buyback-and-burn; 25% of swap fees and 75% of ERC-4626 yield fees to der Bodensee Pool; 50% of swap fees to LP bonus
+- Fee splits: 50% of swap fees to LP bonus; 50% of swap fees and 100% of ERC-4626 yield fees to der Bodensee Pool as one-sided svZCHF inflows
 - der Bodensee Pool parameters: start weights 90% AuMM / 10% svZCHF, end weights 48% AuMM / 52% svZCHF, 18-month linear decay, one-sided svZCHF inflows, zero emissions
 - CCB multiplier rules: step size ±0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
 - List of 28 Miliarium Aureum pools (locked at launch; see `Miliarium_Aureum.md`)
@@ -98,5 +98,5 @@ The following are immutable from block 0 and cannot be changed by any means:
 
 ## xxx. No Treasury
 
-There is no treasury. The protocol has no entity, contract, or mechanism that receives AuMM emissions, holds discretionary funds, or disburses capital by vote. All protocol revenue (swap fees + ERC-4626 yield fees) flows automatically to two immutable destinations: **AuMM buyback-and-burn** and **der Bodensee Pool**. This design follows the Continuous Capital Corporation (CCC) philosophy: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can be captured, redirected, or extracted from. The system is fully autonomous from block 0.
+There is no treasury. The protocol has no entity, contract, or mechanism that receives AuMM emissions, holds discretionary funds, or disburses capital by vote. All protocol-captured revenue (50% of swap fees + 100% of ERC-4626 yield fees) flows automatically to one immutable destination: **der Bodensee Pool** as one-sided svZCHF inflows. The remaining 50% of swap fees returns directly to LPs as LP bonus. This design follows the Continuous Capital Corporation (CCC) philosophy: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can be captured, redirected, or extracted from. The system is fully autonomous from block 0.
 
