@@ -32,7 +32,7 @@ Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthca
 
 ## xvii. Design Principle
 
-The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. For the conceptual introduction to the miniature economy framing and why 28 pools, see `02_mental_model.md` (The Miniature Economy). Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
+The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. For the conceptual introduction to the miniature economy framing and why 28 pools, see [Mental model — The Miniature Economy](02_mental_model.md). Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
 
 - **Sector rotation dynamics** — when tech sells off, capital rotates to treasuries or gold; the protocol captures fees on both legs
 - **Aggregator diversity** — each sector attracts different external volume sources (crypto aggregators, equity wrappers, FX corridors)

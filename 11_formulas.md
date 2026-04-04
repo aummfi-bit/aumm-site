@@ -2,7 +2,7 @@
 
 *Every formula that governs Aureum emission allocation, multiplier adjustment, and governance power — organized by protocol phase.*
 
-All parameters listed here are **immutable from block 0**. See Immutable Parameters (`10_constitution.md` §xxix).
+All parameters listed here are **immutable from block 0**. See [Immutable Parameters (§xxix)](10_constitution.md).
 
 ---
 
@@ -168,7 +168,7 @@ Where:
 - **clamp** = hard floor and ceiling; the multiplier can never leave this band
 - **dead zone** = if the TVL ratio is within the dead zone of neutral, no step is applied — prevents noise from triggering constant micro-adjustments
 
-Step size, clamp bounds, and dead zone threshold are all immutable from block 0 — see Immutable Parameters (`10_constitution.md` §xxix) for exact values.
+Step size, clamp bounds, and dead zone threshold are all immutable from block 0 — see [Immutable Parameters (§xxix)](10_constitution.md) for exact values.
 
 Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any other eligible pool, **CCB_mult = 1**.
 
@@ -213,7 +213,7 @@ excess = Σ (uncapped_emission − capped_emission) for all capped pools
 redistribute excess to uncapped pools pro-rata by CCB_share
 ```
 
-Efficiency ranking is price-agnostic — both the numerator (revenue) and the denominator (emissions) are measured in the same unit. See `08_bootstrap.md` §xxiii.
+Efficiency ranking is price-agnostic — both the numerator (revenue) and the denominator (emissions) are measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
 ---
 
@@ -221,7 +221,7 @@ Efficiency ranking is price-agnostic — both the numerator (revenue) and the de
 
 **Purpose:** Define the linear time-decay of token weights in der Bodensee Pool (the protocol's autonomous reserve), replacing any discretionary price discovery or stabilization mechanism.
 
-**Effect:** der Bodensee Pool is a two-token Liquidity Bootstrapping Pool (AuMM + svZCHF) whose weights shift linearly from genesis to the 18-month endpoint. Protocol fee revenue flows one-sided into the svZCHF side. Price discovery is forced by the combination of time-decay and real revenue inflows — no oracle, no manual trigger.
+**Effect:** der Bodensee Pool is a two-token Liquidity Bootstrapping Pool (AuMM + svZCHF) whose weights shift linearly from genesis to the 18-month endpoint. **Genesis seed:** **1 AuMM** and **1 svZCHF** at pool creation. **Swap fee on trades in this pool:** **0.75%**, fully retained **in pool** for der Bodensee LPs (not routed through the protocol-wide 50/50 swap-fee split). **Protocol-captured** fee revenue from **other** pools flows one-sided into the svZCHF side. Price discovery is forced by the combination of time-decay and real revenue inflows — no oracle, no manual trigger.
 
 ```
 genesis_block = block_0
@@ -233,8 +233,8 @@ weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
 weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
 ```
 
-At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF**. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. All protocol-captured fee revenue (50% of swap fees + 100% of ERC-4626 yield fees) enters as one-sided svZCHF inflows. During **Months 1–10**, der Bodensee Pool also receives a **linearly decaying one-sided AuMM bootstrap** (80% of block emission at genesis → 0% at end of Month 10; see F-0). **After Month 10**, no further AuMM is routed to der Bodensee via emission — only fee inflows and governance/Incendiary svZCHF/sUSDS deposits. Weight decay parameters are immutable from block 0.
+At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF** **weights** with **minimal seed balances: 1 AuMM and 1 svZCHF** at deployment. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. **Protocol-captured** fee revenue — **50% of swap fees on non–der Bodensee pools** plus **100% of ERC-4626 yield fees** — enters as one-sided svZCHF inflows. **Swaps inside der Bodensee** pay **0.75%**, fully to der Bodensee LPs in-pool. During **Months 1–10**, der Bodensee Pool also receives a **linearly decaying one-sided AuMM bootstrap** (80% of block emission at genesis → 0% at end of Month 10; see F-0). **After Month 10**, no further AuMM is routed to der Bodensee via emission — only protocol-captured fee inflows, **in-pool** swap fees, and governance/Incendiary svZCHF/sUSDS deposits. Weight decay parameters are immutable from block 0.
 
 ---
 
-*All formulas are immutable from block 0. See Immutable Parameters (`10_constitution.md` §xxix) for the full list.*
+*All formulas are immutable from block 0. See [Immutable Parameters (§xxix)](10_constitution.md) for the full list.*

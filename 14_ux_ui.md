@@ -11,7 +11,7 @@
 - [ ] **FDV / FDV-to-TVL ratio** — chart with historical
 - [ ] **TradingView-style charts** — TVL, FDV, FDV/TVL, AuMM price, all with the 60-day EMA plotted alongside spot
 - [ ] **Trading volume** — 24h, 7d, 30d, all-time; protocol-wide and per-pool breakdown
-- [ ] **Protocol fees** — 24h and all-time; split by swap fees vs yield fees; show svZCHF inflow to der Bodensee Pool
+- [ ] **Protocol fees** — 24h and all-time; split by swap fees vs yield fees; **protocol-captured** svZCHF inflow to der Bodensee (50% of swap on other pools + yield skim) **vs** **in-pool** fees on der Bodensee trades (0.75% tier, LPs only)
 
 ---
 
@@ -21,7 +21,7 @@
 - [ ] **Weight decay visualisation** — current AuMM/svZCHF weights vs target (90/10 → 48/52), time remaining to stabilisation, progress bar or animated gauge
 - [ ] **Reserve depth** — total svZCHF accumulated (from fee revenue + governance deposits + Incendiary escrow)
 - [ ] **AuMM price** — derived from pool weights and reserves (no oracle)
-- [ ] **Inflow tracker** — cumulative and trailing 30d svZCHF inflows, broken down by source (swap fees, yield fees, governance deposits, Incendiary escrow)
+- [ ] **Inflow tracker** — cumulative and trailing 30d **one-sided svZCHF** inflows to der Bodensee, broken down by source (protocol-captured swap share from **other** pools, yield skim after **svZCHF routing**, governance deposits, Incendiary escrow); separately show **in-pool** swap-fee accrual for der Bodensee LPs (0.75% tier) if distinct in subgraph
 - [ ] **Pool composition** — live AuMM and svZCHF balances
 
 ---
@@ -91,7 +91,7 @@
 ## 10. Sector Rotation View
 
 - [ ] **Sector heatmap** — Yield / Bonds / Crypto / Stocks / Metals; colour by 24h fee generation or TVL change
-- [ ] **Macro regime indicator** — qualitative view of which sectors are leading/lagging (maps to the correlation matrix in `07_miliarium_sectors.md`)
+- [ ] **Macro regime indicator** — qualitative view of which sectors are leading/lagging (maps to the correlation matrix in [Miliarium sectors](07_miliarium_sectors.md))
 - [ ] **Sector-level TVL and volume aggregates** — time series per sector
 
 ---
@@ -129,7 +129,7 @@ When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% e
 - [ ] **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost escrow
 - [ ] **der Bodensee Pool reserve depth** — current svZCHF reserves and AuMM/svZCHF ratio
 
-See Immutable Parameters (`10_constitution.md` §xxix).
+See [Immutable Parameters (§xxix)](10_constitution.md).
 
 ---
 

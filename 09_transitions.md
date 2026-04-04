@@ -17,8 +17,8 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - Aequilibrium factory opens. Pool creation is permissionless.
 - **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission is minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/28** across the 28 Miliarium pools. **100% of the LP tranche** goes to LPs from block 0 — there is no treasury wallet.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
-- der Bodensee Pool launches at genesis with **90% AuMM / 10% svZCHF** weights. Linear time-decay begins.
-- Protocol fee revenue starts flowing into der Bodensee Pool as one-sided svZCHF inflows.
+- der Bodensee Pool launches at genesis with **1 AuMM** and **1 svZCHF** seed liquidity and **90% AuMM / 10% svZCHF** weights. Linear time-decay begins. **Swap fee on trades inside der Bodensee:** **0.75%**, fully retained **in pool** for der Bodensee LPs.
+- **Protocol-captured** fee revenue (swap fees on **other** pools + ERC-4626 yield fees) starts flowing into der Bodensee Pool as one-sided svZCHF inflows.
 
 **Month 2 — TVL measurement window opens.**
 - On-chain TVL data begins accumulating for EMA(60) signal.
@@ -28,7 +28,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 
 **Months 1–18 — der Bodensee Pool weight decay active.**
 - AuMM weight declines linearly from 90% → 48%; svZCHF weight rises from 10% → 52%.
-- All protocol-captured fee revenue enters der Bodensee Pool as one-sided svZCHF inflows from block 0.
+- **Protocol-captured** fee revenue from **other** pools enters der Bodensee Pool as one-sided svZCHF inflows from block 0; **swap fees on trades inside der Bodensee** (0.75%) accrue **in pool** to der Bodensee LPs.
 - Price discovery is forced by time-decay + real revenue inflows — no oracle, no manual trigger.
 
 **End of Month 10 — Bootstrap emissions complete.**
@@ -45,20 +45,24 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 **End of Year 1 — CCB transition complete.**
 - α = 1. Allocation is pure CCB.
 
+**Months 13–18 — CCB vs LBP weight decay (two clocks).**
+- **Emissions:** The **α** blend finishes at the **last block of Year 1** (α = 1). From **Month 13** onward, allocation is **already** pure CCB — there is **no** second emission transition in Months 13–18. Those months are **not** a CCB ramp; they are just the first half of **Year 2** while the LBP story is still catching up.
+- **der Bodensee Pool weights:** Linear weight decay runs **18 months** from genesis and **ends at Month 18** (90/10 → 48/52). Months 13–18 only finish that **weight** curve; they do **not** change CCB formulas.
+
 **Month 18 — der Bodensee Pool weights stabilize.**
 - Weights reach final state: 48% AuMM / 52% svZCHF. Fixed permanently from this point.
 - Protocol fee revenue continues flowing into der Bodensee Pool indefinitely.
 
 ### After Year 1 (full CCB)
 
-- Allocation is **pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See `10_constitution.md` and `11_formulas.md`.
+- Allocation is **pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - Allocation remains automatic: no voting, no discretionary multipliers, no transition council.
 - Efficiency tournament fully active — bottom 15% capped, excess redistributed.
 - Volume percentile floor at full discipline (15th percentile).
 - New gauged pools receive emissions alongside the 28 Miliarium pools.
 - Incendiary Boost available for all gauged pools.
 - Governance continues for non-emission proposals (gauges, fees) under immutable constraints.
-- der Bodensee Pool continues receiving all protocol fee revenue as one-sided svZCHF inflows.
+- **Protocol-captured** fees (swap fees on other pools + ERC-4626 yield skim) continue to der Bodensee Pool as one-sided svZCHF inflows; **swap fees on trades inside der Bodensee** (0.75%) stay **in pool** for der Bodensee LPs.
 
 ### Post-activation
 
@@ -66,4 +70,4 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - Protocol continues under immutable, on-chain rules only.
 - Proposal and voting workflows remain active for non-emission actions, with on-chain-data-only proposal validation.
 
-See Immutable Parameters (`10_constitution.md` §xxix).
+See [Immutable Parameters (§xxix)](10_constitution.md).

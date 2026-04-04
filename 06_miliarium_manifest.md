@@ -6,7 +6,7 @@
 
 ## xiii. Pool Registry
 
-*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in [`05_miliarium_aureum.md`](05_miliarium_aureum.md) Section xi registry). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
+*One profile file per slot: **`NN_ixCanonicalName.md`** (slot `NN` = row in the [Miliarium Aureum registry](05_miliarium_aureum.md) Section xi table). Order: **Yield (01–07) → Bonds (08–11) → Crypto (12–16) → Stocks (17–26) → Metals (27–28)**.*
 
 | Slot | Pool Name | Registry category | Sector | Yield Core A (26%) | Yield Core B (26%) | Routing Anchor (16%) | Theme Asset A (16%) | Theme Asset B (16%) | Template |
 |:-----|:----------|:------------------|:-------|:-------------------|:-------------------|:---------------------|:-------------------|:-------------------|:---------|

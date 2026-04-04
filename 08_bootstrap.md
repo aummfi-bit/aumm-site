@@ -65,7 +65,7 @@ Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th
 
 ### Priority Skim
 
-Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on the **LP emission tranche** — i.e. **after** the der Bodensee bootstrap one-sided AuMM skim in Months 1–10 (`11_formulas.md` F-0; zero thereafter). The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the LP tranche, then distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every other pool's LP-tranche share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool, deepening the autonomous reserve in exchange for the privilege of skipping the EMA queue.
+Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on the **LP emission tranche** — i.e. **after** the der Bodensee bootstrap one-sided AuMM skim in Months 1–10 ([Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the LP tranche, then distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every other pool's LP-tranche share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool, deepening the autonomous reserve in exchange for the privilege of skipping the EMA queue.
 
 ### Renewal Rule
 
@@ -92,7 +92,7 @@ Pools must meet ALL criteria to remain eligible for AuMM emissions:
 | Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
 | No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
 
-All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax these rules. The CCB multiplier applies automatically to the 28 Miliarium pools (see `03_theoretical_foundation.md` §vii and `11_formulas.md` F-8; for numeric bounds, see `10_constitution.md` §xxix). No voting over emission allocation. New gauges receive a **90-day 1.2x CCB multiplier** as a cold-start bootstrap — a fixed boost that expires automatically, with no vote and no renewal.
+All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax these rules. The CCB multiplier applies automatically to the 28 Miliarium pools (see [Theoretical foundations (§vii)](03_theoretical_foundation.md) and [Protocol formulas (F-8)](11_formulas.md); for numeric bounds, see [Constitution (§xxix)](10_constitution.md)). No voting over emission allocation. New gauges receive a **90-day 1.2x CCB multiplier** as a cold-start bootstrap — a fixed boost that expires automatically, with no vote and no renewal.
 
 ### Why TVL-Based Governance Eliminates the Wrapper Problem
 
@@ -243,4 +243,4 @@ Every proposal must reference only verifiable on-chain data (addresses, block ra
 
 ## xxv. Immutable Reference
 
-See Immutable Parameters (`10_constitution.md` §xxix).
+See [Immutable Parameters (§xxix)](10_constitution.md).

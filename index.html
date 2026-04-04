@@ -711,9 +711,32 @@ mainDoc.addEventListener('click', function(e) {
     switchTab('miliarium-sectors');
     return;
   }
-  if (/05_miliarium_aureum\.md$/i.test(norm) || /Miliarium_Aureum\.md$/i.test(norm)) {
+  var mdBase = norm.replace(/^.*[/\\]/, '');
+  var mdToTab = {
+    '02_mental_model.md': 'model',
+    '03_theoretical_foundation.md': 'foundations',
+    '04_tokenomics.md': 'tokenomics',
+    '05_miliarium_aureum.md': 'miliarium',
+    '06_miliarium_manifest.md': 'miliarium-manifest',
+    '07_miliarium_sectors.md': 'miliarium-sectors',
+    '08_bootstrap.md': 'bootstrap',
+    '09_transitions.md': 'transitions',
+    '10_constitution.md': 'constitution',
+    '11_formulas.md': 'formulas',
+    '12_aureum_glossary.md': 'glossary',
+    '13_appendices.md': 'appendices',
+    '14_ux_ui.md': 'ux_ui',
+    '15_overview.md': 'overview',
+    'Miliarium_Aureum.md': 'miliarium'
+  };
+  if (mdToTab[mdBase]) {
     e.preventDefault();
-    switchTab('miliarium');
+    switchTab(mdToTab[mdBase]);
+    return;
+  }
+  if (/^miliarium_profiles\/?$/i.test(norm) || norm === './miliarium_profiles' || norm === 'miliarium_profiles') {
+    e.preventDefault();
+    switchTab('miliarium-manifest');
     return;
   }
   if (norm.indexOf('miliarium_profiles/') === 0 && /\.md$/i.test(norm)) {

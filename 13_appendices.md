@@ -16,7 +16,7 @@ Aequilibrium is derived from Balancer V3's open-source, Certora-verified smart c
 | Smart Order Router | Balancer V3 | None |
 | Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming |
 | Token contract | **New** | BTC-style emission schedule, immutable supply cap |
-| Fee distributor | **New** | 50/50 swap fee split (LP/Bodensee) + 100% yield fee to Bodensee — all as one-sided svZCHF inflows |
+| Fee distributor | **New** | 50/50 swap fee split on non–der Bodensee pools (LP/Bodensee) + 100% yield fee to Bodensee; der Bodensee Pool 0.75% swap fee in-pool |
 | Governance | **New** | LP-weighted voting (AuMT for protocol governance), 90-day gauge boost, no ve-locking |
 
 ### What's Unchanged (Critical)
@@ -29,10 +29,10 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
 - AuMT pool token wrapper (Aureum Market Tessera)
-- CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see `10_constitution.md` §xxix for all numeric bounds)
+- CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see [Constitution (§xxix)](10_constitution.md) for all numeric bounds)
 - Incendiary Boost engine (svZCHF/sUSDS escrow into der Bodensee, 30-day emission streaming, efficiency scalar calculation, priority skim, renewal lock)
 - 90-day gauge boost (1.2x fixed CCB multiplier for new gauges, automatic expiry)
-- CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see `10_constitution.md` §xxix)
+- CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see [Constitution (§xxix)](10_constitution.md))
 - Sandbox fast-track (top 10% efficiency sustained for 3 epochs, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)
@@ -40,7 +40,7 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Token supply tracker (cumulative emitted, net circulating)
 - Minimum qualification period enforcer (14-day continuous hold check)
 - Quorum calculator and timelock router
-- Fee splitter (swap fees: 50/50 LP/Bodensee + yield fees: 100% Bodensee — all protocol-captured revenue as one-sided svZCHF inflows)
+- Fee splitter (swap fees on non–der Bodensee pools: 50/50 LP/Bodensee; yield fees: 100% Bodensee one-sided svZCHF; der Bodensee Pool: 0.75% swap fee, 100% in-pool to der Bodensee LPs)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
 Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool LBP weight decay engine, Miliarium Aureum pool registry, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
@@ -78,11 +78,11 @@ The deeper structural failure: SushiSwap was a fair launch of a **commodity prod
 | Failure Mode | What Killed Them | Aureum's Fix |
 |-------------|-----------------|-------------|
 | **Bootstrap Paradox** | No capital to seed liquidity | Founding team seeds pools with existing assets (ixEDEL, svZCHF). ERC-4626 pools generate 2-2.8% native yield from day one — LPs have a reason to stay before any AuMM emission has value. |
-| **Builder Burnout** | Devs work for free, farmers dump | Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. der Bodensee Pool accumulates all protocol-captured revenue (50% swap fees + 100% yield fees) from block 0 as one-sided svZCHF inflows, building autonomous reserve depth. No token sales fund development. |
-| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. No treasury. **100% of the LP emission tranche** flows to LPs from block 0; **Months 1–10** the remainder of each block’s emission is one-sided AuMM into der Bodensee Pool (decaying to zero by month-end — no wallet receives it). All protocol-captured revenue flows to der Bodensee Pool as one-sided svZCHF inflows. No human can redirect revenue, change the supply curve, or extract bootstrap AuMM. The system is a Continuous Capital Corporation — fully rule-based from genesis. |
+| **Builder Burnout** | Devs work for free, farmers dump | Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. der Bodensee Pool accumulates **protocol-captured** revenue (50% of swap fees on other pools + 100% yield fees) from block 0 as one-sided svZCHF inflows, plus **in-pool** swap fees on der Bodensee trades (0.75%), building autonomous reserve depth. No token sales fund development. |
+| **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. No treasury. **100% of the LP emission tranche** flows to LPs from block 0; **Months 1–10** the remainder of each block’s emission is one-sided AuMM into der Bodensee Pool (decaying to zero by month-end — no wallet receives it). **Protocol-captured** revenue (swap fees on other pools + yield fees) flows to der Bodensee Pool as one-sided svZCHF inflows; **der Bodensee** swap fees (0.75%) stay **in pool** for LPs. No human can redirect revenue, change the supply curve, or extract bootstrap AuMM. The system is a Continuous Capital Corporation — fully rule-based from genesis. |
 | **Vampire Attack Dependency** | Liquidity rented via incentives, leaves when APR drops | Constituent tokens (WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay. |
 | **Governance Capture** | Token-weighted voting = capital buys control | Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 0 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power). |
-| **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. All protocol-captured revenue deepens der Bodensee Pool reserves, strengthening the AuMM price floor. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
+| **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. **Protocol-captured** revenue and **in-pool** der Bodensee swap fees deepen reserves, strengthening the AuMM price floor. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
 | **Commodity Product** | No architectural moat → users leave when incentives fade | Multi-asset weighted pools, ERC-4626 native yield, hooks, constellation routing — these pool designs cannot exist on Uniswap, Curve, or Aerodrome. The moat is the architecture, not the token. LPs stay because no other venue offers the same capital efficiency. |
 
 ### The White Space
@@ -152,7 +152,7 @@ The model works. And it is architecturally the opposite of Aureum on every dimen
 | Pricing logic | Private algorithms, off-chain oracles | On-chain weighted pool math, formally verified |
 | Transparency | Opaque — users cannot assess fairness or execution quality | Fully transparent — pool weights, fees, and rules are on-chain |
 | Governance | None — one team controls all parameters | AuMT-weighted — LPs govern protocol decisions |
-| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — no treasury; **LP tranche** to LPs from block 0; **Months 1–10** decaying bootstrap AuMM one-sided into der Bodensee Pool. All protocol-captured revenue flows to der Bodensee Pool (autonomous reserve) as one-sided svZCHF inflows. |
+| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — no treasury; **LP tranche** to LPs from block 0; **Months 1–10** decaying bootstrap AuMM one-sided into der Bodensee Pool. **Protocol-captured** revenue flows to der Bodensee Pool (autonomous reserve) as one-sided svZCHF inflows; **der Bodensee** swap fees (0.75%) stay **in pool**. |
 | Failure mode | Single team goes down, 35%+ of chain volume disappears | Permissionless — no single point of failure, pools exist independently |
 | Chain dependency | Requires sub-second block times for active quoting — Solana-native | Passive LP model designed for Ethereum's 12-second blocks |
 | LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |

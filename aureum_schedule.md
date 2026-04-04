@@ -11,7 +11,7 @@
 ## Phase 2 - Equal regime (through Month 10)
 
 - deploy and seed the 28 Miliarium pools
-- activate der Bodensee bootstrap emission (80% at genesis, linear decay to zero by end of Month 10; one-sided AuMM per `11_formulas.md` F-0)
+- activate der Bodensee bootstrap emission (80% at genesis, linear decay to zero by end of Month 10; one-sided AuMM per [Protocol formulas (F-0)](11_formulas.md))
 - activate equal 1/28 of the **LP emission tranche** through end of Month 10
 - run telemetry and invariants for immutable execution checks
 
@@ -31,4 +31,4 @@
 - publish immutable parameter manifest
 - publish public verification guide for bytecode and parameters
 
-See Immutable Parameters (`10_constitution.md` §xxix).
+See [Immutable Parameters (§xxix)](10_constitution.md).
