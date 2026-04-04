@@ -33,7 +33,6 @@ CORE_PATHS: list[str] = [
     "05_miliarium_aureum.md",
     "06_miliarium_manifest.md",
     "07_miliarium_sectors.md",
-    "07a_tokens.md",
     "08_bootstrap.md",
     "09_transitions.md",
     "10_constitution.md",

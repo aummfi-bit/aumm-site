@@ -203,7 +203,6 @@
             <a data-tab="miliarium">Registry</a>
             <a data-tab="miliarium-manifest">Manifest</a>
             <a data-tab="miliarium-sectors">Sectors</a>
-            <a data-tab="miliarium-tokens">Tokens</a>
           </div>
         </div>
         <div class="rules-wrap">
@@ -238,7 +237,6 @@
     <button class="rules-sub" data-tab="miliarium">Registry</button>
     <button class="rules-sub" data-tab="miliarium-manifest">Manifest</button>
     <button class="rules-sub" data-tab="miliarium-sectors">Sectors</button>
-    <button class="rules-sub" data-tab="miliarium-tokens">Tokens</button>
         <div class="rules-group-label">Governance</div>
         <button class="rules-sub" data-tab="constitution">Constitution</button>
         <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
@@ -328,12 +326,6 @@
       <div class="footer">AUREUM — Sector taxonomy</div>
     </div>
   </div>
-  <div class="tab-content" id="tab-miliarium-tokens">
-    <div class="content">
-      <div id="tokens-body"></div>
-      <div class="footer">AUREUM — Token inventory</div>
-    </div>
-  </div>
   <div class="tab-content" id="tab-miliarium-profile">
     <div class="content">
       <p class="profile-back"><button type="button" class="tab-btn" id="profile-back-btn" data-tab="miliarium-manifest">&#8592; Back to manifest</button></p>
@@ -373,14 +365,13 @@ var menus = {
   miliarium: [],
   'miliarium-manifest': [],
   'miliarium-sectors': [],
-  'miliarium-tokens': [],
   'miliarium-profile': [],
   appendices: [],
   ux_ui: [],
   intro: []
 };
 var rulesTabs = ['bootstrap', 'transitions', 'constitution', 'formulas'];
-var miliariumTabs = ['miliarium', 'miliarium-manifest', 'miliarium-sectors', 'miliarium-tokens', 'miliarium-profile'];
+var miliariumTabs = ['miliarium', 'miliarium-manifest', 'miliarium-sectors', 'miliarium-profile'];
 var currentTab = 'model';
 
 var introLines = [];
@@ -690,7 +681,6 @@ loadMd('04_tokenomics.md', 'tokenomics-body', 'tokenomics');
 loadMd('05_miliarium_aureum.md', 'miliarium-body', 'miliarium');
 loadMd('06_miliarium_manifest.md', 'manifest-body', 'miliarium-manifest');
 loadMd('07_miliarium_sectors.md', 'sectors-body', 'miliarium-sectors');
-loadMd('07a_tokens.md', 'tokens-body', 'miliarium-tokens');
 loadMd('12_aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('13_appendices.md', 'appendices-body', 'appendices');
 loadMd('14_ux_ui.md', 'ux-ui-body', 'ux_ui');
@@ -721,11 +711,6 @@ mainDoc.addEventListener('click', function(e) {
     switchTab('miliarium-sectors');
     return;
   }
-  if (/07a_tokens\.md$/i.test(norm)) {
-    e.preventDefault();
-    switchTab('miliarium-tokens');
-    return;
-  }
   var mdBase = norm.replace(/^.*[/\\]/, '');
   var mdToTab = {
     '02_mental_model.md': 'model',
@@ -734,7 +719,6 @@ mainDoc.addEventListener('click', function(e) {
     '05_miliarium_aureum.md': 'miliarium',
     '06_miliarium_manifest.md': 'miliarium-manifest',
     '07_miliarium_sectors.md': 'miliarium-sectors',
-    '07a_tokens.md': 'miliarium-tokens',
     '08_bootstrap.md': 'bootstrap',
     '09_transitions.md': 'transitions',
     '10_constitution.md': 'constitution',
