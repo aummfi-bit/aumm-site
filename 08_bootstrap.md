@@ -174,7 +174,7 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 Any qualified AuMT holder can submit a governance proposal — fee parameter changes. Proposals require depositing **1,000 svZCHF or sUSDS (whichever is higher)** one-sided into der Bodensee Pool. The deposit is automatic on submission — non-refundable regardless of outcome.
 
-Every governance action deepens der Bodensee Pool reserves. The deposit filters spam (proposers must hold and sacrifice AuMM), deepens the autonomous reserve, and is non-recoverable. Self-regulating.
+Every governance action deepens der Bodensee Pool reserves. **All** governance deposits — gauge proposal, gauge challenge, fee proposal, composition challenge — are **one-sided into der Bodensee Pool** (same mechanic throughout). The deposit filters spam, deepens the autonomous reserve, and is non-recoverable. Self-regulating.
 
 ### Gauge Proposal
 
@@ -186,7 +186,7 @@ If approved by vote, the pool becomes emission-eligible subject to immutable cri
 
 Any qualified AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. **Deposit rules depend on the target pool:** the **scaled** deposit in [F-12](11_formulas.md) applies only to **non-Miliarium** gauged pools. The **28 Miliarium Aureum** pools use the **flat** deposit only — **F-12 does not apply** to them.
 
-**Target is a non-Miliarium gauged pool:** challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). Convert the result to **svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool**.
+**Target is a non-Miliarium gauged pool:** challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). The **entire** amount is converted to **svZCHF or sUSDS (whichever is higher)** and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet.
 
 **Target is one of the 28 Miliarium Aureum pools:** challenge deposit remains **1,000 svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool** — the F-12 formula **does not** apply. Structural or composition-level change for those slots is primarily the **composition challenge** path, not nuisance revocation economics.
 
@@ -196,7 +196,7 @@ This creates a community enforcement layer on top of the immutable anti-gaming c
 
 ### Miliarium Aureum Composition Challenge
 
-Pool token composition is immutable on-chain — there is no mechanism to swap a token inside a deployed pool contract. A composition challenge therefore follows a **deprecate-and-replace** path:
+Pool token composition is immutable on-chain — there is no mechanism to swap a token inside a deployed pool contract. A composition challenge therefore follows a **deprecate-and-replace** path. **Deposit:** **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** on submission — same **governance deposit routing** as fee proposals (see [Constitution §xxvii](10_constitution.md)).
 
 1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal. It passes only with **2/3 protocol-wide tessera-weighted approval**.
 2. **Deprecation** — the old pool's gauge is revoked; emissions cease and the pool enters wind-down.

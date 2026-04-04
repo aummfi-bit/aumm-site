@@ -8,12 +8,14 @@
 
 ### AUREUM Governance Actions (aumm.fi)
 
-- **Gauge Proposal** — new pool **emission eligibility** (gauge approval). Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Proposal).
-- **Gauge Challenge** — **revoke** an existing gauge. Non-Miliarium targets: scaled deposit [F-12](11_formulas.md). **Miliarium Aureum (28):** flat deposit only — F-12 does not apply. Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Challenge).
-- **Fee proposals** — **swap / yield fee** changes **within immutable bounds**. Voting model: [Tokenomics](04_tokenomics.md) §ix (Governance); mechanics: [Bootstrap](08_bootstrap.md) §xxiv (Governance Proposals).
-- **Miliarium Aureum Composition Challenge** — **2/3 supermajority** tessera-weighted vote to deprecate a pool and **replace** assets in-slot (like-for-like). Details: [Bootstrap](08_bootstrap.md) §xxiv (Miliarium Aureum Composition Challenge) and **### Composition Challenge Rule** below.
+- **Gauge Proposal** — new pool **emission eligibility** (gauge approval); deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Proposal).
+- **Gauge Challenge** — **revoke** an existing gauge; deposit **one-sided into der Bodensee Pool**. Non-Miliarium targets: scaled deposit [F-12](11_formulas.md). **Miliarium Aureum (28):** flat deposit only — F-12 does not apply. Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Challenge).
+- **Fee proposals** — **swap / yield fee** changes **within immutable bounds**; deposit **one-sided into der Bodensee Pool**. Voting model: [Tokenomics](04_tokenomics.md) §ix (Governance); mechanics: [Bootstrap](08_bootstrap.md) §xxiv (Governance Proposals).
+- **Miliarium Aureum Composition Challenge** — **2/3 supermajority** tessera-weighted vote to deprecate a pool and **replace** assets in-slot (like-for-like); deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv (Miliarium Aureum Composition Challenge) and **### Composition Challenge Rule** below.
 
-Deposits, minimum turnout, and approval thresholds: **### Quorum and Deposit Requirements** below.
+**All governance proposal deposits** — gauge approval, gauge challenge, fee proposals, and composition challenge — follow the **same treatment:** **one-sided inflow into der Bodensee Pool** in **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the proposer; only the **amounts** differ (see table). No treasury wallet; no alternate routing.
+
+Turnout minima and approval thresholds: **### Quorum and Deposit Requirements** below.
 
 Aureum is immutable and non-custodial from block 0:
 
@@ -40,7 +42,7 @@ Qualified AuMT holders submit and vote on the **four governance actions** listed
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 
-All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action deepens der Bodensee Pool reserves. **Gauge challenge:** the scaled deposit in [F-12](11_formulas.md) applies only when the **target pool is not** one of the **28 Miliarium Aureum** registry pools; for those, use the **fixed 1,000** row above.
+All deposits are **paid one-sided into der Bodensee Pool** (same mechanic as other governance inflows: no LP tokens minted to the proposer), denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action deepens der Bodensee Pool reserves. **Gauge challenge:** the scaled deposit in [F-12](11_formulas.md) applies only when the **target pool is not** one of the **28 Miliarium Aureum** registry pools; for those, use the **fixed 1,000** row above.
 
 **Low-Turnout Safeguard.** Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** — no timelock, no fallback. The proposal must be resubmitted. This is uniform across all proposal types (see [Tokenomics](04_tokenomics.md) Low-Turnout Safeguard).
 
