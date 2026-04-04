@@ -24,7 +24,7 @@ Where **i** ranges over the 28 Miliarium Aureum pools.
 
 ### F-2. Incendiary Boost Priority Claim
 
-**Purpose:** Allow operators to commit conviction capital (escrowed and burned AuMM) in exchange for a time-limited supplementary emission stream, funded from the same fixed block emission — not from new inflation.
+**Purpose:** Allow operators to commit conviction capital (escrowed svZCHF/sUSDS deposited one-sided into der Bodensee Pool) in exchange for a time-limited supplementary emission stream, funded from the same fixed block emission — not from new inflation.
 
 **Effect:** Incendiary claims are subtracted from the block emission **before** the CCB distributes the remainder. This ensures boosted pools receive their committed stream without inflating total supply. Whatever is left after Incendiary claims is what the CCB allocates.
 
@@ -32,7 +32,7 @@ Where **i** ranges over the 28 Miliarium Aureum pools.
 Remaining(block) = block_emission(block) − Incendiary_claims(block)
 ```
 
-Incendiary Boost provides a 30-day supplementary emission stream pegged to the 85th efficiency percentile. Escrowed AuMM is permanently burned.
+Incendiary Boost provides a 30-day supplementary emission stream pegged to the 85th efficiency percentile. Escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool.
 
 ---
 

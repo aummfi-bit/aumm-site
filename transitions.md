@@ -29,7 +29,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - Price discovery is forced by time-decay + real revenue inflows — no oracle, no manual trigger.
 
 **Month 11 — Gauge proposals open, CCB transition begins.**
-- Non-Miliarium pools can submit gauge proposals (burn 100 svZCHF/sUSDS equivalent in AuMM).
+- Non-Miliarium pools can submit gauge proposals (deposit 100 svZCHF/sUSDS into der Bodensee Pool).
 - All pools begin ranking in the Efficiency Tournament.
 - Sandbox fast-track active: non-gauged pools sustaining top 10% efficiency for 3 epochs (6 weeks) earn automatic gauge approval.
 - CCB transition begins: **α** runs **linearly** from **0** at the first block of Month 11 to **1** at the last block of Year 1.

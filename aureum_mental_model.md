@@ -59,7 +59,7 @@ Which pools should receive emissions right now? Base weight = 60-day EMA of on-c
 
 ### 2. Bootstrapping (Starting New Pools)
 
-New pools have no EMA history, so they need a structured path to earn emissions. Two stacked mechanisms: (a) **Incendiary Boost** — builder deposits AuMM, protocol emits it back over 30 days, the deposit is permanently burned, making AuMM scarcer for all holders; must remain efficient to renew. (b) **90-day gauge boost** — new gauges receive a fixed 1.2x CCB multiplier for 90 days, expiring automatically with no vote and no renewal. After ~90 days, emissions depend purely on real TVL via the CCB. The flow: conviction (Incendiary) → cold-start ramp (gauge boost) → long-term reality (EMA).
+New pools have no EMA history, so they need a structured path to earn emissions. Two stacked mechanisms: (a) **Incendiary Boost** — builder deposits AuMM, protocol emits it back over 30 days, the svZCHF/sUSDS deposit is sent one-sided into der Bodensee Pool, deepening the autonomous reserve; must remain efficient to renew. (b) **90-day gauge boost** — new gauges receive a fixed 1.2x CCB multiplier for 90 days, expiring automatically with no vote and no renewal. After ~90 days, emissions depend purely on real TVL via the CCB. The flow: conviction (Incendiary) → cold-start ramp (gauge boost) → long-term reality (EMA).
 
 ### 3. Discipline (Keeping the System Clean)
 

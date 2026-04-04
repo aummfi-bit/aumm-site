@@ -30,14 +30,14 @@ Governance cannot alter emission formulas, halving math, CCB multiplier constant
 
 ### Quorum and Deposit Requirements
 
-| Decision Type | Minimum Turnout | Deposit (AuMM, burned) | Approval Threshold | Failure Mode |
+| Decision Type | Minimum Turnout | Deposit (svZCHF/sUSDS, to der Bodensee Pool) | Approval Threshold | Failure Mode |
 |--------------|-----------------|------------------------|--------------------|-------------|
 | Gauge approval | 20% of total qualified voting power | 100 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Gauge challenge (revocation) | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 
-All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action creates deflationary pressure on AuMM.
+All deposits are denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action deepens der Bodensee Pool reserves.
 
 **Low-Turnout Safeguard.** Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** — no timelock, no fallback. The proposal must be resubmitted. This is uniform across all proposal types (see `tokenomics.md` Low-Turnout Safeguard).
 

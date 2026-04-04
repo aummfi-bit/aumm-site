@@ -22,7 +22,7 @@
 
 - **Anti-Gaming Engine**: the umbrella term for all immutable eligibility and performance criteria that determine whether a pool qualifies for emissions. Includes: ERC-4626 Quality Gate (≥52%), Minimum TVL ($10K 7-day SMA), Volume Percentile Floor (graduated from 5th to 15th by pool age), Efficiency Tournament (tiered emission caps for bottom 15%), no self-referential tokens, and protocol version requirement. All criteria are immutable from block 0 — governance cannot waive or relax them. The CCB determines *how much* each pool receives; the Anti-Gaming Engine determines *whether* a pool is eligible at all. See `bootstrap.md` section xxiii.
 
-- **Incendiary Boost**: operator-funded priority emission stream. Operator escrows AuMM → pool receives a 30-day supplementary emission stream pegged to the 85th efficiency percentile × (2 − R). Incendiary claims are subtracted from block emission *before* CCB distribution — not a CCB score multiplier. Escrowed AuMM is permanently burned. See `bootstrap.md`.
+- **Incendiary Boost**: operator-funded priority emission stream. Operator escrows AuMM → pool receives a 30-day supplementary emission stream pegged to the 85th efficiency percentile × (2 − R). Incendiary claims are subtracted from block emission *before* CCB distribution — not a CCB score multiplier. Escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool. See `bootstrap.md`.
 
 - **Priority Skim**: the mechanism by which Incendiary Boost emissions are subtracted from the fixed block emission *before* CCB distribution. The total block emission never changes — Incendiary claims reduce the remainder available to all other pools, directly diluting their share. This ensures bootstrapping new pools has a real cost borne by the entire emission economy, not free inflation.
 
@@ -69,9 +69,9 @@
 - **Qualification Period**: 14 days of continuous qualified AuMT holding before any governance weight accrues (`time_in_pool = 0` during this window).
 - **Governance On-Ramp**: after the 14-day qualification, `time_in_pool` accrues sublinearly. Full voting weight reached at ~6 months (day 180).
 - **Withdrawal Reset**: any withdrawal from a qualifying pool — any amount — resets governance power to zero and restarts the 14-day qualification clock.
-- **Gauge Proposal**: submit gauge request with 100 svZCHF/sUSDS equivalent in AuMM (burned).
-- **Gauge Challenge**: challenge/revoke active gauge with 1,000 svZCHF/sUSDS equivalent in AuMM (burned).
-- **General Proposal** (fee parameters): 1,000 svZCHF/sUSDS equivalent in AuMM (burned).
+- **Gauge Proposal**: submit gauge request with 100 svZCHF/sUSDS (deposited one-sided into der Bodensee Pool).
+- **Gauge Challenge**: challenge/revoke active gauge with 1,000 svZCHF/sUSDS (deposited one-sided into der Bodensee Pool).
+- **General Proposal** (fee parameters): 1,000 svZCHF/sUSDS (deposited one-sided into der Bodensee Pool).
 - **Composition Challenge**: deprecate a Miliarium pool and launch a replacement into the same slot via the standard bootstrap path (for delistings/failures). Pool composition is immutable on-chain — no in-place token swap. Requires 2/3 protocol-wide tessera-weighted approval. Like-for-like renewal only (same sector, risk, template role). See `bootstrap.md` §xxiv.
 - **On-Chain-Only Proposal Rule**: every proposal must cite verifiable on-chain state only — contract addresses, block ranges, deterministic metrics. Off-chain claims are invalid.
 See Immutable Parameters (`constitution.md` §xxix).

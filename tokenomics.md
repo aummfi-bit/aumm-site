@@ -106,7 +106,7 @@ This eliminates:
 
 Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** regardless of vote outcome. There is no timelock fallback — the proposal simply fails and must be resubmitted.
 
-This applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. The burn deposit filters low-effort spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+This applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. The deposit filters low-effort spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 
 #### Anti-Market Buying
 
@@ -191,7 +191,7 @@ At scale, the combined protocol-captured revenue from swap fees (50%) and yield 
 
 As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, accelerating reserve growth. Higher TVL means more fees, deeper reserves, and a stronger AuMM price floor. The halving schedule reduces emission dilution every four years while revenue scales with TVL — the reserve grows faster than new supply enters the market.
 
-*AuMM burns still occur through governance deposit burns (gauge proposals, challenges, fee changes) and Incendiary Boost escrow burns, but these are governance-driven, not revenue-driven.*
+*svZCHF/sUSDS deposits into der Bodensee Pool also occur through governance deposits (gauge proposals, challenges, fee changes) and Incendiary Boost escrow, further deepening the autonomous reserve.*
 
 ### Immutable Reference
 

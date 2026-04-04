@@ -22,7 +22,7 @@ Core emission allocation remains automatic and immutable.
 
 **Sandbox** is the permissionless default state. Any pool deployed without a gauge operates in the Sandbox from block 0. Sandbox pools receive **zero** CCB emissions and no Incendiary Boost, but they are ranked in the Efficiency Tournament alongside gauged pools. This proves the protocol is open without creating an emission exploit vector — anyone can build and demonstrate performance before seeking gauge approval.
 
-**Fast-Track Rule.** If a non-gauged Sandbox pool sustains **top 10% efficiency** in the Efficiency Tournament for **3 consecutive epochs (6 weeks)** without leaving the top 10%, it earns **automatic gauge approval** — no governance vote required. The deposit burn is waived. This creates a meritocratic path: pools that prove real capital efficiency earn emissions without needing to campaign for votes. After fast-track approval, the pool receives the standard 90-day gauge boost (1.2x CCB multiplier) and becomes eligible for Incendiary Boost.
+**Fast-Track Rule.** If a non-gauged Sandbox pool sustains **top 10% efficiency** in the Efficiency Tournament for **3 consecutive epochs (6 weeks)** without leaving the top 10%, it earns **automatic gauge approval** — no governance vote required. The deposit is waived. This creates a meritocratic path: pools that prove real capital efficiency earn emissions without needing to campaign for votes. After fast-track approval, the pool receives the standard 90-day gauge boost (1.2x CCB multiplier) and becomes eligible for Incendiary Boost.
 
 ### The Bootstrapping Sequence
 
@@ -41,11 +41,11 @@ The bootstrapping sequence provides two distinct emission boosts that serve diff
 
 **90-day gauge boost (automatic).** Every newly approved gauge receives a fixed **1.2x CCB multiplier** for 90 days. This is automatic — it activates the moment the gauge passes governance and expires on its own, with no vote and no renewal. A pool can have the 90-day boost **without** Incendiary: the gauge boost is the baseline cold-start ramp that every approved pool gets for free.
 
-**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** deposit AuMM to activate a 30-day supplementary emission stream on top of whatever the pool is already earning. The escrowed AuMM is permanently burned. A pool can have both the 90-day gauge boost **and** Incendiary running simultaneously — the effects stack. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below). They are mechanically independent.
+**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** deposit AuMM to activate a 30-day supplementary emission stream on top of whatever the pool is already earning. The escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool. A pool can have both the 90-day gauge boost **and** Incendiary running simultaneously — the effects stack. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below). They are mechanically independent.
 
 ## xxii. Incendiary Boost
 
-Incendiary Boost is a proof-of-conviction bootstrap mechanism. A pool operator deposits AuMM into a smart-contract-controlled escrow. That exact amount of AuMM is emitted to the pool equally over 30 days as a supplementary emission stream. The escrowed AuMM is permanently burned — the operator sacrifices conviction capital to activate the protocol's routing engine.
+Incendiary Boost is a proof-of-conviction bootstrap mechanism. A pool operator deposits svZCHF/sUSDS into a smart-contract-controlled escrow. The protocol emits AuMM to the pool equally over 30 days as a supplementary emission stream pegged to the 85th efficiency percentile. The escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool — the operator sacrifices conviction capital to activate the protocol's routing engine.
 
 ### The Efficiency Scalar
 
@@ -65,7 +65,7 @@ Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th
 
 ### Priority Skim
 
-Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on each block emission. The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the block emission, then distributes the remainder via the CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every existing pool's emission share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed AuMM is permanently burned, making AuMM scarcer for all holders long-term in exchange for the privilege of skipping the EMA queue.
+Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on each block emission. The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the block emission, then distributes the remainder via the CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every existing pool's emission share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool, deepening the autonomous reserve in exchange for the privilege of skipping the EMA queue.
 
 ### Renewal Rule
 
@@ -77,7 +77,7 @@ The 30-day limit plus the efficiency rank requirement makes wash trading unecono
 
 ### Immutable Parameters
 
-All Incendiary Boost parameters are immutable from block 0: 30-day duration, 85th percentile peg, efficiency scalar formula, priority skim, and burn-on-escrow.
+All Incendiary Boost parameters are immutable from block 0: 30-day duration, 85th percentile peg, efficiency scalar formula, priority skim, and svZCHF/sUSDS escrow-to-Bodensee.
 
 ## xxiii. Anti-Gaming Engine
 
@@ -146,7 +146,7 @@ All gauged pools **above $10K TVL** are ranked by their efficiency ratio — `(s
 
 The efficiency tournament activates at **month 13** of a pool's life (same as the volume percentile floor reaching full discipline).
 
-**Excess emissions are redistributed.** When a pool is capped below its CCB-derived emission share, the excess is redistributed to uncapped pools pro-rata by their existing CCB share. This rewards productive pools rather than burning the excess.
+**Excess emissions are redistributed.** When a pool is capped below its CCB-derived emission share, the excess is redistributed to uncapped pools pro-rata by their existing CCB share. This rewards productive pools rather than wasting the excess.
 
 The efficiency tournament is price-agnostic by design — it prevents the reflexive disqualification problem where a rising AuMM price would cause fixed revenue hurdles to fail productive pools.
 
@@ -154,7 +154,7 @@ The efficiency tournament is price-agnostic by design — it prevents the reflex
 
 **Governance-capture resistant.** Even if a pool accumulates large TVL and earns a large CCB share while generating minimal fees, the protocol ranks its efficiency ratio at the bottom of the set. Despite a high CCB share, it receives at most 0.1% of emissions. The excess is redistributed to productive pools.
 
-**Sacrificial lamb resistant.** An attacker tries to flood the bottom 15% with junk pools to shield their extractive pool from capping. Each lamb pool needs $10K TVL to enter the ranking, a gauge approval vote (burning 100 svZCHF/sUSDS equivalent in AuMM), and LP governance approval. Twenty lamb pools = $200K+ in capital at risk plus 2,000 equivalent in AuMM burned. The $10K TVL floor makes the attack prohibitively expensive.
+**Sacrificial lamb resistant.** An attacker tries to flood the bottom 15% with junk pools to shield their extractive pool from capping. Each lamb pool needs $10K TVL to enter the ranking, a gauge approval vote (depositing 100 svZCHF/sUSDS into der Bodensee Pool), and LP governance approval. Twenty lamb pools = $200K+ in capital at risk plus 2,000 svZCHF/sUSDS deposited. The $10K TVL floor makes the attack prohibitively expensive.
 
 ### Disqualification and Gauge Revocation
 
@@ -162,7 +162,7 @@ Pools that fail the anti-gaming criteria face a two-stage process:
 
 **Stage 1: Disqualification.** A pool that falls below the 10th volume percentile (or fails other structural criteria) is disqualified — emissions cease immediately. The gauge remains intact. If the pool recovers above the 15th percentile for 3 epochs (6 weeks) with no emissions, it re-qualifies automatically.
 
-**Stage 2: Gauge revocation.** A pool that remains disqualified for **4 consecutive epochs (8 weeks)** has its gauge permanently revoked. To restart emissions, the pool operator must submit a new gauge proposal (burn 100 svZCHF/sUSDS equivalent in AuMM) and win a fresh AuMT governance vote. This prevents dead pools from holding gauge slots indefinitely.
+**Stage 2: Gauge revocation.** A pool that remains disqualified for **4 consecutive epochs (8 weeks)** has its gauge permanently revoked. To restart emissions, the pool operator must submit a new gauge proposal (deposit 100 svZCHF/sUSDS into der Bodensee Pool) and win a fresh AuMT governance vote. This prevents dead pools from holding gauge slots indefinitely.
 
 ### How the Criteria Interact
 
@@ -172,19 +172,19 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 ### Governance Proposals
 
-Any qualified AuMT holder can submit a governance proposal — fee parameter changes. Proposals require burning **1,000 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM**. The AuMM is burned automatically on submission — non-refundable regardless of outcome.
+Any qualified AuMT holder can submit a governance proposal — fee parameter changes. Proposals require depositing **1,000 svZCHF or sUSDS (whichever is higher)** one-sided into der Bodensee Pool. The deposit is automatic on submission — non-refundable regardless of outcome.
 
-Every governance action creates deflationary pressure on AuMM. The deposit filters spam (proposers must hold and sacrifice AuMM), funds no one (tokens are destroyed, not transferred), and tightens supply. Self-regulating.
+Every governance action deepens der Bodensee Pool reserves. The deposit filters spam (proposers must hold and sacrifice AuMM), deepens the autonomous reserve, and is non-recoverable. Self-regulating.
 
 ### Gauge Proposal
 
-Any qualified AuMT holder may submit a gauge proposal requesting emission eligibility for a new pool. Submission deposit: **100 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM (burned)** — lower than other governance proposals because gauge requests are lower-stakes. If the pool fails the immutable criteria, the contract kills it automatically. The governance vote is a lightweight check on whether the pool deserves to compete, not a major protocol decision.
+Any qualified AuMT holder may submit a gauge proposal requesting emission eligibility for a new pool. Submission deposit: **100 svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool** — lower than other governance proposals because gauge requests are lower-stakes. If the pool fails the immutable criteria, the contract kills it automatically. The governance vote is a lightweight check on whether the pool deserves to compete, not a major protocol decision.
 
 If approved by vote, the pool becomes emission-eligible subject to immutable criteria checks.
 
 ### Gauge Challenge
 
-Any qualified AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. Challenge deposit: **1,000 svZCHF or sUSDS equivalent (whichever is higher) worth of AuMM (burned)**. A challenge triggers a governance vote: if the challenge succeeds (majority votes to revoke), the gauge is removed and the pool loses emission eligibility. If the challenge fails, the AuMM is still burned — the challenger accepted that risk.
+Any qualified AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. Challenge deposit: **1,000 svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool**. A challenge triggers a governance vote: if the challenge succeeds (majority votes to revoke), the gauge is removed and the pool loses emission eligibility. If the challenge fails, the deposit is still in Bodensee — the challenger accepted that risk.
 
 This creates a community enforcement layer on top of the immutable anti-gaming criteria. The contract catches pools that fail the volume percentile floor or the efficiency caps automatically. Gauge challenges catch pools that technically pass the criteria but are extractive in ways the contract can't detect — coordinated wash trading, circular routing schemes, or pools that exist solely to farm emissions for a single actor.
 
@@ -230,7 +230,7 @@ The 28 Miliarium pools are a curated economic blueprint for CCB execution — a 
 If a token, stablecoin, or asset class is missing from the 28, the path is **not** a composition challenge. It is:
 
 1. **Deploy a new pool** — permissionless from block 0
-2. **Get a gauge approved** — submit a proposal, burn the deposit, win the AuMT vote
+2. **Get a gauge approved** — submit a proposal, deposit svZCHF/sUSDS into der Bodensee Pool, win the AuMT vote
 3. **Earn emissions** — through the standard CCB rules, Incendiary Boost, and 90-day gauge boost
 
 The Miliarium system is plug-and-play: new pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary and gauge boost mechanics — the same infrastructure the 28 founding pools use.

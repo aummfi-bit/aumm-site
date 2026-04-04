@@ -37,13 +37,13 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)
 - Miliarium Aureum pool registry (28 pools, non-transferable, revocation on gauge loss)
-- Token supply tracker (cumulative emitted, governance/Incendiary burns, net circulating)
+- Token supply tracker (cumulative emitted, net circulating)
 - Minimum qualification period enforcer (14-day continuous hold check)
 - Quorum calculator and timelock router
 - Fee splitter (swap fees: 50/50 LP/Bodensee + yield fees: 100% Bodensee — all protocol-captured revenue as one-sided svZCHF inflows)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, AuMM governance deposit burns, der Bodensee Pool LBP weight decay engine, Miliarium Aureum pool registry, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool LBP weight decay engine, Miliarium Aureum pool registry, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 
@@ -183,8 +183,8 @@ When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% e
 **Token supply transparency.** The dashboard also publishes in real time:
 
 - **Total AuMM emitted** — cumulative tokens distributed to LPs since block 0
-- **Total AuMM burned** — cumulative tokens destroyed through governance deposits and Incendiary Boost escrow burns
-- **Net circulating supply** — emitted minus burned
+- **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost escrow
+- **der Bodensee Pool reserve depth** — current svZCHF reserves and AuMM/svZCHF ratio
 - **der Bodensee Pool reserve depth** — total svZCHF inflows and current AuMM/svZCHF ratio
 
 See Immutable Parameters (`constitution.md` §xxix).
