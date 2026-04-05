@@ -32,7 +32,7 @@ Stock **subclasses** (broad ETF, tech index, mega-cap tech, financials, healthca
 
 ## xvii. Design Principle
 
-The Miliarium Aureum is structured as a **miniature economy** — not a random collection of liquidity pools. For the conceptual introduction to the miniature economy framing and why 28 pools, see [Mental model — The Miniature Economy](02_mental_model.md). Each sector represents a distinct asset class or market segment found in traditional finance, mapped onto on-chain primitives. This ensures:
+The Miliarium Aureum is a **miniature economy**, not a random collection of liquidity pools. (Conceptual introduction: [Mental model — The Miniature Economy](02_mental_model.md).) Each sector maps a distinct asset class from traditional finance onto on-chain primitives:
 
 - **Sector rotation dynamics** — when tech sells off, capital rotates to treasuries or gold; the protocol captures fees on both legs
 - **Aggregator diversity** — each sector attracts different external volume sources (crypto aggregators, equity wrappers, FX corridors)
@@ -100,7 +100,7 @@ The Miliarium Aureum is structured as a **miniature economy** — not a random c
 
 ## xix. Sector Correlation Matrix (Qualitative)
 
-Understanding how sectors move relative to each other during macro regimes:
+How sectors move relative to each other during macro regimes:
 
 | Regime | Crypto | DeFi Yield | Equities | Banking | Gold | Treasuries | Pharma | FX |
 |:-------|:-------|:-----------|:---------|:--------|:-----|:-----------|:-------|:---|
@@ -113,7 +113,7 @@ Understanding how sectors move relative to each other during macro regimes:
 
 *++/-- = strong positive/negative correlation, +/- = moderate, 0 = neutral*
 
-This diversity is the structural defence against protocol-wide volume collapse. Even in the worst macro environment, some sectors generate fees.
+Structural defence against protocol-wide volume collapse. Even in the worst macro environment, some sectors generate fees.
 
 ---
 

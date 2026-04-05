@@ -1,6 +1,6 @@
 # Miliarium Aureum — Master Registry
 
-*28 Miliarium Aureum slots, locked from block 0. No additional slots. If a token ceases to exist, a Miliarium Aureum Composition Challenge can deprecate the pool and launch a replacement into the same slot via the standard bootstrap path — preserving each pool's function and sector theme.*
+*28 Miliarium Aureum slots, locked from block 0. If a token ceases to exist, a Composition Challenge can deprecate the pool and launch a replacement into the same slot via the standard bootstrap path — preserving each pool's function and sector theme.*
 
 ---
 
@@ -49,13 +49,13 @@
 | Stocks | 17–26 | 10 | Tokenised equities and fintech (see Subclass column in [Miliarium Aureum](../05_miliarium_aureum.md)) |
 | Metals | 27–28 | 2 | Gold + silver/uranium |
 
-**Total: 28 Miliarium pools.** **Registry category** is the five-way split above. **Sector** is the finer label used in profile files.
+**Total: 28 Miliarium pools.** **Registry category** = five-way split above. **Sector** = finer label in profile files.
 
-Slot **01 (ixHelvetia)** is **80% svZCHF / 20% sUSDS** Frankencoin MMA only (see [Miliarium Aureum](../05_miliarium_aureum.md) Section xi).
+Slot **01 (ixHelvetia):** **80% svZCHF / 20% sUSDS** Frankencoin MMA only ([Miliarium Aureum](../05_miliarium_aureum.md) Section xi).
 
 ## xv. Status Tracking
 
-All pools initialise at **Active** status. The 28 Miliarium slots are permanent — the count never decreases.
+All pools initialise at **Active**. The 28 slots are permanent — the count never decreases.
 
 ```
 Active → Warning → Disqualified ⇄ Composition Challenge (deprecate-and-replace)
