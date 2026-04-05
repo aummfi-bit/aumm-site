@@ -10,7 +10,7 @@
 
 **Pool creation is permissionless from block 0.** Anyone can deploy any pool with any composition at any time. The Aequilibrium factory is open. This never changes.
 
-A pool becomes eligible for AuMM emissions only after qualified LPs approve a gauge through governance. **Without gauge approval: no emissions, no Incendiary Boost, no 90-day multiplier.** Existing LPs must collectively decide the new pool deserves a share of the emission budget.
+A pool becomes eligible for AuMM emissions only after qualified LPs approve a gauge through governance. **Without gauge approval: no emissions, no Incendiary Boost, no 90-day gauge boost.** Existing LPs must collectively decide the new pool deserves a share of the emission budget.
 
 **Eligibility criteria are immutable.** Once a gauge is approved, the pool must still meet every anti-gaming criterion. Governance cannot waive, modify, or relax these rules. A gauge vote says "this pool may compete." The contract decides whether it qualifies.
 
@@ -20,16 +20,16 @@ Core emission allocation remains automatic and immutable.
 
 ### Sandbox and Fast-Track
 
-**Sandbox** is the permissionless default. Any pool deployed without a gauge operates in Sandbox from block 0. Zero CCB emissions, no Incendiary Boost — but ranked in the Efficiency Tournament alongside gauged pools. Anyone can build and demonstrate performance before seeking gauge approval.
+**Sandbox** is the permissionless default. Any pool deployed without a gauge operates in Sandbox from block 0. Zero CCB emissions, no Incendiary Boost eligibility — but ranked in the Efficiency Tournament alongside gauged pools. Anyone can build and demonstrate performance before seeking gauge approval.
 
-**Fast-Track Rule.** A non-gauged Sandbox pool sustaining **top 10% efficiency** for **3 consecutive epochs (6 weeks)** earns **automatic gauge approval** — no governance vote, deposit waived. Pools that prove capital efficiency earn emissions without campaigning for votes. After fast-track approval: standard 90-day gauge boost (1.2× CCB multiplier) and Incendiary eligibility.
+**Fast-Track Rule.** A non-gauged Sandbox pool sustaining **top 10% efficiency** for **3 consecutive epochs (6 weeks)** earns **automatic gauge approval** — no governance vote, deposit waived. Pools that prove capital efficiency earn emissions without campaigning for votes. After fast-track approval: standard 90-day gauge boost (1.2× CCB multiplier) and Incendiary Boost eligibility.
 
 ### The Bootstrapping Sequence
 
 | Phase | Days | Driver | Purpose |
 |-------|------|--------|---------|
 | Gauge approval | Day 0 | AuMT governance vote | Quality gate — pool must pass governance before any boost |
-| Incendiary Boost | Days 1–30 | svZCHF/sUSDS escrow into der Bodensee | Proof of conviction — operator deepens the autonomous reserve |
+| Incendiary Boost | Any time | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the autonomous reserve to boost a pool |
 | 90-day gauge boost | Days 1–90 | Fixed 1.2x CCB multiplier (automatic) | Cold-start emission ramp — expires without vote or renewal |
 | CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
 
@@ -41,43 +41,26 @@ Two distinct boosts, different purposes, mechanically independent:
 
 **90-day gauge boost (automatic).** Every newly approved gauge receives a fixed **1.2× CCB multiplier** for 90 days. Activates when the gauge passes, expires on its own — no vote, no renewal. The baseline cold-start ramp every approved pool gets for free.
 
-**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** escrow **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow via smart-contract escrow) to activate a 30-day supplementary emission stream. Both boosts can run simultaneously. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below).
+**Incendiary Boost (user-funded, stacks on top).** Anyone can deposit **any amount** of **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow) to activate a **1-epoch (14-day)** supplementary emission stream for a gauged pool, starting the next epoch. Both boosts can run simultaneously. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below).
 
 ## xxii. Incendiary Boost
 
-Proof-of-conviction bootstrap. A pool operator deposits svZCHF/sUSDS into smart-contract escrow. The protocol emits AuMM to the pool over 30 days as a supplementary stream pegged to the 85th efficiency percentile. The escrowed capital is deposited one-sided into der Bodensee Pool — conviction capital sacrificed to activate the routing engine.
+Proof-of-conviction bootstrap. Anyone deposits **any amount** of svZCHF/sUSDS **one-sided into der Bodensee Pool**. In return, the target pool receives a supplementary AuMM emission stream for **1 epoch (14 days)**, starting at the **next epoch boundary**. The deposit amount is entirely at the paying user's discretion — conviction capital sacrificed to deepen the autonomous reserve.
 
-### The Efficiency Scalar
+### Rules
 
-Emission rate pegged to the 85th percentile of the Efficiency Tournament, scaled by the pool's own performance:
-
-```
-E_inc = E_85th × (2 - R)
-```
-
-Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th efficiency percentile, and `R` is the target pool's normalized efficiency rank (0 = most efficient, 1 = least efficient).
-
-| Pool Efficiency | R | Multiplier (2 - R) | Effect |
-|-----------------|------|-------------------|--------|
-| Most efficient in protocol | ≈ 0 | 2.0x | Massive reward for utility |
-| At 85th percentile cutoff | ≈ 0.85 | 1.15x | Modest boost |
-| Below 85th percentile | > 0.85 | < 1.15x | Diminishing returns |
+- **Any gauged pool** can be boosted.
+- **Anyone** can pay for a boost — not limited to pool operators.
+- **Once per epoch per pool.** A pool can be boosted as many times as people want, but only once per epoch. A new boost for the same pool cannot start until the current boost epoch ends.
+- **Deposit amount:** user's choice. The full amount goes one-sided into der Bodensee Pool — no LP tokens minted, non-refundable.
 
 ### Priority Skim
 
-Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priority claims on the **LP emission tranche** — **after** the der Bodensee bootstrap skim in Months 1–10 ([Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active boosts, subtracts from the LP tranche, distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools. Five simultaneous boosts — the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS deepens der Bodensee in exchange for skipping the EMA queue.
-
-### Renewal Rule
-
-Slot locks after 30 days. Renewal only if the pool **is at or above the 85th percentile** at the time of request. No cycling boosts on underperforming pools.
-
-### Anti-Wash-Trading
-
-The 30-day limit plus the efficiency rank requirement makes wash trading uneconomical: the attacker pays more in swap fees (routed to der Bodensee) than they extract in boosted emissions.
+Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priority claims on the **LP emission tranche** — **after** the der Bodensee bootstrap skim in Months 1–10 ([Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active boosts, subtracts from the LP tranche, distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools. The depositor's svZCHF/sUSDS deepens der Bodensee in exchange for skipping the EMA queue.
 
 ### Immutable Parameters
 
-All parameters immutable from block 0: 30-day duration, 85th percentile peg, efficiency scalar, priority skim, svZCHF/sUSDS escrow-to-Bodensee.
+All parameters immutable from block 0: 1-epoch (14-day) duration, priority skim, svZCHF/sUSDS deposit to der Bodensee.
 
 ## xxiii. Anti-Gaming Engine
 

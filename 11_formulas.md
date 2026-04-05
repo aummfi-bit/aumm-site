@@ -44,9 +44,9 @@ Where **i** ranges over the 28 Miliarium Aureum pools.
 
 ### F-2. Incendiary Boost Priority Claim
 
-**Purpose:** Operators commit conviction capital (escrowed svZCHF/sUSDS, one-sided into der Bodensee) in exchange for a time-limited supplementary emission stream from the same fixed block emission — not new inflation.
+**Purpose:** Anyone deposits any amount of svZCHF/sUSDS one-sided into der Bodensee Pool in exchange for a **1-epoch (14-day)** supplementary emission stream for a gauged pool, starting at the next epoch boundary — from the same fixed block emission, not new inflation.
 
-**Effect:** Incendiary claims are subtracted from the **LP emission tranche** (after F-0’s bootstrap skim) **before** the tranche splits across pools (equal or CCB). Whatever remains is what equal split or CCB allocates.
+**Effect:** Incendiary claims are subtracted from the **LP emission tranche** (after F-0’s bootstrap skim) **before** the tranche splits across pools (equal or CCB). Whatever remains is what equal split or CCB allocates. One boost per pool per epoch.
 
 ```
 lp_tranche(block) = lp_share(block) × block_emission(block)
@@ -54,7 +54,7 @@ lp_tranche(block) = lp_share(block) × block_emission(block)
 Remaining(block) = lp_tranche(block) − Incendiary_claims(block)
 ```
 
-30-day stream pegged to the 85th efficiency percentile. Escrowed svZCHF/sUSDS deposited one-sided into der Bodensee.
+Deposit amount at user discretion; full amount one-sided into der Bodensee Pool, non-refundable.
 
 ---
 
@@ -233,7 +233,7 @@ weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
 weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
 ```
 
-Genesis: **90/10** weights, seed **1 AuMM + 1 svZCHF**. By 18 months: **48/52**, fixed permanently. **Protocol-captured** revenue (swap fees on other pools + ERC-4626 yield fees) enters as one-sided svZCHF. **Swaps inside der Bodensee:** 0.75%, fully to der Bodensee LPs. **Months 1–10:** also receives decaying one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10; see F-0). **After Month 10:** no further AuMM via emission — only fee inflows, in-pool swap fees, and governance/Incendiary deposits. All weight decay parameters immutable from block 0.
+Genesis: **90/10** weights, seed **1 AuMM + 1 svZCHF**. By 18 months: **48/52**, fixed permanently. **Protocol-captured** revenue (swap fees on other pools + ERC-4626 yield fees) enters as one-sided svZCHF. **Swaps inside der Bodensee:** 0.75%, fully to der Bodensee LPs. **Months 1–10:** also receives decaying one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10; see F-0). **After Month 10:** no further AuMM via emission — only fee inflows, in-pool swap fees, governance deposits, and Incendiary Boost deposits. All weight decay parameters immutable from block 0.
 
 ---
 

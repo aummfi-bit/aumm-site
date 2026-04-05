@@ -20,7 +20,7 @@ der Bodensee Pool (AuMM / svZCHF LBP) receives **bootstrap** AuMM **Months 1–1
 
 **After Year 1:** pure CCB. Every eligible pool competes on the same score logic; shares are normalized so the full LP emission pie (after Incendiary) is distributed.
 
-**Incendiary priority skim.** Incendiary Boost claims are paid from the **LP emission tranche** **after** the der Bodensee bootstrap skim (zero after Month 10), **before** the remainder is split by equal blend or CCB. Incendiary is not a multiplier inside the CCB score — it is a first claim on the LP tranche. What remains is what the regime allocates. Details in [Bootstrap (§xxii)](08_bootstrap.md) and [Constitution (§xxviii)](10_constitution.md).
+**Incendiary priority skim.** Incendiary Boost claims are paid from the **LP emission tranche** **after** the der Bodensee bootstrap skim (zero after Month 10), **before** the remainder is split by equal blend or CCB. Incendiary is not a multiplier inside the CCB score — it is a first claim on the LP tranche. What remains is what the regime allocates. Anyone can boost any gauged pool by depositing any amount of svZCHF/sUSDS one-sided into der Bodensee; the boost lasts 1 epoch (14 days), starting at the next epoch boundary. Once per epoch per pool. Details in [Bootstrap (§xxii)](08_bootstrap.md) and [Constitution (§xxviii)](10_constitution.md).
 
 ### Design rationale
 

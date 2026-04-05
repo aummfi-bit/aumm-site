@@ -205,7 +205,7 @@ Allow: /
 #   non-Miliarium gauged pools; Miliarium targets use fixed deposit per constitution
 # - AuMM — reward token (21M max, halving); AuMT — LP tessera / governance weight
 # - Aequilibrium — AMM engine (Balancer-class design layer)
-# - Incendiary Boost — svZCHF/sUSDS escrow to der Bodensee, priority emission skim
+# - Incendiary Boost — any amount svZCHF/sUSDS deposit to der Bodensee, 1-epoch priority emission skim
 # - ixEDEL / routing — constellation routing (see glossary and miliarium docs)
 #
 # Internal-only repo files (not in llms-full.txt): editorial_sprints.md, script.md

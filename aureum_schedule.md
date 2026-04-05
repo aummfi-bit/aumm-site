@@ -21,7 +21,7 @@
 
 ## Phase 3 - Automatic Regime Activation
 
-- activate full CCB (multiplier + Incendiary) from the first block after Year 1 (α = 1)
+- activate full CCB (multiplier + Incendiary Boost) from the first block after Year 1 (α = 1)
 - verify EMA(60) and CCB multiplier outputs match immutable constants
 - validate no discretionary controls in production wiring
 

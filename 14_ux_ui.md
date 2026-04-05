@@ -19,9 +19,9 @@
 
 - [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (80% → 0% linear by end of Month 10), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees
 - [ ] **Weight decay visualisation** — current AuMM/svZCHF weights vs target (90/10 → 48/52), time remaining to stabilisation, progress bar or animated gauge
-- [ ] **Reserve depth** — total svZCHF accumulated (from fee revenue + governance deposits + Incendiary escrow)
+- [ ] **Reserve depth** — total svZCHF accumulated (from fee revenue + governance deposits + Incendiary Boost deposits)
 - [ ] **AuMM price** — derived from pool weights and reserves (no oracle)
-- [ ] **Inflow tracker** — cumulative and trailing 30d **one-sided svZCHF** inflows to der Bodensee, broken down by source (protocol-captured swap share from **other** pools, yield skim after **svZCHF routing**, governance deposits, Incendiary escrow); separately show **in-pool** swap-fee accrual for der Bodensee LPs (0.75% tier) if distinct in subgraph
+- [ ] **Inflow tracker** — cumulative and trailing 30d **one-sided svZCHF** inflows to der Bodensee, broken down by source (protocol-captured swap share from **other** pools, yield skim after **svZCHF routing**, governance deposits, Incendiary Boost deposits); separately show **in-pool** swap-fee accrual for der Bodensee LPs (0.75% tier) if distinct in subgraph
 - [ ] **Pool composition** — live AuMM and svZCHF balances
 
 ---
@@ -74,8 +74,8 @@
 
 ## 8. Incendiary Boost
 
-- [ ] **Active boosts** — which pools have active Incendiary, time remaining, emission rate (pegged to 85th percentile), efficiency scalar
-- [ ] **Boost history** — past Incendiary activations, svZCHF/sUSDS escrowed, emission delivered, pool performance during boost
+- [ ] **Active boosts** — which pools have active Incendiary Boost, epoch remaining, emission rate, deposit amount
+- [ ] **Boost history** — past Incendiary Boost activations, svZCHF/sUSDS deposited, emission delivered, pool performance during boost
 - [ ] **Priority skim impact** — how much of the current block emission is allocated to Incendiary claims vs CCB remainder
 
 ---
@@ -126,7 +126,7 @@ An Aerodrome LP comparing "80% APR" against Aureum's "12% real yield + 15% emiss
 **Token supply transparency.** The dashboard also publishes in real time:
 
 - [ ] **Total AuMM emitted** — cumulative tokens distributed to LPs since block 0
-- [ ] **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost escrow
+- [ ] **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost deposits
 - [ ] **der Bodensee Pool reserve depth** — current svZCHF reserves and AuMM/svZCHF ratio
 
 See [Immutable Parameters (§xxix)](10_constitution.md).

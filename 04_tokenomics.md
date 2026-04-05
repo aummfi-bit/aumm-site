@@ -210,7 +210,7 @@ At scale, combined **protocol-captured** revenue from **swap fees on other pools
 
 As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, accelerating reserve growth. The halving schedule reduces emission dilution every four years while revenue scales with TVL — the reserve grows faster than new supply enters the market.
 
-*All governance proposal deposits — gauge approval, gauge challenge, fee proposals, composition challenge — are one-sided svZCHF/sUSDS-equivalent inflows into der Bodensee Pool; Incendiary Boost escrow uses the same reserve destination. Together they deepen the autonomous reserve.*
+*All governance proposal deposits — gauge approval, gauge challenge, fee proposals, composition challenge — are one-sided svZCHF/sUSDS-equivalent inflows into der Bodensee Pool; Incendiary Boost deposits use the same reserve destination. Together they deepen the autonomous reserve.*
 
 ### Immutable Reference
 

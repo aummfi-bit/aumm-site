@@ -83,7 +83,7 @@ Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
 - **Miliarium Aureum** — 28 founding pools; **cannot be gauge-challenged** — structural changes via **Composition Challenge** only. Non-Miliarium gauge challenges use **F-12**.  
 - **AuMM / AuMT** — reward token vs LP tessera (governance weight).  
 - **Aequilibrium** — AMM engine (Balancer-class pool layer in the design).  
-- **Incendiary Boost** — escrow to der Bodensee, priority emission skim.
+- **Incendiary Boost** — any amount to der Bodensee, 1-epoch (14-day) priority emission skim; once per epoch per pool.
 
 ---
 

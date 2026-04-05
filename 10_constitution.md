@@ -47,7 +47,7 @@ All deposits **one-sided into der Bodensee Pool** (no LP tokens minted to propos
 
 Governance-gated, **2/3 supermajority** of protocol-wide tessera-weighted votes. A single proposal may cover both theme assets if both have failed.
 
-Pool composition is immutable on-chain. A composition challenge **deprecates** the old pool (gauge revoked, emissions cease) and **launches a replacement** into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost, optional Incendiary).
+Pool composition is immutable on-chain. A composition challenge **deprecates** the old pool (gauge revoked, emissions cease) and **launches a replacement** into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost, optional Incendiary Boost).
 
 **Like-for-like** means:
 
@@ -78,7 +78,7 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims are skimmed from the **LP emission tranche** (after bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day EMA of on-chain TVL ([Theoretical foundations §vi-b](03_theoretical_foundation.md)). The CCB scores each eligible pool by combining smoothed TVL with its CCB multiplier (Miliarium pools only; others use a neutral value), then normalizes to produce fractional shares. Multipliers update bi-weekly for the 28 only, within the immutable band in §xxix below. No voting, no human override. Formal definitions in [Protocol formulas](11_formulas.md).
+Incendiary Boost claims (1 epoch / 14 days each, any deposit amount, once per epoch per pool) are skimmed from the **LP emission tranche** (after bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day EMA of on-chain TVL ([Theoretical foundations §vi-b](03_theoretical_foundation.md)). The CCB scores each eligible pool by combining smoothed TVL with its CCB multiplier (Miliarium pools only; others use a neutral value), then normalizes to produce fractional shares. Multipliers update bi-weekly for the 28 only, within the immutable band in §xxix below. No voting, no human override. Formal definitions in [Protocol formulas](11_formulas.md).
 
 ## xxix. Immutable Parameters (Canonical Source)
 
