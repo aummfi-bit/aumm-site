@@ -190,7 +190,7 @@ Any qualified AuMT holder can challenge an existing gauge. **Deposit depends on 
 
 **Target is one of the 28 Miliarium Aureum pools:** deposit is **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — F-12 **does not** apply. Structural change to those slots goes through the **composition challenge** path.
 
-Challenge triggers a governance vote: majority votes to revoke → gauge removed, emissions lost. Challenge fails → deposit stays in Bodensee. The challenger accepted that risk.
+Challenge triggers a governance vote: majority votes to revoke → gauge removed, emissions lost. **The deposit goes to der Bodensee Pool regardless of outcome** — non-refundable whether the challenge succeeds or fails. The challenger accepted that risk.
 
 Community enforcement layer on top of immutable anti-gaming criteria. The contract catches pools failing volume or efficiency thresholds automatically. Gauge challenges catch pools that technically pass but are extractive in ways the contract can't detect — coordinated wash trading, circular routing, or single-actor emission farming.
 

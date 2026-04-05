@@ -37,7 +37,7 @@ The **Miliarium Aureum** (Golden Milestone) was the monument in the Roman Forum 
 
 **AuMM** (Aureum Market Maker) is the reward token — mined by providing liquidity, backed by protocol revenue flowing into der Bodensee Pool. BTC-style scarcity.
 
-**AuMT** (Aureum Market Tessera) is the proof-of-participation token. In Rome, a tessera was a small tablet — ticket, voucher, proof of identity. It proved you belonged and carried rights: entry, grain rations, assembly votes. Your AuMT proves your stake in the protocol's liquidity and carries equivalent rights: emissions, governance power, LP bonus eligibility.
+**AuMT** (Aureum Market Tessera) is the proof-of-participation token. In Rome, a tessera was a small tablet — ticket, voucher, proof of identity. It proved you belonged and carried rights: entry, grain rations, assembly votes. Your AuMT proves your stake in the protocol's liquidity and carries equivalent rights: emissions and governance power.
 
 **Aequilibrium** is the AMM engine — Latin for "equal balance." The pool layer powering every trade, every arb, every routing path. Balancer V3's Certora-verified smart contracts, reborn under a new economic model.
 

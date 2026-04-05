@@ -60,9 +60,9 @@ Two tracks, depending on what you need:
 
 No treasury. All protocol revenue flows to one immutable destination:
 
-- **der Bodensee Pool** — **protocol-captured** revenue: **50% of swap fees on other pools** + **100% of ERC-4626 yield fees** as one-sided svZCHF inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** for der Bodensee LPs.
+- **der Bodensee Pool** — **all protocol-captured** revenue: **swap fees on other pools (100%)** + **ERC-4626 yield fees (100% of the 10% skim)** as one-sided svZCHF inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** for der Bodensee LPs.
 
-The remaining **50%** of swap fees on **those other pools** goes directly to LPs as LP bonus. No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
+No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 

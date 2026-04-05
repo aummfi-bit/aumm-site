@@ -11,7 +11,7 @@
 - [ ] **FDV / FDV-to-TVL ratio** — chart with historical
 - [ ] **TradingView-style charts** — TVL, FDV, FDV/TVL, AuMM price, all with the 60-day EMA plotted alongside spot
 - [ ] **Trading volume** — 24h, 7d, 30d, all-time; protocol-wide and per-pool breakdown
-- [ ] **Protocol fees** — 24h and all-time; split by swap fees vs yield fees; **protocol-captured** svZCHF inflow to der Bodensee (50% of swap on other pools + yield skim) **vs** **in-pool** fees on der Bodensee trades (0.75% tier, LPs only)
+- [ ] **Protocol fees** — 24h and all-time; split by swap fees vs yield fees; **protocol-captured** svZCHF inflow to der Bodensee (swap fees on other pools + yield skim) **vs** **in-pool** fees on der Bodensee trades (0.75% tier, LPs only)
 
 ---
 

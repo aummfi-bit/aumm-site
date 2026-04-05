@@ -221,7 +221,7 @@ Price-agnostic — numerator (revenue) and denominator (emissions) measured in t
 
 **Purpose:** Define linear time-decay of token weights in der Bodensee Pool, replacing discretionary price discovery.
 
-**Effect:** Two-token LBP (AuMM + svZCHF), weights shifting linearly from genesis to 18-month endpoint. **Seed:** **1 AuMM** and **1 svZCHF**. **Swap fee:** **0.75%**, fully retained **in pool** (not routed through 50/50 split). **Protocol-captured** revenue from **other** pools flows one-sided into the svZCHF side. Price discovery forced by time-decay + real revenue — no oracle, no manual trigger.
+**Effect:** Two-token LBP (AuMM + svZCHF), weights shifting linearly from genesis to 18-month endpoint. **Seed:** **1 AuMM** and **1 svZCHF**. **Swap fee:** **0.75%**, fully retained **in pool** (not routed through the protocol fee pipeline). **Protocol-captured** revenue from **other** pools flows one-sided into the svZCHF side. Price discovery forced by time-decay + real revenue — no oracle, no manual trigger.
 
 ```
 genesis_block = block_0
@@ -233,7 +233,7 @@ weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
 weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
 ```
 
-Genesis: **90/10** weights, seed **1 AuMM + 1 svZCHF**. By 18 months: **48/52**, fixed permanently. **Protocol-captured** revenue (50% swap fees on other pools + 100% yield fees) enters as one-sided svZCHF. **Swaps inside der Bodensee:** 0.75%, fully to der Bodensee LPs. **Months 1–10:** also receives decaying one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10; see F-0). **After Month 10:** no further AuMM via emission — only fee inflows, in-pool swap fees, and governance/Incendiary deposits. All weight decay parameters immutable from block 0.
+Genesis: **90/10** weights, seed **1 AuMM + 1 svZCHF**. By 18 months: **48/52**, fixed permanently. **Protocol-captured** revenue (swap fees on other pools + ERC-4626 yield fees) enters as one-sided svZCHF. **Swaps inside der Bodensee:** 0.75%, fully to der Bodensee LPs. **Months 1–10:** also receives decaying one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10; see F-0). **After Month 10:** no further AuMM via emission — only fee inflows, in-pool swap fees, and governance/Incendiary deposits. All weight decay parameters immutable from block 0.
 
 ---
 
