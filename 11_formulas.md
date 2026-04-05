@@ -1,6 +1,6 @@
 # Protocol Formulas
 
-*Every formula that governs Aureum emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance proposal deposits** (gauge approval, gauge challenge, fee proposals, composition challenge) are **one-sided inflows into der Bodensee Pool**; only amounts differ — see [Constitution (§xxvii)](10_constitution.md).*
+*Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
 
 All parameters listed here are **immutable from block 0**. See [Immutable Parameters (§xxix)](10_constitution.md).
 
@@ -10,9 +10,9 @@ All parameters listed here are **immutable from block 0**. See [Immutable Parame
 
 ### F-0. der Bodensee Bootstrap Emission Decay
 
-**Purpose:** Deepen der Bodensee Pool reserves with one-sided AuMM inflows during the cold-start period, aligned with svZCHF fee inflows, so weighted-pool price discovery begins from block 0 without allocating emissions to any treasury or wallet.
+**Purpose:** Deepen der Bodensee reserves with one-sided AuMM inflows during cold-start, so weighted-pool price discovery begins from block 0 without allocating emissions to any treasury.
 
-**Effect:** A linearly decaying fraction of each block’s emission is minted as a **one-sided AuMM deposit** into der Bodensee Pool (no LP tokens minted — same mechanic as one-sided svZCHF fee inflows). The remainder of the block emission is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). After the final block of Month 10, **bodensee_share = 0**; 100% of emissions go to LPs under the equal regime until Month 11.
+**Effect:** A linearly decaying fraction of each block’s emission is minted as a **one-sided AuMM deposit** into der Bodensee Pool (no LP tokens — same mechanic as one-sided svZCHF fee inflows). The remainder is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). After the final block of Month 10, **bodensee_share = 0**; 100% to LPs until Month 11.
 
 ```
 month_10_end_block = last_block_of_Month_10
@@ -28,9 +28,9 @@ AuMM routed to der Bodensee Pool in block **b** equals **bodensee_share(b) × bl
 
 ### F-1. Equal Emission Split
 
-**Purpose:** Guarantee every founding pool an identical share of the **LP emission tranche** during the cold-start period, removing any advantage from early TVL differences and giving the constellation time to build liquidity organically.
+**Purpose:** Guarantee every founding pool an identical share of the **LP emission tranche** during cold-start, removing any advantage from early TVL differences.
 
-**Effect:** Each of the 28 Miliarium Aureum pools receives exactly **one twenty-eighth** of the LP tranche every block — not one twenty-eighth of the full block emission when **bodensee_share > 0** (see F-0). No pool can outcompete another on emissions during this window.
+**Effect:** Each of the 28 pools receives **one twenty-eighth** of the LP tranche every block — not of the full block emission when **bodensee_share > 0** (see F-0).
 
 ```
 share_of_LP_tranche_i = 1 / 28
@@ -44,9 +44,9 @@ Where **i** ranges over the 28 Miliarium Aureum pools.
 
 ### F-2. Incendiary Boost Priority Claim
 
-**Purpose:** Allow operators to commit conviction capital (escrowed svZCHF/sUSDS deposited one-sided into der Bodensee Pool) in exchange for a time-limited supplementary emission stream, funded from the same fixed block emission — not from new inflation.
+**Purpose:** Operators commit conviction capital (escrowed svZCHF/sUSDS, one-sided into der Bodensee) in exchange for a time-limited supplementary emission stream from the same fixed block emission — not new inflation.
 
-**Effect:** Incendiary claims are subtracted from the **LP emission tranche** (after F-0’s der Bodensee bootstrap skim) **before** that tranche is split across pools (equal or CCB). This ensures boosted pools receive their committed stream without inflating total supply. Whatever is left after Incendiary claims is what the equal split (Months 1–10) or CCB (later) allocates.
+**Effect:** Incendiary claims are subtracted from the **LP emission tranche** (after F-0’s bootstrap skim) **before** the tranche splits across pools (equal or CCB). Whatever remains is what equal split or CCB allocates.
 
 ```
 lp_tranche(block) = lp_share(block) × block_emission(block)
@@ -54,7 +54,7 @@ lp_tranche(block) = lp_share(block) × block_emission(block)
 Remaining(block) = lp_tranche(block) − Incendiary_claims(block)
 ```
 
-Incendiary Boost provides a 30-day supplementary emission stream pegged to the 85th efficiency percentile. Escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool.
+30-day stream pegged to the 85th efficiency percentile. Escrowed svZCHF/sUSDS deposited one-sided into der Bodensee.
 
 ---
 
@@ -62,9 +62,9 @@ Incendiary Boost provides a 30-day supplementary emission stream pegged to the 8
 
 ### F-3. Linear Blend from Equal to CCB
 
-**Purpose:** Gradually shift from the equal regime to fully automatic CCB allocation over a two-month window, avoiding a sudden jump that could destabilize pool economics overnight.
+**Purpose:** Shift from equal to full CCB over two months, avoiding overnight emission shocks.
 
-**Effect:** Each pool's fractional share of the **post-Incendiary LP emission tranche** (F-2) is a weighted mix of its equal share (1/28) and what the CCB formula would give it. The blend parameter **α** starts at zero (pure equal) and rises linearly to one (pure CCB) over the two-month window. At the midpoint, the mix is exactly half equal and half CCB. During Months 11–12, **bodensee_share = 0**, so the LP tranche equals the full block emission before Incendiary.
+**Effect:** Each pool's share of the **post-Incendiary LP tranche** (F-2) blends its equal share (1/28) with its CCB-derived share. **α** rises linearly from zero (pure equal) to one (pure CCB). At midpoint, half and half. During Months 11–12, **bodensee_share = 0** — LP tranche equals full block emission before Incendiary.
 
 ```
 share_i(block) = (1 − α(block)) × (1/28) + α(block) × CCB_share_i(block)
@@ -78,9 +78,9 @@ Where **α** runs linearly from **0** at the first block of Month 11 to **1** at
 
 ### F-4. TVL Exponential Moving Average — EMA(60)
 
-**Purpose:** Smooth each pool's raw TVL into a 60-day moving average that filters out short-term noise (hype, panic, whale movements) and preserves a memory of sustained liquidity commitment.
+**Purpose:** Smooth each pool's raw TVL into a 60-day moving average that filters short-term noise and preserves sustained liquidity commitment.
 
-**Effect:** A pool that loses all its TVL today still retains roughly 50% of its signal after three weeks and 25% after six weeks. The EMA is a low-pass filter — it suppresses daily volatility and passes only the long-term capital signal. This is the foundation of the CCB's anticyclical behavior: the protocol cannot be jolted into instant reallocation by a single day's capital movement.
+**Effect:** A pool that loses all TVL today retains ~50% of its signal after three weeks, ~25% after six. Low-pass filter: suppresses daily volatility, passes only the long-term capital signal. The protocol cannot be jolted into instant reallocation by a single day's movement.
 
 ```
 alpha = 2 / (60 + 1)                          // ≈ 0.0328
@@ -95,9 +95,9 @@ The EMA runs continuously for **each pool** individually. Half-life is approxima
 
 ### F-5. CCB Score
 
-**Purpose:** Combine a pool's smoothed TVL with its CCB multiplier into a single composite score that determines how much of the remaining block emission it receives.
+**Purpose:** Combine smoothed TVL with CCB multiplier into a single score determining each pool's share of remaining block emission.
 
-**Effect:** Pools with higher sustained TVL and favorable CCB multiplier positioning earn proportionally larger scores. The score is **relative** — a pool's emissions depend on how it compares to every other eligible pool, not on a fixed percentage. Incendiary Boost effects are handled separately via the priority skim (F-2) on the LP tranche, not inside the CCB score.
+**Effect:** Higher sustained TVL and favorable multiplier positioning → larger scores. **Relative** — emissions depend on how a pool ranks against all others, not on a fixed percentage. Incendiary effects are handled via priority skim (F-2), not inside the CCB score.
 
 ```
 Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i)
@@ -109,9 +109,9 @@ Score(pool_i) = TVL_EMA60(pool_i) × CCB_mult(pool_i)
 
 ### F-6. CCB Share and Emission Distribution
 
-**Purpose:** Normalize pool scores into fractional shares that sum to 100%, then distribute the remaining block emission (after Incendiary claims) according to those shares.
+**Purpose:** Normalize scores into fractional shares summing to 100%, then distribute remaining emission accordingly.
 
-**Effect:** The entire post-Incendiary block emission is distributed across eligible pools in proportion to their scores. No emissions are left unallocated. If a pool's score rises relative to others, its share of the pie grows; if it falls, its share shrinks — automatically, every block.
+**Effect:** The entire post-Incendiary emission is distributed in proportion to scores. No emissions left unallocated. Score rises → share grows; score falls → share shrinks. Automatic, every block.
 
 ```
 CCB_share_i = Score(pool_i) / Σ(Score(all eligible pools))
@@ -123,9 +123,9 @@ emission_from_CCB_i = Remaining(block) × CCB_share_i
 
 ### F-7. Full Emission Sequence (Every Block, Post–Year 1)
 
-**Purpose:** Consolidate the end-to-end emission logic into a single reference sequence showing exactly how each block's reward is computed and distributed.
+**Purpose:** Complete per-block algorithm in one reference sequence.
 
-**Effect:** This is the complete per-block algorithm. EMA updates run continuously; Incendiary claims are skimmed first; the remainder is split by CCB scores across all eligible pools. Oracle-free — reads only internal contract balances. The 21M hard cap is never breached because Incendiary is a reallocation from the same fixed pie, not new inflation.
+**Effect:** EMA updates run continuously; Incendiary claims skimmed first; remainder split by CCB scores. Oracle-free — reads only internal contract balances. 21M cap never breached: Incendiary is reallocation, not new inflation.
 
 ```
 // Step 0 — EMA update (runs continuously for each pool)
@@ -153,9 +153,9 @@ Total_emission(pool_i) = CCB_share(pool_i) + Incendiary_claim(pool_i)
 
 ### F-8. CCB Multiplier Update
 
-**Purpose:** Automatically adjust the emission multiplier for each of the 28 Miliarium pools every bi-weekly cycle, replacing human governance voting over emission weights with a deterministic, oracle-free rule.
+**Purpose:** Adjust each Miliarium pool's emission multiplier every bi-weekly cycle — deterministic, oracle-free, replacing human governance over emission weights.
 
-**Effect:** Pools growing too fast relative to the protocol or the Miliarium average are automatically taxed (multiplier nudged down); pools shrinking relative to average are automatically subsidized (multiplier nudged up). The result is anticyclical behavior within the founding constellation — without any human intervention.
+**Effect:** Pools growing too fast relative to the protocol or constellation average are taxed (multiplier nudged down); pools shrinking are subsidized (nudged up). Anticyclical behavior within the 28, no human intervention.
 
 ```
 M_i(t) = clamp( M_i(t-1) + delta_global + delta_intra_i,  0.75,  1.25 )
@@ -176,9 +176,9 @@ Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any othe
 
 ### F-9. Governance Power
 
-**Purpose:** Convert a liquidity provider's economic stake and time commitment into governance weight, using sub-linear dampening to prevent whale capture.
+**Purpose:** Convert LP stake and time commitment into governance weight with sub-linear dampening to prevent whale capture.
 
-**Effect:** Governance power grows with both the value of the LP position and the duration held, but the root function compresses large positions so that a whale with 100× the capital does not get 100× the voting power. Era 0 uses fourth-root dampening (maximum compression when protocol TVL is lowest and capture risk is highest); Era 1 onward relaxes to cube-root (TVL growth has naturally diluted individual power).
+**Effect:** Root function compresses large positions — 100× capital ≠ 100× voting power. Era 0: fourth root (maximum compression when TVL is lowest). Era 1+: cube root (TVL growth has diluted individual power).
 
 ```
 Era 0 (years 0–4):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/4)
@@ -191,9 +191,9 @@ Era 1+ (years 4+):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/3)
 
 ### F-10. Efficiency Tournament
 
-**Purpose:** Rank all gauged pools by capital efficiency and cap emissions for the least productive, preventing extractive pools from consuming disproportionate emission share.
+**Purpose:** Rank gauged pools by capital efficiency and cap emissions for the least productive.
 
-**Effect:** Pools in the bottom 15% of the efficiency ranking have their emissions capped at tiered levels. Excess emissions are redistributed to uncapped pools pro-rata by CCB share. Activates at month 13.
+**Effect:** Bottom 15% capped at tiered levels. Excess redistributed to uncapped pools pro-rata by CCB share. Activates at month 13.
 
 ```
 efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)
@@ -213,15 +213,15 @@ excess = Σ (uncapped_emission − capped_emission) for all capped pools
 redistribute excess to uncapped pools pro-rata by CCB_share
 ```
 
-Efficiency ranking is price-agnostic — both the numerator (revenue) and the denominator (emissions) are measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
+Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
 ---
 
 ### F-11. der Bodensee Pool Weight Decay
 
-**Purpose:** Define the linear time-decay of token weights in der Bodensee Pool (the protocol's autonomous reserve), replacing any discretionary price discovery or stabilization mechanism.
+**Purpose:** Define linear time-decay of token weights in der Bodensee Pool, replacing discretionary price discovery.
 
-**Effect:** der Bodensee Pool is a two-token Liquidity Bootstrapping Pool (AuMM + svZCHF) whose weights shift linearly from genesis to the 18-month endpoint. **Genesis seed:** **1 AuMM** and **1 svZCHF** at pool creation. **Swap fee on trades in this pool:** **0.75%**, fully retained **in pool** for der Bodensee LPs (not routed through the protocol-wide 50/50 swap-fee split). **Protocol-captured** fee revenue from **other** pools flows one-sided into the svZCHF side. Price discovery is forced by the combination of time-decay and real revenue inflows — no oracle, no manual trigger.
+**Effect:** Two-token LBP (AuMM + svZCHF), weights shifting linearly from genesis to 18-month endpoint. **Seed:** **1 AuMM** and **1 svZCHF**. **Swap fee:** **0.75%**, fully retained **in pool** (not routed through 50/50 split). **Protocol-captured** revenue from **other** pools flows one-sided into the svZCHF side. Price discovery forced by time-decay + real revenue — no oracle, no manual trigger.
 
 ```
 genesis_block = block_0
@@ -233,24 +233,24 @@ weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
 weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
 ```
 
-At genesis, der Bodensee Pool holds **90% AuMM / 10% svZCHF** **weights** with **minimal seed balances: 1 AuMM and 1 svZCHF** at deployment. By the 18-month endpoint, weights stabilize at **48% AuMM / 52% svZCHF** and remain fixed permanently. **Protocol-captured** fee revenue — **50% of swap fees on non–der Bodensee pools** plus **100% of ERC-4626 yield fees** — enters as one-sided svZCHF inflows. **Swaps inside der Bodensee** pay **0.75%**, fully to der Bodensee LPs in-pool. During **Months 1–10**, der Bodensee Pool also receives a **linearly decaying one-sided AuMM bootstrap** (80% of block emission at genesis → 0% at end of Month 10; see F-0). **After Month 10**, no further AuMM is routed to der Bodensee via emission — only protocol-captured fee inflows, **in-pool** swap fees, and governance/Incendiary svZCHF/sUSDS deposits. Weight decay parameters are immutable from block 0.
+Genesis: **90/10** weights, seed **1 AuMM + 1 svZCHF**. By 18 months: **48/52**, fixed permanently. **Protocol-captured** revenue (50% swap fees on other pools + 100% yield fees) enters as one-sided svZCHF. **Swaps inside der Bodensee:** 0.75%, fully to der Bodensee LPs. **Months 1–10:** also receives decaying one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10; see F-0). **After Month 10:** no further AuMM via emission — only fee inflows, in-pool swap fees, and governance/Incendiary deposits. All weight decay parameters immutable from block 0.
 
 ---
 
 ### F-12. Gauge Challenge Deposit (Non-Miliarium Gauged Pools Only)
 
-**Purpose:** Scale the gauge-challenge deposit so nuisance challenges against **large, efficient** non-Miliarium gauges require meaningful skin in the game, while keeping a lower bar for challenging tail or weak pools. **This formula does not apply to the 28 Miliarium Aureum pools** — those use the **flat** deposit in [Constitution (§xxvii)](10_constitution.md).
+**Purpose:** Scale the gauge-challenge deposit so nuisance challenges against **large, efficient** non-Miliarium gauges cost real money, while keeping a lower bar for tail or weak pools. **Does not apply to the 28 Miliarium Aureum pools** — those use the **flat** deposit in [Constitution (§xxvii)](10_constitution.md).
 
-**Effect:** The **full** gauge-challenge deposit (after the `max` below) is paid as a **one-sided inflow into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the challenger; it deepens the autonomous reserve.
+**Effect:** The full deposit (after the `max` below) is paid **one-sided into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the challenger.
 
-For a challenge whose **target pool is not** one of the 28 Miliarium Aureum slots, that deposit equals the **greater** of:
+For a challenge targeting a **non-Miliarium** pool, the deposit equals the **greater** of:
 
 1. **10 BTC** expressed in **CHF**, then converted to **svZCHF or sUSDS equivalent (whichever is higher)** at submission time — then deposited **one-sided into der Bodensee Pool**; and  
 2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF/sUSDS equivalent and deposited **one-sided into der Bodensee Pool**.
 
 **Elite tail convention:** **p_tvl** and **p_eff** use **rank / N** (not CDF-from-bottom). Among **all gauged pools** (including Miliarium), **N** = count of gauged pools. Sort by **spot TVL**; **rank 1** = highest TVL → **p_tvl = rank / N**. Independently sort by **efficiency ratio** as in F-10 (3-epoch moving average); **rank 1** = highest efficiency → **p_eff = rank / N**. **Ties** break deterministically (e.g. lower pool contract address hex first).
 
-Then **(1 − p_tvl)** and **(1 − p_eff)** are large when the target is **elite** on both dimensions (rank 1 ⇒ **p ≈ 1/N** ⇒ factors near **1 − 1/N**). The lowest-TVL or lowest-efficiency pool has **p ≈ 1** on that axis → that factor → **0** (the **10 BTC** floor typically binds).
+**(1 − p_tvl)** and **(1 − p_eff)** are large when the target is elite on both axes (rank 1 ⇒ **p ≈ 1/N** ⇒ factors near **1 − 1/N**). The weakest pool on either axis has **p ≈ 1** → that factor → **0**, so the **10 BTC** floor typically binds.
 
 ```
 deposit_CHF_component = 1_000_000 × sqrt((1 − p_tvl) × (1 − p_eff))
@@ -259,7 +259,7 @@ gauge_challenge_deposit = max( 10_BTC_in_CHF ,  deposit_CHF_component )
 // convert to svZCHF/sUSDS equivalent; one-sided deposit into der Bodensee Pool; non-refundable
 ```
 
-**Miliarium Aureum exclusion:** If the challenged pool **is** one of the **28 Miliarium Aureum** registry pools, **do not** use F-12 — use the **fixed** gauge-challenge deposit (1,000 svZCHF/sUSDS equivalent), **one-sided into der Bodensee Pool** as above. Slot-level structural change for those pools follows **composition challenge**, not this scaling rule.
+**Miliarium Aureum exclusion:** If the target **is** one of the **28 Miliarium Aureum** pools, F-12 does not apply — use the **fixed** 1,000 svZCHF/sUSDS equivalent deposit, **one-sided into der Bodensee Pool**. Structural changes to those slots follow **composition challenge**, not this scaling rule.
 
 ---
 

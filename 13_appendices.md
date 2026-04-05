@@ -4,7 +4,7 @@
 
 ### Provenance: Balancer V3
 
-Aequilibrium is derived from Balancer V3's open-source, Certora-verified smart contracts. The relationship is transparent: the pool layer is byte-identical to the audited code, the tokenomics layer is entirely new. The table below shows what was inherited and what was built.
+Aequilibrium is Balancer V3's open-source, Certora-verified smart contracts with a new tokenomics layer on top. Pool math is byte-identical to the audited code. The table below shows what was inherited and what was built.
 
 | Component | Origin | Modifications |
 |-----------|--------|--------------|
@@ -21,9 +21,9 @@ Aequilibrium is derived from Balancer V3's open-source, Certora-verified smart c
 
 ### What's Unchanged (Critical)
 
-The pool contracts, vault, SOR, hooks, and rate providers are **byte-identical** to the Certora-verified Balancer V3 code. The audit and formal verification apply to these components. Only the tokenomics layer is new and requires independent audit.
+Pool contracts, vault, SOR, hooks, and rate providers are **byte-identical** to the Certora-verified Balancer V3 code. The audit and formal verification apply directly. Only the tokenomics layer requires independent audit.
 
-This is important for LP trust: *"The AMM you're depositing into is the same formally verified code. The token you're earning is different."*
+The LP trust proposition: *"The AMM you're depositing into is the same formally verified code. The token you're earning is different."*
 
 ### What's New (Requires Audit)
 
@@ -43,7 +43,7 @@ This is important for LP trust: *"The AMM you're depositing into is the same for
 - Fee splitter (swap fees on non–der Bodensee pools: 50/50 LP/Bodensee; yield fees: 100% Bodensee one-sided svZCHF; der Bodensee Pool: 0.75% swap fee, 100% in-pool to der Bodensee LPs)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool LBP weight decay engine, Miliarium Aureum pool registry, and token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost escrow and efficiency scalar, Sandbox fast-track, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool LBP weight decay engine, Miliarium Aureum pool registry, token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 
@@ -51,27 +51,27 @@ Estimated audit scope: ~4,500 lines of new Solidity (including CCB emission engi
 
 ### The Fair Launch Graveyard
 
-Fair launches were the gold standard in 2020 (Yearn, SushiSwap). Today they're nearly extinct. The reasons are structural:
+Fair launches were the gold standard in 2020 (Yearn, SushiSwap). Today they're nearly extinct. The reasons are structural.
 
-**The Bootstrap Paradox.** An AMM needs liquidity to be useful. VC-backed projects pay for liquidity mining from their war chest. Fair launches have no war chest. No liquidity → high slippage → no traders → no fees → LPs leave → death spiral.
+**The Bootstrap Paradox.** An AMM needs liquidity to be useful. VC-backed projects pay from their war chest. Fair launches have none. No liquidity → high slippage → no traders → no fees → LPs leave → death spiral.
 
-**The Builder Burnout Problem.** If 100% of tokens go to the community, who pays for audits ($100-250K), legal counsel, infrastructure, and the dev's rent? Most fair launch founders end up working for free while yield farmers dump their tokens for profit.
+**The Builder Burnout Problem.** If 100% of tokens go to the community, who pays for audits ($100–250K), legal counsel, infrastructure, and the dev's rent? Most fair launch founders end up working for free while yield farmers dump.
 
-**Governance Capture.** Fair launches distribute tokens based on liquidity provision. Whales bring massive capital on day one, earn the majority of "fair" tokens, and vote to redirect the treasury to themselves. A "Fair Launch" becomes a "Whale Launch."
+**Governance Capture.** Fair launches distribute tokens based on liquidity provision. Whales bring massive capital on day one, earn the majority of "fair" tokens, and vote to redirect the treasury to themselves. Fair Launch becomes Whale Launch.
 
-**The Death Spiral.** Most AMMs rely on their own token as the incentive. Token price drops → APR drops → LPs leave → protocol dies. VC-backed projects subsidise during bear markets using their treasury. Fair launches have no cushion.
+**The Death Spiral.** Most AMMs rely on their own token as the incentive. Token price drops → APR drops → LPs leave → protocol dies. VC-backed projects subsidize through bear markets. Fair launches have no cushion.
 
 ### The SushiSwap Autopsy
 
-SushiSwap is the most instructive failure. Three specific causes:
+SushiSwap is the most instructive failure. Three causes.
 
-**1. The backdoor.** Chef Nomi controlled the dev fund and sold $14M of SUSHI. The "fair launch" had admin keys hidden in the migration contract. The founder had a sell button the community didn't know about.
+**1. The backdoor.** Chef Nomi controlled the dev fund and sold $14M of SUSHI. Admin keys hidden in the migration contract. The founder had a sell button the community didn't know about.
 
-**2. Vampire attack dependency.** SushiSwap's entire TVL came from migrating Uniswap LPs through token incentives. Once incentives declined, LPs had no structural reason to stay. The liquidity was rented, not earned.
+**2. Vampire attack dependency.** SushiSwap's entire TVL came from migrating Uniswap LPs via token incentives. Once incentives declined, LPs had no reason to stay. Rented liquidity.
 
 **3. Immediate governance capture.** Large holders (FTX/Alameda) accumulated governance power through token purchases and directed treasury spending to their own interests. Token-weighted voting meant capital = control.
 
-The deeper structural failure: SushiSwap was a fair launch of a **commodity product** — same Uniswap V2 pairs, same architecture, nothing novel. When incentives faded, there was no reason to use Sushi over Uniswap. The token was the only differentiator, and the token was losing value.
+The deeper failure: SushiSwap was a fair launch of a **commodity product** — same Uniswap V2 pairs, same architecture, nothing novel. When incentives faded, there was no reason to use Sushi over Uniswap. The token was the only differentiator, and the token was losing value.
 
 ### How Aureum Addresses Every Failure Mode
 
@@ -87,15 +87,15 @@ The deeper structural failure: SushiSwap was a fair launch of a **commodity prod
 
 ### The White Space
 
-There are no Fair Launch AMMs in 2026 because most people assume the model can't work. They're right — for commodity products with no structural moat and no native yield.
+No Fair Launch AMMs exist in 2026 because the model is assumed dead. For commodity products with no structural moat and no native yield, it is.
 
-Aureum is different because it launches with three things no previous fair launch had:
+Aureum launches with three things no previous fair launch had:
 
-1. **A differentiated architecture** that cannot be replicated on any competing AMM
-2. **Native yield** (ERC-4626) that provides LP returns independent of token emissions
-3. **A pre-built routing topology** (Miliarium Aureum) with $898M daily volume opportunity from constituent tokens already trading on-chain
+1. **Differentiated architecture** that cannot be replicated on any competing AMM
+2. **Native yield** (ERC-4626) providing LP returns independent of token emissions
+3. **Pre-built routing topology** (Miliarium Aureum) with $898M daily volume from constituent tokens already trading on-chain
 
-The fair launch model failed when applied to commodity AMMs. It has never been tried on a formally verified, multi-asset, yield-bearing routing infrastructure with BTC-scarcity tokenomics and contract-enforced anti-gaming.
+The fair launch model failed on commodity AMMs. It has never been tried on formally verified, multi-asset, yield-bearing routing infrastructure with BTC-scarcity tokenomics and contract-enforced anti-gaming.
 
 That experiment hasn't failed. It hasn't happened.
 
@@ -103,7 +103,7 @@ That experiment hasn't failed. It hasn't happened.
 
 ## xxxviii. Yield Basis Hybrid Vaults — Complementary Architecture
 
-Curve's Yield Basis protocol (March 2026) independently validated the same core thesis Aureum is built on: sustainable AMM growth requires tying TVL expansion to productive capital, not reflexive incentives. Their Hybrid Vaults solve this by requiring LPs to deposit crvUSD (earning ~4.5% scrvUSD yield) before unlocking BTC/ETH pool capacity — directly supporting the crvUSD peg while scaling. The mechanism is architecturally orthogonal to Aureum's CCB: Yield Basis enforces anticyclicality at the user level (stable-first deposit → personal cap), while Aureum enforces it at the protocol level (EMA-weighted emissions + immutable anti-gaming gates + 52% ERC-4626 Quality Gate). Both reject reflexive liquidity mining. Both force conviction capital upfront. The key divergence: Yield Basis depends on an external stablecoin peg (crvUSD + Curve DAO credit line), while Aureum's stability layer is entirely internal and oracle-free. Aureum's routing anchor (ixEDEL) has no peg to defend — its NAV arb surface generates continuous cross-pool fees without the catastrophic depeg risk that Hybrid Vaults were specifically engineered to mitigate. The two designs compose well: a future gauge-approved Aureum pool could include scrvUSD as an ERC-4626 component if it meets the $5M vault floor, giving LPs access to both yield layers simultaneously. Source: [@yieldbasis, March 30 2026](https://x.com/yieldbasis/status/2038610652194037966).
+Curve's Yield Basis protocol (March 2026) independently validated the same core thesis: sustainable AMM growth requires tying TVL expansion to productive capital, not reflexive incentives. Their Hybrid Vaults require LPs to deposit crvUSD (earning ~4.5% scrvUSD yield) before unlocking BTC/ETH pool capacity — directly supporting the crvUSD peg while scaling. Architecturally orthogonal to Aureum's CCB: Yield Basis enforces anticyclicality at the user level (stable-first deposit → personal cap); Aureum enforces it at the protocol level (EMA-weighted emissions + immutable anti-gaming gates + 52% ERC-4626 Quality Gate). Both reject reflexive liquidity mining. Both force conviction capital upfront. The key divergence: Yield Basis depends on an external stablecoin peg (crvUSD + Curve DAO credit line); Aureum's stability layer is entirely internal and oracle-free. Aureum's routing anchor (ixEDEL) has no peg to defend — its NAV arb surface generates continuous cross-pool fees without the catastrophic depeg risk Hybrid Vaults were engineered to mitigate. The two designs compose well: a future gauge-approved Aureum pool could include scrvUSD as an ERC-4626 component if it meets the $5M vault floor, giving LPs access to both yield layers simultaneously. Source: [@yieldbasis, March 30 2026](https://x.com/yieldbasis/status/2038610652194037966).
 
 ---
 
@@ -140,11 +140,11 @@ Curve's Yield Basis protocol (March 2026) independently validated the same core 
 
 ### The Prop AMM Contrast
 
-The table above compares Aureum to other public AMMs. But the most instructive contrast is with proprietary AMMs — the "dark AMMs" that now dominate Solana routing, processing tens of billions in monthly volume with zero public TVL.
+The table above compares Aureum to public AMMs. The more instructive contrast is with proprietary AMMs — the "dark AMMs" dominating Solana routing, processing tens of billions in monthly volume with zero public TVL.
 
-Prop AMMs proved the thesis that winning aggregator routing is the entire game. A single team supplies all liquidity from proprietary capital, runs active market-making algorithms with off-chain pricing oracles, and captures volume purely by being the cheapest fill when an aggregator routes a trade. No frontend, no brand, no retail awareness needed. Just better execution.
+Prop AMMs proved that winning aggregator routing is the entire game. One team supplies all liquidity from proprietary capital, runs active algorithms with off-chain oracles, captures volume by being the cheapest fill. No frontend, no brand, no retail awareness. Just better execution.
 
-The model works. And it is architecturally the opposite of Aureum on every dimension:
+The model works — and is architecturally opposite to Aureum on every dimension:
 
 | Dimension | Proprietary AMM | Aureum |
 |-----------|----------------|--------|
@@ -157,6 +157,6 @@ The model works. And it is architecturally the opposite of Aureum on every dimen
 | Chain dependency | Requires sub-second block times for active quoting — Solana-native | Passive LP model designed for Ethereum's 12-second blocks |
 | LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |
 
-Prop AMMs solved the routing problem through centralisation. Aureum solves the same problem through architecture — multi-asset pools with native yield, constellation routing, and aggregator-competitive fees — without concentrating control in a single team. The question is whether decentralised infrastructure can match the execution quality of a proprietary trading desk. The ERC-4626 yield floor, the multi-pair capital efficiency, and the cross-pool arbitrage engine are the mechanisms that make it possible.
+Prop AMMs solved routing through centralization. Aureum solves it through architecture — multi-asset pools with native yield, constellation routing, aggregator-competitive fees — without concentrating control in one team. Whether decentralized infrastructure can match proprietary execution quality is the open question. The ERC-4626 yield floor, multi-pair capital efficiency, and cross-pool arbitrage engine are the mechanisms that make it possible.
 
 ---
