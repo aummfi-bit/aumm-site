@@ -106,7 +106,7 @@ This eliminates:
 
 Every proposal type requires a minimum turnout of **20% of total qualified voting power**. Below 20%, the proposal is **automatically rejected** regardless of vote outcome. No timelock fallback — it fails and must be resubmitted.
 
-Applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. **All governance proposal deposits** are **one-sided into der Bodensee Pool** (same mechanic; see [Constitution §xxvii](10_constitution.md)). **Deposit amounts** are proposal-specific; gauge challenges against **non-Miliarium** pools follow [F-12](11_formulas.md), with a **fixed** deposit for **Miliarium Aureum** targets. The deposit filters spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+Applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. **All governance proposal deposits** are **one-sided into der Bodensee Pool** (same mechanic; see [Constitution §xxvii](10_constitution.md)). **Deposit amounts** are proposal-specific; gauge challenges apply only to **non-Miliarium** pools per [F-12](11_formulas.md) — **Miliarium Aureum pools cannot be gauge-challenged** (structural changes go through the Composition Challenge path). The deposit filters spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 
 #### Anti-Market Buying
 

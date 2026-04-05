@@ -184,11 +184,9 @@ If approved, the pool becomes emission-eligible subject to immutable criteria ch
 
 ### Gauge Challenge
 
-Any qualified AuMT holder can challenge an existing gauge. **Deposit depends on the target:** the **scaled** deposit in [F-12](11_formulas.md) applies only to **non-Miliarium** gauged pools. The **28 Miliarium Aureum** pools use the **flat** deposit — **F-12 does not apply**.
+Any qualified AuMT holder can challenge an existing **non-Miliarium** gauge. **The 28 Miliarium Aureum pools cannot be gauge-challenged** — structural changes to those slots go exclusively through the **Composition Challenge** path below.
 
-**Target is a non-Miliarium gauged pool:** challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). The **entire** amount is converted to **svZCHF or sUSDS (whichever is higher)** and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet.
-
-**Target is one of the 28 Miliarium Aureum pools:** deposit is **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — F-12 **does not** apply. Structural change to those slots goes through the **composition challenge** path.
+Challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). The **entire** amount is converted to **svZCHF or sUSDS (whichever is higher)** and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet.
 
 Challenge triggers a governance vote: majority votes to revoke → gauge removed, emissions lost. **The deposit goes to der Bodensee Pool regardless of outcome** — non-refundable whether the challenge succeeds or fails. The challenger accepted that risk.
 

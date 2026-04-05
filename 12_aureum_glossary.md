@@ -71,7 +71,7 @@
 - **Governance On-Ramp**: after the 14-day qualification, `time_in_pool` accrues sublinearly. Full voting weight reached at ~6 months (day 180).
 - **Withdrawal Reset**: any withdrawal from a qualifying pool — any amount — resets governance power to zero and restarts the 14-day qualification clock.
 - **Gauge Proposal**: submit gauge request with 100 svZCHF/sUSDS (deposited one-sided into der Bodensee Pool).
-- **Gauge Challenge**: challenge/revoke an active gauge; deposit is **one-sided into der Bodensee Pool** (see [Constitution §xxvii](10_constitution.md)). **Non-Miliarium** gauged pools: scaled deposit per [F-12](11_formulas.md). **Miliarium Aureum (28):** fixed **1,000** svZCHF/sUSDS — **F-12 does not apply**.
+- **Gauge Challenge**: challenge/revoke an active **non-Miliarium** gauge; deposit is **one-sided into der Bodensee Pool** per [F-12](11_formulas.md) (see [Constitution §xxvii](10_constitution.md)). **Miliarium Aureum (28) cannot be gauge-challenged** — use Composition Challenge instead.
 - **General Proposal** (fee parameters): 1,000 svZCHF/sUSDS (deposited one-sided into der Bodensee Pool).
 - **Composition Challenge**: deprecate a Miliarium pool and launch a replacement into the same slot via standard bootstrap (for delistings/failures). Pool composition is immutable on-chain — no in-place token swap. **Deposit:** one-sided into der Bodensee Pool ([Constitution §xxvii](10_constitution.md)). Requires 2/3 protocol-wide tessera-weighted approval. Like-for-like renewal only (same sector, risk, template role). See [Bootstrap (§xxiv)](08_bootstrap.md).
 - **On-Chain-Only Proposal Rule**: every proposal must cite verifiable on-chain state only — contract addresses, block ranges, deterministic metrics. Off-chain claims are invalid.

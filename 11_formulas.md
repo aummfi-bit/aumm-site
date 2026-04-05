@@ -239,7 +239,7 @@ Genesis: **90/10** weights, seed **1 AuMM + 1 svZCHF**. By 18 months: **48/52**,
 
 ### F-12. Gauge Challenge Deposit (Non-Miliarium Gauged Pools Only)
 
-**Purpose:** Scale the gauge-challenge deposit so nuisance challenges against **large, efficient** non-Miliarium gauges cost real money, while keeping a lower bar for tail or weak pools. **Does not apply to the 28 Miliarium Aureum pools** — those use the **flat** deposit in [Constitution (§xxvii)](10_constitution.md).
+**Purpose:** Scale the gauge-challenge deposit so nuisance challenges against **large, efficient** gauges cost real money, while keeping a lower bar for tail or weak pools. **The 28 Miliarium Aureum pools cannot be gauge-challenged** — structural changes to those slots go exclusively through the **Composition Challenge** path ([Constitution §xxvii](10_constitution.md)).
 
 **Effect:** The full deposit (after the `max` below) is paid **one-sided into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the challenger.
 
@@ -259,7 +259,7 @@ gauge_challenge_deposit = max( 10_BTC_in_CHF ,  deposit_CHF_component )
 // convert to svZCHF/sUSDS equivalent; one-sided deposit into der Bodensee Pool; non-refundable
 ```
 
-**Miliarium Aureum exclusion:** If the target **is** one of the **28 Miliarium Aureum** pools, F-12 does not apply — use the **fixed** 1,000 svZCHF/sUSDS equivalent deposit, **one-sided into der Bodensee Pool**. Structural changes to those slots follow **composition challenge**, not this scaling rule.
+**Miliarium Aureum exclusion:** The **28 Miliarium Aureum** pools **cannot be gauge-challenged**. Structural changes to those slots go exclusively through the **Composition Challenge** path ([Constitution §xxvii](10_constitution.md)).
 
 ---
 
