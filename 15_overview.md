@@ -58,17 +58,17 @@ Two tracks, depending on what you need:
 
 ## No Treasury
 
-There is no treasury. All protocol revenue flows automatically to one immutable destination:
+No treasury. All protocol revenue flows to one immutable destination:
 
 - **der Bodensee Pool** — **protocol-captured** revenue: **50% of swap fees on other pools** + **100% of ERC-4626 yield fees** as one-sided svZCHF inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** for der Bodensee LPs.
 
-The remaining **50%** of swap fees on **those other pools** returns directly to their LPs as LP bonus. No founding-team signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). The system is a Continuous Capital Corporation (CCC) from block 0.
+The remaining **50%** of swap fees on **those other pools** goes directly to LPs as LP bonus. No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 
-- **Through end of Month 10:** each block, a **decaying der Bodensee bootstrap** (80% at genesis → 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool; the **LP tranche** is split **1/28** across the 28 Miliarium pools. **100% of the LP tranche** goes to LPs from block 0 — no treasury share.
-- **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — the protocol's fully automatic emission allocator; see [Glossary](12_aureum_glossary.md)). **α** from 0 to 1; **α = 0.5** at the midpoint — half equal, half CCB.
-- **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. See [Constitution (§§xxviii–xxix)](10_constitution.md) for the full rules and immutable parameters.
+- **Through end of Month 10:** each block, a **decaying der Bodensee bootstrap** (80% at genesis → 0% at end of Month 10) mints one-sided AuMM into der Bodensee Pool; the **LP tranche** splits **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury share.
+- **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — fully automatic emission allocator; see [Glossary](12_aureum_glossary.md)). **α** from 0 to 1; **α = 0.5** at midpoint.
+- **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. Full rules and immutable parameters: [Constitution (§§xxviii–xxix)](10_constitution.md).
 - No governance voting controls emission allocation.
 
 ## Governance (Non-Emission)
@@ -86,14 +86,14 @@ The remaining **50%** of swap fees on **those other pools** returns directly to 
 | Frontend & UX | **TBD** | Frontend experience, emission dashboard, LP interface |
 | Founding Liquidity | **TBD** (aligned capital partner) | Seed capital for genesis pools, long-term LP commitment |
 
-The founding team earns tokens by being early LPs — same mechanism as everyone else. The only advantage is being first: deploying pools, providing initial liquidity, and earning the highest emission rate before anyone else arrives. As more LPs join, per-LP emissions decline. Early believers rewarded. No allocation. No vesting.
+The founding team earns tokens by being early LPs — same mechanism as everyone else. Only advantage: being first, deploying pools, providing initial liquidity, earning the highest emission rate before anyone else arrives. More LPs join, per-LP emissions decline. Early believers rewarded. No allocation. No vesting.
 
 ## Risk Factors
 
-- **Fork risk.** Aequilibrium (the protocol's AMM engine, derived from Balancer V3's Certora-verified contracts) inherits Balancer V3's smart contract security via byte-identical pool contracts, but the new tokenomics contracts require independent audit. Until audited, the new code carries unverified risk.
-- **Liquidity risk.** Genesis pools will have minimal TVL. Bootstrapping requires the founding team's capital and early LP adoption. If depth doesn't reach aggregator thresholds, the routing thesis never activates.
-- **Regulatory risk.** Fair-launch tokens with no pre-mine have the strongest regulatory position (no securities argument), but the regulatory landscape is uncertain.
-- **Team risk.** Founding team is small and self-funded. Key-person dependency is high in early phases.
-- **Market risk.** Launching during a bear market or period of DeFi apathy could delay adoption regardless of architectural merit.
+- **Fork risk.** Aequilibrium inherits Balancer V3's smart contract security via byte-identical pool contracts, but the new tokenomics contracts require independent audit. Until audited, unverified risk.
+- **Liquidity risk.** Genesis pools will have minimal TVL. If depth doesn't reach aggregator thresholds, the routing thesis never activates.
+- **Regulatory risk.** Fair-launch tokens with no pre-mine have the strongest regulatory position, but the landscape is uncertain.
+- **Team risk.** Small, self-funded founding team. Key-person dependency high in early phases.
+- **Market risk.** Bear market or DeFi apathy at launch could delay adoption regardless of architectural merit.
 
 See [Immutable Parameters (§xxix)](10_constitution.md).

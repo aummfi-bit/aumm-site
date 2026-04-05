@@ -106,9 +106,9 @@
 
 ## 12. Proof of Real Yield Dashboard
 
-The aumm.fi frontend displays per-pool yield transparency that reframes how LPs evaluate returns.
+Per-pool yield transparency that reframes how LPs evaluate returns.
 
-**Per pool, the dashboard shows:**
+**Per pool:**
 
 | Metric | Definition |
 |--------|-----------|
@@ -119,9 +119,9 @@ The aumm.fi frontend displays per-pool yield transparency that reframes how LPs 
 
 **The framing:** *"This pool earns 68% of returns from real yield, not inflation."*
 
-Most AMMs report a single blended APR that mixes real revenue with token emissions. LPs see "80% APR" without knowing that 75% of it is inflation that dilutes the token they're earning. Aureum separates the two, making the quality of returns visible.
+Most AMMs report a single blended APR mixing real revenue with token emissions. LPs see "80% APR" without knowing 75% is inflation diluting the token they're earning. Aureum separates the two.
 
-When an Aerodrome LP compares "80% APR" against Aureum's "12% real yield + 15% emission yield," the conversation shifts from "which number is bigger" to "which return is sustainable." Lower headline APR, higher quality return. The dashboard makes that argument visually without saying a word about competitors.
+An Aerodrome LP comparing "80% APR" against Aureum's "12% real yield + 15% emission yield" shifts from "which number is bigger" to "which return is sustainable." Lower headline APR, higher quality return. The dashboard makes that argument visually.
 
 **Token supply transparency.** The dashboard also publishes in real time:
 
