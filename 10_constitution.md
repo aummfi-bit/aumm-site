@@ -13,9 +13,7 @@
 - **Fee proposals** — **swap / yield fee** changes **within immutable bounds**; deposit **one-sided into der Bodensee Pool**. Voting model: [Tokenomics](04_tokenomics.md) §ix (Governance); mechanics: [Bootstrap](08_bootstrap.md) §xxiv (Governance Proposals).
 - **Miliarium Aureum Composition Challenge** — **2/3 supermajority** tessera-weighted vote to deprecate a pool and **replace** assets in-slot (like-for-like); deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv (Miliarium Aureum Composition Challenge) and **### Composition Challenge Rule** below.
 
-**All governance proposal deposits** — gauge approval, gauge challenge, fee proposals, and composition challenge — follow the **same treatment:** **one-sided inflow into der Bodensee Pool** in **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the proposer; only the **amounts** differ (see table). No treasury wallet; no alternate routing.
-
-Turnout minima and approval thresholds: **### Quorum and Deposit Requirements** below.
+**All governance proposal deposits** follow the **same treatment:** **one-sided inflow into der Bodensee Pool** in **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the proposer; only **amounts** differ (see table below). No treasury wallet. No alternate routing.
 
 Aureum is immutable and non-custodial from block 0:
 
@@ -26,11 +24,11 @@ Aureum is immutable and non-custodial from block 0:
 - no voting over emissions
 - no off-chain dependencies for core operation
 
-All core contracts are immutable from block 0. Governance exists for non-emission actions only.
+All core contracts immutable from block 0. Governance exists for non-emission actions only.
 
 ### Governance Scope (Non-Emission Only)
 
-Qualified AuMT holders submit and vote on the **four governance actions** listed above. Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
+Qualified AuMT holders submit and vote on the **four actions** above. Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
 
 ### Quorum and Deposit Requirements
 
@@ -42,27 +40,27 @@ Qualified AuMT holders submit and vote on the **four governance actions** listed
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 
-All deposits are **paid one-sided into der Bodensee Pool** (same mechanic as other governance inflows: no LP tokens minted to the proposer), denominated in **svZCHF or sUSDS equivalent, whichever is higher at the time of submission** — preventing gaming via currency fluctuation. Non-refundable. Every governance action deepens der Bodensee Pool reserves. **Gauge challenge:** the scaled deposit in [F-12](11_formulas.md) applies only when the **target pool is not** one of the **28 Miliarium Aureum** registry pools; for those, use the **fixed 1,000** row above.
+All deposits **one-sided into der Bodensee Pool** (no LP tokens minted to proposer), denominated in **svZCHF or sUSDS equivalent, whichever is higher at submission** — preventing gaming via currency fluctuation. Non-refundable. **Gauge challenge:** the scaled deposit in [F-12](11_formulas.md) applies only when the target is **not** one of the **28 Miliarium Aureum** pools; for those, use the **fixed 1,000** row above.
 
-**Low-Turnout Safeguard.** Every proposal type requires a minimum turnout of **20% of total qualified voting power**. If turnout falls below 20%, the proposal is **automatically rejected** — no timelock, no fallback. The proposal must be resubmitted. This is uniform across all proposal types (see [Tokenomics](04_tokenomics.md) Low-Turnout Safeguard).
+**Low-Turnout Safeguard.** Minimum turnout: **20% of total qualified voting power**. Below 20%, the proposal is **automatically rejected** — no timelock, no fallback. Uniform across all proposal types ([Tokenomics](04_tokenomics.md) Low-Turnout Safeguard).
 
 ### Composition Challenge Rule (Miliarium Aureum)
 
-Composition challenges are governance-gated non-emission actions and pass only with a **2/3 supermajority** of protocol-wide tessera-weighted votes. A single proposal may cover both theme assets in a pool if both have failed.
+Governance-gated, **2/3 supermajority** of protocol-wide tessera-weighted votes. A single proposal may cover both theme assets if both have failed.
 
-Pool token composition is immutable on-chain. A composition challenge does not swap tokens inside a deployed pool — it **deprecates** the old pool (gauge revoked, emissions cease) and **launches a replacement** into the same Miliarium slot, following the standard bootstrap path (gauge proposal, gauge vote, 90-day boost, optional Incendiary).
+Pool composition is immutable on-chain. A composition challenge **deprecates** the old pool (gauge revoked, emissions cease) and **launches a replacement** into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost, optional Incendiary).
 
-A valid composition update must preserve pool intent — **like-for-like** means:
+**Like-for-like** means:
 
 - **Same sector** — the replacement must belong to the same asset class or market sector as the token it replaces
 - **Same risk profile** — materially similar economic properties (volatility, yield type, credit exposure)
 - **Same template role** — the replacement must fill the same structural role in the pool (yield core, routing anchor, or theme asset)
 
-This mechanism activates only when an asset **ceases to function** (delisting, wrapper sunset, issuer failure). It is a renewal path, not a redesign path. See [Bootstrap (§xxiv)](08_bootstrap.md) for worked examples.
+Activates only when an asset **ceases to function** (delisting, wrapper sunset, issuer failure). Renewal, not redesign. Worked examples in [Bootstrap (§xxiv)](08_bootstrap.md).
 
 ### Proposal Data Integrity Rule
 
-All proposals must reference verifiable on-chain state only. A valid proposal must include contract addresses, block ranges, and deterministic on-chain metrics used by its rationale. Off-chain-only claims, unverifiable dashboards, social polling, or discretionary narratives are invalid.
+All proposals must reference verifiable on-chain state only — contract addresses, block ranges, and deterministic on-chain metrics. Off-chain-only claims, unverifiable dashboards, social polling, or discretionary narratives are invalid.
 
 ## xxviii. Emission Operating Rules
 
@@ -72,24 +70,24 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Equal regime (through end of Month 10)
 
-- Each block’s emission is split between **der Bodensee bootstrap** and the **LP tranche**. The bootstrap share is **80% of block emission at genesis**, decaying **linearly to zero** by the **final block of Month 10**; it is minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). See [Protocol formulas (F-0)](11_formulas.md).
-- From **genesis through the final block of Month 10**, the **LP tranche** (after the bootstrap skim) is split **equally** across the **28** Miliarium pools — **1/28 of the LP tranche** each (not 1/28 of the full block emission while the bootstrap share is positive). **100% of the LP tranche** goes to LPs — no treasury wallet.
+- Each block’s emission splits between **der Bodensee bootstrap** and the **LP tranche**. Bootstrap: **80% of block emission at genesis**, decaying **linearly to zero** by the **final block of Month 10**; minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). See [Protocol formulas (F-0)](11_formulas.md).
+- Through the final block of Month 10, the **LP tranche** is split **equally** — **1/28** each (not 1/28 of the full block emission while bootstrap is positive). **100%** to LPs — no treasury wallet.
 
 ### Transition regime (Months 11–12)
 
-**Months 11–12** linearly blend **equal 1/28** with the **CCB** share for each immutable pool. A blend parameter runs from zero (pure equal) at the first block of Month 11 to one (pure CCB) at the last block of Year 1. At the midpoint of the window the mix is exactly half equal and half CCB. The CCB leg uses the same score as post–Year-1 (smoothed TVL × CCB multiplier). See [Protocol formulas](11_formulas.md) for the formal blend formula. (Bootstrap is zero from Month 11 onward; the LP tranche equals the full block emission.)
+**Months 11–12** linearly blend **equal 1/28** with the **CCB** share. Blend parameter: zero (pure equal) at the first block of Month 11 → one (pure CCB) at the last block of Year 1. At midpoint, exactly half and half. The CCB leg uses the same score as post–Year-1 (smoothed TVL × CCB multiplier). Formal blend formula in [Protocol formulas](11_formulas.md). (Bootstrap is zero from Month 11; LP tranche = full block emission.)
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims are skimmed from the **LP emission tranche** (after any der Bodensee bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day exponential moving average of its on-chain TVL (see [Theoretical foundations (§vi-b — EMA)](03_theoretical_foundation.md) for the canonical EMA explanation). The CCB scores each eligible pool by combining its smoothed TVL with its CCB multiplier (Miliarium pools only; all others use a neutral value), then normalizes scores across all eligible pools to produce fractional shares. CCB multipliers update bi-weekly for the 28 Miliarium pools only, within the immutable band defined in §xxix below. No voting layer, no human override. See [Protocol formulas](11_formulas.md) for all formal definitions.
+Incendiary Boost claims are skimmed from the **LP emission tranche** (after bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day EMA of on-chain TVL ([Theoretical foundations §vi-b](03_theoretical_foundation.md)). The CCB scores each eligible pool by combining smoothed TVL with its CCB multiplier (Miliarium pools only; others use a neutral value), then normalizes to produce fractional shares. Multipliers update bi-weekly for the 28 only, within the immutable band in §xxix below. No voting, no human override. Formal definitions in [Protocol formulas](11_formulas.md).
 
 ## xxix. Immutable Parameters (Canonical Source)
 
-This section is the **single canonical source** for all immutable protocol parameters. Every other document that references these values should cite this section rather than restating them inline.
+**Single canonical source** for all immutable protocol parameters. Other documents should cite this section rather than restating values.
 
-These parameters are immutable because they define the boundaries within which the protocol can never be gamed, captured, or inflated. They fall into three classes: **economic constants** (supply cap, halving schedule, fee splits) that guarantee scarcity and revenue flow; **anti-gaming safeguards** (CCB multiplier bounds, EMA horizon, eligibility criteria) that prevent reflexive manipulation; and **anti-capture mechanics** (governance dampening exponents, withdrawal reset, qualification periods) that ensure no single actor can dominate the protocol regardless of capital size.
+Three classes: **economic constants** (supply cap, halving schedule, fee splits) guaranteeing scarcity and revenue flow; **anti-gaming safeguards** (CCB multiplier bounds, EMA horizon, eligibility criteria) preventing reflexive manipulation; **anti-capture mechanics** (governance dampening exponents, withdrawal reset, qualification periods) ensuring no single actor dominates regardless of capital size.
 
-The following are immutable from block 0 and cannot be changed by any means:
+Immutable from block 0, cannot be changed by any means:
 
 - Maximum AuMM supply: 21,000,000
 - Emission halving schedule and block emission rates
@@ -105,5 +103,5 @@ The following are immutable from block 0 and cannot be changed by any means:
 
 ## xxx. No Treasury
 
-There is no treasury. The protocol has no entity or wallet that receives AuMM for discretionary use, and no mechanism that holds discretionary funds or disburses capital by vote. **der Bodensee Pool** receives **Months 1–10** bootstrap AuMM as **one-sided pool deposits** (not extractable, no LP tokens minted — same class as one-sided svZCHF fee inflows). **Protocol-captured** revenue — **50% of swap fees on non–der Bodensee pools** plus **100% of ERC-4626 yield fees** — flows automatically to **der Bodensee Pool** as one-sided svZCHF inflows. The **other 50%** of those swap fees returns to LPs on those pools as LP bonus. **Swap fees on trades inside der Bodensee Pool** (0.75% fee tier) stay with **der Bodensee LPs** in the pool. This design follows the Continuous Capital Corporation (CCC) philosophy: capital allocation is algorithmic, revenue flows are rule-based, and there is no separate treasury that can be captured, redirected, or extracted from. The system is fully autonomous from block 0.
+No treasury. No entity or wallet receives AuMM for discretionary use. No mechanism holds discretionary funds or disburses capital by vote. **der Bodensee Pool** receives **Months 1–10** bootstrap AuMM as **one-sided pool deposits** (not extractable, no LP tokens minted). **Protocol-captured** revenue — **50% of swap fees on non–der Bodensee pools** plus **100% of ERC-4626 yield fees** — flows automatically to **der Bodensee Pool** as one-sided svZCHF. The **other 50%** returns to LPs as LP bonus. **Swap fees inside der Bodensee** (0.75%) stay with **der Bodensee LPs**. CCC philosophy: capital allocation is algorithmic, revenue flows are rule-based, no separate treasury can be captured, redirected, or extracted from. Fully autonomous from block 0.
 

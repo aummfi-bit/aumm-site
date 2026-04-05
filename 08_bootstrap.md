@@ -1,6 +1,6 @@
 # Bootstrap Rules
 
-*How new pools enter the emission economy with governance gating and automatic emissions.*
+*How new pools enter the emission economy.*
 
 ---
 
@@ -8,21 +8,21 @@
 
 ### Pool Creation and Gauge Approval
 
-**Pool creation is permissionless from block 0.** Anyone can deploy any pool with any token composition at any time. The Aequilibrium factory is open. This never changes.
+**Pool creation is permissionless from block 0.** Anyone can deploy any pool with any composition at any time. The Aequilibrium factory is open. This never changes.
 
-A pool only becomes eligible for AuMM emissions after qualified LPs approve a gauge through governance. This is the single gatekeeping step. **Without gauge approval: no emissions, no Incendiary Boost, no 90-day multiplier.** Without it, an attacker deploys a pool and immediately starts extracting emissions. With it, existing LPs must collectively decide that the new pool deserves a share of the emission budget.
+A pool becomes eligible for AuMM emissions only after qualified LPs approve a gauge through governance. **Without gauge approval: no emissions, no Incendiary Boost, no 90-day multiplier.** Existing LPs must collectively decide the new pool deserves a share of the emission budget.
 
-**The eligibility criteria are immutable.** Once a gauge is approved, the pool must still meet every anti-gaming criterion to receive emissions. Governance cannot waive, modify, or relax these rules. A gauge vote says "this pool may compete for emissions." The contract decides whether it actually qualifies.
+**Eligibility criteria are immutable.** Once a gauge is approved, the pool must still meet every anti-gaming criterion. Governance cannot waive, modify, or relax these rules. A gauge vote says "this pool may compete." The contract decides whether it qualifies.
 
-This separates the three concerns cleanly: permissionless creation (anyone can build, from day one), democratic gauge approval (LPs decide what competes), immutable rules (the contract enforces discipline, always).
+Three concerns, cleanly separated: permissionless creation (anyone can build), democratic gauge approval (LPs decide what competes), immutable rules (the contract enforces discipline).
 
 Core emission allocation remains automatic and immutable.
 
 ### Sandbox and Fast-Track
 
-**Sandbox** is the permissionless default state. Any pool deployed without a gauge operates in the Sandbox from block 0. Sandbox pools receive **zero** CCB emissions and no Incendiary Boost, but they are ranked in the Efficiency Tournament alongside gauged pools. This proves the protocol is open without creating an emission exploit vector — anyone can build and demonstrate performance before seeking gauge approval.
+**Sandbox** is the permissionless default. Any pool deployed without a gauge operates in Sandbox from block 0. Zero CCB emissions, no Incendiary Boost — but ranked in the Efficiency Tournament alongside gauged pools. Anyone can build and demonstrate performance before seeking gauge approval.
 
-**Fast-Track Rule.** If a non-gauged Sandbox pool sustains **top 10% efficiency** in the Efficiency Tournament for **3 consecutive epochs (6 weeks)** without leaving the top 10%, it earns **automatic gauge approval** — no governance vote required. The deposit is waived. This creates a meritocratic path: pools that prove real capital efficiency earn emissions without needing to campaign for votes. After fast-track approval, the pool receives the standard 90-day gauge boost (1.2x CCB multiplier) and becomes eligible for Incendiary Boost.
+**Fast-Track Rule.** A non-gauged Sandbox pool sustaining **top 10% efficiency** for **3 consecutive epochs (6 weeks)** earns **automatic gauge approval** — no governance vote, deposit waived. Pools that prove capital efficiency earn emissions without campaigning for votes. After fast-track approval: standard 90-day gauge boost (1.2× CCB multiplier) and Incendiary eligibility.
 
 ### The Bootstrapping Sequence
 
@@ -33,23 +33,23 @@ Core emission allocation remains automatic and immutable.
 | 90-day gauge boost | Days 1–90 | Fixed 1.2x CCB multiplier (automatic) | Cold-start emission ramp — expires without vote or renewal |
 | CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
 
-All layers require gauge approval first. No pool can access the Incendiary Boost or the 90-day gauge boost without passing governance. At day 91, the fixed boost expires. By this point, a successful pool has 90 days of TVL data baked into its EMA. The mechanical CCB weight takes the baton seamlessly. Failed pools lose both the boost and the EMA weight — they die naturally.
+All layers require gauge approval first. At day 91, the fixed boost expires. A successful pool has 90 days of TVL data baked into its EMA by then — the CCB takes over seamlessly. Failed pools lose the boost and the EMA weight. They die naturally.
 
 ### Two boosts, different purposes
 
-The bootstrapping sequence provides two distinct emission boosts that serve different functions and can operate independently:
+Two distinct boosts, different purposes, mechanically independent:
 
-**90-day gauge boost (automatic).** Every newly approved gauge receives a fixed **1.2x CCB multiplier** for 90 days. This is automatic — it activates the moment the gauge passes governance and expires on its own, with no vote and no renewal. A pool can have the 90-day boost **without** Incendiary: the gauge boost is the baseline cold-start ramp that every approved pool gets for free.
+**90-day gauge boost (automatic).** Every newly approved gauge receives a fixed **1.2× CCB multiplier** for 90 days. Activates when the gauge passes, expires on its own — no vote, no renewal. The baseline cold-start ramp every approved pool gets for free.
 
-**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** escrow **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow via smart-contract escrow) to activate a 30-day supplementary emission stream on top of whatever the pool is already earning. A pool can have both the 90-day gauge boost **and** Incendiary running simultaneously — the effects stack. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below). They are mechanically independent.
+**Incendiary Boost (operator-funded, stacks on top).** A pool operator can **optionally** escrow **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow via smart-contract escrow) to activate a 30-day supplementary emission stream. Both boosts can run simultaneously. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below).
 
 ## xxii. Incendiary Boost
 
-Incendiary Boost is a proof-of-conviction bootstrap mechanism. A pool operator deposits svZCHF/sUSDS into a smart-contract-controlled escrow. The protocol emits AuMM to the pool equally over 30 days as a supplementary emission stream pegged to the 85th efficiency percentile. The escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool — the operator sacrifices conviction capital to activate the protocol's routing engine.
+Proof-of-conviction bootstrap. A pool operator deposits svZCHF/sUSDS into smart-contract escrow. The protocol emits AuMM to the pool over 30 days as a supplementary stream pegged to the 85th efficiency percentile. The escrowed capital is deposited one-sided into der Bodensee Pool — conviction capital sacrificed to activate the routing engine.
 
 ### The Efficiency Scalar
 
-The Incendiary emission rate is pegged to the 85th percentile of the Efficiency Tournament, scaled by the pool's own performance:
+Emission rate pegged to the 85th percentile of the Efficiency Tournament, scaled by the pool's own performance:
 
 ```
 E_inc = E_85th × (2 - R)
@@ -65,19 +65,19 @@ Where `E_85th` is the emission density (AuMM per $1 TVL) of the pool at the 85th
 
 ### Priority Skim
 
-Since total emissions are fixed (BTC-style hard cap), Incendiary Boosts are priority claims on the **LP emission tranche** — i.e. **after** the der Bodensee bootstrap one-sided AuMM skim in Months 1–10 ([Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active Incendiary Boosts, subtracts this from the LP tranche, then distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools — active, efficient new pools temporarily tax every other pool's LP-tranche share. If five pools run simultaneous Incendiary Boosts, the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS is deposited one-sided into der Bodensee Pool, deepening the autonomous reserve in exchange for the privilege of skipping the EMA queue.
+Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priority claims on the **LP emission tranche** — **after** the der Bodensee bootstrap skim in Months 1–10 ([Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active boosts, subtracts from the LP tranche, distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools. Five simultaneous boosts — the entire protocol feels the dilution. The operator's escrowed svZCHF/sUSDS deepens der Bodensee in exchange for skipping the EMA queue.
 
 ### Renewal Rule
 
-The Incendiary slot locks after 30 days. A second boost is only possible if the pool **is at or above the 85th percentile** in the Efficiency Tournament at the time of renewal request. No cycling boosts on underperforming pools.
+Slot locks after 30 days. Renewal only if the pool **is at or above the 85th percentile** at the time of request. No cycling boosts on underperforming pools.
 
 ### Anti-Wash-Trading
 
-The 30-day limit plus the efficiency rank requirement makes wash trading uneconomical: the attacker pays more in swap fees (routed to der Bodensee Pool) than they can extract in boosted emissions. The protocol wins the fee-vs-emission spread.
+The 30-day limit plus the efficiency rank requirement makes wash trading uneconomical: the attacker pays more in swap fees (routed to der Bodensee) than they extract in boosted emissions.
 
 ### Immutable Parameters
 
-All Incendiary Boost parameters are immutable from block 0: 30-day duration, 85th percentile peg, efficiency scalar formula, priority skim, and svZCHF/sUSDS escrow-to-Bodensee.
+All parameters immutable from block 0: 30-day duration, 85th percentile peg, efficiency scalar, priority skim, svZCHF/sUSDS escrow-to-Bodensee.
 
 ## xxiii. Anti-Gaming Engine
 
@@ -92,19 +92,19 @@ Pools must meet ALL criteria to remain eligible for AuMM emissions:
 | Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
 | No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
 
-All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax these rules. The CCB multiplier applies automatically to the 28 Miliarium pools (see [Theoretical foundations (§vii)](03_theoretical_foundation.md) and [Protocol formulas (F-8)](11_formulas.md); for numeric bounds, see [Constitution (§xxix)](10_constitution.md)). No voting over emission allocation. New gauges receive a **90-day 1.2x CCB multiplier** as a cold-start bootstrap — a fixed boost that expires automatically, with no vote and no renewal.
+All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax them. CCB multiplier applies automatically to the 28 Miliarium pools ([Theoretical foundations (§vii)](03_theoretical_foundation.md); [Protocol formulas (F-8)](11_formulas.md); bounds in [Constitution (§xxix)](10_constitution.md)). No voting over emission allocation. New gauges: **90-day 1.2× CCB multiplier** — expires automatically, no vote, no renewal.
 
 ### Why TVL-Based Governance Eliminates the Wrapper Problem
 
-In token-weighted governance (Balancer/Aura), bear markets enable cheap governance capture through lock multipliers and meta-governance amplifiers. AuMM carries zero governance power. AuMT governance weight equals the USD value of the LP position in qualified pools. To get 5% of governance power, you need 5% of protocol TVL in real capital. No lock multiplier. No boost. No amplifier. Bear market doesn't help the attacker — governance weight is TVL-denominated, not token-price-denominated.
+In token-weighted governance (Balancer/Aura), bear markets enable cheap capture through lock multipliers and meta-governance amplifiers. AuMM carries zero governance power. AuMT governance weight equals the USD value of the LP position in qualified pools. 5% of governance power requires 5% of protocol TVL in real capital. No lock multiplier. No boost. No amplifier. Bear markets don't help the attacker — governance is TVL-denominated, not token-price-denominated.
 
-**Wrappers and composability layers are welcome.** Convex/Aura-style vaults that hold AuMT carry full governance weight proportional to the underlying TVL. They cannot amplify governance because there's nothing to amplify. The TVL-based governance model IS the anti-capture mechanism.
+**Wrappers and composability layers are welcome.** Convex/Aura-style vaults holding AuMT carry full governance weight proportional to underlying TVL. They cannot amplify governance because there is nothing to amplify.
 
-Pools containing AuMT follow all the same rules as any other pool — permissionless creation, gauge approval via AuMT vote, full anti-gaming criteria.
+Pools containing AuMT follow all the same rules — permissionless creation, gauge approval via AuMT vote, full anti-gaming criteria.
 
 ### Graduated Grace Period
 
-New pools need time to get discovered by aggregators, indexed by bots, and build organic volume. The graduated grace period introduces discipline incrementally, preserving the discovery layer while filtering out pools that never find traction.
+New pools need time to get discovered by aggregators, indexed by bots, and build organic volume. The grace period introduces discipline incrementally — preserving the discovery layer while filtering pools that never find traction.
 
 | Pool Age | Volume Percentile Floor | Efficiency Caps | Notes |
 |----------|------------------------|-----------------|-------|
@@ -113,13 +113,13 @@ New pools need time to get discovered by aggregators, indexed by bots, and build
 | Months 6–12 | 10th percentile | Exempt | Higher bar, still in discovery phase. |
 | Month 13+ | 15th percentile | **Active** | Full discipline. Both volume percentile floor and efficiency-based emission caps apply. |
 
-Percentile rankings are calculated against the protocol's own pool activity distribution — specifically, the trailing 3-epoch (6-week) rolling window of fee + yield revenue across all emission-eligible pools. This is a relative measure: as the protocol grows, the absolute bar rises organically.
+Percentile rankings use the protocol's own activity distribution — trailing 3-epoch (6-week) rolling window of fee + yield revenue across all emission-eligible pools. Relative measure: as the protocol grows, the absolute bar rises organically.
 
-**Gaming the grace period.** The exploit vector for the grace period is the gauge, not the pool. An attacker deploys a pool, gets a gauge approved, and milks the grace window before the fee/percentile checks activate. Switching deployer wallets or swapping one token to argue "different composition" doesn't help the attacker because the percentile floor is protocol-wide — a pool that generates no organic activity sits at the bottom of the distribution regardless of who deployed it or how many times it's been redeployed. The graduated percentile ramp is the natural defence: a pool earning zero fees can't stay above the 5th percentile for long, even with generous AuMM emission allocation.
+**Gaming the grace period.** The exploit vector is the gauge, not the pool. An attacker deploys a pool, gets a gauge approved, milks the grace window before percentile checks activate. Switching deployer wallets or swapping one token doesn't help — the percentile floor is protocol-wide. A pool generating no organic activity sits at the bottom regardless of who deployed it or how many times it's been redeployed. A pool earning zero fees can't stay above the 5th percentile for long, even with generous emission allocation.
 
 ### Hysteresis Buffer (Anti-Oscillation)
 
-Binary thresholds with no dead zone create oscillation — a pool at the 14th percentile bounces between eligible and disqualified every cycle based on noise. The hysteresis buffer prevents random volatility from killing viable pools.
+Binary thresholds with no dead zone create oscillation — a pool at the 14th percentile bounces between eligible and disqualified every cycle on noise. The hysteresis buffer prevents that.
 
 | Zone | Volume Percentile | Status | Action |
 |------|------------------|--------|--------|
@@ -127,15 +127,15 @@ Binary thresholds with no dead zone create oscillation — a pool at the 14th pe
 | **Warning** | 10th–15th | Flagged | Emissions continue normally. Pool must recover above the 15th percentile within 3 epochs (6 weeks). |
 | **Cut** | Below 10th | Disqualified | Emissions cease immediately. Unallocated emissions are redistributed to remaining eligible pools. |
 
-Emissions continue during the warning period. Cutting emissions from a pool in the warning zone reduces its attractiveness exactly when it needs to attract more volume — that's a death sentence disguised as a second chance. The 3-epoch recovery window gives the pool a genuine opportunity to recover while creating a hard deadline.
+Emissions continue during the warning period. Cutting emissions from a struggling pool reduces its attractiveness exactly when it needs volume — a death sentence disguised as a second chance. The 3-epoch window gives genuine recovery time with a hard deadline.
 
-Re-qualification after disqualification requires the pool to sustain activity above the 15th percentile for 3 epochs (6 weeks) with no emissions. If it can generate organic activity without emission subsidies, it earned its way back.
+Re-qualification requires sustaining above the 15th percentile for 3 epochs (6 weeks) with no emissions. Generate organic activity without subsidies, earn your way back.
 
 ### Emission Efficiency Tournament
 
-The efficiency tournament is a relative ranking system that is entirely price-agnostic — designed to throttle inefficient pools without penalising productive pools during AuMM price appreciation.
+A relative ranking system, entirely price-agnostic — throttles inefficient pools without penalising productive pools during AuMM price appreciation.
 
-All gauged pools **above $10K TVL** are ranked by their efficiency ratio — `(swap_fees + ERC-4626_yield_revenue_to_DAO) / emissions_received` — using a **3-epoch (6-week) moving average** to prevent single-day glitches. Pools below $10K TVL are excluded from the ranking entirely and receive zero emissions regardless of gauge status. Higher ratio = more efficient (more revenue per unit of emission). The least efficient gauged pools receive hard emission caps regardless of their CCB-derived share:
+All gauged pools **above $10K TVL** ranked by efficiency ratio — `(swap_fees + ERC-4626_yield_revenue_to_DAO) / emissions_received` — using a **3-epoch (6-week) moving average**. Below $10K TVL: excluded from ranking, zero emissions regardless of gauge status. Higher ratio = more efficient. The least efficient gauged pools receive hard caps regardless of CCB-derived share:
 
 | Efficiency Rank (gauged pools above $10K TVL) | Emission Cap | Effect |
 |-----------------------------------------------|-------------|--------|
@@ -144,59 +144,59 @@ All gauged pools **above $10K TVL** are ranked by their efficiency ratio — `(s
 | 5th–10th percentile (bottom 10–5%) | 0.5% of total protocol emissions | Harder cap |
 | Below 5th percentile (bottom 5%) | 0.1% of total protocol emissions | Nearly starved |
 
-The efficiency tournament activates at **month 13** of a pool's life (same as the volume percentile floor reaching full discipline).
+Activates at **month 13** of a pool's life (same as the volume floor reaching full discipline).
 
-**Excess emissions are redistributed.** When a pool is capped below its CCB-derived emission share, the excess is redistributed to uncapped pools pro-rata by their existing CCB share. This rewards productive pools rather than wasting the excess.
+**Excess emissions are redistributed.** When a pool is capped below its CCB-derived share, the excess goes to uncapped pools pro-rata by CCB share.
 
-The efficiency tournament is price-agnostic by design — it prevents the reflexive disqualification problem where a rising AuMM price would cause fixed revenue hurdles to fail productive pools.
+Price-agnostic by design — prevents the reflexive disqualification problem where a rising AuMM price causes fixed revenue hurdles to fail productive pools.
 
 **Self-correcting.** A pool gets capped → receives fewer emissions → its efficiency ratio improves next cycle → it climbs out. No death spiral.
 
-**Governance-capture resistant.** Even if a pool accumulates large TVL and earns a large CCB share while generating minimal fees, the protocol ranks its efficiency ratio at the bottom of the set. Despite a high CCB share, it receives at most 0.1% of emissions. The excess is redistributed to productive pools.
+**Governance-capture resistant.** A pool with large TVL and large CCB share but minimal fees ranks at the bottom. Despite a high CCB share, it receives at most 0.1% of emissions. Excess redistributed to productive pools.
 
-**Sacrificial lamb resistant.** An attacker tries to flood the bottom 15% with junk pools to shield their extractive pool from capping. Each lamb pool needs $10K TVL to enter the ranking, a gauge approval vote (depositing 100 svZCHF/sUSDS into der Bodensee Pool), and LP governance approval. Twenty lamb pools = $200K+ in capital at risk plus 2,000 svZCHF/sUSDS deposited. The $10K TVL floor makes the attack prohibitively expensive.
+**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs $10K TVL, a gauge approval vote (100 svZCHF/sUSDS into der Bodensee), and LP approval. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF/sUSDS deposited. Prohibitively expensive.
 
 ### Disqualification and Gauge Revocation
 
-Pools that fail the anti-gaming criteria face a two-stage process:
+Two-stage process:
 
-**Stage 1: Disqualification.** A pool that falls below the 10th volume percentile (or fails other structural criteria) is disqualified — emissions cease immediately. The gauge remains intact. If the pool recovers above the 15th percentile for 3 epochs (6 weeks) with no emissions, it re-qualifies automatically.
+**Stage 1: Disqualification.** Below the 10th volume percentile (or failing structural criteria) — emissions cease immediately. Gauge remains intact. Recover above the 15th percentile for 3 epochs (6 weeks) with no emissions to re-qualify automatically.
 
-**Stage 2: Gauge revocation.** A pool that remains disqualified for **4 consecutive epochs (8 weeks)** has its gauge permanently revoked. To restart emissions, the pool operator must submit a new gauge proposal (deposit 100 svZCHF/sUSDS into der Bodensee Pool) and win a fresh AuMT governance vote. This prevents dead pools from holding gauge slots indefinitely.
+**Stage 2: Gauge revocation.** Disqualified for **4 consecutive epochs (8 weeks)** — gauge permanently revoked. Restart requires a new gauge proposal (100 svZCHF/sUSDS into der Bodensee) and a fresh AuMT vote. Dead pools don't hold gauge slots indefinitely.
 
 ### How the Criteria Interact
 
-After month 13, a gauged pool must clear the volume floor (or be disqualified) AND survive the efficiency ranking (or be capped). Volume floor catches dead pools. Efficiency caps catch extractive pools. Neither alone is sufficient. Both are self-correcting — no governance vote required.
+After month 13, a gauged pool must clear the volume floor (or be disqualified) AND survive the efficiency ranking (or be capped). Volume floor catches dead pools. Efficiency caps catch extractive pools. Neither alone suffices. Both self-correct — no governance vote required.
 
 ## xxiv. Governance Gating (Non-Emission)
 
 ### Governance Proposals
 
-Any qualified AuMT holder can submit a governance proposal — fee parameter changes. Proposals require depositing **1,000 svZCHF or sUSDS (whichever is higher)** one-sided into der Bodensee Pool. The deposit is automatic on submission — non-refundable regardless of outcome.
+Any qualified AuMT holder can submit a governance proposal (fee parameter changes). Deposit: **1,000 svZCHF or sUSDS (whichever is higher)**, one-sided into der Bodensee Pool. Automatic on submission, non-refundable.
 
-Every governance action deepens der Bodensee Pool reserves. **All** governance deposits — gauge proposal, gauge challenge, fee proposal, composition challenge — are **one-sided into der Bodensee Pool** (same mechanic throughout). The deposit filters spam, deepens the autonomous reserve, and is non-recoverable. Self-regulating.
+**All** governance deposits — gauge proposal, gauge challenge, fee proposal, composition challenge — are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the autonomous reserve, non-recoverable.
 
 ### Gauge Proposal
 
-Any qualified AuMT holder may submit a gauge proposal requesting emission eligibility for a new pool. Submission deposit: **100 svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool** — lower than other governance proposals because gauge requests are lower-stakes. If the pool fails the immutable criteria, the contract kills it automatically. The governance vote is a lightweight check on whether the pool deserves to compete, not a major protocol decision.
+Any qualified AuMT holder may submit a gauge proposal for a new pool. Deposit: **100 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — lower than other proposals because gauge requests are lower-stakes. If the pool fails immutable criteria, the contract kills it automatically.
 
-If approved by vote, the pool becomes emission-eligible subject to immutable criteria checks.
+If approved, the pool becomes emission-eligible subject to immutable criteria checks.
 
 ### Gauge Challenge
 
-Any qualified AuMT holder can challenge an existing gauge if the pool is perceived as gaming or extractive. **Deposit rules depend on the target pool:** the **scaled** deposit in [F-12](11_formulas.md) applies only to **non-Miliarium** gauged pools. The **28 Miliarium Aureum** pools use the **flat** deposit only — **F-12 does not apply** to them.
+Any qualified AuMT holder can challenge an existing gauge. **Deposit depends on the target:** the **scaled** deposit in [F-12](11_formulas.md) applies only to **non-Miliarium** gauged pools. The **28 Miliarium Aureum** pools use the **flat** deposit — **F-12 does not apply**.
 
 **Target is a non-Miliarium gauged pool:** challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). The **entire** amount is converted to **svZCHF or sUSDS (whichever is higher)** and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet.
 
-**Target is one of the 28 Miliarium Aureum pools:** challenge deposit remains **1,000 svZCHF or sUSDS (whichever is higher), deposited one-sided into der Bodensee Pool** — the F-12 formula **does not** apply. Structural or composition-level change for those slots is primarily the **composition challenge** path, not nuisance revocation economics.
+**Target is one of the 28 Miliarium Aureum pools:** deposit is **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — F-12 **does not** apply. Structural change to those slots goes through the **composition challenge** path.
 
-A challenge triggers a governance vote: if the challenge succeeds (majority votes to revoke), the gauge is removed and the pool loses emission eligibility. If the challenge fails, the deposit is still in Bodensee — the challenger accepted that risk.
+Challenge triggers a governance vote: majority votes to revoke → gauge removed, emissions lost. Challenge fails → deposit stays in Bodensee. The challenger accepted that risk.
 
-This creates a community enforcement layer on top of the immutable anti-gaming criteria. The contract catches pools that fail the volume percentile floor or the efficiency caps automatically. Gauge challenges catch pools that technically pass the criteria but are extractive in ways the contract can't detect — coordinated wash trading, circular routing schemes, or pools that exist solely to farm emissions for a single actor.
+Community enforcement layer on top of immutable anti-gaming criteria. The contract catches pools failing volume or efficiency thresholds automatically. Gauge challenges catch pools that technically pass but are extractive in ways the contract can't detect — coordinated wash trading, circular routing, or single-actor emission farming.
 
 ### Miliarium Aureum Composition Challenge
 
-Pool token composition is immutable on-chain — there is no mechanism to swap a token inside a deployed pool contract. A composition challenge therefore follows a **deprecate-and-replace** path. **Deposit:** **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** on submission — same **governance deposit routing** as fee proposals (see [Constitution §xxvii](10_constitution.md)).
+Pool token composition is immutable on-chain — no mechanism to swap a token inside a deployed contract. A composition challenge follows a **deprecate-and-replace** path. **Deposit:** **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — same routing as fee proposals ([Constitution §xxvii](10_constitution.md)).
 
 1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal. It passes only with **2/3 protocol-wide tessera-weighted approval**.
 2. **Deprecation** — the old pool's gauge is revoked; emissions cease and the pool enters wind-down.
@@ -204,11 +204,11 @@ Pool token composition is immutable on-chain — there is no mechanism to swap a
 
 A single proposal may cover **both** theme assets simultaneously if both have failed — forum discussion builds consensus on the pair before the on-chain vote.
 
-Composition intent is binding: the replacement token must be the same asset type or economically similar. **Like-for-like** means: same sector, same risk profile, same template role (yield core vs routing anchor vs theme asset). This is a renewal path, not a redesign path.
+Composition intent is binding: replacement must be the same asset type or economically similar. **Like-for-like** = same sector, same risk profile, same template role (yield core vs routing anchor vs theme asset). Renewal path, not redesign.
 
 #### What qualifies as "economically similar"
 
-The composition challenge exists because assets cease to exist — tokens get delisted, wrappers lose support, issuers shut down. The goal is to maintain the Miliarium Aureum as a functioning representation of the economy, not to pick winners.
+Assets cease to exist — tokens get delisted, wrappers lose support, issuers shut down. The goal is to maintain the Miliarium Aureum as a functioning economy, not to pick winners.
 
 **Crypto tokens:**
 
@@ -227,11 +227,11 @@ The composition challenge exists because assets cease to exist — tokens get de
 | Company ceases to exist | Same-sector peer | **Yes** | E.g., Goldman Sachs → Morgan Stanley, Eli Lilly → Bristol-Myers Squibb |
 | Company ceases to exist | Different-sector company | **No** | Violates same-sector requirement |
 
-This is not a stock-picking exercise. Composition challenges activate when an asset **ceases to function**, and the replacement preserves the pool's role in the constellation.
+Not a stock-picking exercise. Composition challenges activate when an asset **ceases to function**; the replacement preserves the pool's role in the constellation.
 
 #### The 28 are a blueprint, not the full economy
 
-The 28 Miliarium pools are a curated economic blueprint for CCB execution — a diversified foundation that ensures the protocol has structural fee generation across asset classes from day one. They are **not** meant to exhaust every possible token or market.
+The 28 Miliarium pools are a curated blueprint for CCB execution — diversified foundation ensuring structural fee generation across asset classes from day one. **Not** meant to exhaust every token or market.
 
 If a token, stablecoin, or asset class is missing from the 28, the path is **not** a composition challenge. It is:
 
@@ -239,9 +239,7 @@ If a token, stablecoin, or asset class is missing from the 28, the path is **not
 2. **Get a gauge approved** — submit a proposal, deposit svZCHF/sUSDS into der Bodensee Pool, win the AuMT vote
 3. **Earn emissions** — through the standard CCB rules, Incendiary Boost, and 90-day gauge boost
 
-The Miliarium system is plug-and-play: new pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary and gauge boost mechanics — the same infrastructure the 28 founding pools use.
-
-**The community is actively encouraged** to monitor the market for new opportunities and propose new pools: emerging stablecoins, new tokenized RWAs (e.g., Ondo products — new bond or equity wrappers), and crypto tokens with meaningful trading volume. A thriving ecosystem of gauged pools beyond the 28 is the design intent — the Miliarium pools are the anchor, not the ceiling.
+New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary and gauge boost mechanics — the same infrastructure the 28 founding pools use. The Miliarium pools are the anchor, not the ceiling.
 
 ### On-Chain-Only Proposal Rule
 
