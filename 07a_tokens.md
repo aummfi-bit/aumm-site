@@ -1,6 +1,6 @@
 # Token inventory — Miliarium Aureum
 
-*Deduplicated list of every token that appears in the **28** Miliarium Aureum pools ([registry Section xi](05_miliarium_aureum.md)). **svZCHF** and **ixEDEL** are routing anchors across the constellation — their **Pool name(s)** column is left blank. Ethereum addresses and rate providers are deployment-specific — leave blank until wired on-chain.*
+*Deduplicated list of every token in the **28** Miliarium Aureum pools ([registry Section xi](05_miliarium_aureum.md)). **svZCHF** and **ixEDEL** are routing anchors — **Pool name(s)** left blank. Ethereum addresses and rate providers are deployment-specific; blank until wired on-chain.*
 
 | Token name | Ticker | Token type | Ethereum address | Rate providers | Tokenised vaults / notes | Pool name(s) |
 |:-----------|:-------|:-----------|:-------------------|:---------------|:---------------------------|:-------------|
@@ -69,6 +69,6 @@
 | Tether Gold (XAUt) | XAUt | ERC-20 | | | Gold token | ixAurix |
 | Partner stable (reserved) | [Partner Stable] | TBD | | | Strategic partner slot | ixCambio |
 
-**Row count:** 64 unique tickers (including the **[Partner Stable]** placeholder). **AuMM** lives in **der Bodensee Pool** only — not a Miliarium slot — see [Miliarium Aureum §xii](05_miliarium_aureum.md).
+**Row count:** 64 unique tickers (including **[Partner Stable]** placeholder). **AuMM** is in **der Bodensee Pool** only — not a Miliarium slot ([Miliarium Aureum §xii](05_miliarium_aureum.md)).
 
 See [Miliarium sectors](07_miliarium_sectors.md) · [Manifest](06_miliarium_manifest.md) · [Registry](05_miliarium_aureum.md).
