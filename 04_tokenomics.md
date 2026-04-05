@@ -134,24 +134,23 @@ AuMM accrues value through **der Bodensee Pool** — the protocol's autonomous r
 
 ## x. Value Capture
 
-### Fee Splits
+### Fee Routing
 
-**Canonical rule:** the **50/50 swap-fee split** applies to **swap fees on Miliarium pools and other non–der Bodensee pools** — not to swaps **inside** der Bodensee Pool.
+All protocol fee revenue flows to a single destination: **der Bodensee Pool**.
 
 | Stream | Destination | Share |
 |--------|-------------|-------|
-| Swap fees (non–der Bodensee pools) | LP bonus | 50% |
-| Swap fees (non–der Bodensee pools) | der Bodensee Pool (one-sided svZCHF) | 50% |
+| Swap fees (non–der Bodensee pools) | der Bodensee Pool (one-sided svZCHF) | 100% |
 | ERC-4626 yield fee (10% skim) | der Bodensee Pool (one-sided svZCHF) | 100% |
 | Swap fees (**trades inside der Bodensee Pool**) | der Bodensee LPs (retained in pool) | 100% of the 0.75% fee |
 
-**der Bodensee Pool** uses a **0.75%** swap-fee tier. Every wei of that fee **stays in the pool** for der Bodensee LPs — it does **not** enter the protocol-wide 50/50 splitter.
+**der Bodensee Pool** uses a **0.75%** swap-fee tier. Every wei of that fee **stays in the pool** for der Bodensee LPs — it does **not** route through the protocol fee pipeline.
 
-No treasury. **Protocol-captured** revenue flows to **der Bodensee Pool** as one-sided svZCHF inflows (autonomous reserve depth). The **other 50%** of swap fees on **other** pools returns directly to those pools’ LPs as LP bonus. All splits are contract-enforced and immutable.
+No treasury. All **protocol-captured** revenue flows to **der Bodensee Pool** as one-sided svZCHF inflows. Fee routing is contract-enforced and immutable.
 
 ### The Day-One Revenue Guarantee
 
-ERC-4626 pools generate yield fee revenue regardless of trading volume — the protocol has revenue from the first block. Not dependent on routing, aggregator integration, or TVL growth. Architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, **protocol-captured** fees (yield skim + 50% of swap fees on other pools) flow into der Bodensee Pool as one-sided svZCHF inflows; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs.
+ERC-4626 pools generate yield fee revenue regardless of trading volume — the protocol has revenue from the first block. Not dependent on routing, aggregator integration, or TVL growth. Architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, **protocol-captured** fees (yield skim + swap fees on other pools) flow into der Bodensee Pool as one-sided svZCHF inflows; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs.
 
 ### der Bodensee Pool (Autonomous Reserve)
 
@@ -166,7 +165,7 @@ At **pool creation**, the protocol deposits **1 AuMM** and **1 svZCHF** — mini
 | Parameter | Value |
 |-----------|-------|
 | Swap fee (trades inside this pool) | **0.75%** |
-| Fee routing | **100%** to der Bodensee LPs — accrues **in pool** (not via the 50/50 protocol split) |
+| Fee routing | **100%** to der Bodensee LPs — accrues **in pool** (not routed through the protocol fee pipeline) |
 
 #### Weight decay
 
@@ -183,7 +182,7 @@ At genesis, high AuMM weight prices AuMM low relative to svZCHF — a natural st
 
 #### One-sided revenue inflows
 
-**Protocol-captured** fee revenue — **50% of swap fees on other pools** plus **100% of ERC-4626 yield fees** — enters der Bodensee Pool as **one-sided svZCHF inflows**, deepening the svZCHF side and creating continuous buy pressure on AuMM. **Swap fees on trades inside der Bodensee** (0.75%) are **not** part of this split; they remain **in the pool** for der Bodensee LPs. Declining AuMM weight plus growing svZCHF reserves produces a self-reinforcing price floor that tightens as the protocol matures.
+**Protocol-captured** fee revenue — **swap fees on other pools (100%)** plus **ERC-4626 yield fees (100% of the 10% skim)** — enters der Bodensee Pool as **one-sided svZCHF inflows**, deepening the svZCHF side and creating continuous buy pressure on AuMM. **Swap fees on trades inside der Bodensee** (0.75%) are **not** part of this pipeline; they remain **in the pool** for der Bodensee LPs. Declining AuMM weight plus growing svZCHF reserves produces a self-reinforcing price floor that tightens as the protocol matures.
 
 #### Routing yield and fees to svZCHF (non-svZCHF assets)
 
@@ -199,15 +198,15 @@ der Bodensee Pool holds svZCHF — an ERC-4626 yield-bearing savings vault. The 
 
 ### Reserve Depth Growth
 
-At scale, combined **protocol-captured** revenue from **swap fees on other pools** (50% to Bodensee) and **yield fees** (100% of the skim to Bodensee) flows into der Bodensee Pool as one-sided svZCHF inflows, continuously deepening the AuMM/svZCHF reserve — **in addition to** 0.75% swap fees retained **in pool** for der Bodensee LPs.
+At scale, combined **protocol-captured** revenue from **swap fees on other pools** (100% to Bodensee) and **yield fees** (100% of the skim to Bodensee) flows into der Bodensee Pool as one-sided svZCHF inflows, continuously deepening the AuMM/svZCHF reserve — **in addition to** 0.75% swap fees retained **in pool** for der Bodensee LPs.
 
 **Worked example.** Assume $100M protocol TVL and $20M average daily volume at maturity:
 
 | Revenue source | Calculation | Annual svZCHF inflow |
 |:---------------|:------------|:---------------------|
-| Swap fee revenue | $20M/day × 0.05% fee × 50% to Bodensee × 365 days | ~$1,825,000/year |
+| Swap fee revenue | $20M/day × 0.05% fee × 100% to Bodensee × 365 days | ~$3,650,000/year |
 | Yield fee revenue | $100M TVL × ~52% ERC-4626 weight × 2.5% avg yield × 10% skim × 100% to Bodensee | ~$130,000/year |
-| **Total annual reserve inflow** | | **~$1,955,000/year** in svZCHF depth |
+| **Total annual reserve inflow** | | **~$3,780,000/year** in svZCHF depth |
 
 As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, accelerating reserve growth. The halving schedule reduces emission dilution every four years while revenue scales with TVL — the reserve grows faster than new supply enters the market.
 
