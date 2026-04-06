@@ -62,16 +62,6 @@
   #tab-intro { background: #0a0a08; min-height: 100vh; cursor: pointer; }
   #intro-tab-wrap { max-width: 700px; margin: 0 auto; padding: 88px 40px 80px; }
 
-  /* PASSWORD */
-  #password-screen { position: fixed; inset: 0; z-index: 90; background: #0a0a08; display: none; flex-direction: column; justify-content: center; align-items: center; font-family: 'VT323', monospace; }
-  #password-screen.active { display: flex; }
-  .pw-prompt { font-size: clamp(16px,2.5vw,20px); color: #aa7700; margin-bottom: 20px; }
-  .pw-input-row { display: flex; align-items: center; gap: 8px; }
-  .pw-input-row span { color: #ffb000; font-size: 20px; }
-  #pw-input { background: transparent; border: none; border-bottom: 1px solid rgba(255,176,0,0.2); color: #ffb000; font-family: 'VT323', monospace; font-size: 20px; outline: none; width: 300px; padding: 4px 0; caret-color: #ffb000; }
-  .pw-error { color: #ff4444; font-size: 16px; margin-top: 12px; opacity: 0; transition: opacity 0.3s; font-family: 'VT323', monospace; }
-  .pw-error.visible { opacity: 1; }
-
   /* MAIN */
   #main-doc { display: none; min-height: 100vh; }
   #main-doc.active { display: block; }
@@ -177,12 +167,6 @@
     <div class="meet">Meet $AuMM.</div>
   </div>
   <button class="enter-btn" id="enter-btn">ENTER</button>
-</div>
-
-<div id="password-screen">
-  <div class="pw-prompt">Proof-of-Participation required. Enter your Tessera:</div>
-  <div class="pw-input-row"><span>&gt;</span><input type="password" id="pw-input" autocomplete="off" spellcheck="false"></div>
-  <div class="pw-error" id="pw-error">ACCESS DENIED. Invalid Tessera.</div>
 </div>
 
 <div id="main-doc">
@@ -398,9 +382,6 @@ var terminal = document.getElementById('terminal');
 var introScreen = document.getElementById('intro-screen');
 var finaleEl = document.getElementById('finale');
 var enterBtn = document.getElementById('enter-btn');
-var passwordScreen = document.getElementById('password-screen');
-var pwInput = document.getElementById('pw-input');
-var pwError = document.getElementById('pw-error');
 var mainDoc = document.getElementById('main-doc');
 var dropdown = document.getElementById('dropdown');
 var menuBtn = document.getElementById('menu-btn');
@@ -507,7 +488,7 @@ document.addEventListener('click', function(e) {
   if (tabIntroEl && tabIntroEl.contains(e.target)) skipTabIntroToEnd();
 });
 
-// Enter key: skip intro / skip tab intro / submit password
+// Enter key: skip intro / skip tab intro
 document.addEventListener('keydown', function(e) {
   if (e.key !== 'Enter') return;
   if (!introFinished && introScreen.style.display !== 'none' && !finaleEl.classList.contains('visible')) {
@@ -518,29 +499,21 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+function showMainDoc() {
+  mainDoc.classList.add('active');
+  document.body.classList.add('doc-mode');
+  setTheme('day');
+}
+
 enterBtn.addEventListener('click', function() {
   introScreen.style.transition = 'opacity 0.5s'; introScreen.style.opacity = '0';
   finaleEl.style.transition = 'opacity 0.5s'; finaleEl.style.opacity = '0';
   setTimeout(function() {
     introScreen.style.display = 'none';
     finaleEl.style.display = 'none';
-    passwordScreen.classList.add('active');
-    pwInput.focus();
+    showMainDoc();
   }, 500);
 });
-
-function checkPassword() {
-  if (pwInput.value === 'm21m') {
-    passwordScreen.style.transition = 'opacity 0.5s'; passwordScreen.style.opacity = '0';
-    setTimeout(function() {
-      passwordScreen.style.display = 'none';
-      mainDoc.classList.add('active');
-      document.body.classList.add('doc-mode');
-      setTheme('day');
-    }, 500);
-  } else { pwError.classList.add('visible'); pwInput.value = ''; setTimeout(function() { pwError.classList.remove('visible'); }, 2000); }
-}
-pwInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPassword(); });
 
 // THEME
 function setTheme(theme) {

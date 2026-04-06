@@ -42,7 +42,7 @@ Or: `npx --yes serve -p 8080`
 ## UI notes
 
 - **Intro** is driven by `01_intro.json` (JSON array of typed lines).
-- After the intro, a gate prompts for the Tessera (see `index.html`); this is a presentation layer for the static bundle.
+- After the intro, **ENTER** goes straight to the documentation (see `index.html`).
 - **Miliarium ▾** — **Registry** ([05_miliarium_aureum.md](05_miliarium_aureum.md)), **Manifest** ([06_miliarium_manifest.md](06_miliarium_manifest.md)), **Sectors** ([07_miliarium_sectors.md](07_miliarium_sectors.md)), **Tokens** ([07a_tokens.md](07a_tokens.md)); in-app rendering of pool profiles so `.md` links do not open as raw files.
 - **Governance ▾** — **Constitution** ([10_constitution.md](10_constitution.md)), **Bootstrap** ([08_bootstrap.md](08_bootstrap.md)), **Transitions** ([09_transitions.md](09_transitions.md)), **Formulas** ([11_formulas.md](11_formulas.md)).
 
