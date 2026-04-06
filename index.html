@@ -47,7 +47,7 @@
   .term-line.spacer { height: 16px; } .term-line.cta { font-size: clamp(20px,3vw,26px); text-shadow: 0 0 10px rgba(255,176,0,0.4); }
   .term-line .highlight { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.3); }
   @keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
-  .finale { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 20; text-align: center; opacity: 0; pointer-events: none; font-family: 'VT323', monospace; }
+  .finale { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 110; text-align: center; opacity: 0; pointer-events: none; font-family: 'VT323', monospace; }
   .finale.visible { opacity: 1; animation: finale-in 1.2s ease-out forwards; pointer-events: auto; }
   @keyframes finale-in { 0%{opacity:0} 100%{opacity:1} }
   .finale .finale-logo { width: clamp(60px,10vw,90px); height: clamp(60px,10vw,90px); object-fit: contain; border-radius: 8px; border: 1px solid rgba(255,176,0,0.25); box-shadow: 0 0 20px rgba(255,176,0,0.15); margin-bottom: 16px; }
@@ -165,18 +165,18 @@
 
 <div id="intro-screen">
   <div id="terminal"></div>
-  <div class="finale" id="finale">
-    <img class="finale-logo" src="./aureum.jpeg" alt="Aureum" decoding="async" />
-    <div class="aureum">AUREUM</div>
-    <div class="miles">MILES AHEAD</div>
-    <div class="imagine">
-      Imagine mining BTC with capital, not electricity.<br>
-      Imagine BTC where real fees deepen the reserve, not disappear into thin air.<br>
-      Imagine your capital is liquidity generating real fees that flow entirely into the autonomous reserve, continuously strengthening the price floor.<br>
-      <div class="meet">Meet $AuMM.</div>
-    </div>
-    <button class="enter-btn" id="enter-btn">ENTER</button>
+</div>
+<div class="finale" id="finale">
+  <img class="finale-logo" src="./aureum.jpeg" alt="Aureum" decoding="async" />
+  <div class="aureum">AUREUM</div>
+  <div class="miles">MILES AHEAD</div>
+  <div class="imagine">
+    Imagine mining BTC with capital, not electricity.<br>
+    Imagine BTC where real fees deepen the reserve, not disappear into thin air.<br>
+    Imagine your capital is liquidity generating real fees that flow entirely into the autonomous reserve, continuously strengthening the price floor.<br>
+    <div class="meet">Meet $AuMM.</div>
   </div>
+  <button class="enter-btn" id="enter-btn">ENTER</button>
 </div>
 
 <div id="password-screen">
@@ -517,7 +517,13 @@ document.addEventListener('keydown', function(e) {
 
 enterBtn.addEventListener('click', function() {
   introScreen.style.transition = 'opacity 0.5s'; introScreen.style.opacity = '0';
-  setTimeout(function() { introScreen.style.display = 'none'; passwordScreen.classList.add('active'); pwInput.focus(); }, 500);
+  finaleEl.style.transition = 'opacity 0.5s'; finaleEl.style.opacity = '0';
+  setTimeout(function() {
+    introScreen.style.display = 'none';
+    finaleEl.style.display = 'none';
+    passwordScreen.classList.add('active');
+    pwInput.focus();
+  }, 500);
 });
 
 function checkPassword() {
