@@ -43,6 +43,7 @@ Two tracks, depending on what you need:
 | [Miliarium Aureum registry](05_miliarium_aureum.md) | Canonical registry of the 28 Miliarium pools: compositions, sector tables | Both |
 | [miliarium_profiles/](miliarium_profiles/) | One profile per pool plus manifest and sector taxonomy | LP / Investor |
 | [Glossary](12_aureum_glossary.md) | Term definitions and system summaries | Both |
+| [Team](16_team.md) | Founding team roster, roles, and prior work | Everyone |
 | [Appendices](13_appendices.md) | AMM architecture, fair-launch analysis, Yield Basis, competitive position | Both |
 
 ---
@@ -79,14 +80,7 @@ No signer, council, or progressive decentralization phase. No wallet receives Au
 
 ## Founding Team
 
-| Role | Contributor | Brings |
-|------|------------|--------|
-| Architecture & Thesis | **Sagix** | Pool design, routing topology, aggregator relationships, cross-protocol integrations (Frankencoin, Reserve), published research |
-| Smart Contracts | **TBD** | Solidity expertise, governance vault infrastructure, Balancer V3 codebase familiarity |
-| Frontend & UX | **TBD** | Frontend experience, emission dashboard, LP interface |
-| Founding Liquidity | **TBD** (aligned capital partner) | Seed capital for genesis pools, long-term LP commitment |
-
-The founding team earns tokens by being early LPs — same mechanism as everyone else. Only advantage: being first, deploying pools, providing initial liquidity, earning the highest emission rate before anyone else arrives. More LPs join, per-LP emissions decline. Early believers rewarded. No allocation. No vesting.
+See [Team](16_team.md) for the founding team roster, roles, and prior work.
 
 ## Risk Factors
 

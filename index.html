@@ -215,6 +215,7 @@
             <a data-tab="formulas">Formulas</a>
           </div>
         </div>
+        <button class="tab-btn" data-tab="team">Team</button>
         <button class="tab-btn" data-tab="glossary">Glossary</button>
         <button class="tab-btn" data-tab="appendices">Appendices</button>
         <button class="tab-btn" data-tab="ux_ui">UX / UI</button>
@@ -244,6 +245,7 @@
         <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
         <button class="rules-sub" data-tab="transitions">Transitions</button>
         <button class="rules-sub" data-tab="formulas">Formulas</button>
+    <button data-tab="team">Team</button>
     <button data-tab="glossary">Glossary</button>
     <button data-tab="appendices">Appendices</button>
     <button data-tab="ux_ui">UX / UI</button>
@@ -341,6 +343,12 @@
       <div class="footer">AUREUM — Pool profile</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-team">
+    <div class="content">
+      <div id="team-body"></div>
+      <div class="footer">AUREUM — Team</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-appendices">
     <div class="content">
       <div id="appendices-body"></div>
@@ -375,6 +383,7 @@ var menus = {
   'miliarium-sectors': [],
   'miliarium-tokens': [],
   'miliarium-profile': [],
+  team: [],
   appendices: [],
   ux_ui: [],
   intro: []
@@ -691,6 +700,7 @@ loadMd('05_miliarium_aureum.md', 'miliarium-body', 'miliarium');
 loadMd('06_miliarium_manifest.md', 'manifest-body', 'miliarium-manifest');
 loadMd('07_miliarium_sectors.md', 'sectors-body', 'miliarium-sectors');
 loadMd('07a_tokens.md', 'tokens-body', 'miliarium-tokens');
+loadMd('16_team.md', 'team-body', 'team');
 loadMd('12_aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('13_appendices.md', 'appendices-body', 'appendices');
 loadMd('14_ux_ui.md', 'ux-ui-body', 'ux_ui');
