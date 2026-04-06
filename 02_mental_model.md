@@ -21,7 +21,7 @@ The architecture deserves a second run under a clean economic model. Project Aur
 
 ## ii. Core Principles
 
-- **Fair launch.** No pre-mine, no team allocation, no VC, **no treasury wallet**. **100% of the LP emission tranche** goes to LPs from block 0; **Months 1–10** a decaying share enters der Bodensee Pool as one-sided AuMM (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)).
+- **Fair launch.** No pre-mine, no team allocation, no VC, **no treasury wallet**. **100% of the LP emission tranche** goes to LPs from block 0; **Months 1–10** a piecewise-decaying share enters der Bodensee Pool as one-sided AuMM (80%→50% by Month 6, 50%→0% by Month 10; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)).
 - **Fixed supply.** 21,000,000 maximum. Per-block halving schedule. Declining emission rate.
 - **Mining is LP.** Productive capital in, tokens out. No staking rewards. No bribe markets.
 - **Anti-capture by design.** Governance power derives exclusively from active LP positions with a 6-month on-ramp.
@@ -55,7 +55,7 @@ The 28 Miliarium pools are structured as a **miniature economy**, not a random c
 
 ### 1. Capital Allocation (The Continuous Central Bank)
 
-Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (see [Theoretical foundations (§vi-b)](03_theoretical_foundation.md)). The 28 Miliarium pools carry an algorithmic CCB multiplier ([Constitution §xxix](10_constitution.md) for bounds) that nudges their share based on TVL trends — no voting, no human override. Zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded; short-term hype is not. Market crashes trigger higher relative yield (anticyclical floor). A central bank that automatically rewards persistent liquidity, not speculation. **Protocol-captured** fee revenue flows to der Bodensee Pool (the autonomous reserve) as one-sided svZCHF inflows; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs — no separate treasury.
+Which pools should receive emissions right now? Base weight = 60-day EMA of on-chain TVL (see [Theoretical foundations (§vi-b)](03_theoretical_foundation.md)). The 28 Miliarium pools carry an algorithmic CCB multiplier ([Constitution §xxix](10_constitution.md) for bounds) that nudges their share based on TVL trends — no voting, no human override. Zero-sum: total emissions are fixed by the halving schedule. Sustained capital commitment is rewarded; short-term hype is not. Market crashes trigger higher relative yield (anticyclical floor). A central bank that automatically rewards persistent liquidity, not speculation. **Protocol-captured** fee revenue flows to der Bodensee Pool (the autonomous reserve) as one-sided stablecoin (sUSDS/svZCHF) inflows; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs — no separate treasury.
 
 ### 2. Bootstrapping (Starting New Pools)
 
@@ -77,7 +77,7 @@ In Roman terms: **ixEDEL is the via** (the road that connects every province), *
 
 ## iv. Emission Regimes
 
-- **Through end of Month 10:** each block, **der Bodensee bootstrap** AuMM (80% at genesis, linear decay to 0% by end of Month 10) is deposited one-sided into der Bodensee Pool. The **LP tranche** goes **100%** to the 28 Miliarium pools, split **purely equal** (**1/28 of the LP tranche** each). No treasury share. Other pools may exist but do not receive this equal tranche.
+- **Through end of Month 10:** each block, **der Bodensee bootstrap** AuMM (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is deposited one-sided into der Bodensee Pool. The **LP tranche** goes **100%** to the 28 Miliarium pools, split **purely equal** (**1/28 of the LP tranche** each). No treasury share. Other pools may exist but do not receive this equal tranche.
 - **Months 11–12 (two-month transition):** blend linearly from equal to CCB over the window. At the midpoint, the mix is half equal and half CCB. See [Protocol formulas](11_formulas.md) for the blend formula.
 - **After Year 1:** emissions follow only the CCB — each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. No vote. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 

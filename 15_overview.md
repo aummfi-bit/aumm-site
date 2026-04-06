@@ -61,13 +61,13 @@ Two tracks, depending on what you need:
 
 No treasury. All protocol revenue flows to one immutable destination:
 
-- **der Bodensee Pool** — **all protocol-captured** revenue: **swap fees on other pools (100%)** + **ERC-4626 yield fees (100% of the 10% skim)** as one-sided svZCHF inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** for der Bodensee LPs.
+- **der Bodensee Pool** (three-token weighted pool, fixed **40% AuMM / 30% sUSDS / 30% svZCHF**) — **all protocol-captured** revenue: **swap fees on other pools (100%)** + **ERC-4626 yield fees (100% of the 10% skim)** as one-sided stablecoin (sUSDS/svZCHF) inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** for der Bodensee LPs. Hidden from UI Months 0–6, visible thereafter.
 
-No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
+No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only on a **piecewise-linear decay** (80%→50% by Month 6, 50%→0% by Month 10), then **permanently zero** (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 
-- **Through end of Month 10:** each block, a **decaying der Bodensee bootstrap** (80% at genesis → 0% at end of Month 10) mints one-sided AuMM into der Bodensee Pool; the **LP tranche** splits **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury share.
+- **Through end of Month 10:** each block, a **piecewise-decaying der Bodensee bootstrap** (80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) mints one-sided AuMM into der Bodensee Pool; the **LP tranche** splits **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury share.
 - **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — fully automatic emission allocator; see [Glossary](12_aureum_glossary.md)). **α** from 0 to 1; **α = 0.5** at midpoint.
 - **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. Full rules and immutable parameters: [Constitution (§§xxviii–xxix)](10_constitution.md).
 - No governance voting controls emission allocation.

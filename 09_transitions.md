@@ -17,19 +17,17 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - Aequilibrium factory opens. Pool creation is permissionless.
 - **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury wallet.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
-- der Bodensee Pool launches with **1 AuMM** and **1 svZCHF** seed, **90/10** weights. Linear time-decay begins. **Swap fee inside der Bodensee:** **0.75%**, fully retained **in pool** for der Bodensee LPs.
-- **Protocol-captured** fee revenue (swap fees on **other** pools + ERC-4626 yield fees) starts flowing into der Bodensee as one-sided svZCHF inflows.
+- der Bodensee Pool launches as a **three-token weighted pool** with **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay). **Swap fee inside der Bodensee:** **0.75%**, fully retained **in pool** for der Bodensee LPs. **Hidden from UI** during Months 0–6.
+- **Protocol-captured** fee revenue (swap fees on **other** pools + ERC-4626 yield fees) starts flowing into der Bodensee as one-sided stablecoin (sUSDS/svZCHF) inflows.
 
 **Month 2 — TVL measurement window opens.**
 - On-chain TVL data begins accumulating for EMA(60) signal.
 
-**Months 1–10 — der Bodensee emission bootstrap (linear decay).**
-- Bodensee share decays **linearly** from **80% at genesis** to **0%** at the **final block of Month 10**. LP tranche grows correspondingly (20% → 100%). Weighted-pool math prices AuMM alongside one-sided svZCHF fee inflows.
+**Months 1–10 — der Bodensee emission bootstrap (piecewise-linear decay).**
+- Bodensee share decays **linearly from 80% to 50%** between genesis and the **final block of Month 6**, then **linearly from 50% to 0%** between Month 6 and the **final block of Month 10**. LP tranche grows correspondingly (20% → 50% → 100%). Weighted-pool math reprices AuMM as one-sided stablecoin fee inflows deepen the reserve side.
 
-**Months 1–18 — der Bodensee Pool weight decay active.**
-- AuMM weight declines linearly 90% → 48%; svZCHF rises 10% → 52%.
-- **Protocol-captured** fee revenue from **other** pools enters der Bodensee as one-sided svZCHF from block 0; **swap fees inside der Bodensee** (0.75%) accrue **in pool** to der Bodensee LPs.
-- Price discovery forced by time-decay + real revenue inflows — no oracle, no manual trigger.
+**End of Month 6 — der Bodensee Pool unhides.**
+- The pool becomes **visible and tradeable** in the UI. Whatever AuMM-to-stablecoin ratio exists at that point is the market's opening price — no founder-set price, no governance-voted multiple.
 
 **End of Month 10 — Bootstrap emissions complete.**
 - Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/28** across the 28 Miliarium pools until Month 11.
@@ -45,13 +43,11 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 **End of Year 1 — CCB transition complete.**
 - α = 1. Allocation is pure CCB.
 
-**Months 13–18 — CCB vs LBP weight decay (two clocks).**
-- **Emissions:** **α** finishes at the **last block of Year 1** (α = 1). From **Month 13**, allocation is **already** pure CCB — **no** second transition in Months 13–18. Those months are the first half of **Year 2** while the LBP weight curve is still running.
-- **der Bodensee weights:** Linear decay runs **18 months** from genesis, **ends at Month 18** (90/10 → 48/52). Months 13–18 finish the **weight** curve only — **no** CCB formula changes.
+**End of Month 10 — der Bodensee bootstrap channel closes permanently.**
+- Bootstrap share reaches **zero**. The treasury/bootstrap channel is **immutable at zero from this block forward** — der Bodensee never receives AuMM via emission again. The AuMM side of the pool is fixed; only swap-ins by traders can add AuMM after this point.
 
-**Month 18 — der Bodensee Pool weights stabilize.**
-- Weights reach final state: 48% AuMM / 52% svZCHF. Permanent.
-- Protocol fee revenue continues flowing into der Bodensee indefinitely.
+**After Month 10 — Reserve grows from fees alone.**
+- Stablecoin fee inflows continue indefinitely. Weighted-pool math reprices AuMM mechanically as the stablecoin side deepens against a capped AuMM side. No buyback, no burn, no market purchases.
 
 ### After Year 1 (full CCB)
 
@@ -62,7 +58,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges; **Ye
 - New gauged pools receive emissions alongside the 28 Miliarium pools.
 - Incendiary Boost available for all gauged pools.
 - Governance continues for non-emission proposals (gauges, fees) under immutable constraints.
-- **Protocol-captured** fees (swap fees on other pools + ERC-4626 yield skim) continue to der Bodensee as one-sided svZCHF; **swap fees inside der Bodensee** (0.75%) stay **in pool** for der Bodensee LPs.
+- **Protocol-captured** fees (swap fees on other pools + ERC-4626 yield skim) continue to der Bodensee as one-sided stablecoin (sUSDS/svZCHF); **swap fees inside der Bodensee** (0.75%) stay **in pool** for der Bodensee LPs.
 
 ### Post-activation
 

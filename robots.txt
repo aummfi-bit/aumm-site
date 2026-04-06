@@ -199,7 +199,7 @@ Allow: /
 #
 # Key terms:
 # - Continuous Capital Corporation (CCC) — rule-based protocol; no discretionary treasury
-# - der Bodensee Pool — AuMM/svZCHF LBP autonomous reserve; governance deposits are one-sided here
+# - der Bodensee Pool — AuMM/sUSDS/svZCHF weighted pool (fixed 40/30/30) autonomous reserve; governance deposits are one-sided here as stablecoin
 # - Continuous Central Bank (CCB) — automatic emission allocation; EMA TVL; F-8 multiplier
 # - Miliarium Aureum — 28 founding pools; gauge-challenge deposit scaling (F-12) applies to
 #   non-Miliarium gauged pools; Miliarium targets use fixed deposit per constitution

@@ -10,11 +10,11 @@ Each **eligible** pool gets a **CCB score** combining its smoothed TVL (EMA) and
 
 The CCB turns scores into **shares**: each pool’s share is its score divided by the total score of all eligible pools. Allocation is **relative** — a pool’s emissions depend on how it ranks against every other eligible pool, not on a fixed percentage.
 
-der Bodensee Pool (AuMM / svZCHF LBP) receives **bootstrap** AuMM **Months 1–10** only (one-sided deposits; see [Miliarium Aureum registry (§xii — der Bodensee)](05_miliarium_aureum.md)). Its TVL is **excluded** from the CCB denominator so it does not dilute emission-eligible pool scores.
+der Bodensee Pool (AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30) receives **bootstrap** AuMM **Months 1–10** only (one-sided deposits, piecewise decay 80%→50%→0%; see [Miliarium Aureum registry (§xii — der Bodensee)](05_miliarium_aureum.md)). Its TVL is **excluded** from the CCB denominator so it does not dilute emission-eligible pool scores.
 
 ### 2. How the block emission flows
 
-**Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (80% at genesis, linear decay to 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the 28 Miliarium pools — **one twenty-eighth** each. No treasury wallet. Other pools may exist on the AMM but receive none of this tranche.
+**Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the 28 Miliarium pools — **one twenty-eighth** each. No treasury wallet. Other pools may exist on the AMM but receive none of this tranche.
 
 **Months 11–12:** the protocol ramps from equal toward full CCB. Early in the window, mostly equal; by the last block of Year 1, fully CCB. At midpoint, half and half. Exact block math is fixed on-chain — see [Constitution (§xxviii)](10_constitution.md).
 

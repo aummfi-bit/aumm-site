@@ -168,12 +168,12 @@ REPL: list[tuple[str, str]] = [
         "([Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md))",
     ),
     (
-        "see `11_formulas.md` F-11 for the formal weight decay definition.",
-        "see [Protocol formulas — LBP weight decay (F-11)](11_formulas.md) for the formal weight decay definition.",
+        "see `11_formulas.md` F-11 for the formal composition definition.",
+        "see [Protocol formulas — der Bodensee Pool composition (F-11)](11_formulas.md) for the formal composition definition.",
     ),
     (
-        "See `11_formulas.md` F-11 for the formal weight decay definition.",
-        "See [Protocol formulas — LBP weight decay (F-11)](11_formulas.md) for the formal weight decay definition.",
+        "See `11_formulas.md` F-11 for the formal composition definition.",
+        "See [Protocol formulas — der Bodensee Pool composition (F-11)](11_formulas.md) for the formal composition definition.",
     ),
     (
         "see `11_formulas.md` (F-8); `12_aureum_glossary.md` covers",

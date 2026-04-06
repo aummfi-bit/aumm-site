@@ -69,7 +69,7 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Equal regime (through end of Month 10)
 
-- Each block’s emission splits between **der Bodensee bootstrap** and the **LP tranche**. Bootstrap: **80% of block emission at genesis**, decaying **linearly to zero** by the **final block of Month 10**; minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). See [Protocol formulas (F-0)](11_formulas.md).
+- Each block’s emission splits between **der Bodensee bootstrap** and the **LP tranche**. Bootstrap is **piecewise linear**: **80% at genesis → 50% at end of Month 6**, then **50% → 0% by end of Month 10**; minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). See [Protocol formulas (F-0)](11_formulas.md).
 - Through the final block of Month 10, the **LP tranche** is split **equally** — **1/28** each (not 1/28 of the full block emission while bootstrap is positive). **100%** to LPs — no treasury wallet.
 
 ### Transition regime (Months 11–12)
@@ -90,9 +90,9 @@ Immutable from block 0, cannot be changed by any means:
 
 - Maximum AuMM supply: 21,000,000
 - Emission halving schedule and block emission rates
-- Fee routing (**swap fees on Miliarium and other non–der Bodensee pools**): 100% to der Bodensee Pool as one-sided svZCHF inflows. **ERC-4626 yield fee (10% skim):** 100% to der Bodensee Pool as one-sided svZCHF inflows
-- **der Bodensee Pool** (**AuMM/svZCHF LBP only**): **0.75%** swap fee on trades in this pool; **100%** of those swap fees accrue to **der Bodensee LPs** (retained in the pool — not routed through the protocol fee pipeline)
-- der Bodensee Pool parameters: **genesis seed liquidity** — **1 AuMM** and **1 svZCHF** deposited at pool creation (protocol-deployed, immutable); start weights 90% AuMM / 10% svZCHF, end weights 48% AuMM / 52% svZCHF, 18-month linear decay, **protocol-captured** revenue from other pools as one-sided svZCHF inflows, **Months 1–10** one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10, linear decay)
+- Fee routing (**swap fees on Miliarium and other non–der Bodensee pools**): 100% to der Bodensee Pool as one-sided stablecoin (sUSDS/svZCHF) inflows. **ERC-4626 yield fee (10% skim):** 100% to der Bodensee Pool as one-sided stablecoin inflows
+- **der Bodensee Pool** (**three-token weighted pool, AuMM/sUSDS/svZCHF only**): **0.75%** swap fee on trades in this pool; **100%** of those swap fees accrue to **der Bodensee LPs** (retained in the pool — not routed through the protocol fee pipeline)
+- der Bodensee Pool parameters: **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay), **protocol-captured** revenue from other pools as one-sided stablecoin inflows, **Months 1–10** one-sided AuMM bootstrap (piecewise linear: **80% at genesis → 50% at end of Month 6 → 0% at end of Month 10**, see [F-0](11_formulas.md)). **Not emission-eligible** (AuMM cannot be in emission-eligible pools — no self-referential tokens). **Hidden from UI Months 0–6**, visible from Month 6 onward.
 - CCB multiplier rules: step size ±0.05, clamp [0.75, 1.25], dead zone 0.1%, EMA(60) horizon
 - List of 28 Miliarium Aureum pools (locked at launch; see [Miliarium Aureum registry](05_miliarium_aureum.md))
 - Core AMM mathematics, CCB formula, and eligibility criteria
@@ -102,5 +102,5 @@ Immutable from block 0, cannot be changed by any means:
 
 ## xxx. No Treasury
 
-No treasury. No entity or wallet receives AuMM for discretionary use. No mechanism holds discretionary funds or disburses capital by vote. **der Bodensee Pool** receives **Months 1–10** bootstrap AuMM as **one-sided pool deposits** (not extractable, no LP tokens minted). **Protocol-captured** revenue — **swap fees on non–der Bodensee pools** plus **ERC-4626 yield fees (10% skim)** — flows automatically and entirely to **der Bodensee Pool** as one-sided svZCHF. **Swap fees inside der Bodensee** (0.75%) stay with **der Bodensee LPs**. CCC philosophy: capital allocation is algorithmic, revenue flows are rule-based, no separate treasury can be captured, redirected, or extracted from. Fully autonomous from block 0.
+No treasury. No entity or wallet receives AuMM for discretionary use. No mechanism holds discretionary funds or disburses capital by vote. **der Bodensee Pool** receives **Months 1–10** bootstrap AuMM as **one-sided pool deposits** (not extractable, no LP tokens minted) on the piecewise decay schedule of [F-0](11_formulas.md); after the final block of Month 10, the bootstrap channel is **permanently zero**. **Protocol-captured** revenue — **swap fees on non–der Bodensee pools** plus **ERC-4626 yield fees (10% skim)** — flows automatically and entirely to **der Bodensee Pool** as one-sided stablecoin (sUSDS/svZCHF) deposits. **Swap fees inside der Bodensee** (0.75%) stay with **der Bodensee LPs**. CCC philosophy: capital allocation is algorithmic, revenue flows are rule-based, no separate treasury can be captured, redirected, or extracted from. Fully autonomous from block 0.
 

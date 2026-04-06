@@ -12,17 +12,25 @@ All parameters listed here are **immutable from block 0**. See [Immutable Parame
 
 **Purpose:** Deepen der Bodensee reserves with one-sided AuMM inflows during cold-start, so weighted-pool price discovery begins from block 0 without allocating emissions to any treasury.
 
-**Effect:** A linearly decaying fraction of each block’s emission is minted as a **one-sided AuMM deposit** into der Bodensee Pool (no LP tokens — same mechanic as one-sided svZCHF fee inflows). The remainder is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). After the final block of Month 10, **bodensee_share = 0**; 100% to LPs until Month 11.
+**Effect:** A **piecewise-linear, per-block decaying** fraction of each block's emission is minted as a **one-sided AuMM deposit** into der Bodensee Pool (no LP tokens — same mechanic as one-sided stablecoin fee inflows). The remainder is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). Two segments: genesis → end of Month 6 decays **linearly from 80% to 50%**; end of Month 6 → end of Month 10 decays **linearly from 50% to 0%**. After the final block of Month 10, **bodensee_share = 0 permanently**; 100% to LPs until Month 11.
 
 ```
+month_6_end_block  = last_block_of_Month_6
 month_10_end_block = last_block_of_Month_10
-t = min( (block − genesis_block) / (month_10_end_block − genesis_block),  1 )
 
-bodensee_share(block) = 0.80 × max(0, 1 − t)
-lp_share(block)       = 1 − bodensee_share(block)
+if block ≤ month_6_end_block:
+    t1 = (block − genesis_block) / (month_6_end_block − genesis_block)
+    bodensee_share(block) = 0.80 − 0.30 × t1          // 80% → 50%
+elif block ≤ month_10_end_block:
+    t2 = (block − month_6_end_block) / (month_10_end_block − month_6_end_block)
+    bodensee_share(block) = 0.50 − 0.50 × t2          // 50% → 0%
+else:
+    bodensee_share(block) = 0                          // permanent cutoff
+
+lp_share(block) = 1 − bodensee_share(block)
 ```
 
-AuMM routed to der Bodensee Pool in block **b** equals **bodensee_share(b) × block_emission(b)**.
+AuMM routed to der Bodensee Pool in block **b** equals **bodensee_share(b) × block_emission(b)**. After the final block of Month 10 the treasury/bootstrap channel is **immutable at zero** — der Bodensee never again receives AuMM via emission.
 
 ---
 
@@ -217,23 +225,35 @@ Price-agnostic — numerator (revenue) and denominator (emissions) measured in t
 
 ---
 
-### F-11. der Bodensee Pool Weight Decay
+### F-11. der Bodensee Pool Composition (Fixed Weights)
 
-**Purpose:** Define linear time-decay of token weights in der Bodensee Pool, replacing discretionary price discovery.
+**Purpose:** Define the immutable composition of der Bodensee Pool — the protocol's autonomous reserve and AuMM price-discovery venue.
 
-**Effect:** Two-token LBP (AuMM + svZCHF), weights shifting linearly from genesis to 18-month endpoint. **Seed:** **1 AuMM** and **1 svZCHF**. **Swap fee:** **0.75%**, fully retained **in pool** (not routed through the protocol fee pipeline). **Protocol-captured** revenue from **other** pools flows one-sided into the svZCHF side. Price discovery forced by time-decay + real revenue — no oracle, no manual trigger.
+**Effect:** Three-token weighted pool with **fixed** weights from block 0. No time-decay curve. No discretionary reweighting. Weighted-pool math is the only pricing mechanism — as the stablecoin side deepens via continuous one-sided fee inflows while the AuMM side is capped by the decaying F-0 bootstrap (zero after Month 10), the ratio re-prices AuMM mechanically.
 
 ```
-genesis_block = block_0
-end_block     = genesis_block + 18_months_in_blocks          // ~3,942,000 blocks at 12 s/block
-
-t = min( (current_block − genesis_block) / (end_block − genesis_block),  1 )
-
-weight_AuMM(t)  = 0.90 − (0.42 × t)                         // 90% → 48%
-weight_svZCHF(t) = 0.10 + (0.42 × t)                        // 10% → 52%
+weight_AuMM   = 0.40        // 40%
+weight_sUSDS  = 0.30        // 30%
+weight_svZCHF = 0.30        // 30%
+// sum = 1.00, immutable from block 0
 ```
 
-Genesis: **90/10** weights, seed **1 AuMM + 1 svZCHF**. By 18 months: **48/52**, fixed permanently. **Protocol-captured** revenue (swap fees on other pools + ERC-4626 yield fees) enters as one-sided svZCHF. **Swaps inside der Bodensee:** 0.75%, fully to der Bodensee LPs. **Months 1–10:** also receives decaying one-sided AuMM bootstrap (80% at genesis → 0% at end of Month 10; see F-0). **After Month 10:** no further AuMM via emission — only fee inflows, in-pool swap fees, governance deposits, and Incendiary Boost deposits. All weight decay parameters immutable from block 0.
+| Parameter | Value |
+|:----------|:------|
+| Tokens | AuMM, sUSDS, svZCHF |
+| Weights | **40% / 30% / 30%** (fixed, immutable) |
+| Swap fee | **0.75%**, fully retained **in pool** (not routed through the protocol fee pipeline) |
+| ERC-4626 yield-bearing share | **60%** of pool TVL (sUSDS + svZCHF) earns native vault yield |
+| Emission eligibility | **None** — der Bodensee cannot receive CCB emissions (no self-referential tokens) |
+| UI visibility | **Hidden from UI during Months 0–6**; visible and tradeable from Month 6 onward |
+
+**AuMM inflows.** Only the F-0 bootstrap deposits AuMM into der Bodensee — decaying per block through Month 10, then **permanently zero**. No other mechanism mints AuMM into this pool.
+
+**Stablecoin inflows.** **100%** of protocol-captured swap fees (all non–der Bodensee pools) plus **100%** of the ERC-4626 yield fee (10% skim on all vault yield) enter as **one-sided stablecoin deposits** (sUSDS and/or svZCHF), continuously deepening the reserve side. Governance deposits and Incendiary Boost deposits use the same one-sided stablecoin path.
+
+**Price discovery.** No founder-set price, no governance-voted multiple, no TVL measurement window. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically. At Month 6 the pool unhides, and whatever ratio exists at that point is the market's opening price.
+
+All composition parameters immutable from block 0.
 
 ---
 

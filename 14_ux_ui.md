@@ -11,18 +11,19 @@
 - [ ] **FDV / FDV-to-TVL ratio** — chart with historical
 - [ ] **TradingView-style charts** — TVL, FDV, FDV/TVL, AuMM price, all with the 60-day EMA plotted alongside spot
 - [ ] **Trading volume** — 24h, 7d, 30d, all-time; protocol-wide and per-pool breakdown
-- [ ] **Protocol fees** — 24h and all-time; split by swap fees vs yield fees; **protocol-captured** svZCHF inflow to der Bodensee (swap fees on other pools + yield skim) **vs** **in-pool** fees on der Bodensee trades (0.75% tier, LPs only)
+- [ ] **Protocol fees** — 24h and all-time; split by swap fees vs yield fees; **protocol-captured** stablecoin (sUSDS/svZCHF) inflow to der Bodensee (swap fees on other pools + yield skim) **vs** **in-pool** fees on der Bodensee trades (0.75% tier, LPs only)
 
 ---
 
 ## 2. der Bodensee Pool
 
-- [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (80% → 0% linear by end of Month 10), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees
-- [ ] **Weight decay visualisation** — current AuMM/svZCHF weights vs target (90/10 → 48/52), time remaining to stabilisation, progress bar or animated gauge
-- [ ] **Reserve depth** — total svZCHF accumulated (from fee revenue + governance deposits + Incendiary Boost deposits)
-- [ ] **AuMM price** — derived from pool weights and reserves (no oracle)
-- [ ] **Inflow tracker** — cumulative and trailing 30d **one-sided svZCHF** inflows to der Bodensee, broken down by source (protocol-captured swap share from **other** pools, yield skim after **svZCHF routing**, governance deposits, Incendiary Boost deposits); separately show **in-pool** swap-fee accrual for der Bodensee LPs (0.75% tier) if distinct in subgraph
-- [ ] **Pool composition** — live AuMM and svZCHF balances
+- [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (piecewise: 80% → 50% by end of Month 6, 50% → 0% by end of Month 10), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees. **Hide entirely until Month 6.**
+- [ ] **Pool composition card** — fixed weights **40% AuMM / 30% sUSDS / 30% svZCHF** (immutable, no decay); show 60% ERC-4626 yield-bearing share
+- [ ] **Reserve depth** — total stablecoin (sUSDS + svZCHF) accumulated (from fee revenue + governance deposits + Incendiary Boost deposits)
+- [ ] **AuMM price** — derived from pool reserves and fixed weights (no oracle); only displayed from Month 6 onward
+- [ ] **Inflow tracker** — cumulative and trailing 30d **one-sided stablecoin** inflows to der Bodensee, broken down by source (protocol-captured swap share from **other** pools, yield skim, governance deposits, Incendiary Boost deposits); separately show **in-pool** swap-fee accrual for der Bodensee LPs (0.75% tier) if distinct in subgraph
+- [ ] **Pool balances** — live AuMM, sUSDS, and svZCHF balances
+- [ ] **UI visibility gate** — der Bodensee Pool is **hidden from the UI during Months 0–6**; the section unhides at the first block of Month 7
 
 ---
 
@@ -126,8 +127,8 @@ An Aerodrome LP comparing "80% APR" against Aureum's "12% real yield + 15% emiss
 **Token supply transparency.** The dashboard also publishes in real time:
 
 - [ ] **Total AuMM emitted** — cumulative tokens distributed to LPs since block 0
-- [ ] **Total svZCHF deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost deposits
-- [ ] **der Bodensee Pool reserve depth** — current svZCHF reserves and AuMM/svZCHF ratio
+- [ ] **Total stablecoin (sUSDS + svZCHF) deposited into der Bodensee Pool** — cumulative inflows from protocol fee revenue, governance deposits, and Incendiary Boost deposits
+- [ ] **der Bodensee Pool reserve depth** — current sUSDS + svZCHF reserves and AuMM-to-stablecoin ratio (visible from Month 6 onward)
 
 See [Immutable Parameters (§xxix)](10_constitution.md).
 

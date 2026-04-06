@@ -56,7 +56,7 @@ Proof-of-conviction bootstrap. Anyone deposits **any amount** of svZCHF/sUSDS **
 
 ### Priority Skim
 
-Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priority claims on the **LP emission tranche** — **after** the der Bodensee bootstrap skim in Months 1–10 ([Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active boosts, subtracts from the LP tranche, distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools. The depositor's svZCHF/sUSDS deepens der Bodensee in exchange for skipping the EMA queue.
+Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priority claims on the **LP emission tranche** — **after** the der Bodensee bootstrap skim in Months 1–10 (piecewise decay: 80%→50% by Month 6, 50%→0% by Month 10; see [Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active boosts, subtracts from the LP tranche, distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools. The depositor's svZCHF/sUSDS deepens der Bodensee in exchange for skipping the EMA queue.
 
 ### Immutable Parameters
 

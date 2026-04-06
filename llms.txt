@@ -78,7 +78,7 @@ Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
 ## Retrieval hints (terms to anchor on)
 
 - **Continuous Capital Corporation (CCC)** — autonomous reserve and rules, no discretionary treasury.  
-- **der Bodensee Pool** — AuMM/svZCHF LBP; protocol-captured fees and **governance deposits** (all **one-sided into der Bodensee Pool**).  
+- **der Bodensee Pool** — AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30 (immutable from block 0); protocol-captured fees and **governance deposits** (all **one-sided into der Bodensee Pool** as stablecoin sUSDS/svZCHF). Hidden Months 0–6, visible thereafter.
 - **Continuous Central Bank (CCB)** — automatic emission allocation; **EMA(60)** TVL; **F-8** multiplier (28 Miliarium pools).  
 - **Miliarium Aureum** — 28 founding pools; **cannot be gauge-challenged** — structural changes via **Composition Challenge** only. Non-Miliarium gauge challenges use **F-12**.  
 - **AuMM / AuMT** — reward token vs LP tessera (governance weight).  
