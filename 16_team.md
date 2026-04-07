@@ -1,5 +1,7 @@
 # Team
 
+> **Aumm.fi is a publication of The Genesis Address LLC.** The site documents protocol design, governance bounds, and the Miliarium Aureum constellation. It is editorial and research material — not a product offering, not a managed account, and not a solicitation. See the [Disclaimer](#xliii-disclaimer) below.
+
 ---
 
 ## xl. Founding Team
@@ -34,3 +36,19 @@ The founding team earns tokens by being early LPs — same mechanism as everyone
 Balancer V3 pools that surface **ixedel** or **zchf** in search — live routing and liquidity around the constellation’s anchors (ixEDEL, Frankencoin / ZCHF stack):
 
 - [Balancer pool search: ixEDEL or ZCHF](https://balancer.fi/pools?textSearch=ixedel+or+zchf)
+
+---
+
+## xliii. Disclaimer
+
+**Nothing on Aumm.fi constitutes financial advice.**
+
+Aumm.fi is a publication of **The Genesis Address LLC**. All content — protocol specifications, tokenomics, the Miliarium Aureum registry, governance documents, formulas, and commentary — is provided **exclusively for educational, informational, and historical research purposes**. It should **not** be construed as investment advice, financial planning guidance, tax or legal advice, policy recommendation, or a solicitation to buy or sell any securities, tokens, or other financial instruments.
+
+The Miliarium Aureum constellation and the AuMM pool are protocol design artifacts. Documentation of pools, emissions, gauges, and routing is **descriptive, not prescriptive**. Nothing here is an offer, recommendation, or endorsement to deploy capital, provide liquidity, or hold any token. References to third‑party protocols (Balancer V3, Frankencoin, Reserve, and others) are factual and do not imply affiliation or endorsement.
+
+DeFi liquidity provision involves substantial risk, including impermanent loss, smart‑contract risk, oracle risk, governance risk, regulatory risk, and the total loss of deposited assets. Forward‑looking statements about emissions, transitions, or governance are subject to change and are not guarantees.
+
+Portions of this documentation were prepared with the assistance of artificial intelligence tools. Readers must **independently verify** any factual claim, contract address, parameter, or formula before acting on it, and should consult qualified professionals about their personal financial, tax, and legal situation. Use of this site is at the reader's sole risk. The Genesis Address LLC, its members, contributors, and affiliates accept no liability for any loss or damage arising from reliance on the contents of Aumm.fi.
+
+Aumm.fi is **not affiliated with, endorsed by, or sponsored by** Balancer Labs or Balancer DAO.
