@@ -71,4 +71,6 @@ Excluded from **`llms-full.txt`** (not canonical protocol spec): **`editorial_sp
 
 ## License
 
+This protocol forks the Balancer V3 vault and pool contracts under GPL-3.0. Aureum is not affiliated with, endorsed by, or sponsored by Balancer Labs or Balancer DAO.
+
 Protocol design documentation for Project Aureum. **`editorial_sprints.md`** and **`script.md`** are internal / non-normative. **`aureum_schedule.md`** and other auxiliary files may be marked in-file. Treat content as confidential where noted in repository or page footers.
