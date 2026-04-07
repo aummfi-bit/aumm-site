@@ -27,3 +27,11 @@ The founding team earns tokens by being early LPs — same mechanism as everyone
 ### On-chain and forum activity
 
 - **Frankencoin governance discussion #96** — [github.com/Frankencoin-ZCHF/Frankencoin/discussions/96](https://github.com/Frankencoin-ZCHF/Frankencoin/discussions/96)
+
+---
+
+## xlii. Pilot experience
+
+Balancer V3 pools that surface **ixedel** or **zchf** in search — live routing and liquidity around the constellation’s anchors (ixEDEL, Frankencoin / ZCHF stack):
+
+- [Balancer pool search: ixEDEL or ZCHF](https://balancer.fi/pools?textSearch=ixedel+or+zchf)
