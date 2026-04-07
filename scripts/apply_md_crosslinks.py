@@ -88,8 +88,8 @@ REPL: list[tuple[str, str]] = [
         "For the narrative explanation, see [Theoretical foundations (§vii)](03_theoretical_foundation.md); for the formal update rule, see [Protocol formulas (F-8)](11_formulas.md).",
     ),
     (
-        "For the full explanation of how the EMA works and why, see `03_theoretical_foundation.md` §vi. For the formal definition, see `11_formulas.md` F-4. The EMA horizon is immutable — see `10_constitution.md` §xxix.",
-        "For the full explanation of how the EMA works and why, see [Theoretical foundations (§vi)](03_theoretical_foundation.md). For the formal definition, see [Protocol formulas (F-4)](11_formulas.md). The EMA horizon is immutable — see [Constitution (§xxix)](10_constitution.md).",
+        "For the full explanation of how the EMA works and why, see `03_theoretical_foundation.md` §vi-b. For the formal definition, see `11_formulas.md` F-4. The EMA horizon is immutable — see `10_constitution.md` §xxix.",
+        "For the full explanation of how the EMA works and why, see [Theoretical foundations (§vi-b)](03_theoretical_foundation.md). For the formal definition, see [Protocol formulas (F-4)](11_formulas.md). The EMA horizon is immutable — see [Constitution (§xxix)](10_constitution.md).",
     ),
     (
         "see `03_theoretical_foundation.md` §vi). The 28 Miliarium pools carry an algorithmic CCB multiplier (see `10_constitution.md` §xxix for bounds)",

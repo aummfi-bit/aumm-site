@@ -1,5 +1,25 @@
 # Theoretical Foundations
 
+## v. Research foundations
+
+The CCB draws on research across multiple disciplines:
+
+**Continuous Capital Corporation (CCC):** Dr. Luzius Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts this as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are algorithmic and immutable from block 0. No treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)); thereafter emissions accrue to LPs per the fixed rules.
+
+**Pro-Cyclicality:** BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.
+
+**Monetary Rules:** Friedman’s k-percent rule (fixed money supply growth) is the intellectual ancestor of the fixed-emission, halving-based schedule.
+
+**Governance Minimization:** Buterin and Dr. Luzius Meisser argue governance is a security surface. The [0.75–1.25] CCB multiplier collapses the governance attack surface to near-zero.
+
+**Signal Processing:** The EMA is a low-pass filter — “market hype” is noise, “sustained liquidity commitment” is the signal.
+
+**Automatic Stabilizers:** The EMA acts like fiscal automatic stabilizers (unemployment insurance) — elevating yield during crashes without a governance vote.
+
+**Hysteresis:** The EMA gives Aureum institutional memory. Most DeFi is memoryless and reflexive.
+
+---
+
 ## vi. CCB: Fully Automatic Allocation
 
 The **Continuous Central Bank (CCB)** is the protocol’s automatic rule that decides how each block’s AuMM emission is split across pools. Two layers: a **scoring layer** built from each pool’s smoothed TVL (the EMA; see §vi-b), and a **multiplier layer** that fine-tunes allocation among the 28 Miliarium pools only (§vii). No committee, no vote, no discretion — the same rules apply at every block, using only on-chain state the contracts can read. It tightens yield during booms and loosens during busts, automatically.
@@ -28,23 +48,11 @@ Capital in productive, eligible pools is the **only** input to emission weight. 
 
 ---
 
-## v. Research foundations
+## vi-b. EMA — sustained liquidity signal
 
-The CCB draws on research across multiple disciplines:
+For **each** pool separately, the protocol maintains a **60-day exponential moving average** of that pool’s on-chain TVL. A **smoothed** picture of committed capital: today’s raw TVL moves the average only a little; big moves take **weeks** to fully register. The EMA is a low-pass filter — it suppresses one-day noise (hype, panic, a single whale) and passes only **sustained** liquidity commitment.
 
-**Continuous Capital Corporation (CCC):** Dr. Luzius Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts this as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are algorithmic and immutable from block 0. No treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)); thereafter emissions accrue to LPs per the fixed rules.
-
-**Pro-Cyclicality:** BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.
-
-**Monetary Rules:** Friedman’s k-percent rule (fixed money supply growth) is the intellectual ancestor of the fixed-emission, halving-based schedule.
-
-**Governance Minimization:** Buterin and Dr. Luzius Meisser argue governance is a security surface. The [0.75–1.25] CCB multiplier collapses the governance attack surface to near-zero.
-
-**Signal Processing:** The EMA is a low-pass filter — “market hype” is noise, “sustained liquidity commitment” is the signal.
-
-**Automatic Stabilizers:** The EMA acts like fiscal automatic stabilizers (unemployment insurance) — elevating yield during crashes without a governance vote.
-
-**Hysteresis:** The EMA gives Aureum institutional memory. Most DeFi is memoryless and reflexive.
+If a pool’s smoothed TVL is **falling**, its CCB weight falls over time relative to pools whose smoothed TVL is flat or rising. The drop is **not** instantaneous: yesterday’s EMA still counts, so a sudden exit does not erase the pool’s share in one block. But if TVL collapses and stays low, the average eventually reflects that, and emissions shrink. The 28 Miliarium pools are still individual pools with their own EMA series — no special carve-out ignores TVL. What differs for the 28 is the **CCB multiplier** (§vii): only they get automatic adjustments that soften how harshly a relative decline hits compared to a raw TVL-only rule.
 
 ---
 
@@ -66,21 +74,13 @@ Liquidity mining often **rewards whatever grew last week** — overpaying hot fl
 
 Multipliers are **clamped** to an immutable band — no pool rewarded or punished without limit. A **dead zone** ignores tiny wiggles so the system does not flip on noise. Steps are **small and discrete** on a fixed cadence (bi-weekly cycle), not continuous social-media sentiment. All numeric bounds (step size, clamp range, dead zone, EMA horizon) are **immutable from block 0** — see [Immutable Parameters (§xxix)](10_constitution.md).
 
-### How the multiplier lines up with Sections vi–vi-b
+### How the multiplier lines up with Sections vi and vi-b
 
 The CCB always uses **per-pool** smoothed TVL as the backbone of the score. The multiplier **only** adjusts an extra factor for the **28** so that **relative** performance inside the founding constellation can be **taxed or subsidised** without human intervention. Formal update rule: [Protocol formulas (F-8)](11_formulas.md). Glossary form: [Glossary](12_aureum_glossary.md).
 
 ### How the multiplier updates
 
 Only the 28 Miliarium pools receive CCB multiplier updates; for any other eligible pool the multiplier is neutral (effectively one). Each bi-weekly cycle, a pool’s multiplier is adjusted by two small steps — one driven by aggregate protocol TVL direction (macro pressure), one by the pool’s TVL relative to the Miliarium average (intra-constellation pressure) — then clamped to a hard floor and ceiling. Initial multiplier: 1.00. Numeric bounds (step size, clamp range, dead zone): [Immutable Parameters (§xxix)](10_constitution.md). Formal update rule: [Protocol formulas](11_formulas.md).
-
----
-
-## vi-b. EMA — sustained liquidity signal
-
-For **each** pool separately, the protocol maintains a **60-day exponential moving average** of that pool’s on-chain TVL. A **smoothed** picture of committed capital: today’s raw TVL moves the average only a little; big moves take **weeks** to fully register. The EMA is a low-pass filter — it suppresses one-day noise (hype, panic, a single whale) and passes only **sustained** liquidity commitment.
-
-If a pool’s smoothed TVL is **falling**, its CCB weight falls over time relative to pools whose smoothed TVL is flat or rising. The drop is **not** instantaneous: yesterday’s EMA still counts, so a sudden exit does not erase the pool’s share in one block. But if TVL collapses and stays low, the average eventually reflects that, and emissions shrink. The 28 Miliarium pools are still individual pools with their own EMA series — no special carve-out ignores TVL. What differs for the 28 is the **CCB multiplier** (§vii): only they get automatic adjustments that soften how harshly a relative decline hits compared to a raw TVL-only rule.
 
 ---
 
