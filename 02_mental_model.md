@@ -73,6 +73,8 @@ Twenty-six of the 28 Miliarium pools hold **ixEDEL** as a routing anchor (typica
 
 **ixLibertas (slot 06)** is the exception — the USD stable hub, holding no ixEDEL. A standalone stablecoin routing venue (seven USD-denominated stables) that gives traders a direct USD on-ramp without ixEDEL volatility. Pure stablecoin flows route through ixLibertas instead of crossing the ixEDEL bridge.
 
+**Dual anchors (universal connectors).** The constellation is wired with **two** shared rails, not one. **ixEDEL** is the **cross-pool connector**: the basket token every routed leg can touch so trades move **horizontally** across sectors (ixEdelweiss hub, spokes, aggregators). **svZCHF** (Frankencoin savings) is the **reserve-and-governance connector**: the CHF-anchored stable that **der Bodensee**, protocol fee inflows, governance deposits, and Incendiary boosts all use — liquidity and captured revenue stack **vertically** into the same autonomous pool alongside sUSDS. That pairing is the **dual-anchor system**: ixEDEL for **routing between** Miliarium pools; svZCHF for **anchoring value into** the Frankencoin / CHF reserve rail. **ixLibertas** adds a separate **USD** stable hub for flows that should not ride the ixEDEL path.
+
 In Roman terms: **ixEDEL is the via** (the road that connects every province), **ixEdelweiss is the Miliarium Aureum** (the golden milestone from which every road is measured), and **each pool is a province** connected by the shared road network.
 
 ## iv. Emission Regimes
