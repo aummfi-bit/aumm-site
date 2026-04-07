@@ -27,7 +27,7 @@ The architecture deserves a second run under a clean economic model. Project Aur
 - **Anti-capture by design.** Governance power derives exclusively from active LP positions with a 6-month on-ramp.
 - **Ethereum only.** Single chain. Maximum composability and aggregator coverage.
 - **Immutable.** No multisig, no admin keys, no upgradeability, no pause. No emission voting; governance exists only for non-emission actions.
-- **Continuous Capital Corporation.** Fully autonomous, rule-based — no discretionary treasury, no manual intervention. Capital allocation (CCB) and reserve management (der Bodensee Pool) are algorithmic and on-chain. Aligned with Meisser's CCC thesis and Frankencoin's implementation.
+- **Continuous Capital Corporation.** Fully autonomous, rule-based — no discretionary treasury, no manual intervention. Capital allocation (CCB) and reserve management (der Bodensee Pool) are algorithmic and on-chain. Aligned with Dr. Luzius Meisser's CCC thesis and Frankencoin's implementation.
 
 ## ii-a. The Roman Infrastructure
 

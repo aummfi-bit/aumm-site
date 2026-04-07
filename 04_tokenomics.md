@@ -189,7 +189,7 @@ The pool **is** the value capture mechanism. AuMM inflows are decaying and stop 
 
 ### CCC alignment
 
-der Bodensee Pool is a CCC reserve in the spirit of Meisser's thesis and Frankencoin: capital allocation is algorithmic, revenue flows are rule-based, and no separate treasury can receive, hold, or sell newly emitted tokens. Composition and revenue routing are immutable from block 0. Formal composition definition: [Protocol formulas — der Bodensee Pool composition (F-11)](11_formulas.md).
+der Bodensee Pool is a CCC reserve in the spirit of Dr. Luzius Meisser's thesis and Frankencoin: capital allocation is algorithmic, revenue flows are rule-based, and no separate treasury can receive, hold, or sell newly emitted tokens. Composition and revenue routing are immutable from block 0. Formal composition definition: [Protocol formulas — der Bodensee Pool composition (F-11)](11_formulas.md).
 
 ### The Self-Reinforcing Loop
 

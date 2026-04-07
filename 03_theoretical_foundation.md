@@ -32,13 +32,13 @@ Capital in productive, eligible pools is the **only** input to emission weight. 
 
 The CCB draws on research across multiple disciplines:
 
-**Continuous Capital Corporation (CCC):** Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts this as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are algorithmic and immutable from block 0. No treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)); thereafter emissions accrue to LPs per the fixed rules.
+**Continuous Capital Corporation (CCC):** Dr. Luzius Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts this as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are algorithmic and immutable from block 0. No treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)); thereafter emissions accrue to LPs per the fixed rules.
 
 **Pro-Cyclicality:** BIS research (Aramonte et al., 2022) identifies that most DeFi protocols amplify market moves, creating systemic fragility. The EMA is the direct antidote — algorithmic inertia forces anticyclical behaviour.
 
 **Monetary Rules:** Friedman’s k-percent rule (fixed money supply growth) is the intellectual ancestor of the fixed-emission, halving-based schedule.
 
-**Governance Minimization:** Buterin and Meisser argue governance is a security surface. The [0.75–1.25] CCB multiplier collapses the governance attack surface to near-zero.
+**Governance Minimization:** Buterin and Dr. Luzius Meisser argue governance is a security surface. The [0.75–1.25] CCB multiplier collapses the governance attack surface to near-zero.
 
 **Signal Processing:** The EMA is a low-pass filter — “market hype” is noise, “sustained liquidity commitment” is the signal.
 
