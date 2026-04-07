@@ -9,7 +9,6 @@
 | Architecture & Thesis | **Sagix** | Pool design, routing topology, aggregator relationships, cross-protocol integrations (Frankencoin, Reserve), published research |
 | Smart Contracts | **TBD** | Solidity expertise, governance vault infrastructure, Balancer V3 codebase familiarity |
 | Frontend & UX | **TBD** | Frontend experience, emission dashboard, LP interface |
-| Founding Liquidity | **TBD** (aligned capital partner) | Seed capital for genesis pools, long-term LP commitment |
 
 The founding team earns tokens by being early LPs — same mechanism as everyone else. Only advantage: being first, deploying pools, providing initial liquidity, earning the highest emission rate before anyone else arrives. More LPs join, per-LP emissions decline. Early believers rewarded. No allocation. No vesting.
 
