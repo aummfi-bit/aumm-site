@@ -21,6 +21,8 @@ The registry tables in Section xi are the binding list of pools and compositions
 
 **Pool count:** **28** pools = **slots 01–28** (one pool per slot), fixed at launch.
 
+**Upstream design.** The 28-pool small-world construction with **two** universal connectors — **svZCHF** (deterministic CHF-anchored reserve rail) and **ixEDEL** (secondary cross-pool routing / arbitrage rail) embedded as shortcut hubs in every pool — is the original [Sagix Miliarium Aureum](https://www.sagix.io/sagix-miliarium-aureum/), live on Balancer V3 Ethereum mainnet, sitting on top of the [Sagix four-layer liquidity-risk framework](https://www.sagix.io/our-layer-framework/). Aureum keeps the dual-anchor backbone and refines two slots — **01 ixHelvetia** (Frankencoin MMA, no ixEDEL) and **06 ixLibertas** (USD stable hub, no ixEDEL) — where pure CHF or pure USD flows are deliberately kept off the ixEDEL basket bridge. See [Mental model (§iii — Dual anchors)](02_mental_model.md) and [Theoretical foundations (§v)](03_theoretical_foundation.md).
+
 One ordered list (01 → 28), **split by sector** for readability; rows, weights, and names are unchanged from the full sequence. **Standard** pools: **52% / 16% / 32%** (two ERC-4626 yield cores, ixEDEL anchor, two theme assets) unless noted. **Connectors 05 (ixEdelweiss), 06 (ixLibertas), 07 (ixCambio)** use non-standard compositions. **Slot 11 (ixLongus):** non-standard single theme at **32%** (TLTon). **Slot 01 (ixHelvetia):** Frankencoin MMA (**no ixEDEL**). **Slot 06 (ixLibertas):** USD stable hub (**no ixEDEL**).
 
 ### Standardised pool template (where applicable)
