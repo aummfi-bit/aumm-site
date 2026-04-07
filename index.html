@@ -88,23 +88,17 @@
   .theme-btn.active { background: var(--accent); color: var(--bg); }
   .theme-btn:hover:not(.active) { color: var(--accent); }
 
-  .nav-menu-btn { background: none; border: 1px solid var(--border); color: var(--accent); font-family: var(--font); font-size: 13px; padding: 4px 12px; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
-  .nav-menu-btn:hover { background: var(--accent); color: var(--bg); }
-
   .rules-wrap { position: relative; display: inline-block; }
   .rules-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font); font-size: 13px; padding: 4px 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
   .rules-btn.has-active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
   .rules-btn:hover:not(.has-active) { color: var(--accent); }
-  .rules-menu { position: absolute; top: 100%; left: 0; min-width: 160px; background: var(--bg-light); border: 1px solid var(--border); display: none; z-index: 60; }
+  .rules-menu { position: absolute; top: 100%; left: 0; min-width: 180px; max-width: 320px; max-height: calc(100vh - 80px); overflow-y: auto; background: var(--bg-light); border: 1px solid var(--border); display: none; z-index: 60; }
   .rules-menu.open { display: block; }
   .rules-menu a { display: block; padding: 8px 16px; color: var(--text-dim); text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--border); font-family: var(--font); cursor: pointer; }
   .rules-menu a:hover { color: var(--accent); background: var(--accent-faint); }
   .rules-menu a.active { color: var(--accent); background: var(--accent-faint); }
 
-  .dropdown { position: fixed; top: 48px; right: 0; width: 380px; max-height: calc(100vh - 48px); overflow-y: auto; background: var(--bg-light); border: 1px solid var(--border); display: none; z-index: 49; transition: background 0.3s; }
-  .dropdown.open { display: block; }
-  .dropdown a { display: block; padding: 8px 16px; color: var(--text-dim); text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--border); font-family: var(--font); }
-  .dropdown a:hover { color: var(--accent); background: var(--accent-faint); }
+  .mobile-sections { display: block; }
 
   /* HAMBURGER / MOBILE */
   .hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--accent); font-size: 22px; padding: 2px 8px; cursor: pointer; line-height: 1; font-family: var(--font); }
@@ -121,7 +115,7 @@
 
   @media (max-width: 768px) {
     .hamburger { display: block; }
-    .tab-bar, .theme-toggle, .nav-menu-btn { display: none !important; }
+    .tab-bar, .theme-toggle { display: none !important; }
     .nav-bar { padding: 10px 12px; }
   }
 
@@ -178,9 +172,18 @@
     <div class="nav-right">
       <div class="tab-bar">
         <button class="tab-btn" data-tab="intro">Intro</button>
-        <button class="tab-btn active" data-tab="model">Mental Model</button>
-        <button class="tab-btn" data-tab="foundations">Theoretical Foundations</button>
-        <button class="tab-btn" data-tab="tokenomics">Tokenomics</button>
+        <div class="rules-wrap tab-sec-wrap">
+          <button class="rules-btn has-active" data-tab="model">Mental Model &#9662;</button>
+          <div class="rules-menu" data-menu-for="model"></div>
+        </div>
+        <div class="rules-wrap tab-sec-wrap">
+          <button class="rules-btn" data-tab="foundations">Theoretical Foundations &#9662;</button>
+          <div class="rules-menu" data-menu-for="foundations"></div>
+        </div>
+        <div class="rules-wrap tab-sec-wrap">
+          <button class="rules-btn" data-tab="tokenomics">Tokenomics &#9662;</button>
+          <div class="rules-menu" data-menu-for="tokenomics"></div>
+        </div>
         <div class="rules-wrap" id="miliarium-wrap">
           <button class="rules-btn" id="miliarium-btn">Miliarium &#9662;</button>
           <div class="rules-menu" id="miliarium-menu">
@@ -200,39 +203,52 @@
           </div>
         </div>
         <button class="tab-btn" data-tab="team">Team</button>
-        <button class="tab-btn" data-tab="glossary">Glossary</button>
-        <button class="tab-btn" data-tab="appendices">Appendices</button>
-        <button class="tab-btn" data-tab="ux_ui">UX / UI</button>
+        <div class="rules-wrap tab-sec-wrap">
+          <button class="rules-btn" data-tab="glossary">Glossary &#9662;</button>
+          <div class="rules-menu" data-menu-for="glossary"></div>
+        </div>
+        <div class="rules-wrap tab-sec-wrap">
+          <button class="rules-btn" data-tab="appendices">Appendices &#9662;</button>
+          <div class="rules-menu" data-menu-for="appendices"></div>
+        </div>
+        <div class="rules-wrap tab-sec-wrap">
+          <button class="rules-btn" data-tab="ux_ui">UX / UI &#9662;</button>
+          <div class="rules-menu" data-menu-for="ux_ui"></div>
+        </div>
       </div>
       <div class="theme-toggle">
         <button class="theme-btn active" data-theme="au">Au</button>
         <button class="theme-btn" data-theme="day">Day</button>
         <button class="theme-btn" data-theme="night">Night</button>
       </div>
-      <button class="nav-menu-btn" id="menu-btn">SECTIONS ▾</button>
       <button class="hamburger" id="hamburger-btn">&#9776;</button>
     </div>
   </div>
-  <div class="dropdown" id="dropdown"></div>
   <div class="mobile-menu" id="mobile-menu">
     <button data-tab="intro">Intro</button>
     <button data-tab="model">Mental Model</button>
+    <div class="mobile-sections" data-mobile-sections-for="model"></div>
     <button data-tab="foundations">Theoretical Foundations</button>
+    <div class="mobile-sections" data-mobile-sections-for="foundations"></div>
     <button data-tab="tokenomics">Tokenomics</button>
+    <div class="mobile-sections" data-mobile-sections-for="tokenomics"></div>
     <div class="rules-group-label">Miliarium</div>
     <button class="rules-sub" data-tab="miliarium">Registry</button>
     <button class="rules-sub" data-tab="miliarium-manifest">Manifest</button>
     <button class="rules-sub" data-tab="miliarium-sectors">Sectors</button>
     <button class="rules-sub" data-tab="miliarium-tokens">Tokens</button>
-        <div class="rules-group-label">Governance</div>
-        <button class="rules-sub" data-tab="constitution">Constitution</button>
-        <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
-        <button class="rules-sub" data-tab="transitions">Transitions</button>
-        <button class="rules-sub" data-tab="formulas">Formulas</button>
+    <div class="rules-group-label">Governance</div>
+    <button class="rules-sub" data-tab="constitution">Constitution</button>
+    <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
+    <button class="rules-sub" data-tab="transitions">Transitions</button>
+    <button class="rules-sub" data-tab="formulas">Formulas</button>
     <button data-tab="team">Team</button>
     <button data-tab="glossary">Glossary</button>
+    <div class="mobile-sections" data-mobile-sections-for="glossary"></div>
     <button data-tab="appendices">Appendices</button>
+    <div class="mobile-sections" data-mobile-sections-for="appendices"></div>
     <button data-tab="ux_ui">UX / UI</button>
+    <div class="mobile-sections" data-mobile-sections-for="ux_ui"></div>
     <div class="mobile-theme-row">
       <button class="theme-btn" data-theme="au">Au</button>
       <button class="theme-btn" data-theme="day">Day</button>
@@ -383,8 +399,6 @@ var introScreen = document.getElementById('intro-screen');
 var finaleEl = document.getElementById('finale');
 var enterBtn = document.getElementById('enter-btn');
 var mainDoc = document.getElementById('main-doc');
-var dropdown = document.getElementById('dropdown');
-var menuBtn = document.getElementById('menu-btn');
 
 // Track intro animation state
 var introTimeout = null;
@@ -537,9 +551,8 @@ var miliariumMenu = document.getElementById('miliarium-menu');
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.rules-btn').forEach(function(b) { b.classList.remove('has-active'); });
   document.querySelectorAll('.rules-menu a').forEach(function(a) { a.classList.remove('active'); });
-  rulesBtn.classList.remove('has-active');
-  if (miliariumBtn) miliariumBtn.classList.remove('has-active');
   if (rulesTabs.indexOf(tab) >= 0) {
     rulesBtn.classList.add('has-active');
     document.querySelectorAll('#rules-menu a').forEach(function(a) { if (a.getAttribute('data-tab') === tab) a.classList.add('active'); });
@@ -548,6 +561,7 @@ function switchTab(tab) {
     document.querySelectorAll('#miliarium-menu a').forEach(function(a) { if (a.getAttribute('data-tab') === tab) a.classList.add('active'); });
   } else {
     document.querySelectorAll('.tab-btn').forEach(function(b) { if (b.getAttribute('data-tab') === tab) b.classList.add('active'); });
+    document.querySelectorAll('.tab-sec-wrap .rules-btn').forEach(function(b) { if (b.getAttribute('data-tab') === tab) b.classList.add('has-active'); });
   }
   document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
   var tabEl = document.getElementById('tab-' + tab);
@@ -556,44 +570,94 @@ function switchTab(tab) {
   document.querySelectorAll('#mobile-menu button[data-tab]').forEach(function(b) { b.classList.remove('active'); });
   var mBtn = document.querySelector('#mobile-menu button[data-tab="' + tab + '"]');
   if (mBtn) mBtn.classList.add('active');
-  updateMenu();
   window.scrollTo(0, 0);
   if (tab === 'intro') startTabIntro();
 }
 
-function updateMenu() {
-  var items = menus[currentTab] || [];
-  var html = '';
-  for (var i = 0; i < items.length; i++) {
-    html += '<a href="#' + items[i].id + '">' + items[i].title + '</a>';
+function renderTabSectionMenu(tabKey) {
+  var items = menus[tabKey] || [];
+  var menuEl = document.querySelector('[data-menu-for="' + tabKey + '"]');
+  if (menuEl) {
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      html += '<a href="#' + items[i].id + '" data-tab="' + tabKey + '" data-anchor="' + items[i].id + '">' + items[i].title + '</a>';
+    }
+    menuEl.innerHTML = html;
   }
-  dropdown.innerHTML = html;
+  var mobEl = document.querySelector('[data-mobile-sections-for="' + tabKey + '"]');
+  if (mobEl) {
+    var mhtml = '';
+    for (var j = 0; j < items.length; j++) {
+      mhtml += '<button class="rules-sub" data-tab="' + tabKey + '" data-anchor="' + items[j].id + '">' + items[j].title + '</button>';
+    }
+    mobEl.innerHTML = mhtml;
+  }
+}
+
+function scrollToAnchor(anchor) {
+  if (!anchor) return;
+  setTimeout(function() {
+    var t = document.getElementById(anchor);
+    if (t && t.scrollIntoView) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
 }
 
 document.querySelectorAll('.tab-btn').forEach(function(btn) {
   btn.addEventListener('click', function() { switchTab(btn.getAttribute('data-tab')); });
 });
 
-// Rules dropdown
-rulesBtn.addEventListener('click', function(e) { e.stopPropagation(); rulesMenu.classList.toggle('open'); if (miliariumMenu) miliariumMenu.classList.remove('open'); });
+function closeAllRulesMenus(except) {
+  document.querySelectorAll('.rules-menu').forEach(function(m) {
+    if (m !== except) m.classList.remove('open');
+  });
+}
+
+// Rules dropdown (Governance grouper)
+rulesBtn.addEventListener('click', function(e) { e.stopPropagation(); var open = rulesMenu.classList.contains('open'); closeAllRulesMenus(); if (!open) rulesMenu.classList.add('open'); });
 rulesMenu.addEventListener('click', function(e) {
   var a = e.target.closest('a[data-tab]');
   if (a) { rulesMenu.classList.remove('open'); switchTab(a.getAttribute('data-tab')); }
 });
 
-// Miliarium dropdown
+// Miliarium dropdown (grouper)
 if (miliariumBtn && miliariumMenu) {
-  miliariumBtn.addEventListener('click', function(e) { e.stopPropagation(); miliariumMenu.classList.toggle('open'); rulesMenu.classList.remove('open'); });
+  miliariumBtn.addEventListener('click', function(e) { e.stopPropagation(); var open = miliariumMenu.classList.contains('open'); closeAllRulesMenus(); if (!open) miliariumMenu.classList.add('open'); });
   miliariumMenu.addEventListener('click', function(e) {
     var a = e.target.closest('a[data-tab]');
     if (a) { miliariumMenu.classList.remove('open'); switchTab(a.getAttribute('data-tab')); }
   });
 }
 
-updateMenu();
-menuBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
-document.addEventListener('click', function() { dropdown.classList.remove('open'); rulesMenu.classList.remove('open'); if (miliariumMenu) miliariumMenu.classList.remove('open'); mobileMenu.classList.remove('open'); });
-dropdown.addEventListener('click', function(e) { if (e.target.tagName === 'A') dropdown.classList.remove('open'); });
+// Per-tab section dropdowns (tab-sec-wrap)
+document.querySelectorAll('.tab-sec-wrap').forEach(function(wrap) {
+  var btn = wrap.querySelector('.rules-btn');
+  var menu = wrap.querySelector('.rules-menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var tabKey = btn.getAttribute('data-tab');
+    var wasOpen = menu.classList.contains('open');
+    closeAllRulesMenus();
+    if (currentTab !== tabKey) {
+      switchTab(tabKey);
+      menu.classList.add('open');
+    } else {
+      if (!wasOpen) menu.classList.add('open');
+    }
+  });
+  menu.addEventListener('click', function(e) {
+    var a = e.target.closest('a[data-anchor]');
+    if (!a) return;
+    e.preventDefault();
+    menu.classList.remove('open');
+    var tabKey = a.getAttribute('data-tab');
+    var anchor = a.getAttribute('data-anchor');
+    if (currentTab !== tabKey) switchTab(tabKey);
+    scrollToAnchor(anchor);
+  });
+});
+
+document.addEventListener('click', function() { closeAllRulesMenus(); mobileMenu.classList.remove('open'); });
 
 // MOBILE MENU
 var mobileMenu = document.getElementById('mobile-menu');
@@ -601,7 +665,14 @@ var hamburgerBtn = document.getElementById('hamburger-btn');
 hamburgerBtn.addEventListener('click', function(e) { e.stopPropagation(); mobileMenu.classList.toggle('open'); });
 mobileMenu.addEventListener('click', function(e) {
   var btn = e.target.closest('button[data-tab]');
-  if (btn) { mobileMenu.classList.remove('open'); switchTab(btn.getAttribute('data-tab')); return; }
+  if (btn) {
+    mobileMenu.classList.remove('open');
+    var tabKey = btn.getAttribute('data-tab');
+    var anchor = btn.getAttribute('data-anchor');
+    if (currentTab !== tabKey) switchTab(tabKey);
+    if (anchor) scrollToAnchor(anchor);
+    return;
+  }
   var themeBtn = e.target.closest('button[data-theme]');
   if (themeBtn) {
     e.stopPropagation();
@@ -644,7 +715,7 @@ function loadMd(file, elId, menuKey) {
           items.push({ id: id, title: h.textContent });
         });
         menus[menuKey] = items;
-        if (currentTab === menuKey) updateMenu();
+        renderTabSectionMenu(menuKey);
       }
     });
 }

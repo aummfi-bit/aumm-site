@@ -152,11 +152,11 @@ No treasury. All **protocol-captured** revenue flows to **der Bodensee Pool** as
 
 ERC-4626 pools generate yield fee revenue regardless of trading volume — the protocol has revenue from the first block. Not dependent on routing, aggregator integration, or TVL growth. Architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, **protocol-captured** fees (yield skim + swap fees on other pools) flow into der Bodensee Pool as one-sided stablecoin inflows; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs.
 
-### der Bodensee Pool (Autonomous Reserve)
+## der Bodensee Pool
 
 der Bodensee Pool is the protocol's self-regulating reserve and the AuMM trading venue — a **three-token weighted pool** with **fixed** composition. It replaces discretionary treasuries and manual price stabilization. *Der Bodensee — a lake that only gets deeper.*
 
-#### Composition (immutable from block 0)
+### Composition (immutable from block 0)
 
 | Parameter | Value |
 |:----------|:------|
@@ -169,7 +169,7 @@ der Bodensee Pool is the protocol's self-regulating reserve and the AuMM trading
 
 There is no founder-set price, no governance-voted multiple, no TVL measurement window, no stabilization inventory, no buyback, and no burn. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically. At Month 6 the pool unhides — whatever ratio exists at that point is the market's opening price.
 
-#### How AuMM enters the pool (decaying treasury emission)
+### How AuMM enters the pool (decaying treasury emission)
 
 | Period | Bootstrap share | Behavior |
 |:-------|:----------------|:---------|
@@ -179,15 +179,15 @@ There is no founder-set price, no governance-voted multiple, no TVL measurement 
 
 Bootstrap AuMM is minted **one-sided** into der Bodensee with no LP tokens issued. Formal definition: [F-0](11_formulas.md). After Month 10 the AuMM side of the pool is fixed forever — the only way more AuMM can enter is via swap-in by traders.
 
-#### How stablecoins enter the pool (continuous protocol revenue)
+### How stablecoins enter the pool (continuous protocol revenue)
 
 **100%** of protocol-captured swap fees (all non–der Bodensee pools) plus **100%** of the ERC-4626 yield fee (10% skim on all vault yield) enter der Bodensee as **one-sided stablecoin deposits** (sUSDS and/or svZCHF), deepening the reserve side every block. Governance proposal deposits and Incendiary Boost deposits use the same one-sided stablecoin path.
 
-#### Value capture (no buyback, no burn, no market purchases)
+### Value capture (no buyback, no burn, no market purchases)
 
 The pool **is** the value capture mechanism. AuMM inflows are decaying and stop permanently at Month 10. Stablecoin inflows are continuous and grow with protocol usage. AuMM becomes progressively scarcer relative to a deepening reserve, and weighted-pool math reprices it mechanically. No burn is required — the pool math does the work.
 
-#### CCC alignment
+### CCC alignment
 
 der Bodensee Pool is a CCC reserve in the spirit of Meisser's thesis and Frankencoin: capital allocation is algorithmic, revenue flows are rule-based, and no separate treasury can receive, hold, or sell newly emitted tokens. Composition and revenue routing are immutable from block 0. Formal composition definition: [Protocol formulas — der Bodensee Pool composition (F-11)](11_formulas.md).
 
