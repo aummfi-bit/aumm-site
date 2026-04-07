@@ -30,7 +30,7 @@
 
 - **Continuous Capital Corporation (CCC)**: Aureum's design philosophy, from Meisser's 2024 PhD thesis *Essays in Decentralized Finance* and Frankencoin's implementation. An autonomous, rule-based system that allocates capital and manages reserves via fixed on-chain rules — no discretionary management, no separate treasury. Aureum implements CCC through algorithmic emission allocation (CCB), autonomous reserve management (der Bodensee Pool), and immutable fee routing.
 
-## Pool Concepts
+## xxxii-a. Pool Concepts
 
 - **Gauge**: on-chain approval granting a pool emission eligibility. Without one, a pool operates in the Sandbox (zero emissions). Gauge approval is a governance vote — qualified AuMT holders decide whether a pool deserves to compete for emissions. Revocable via challenge.
 - **Sandbox**: permissionless default state. Any pool can deploy without a gauge from block 0. Sandbox pools receive no CCB emissions and are not eligible for Incendiary Boost, but rank in the Efficiency Tournament. Open access without an emission exploit vector.
@@ -48,7 +48,7 @@
 - **Transition (Months 11–12)**: linear blend from equal to CCB (α from 0 to 1; halfway at α = 0.5).
 - **Post–Year-1 automatic regime**: pure CCB — Incendiary claims skimmed first, remainder by TVL EMA × CCB multiplier; no voting.
 
-## Eras
+## xxxiii-a. Eras
 
 - **Era 0 (years 0–4, pre-halving)**: block emission 1.00 AuMM. Governance dampening: fourth root. Maximum compression when protocol TVL is lowest.
 - **Era 1+ (year 4 onward, post-first-halving)**: block emission 0.50 AuMM in Era 1, halving each subsequent era. Governance dampening transitions permanently to cube root at the first halving block — later halvings affect emission rate only. TVL growth has naturally diluted individual power; the exponent relaxes accordingly.

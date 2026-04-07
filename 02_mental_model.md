@@ -9,11 +9,11 @@
 
 An immutable fair-launch AMM with fixed Bitcoin-style issuance and fully automatic on-chain allocation.
 
-## The Thesis
+## i-a. The Thesis
 
 The best AMM architecture in DeFi is about to lose its growth mechanism. The token is priced for terminal decline. But the code is open source, formally verified, and architecturally superior to every competitor. Project Aureum takes that code and replaces the broken tokenomics with a fair launch — the only way to earn tokens is to provide liquidity to productive pools. Let the market discover what formally verified multi-asset pools can do when the economic layer isn't sabotaged. The experiment hasn't failed. It hasn't happened.
 
-## Why This Exists
+## i-b. Why This Exists
 
 Balancer V3 is the most advanced AMM architecture in DeFi: multi-asset weighted pools, ERC-4626 native yield, hooks, formal verification by Certora. The tokenomics failed anyway. Emissions went to legacy pools and governance staking — circular economics. Meta-governance capture concentrated power. The founding entity shut down. The team's last proposal: eliminate emissions entirely, removing the only mechanism external builders had to bootstrap new infrastructure.
 
@@ -29,7 +29,7 @@ The architecture deserves a second run under a clean economic model. Project Aur
 - **Immutable.** No multisig, no admin keys, no upgradeability, no pause. No emission voting; governance exists only for non-emission actions.
 - **Continuous Capital Corporation.** Fully autonomous, rule-based — no discretionary treasury, no manual intervention. Capital allocation (CCB) and reserve management (der Bodensee Pool) are algorithmic and on-chain. Aligned with Meisser's CCC thesis and Frankencoin's implementation.
 
-## The Roman Infrastructure
+## ii-a. The Roman Infrastructure
 
 The protocol's naming follows Roman infrastructure because the design does too.
 

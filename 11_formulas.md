@@ -6,7 +6,7 @@ All parameters listed here are **immutable from block 0**. See [Immutable Parame
 
 ---
 
-## Bootstrap Phase (Months 1–10)
+## xlii. Bootstrap Phase (Months 1–10)
 
 ### F-0. der Bodensee Bootstrap Emission Decay
 
@@ -66,7 +66,7 @@ Deposit amount at user discretion; full amount one-sided into der Bodensee Pool,
 
 ---
 
-## Transition Phase (Months 11–12)
+## xliii. Transition Phase (Months 11–12)
 
 ### F-3. Linear Blend from Equal to CCB
 
@@ -82,7 +82,7 @@ Where **α** runs linearly from **0** at the first block of Month 11 to **1** at
 
 ---
 
-## Continuous Operation (Post–Year 1)
+## xliv. Continuous Operation (Post–Year 1)
 
 ### F-4. TVL Exponential Moving Average — EMA(60)
 

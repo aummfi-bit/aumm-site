@@ -2,7 +2,7 @@
 
 ---
 
-## Founding Team
+## xl. Founding Team
 
 | Role | Contributor | Brings |
 |------|------------|--------|
@@ -15,7 +15,7 @@ The founding team earns tokens by being early LPs — same mechanism as everyone
 
 ---
 
-## Prior Work
+## xli. Prior Work
 
 ### Published research
 

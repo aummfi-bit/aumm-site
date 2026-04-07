@@ -4,7 +4,7 @@
 
 ---
 
-## 1. Protocol Overview Dashboard
+## xlv. Protocol Overview Dashboard
 
 - [ ] **Emission schedule status** — current era, block emission rate, next halving countdown (blocks + estimated time), cumulative emitted vs 21M cap (progress bar); **der Bodensee bootstrap** — current bootstrap share % of block emission, blocks remaining until Month 10 end (when bootstrap reaches 0%)
 - [ ] **TVL** — protocol-wide and per-pool, with EMA(60) overlay
@@ -15,7 +15,7 @@
 
 ---
 
-## 2. der Bodensee Pool
+## xlvi. der Bodensee Pool
 
 - [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (piecewise: 80% → 50% by end of Month 6, 50% → 0% by end of Month 10), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees. **Hide entirely until Month 6.**
 - [ ] **Pool composition card** — fixed weights **40% AuMM / 30% sUSDS / 30% svZCHF** (immutable, no decay); show 60% ERC-4626 yield-bearing share
@@ -27,7 +27,7 @@
 
 ---
 
-## 3. Miliarium Aureum Pools
+## xlvii. Miliarium Aureum Pools
 
 - [ ] **28-pool registry table** — slot, name, sector, template, composition, TVL, 24h volume, 24h fees, CCB multiplier, emission share %, status (Active / Warning / Disqualified)
 - [ ] **Atomic liquidity supply** — per-pool LP depth, available liquidity at price levels
@@ -36,7 +36,7 @@
 
 ---
 
-## 4. Efficiency Tournament & Rankings
+## xlviii. Efficiency Tournament & Rankings
 
 - [ ] **Efficiency ranking table** — all gauged pools ranked by efficiency ratio (fees + yield revenue / emissions received), 3-epoch moving average
 - [ ] **Tier indicators** — colour-coded: Safe (above 15th percentile), Warning (10th-15th), Cut (below 10th), with emission cap applied
@@ -46,7 +46,7 @@
 
 ---
 
-## 5. AuMM Token
+## xlix. AuMM Token
 
 - [ ] **Supply dashboard** — total emitted, circulating supply, era progress bar
 - [ ] **Halving schedule** — visual timeline across eras 0-6+, current position highlighted
@@ -55,7 +55,7 @@
 
 ---
 
-## 6. Governance
+## l. Governance
 
 - [ ] **Active proposals** — gauge approvals, gauge challenges, fee changes, composition challenges; status, quorum progress, time remaining, vote tally
 - [ ] **Proposal history** — past votes with outcomes, turnout, deposit amounts
@@ -64,7 +64,7 @@
 
 ---
 
-## 7. LP Position Manager
+## li. LP Position Manager
 
 - [ ] **My positions** — per-pool AuMT holdings, USD value, emission earnings (accrued, claimed), governance power
 - [ ] **Governance power calculator** — show current power based on (USD value x time held)^(1/4 or 1/3), qualification status (14-day minimum, 6-month ramp)
@@ -73,7 +73,7 @@
 
 ---
 
-## 8. Incendiary Boost
+## lii. Incendiary Boost
 
 - [ ] **Active boosts** — which pools have active Incendiary Boost, epoch remaining, emission rate, deposit amount
 - [ ] **Boost history** — past Incendiary Boost activations, svZCHF/sUSDS deposited, emission delivered, pool performance during boost
@@ -81,7 +81,7 @@
 
 ---
 
-## 9. Constellation Routing
+## liii. Constellation Routing
 
 - [ ] **ixEDEL routing visualisation** — network graph showing the 26 ixEDEL-connected pools, ixEdelweiss as hub, trade paths lighting up on activity
 - [ ] **Cross-pool arbitrage volume** — how much volume is routed through ixEDEL legs
@@ -89,7 +89,7 @@
 
 ---
 
-## 10. Sector Rotation View
+## liv. Sector Rotation View
 
 - [ ] **Sector heatmap** — Yield / Bonds / Crypto / Stocks / Metals; colour by 24h fee generation or TVL change
 - [ ] **Macro regime indicator** — qualitative view of which sectors are leading/lagging (maps to the correlation matrix in [Miliarium sectors](07_miliarium_sectors.md))
@@ -97,7 +97,7 @@
 
 ---
 
-## 11. Gauged Pools (Non-Miliarium)
+## lv. Gauged Pools (Non-Miliarium)
 
 - [ ] **Gauge registry** — all non-Miliarium gauged pools with status, TVL, efficiency rank, emission share
 - [ ] **Sandbox pools** — non-gauged pools ranked by efficiency, Fast-Track progress (top 10% for 3 epochs = auto-gauge)
@@ -105,7 +105,7 @@
 
 ---
 
-## 12. Proof of Real Yield Dashboard
+## lvi. Proof of Real Yield Dashboard
 
 Per-pool yield transparency that reframes how LPs evaluate returns.
 
@@ -134,7 +134,7 @@ See [Immutable Parameters (§xxix)](10_constitution.md).
 
 ---
 
-## Notes
+## lvii. Notes
 
 - All charts should support TradingView embed or similar interactive charting
 - EMA(60) should be plottable alongside spot on every TVL chart

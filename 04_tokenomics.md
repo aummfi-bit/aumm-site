@@ -152,7 +152,7 @@ No treasury. All **protocol-captured** revenue flows to **der Bodensee Pool** as
 
 ERC-4626 pools generate yield fee revenue regardless of trading volume — the protocol has revenue from the first block. Not dependent on routing, aggregator integration, or TVL growth. Architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, **protocol-captured** fees (yield skim + swap fees on other pools) flow into der Bodensee Pool as one-sided stablecoin inflows; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs.
 
-## der Bodensee Pool
+## x-a. der Bodensee Pool
 
 der Bodensee Pool is the protocol's self-regulating reserve and the AuMM trading venue — a **three-token weighted pool** with **fixed** composition. It replaces discretionary treasuries and manual price stabilization. *Der Bodensee — a lake that only gets deeper.*
 
