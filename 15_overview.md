@@ -13,7 +13,7 @@ Two tracks, depending on what you need:
 | Step | File | What you learn |
 |:-----|:-----|:---------------|
 | 1 | [Overview](15_overview.md) (this file) | Protocol character, team, risk factors |
-| 2 | [Mental model](02_mental_model.md) | Three-layer architecture, emission regimes, constellation routing |
+| 2 | [Mental model](02_mental_model.md) | Three-layer architecture, emission regimes, constellation routing as a small-world network (dual universal connectors) |
 | 3 | [Tokenomics](04_tokenomics.md) §ix–x | Token design, fee splits, value capture |
 | 4 | Any pool profile in [miliarium_profiles/](miliarium_profiles/) | Composition, sector thesis, volume drivers for one pool |
 | 5 | [Appendices](13_appendices.md) §xxxvii, §xxxix | Why fair-launch AMMs failed before and how Aureum differs; competitive position |

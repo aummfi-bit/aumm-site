@@ -81,11 +81,12 @@
 
 ---
 
-## liii. Constellation Routing
+## liii. Constellation Routing — small-world network
 
-- [ ] **ixEDEL routing visualisation** — network graph showing the 26 ixEDEL-connected pools, ixEdelweiss as hub, trade paths lighting up on activity
-- [ ] **Cross-pool arbitrage volume** — how much volume is routed through ixEDEL legs
-- [ ] **Connector pools** — ixEdelweiss (hub), ixLibertas (USD), ixCambio (FX) highlighted with routing stats
+- [ ] **Small-world graph visualisation** — network view of the 28 pools as a Watts–Strogatz graph: tight local clusters (each pool's 5 tokens × 10 internal pairs) connected by **two** shortcut layers (svZCHF in 26 pools, ixEDEL in 26 pools), with trade paths lighting up on activity. See [Mental model (§iii — Constellation Routing)](02_mental_model.md).
+- [ ] **Dual-anchor routing volume** — how much volume is routed through the **svZCHF leg** vs the **ixEDEL leg** vs **both** simultaneously; per-anchor fee accrual.
+- [ ] **Hub-and-spoke overlay** — ixEdelweiss as the ixEDEL price-discovery hub (46% ixEDEL); ixLibertas (USD-only, no anchors) and ixCambio (multi-currency FX) highlighted with routing stats.
+- [ ] **Slot-exception markers** — ixHelvetia (svZCHF only), ixAetheron (ixEDEL only), ixLibertas (neither) called out so the graph correctly shows the three deliberate departures from the universal-connector pattern.
 
 ---
 
