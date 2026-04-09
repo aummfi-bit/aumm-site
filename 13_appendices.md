@@ -45,6 +45,14 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 
 Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost deposit and priority skim, Sandbox fast-track, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
+### Hooks Framework — Forward Compatibility with Fee-Layer Research
+
+Aequilibrium inherits Balancer V3's hooks framework unchanged. Hooks attach pool-level logic at swap, add/remove-liquidity, and yield-accrual boundaries without touching the verified vault or pool math. This means **fee-layer innovation can be deployed on new pools post-launch without any protocol change** — a new pool ships with its hook; the vault, weighted math, SOR, and rate providers stay byte-identical to the Certora-verified code.
+
+The most immediate research target is LVR (loss-versus-rebalancing) mitigation. Yuhjtman & Alexander's *dynamic directional fees* ([arXiv 2406.12417](https://arxiv.org/abs/2406.12417); see also Yuhjtman's companion note [*An Approach to AMMs*](https://sergioyuhjtman.github.io/blockchain/amm-approach/)) shows that swap fees can be made asymmetric in the direction of arbitrage flow, compensating LPs for the information asymmetry that drives LVR. A dynamic-directional-fee hook attaches at pool deployment; the verified vault and weighted math are unchanged; the existing audit surface still applies.
+
+Tokenomics-layer innovation (CCB, anti-gaming, productive-capital gating) and fee-layer innovation (dynamic directional fees, MEV-aware hooks) are **orthogonal and compose naturally**. The CCB decides *which* pools earn AuMM emissions; the hook decides *what fee* a swap pays inside a given pool. A future gauge-approved pool can pair a directional-fee hook with CCB-scored emission weight, giving LPs loss-mitigated fees *and* protocol-level emission support simultaneously. Aureum ships the tokenomics layer today; the inherited hooks framework preserves the option to adopt the latest LVR research on any new pool without a fork, migration, or re-audit of the core.
+
 ---
 
 ## xxxvii. Why Fair Launch AMMs Failed — And Why Aureum Won't
