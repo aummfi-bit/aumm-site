@@ -61,7 +61,7 @@ Two tracks, depending on what you need:
 
 No treasury. All protocol revenue flows to one immutable destination:
 
-- **der Bodensee Pool** (three-token weighted pool, fixed **40% AuMM / 30% sUSDS / 30% svZCHF**) — **all protocol-captured** revenue: **swap fees on other pools (100%)** + **ERC-4626 yield fees (100% of the 10% skim)** as one-sided stablecoin (sUSDS/svZCHF) inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** for der Bodensee LPs. Hidden from UI Months 0–6, visible thereafter.
+- **der Bodensee Pool** (three-token weighted pool, fixed **40% AuMM / 30% sUSDS / 30% svZCHF**) — **all protocol-captured** revenue: **swap fees on other pools (100%)** + **ERC-4626 yield fees (100% of the 10% skim)** as one-sided stablecoin (sUSDS/svZCHF) inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** for der Bodensee LPs. Not surfaced in the official aumm.fi UI during Months 0–6; visible thereafter in the official UI.
 
 No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only on a **piecewise-linear decay** (80%→50% by Month 6, 50%→0% by Month 10), then **permanently zero** (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
 

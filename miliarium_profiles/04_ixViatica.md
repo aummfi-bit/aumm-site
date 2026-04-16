@@ -13,9 +13,9 @@
 | Yield Core B | GHO | 26% | ERC-4626 | Aave GHO stablecoin |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
 | Theme Asset A | fBRZ | 16% | ERC-20 | Flux Finance BRZ vault (Brazilian Real stablecoin) |
-| Theme Asset B | st-EURA | 16% | ERC-20 | Staked EURA (Angle Protocol Euro stablecoin) |
+| Theme Asset B | st-EURA | 16% | ERC-4626 | Angle Savings (EURA yield; implementation `SavingsNameable` extends OpenZeppelin `ERC4626Upgradeable`) |
 
-**ERC-4626 composition:** 52% (svZCHF + GHO)
+**ERC-4626 composition:** 68% (svZCHF 26% + GHO 26% + st-EURA 16%)
 
 ## Profile
 
@@ -41,7 +41,7 @@
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + GHO (26%) |
+| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + GHO (26%) + st-EURA (16%) = 68% |
 | Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |

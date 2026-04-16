@@ -157,6 +157,8 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 Any qualified AuMT holder can submit a governance proposal (fee parameter changes). Deposit: **1,000 svZCHF or sUSDS (whichever is higher)**, one-sided into der Bodensee Pool. Automatic on submission, non-refundable.
 
+**Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.03%**); der Bodensee uses **0.10%–1.00%** (genesis **0.75%**). **Non-Miliarium gauge approval** includes the **initial swap fee** as a gauge parameter (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
+
 **All** governance deposits — gauge proposal, gauge challenge, fee proposal, composition challenge — are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the autonomous reserve, non-recoverable.
 
 ### Gauge Proposal
@@ -179,9 +181,9 @@ Community enforcement layer on top of immutable anti-gaming criteria. The contra
 
 Pool token composition is immutable on-chain — no mechanism to swap a token inside a deployed contract. A composition challenge follows a **deprecate-and-replace** path. **Deposit:** **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — same routing as fee proposals ([Constitution §xxvii](10_constitution.md)).
 
-1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal. It passes only with **2/3 protocol-wide tessera-weighted approval**.
-2. **Deprecation** — the old pool's gauge is revoked; emissions cease and the pool enters wind-down.
-3. **New pool launch** — a replacement pool with the updated composition is deployed into the same Miliarium slot, following the standard bootstrap path: gauge proposal, gauge vote, and — if approved — the 90-day gauge boost and optional Incendiary Boost apply as normal.
+1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal that references the **address of an already-deployed candidate pool** (specified-pool model). It passes only with **2/3 protocol-wide tessera-weighted approval**.
+2. **Deprecation** — the old pool's gauge is revoked; emissions cease; the old pool persists on-chain with the fee-routing hook still attached.
+3. **Slot update** — the Miliarium Registry points the slot to the approved replacement pool; the replacement is **automatically gauge-eligible** with the **90-day gauge boost** (no separate gauge proposal). Optional Incendiary Boost applies as normal.
 
 A single proposal may cover **both** theme assets simultaneously if both have failed — forum discussion builds consensus on the pair before the on-chain vote.
 
@@ -209,6 +211,26 @@ Assets cease to exist — tokens get delisted, wrappers lose support, issuers sh
 | Company ceases to exist | Different-sector company | **No** | Violates same-sector requirement |
 
 Not a stock-picking exercise. Composition challenges activate when an asset **ceases to function**; the replacement preserves the pool's role in the constellation.
+
+### Worked example: Composition Challenge (cbBTC → tBTC scenario)
+
+**Setup:** ixAurebit (slot 14) holds WBTC 16% + cbBTC 16% as its two BTC-wrapper theme assets. Hypothetically, Coinbase announces the sunsetting of cbBTC — the wrapper will cease minting within 90 days, and redemption will be available for a further 180 days before full delisting.
+
+**Flow:**
+
+1. **Candidate pool deployment (permissionless, any block).** Any party can deploy a replacement pool via the standard Balancer V3 `WeightedPoolFactory`. Example composition: svZCHF 26% + GHO 26% + ixEDEL 16% + WBTC 16% + tBTC 16% — identical yield-core and routing components, with tBTC (Threshold Network's decentralized BTC wrapper) substituting for cbBTC as the Theme Asset B leg. This is a deployed pool with a real address and a Quality Gate check.
+2. **Composition Challenge proposal.** Any qualified AuMT holder submits a proposal referencing the candidate pool's address. Deposit: 1,000 svZCHF/sUSDS equivalent, one-sided into der Bodensee.
+3. **Vote.** 2/3 supermajority of protocol-wide tessera-weighted votes. Like-for-like evaluation by voters: same sector (Crypto / BTC), same risk profile (BTC wrapper with different custodian — Threshold Network multi-party computation vs Coinbase custody), same template role (Theme Asset B).
+4. **Approval actions (atomic in the approval transaction).** The governance contract calls `MiliariumRegistry.replaceSlot(14, newPoolAddress)`. The old ixAurebit pool's gauge is revoked; the new pool is automatically gauge-approved with a 90-day CCB multiplier boost (1.2×).
+5. **Post-approval state.**
+   - Old ixAurebit pool: persists on-chain, no AuMM emissions, fee-routing hook still attached (any residual trading still routes swap fees to Bodensee), LPs can hold or withdraw at will, AuMT for the old pool drops to **zero governance weight**.
+   - New ixAurebit pool: active gauge, receives AuMM emissions per CCB, 90-day 1.2× boost, new LP positions earn AuMM emissions and governance weight (subject to 14-day qualification + 6-month on-ramp).
+   - Market behavior: LPs of the old pool withdraw naturally as cbBTC's redemption window narrows. The new pool attracts liquidity because it's the only emission-eligible BTC pool in slot 14.
+
+**What this example illustrates:**
+- No forced LP migration mechanism is needed — the market handles it for free.
+- The fee-routing hook stays attached to the deprecated pool for life, so Bodensee continues to benefit from any trading.
+- Slot 14's identity persists across the composition change; the registry maps slot → current pool address, not slot → immutable pool address.
 
 #### The 28 are a blueprint, not the full economy
 

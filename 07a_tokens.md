@@ -49,8 +49,8 @@
 | iShares Silver Trust (on-chain) | SLVon | ERC-20 | | | Tokenised ETF | ixMetallum |
 | Spark | SPK | ERC-20 | | | Spark | ixDebitum |
 | SPDR S&P 500 ETF (on-chain) | SPYon | ERC-20 | | | Tokenised ETF | ixEquitix |
-| Staked tGBP | s-tGBP | ERC-20 | | | Tokenised GBP | ixCambio |
-| Staked EURA (Angle) | st-EURA | ERC-20 | | | Angle EURA | ixViatica, ixCambio |
+| tGBP (tokenised GBP stablecoin) | tGBP | ERC-20 | | | Tokenised GBP stablecoin; no ERC-4626 wrapper currently on mainnet (if one appears, composition challenge can swap it in) | ixCambio |
+| Staked EURA (Angle) | st-EURA | ERC-4626 | | | Angle Savings; implementation `SavingsNameable` extends OpenZeppelin `ERC4626Upgradeable` | ixViatica, ixCambio |
 | Sky savings (sUSDS) | sUSDS | ERC-4626 | | | Sky savings rate vault | ixHelvetia, ixLibertas, ixRegistrum, ixDebitum, ixEquitix, ixNubix, ixColossix, ixVitalix, ixMedicix, ixMercatura |
 | Frax USD savings | sfrxUSD | ERC-4626 | | | Frax savings vault | ixLibertas, ixMagnix, ixAurix |
 | Frankencoin savings (svZCHF) | svZCHF | ERC-4626 | | | Frankencoin money market | |
@@ -67,8 +67,8 @@
 | Aave stataToken — Lido wstETH | waEthwstETH | ERC-4626 | | | Aave V3 wrapper → wstETH | ixCasper |
 | Wrapped BTC (BitGo) | WBTC | ERC-20 | | | BitGo WBTC | ixAurebit |
 | Tether Gold (XAUt) | XAUt | ERC-20 | | | Gold token | ixAurix |
-| Partner stable (reserved) | [Partner Stable] | TBD | | | Strategic partner slot | ixCambio |
+| JPY Coin (regulated Japanese yen stablecoin) | JPYC | ERC-20 | 0xE7C3D8C9a439feDe00D2600032D5dB0Be71C3c29 | | Regulated JPY stablecoin (JPYC Inc., Japan PSA-licensed; backed 1:1 by JGBs and bank deposits) | ixCambio |
 
-**Row count:** 64 unique tickers (including **[Partner Stable]** placeholder). **AuMM** is in **der Bodensee Pool** only — not a Miliarium slot ([Miliarium Aureum §xii](05_miliarium_aureum.md)).
+**Row count:** 64 unique tickers. **AuMM** is in **der Bodensee Pool** only — not a Miliarium slot ([Miliarium Aureum §xii](05_miliarium_aureum.md)).
 
 See [Miliarium sectors](07_miliarium_sectors.md) · [Manifest](06_miliarium_manifest.md) · [Registry](05_miliarium_aureum.md).

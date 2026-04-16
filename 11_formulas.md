@@ -15,14 +15,16 @@ All parameters listed here are **immutable from block 0**. See [Immutable Parame
 **Effect:** A **piecewise-linear, per-block decaying** fraction of each block's emission is minted as a **one-sided AuMM deposit** into der Bodensee Pool (no LP tokens — same mechanic as one-sided stablecoin fee inflows). The remainder is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). Two segments: genesis → end of Month 6 decays **linearly from 80% to 50%**; end of Month 6 → end of Month 10 decays **linearly from 50% to 0%**. After the final block of Month 10, **bodensee_share = 0 permanently**; 100% to LPs until Month 11.
 
 ```
-month_6_end_block  = last_block_of_Month_6
-month_10_end_block = last_block_of_Month_10
+// Using canonical block constants from Constitution §xxix:
+//   MONTH_6_END_BLOCK  = genesis_block + 6  × BLOCKS_PER_MONTH
+//   MONTH_10_END_BLOCK = genesis_block + 10 × BLOCKS_PER_MONTH
+//   BLOCKS_PER_MONTH   = 219,000
 
-if block ≤ month_6_end_block:
-    t1 = (block − genesis_block) / (month_6_end_block − genesis_block)
+if block ≤ MONTH_6_END_BLOCK:
+    t1 = (block − genesis_block) / (MONTH_6_END_BLOCK − genesis_block)
     bodensee_share(block) = 0.80 − 0.30 × t1          // 80% → 50%
-elif block ≤ month_10_end_block:
-    t2 = (block − month_6_end_block) / (month_10_end_block − month_6_end_block)
+elif block ≤ MONTH_10_END_BLOCK:
+    t2 = (block − MONTH_6_END_BLOCK) / (MONTH_10_END_BLOCK − MONTH_6_END_BLOCK)
     bodensee_share(block) = 0.50 − 0.50 × t2          // 50% → 0%
 else:
     bodensee_share(block) = 0                          // permanent cutoff
@@ -90,14 +92,27 @@ Where **α** runs linearly from **0** at the first block of Month 11 to **1** at
 
 **Effect:** A pool that loses all TVL today retains ~50% of its signal after three weeks, ~25% after six. Low-pass filter: suppresses daily volatility, passes only the long-term capital signal. The protocol cannot be jolted into instant reallocation by a single day's movement.
 
-```
-alpha = 2 / (60 + 1)                          // ≈ 0.0328
+**Sampling cadence.** The EMA updates **once per `BLOCKS_PER_DAY` (7,200 blocks)**, not every block. Each sample is an **intra-day TWAP over the last `TWAP_WINDOW_BLOCKS` (720 blocks, ~1 hour) before the sample boundary**, not a single-block spot read. The TWAP eliminates block-timing manipulation at trivial gas cost; the accumulator pattern (running `cumulativeTVL` and `cumulativeBlock` updated on each swap/liquidity event) lets the sample be read as `(cumulativeTVL_now − cumulativeTVL_dayAgo) / (cumulativeBlock_now − cumulativeBlock_dayAgo)`.
 
-TVL_EMA_pool(today) = alpha × TVL_spot(today)
-                    + (1 − alpha) × TVL_EMA_pool(yesterday)
+**Update rule.** Using canonical constants from Constitution §xxix (`EMA_ALPHA_NUMERATOR = 2`, `EMA_ALPHA_DENOMINATOR = 61`):
+
+```
+alpha = 2 / 61                                            // ≈ 0.0328
+
+// Triggered once per BLOCKS_PER_DAY (permissionless call; deterministic math):
+if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:
+    twapTVL = (cumulativeTVL[pool].atBlock(block.number) − cumulativeTVL[pool].atBlock(block.number − TWAP_WINDOW_BLOCKS))
+              / TWAP_WINDOW_BLOCKS
+
+    tvlEMA[pool] = (EMA_ALPHA_NUMERATOR × twapTVL
+                 + (EMA_ALPHA_DENOMINATOR − EMA_ALPHA_NUMERATOR) × tvlEMA[pool])
+                 / EMA_ALPHA_DENOMINATOR
+                 // = (2 × twapTVL + 59 × tvlEMA[pool]) / 61
+
+    lastEMAUpdateBlock[pool] = block.number
 ```
 
-The EMA runs continuously for **each pool** individually. Half-life is approximately 21 days.
+The EMA runs **per pool** independently. Half-life is approximately 21 days. Gas cost: ~50k per pool per day for the EMA update, plus negligible accumulator updates on each swap/liquidity event.
 
 ---
 
@@ -245,11 +260,13 @@ weight_svZCHF = 0.30        // 30%
 | Swap fee | **0.75%**, fully retained **in pool** (not routed through the protocol fee pipeline) |
 | ERC-4626 yield-bearing share | **60%** of pool TVL (sUSDS + svZCHF) earns native vault yield |
 | Emission eligibility | **None** — der Bodensee cannot receive CCB emissions (no self-referential tokens) |
-| UI visibility | **Hidden from UI during Months 0–6**; visible and tradeable from Month 6 onward |
+| UI visibility | **Not surfaced in the official aumm.fi UI during Months 0–6**; visible and tradeable from Month 6 onward in the official UI |
 
 **AuMM inflows.** Only the F-0 bootstrap deposits AuMM into der Bodensee — decaying per block through Month 10, then **permanently zero**. No other mechanism mints AuMM into this pool.
 
-**Stablecoin inflows.** **100%** of protocol-captured swap fees (all non–der Bodensee pools) plus **100%** of the ERC-4626 yield fee (10% skim on all vault yield) enter as **one-sided stablecoin deposits** (sUSDS and/or svZCHF), continuously deepening the reserve side. Governance deposits and Incendiary Boost deposits use the same one-sided stablecoin path.
+**Stablecoin inflows.** **100%** of protocol-captured swap fees (all non–der Bodensee pools) plus **100%** of the ERC-4626 yield fee (10% skim on all yield-bearing tokens held in **non–der Bodensee gauged pools**) enter as **one-sided stablecoin deposits** (always routed as svZCHF per Constitution §xxix), continuously deepening the reserve side. Governance deposits and Incendiary Boost deposits use the same one-sided path.
+
+**Der Bodensee is excluded from the yield skim.** Its own ERC-4626 holdings (svZCHF + sUSDS, 60% of pool TVL) accrue yield continuously via the Rate Provider mechanism, and that yield stays inside the pool — it accrues to Bodensee LPs via their BPT share and reprices AuMM upward via weighted-pool math. Skimming Bodensee's yield and depositing it back into Bodensee would be a circular no-op. The skim mechanism extracts yield from *other* pools only; Bodensee is the **destination** of the skim, not a source. See [Tokenomics §x-a](04_tokenomics.md) for the full self-yield mechanism.
 
 **Price discovery.** No founder-set price, no governance-voted multiple, no TVL measurement window. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically. At Month 6 the pool unhides, and whatever ratio exists at that point is the market's opening price.
 
@@ -267,6 +284,16 @@ For a challenge targeting a **non-Miliarium** pool, the deposit equals the **gre
 
 1. **10 BTC** expressed in **CHF**, then converted to **svZCHF or sUSDS equivalent (whichever is higher)** at submission time — then deposited **one-sided into der Bodensee Pool**; and  
 2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF/sUSDS equivalent and deposited **one-sided into der Bodensee Pool**.
+
+**BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF/sUSDS one-sided into der Bodensee.
+
+The BTC/CHF rate is a **spot-price average** computed at submission time across all currently-gauged pools holding any token in the `BTC_WRAPPERS` set (see Constitution §xxix; initial set: WBTC, cbBTC). The contract enumerates gauged pools, filters for those containing any BTC wrapper, reads spot rates (wrapped-BTC ↔ svZCHF, or against sUSDS then converted via arbitrage-aligned cross-rates), and averages. If a wrapper deprecates (e.g. cbBTC delisted), it falls out of the average; if a new BTC wrapper enters the constellation via composition challenge or new gauge approval, it auto-joins — no contract change required in either case.
+
+**Why spot (not TWAP) is acceptable:**
+- Averaging across multiple pools dilutes single-pool manipulation; an attacker would need to push BTC/svZCHF across every BTC-holding gauged pool simultaneously in the same block.
+- Arbitrage keeps cross-pool BTC rates aligned naturally.
+- The F-12 max-of-two-formulas rule backstops a low BTC reading — if manipulation pushes the (1) calculation toward zero, the (2) CHF-denominated calculation dominates and keeps the deposit meaningful.
+- Gauge challenges are a one-time-fee low-frequency operation paid from the challenger's wallet; spending a few hundred thousand gas on pool enumeration + spot reads is acceptable here.
 
 **Elite tail convention:** **p_tvl** and **p_eff** use **rank / N** (not CDF-from-bottom). Among **all gauged pools** (including Miliarium), **N** = count of gauged pools. Sort by **spot TVL**; **rank 1** = highest TVL → **p_tvl = rank / N**. Independently sort by **efficiency ratio** as in F-10 (3-epoch moving average); **rank 1** = highest efficiency → **p_eff = rank / N**. **Ties** break deterministically (e.g. lower pool contract address hex first).
 

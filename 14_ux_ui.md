@@ -4,6 +4,33 @@
 
 ---
 
+## Scope split: MVP vs Post-MVP
+
+This document lists the full UX/UI surface planned for aumm.fi. Per OQ-18, the frontend is developed as a separate repository (`aumm-app`) under its own plan, parallel to contract development in `aumm-deploy`.
+
+**MVP — required for testnet (Holesky) and mainnet launch:**
+- §xlvii Miliarium Aureum Pools — registry table with compositions, TVL, 24h volume, CCB multiplier, emission share
+- §xlvi der Bodensee Pool — visible only after `MONTH_6_END_BLOCK`; composition card, reserve depth, AuMM price, pool balances
+- LP deposit/withdraw flows for every gauged pool + der Bodensee
+- AuMT display — user's qualified AuMT per pool, pending AuMM emissions, time-in-pool status (14-day qualification, 6-month on-ramp)
+- Governance interface — active proposals list, voting UI, proposal-submission UI (gauge proposals, gauge challenges, composition challenges, fee-change proposals)
+- Swap interface — basic composite-swap via the constellation (can integrate with an aggregator initially rather than building routing from scratch)
+- Block-based time displays — halving countdown, Month 6 unhide countdown, Era transition countdowns (all expressed as blocks with calendar-time aliases per §xxix)
+
+**Post-MVP — rolled out over subsequent protocol-months:**
+- §xlv Protocol Overview Dashboard — TradingView-style charts, FDV/TVL ratios, historical data
+- §xlvi advanced Bodensee views — inflow tracker breakdowns, bootstrap emission decay visualization
+- Efficiency Tournament leaderboard with real-time rank updates
+- Per-pool multiplier history visualization
+- Incendiary Boost dashboard
+- Constellation visualization — the 28+N gauged pools as an interactive graph
+- Detailed governance analytics (voter participation, proposal history)
+- Mobile app (native or PWA)
+
+The MVP/post-MVP distinction is a planning tool — all of the sections below describe the eventual target state. Implementation priority follows the split above.
+
+---
+
 ## xlv. Protocol Overview Dashboard
 
 - [ ] **Emission schedule status** — current era, block emission rate, next halving countdown (blocks + estimated time), cumulative emitted vs 21M cap (progress bar); **der Bodensee bootstrap** — current bootstrap share % of block emission, blocks remaining until Month 10 end (when bootstrap reaches 0%)
@@ -17,13 +44,13 @@
 
 ## xlvi. der Bodensee Pool
 
-- [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (piecewise: 80% → 50% by end of Month 6, 50% → 0% by end of Month 10), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees. **Hide entirely until Month 6.**
+- [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (piecewise: 80% → 50% at `MONTH_6_END_BLOCK`, 50% → 0% at `MONTH_10_END_BLOCK`), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees. **Render only after `MONTH_6_END_BLOCK`.**
 - [ ] **Pool composition card** — fixed weights **40% AuMM / 30% sUSDS / 30% svZCHF** (immutable, no decay); show 60% ERC-4626 yield-bearing share
 - [ ] **Reserve depth** — total stablecoin (sUSDS + svZCHF) accumulated (from fee revenue + governance deposits + Incendiary Boost deposits)
 - [ ] **AuMM price** — derived from pool reserves and fixed weights (no oracle); only displayed from Month 6 onward
 - [ ] **Inflow tracker** — cumulative and trailing 30d **one-sided stablecoin** inflows to der Bodensee, broken down by source (protocol-captured swap share from **other** pools, yield skim, governance deposits, Incendiary Boost deposits); separately show **in-pool** swap-fee accrual for der Bodensee LPs (0.75% tier) if distinct in subgraph
 - [ ] **Pool balances** — live AuMM, sUSDS, and svZCHF balances
-- [ ] **UI visibility gate** — der Bodensee Pool is **hidden from the UI during Months 0–6**; the section unhides at the first block of Month 7
+- [ ] **UI visibility gate** — der Bodensee Pool is **not rendered in the official aumm.fi UI during blocks 0 through `MONTH_6_END_BLOCK`**; the section unhides at `MONTH_6_END_BLOCK + 1`. The pool is fully on-chain and tradeable from genesis via direct Vault calls — the UI gate is a frontend convention only. See [Constitution §xxix](10_constitution.md) for `MONTH_6_END_BLOCK` and [Miliarium Aureum §xii](05_miliarium_aureum.md) for the operational policy.
 
 ---
 

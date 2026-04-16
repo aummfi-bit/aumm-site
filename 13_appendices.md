@@ -116,9 +116,9 @@ Curve's Yield Basis protocol (March 2026) independently validated the same core 
 | Trading pairs per position | 1 | 10+ (per multi-token pool) |
 | Yield on idle capital | 0% | 2.0–2.8% (ERC-4626 native) |
 | IL profile | Full directional exposure to one pair | Dampened — correlated assets diversify directional risk |
-| Fee tier | 0.05–0.3% | 0.01–0.05% (attracts routing) |
+| Fee tier | 0.05–0.3% | 0.01–0.30% (Miliarium genesis 0.03%, governance-adjustable within band with 14-day cooldown; der Bodensee 0.10–1.00% band, genesis 0.75%) |
 | Active management required | Yes (range adjustments) | No (weighted pools are set-and-forget) |
-| Yield sources | Swap fees only | Swap fees + vault yield + cross-pool arb fees + AuMM mining |
+| Yield sources | Swap fees only | ERC-4626 native yield (≥52% of pool) + AuMM emissions + cross-pool arb fees |
 
 ### Protocol Comparison
 

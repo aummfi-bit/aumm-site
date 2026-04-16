@@ -84,9 +84,9 @@ Savings, staking / LST, FX, ixEDEL price-discovery venue, USD hub, and multi-cur
 <tr>
 <td>07</td>
 <td><strong>ixCambio</strong></td>
-<td>svZCHF 16%</td>
-<td>ixEDEL 20%</td>
-<td>st-EURA 16%, aEURS 16%, s-tGBP 16%, [Partner Stable] 16%</td>
+<td>svZCHF 19%, st-EURA 18%, aEURS 18%</td>
+<td>ixEDEL 15%</td>
+<td>tGBP 15%, JPYC 15%</td>
 </tr>
 </tbody>
 </table>
@@ -156,6 +156,10 @@ Shared **svZCHF** and **ixEDEL** across most pools create arbitrage layers: vaul
 
 **Beyond the 28.** The Miliarium pools are a curated blueprint, not the full economy. Missing a token or asset class? New permissionless pool and a gauge vote — not a composition challenge. [Bootstrap](08_bootstrap.md) §xxi covers gauge approval mechanics.
 
+### Status Tracking
+
+**Note on Composition Challenge deprecation.** When a pool's slot is replaced via a composition challenge (§xxvii), the old pool is **not deleted** — it persists on-chain as a non-Miliarium, non-gauged pool with the fee-routing hook **permanently attached**. LPs of the deprecated pool can hold or withdraw at will; swap fees from any residual trading activity continue to flow to der Bodensee for the life of the pool. Only the Miliarium Registry slot pointer moves to the replacement pool. See [Constitution §xxvii Composition Challenge Rule](10_constitution.md) for the four operational sub-rules.
+
 ### Pool profiles
 
 Each Miliarium pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md`** (slot `NN` = first column in Section xi). In the site UI: **Miliarium ▾** → **Manifest** (full registry table), **Sectors** (taxonomy), **Registry** (this document). Links: [manifest](06_miliarium_manifest.md) · [sector taxonomy](07_miliarium_sectors.md). **This document is canonical** for slot order, pool names, compositions, and stock subclasses.
@@ -166,7 +170,7 @@ Each Miliarium pool has one profile: **`miliarium_profiles/NN_ixCanonicalName.md
 
 The **28** Miliarium pools in **Section xi** are the full **Miliarium Aureum** founding set. **AuMM** is separate — the **reward token**, not a numbered ix slot.
 
-**der Bodensee Pool** — autonomous reserve and AuMM trading venue. **Three-token weighted pool** (**AuMM / sUSDS / svZCHF**) with **fixed weights 40% / 30% / 30%**, immutable from block 0. **Protocol-captured** fee revenue from **other** pools (swap fees + ERC-4626 yield fees) flows one-sided into the stablecoin side (sUSDS/svZCHF). **Swap fee inside der Bodensee:** **0.75%**, **100%** retained **in pool** for der Bodensee LPs. **60%** of pool TVL (sUSDS + svZCHF) earns native ERC-4626 vault yield. **Hidden from UI Months 0–6**; visible and tradeable from Month 6 onward. **Not emission-eligible** — AuMM cannot sit in an emission-eligible pool. Not one of the immutable ix pools above.
+**der Bodensee Pool** — autonomous reserve and AuMM trading venue. **Three-token weighted pool** (**AuMM / sUSDS / svZCHF**) with **fixed weights 40% / 30% / 30%**, immutable from block 0. **Protocol-captured** fee revenue from **other** pools (swap fees + ERC-4626 yield fees) flows one-sided into the stablecoin side (sUSDS/svZCHF). **Swap fee inside der Bodensee:** **0.75%**, **100%** retained **in pool** for der Bodensee LPs. **60%** of pool TVL (sUSDS + svZCHF) earns native ERC-4626 vault yield. **Not surfaced in the official aumm.fi UI during Months 0–6 (block 0 to `MONTH_6_END_BLOCK`).** The pool is fully on-chain, registered with the Aureum Vault, and tradeable from genesis — visible to any block explorer or third-party aggregator. Official UI rendering, routing, and pool-address publication begin at `MONTH_6_END_BLOCK + 1`. During the bootstrap period the pool's lopsided one-sided AuMM composition fails most aggregators' minimum-depth thresholds — the pool effectively self-hides via its own state. Sophisticated on-chain actors who find it can interact directly; early arbitrage activity helps establish price discovery. **Not emission-eligible** — AuMM cannot sit in an emission-eligible pool. Not one of the immutable ix pools above.
 
 **Emissions:** **Months 1–10**, der Bodensee receives a **piecewise-linear decaying one-sided AuMM bootstrap** (**80% → 50%** by end of Month 6, then **50% → 0%** by end of Month 10; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). **After Month 10**, the bootstrap channel is **permanently zero** — der Bodensee never receives AuMM via emission again. **AuMM** is also **minted** to LPs of the **28** Miliarium pools (and gauge-eligible pools per **[Bootstrap](08_bootstrap.md)**) from the **LP emission tranche**. der Bodensee LPs earn **swap fees** (0.75% tier, in-pool) on their liquidity but do **not** receive the per-block **LP-tranche** stream (that accrues to the 28 + gauges).
 
