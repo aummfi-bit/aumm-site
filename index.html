@@ -62,8 +62,9 @@
   .finale .enter-btn { margin-top: 30px; padding: 12px 40px; background: transparent; border: 1px solid #ffb000; color: #ffb000; font-family: 'VT323', monospace; font-size: 20px; cursor: pointer; letter-spacing: 2px; transition: all 0.3s; }
   .finale .enter-btn:hover { background: #ffb000; color: #0a0a08; }
 
-  /* INTRO TAB */
-  #tab-intro { background: #0a0a08; min-height: 100vh; cursor: pointer; flex: 1; display: flex; flex-direction: column; }
+  /* INTRO TAB — do not set display on #tab-intro alone; it would override .tab-content{display:none} and show Intro at the bottom of main-column */
+  #tab-intro { background: #0a0a08; cursor: pointer; }
+  #tab-intro.active { min-height: 100vh; flex: 1; }
   #intro-tab-wrap { max-width: 700px; margin: 0 auto; padding: 48px 40px 80px; width: 100%; flex: 1; }
 
   /* MAIN */
