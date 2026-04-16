@@ -13,6 +13,7 @@ https://aumm.fi/11_formulas.md
 https://aumm.fi/12_aureum_glossary.md
 https://aumm.fi/13_appendices.md
 https://aumm.fi/14_ux_ui.md
+https://aumm.fi/16_team.md
 https://aumm.fi/aureum_schedule.md
 https://aumm.fi/project_aureum_design_final.md
 https://aumm.fi/README.md

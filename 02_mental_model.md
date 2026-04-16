@@ -10,7 +10,7 @@
 > The fees it generates deepen **der Bodensee**, the reserve behind the scarce token.  
 >
 >
-> Meet $AuMM.
+> **Meet $AuMM**.
 
 ## i. One Line
 

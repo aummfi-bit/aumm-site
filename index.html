@@ -63,8 +63,8 @@
   .finale .enter-btn:hover { background: #ffb000; color: #0a0a08; }
 
   /* INTRO TAB */
-  #tab-intro { background: #0a0a08; min-height: 100vh; cursor: pointer; }
-  #intro-tab-wrap { max-width: 700px; margin: 0 auto; padding: 88px 40px 80px; }
+  #tab-intro { background: #0a0a08; min-height: 100vh; cursor: pointer; flex: 1; display: flex; flex-direction: column; }
+  #intro-tab-wrap { max-width: 700px; margin: 0 auto; padding: 48px 40px 80px; width: 100%; flex: 1; }
 
   /* MAIN */
   #main-doc { display: none; min-height: 100vh; }
@@ -73,60 +73,75 @@
   .scanlines { position: fixed; inset: 0; z-index: 1000; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px); pointer-events: none; }
   [data-theme="day"] .scanlines, [data-theme="night"] .scanlines { display: none; }
 
-  /* NAV */
-  .nav-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; height: 48px; transition: background 0.3s; gap: 8px; }
-  .nav-brand-wrap { display: flex; align-items: center; gap: 10px; flex-shrink: 0; min-width: min-content; }
-  .nav-logo { height: 34px; width: 34px; object-fit: contain; display: block; flex-shrink: 0; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-light); box-shadow: 0 0 0 1px var(--accent-faint); }
-  .nav-brand { font-size: 22px; letter-spacing: 3px; color: var(--accent); font-family: 'VT323', monospace; white-space: nowrap; }
-  .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
-
-  /* TABS */
-  .tab-bar { display: flex; gap: 2px; }
-  .tab-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font); font-size: 13px; padding: 4px 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-  .tab-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .tab-btn:hover:not(.active) { color: var(--accent); }
-
-  .theme-toggle { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-  .theme-btn { background: none; border: none; color: var(--text-dim); font-family: var(--font); font-size: 12px; padding: 4px 8px; cursor: pointer; transition: all 0.2s; border-right: 1px solid var(--border); }
+  /* DOC SHELL — left sidebar + main */
+  .doc-shell { display: flex; min-height: 100vh; width: 100%; }
+  .sidebar {
+    width: 280px; flex-shrink: 0; background: var(--bg-light); border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; z-index: 60; transition: transform 0.25s ease;
+  }
+  .sidebar-header {
+    display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sidebar .nav-logo { height: 32px; width: 32px; object-fit: contain; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); }
+  .sidebar-brand { font-size: 20px; letter-spacing: 3px; color: var(--accent); font-family: 'VT323', monospace; }
+  .sidebar-nav { flex: 1; overflow-y: auto; padding: 8px 0 16px; -webkit-overflow-scrolling: touch; }
+  .sidebar-nav .nav-group-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim);
+    padding: 12px 16px 6px; margin-top: 4px;
+  }
+  .sidebar-link, .sidebar-parent {
+    display: block; width: 100%; text-align: left; background: none; border: none;
+    color: var(--text-dim); font-family: var(--font); font-size: 14px; padding: 8px 16px; cursor: pointer;
+    text-decoration: none; transition: color 0.15s, background 0.15s;
+  }
+  .sidebar-link:hover, .sidebar-parent:hover { color: var(--accent); background: var(--accent-faint); }
+  .sidebar-link.active, .sidebar-parent.active { color: var(--bg); background: var(--accent); }
+  .sidebar-sub { padding: 2px 0 8px 0; margin-left: 8px; border-left: 2px solid var(--border); }
+  .sidebar-sub a {
+    display: block; padding: 6px 12px 6px 14px; color: var(--text-dim); text-decoration: none; font-size: 13px;
+    font-family: var(--font); cursor: pointer; border-radius: 0 4px 4px 0;
+  }
+  .sidebar-sub a:hover { color: var(--accent); background: var(--accent-faint); }
+  .sidebar-sub a.active { color: var(--accent); background: var(--accent-faint); font-weight: 600; }
+  .sidebar-footer {
+    flex-shrink: 0; padding: 12px 16px; border-top: 1px solid var(--border);
+  }
+  .theme-toggle { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; width: 100%; }
+  .theme-btn { flex: 1; background: none; border: none; color: var(--text-dim); font-family: var(--font); font-size: 12px; padding: 8px 6px; cursor: pointer; transition: all 0.2s; border-right: 1px solid var(--border); }
   .theme-btn:last-child { border-right: none; }
   .theme-btn.active { background: var(--accent); color: var(--bg); }
   .theme-btn:hover:not(.active) { color: var(--accent); }
 
-  .rules-wrap { position: relative; display: inline-block; }
-  .rules-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font); font-size: 13px; padding: 4px 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-  .rules-btn.has-active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .rules-btn:hover:not(.has-active) { color: var(--accent); }
-  .rules-menu { position: absolute; top: 100%; left: 0; min-width: 180px; max-width: 320px; max-height: calc(100vh - 80px); overflow-y: auto; background: var(--bg-light); border: 1px solid var(--border); display: none; z-index: 60; }
-  .rules-menu.open { display: block; }
-  .rules-menu a { display: block; padding: 8px 16px; color: var(--text-dim); text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--border); font-family: var(--font); cursor: pointer; }
-  .rules-menu a:hover { color: var(--accent); background: var(--accent-faint); }
-  .rules-menu a.active { color: var(--accent); background: var(--accent-faint); }
+  .main-column { flex: 1; min-width: 0; display: flex; flex-direction: column; min-height: 100vh; }
+  .mobile-topbar {
+    display: none; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--border);
+    background: var(--bg); flex-shrink: 0; z-index: 55;
+  }
+  .sidebar-toggle {
+    background: none; border: 1px solid var(--border); color: var(--accent); font-size: 20px; padding: 4px 10px; cursor: pointer; font-family: var(--font); line-height: 1;
+  }
+  .mobile-topbar-title { font-size: 18px; letter-spacing: 2px; color: var(--accent); font-family: 'VT323', monospace; }
+  .sidebar-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 59;
+  }
+  .sidebar-backdrop.open { display: block; }
 
-  .mobile-sections { display: block; }
-
-  /* HAMBURGER / MOBILE */
-  .hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--accent); font-size: 22px; padding: 2px 8px; cursor: pointer; line-height: 1; font-family: var(--font); }
-  .mobile-menu { display: none; position: fixed; top: 48px; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 55; overflow-y: auto; padding: 12px 0; }
-  .mobile-menu.open { display: block; }
-  .mobile-menu a, .mobile-menu button { display: block; width: 100%; text-align: left; background: none; border: none; border-bottom: 1px solid var(--border); color: var(--text-dim); font-family: var(--font); font-size: 16px; padding: 14px 24px; cursor: pointer; text-decoration: none; }
-  .mobile-menu a:hover, .mobile-menu button:hover, .mobile-menu a.active, .mobile-menu button.active { color: var(--accent); background: var(--accent-faint); }
-  .mobile-menu .rules-group-label { color: var(--text-dim); font-size: 12px; padding: 10px 24px 4px; text-transform: uppercase; letter-spacing: 2px; border-bottom: none; cursor: default; }
-  .mobile-menu .rules-group-label:hover { background: none; color: var(--text-dim); }
-  .mobile-menu .rules-sub { padding-left: 40px; font-size: 15px; }
-  .mobile-menu .mobile-theme-row { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
-  .mobile-menu .mobile-theme-row button { flex: 1; text-align: center; border-bottom: none; border-right: 1px solid var(--border); font-size: 14px; padding: 12px 0; }
-  .mobile-menu .mobile-theme-row button:last-child { border-right: none; }
-
-  @media (max-width: 768px) {
-    .hamburger { display: block; }
-    .tab-bar, .theme-toggle { display: none !important; }
-    .nav-bar { padding: 10px 12px; }
+  @media (max-width: 900px) {
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; height: 100vh; max-width: min(300px, 92vw);
+      box-shadow: 4px 0 24px rgba(0,0,0,0.35); transform: translateX(-100%);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .mobile-topbar { display: flex; }
   }
 
+  .mobile-sections { display: none; }
+
   /* CONTENT */
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-  .content { max-width: 860px; margin: 0 auto; padding: 68px 24px 60px; }
+  .tab-content { display: none; flex: 1; min-height: 0; }
+  .tab-content.active { display: flex; flex-direction: column; }
+  .content { max-width: 860px; margin: 0 auto; padding: 28px 24px 60px; width: 100%; flex: 1; }
   .content h2 { color: var(--accent); font-size: clamp(20px,3vw,26px); margin: 40px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-variant: small-caps; letter-spacing: 0.04em; }
   [data-theme="au"] .content h2 { text-shadow: 0 0 8px var(--accent-glow); }
   .content h3 { color: var(--accent); font-size: clamp(17px,2.5vw,20px); margin: 28px 0 12px; opacity: 0.85; }
@@ -136,6 +151,11 @@
   .content .mental-hook { margin: 8px 0 28px; padding: 16px 20px; border-left: 3px solid var(--accent); background: var(--accent-faint); border-radius: 0 8px 8px 0; font-size: clamp(17px, 2.2vw, 21px); line-height: 1.55; }
   .content .mental-hook strong { color: var(--accent); font-weight: 600; }
   [data-theme="au"] .content .mental-hook strong { text-shadow: 0 0 12px var(--accent-glow); }
+  .content .tab-btn {
+    background: none; border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font); font-size: 13px;
+    padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+  }
+  .content .tab-btn:hover { color: var(--accent); border-color: var(--accent); }
   .content table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
   .content th { text-align: left; padding: 8px; border-bottom: 2px solid var(--accent); color: var(--accent); }
   .content td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
@@ -175,101 +195,63 @@
 </div>
 
 <div id="main-doc">
-  <div class="nav-bar">
-    <div class="nav-brand-wrap">
-      <img class="nav-logo" src="./images/aureum.jpeg" alt="" width="34" height="34" decoding="async" fetchpriority="high" />
-      <div class="nav-brand">AUREUM</div>
-    </div>
-    <div class="nav-right">
-      <div class="tab-bar">
-        <button class="tab-btn" data-tab="intro">Intro</button>
-        <div class="rules-wrap tab-sec-wrap">
-          <button class="rules-btn has-active" data-tab="model">Mental Model &#9662;</button>
-          <div class="rules-menu" data-menu-for="model"></div>
-        </div>
-        <div class="rules-wrap tab-sec-wrap">
-          <button class="rules-btn" data-tab="foundations">Theoretical Foundations &#9662;</button>
-          <div class="rules-menu" data-menu-for="foundations"></div>
-        </div>
-        <div class="rules-wrap tab-sec-wrap">
-          <button class="rules-btn" data-tab="tokenomics">Tokenomics &#9662;</button>
-          <div class="rules-menu" data-menu-for="tokenomics"></div>
-        </div>
-        <div class="rules-wrap" id="miliarium-wrap">
-          <button class="rules-btn" id="miliarium-btn">Miliarium &#9662;</button>
-          <div class="rules-menu" id="miliarium-menu">
-            <a data-tab="miliarium">Registry</a>
-            <a data-tab="miliarium-manifest">Manifest</a>
-            <a data-tab="miliarium-sectors">Sectors</a>
-            <a data-tab="miliarium-tokens">Tokens</a>
-          </div>
-        </div>
-        <div class="rules-wrap">
-          <button class="rules-btn" id="rules-btn">Governance &#9662;</button>
-          <div class="rules-menu" id="rules-menu">
-            <a data-tab="constitution">Constitution</a>
-            <a data-tab="bootstrap">Bootstrap</a>
-            <a data-tab="transitions">Transitions</a>
-            <a data-tab="formulas">Formulas</a>
-          </div>
-        </div>
-        <div class="rules-wrap tab-sec-wrap">
-          <button class="rules-btn" data-tab="team">Team &#9662;</button>
-          <div class="rules-menu" data-menu-for="team"></div>
-        </div>
-        <div class="rules-wrap tab-sec-wrap">
-          <button class="rules-btn" data-tab="glossary">Glossary &#9662;</button>
-          <div class="rules-menu" data-menu-for="glossary"></div>
-        </div>
-        <div class="rules-wrap tab-sec-wrap">
-          <button class="rules-btn" data-tab="appendices">Appendices &#9662;</button>
-          <div class="rules-menu" data-menu-for="appendices"></div>
-        </div>
-        <div class="rules-wrap tab-sec-wrap">
-          <button class="rules-btn" data-tab="ux_ui">UX / UI &#9662;</button>
-          <div class="rules-menu" data-menu-for="ux_ui"></div>
+  <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+  <div class="doc-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Site navigation">
+      <div class="sidebar-header">
+        <img class="nav-logo" src="./images/aureum.jpeg" alt="" width="32" height="32" decoding="async" fetchpriority="high" />
+        <span class="sidebar-brand">AUREUM</span>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <button type="button" class="sidebar-link" data-tab="intro">Intro</button>
+        <button type="button" class="sidebar-parent" data-tab="overview">Overview</button>
+        <div class="sidebar-sub" data-menu-for="overview"></div>
+        <button type="button" class="sidebar-parent active" data-tab="model">Mental Model</button>
+        <div class="sidebar-sub" data-menu-for="model"></div>
+        <button type="button" class="sidebar-parent" data-tab="foundations">Theoretical Foundations</button>
+        <div class="sidebar-sub" data-menu-for="foundations"></div>
+        <button type="button" class="sidebar-parent" data-tab="tokenomics">Tokenomics</button>
+        <div class="sidebar-sub" data-menu-for="tokenomics"></div>
+        <div class="nav-group-label">Miliarium</div>
+        <button type="button" class="sidebar-link" data-tab="miliarium">Registry</button>
+        <div class="sidebar-sub" data-menu-for="miliarium"></div>
+        <button type="button" class="sidebar-link" data-tab="miliarium-manifest">Manifest</button>
+        <div class="sidebar-sub" data-menu-for="miliarium-manifest"></div>
+        <button type="button" class="sidebar-link" data-tab="miliarium-sectors">Sectors</button>
+        <div class="sidebar-sub" data-menu-for="miliarium-sectors"></div>
+        <button type="button" class="sidebar-link" data-tab="miliarium-tokens">Tokens</button>
+        <div class="sidebar-sub" data-menu-for="miliarium-tokens"></div>
+        <div class="nav-group-label">Governance</div>
+        <button type="button" class="sidebar-link" data-tab="constitution">Constitution</button>
+        <div class="sidebar-sub" data-menu-for="constitution"></div>
+        <button type="button" class="sidebar-link" data-tab="bootstrap">Bootstrap</button>
+        <div class="sidebar-sub" data-menu-for="bootstrap"></div>
+        <button type="button" class="sidebar-link" data-tab="transitions">Transitions</button>
+        <div class="sidebar-sub" data-menu-for="transitions"></div>
+        <button type="button" class="sidebar-link" data-tab="formulas">Formulas</button>
+        <div class="sidebar-sub" data-menu-for="formulas"></div>
+        <button type="button" class="sidebar-parent" data-tab="team">Team</button>
+        <div class="sidebar-sub" data-menu-for="team"></div>
+        <button type="button" class="sidebar-parent" data-tab="glossary">Glossary</button>
+        <div class="sidebar-sub" data-menu-for="glossary"></div>
+        <button type="button" class="sidebar-parent" data-tab="appendices">Appendices</button>
+        <div class="sidebar-sub" data-menu-for="appendices"></div>
+        <button type="button" class="sidebar-parent" data-tab="ux_ui">UX / UI</button>
+        <div class="sidebar-sub" data-menu-for="ux_ui"></div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="theme-toggle">
+          <button type="button" class="theme-btn active" data-theme="au">Au</button>
+          <button type="button" class="theme-btn" data-theme="day">Day</button>
+          <button type="button" class="theme-btn" data-theme="night">Night</button>
         </div>
       </div>
-      <div class="theme-toggle">
-        <button class="theme-btn active" data-theme="au">Au</button>
-        <button class="theme-btn" data-theme="day">Day</button>
-        <button class="theme-btn" data-theme="night">Night</button>
+    </aside>
+    <div class="main-column">
+      <div class="mobile-topbar">
+        <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Open navigation">&#9776;</button>
+        <span class="mobile-topbar-title">AUREUM</span>
       </div>
-      <button class="hamburger" id="hamburger-btn">&#9776;</button>
-    </div>
-  </div>
-  <div class="mobile-menu" id="mobile-menu">
-    <button data-tab="intro">Intro</button>
-    <button data-tab="model">Mental Model</button>
-    <div class="mobile-sections" data-mobile-sections-for="model"></div>
-    <button data-tab="foundations">Theoretical Foundations</button>
-    <div class="mobile-sections" data-mobile-sections-for="foundations"></div>
-    <button data-tab="tokenomics">Tokenomics</button>
-    <div class="mobile-sections" data-mobile-sections-for="tokenomics"></div>
-    <div class="rules-group-label">Miliarium</div>
-    <button class="rules-sub" data-tab="miliarium">Registry</button>
-    <button class="rules-sub" data-tab="miliarium-manifest">Manifest</button>
-    <button class="rules-sub" data-tab="miliarium-sectors">Sectors</button>
-    <button class="rules-sub" data-tab="miliarium-tokens">Tokens</button>
-    <div class="rules-group-label">Governance</div>
-    <button class="rules-sub" data-tab="constitution">Constitution</button>
-    <button class="rules-sub" data-tab="bootstrap">Bootstrap</button>
-    <button class="rules-sub" data-tab="transitions">Transitions</button>
-    <button class="rules-sub" data-tab="formulas">Formulas</button>
-    <button data-tab="team">Team</button>
-    <div class="mobile-sections" data-mobile-sections-for="team"></div>
-    <button data-tab="glossary">Glossary</button>
-    <div class="mobile-sections" data-mobile-sections-for="glossary"></div>
-    <button data-tab="appendices">Appendices</button>
-    <div class="mobile-sections" data-mobile-sections-for="appendices"></div>
-    <button data-tab="ux_ui">UX / UI</button>
-    <div class="mobile-sections" data-mobile-sections-for="ux_ui"></div>
-    <div class="mobile-theme-row">
-      <button class="theme-btn" data-theme="au">Au</button>
-      <button class="theme-btn" data-theme="day">Day</button>
-      <button class="theme-btn" data-theme="night">Night</button>
-    </div>
-  </div>
 
   <div class="tab-content" id="tab-overview">
     <div class="content">
@@ -381,6 +363,8 @@
       <div id="intro-tab-terminal"></div>
     </div>
   </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -403,8 +387,6 @@ var menus = {
   ux_ui: [],
   intro: []
 };
-var rulesTabs = ['bootstrap', 'transitions', 'constitution', 'formulas'];
-var miliariumTabs = ['miliarium', 'miliarium-manifest', 'miliarium-sectors', 'miliarium-tokens', 'miliarium-profile'];
 var currentTab = 'model';
 
 var introLines = [];
@@ -557,35 +539,42 @@ document.querySelectorAll('.theme-btn').forEach(function(btn) {
   });
 });
 
-// TABS
-var rulesBtn = document.getElementById('rules-btn');
-var rulesMenu = document.getElementById('rules-menu');
-var miliariumBtn = document.getElementById('miliarium-btn');
-var miliariumMenu = document.getElementById('miliarium-menu');
+// TABS + sidebar
+var sidebarEl = document.getElementById('sidebar');
+var sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+function closeSidebarMobile() {
+  if (!sidebarEl) return;
+  sidebarEl.classList.remove('open');
+  if (sidebarBackdrop) sidebarBackdrop.classList.remove('open');
+}
+
+function openSidebarMobile() {
+  if (!sidebarEl) return;
+  sidebarEl.classList.add('open');
+  if (sidebarBackdrop) sidebarBackdrop.classList.add('open');
+}
+
+function updateSidebarActive(tab) {
+  document.querySelectorAll('#sidebar-nav .sidebar-link, #sidebar-nav .sidebar-parent').forEach(function(el) {
+    el.classList.toggle('active', el.getAttribute('data-tab') === tab);
+  });
+  document.querySelectorAll('#sidebar-nav .sidebar-sub a').forEach(function(a) { a.classList.remove('active'); });
+  if (tab === 'miliarium-profile') {
+    document.querySelectorAll('#sidebar-nav .sidebar-link, #sidebar-nav .sidebar-parent').forEach(function(el) {
+      el.classList.remove('active');
+    });
+  }
+}
 
 function switchTab(tab) {
   currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  document.querySelectorAll('.rules-btn').forEach(function(b) { b.classList.remove('has-active'); });
-  document.querySelectorAll('.rules-menu a').forEach(function(a) { a.classList.remove('active'); });
-  if (rulesTabs.indexOf(tab) >= 0) {
-    rulesBtn.classList.add('has-active');
-    document.querySelectorAll('#rules-menu a').forEach(function(a) { if (a.getAttribute('data-tab') === tab) a.classList.add('active'); });
-  } else if (miliariumTabs.indexOf(tab) >= 0) {
-    if (miliariumBtn) miliariumBtn.classList.add('has-active');
-    document.querySelectorAll('#miliarium-menu a').forEach(function(a) { if (a.getAttribute('data-tab') === tab) a.classList.add('active'); });
-  } else {
-    document.querySelectorAll('.tab-btn').forEach(function(b) { if (b.getAttribute('data-tab') === tab) b.classList.add('active'); });
-    document.querySelectorAll('.tab-sec-wrap .rules-btn').forEach(function(b) { if (b.getAttribute('data-tab') === tab) b.classList.add('has-active'); });
-  }
+  updateSidebarActive(tab);
   document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
   var tabEl = document.getElementById('tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
-  // highlight mobile menu
-  document.querySelectorAll('#mobile-menu button[data-tab]').forEach(function(b) { b.classList.remove('active'); });
-  var mBtn = document.querySelector('#mobile-menu button[data-tab="' + tab + '"]');
-  if (mBtn) mBtn.classList.add('active');
   window.scrollTo(0, 0);
+  closeSidebarMobile();
   if (tab === 'intro') startTabIntro();
 }
 
@@ -599,14 +588,6 @@ function renderTabSectionMenu(tabKey) {
     }
     menuEl.innerHTML = html;
   }
-  var mobEl = document.querySelector('[data-mobile-sections-for="' + tabKey + '"]');
-  if (mobEl) {
-    var mhtml = '';
-    for (var j = 0; j < items.length; j++) {
-      mhtml += '<button class="rules-sub" data-tab="' + tabKey + '" data-anchor="' + items[j].id + '">' + items[j].title + '</button>';
-    }
-    mobEl.innerHTML = mhtml;
-  }
 }
 
 function scrollToAnchor(anchor) {
@@ -617,82 +598,45 @@ function scrollToAnchor(anchor) {
   }, 60);
 }
 
-document.querySelectorAll('.tab-btn').forEach(function(btn) {
-  btn.addEventListener('click', function() { switchTab(btn.getAttribute('data-tab')); });
-});
-
-function closeAllRulesMenus(except) {
-  document.querySelectorAll('.rules-menu').forEach(function(m) {
-    if (m !== except) m.classList.remove('open');
-  });
-}
-
-// Rules dropdown (Governance grouper)
-rulesBtn.addEventListener('click', function(e) { e.stopPropagation(); var open = rulesMenu.classList.contains('open'); closeAllRulesMenus(); if (!open) rulesMenu.classList.add('open'); });
-rulesMenu.addEventListener('click', function(e) {
-  var a = e.target.closest('a[data-tab]');
-  if (a) { rulesMenu.classList.remove('open'); switchTab(a.getAttribute('data-tab')); }
-});
-
-// Miliarium dropdown (grouper)
-if (miliariumBtn && miliariumMenu) {
-  miliariumBtn.addEventListener('click', function(e) { e.stopPropagation(); var open = miliariumMenu.classList.contains('open'); closeAllRulesMenus(); if (!open) miliariumMenu.classList.add('open'); });
-  miliariumMenu.addEventListener('click', function(e) {
-    var a = e.target.closest('a[data-tab]');
-    if (a) { miliariumMenu.classList.remove('open'); switchTab(a.getAttribute('data-tab')); }
-  });
-}
-
-// Per-tab section dropdowns (tab-sec-wrap)
-document.querySelectorAll('.tab-sec-wrap').forEach(function(wrap) {
-  var btn = wrap.querySelector('.rules-btn');
-  var menu = wrap.querySelector('.rules-menu');
-  if (!btn || !menu) return;
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    var tabKey = btn.getAttribute('data-tab');
-    var wasOpen = menu.classList.contains('open');
-    closeAllRulesMenus();
-    if (currentTab !== tabKey) {
-      switchTab(tabKey);
-      menu.classList.add('open');
-    } else {
-      if (!wasOpen) menu.classList.add('open');
+var sidebarNav = document.getElementById('sidebar-nav');
+if (sidebarNav) {
+  sidebarNav.addEventListener('click', function(e) {
+    var subA = e.target.closest('.sidebar-sub a[data-anchor]');
+    if (subA) {
+      e.preventDefault();
+      var tabKey = subA.getAttribute('data-tab');
+      var anchor = subA.getAttribute('data-anchor');
+      if (currentTab !== tabKey) switchTab(tabKey);
+      else closeSidebarMobile();
+      scrollToAnchor(anchor);
+      return;
+    }
+    var navBtn = e.target.closest('.sidebar-link, .sidebar-parent');
+    if (navBtn && navBtn.getAttribute('data-tab')) {
+      e.preventDefault();
+      switchTab(navBtn.getAttribute('data-tab'));
     }
   });
-  menu.addEventListener('click', function(e) {
-    var a = e.target.closest('a[data-anchor]');
-    if (!a) return;
-    e.preventDefault();
-    menu.classList.remove('open');
-    var tabKey = a.getAttribute('data-tab');
-    var anchor = a.getAttribute('data-anchor');
-    if (currentTab !== tabKey) switchTab(tabKey);
-    scrollToAnchor(anchor);
+}
+
+var sidebarToggle = document.getElementById('sidebar-toggle');
+if (sidebarToggle && sidebarEl) {
+  sidebarToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (sidebarEl.classList.contains('open')) closeSidebarMobile();
+    else openSidebarMobile();
   });
+}
+if (sidebarBackdrop) {
+  sidebarBackdrop.addEventListener('click', function() { closeSidebarMobile(); });
+}
+
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 900) closeSidebarMobile();
 });
 
-document.addEventListener('click', function() { closeAllRulesMenus(); mobileMenu.classList.remove('open'); });
-
-// MOBILE MENU
-var mobileMenu = document.getElementById('mobile-menu');
-var hamburgerBtn = document.getElementById('hamburger-btn');
-hamburgerBtn.addEventListener('click', function(e) { e.stopPropagation(); mobileMenu.classList.toggle('open'); });
-mobileMenu.addEventListener('click', function(e) {
-  var btn = e.target.closest('button[data-tab]');
-  if (btn) {
-    mobileMenu.classList.remove('open');
-    var tabKey = btn.getAttribute('data-tab');
-    var anchor = btn.getAttribute('data-anchor');
-    if (currentTab !== tabKey) switchTab(tabKey);
-    if (anchor) scrollToAnchor(anchor);
-    return;
-  }
-  var themeBtn = e.target.closest('button[data-theme]');
-  if (themeBtn) {
-    e.stopPropagation();
-    setTheme(themeBtn.getAttribute('data-theme'));
-  }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeSidebarMobile();
 });
 
 // Rewrite relative pool profile links so they resolve under miliarium_profiles/
@@ -821,6 +765,7 @@ mainDoc.addEventListener('click', function(e) {
     '13_appendices.md': 'appendices',
     '14_ux_ui.md': 'ux_ui',
     '15_overview.md': 'overview',
+    '16_team.md': 'team',
     'Miliarium_Aureum.md': 'miliarium'
   };
   if (mdToTab[mdBase]) {

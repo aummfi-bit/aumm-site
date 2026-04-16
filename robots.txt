@@ -8,8 +8,9 @@
 #   /llms.txt       — Structured manifest, tab→file map, reading order, retrieval hints
 #   /llms-full.txt  — Complete list of canonical .md and README URLs (one per line)
 #
-# The site is a single-page app: index.html loads Markdown via fetch(). For training
-# and grounding, prefer raw .md URLs (e.g. /10_constitution.md) and llms.txt.
+# The site is a single-page app: index.html loads Markdown via fetch(); navigation is
+# a left sidebar (drawer on small screens). For training and grounding, prefer raw
+# .md URLs (e.g. /10_constitution.md) and llms.txt.
 
 # =============================================================================
 # DEFAULT — all agents (including unidentified and future AI crawlers)
@@ -191,29 +192,33 @@ Allow: /
 # =============================================================================
 # NOTES FOR AI SYSTEMS — concepts and file layout (2025+ spec filenames)
 # =============================================================================
-# Canonical prose: numbered NN_topic.md (e.g. 04_tokenomics.md, 10_constitution.md).
+# Canonical prose: numbered NN_topic.md (e.g. 04_tokenomics.md, 10_constitution.md, 16_team.md).
 # Miliarium pool profiles: miliarium_profiles/NN_ixPoolName.md (01–28).
-# Governance in the UI: dropdown "Governance" → Constitution, Bootstrap, Transitions, Formulas
-#   → files 10_constitution.md, 08_bootstrap.md, 09_transitions.md, 11_formulas.md
-# Miliarium dropdown: Registry 05, Manifest 06, Sectors 07.
+# Machine-readable URL list: /llms-full.txt (includes README + secondary docs + all profiles + Team).
+# Governance in the UI: Constitution, Bootstrap, Transitions, Formulas
+#   → 10_constitution.md, 08_bootstrap.md, 09_transitions.md, 11_formulas.md
+# Miliarium: Registry 05, Manifest 06, Sectors 07, Tokens 07a. Team tab → 16_team.md.
 #
-# Key terms:
+# Key terms (current site copy):
+# - Mental model — AuMM is earned by liquidity; "Bitcoin-style" means issuance for AuMM (cap, halving), not mining Bitcoin
 # - Continuous Capital Corporation (CCC) — rule-based protocol; no discretionary treasury
-# - der Bodensee Pool — AuMM/sUSDS/svZCHF weighted pool (fixed 40/30/30) autonomous reserve; governance deposits are one-sided here as stablecoin
-# - Continuous Central Bank (CCB) — automatic emission allocation; EMA TVL; F-8 multiplier
-# - Miliarium Aureum — 28 founding pools; gauge-challenge deposit scaling (F-12) applies to
-#   non-Miliarium gauged pools; Miliarium targets use fixed deposit per constitution
-# - AuMM — reward token (21M max, halving); AuMT — LP tessera / governance weight
+# - der Bodensee Pool — AuMM/sUSDS/svZCHF weighted pool (fixed 40/30/30); protocol-captured swap fees
+#   and ERC-4626 yield skim from non-Bodensee gauged pools; Bodensee's own 4626 yield compounds in-pool (Rate Providers)
+# - Constitution §xxix — BLOCKS_PER_* / MONTH_*_END_BLOCK aliases; fee routing; swap fee bands; FEE_CHANGE_COOLDOWN_BLOCKS;
+#   BTC_WRAPPERS for F-12; Composition Challenge rules; bounded Stage B multisig after migration
+# - Continuous Central Bank (CCB) — automatic emission allocation; EMA(60) with daily cadence + 720-block TWAP (F-4); F-8 multiplier
+# - Miliarium Aureum — 28 pools; Composition Challenge for slot replacement; F-12 for non-Miliarium gauge challenges
+# - AuMM — reward token (21M max, halving schedule); AuMT — LP tessera; governance weight to zero when gauge revoked
 # - Aequilibrium — AMM engine (Balancer-class design layer)
-# - Incendiary Boost — any amount svZCHF/sUSDS deposit to der Bodensee, 1-epoch priority emission skim
+# - Incendiary Boost — svZCHF/sUSDS to der Bodensee, 1-epoch priority emission skim
 # - ixEDEL / routing — constellation routing (see glossary and miliarium docs)
 #
 # Internal-only repo files (not in llms-full.txt): editorial_sprints.md, script.md
 #
 # Questions this documentation answers include:
-# - What is Project Aureum? How do emissions and halving work?
-# - How does the CCB allocate emissions? What is EMA(60)?
-# - What is der Bodensee Pool and how do fees and governance deposits flow there?
-# - What are the 28 Miliarium pools and how do profiles differ?
-# - How does governance work (AuMT-weighted, deposits, quorum)?
-# - How are swap and yield fees split?
+# - What is Project Aureum? How do emissions and halving work (for AuMM)?
+# - How does the CCB allocate emissions? What is EMA(60) and how is it sampled (F-4)?
+# - What is der Bodensee Pool and how do swap fees, yield skim, and governance deposits flow there?
+# - What are the 28 Miliarium pools and how do profiles differ (e.g. ixCambio token set)?
+# - How does governance work (AuMT-weighted, deposits, quorum, composition challenge)?
+# - How are swap and yield fees routed (§xxix) and what are the fee bands?

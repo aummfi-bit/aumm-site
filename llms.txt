@@ -24,7 +24,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 
 ## What this site is
 
-- **Single-page app:** [`index.html`](https://aumm.fi/index.html) loads Markdown via `fetch()` and renders with [marked](https://marked.js.org/). Raw `.md` URLs are the **best machine-readable source** (not the rendered DOM alone).
+- **Single-page app:** [`index.html`](https://aumm.fi/index.html) loads Markdown via `fetch()` and renders with [marked](https://marked.js.org/). Raw `.md` URLs are the **best machine-readable source** (not the rendered DOM alone). **Navigation** is a **left sidebar** (section anchors under each doc); on small screens it becomes a **drawer** (hamburger + backdrop).
 - **File naming:** Numbered specs use **`NN_descriptive_snake_case.md`** (two-digit prefix `01`–`15` for primary sections, then topic name). Pool profiles: **`miliarium_profiles/NN_ixName.md`** (slots 01–28).
 - **Intro animation:** [`01_intro.json`](https://aumm.fi/01_intro.json) — JSON lines for the terminal intro, **not** prose documentation.
 
@@ -50,8 +50,9 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 | Appendices | [`13_appendices.md`](https://aumm.fi/13_appendices.md) |
 | UX / UI | [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) |
 | Overview (content loaded; deep links / SECTIONS menu) | [`15_overview.md`](https://aumm.fi/15_overview.md) |
+| Team | [`16_team.md`](https://aumm.fi/16_team.md) |
 
-**Governance** in the nav is the dropdown (Constitution → Bootstrap → Transitions → Formulas). **Miliarium** is the separate dropdown (Registry, Manifest, Sectors).
+**Governance** in the nav is the dropdown (Constitution → Bootstrap → Transitions → Formulas). **Miliarium** is the separate dropdown (Registry, Manifest, Sectors, Tokens). **Team** is its own tab (founding team, disclaimer).
 
 **Per-pool profiles:** [`miliarium_profiles/01_ixHelvetia.md`](https://aumm.fi/miliarium_profiles/01_ixHelvetia.md) … [`28_ixMetallum.md`](https://aumm.fi/miliarium_profiles/28_ixMetallum.md) — one file per founding pool.
 
@@ -62,14 +63,15 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 ## Suggested reading order (for humans and models)
 
 1. [`15_overview.md`](https://aumm.fi/15_overview.md) — protocol at a glance  
-2. [`02_mental_model.md`](https://aumm.fi/02_mental_model.md) — three-layer model, feedback loop  
-3. [`10_constitution.md`](https://aumm.fi/10_constitution.md) — immutable operating law, governance actions, quorum table  
+2. [`02_mental_model.md`](https://aumm.fi/02_mental_model.md) — **AuMM** earned by **liquidity**; **Bitcoin-style** issuance is for **AuMM** (not Bitcoin mining); three-layer model, feedback loop  
+3. [`10_constitution.md`](https://aumm.fi/10_constitution.md) — immutable operating law, **§xxix** parameters (time constants, fee routing, bands, skim exclusion), governance actions, quorum table  
 4. [`03_theoretical_foundation.md`](https://aumm.fi/03_theoretical_foundation.md) — CCB, EMA (§vi-b), multiplier  
 5. [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) — AuMM supply, fees, governance voting  
-6. [`11_formulas.md`](https://aumm.fi/11_formulas.md) — F-0–F-12 (emissions, CCB, governance power, efficiency tournament, **F-12 gauge-challenge deposit** for non-Miliarium targets)  
-7. [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) — 28-pool registry  
+6. [`11_formulas.md`](https://aumm.fi/11_formulas.md) — F-0–F-12 (F-0 block constants; **F-4** daily TWAP EMA; **F-11** Bodensee / skim; **F-12** gauge-challenge deposit + **BTC_WRAPPERS** spot average)  
+7. [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) — 28-pool registry (incl. **ixCambio** row; **Status Tracking** / composition deprecation note)  
 8. [`06_miliarium_manifest.md`](https://aumm.fi/06_miliarium_manifest.md), [`07_miliarium_sectors.md`](https://aumm.fi/07_miliarium_sectors.md), [`07a_tokens.md`](https://aumm.fi/07a_tokens.md) (token inventory)  
-9. [`08_bootstrap.md`](https://aumm.fi/08_bootstrap.md), [`09_transitions.md`](https://aumm.fi/09_transitions.md), [`12_aureum_glossary.md`](https://aumm.fi/12_aureum_glossary.md), [`13_appendices.md`](https://aumm.fi/13_appendices.md), [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) — as needed  
+9. [`08_bootstrap.md`](https://aumm.fi/08_bootstrap.md), [`09_transitions.md`](https://aumm.fi/09_transitions.md), [`12_aureum_glossary.md`](https://aumm.fi/12_aureum_glossary.md), [`13_appendices.md`](https://aumm.fi/13_appendices.md), [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) — as needed (bootstrap: fee proposals + composition-challenge worked example; UX: MVP split)  
+10. [`16_team.md`](https://aumm.fi/16_team.md) — team, prior work, on-site disclaimer  
 
 Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
 
@@ -78,12 +80,13 @@ Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
 ## Retrieval hints (terms to anchor on)
 
 - **Continuous Capital Corporation (CCC)** — autonomous reserve and rules, no discretionary treasury.  
-- **der Bodensee Pool** — AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30 (immutable from block 0); protocol-captured fees and **governance deposits** (all **one-sided into der Bodensee Pool** as stablecoin sUSDS/svZCHF). Hidden Months 0–6, visible thereafter.
-- **Continuous Central Bank (CCB)** — automatic emission allocation; **EMA(60)** TVL; **F-8** multiplier (28 Miliarium pools).  
-- **Miliarium Aureum** — 28 founding pools; **cannot be gauge-challenged** — structural changes via **Composition Challenge** only. Non-Miliarium gauge challenges use **F-12**.  
-- **AuMM / AuMT** — reward token vs LP tessera (governance weight).  
+- **der Bodensee Pool** — AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30 (immutable from block 0); protocol-captured fees (swap + **ERC-4626 yield skim from other gauged pools**) and **governance deposits** one-sided into Bodensee (see **§xxix** for svZCHF routing and skim exclusion for Bodensee’s own 4626). **Official aumm.fi UI** does not surface Bodensee during Months 0–6 (block **`MONTH_6_END_BLOCK`**); pool is on-chain from genesis. **Rate Providers** — in-place yield on svZCHF/sUSDS (see **Tokenomics §x-a**, **F-11**).
+- **Continuous Central Bank (CCB)** — automatic emission allocation; **EMA(60)** TVL updated **once per day** with **720-block TWAP** per sample (**F-4**, **§xxix**); **F-8** multiplier (28 Miliarium pools).  
+- **Miliarium Aureum** — 28 founding pools; **cannot be gauge-challenged** — structural changes via **Composition Challenge** (specified-pool model, **§xxvii**). Non-Miliarium gauge challenges use **F-12** (**BTC_WRAPPERS** for BTC/CHF leg).  
+- **AuMM / AuMT** — reward token (**Bitcoin-style issuance schedule for AuMM**, not BTC) vs LP tessera (governance weight drops to zero when gauge revoked).  
 - **Aequilibrium** — AMM engine (Balancer-class pool layer in the design).  
 - **Incendiary Boost** — any amount to der Bodensee, 1-epoch (14-day) priority emission skim; once per epoch per pool.
+- **Swap fee bands** — Miliarium / non-Miliarium gauged: **0.01–0.30%** (genesis **0.03%** Miliarium); Bodensee: **0.10–1.00%** (genesis **0.75%**); fee-change cooldown **one epoch** (**§xxix**).
 
 ---
 

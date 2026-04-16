@@ -11,9 +11,9 @@ Static documentation and registry for **Project Aureum**: tokenomics, governance
 | `index.html` | Single-page app: loads Markdown via `fetch`, renders with [marked](https://github.com/markedjs/marked), theme toggle (Au / Day / Night) |
 | [Miliarium Aureum registry](05_miliarium_aureum.md) | **Canonical** registry: slot order **01–28**, compositions, sector tables |
 | [miliarium_profiles/](miliarium_profiles/) | One profile per pool (`NN_ixCanonicalName.md`); manifest and sector taxonomy: [Manifest](06_miliarium_manifest.md), [Sectors](07_miliarium_sectors.md), [Token inventory](07a_tokens.md) (deduplicated tickers) |
-| Numbered specs `02_*.md` … `15_*.md` | Core protocol docs (mental model, foundations, tokenomics, bootstrap, transitions, constitution, formulas, glossary, appendices, UX/UI, overview) — see [llms.txt](llms.txt) for full **tab → file** map |
-| [Constitution](10_constitution.md), [Tokenomics](04_tokenomics.md), [Protocol formulas](11_formulas.md), … | Immutable law, economics, F-0–F-12 (incl. gauge-challenge deposit rule for non-Miliarium pools) |
-| `llms.txt`, `llms-full.txt` | **AI / LLM manifest** (human-readable guide + one URL per line); `llms-full.txt` is **generated** by `scripts/generate_llms_manifest.py` |
+| Numbered specs `02_*.md` … `16_*.md` | Core protocol docs (mental model, foundations, tokenomics, Miliarium registry, bootstrap, transitions, constitution, formulas, glossary, appendices, UX/UI, overview, team/disclaimer) — see [llms.txt](llms.txt) for full **tab → file** map |
+| [Constitution](10_constitution.md), [Tokenomics](04_tokenomics.md), [Protocol formulas](11_formulas.md), … | Immutable law, economics, F-0–F-12 (gauge-challenge deposit **F-12** for non-Miliarium pools; **§xxix** canonical time constants, fee routing, swap-fee bands, Bodensee yield-skim exclusion, `BTC_WRAPPERS`) |
+| `llms.txt`, `llms-full.txt` | **AI / LLM manifest** (human-readable guide + one URL per line); `llms-full.txt` is **generated** by `scripts/generate_llms_manifest.py` (numbered specs **02–16**, secondary docs, **README.md**, **28** pool profiles) |
 | `robots.txt` | Crawl policy: **all AI crawlers and future agents welcome**; points to `llms.txt` / `llms-full.txt` |
 
 ## AI agents, crawlers, and tools
@@ -28,7 +28,17 @@ This project **welcomes** search indexes, assistants, and research bots to use t
 
 ## Section numbering (site-wide)
 
-`##` headings use **lowercase Roman numerals with a dot** (e.g. `## i.`, `## ii.`, … `## xxxix.`) in one continuous sequence in nav order: **i.–iv.** Mental Model → **v.–viii.** Theoretical Foundations → **ix.–x.** Tokenomics → **xi.–xii.** Miliarium registry ([05_miliarium_aureum.md](05_miliarium_aureum.md)) → **xiii.–xv.** Manifest → **xvi.–xx.** Sectors → **xxi.–xxv.** Bootstrap → **xxvi.** Transitions → **xxvii.–xxx.** Constitution → **xxxi.–xxxv.** Glossary → **xxxvi.–xl.** Appendices. In [Miliarium Aureum registry](05_miliarium_aureum.md), the registry block is **Section xi** and the AuMM pool block is **Section xii**. **[Overview](15_overview.md)** uses unnumbered `##` headings (not in the sequence).
+`##` headings use **lowercase Roman numerals with a dot** (e.g. `## i.`, `## ii.`, … `## xxxix.`) in one continuous sequence in nav order: **i.–iv.** Mental Model → **v.–viii.** Theoretical Foundations → **ix.–x.** Tokenomics → **xi.–xii.** Miliarium registry ([05_miliarium_aureum.md](05_miliarium_aureum.md)) → **xiii.–xv.** Manifest → **xvi.–xx.** Sectors → **xxi.–xxv.** Bootstrap → **xxvi.** Transitions → **xxvii.–xxx.** Constitution → **xxxi.–xxxv.** Glossary → **xxxvi.–xl.** Appendices. In [Miliarium Aureum registry](05_miliarium_aureum.md), the registry block is **Section xi** and the AuMM pool block is **Section xii**. **[Overview](15_overview.md)** uses unnumbered `##` headings (not in the sequence). **[Team](16_team.md)** uses **§xl–§xliii** for team, prior work, confidentiality, and disclaimer.
+
+## Spec alignment (current docs)
+
+Normative Markdown reflects a single coherent baseline across the site (gap resolutions and follow-on edits through 2026). For grounding and search, treat these as fixed points:
+
+- **[Mental model](02_mental_model.md):** **AuMM** is the reward token earned by **liquidity** (productive pools). **Bitcoin-style** means **issuance schedule** (cap, halving) for **AuMM**, not mining or minting Bitcoin.
+- **[Constitution §xxix](10_constitution.md):** Block-number time aliases (`BLOCKS_PER_*`, `MONTH_*_END_BLOCK`, …), EMA sampling (see **F-4**), fee routing to der Bodensee (non–Bodensee **gauged** pools), **ERC-4626 yield skim** from other gauged pools only (Bodensee excluded), swap-fee **bands**, `BTC_WRAPPERS` / F-12, **Composition Challenge** sub-rules (specified-pool model, fee hook on deprecated pools), bounded Stage B multisig window.
+- **[Tokenomics §x-a](04_tokenomics.md) / [F-11](11_formulas.md):** Bodensee **Rate Provider** self-yield vs protocol skim; reserve and fee tables match §xxix.
+- **[Miliarium / tokens](05_miliarium_aureum.md) / [07a_tokens.md](07a_tokens.md) / profiles:** e.g. **ixCambio** composition (incl. **JPYC**, **tGBP**), **st-EURA** as ERC-4626, **ixViatica** 4626 totals — registry and profiles stay in sync.
+- **[UX/UI](14_ux_ui.md):** MVP vs post-MVP scope split; Bodensee UI visibility from **`MONTH_6_END_BLOCK + 1`** (frontend convention).
 
 ## Local preview
 
@@ -45,8 +55,10 @@ Or: `npx --yes serve -p 8080`
 
 - **Intro** is driven by `01_intro.json` (JSON array of typed lines).
 - After the intro, **ENTER** goes straight to the documentation (see `index.html`).
-- **Miliarium ▾** — **Registry** ([05_miliarium_aureum.md](05_miliarium_aureum.md)), **Manifest** ([06_miliarium_manifest.md](06_miliarium_manifest.md)), **Sectors** ([07_miliarium_sectors.md](07_miliarium_sectors.md)), **Tokens** ([07a_tokens.md](07a_tokens.md)); in-app rendering of pool profiles so `.md` links do not open as raw files.
-- **Governance ▾** — **Constitution** ([10_constitution.md](10_constitution.md)), **Bootstrap** ([08_bootstrap.md](08_bootstrap.md)), **Transitions** ([09_transitions.md](09_transitions.md)), **Formulas** ([11_formulas.md](11_formulas.md)).
+- **Navigation** — left **sidebar** (desktop): full doc tree with section anchors under each long page; **theme** (Au / Day / Night) in the sidebar footer. On narrow viewports the sidebar is a **drawer** (hamburger in the top bar + backdrop).
+- **Miliarium** — **Registry** ([05_miliarium_aureum.md](05_miliarium_aureum.md)), **Manifest** ([06_miliarium_manifest.md](06_miliarium_manifest.md)), **Sectors** ([07_miliarium_sectors.md](07_miliarium_sectors.md)), **Tokens** ([07a_tokens.md](07a_tokens.md)); in-app rendering of pool profiles so `.md` links do not open as raw files.
+- **Governance** — **Constitution** ([10_constitution.md](10_constitution.md)), **Bootstrap** ([08_bootstrap.md](08_bootstrap.md)), **Transitions** ([09_transitions.md](09_transitions.md)), **Formulas** ([11_formulas.md](11_formulas.md)).
+- **Team** — **Team / disclaimer** ([16_team.md](16_team.md)).
 
 ## Reading guide
 

@@ -6,7 +6,7 @@ Default base: https://aumm.fi  (override with BASE_URL=https://example.com)
 
 CORE_PATHS order aligns with index.html loadMd() batch and site structure:
   Intro uses 01_intro.json (not listed here).
-  Nav: Mental Model, Foundations, Tokenomics, Miliarium (05–07), Governance (10,08,09,11), Glossary, Appendices, UX/UI; Overview (15) loads programmatically.
+  Nav: Mental Model, Foundations, Tokenomics, Miliarium (05–07), Governance (10,08,09,11), Glossary, Appendices, UX/UI, Team (16); Overview (15) loads programmatically.
 
 Excluded from output: editorial_sprints.md, script.md (internal); 01_intro.json (not Markdown prose).
 
@@ -41,6 +41,7 @@ CORE_PATHS: list[str] = [
     "12_aureum_glossary.md",
     "13_appendices.md",
     "14_ux_ui.md",
+    "16_team.md",
 ]
 
 SECONDARY_PATHS: list[str] = [
