@@ -1,13 +1,20 @@
 # Aureum Protocol
 
-> Imagine mining BTC with capital, not electricity.  
-> Imagine BTC backed by an autonomous reserve funded by real fees.  
-> Your capital is the liquidity. The fees it generates deepen the reserve behind the scarce token.  
+> **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
+> **Issuance** follows a **Bitcoin-style** schedule: **21M hard cap**, **4 year halving**. 
+>
+> The token is **AuMM**, on Ethereum.  
+> Your capital is the liquidity at Aureum AMM. 
+>
+>
+> The fees it generates deepen **der Bodensee**, the reserve behind the scarce token.  
+>
+>
 > Meet $AuMM.
 
 ## i. One Line
 
-An immutable fair-launch AMM with fixed Bitcoin-style issuance and fully automatic on-chain allocation.
+An immutable fair-launch AMM with fixed Bitcoin-style issuance for **AuMM** and fully automatic on-chain allocation.
 
 ## i-a. The Thesis
 
@@ -92,4 +99,3 @@ In Roman terms: **svZCHF and ixEDEL are the two viae** (the roads connecting eve
 **Why equal first.** The EMA needs ~60 days of on-chain data before it produces a meaningful signal. Allocating by TVL from block 0 would reward whichever pool attracted the earliest whale, not sustained capital. So all 28 Miliarium pools get identical treatment regardless of TVL until the EMA has real data.
 
 **Why a two-month transition.** An abrupt switch from equal to CCB at a single block would cause overnight emission shocks — pools receiving 1/28 could suddenly get much more or much less. The two-month linear blend gives LPs and operators time to watch the CCB’s scoring in real time and adjust positions. Pools that attracted deep, sticky capital see their share rise; pools coasting on equal allocation see it fall. The transition rewards sustained capital commitment, not historical incumbency.
-
