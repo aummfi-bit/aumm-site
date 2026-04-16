@@ -117,20 +117,18 @@
   .sidebar .nav-logo { height: 32px; width: 32px; object-fit: contain; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); }
   .sidebar-brand { font-size: 20px; letter-spacing: 3px; color: var(--accent); font-family: 'VT323', monospace; }
   .sidebar-nav { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 0 16px; -webkit-overflow-scrolling: touch; }
-  .sidebar-nav .nav-group-label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim);
-    padding: 12px 16px 6px; margin-top: 4px; font-weight: 700;
-  }
   .sidebar-nav > .sidebar-group > .sidebar-link,
   .sidebar-nav > .sidebar-group > .sidebar-parent {
     font-weight: 700;
   }
-  .sidebar-nested {
-    padding-left: 10px; margin-left: 10px; border-left: 1px solid var(--border);
+  .sidebar-sub-tabs {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
   }
-  .sidebar-nested .sidebar-link,
-  .sidebar-nested .sidebar-parent {
+  .sidebar-sub-tabs .sidebar-link {
     font-weight: 400;
+    padding-left: 12px;
   }
   .sidebar-group.has-sub > button.sidebar-link,
   .sidebar-group.has-sub > button.sidebar-parent {
@@ -298,42 +296,33 @@
           <button type="button" class="sidebar-parent" data-tab="tokenomics">Tokenomics</button>
           <div class="sidebar-sub" data-menu-for="tokenomics"></div>
         </div>
-        <div class="nav-group-label">Miliarium</div>
-        <div class="sidebar-nested">
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="miliarium">Registry</button>
-          <div class="sidebar-sub" data-menu-for="miliarium"></div>
+        <div class="sidebar-group has-sub" data-accordion="miliarium">
+          <button type="button" class="sidebar-parent" data-tab="miliarium">Miliarium</button>
+          <div class="sidebar-sub">
+            <div class="sidebar-sub-tabs">
+              <button type="button" class="sidebar-link" data-tab="miliarium-manifest">Manifest</button>
+              <button type="button" class="sidebar-link" data-tab="miliarium-sectors">Sectors</button>
+              <button type="button" class="sidebar-link" data-tab="miliarium-tokens">Tokens</button>
+            </div>
+            <div data-menu-for="miliarium"></div>
+            <div data-menu-for="miliarium-manifest"></div>
+            <div data-menu-for="miliarium-sectors"></div>
+            <div data-menu-for="miliarium-tokens"></div>
+          </div>
         </div>
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="miliarium-manifest">Manifest</button>
-          <div class="sidebar-sub" data-menu-for="miliarium-manifest"></div>
-        </div>
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="miliarium-sectors">Sectors</button>
-          <div class="sidebar-sub" data-menu-for="miliarium-sectors"></div>
-        </div>
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="miliarium-tokens">Tokens</button>
-          <div class="sidebar-sub" data-menu-for="miliarium-tokens"></div>
-        </div>
-        </div>
-        <div class="nav-group-label">Governance</div>
-        <div class="sidebar-nested">
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="constitution">Constitution</button>
-          <div class="sidebar-sub" data-menu-for="constitution"></div>
-        </div>
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="bootstrap">Bootstrap</button>
-          <div class="sidebar-sub" data-menu-for="bootstrap"></div>
-        </div>
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="transitions">Transitions</button>
-          <div class="sidebar-sub" data-menu-for="transitions"></div>
-        </div>
-        <div class="sidebar-group has-sub">
-          <button type="button" class="sidebar-link" data-tab="formulas">Formulas</button>
-          <div class="sidebar-sub" data-menu-for="formulas"></div>
+        <div class="sidebar-group has-sub" data-accordion="governance">
+          <button type="button" class="sidebar-parent" data-tab="constitution">Governance</button>
+          <div class="sidebar-sub">
+            <div class="sidebar-sub-tabs">
+              <button type="button" class="sidebar-link" data-tab="bootstrap">Bootstrap</button>
+              <button type="button" class="sidebar-link" data-tab="transitions">Transitions</button>
+              <button type="button" class="sidebar-link" data-tab="formulas">Formulas</button>
+            </div>
+            <div data-menu-for="constitution"></div>
+            <div data-menu-for="bootstrap"></div>
+            <div data-menu-for="transitions"></div>
+            <div data-menu-for="formulas"></div>
+          </div>
         </div>
         <div class="sidebar-group has-sub">
           <button type="button" class="sidebar-parent" data-tab="team">Team</button>
@@ -350,7 +339,6 @@
         <div class="sidebar-group has-sub">
           <button type="button" class="sidebar-parent" data-tab="ux_ui">UX / UI</button>
           <div class="sidebar-sub" data-menu-for="ux_ui"></div>
-        </div>
         </div>
       </nav>
     </aside>
@@ -698,11 +686,18 @@ function syncSidebarAccordion(tab) {
     g.classList.remove('open');
   });
   if (tab === 'miliarium-profile') {
-    var manifestBtn = document.querySelector('#sidebar-nav [data-tab="miliarium-manifest"]');
-    if (manifestBtn) {
-      var mg = manifestBtn.closest('.sidebar-group.has-sub');
-      if (mg) mg.classList.add('open');
-    }
+    var miliariumGrp = document.querySelector('#sidebar-nav [data-accordion="miliarium"]');
+    if (miliariumGrp) miliariumGrp.classList.add('open');
+    return;
+  }
+  if (['miliarium', 'miliarium-manifest', 'miliarium-sectors', 'miliarium-tokens'].indexOf(tab) !== -1) {
+    var mg = document.querySelector('#sidebar-nav [data-accordion="miliarium"]');
+    if (mg) mg.classList.add('open');
+    return;
+  }
+  if (['constitution', 'bootstrap', 'transitions', 'formulas'].indexOf(tab) !== -1) {
+    var gg = document.querySelector('#sidebar-nav [data-accordion="governance"]');
+    if (gg) gg.classList.add('open');
     return;
   }
   var btn = document.querySelector('#sidebar-nav [data-tab="' + tab + '"]');
@@ -710,6 +705,13 @@ function syncSidebarAccordion(tab) {
     var grp = btn.closest('.sidebar-group.has-sub');
     if (grp) grp.classList.add('open');
   }
+}
+
+function updateSidebarMenuPanelsVisibility() {
+  document.querySelectorAll('#sidebar-nav [data-menu-for]').forEach(function(el) {
+    var key = el.getAttribute('data-menu-for');
+    el.style.display = key === currentTab ? '' : 'none';
+  });
 }
 
 function scrollMainPaneToTop() {
@@ -731,6 +733,7 @@ function switchTab(tab) {
   currentTab = tab;
   updateSidebarActive(tab);
   syncSidebarAccordion(tab);
+  updateSidebarMenuPanelsVisibility();
   document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
   var tabEl = document.getElementById('tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
@@ -749,6 +752,7 @@ function renderTabSectionMenu(tabKey) {
     }
     menuEl.innerHTML = html;
   }
+  updateSidebarMenuPanelsVisibility();
 }
 
 function scrollToAnchor(anchor) {
@@ -963,6 +967,8 @@ mainDoc.addEventListener('click', function(e) {
 
 var profileBackBtn = document.getElementById('profile-back-btn');
 if (profileBackBtn) profileBackBtn.addEventListener('click', function(e) { e.preventDefault(); switchTab(profileBackBtn.getAttribute('data-tab')); });
+
+updateSidebarMenuPanelsVisibility();
 </script>
 </body>
 </html>
