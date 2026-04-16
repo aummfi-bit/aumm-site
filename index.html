@@ -66,32 +66,71 @@
 
   /* INTRO TAB — do not set display on #tab-intro alone; it would override .tab-content{display:none} and show Intro at the bottom of main-column */
   #tab-intro { background: #0a0a08; cursor: pointer; }
-  #tab-intro.active { min-height: 100vh; flex: 1; }
+  #tab-intro.active { flex: 1; min-height: 0; overflow-y: auto; }
   #intro-tab-wrap { max-width: 700px; margin: 0 auto; padding: 48px 40px 80px; width: 100%; flex: 1; }
 
   /* MAIN */
   #main-doc { display: none; min-height: 100vh; }
-  #main-doc.active { display: block; }
-  body.doc-mode { overflow-y: auto; }
+  #main-doc.active {
+    display: block;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  body.doc-mode {
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+  }
   .scanlines { position: fixed; inset: 0; z-index: 1000; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px); pointer-events: none; }
   [data-theme="day"] .scanlines, [data-theme="night"] .scanlines { display: none; }
 
   /* DOC SHELL — left sidebar + main */
-  .doc-shell { display: flex; min-height: 100vh; width: 100%; }
+  .doc-shell {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
   .sidebar {
     width: 280px; flex-shrink: 0; background: var(--bg-light); border-right: 1px solid var(--border);
     display: flex; flex-direction: column; z-index: 60; transition: transform 0.25s ease;
+    min-height: 0;
+    overflow: hidden;
   }
   .sidebar-header {
-    display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--border);
     flex-shrink: 0;
+  }
+  .sidebar-header-brand {
+    display: flex; align-items: center; gap: 10px; min-width: 0;
+  }
+  .sidebar-header .theme-toggle {
+    width: auto; flex-shrink: 0;
+  }
+  .sidebar-header .theme-btn {
+    padding: 6px 7px; font-size: 11px; min-width: 2.25em;
   }
   .sidebar .nav-logo { height: 32px; width: 32px; object-fit: contain; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); }
   .sidebar-brand { font-size: 20px; letter-spacing: 3px; color: var(--accent); font-family: 'VT323', monospace; }
-  .sidebar-nav { flex: 1; overflow-y: auto; padding: 8px 0 16px; -webkit-overflow-scrolling: touch; }
+  .sidebar-nav { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 0 16px; -webkit-overflow-scrolling: touch; }
   .sidebar-nav .nav-group-label {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim);
-    padding: 12px 16px 6px; margin-top: 4px;
+    padding: 12px 16px 6px; margin-top: 4px; font-weight: 700;
+  }
+  .sidebar-nav > .sidebar-group > .sidebar-link,
+  .sidebar-nav > .sidebar-group > .sidebar-parent {
+    font-weight: 700;
+  }
+  .sidebar-nested {
+    padding-left: 10px; margin-left: 10px; border-left: 1px solid var(--border);
+  }
+  .sidebar-nested .sidebar-link,
+  .sidebar-nested .sidebar-parent {
+    font-weight: 400;
   }
   .sidebar-group.has-sub > button.sidebar-link,
   .sidebar-group.has-sub > button.sidebar-parent {
@@ -121,16 +160,20 @@
   }
   .sidebar-sub a:hover { color: var(--accent); background: var(--accent-faint); }
   .sidebar-sub a.active { color: var(--accent); background: var(--accent-faint); font-weight: 600; }
-  .sidebar-footer {
-    flex-shrink: 0; padding: 12px 16px; border-top: 1px solid var(--border);
-  }
   .theme-toggle { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; width: 100%; }
   .theme-btn { flex: 1; background: none; border: none; color: var(--text-dim); font-family: var(--font); font-size: 12px; padding: 8px 6px; cursor: pointer; transition: all 0.2s; border-right: 1px solid var(--border); }
   .theme-btn:last-child { border-right: none; }
   .theme-btn.active { background: var(--accent); color: var(--bg); }
   .theme-btn:hover:not(.active) { color: var(--accent); }
 
-  .main-column { flex: 1; min-width: 0; display: flex; flex-direction: column; min-height: 100vh; }
+  .main-column {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
   .mobile-topbar {
     display: none; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--border);
     background: var(--bg); flex-shrink: 0; z-index: 55;
@@ -156,9 +199,18 @@
   .mobile-sections { display: none; }
 
   /* CONTENT */
-  .tab-content { display: none; flex: 1; min-height: 0; }
+  .tab-content { display: none; flex: 1; min-height: 0; overflow: hidden; }
   .tab-content.active { display: flex; flex-direction: column; }
-  .content { max-width: 860px; margin: 0 auto; padding: 28px 24px 60px; width: 100%; flex: 1; }
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .content h2 { color: var(--accent); font-size: clamp(20px,3vw,26px); margin: 40px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-variant: small-caps; letter-spacing: 0.04em; }
   [data-theme="au"] .content h2 { text-shadow: 0 0 8px var(--accent-glow); }
   .content h3 { color: var(--accent); font-size: clamp(17px,2.5vw,20px); margin: 28px 0 12px; opacity: 0.85; }
@@ -216,8 +268,15 @@
   <div class="doc-shell">
     <aside class="sidebar" id="sidebar" aria-label="Site navigation">
       <div class="sidebar-header">
-        <img class="nav-logo" src="./images/aureum.jpeg" alt="" width="32" height="32" decoding="async" fetchpriority="high" />
-        <span class="sidebar-brand">AUREUM</span>
+        <div class="sidebar-header-brand">
+          <img class="nav-logo" src="./images/aureum.jpeg" alt="" width="32" height="32" decoding="async" fetchpriority="high" />
+          <span class="sidebar-brand">AUREUM</span>
+        </div>
+        <div class="theme-toggle" role="group" aria-label="Theme">
+          <button type="button" class="theme-btn active" data-theme="au">Au</button>
+          <button type="button" class="theme-btn" data-theme="day">Day</button>
+          <button type="button" class="theme-btn" data-theme="night">Night</button>
+        </div>
       </div>
       <nav class="sidebar-nav" id="sidebar-nav">
         <div class="sidebar-group">
@@ -240,6 +299,7 @@
           <div class="sidebar-sub" data-menu-for="tokenomics"></div>
         </div>
         <div class="nav-group-label">Miliarium</div>
+        <div class="sidebar-nested">
         <div class="sidebar-group has-sub">
           <button type="button" class="sidebar-link" data-tab="miliarium">Registry</button>
           <div class="sidebar-sub" data-menu-for="miliarium"></div>
@@ -256,7 +316,9 @@
           <button type="button" class="sidebar-link" data-tab="miliarium-tokens">Tokens</button>
           <div class="sidebar-sub" data-menu-for="miliarium-tokens"></div>
         </div>
+        </div>
         <div class="nav-group-label">Governance</div>
+        <div class="sidebar-nested">
         <div class="sidebar-group has-sub">
           <button type="button" class="sidebar-link" data-tab="constitution">Constitution</button>
           <div class="sidebar-sub" data-menu-for="constitution"></div>
@@ -289,14 +351,8 @@
           <button type="button" class="sidebar-parent" data-tab="ux_ui">UX / UI</button>
           <div class="sidebar-sub" data-menu-for="ux_ui"></div>
         </div>
-      </nav>
-      <div class="sidebar-footer">
-        <div class="theme-toggle">
-          <button type="button" class="theme-btn active" data-theme="au">Au</button>
-          <button type="button" class="theme-btn" data-theme="day">Day</button>
-          <button type="button" class="theme-btn" data-theme="night">Night</button>
         </div>
-      </div>
+      </nav>
     </aside>
     <div class="main-column">
       <div class="mobile-topbar">
@@ -656,6 +712,21 @@ function syncSidebarAccordion(tab) {
   }
 }
 
+function scrollMainPaneToTop() {
+  var active = document.querySelector('.tab-content.active');
+  if (!active) return;
+  var content = active.querySelector('.content');
+  if (content) {
+    content.scrollTop = 0;
+    return;
+  }
+  active.scrollTop = 0;
+  if (active.id === 'tab-intro') {
+    var wrap = document.getElementById('intro-tab-wrap');
+    if (wrap) wrap.scrollTop = 0;
+  }
+}
+
 function switchTab(tab) {
   currentTab = tab;
   updateSidebarActive(tab);
@@ -663,7 +734,7 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
   var tabEl = document.getElementById('tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
-  window.scrollTo(0, 0);
+  scrollMainPaneToTop();
   closeSidebarMobile();
   if (tab === 'intro') startTabIntro();
 }
