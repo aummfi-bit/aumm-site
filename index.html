@@ -50,9 +50,11 @@
   .finale { position: fixed; inset: 0; z-index: 110; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; overflow-y: auto; padding: 0; text-align: center; opacity: 0; pointer-events: none; font-family: 'VT323', monospace; }
   .finale.visible { opacity: 1; animation: finale-in 1.2s ease-out forwards; pointer-events: auto; }
   @keyframes finale-in { 0%{opacity:0} 100%{opacity:1} }
-  .enter-banner { width: 100%; height: auto; display: block; object-fit: cover; object-position: center; flex-shrink: 0; }
+  .enter-banner { width: 100%; height: auto; display: block; object-fit: cover; object-position: center; flex-shrink: 0; cursor: pointer; transition: opacity 0.25s, filter 0.25s; }
+  .enter-banner:hover { opacity: 0.95; filter: brightness(1.08); }
   .finale-logo-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: clamp(16px, 4vw, 40px); padding: 20px 16px 24px; flex-shrink: 0; flex-wrap: wrap; position: relative; z-index: 2; background: #0a0a08; }
-  .finale-partner-logo { width: clamp(60px, 10vw, 90px); height: clamp(60px, 10vw, 90px); object-fit: contain; flex-shrink: 0; border-radius: 8px; border: 1px solid rgba(255,176,0,0.25); box-shadow: 0 0 20px rgba(255,176,0,0.15); background: rgba(10,10,8,0.4); }
+  .finale-partner-logo { width: clamp(60px, 10vw, 90px); height: clamp(60px, 10vw, 90px); object-fit: contain; flex-shrink: 0; border-radius: 8px; border: 1px solid rgba(255,176,0,0.25); box-shadow: 0 0 20px rgba(255,176,0,0.15); background: rgba(10,10,8,0.4); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+  .finale-partner-logo:hover { transform: scale(1.06); box-shadow: 0 0 28px rgba(255,176,0,0.35); border-color: rgba(255,176,0,0.5); }
   /* Do not use flex:1 + justify-content:center here — Firefox can shrink the item and overflow paints over the logo row */
   .finale-content { flex: 0 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 12px 24px 48px; width: 100%; box-sizing: border-box; position: relative; z-index: 1; background: #0a0a08; }
   .finale .aureum { font-size: clamp(36px,6.5vw,56px); color: #ffb000; text-shadow: 0 0 15px rgba(255,176,0,0.4), 0 0 40px rgba(255,176,0,0.15); letter-spacing: 4px; margin: 0; }
@@ -91,6 +93,18 @@
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim);
     padding: 12px 16px 6px; margin-top: 4px;
   }
+  .sidebar-group.has-sub > button.sidebar-link,
+  .sidebar-group.has-sub > button.sidebar-parent {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; text-align: left;
+  }
+  .sidebar-group.has-sub > button.sidebar-link::after,
+  .sidebar-group.has-sub > button.sidebar-parent::after {
+    content: '▸'; flex-shrink: 0; font-size: 10px; opacity: 0.65; transition: transform 0.2s;
+  }
+  .sidebar-group.has-sub.open > button.sidebar-link::after,
+  .sidebar-group.has-sub.open > button.sidebar-parent::after {
+    content: '▾';
+  }
   .sidebar-link, .sidebar-parent {
     display: block; width: 100%; text-align: left; background: none; border: none;
     color: var(--text-dim); font-family: var(--font); font-size: 14px; padding: 8px 16px; cursor: pointer;
@@ -98,6 +112,8 @@
   }
   .sidebar-link:hover, .sidebar-parent:hover { color: var(--accent); background: var(--accent-faint); }
   .sidebar-link.active, .sidebar-parent.active { color: var(--bg); background: var(--accent); }
+  .sidebar-group.has-sub > .sidebar-sub { display: none; }
+  .sidebar-group.has-sub.open > .sidebar-sub { display: block; }
   .sidebar-sub { padding: 2px 0 8px 0; margin-left: 8px; border-left: 2px solid var(--border); }
   .sidebar-sub a {
     display: block; padding: 6px 12px 6px 14px; color: var(--text-dim); text-decoration: none; font-size: 13px;
@@ -176,11 +192,11 @@
   <div id="terminal"></div>
 </div>
 <div class="finale" id="finale">
-  <img class="enter-banner" src="./images/enter_banner.png" alt="" decoding="async" />
-  <div class="finale-logo-row" aria-label="Partners">
-    <img class="finale-partner-logo" src="./images/enter_mile0.png" alt="Mile0" width="90" height="90" decoding="async" />
-    <img class="finale-partner-logo" src="./images/aureum.jpeg" alt="Aureum" width="90" height="90" decoding="async" />
-    <img class="finale-partner-logo" src="./images/enter_governance.png" alt="Governance" width="90" height="90" decoding="async" />
+  <img class="enter-banner" src="./images/enter_banner.png" alt="" decoding="async" title="Enter — open documentation" role="button" tabindex="0" />
+  <div class="finale-logo-row" aria-label="Partners — click any logo to enter">
+    <img class="finale-partner-logo" src="./images/enter_mile0.png" alt="Mile0" width="90" height="90" decoding="async" title="Enter — open documentation" role="button" tabindex="0" />
+    <img class="finale-partner-logo" src="./images/aureum.jpeg" alt="Aureum" width="90" height="90" decoding="async" title="Enter — open documentation" role="button" tabindex="0" />
+    <img class="finale-partner-logo" src="./images/enter_governance.png" alt="Governance" width="90" height="90" decoding="async" title="Enter — open documentation" role="button" tabindex="0" />
   </div>
   <div class="finale-content">
     <div class="aureum">AUREUM</div>
@@ -204,41 +220,75 @@
         <span class="sidebar-brand">AUREUM</span>
       </div>
       <nav class="sidebar-nav" id="sidebar-nav">
-        <button type="button" class="sidebar-link" data-tab="intro">Intro</button>
-        <button type="button" class="sidebar-parent" data-tab="overview">Overview</button>
-        <div class="sidebar-sub" data-menu-for="overview"></div>
-        <button type="button" class="sidebar-parent active" data-tab="model">Mental Model</button>
-        <div class="sidebar-sub" data-menu-for="model"></div>
-        <button type="button" class="sidebar-parent" data-tab="foundations">Theoretical Foundations</button>
-        <div class="sidebar-sub" data-menu-for="foundations"></div>
-        <button type="button" class="sidebar-parent" data-tab="tokenomics">Tokenomics</button>
-        <div class="sidebar-sub" data-menu-for="tokenomics"></div>
+        <div class="sidebar-group">
+          <button type="button" class="sidebar-link" data-tab="intro">Intro</button>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="overview">Overview</button>
+          <div class="sidebar-sub" data-menu-for="overview"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent active" data-tab="model">Mental Model</button>
+          <div class="sidebar-sub" data-menu-for="model"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="foundations">Theoretical Foundations</button>
+          <div class="sidebar-sub" data-menu-for="foundations"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="tokenomics">Tokenomics</button>
+          <div class="sidebar-sub" data-menu-for="tokenomics"></div>
+        </div>
         <div class="nav-group-label">Miliarium</div>
-        <button type="button" class="sidebar-link" data-tab="miliarium">Registry</button>
-        <div class="sidebar-sub" data-menu-for="miliarium"></div>
-        <button type="button" class="sidebar-link" data-tab="miliarium-manifest">Manifest</button>
-        <div class="sidebar-sub" data-menu-for="miliarium-manifest"></div>
-        <button type="button" class="sidebar-link" data-tab="miliarium-sectors">Sectors</button>
-        <div class="sidebar-sub" data-menu-for="miliarium-sectors"></div>
-        <button type="button" class="sidebar-link" data-tab="miliarium-tokens">Tokens</button>
-        <div class="sidebar-sub" data-menu-for="miliarium-tokens"></div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="miliarium">Registry</button>
+          <div class="sidebar-sub" data-menu-for="miliarium"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="miliarium-manifest">Manifest</button>
+          <div class="sidebar-sub" data-menu-for="miliarium-manifest"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="miliarium-sectors">Sectors</button>
+          <div class="sidebar-sub" data-menu-for="miliarium-sectors"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="miliarium-tokens">Tokens</button>
+          <div class="sidebar-sub" data-menu-for="miliarium-tokens"></div>
+        </div>
         <div class="nav-group-label">Governance</div>
-        <button type="button" class="sidebar-link" data-tab="constitution">Constitution</button>
-        <div class="sidebar-sub" data-menu-for="constitution"></div>
-        <button type="button" class="sidebar-link" data-tab="bootstrap">Bootstrap</button>
-        <div class="sidebar-sub" data-menu-for="bootstrap"></div>
-        <button type="button" class="sidebar-link" data-tab="transitions">Transitions</button>
-        <div class="sidebar-sub" data-menu-for="transitions"></div>
-        <button type="button" class="sidebar-link" data-tab="formulas">Formulas</button>
-        <div class="sidebar-sub" data-menu-for="formulas"></div>
-        <button type="button" class="sidebar-parent" data-tab="team">Team</button>
-        <div class="sidebar-sub" data-menu-for="team"></div>
-        <button type="button" class="sidebar-parent" data-tab="glossary">Glossary</button>
-        <div class="sidebar-sub" data-menu-for="glossary"></div>
-        <button type="button" class="sidebar-parent" data-tab="appendices">Appendices</button>
-        <div class="sidebar-sub" data-menu-for="appendices"></div>
-        <button type="button" class="sidebar-parent" data-tab="ux_ui">UX / UI</button>
-        <div class="sidebar-sub" data-menu-for="ux_ui"></div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="constitution">Constitution</button>
+          <div class="sidebar-sub" data-menu-for="constitution"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="bootstrap">Bootstrap</button>
+          <div class="sidebar-sub" data-menu-for="bootstrap"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="transitions">Transitions</button>
+          <div class="sidebar-sub" data-menu-for="transitions"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-link" data-tab="formulas">Formulas</button>
+          <div class="sidebar-sub" data-menu-for="formulas"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="team">Team</button>
+          <div class="sidebar-sub" data-menu-for="team"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="glossary">Glossary</button>
+          <div class="sidebar-sub" data-menu-for="glossary"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="appendices">Appendices</button>
+          <div class="sidebar-sub" data-menu-for="appendices"></div>
+        </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="ux_ui">UX / UI</button>
+          <div class="sidebar-sub" data-menu-for="ux_ui"></div>
+        </div>
       </nav>
       <div class="sidebar-footer">
         <div class="theme-toggle">
@@ -517,7 +567,7 @@ function showMainDoc() {
   setTheme('day');
 }
 
-enterBtn.addEventListener('click', function() {
+function proceedToMainDocFromFinale() {
   introScreen.style.transition = 'opacity 0.5s'; introScreen.style.opacity = '0';
   finaleEl.style.transition = 'opacity 0.5s'; finaleEl.style.opacity = '0';
   setTimeout(function() {
@@ -525,6 +575,25 @@ enterBtn.addEventListener('click', function() {
     finaleEl.style.display = 'none';
     showMainDoc();
   }, 500);
+}
+
+enterBtn.addEventListener('click', proceedToMainDocFromFinale);
+
+finaleEl.addEventListener('click', function(e) {
+  var t = e.target;
+  if (t.classList.contains('enter-banner') || t.classList.contains('finale-partner-logo')) {
+    e.preventDefault();
+    proceedToMainDocFromFinale();
+  }
+});
+
+finaleEl.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  var t = e.target;
+  if (t.classList.contains('enter-banner') || t.classList.contains('finale-partner-logo')) {
+    e.preventDefault();
+    proceedToMainDocFromFinale();
+  }
 });
 
 // THEME
@@ -568,9 +637,29 @@ function updateSidebarActive(tab) {
   }
 }
 
+function syncSidebarAccordion(tab) {
+  document.querySelectorAll('.sidebar-group.has-sub').forEach(function(g) {
+    g.classList.remove('open');
+  });
+  if (tab === 'miliarium-profile') {
+    var manifestBtn = document.querySelector('#sidebar-nav [data-tab="miliarium-manifest"]');
+    if (manifestBtn) {
+      var mg = manifestBtn.closest('.sidebar-group.has-sub');
+      if (mg) mg.classList.add('open');
+    }
+    return;
+  }
+  var btn = document.querySelector('#sidebar-nav [data-tab="' + tab + '"]');
+  if (btn) {
+    var grp = btn.closest('.sidebar-group.has-sub');
+    if (grp) grp.classList.add('open');
+  }
+}
+
 function switchTab(tab) {
   currentTab = tab;
   updateSidebarActive(tab);
+  syncSidebarAccordion(tab);
   document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
   var tabEl = document.getElementById('tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
@@ -607,15 +696,31 @@ if (sidebarNav) {
       e.preventDefault();
       var tabKey = subA.getAttribute('data-tab');
       var anchor = subA.getAttribute('data-anchor');
-      if (currentTab !== tabKey) switchTab(tabKey);
-      else closeSidebarMobile();
+      if (currentTab !== tabKey) {
+        switchTab(tabKey);
+      } else {
+        closeSidebarMobile();
+        syncSidebarAccordion(tabKey);
+      }
       scrollToAnchor(anchor);
       return;
     }
     var navBtn = e.target.closest('.sidebar-link, .sidebar-parent');
     if (navBtn && navBtn.getAttribute('data-tab')) {
       e.preventDefault();
-      switchTab(navBtn.getAttribute('data-tab'));
+      var tab = navBtn.getAttribute('data-tab');
+      var group = navBtn.closest('.sidebar-group');
+      if (group && group.classList.contains('has-sub')) {
+        if (currentTab === tab && group.classList.contains('open')) {
+          group.classList.remove('open');
+          return;
+        }
+        if (currentTab === tab && !group.classList.contains('open')) {
+          group.classList.add('open');
+          return;
+        }
+      }
+      switchTab(tab);
     }
   });
 }
