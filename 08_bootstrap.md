@@ -223,13 +223,13 @@ Not a stock-picking exercise. Composition challenges activate when an asset **ce
 3. **Vote.** 2/3 supermajority of protocol-wide tessera-weighted votes. Like-for-like evaluation by voters: same sector (Crypto / BTC), same risk profile (BTC wrapper with different custodian — Threshold Network multi-party computation vs Coinbase custody), same template role (Theme Asset B).
 4. **Approval actions (atomic in the approval transaction).** The governance contract calls `MiliariumRegistry.replaceSlot(14, newPoolAddress)`. The old ixAurebit pool's gauge is revoked; the new pool is automatically gauge-approved with a 90-day CCB multiplier boost (1.2×).
 5. **Post-approval state.**
-   - Old ixAurebit pool: persists on-chain, no AuMM emissions, fee-routing hook still attached (any residual trading still routes swap fees to Bodensee), LPs can hold or withdraw at will, AuMT for the old pool drops to **zero governance weight**.
+   - Old ixAurebit pool: persists on-chain, no AuMM emissions, fee-routing hook still attached (residual trading: **protocol share** to Bodensee, **LP residual** to LPs), LPs can hold or withdraw at will, AuMT for the old pool drops to **zero governance weight**.
    - New ixAurebit pool: active gauge, receives AuMM emissions per CCB, 90-day 1.2× boost, new LP positions earn AuMM emissions and governance weight (subject to 14-day qualification + 6-month on-ramp).
    - Market behavior: LPs of the old pool withdraw naturally as cbBTC's redemption window narrows. The new pool attracts liquidity because it's the only emission-eligible BTC pool in slot 14.
 
 **What this example illustrates:**
 - No forced LP migration mechanism is needed — the market handles it for free.
-- The fee-routing hook stays attached to the deprecated pool for life, so Bodensee continues to benefit from any trading.
+- The fee-routing hook stays attached to the deprecated pool for life, so Bodensee continues to receive the **protocol share** of swap fees while LPs retain the **LP residual**.
 - Slot 14's identity persists across the composition change; the registry maps slot → current pool address, not slot → immutable pool address.
 
 #### The 28 are a blueprint, not the full economy

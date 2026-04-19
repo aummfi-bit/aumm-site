@@ -18,7 +18,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury wallet.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
 - der Bodensee Pool launches as a **three-token weighted pool** with **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay). **Swap fee inside der Bodensee:** **0.75%** at genesis (governance-adjustable within 0.10–1.00% band per [Constitution §xxix](10_constitution.md)), fully retained **in pool** for der Bodensee LPs. **Not surfaced in the official aumm.fi UI during Months 0–6** (frontend convention; pool is on-chain and tradeable from genesis, but not publicly announced or routed by the official UI; self-hides via lopsided F-0 composition).
-- **Protocol-captured** fee revenue (swap fees on **other** pools + ERC-4626 yield fees) starts flowing into der Bodensee as one-sided stablecoin (sUSDS/svZCHF) inflows.
+- **Protocol-captured** fee revenue (**protocol share** of swap fees on **other** gauged pools + ERC-4626 yield fees) starts flowing into der Bodensee as one-sided stablecoin (sUSDS/svZCHF) inflows.
 
 **Month 2 — TVL measurement window opens.**
 - On-chain TVL data begins accumulating for EMA(60) signal.
@@ -58,7 +58,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - New gauged pools receive emissions alongside the 28 Miliarium pools.
 - Incendiary Boost available for all gauged pools.
 - Governance continues for non-emission proposals (gauges, fees) under immutable constraints.
-- **Protocol-captured** fees (swap fees on other pools + ERC-4626 yield skim) continue to der Bodensee as one-sided stablecoin (sUSDS/svZCHF); **swap fees inside der Bodensee** (0.75%) stay **in pool** for der Bodensee LPs.
+- **Protocol-captured** fees (**protocol share** of swap fees on other pools + ERC-4626 yield skim) continue to der Bodensee as one-sided stablecoin (sUSDS/svZCHF); **swap fees inside der Bodensee** (0.75%) stay **in pool** in full for der Bodensee LPs.
 
 ### Post-activation
 
