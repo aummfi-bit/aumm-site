@@ -57,12 +57,11 @@ jobs:
         run: |
           python3 scripts/generate_llms_manifest.py --skill-out "${{ github.workspace }}/aumm-skill-build"
 
-      - name: Sync SKILL.md, README.md, references/ into aumm-skill
+      - name: Sync SKILL.md, README.md, references/, and .github/ into aumm-skill
         run: |
           set -euo pipefail
           rsync -a --delete "${{ github.workspace }}/aumm-skill-build/references/" aumm-skill/references/
-          cp aumm-site/dist/aumm-skill/SKILL.md aumm-skill/SKILL.md
-          cp aumm-site/dist/aumm-skill/README.md aumm-skill/README.md
+          rsync -a --exclude='references' --exclude='references/**' aumm-site/dist/aumm-skill/ aumm-skill/
 
       - name: Commit and push if changed
         working-directory: aumm-skill
