@@ -1,0 +1,80 @@
+# Regenerate the aumm-skill references/ tree and push to aummfi-bit/aumm-skill
+# on every canon change.
+#
+# Prerequisites:
+#   1. The aummfi-bit/aumm-skill repo exists.
+#   2. Repo secret AUMM_SKILL_DEPLOY_TOKEN is set to a fine-grained PAT (or
+#      app token) with contents:write on aummfi-bit/aumm-skill.
+#
+# Until both are in place, this workflow will fail loudly — by design. The
+# alternative (silent skip) would mask drift.
+name: Publish aumm-skill
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.md"
+      - "miliarium_profiles/**"
+      - "scripts/generate_llms_manifest.py"
+      - "dist/aumm-skill/SKILL.md"
+      - "dist/aumm-skill/README.md"
+      - ".github/workflows/skill-publish.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: skill-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout aumm-site
+        uses: actions/checkout@v4
+        with:
+          path: aumm-site
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Checkout aumm-skill
+        uses: actions/checkout@v4
+        with:
+          repository: aummfi-bit/aumm-skill
+          token: ${{ secrets.AUMM_SKILL_DEPLOY_TOKEN }}
+          path: aumm-skill
+          fetch-depth: 1
+
+      - name: Generate references/ tree
+        working-directory: aumm-site
+        run: |
+          python3 scripts/generate_llms_manifest.py --skill-out "${{ github.workspace }}/aumm-skill-build"
+
+      - name: Sync SKILL.md, README.md, references/ into aumm-skill
+        run: |
+          set -euo pipefail
+          rsync -a --delete "${{ github.workspace }}/aumm-skill-build/references/" aumm-skill/references/
+          cp aumm-site/dist/aumm-skill/SKILL.md aumm-skill/SKILL.md
+          cp aumm-site/dist/aumm-skill/README.md aumm-skill/README.md
+
+      - name: Commit and push if changed
+        working-directory: aumm-skill
+        run: |
+          set -euo pipefail
+          git config user.name "aumm-skill-sync[bot]"
+          git config user.email "aumm-skill-sync@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no changes — skipping commit"
+            exit 0
+          fi
+          CANON_SHA="${{ github.sha }}"
+          git commit -m "sync: aumm-site@${CANON_SHA:0:7}"
+          git push origin HEAD:main

@@ -92,12 +92,11 @@ Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
 
 ## Excluded from the canonical corpus (`llms-full.txt`)
 
-These files exist in the repo but are **editorial / internal**, not the normative protocol spec:
+This file exists in the repo but is **editorial / internal**, not the normative protocol spec:
 
-- `editorial_sprints.md` — internal sprint planning  
-- `script.md` — internal review notes  
+- `script.md` — internal review notes
 
-Do **not** treat them as authoritative over the numbered `.md` specs.
+Do **not** treat it as authoritative over the numbered `.md` specs.
 
 ---
 
