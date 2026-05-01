@@ -3,7 +3,7 @@
 #
 # Prerequisites:
 #   1. The aummfi-bit/aumm-skill repo exists.
-#   2. Repo secret AUMM_SKILL_DEPLOY_TOKEN is set to a fine-grained PAT (or
+#   2. Repo secret AUMMSKILL is set to a fine-grained PAT (or
 #      app token) with contents:write on aummfi-bit/aumm-skill.
 #
 # Until both are in place, this workflow will fail loudly — by design. The
@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: aummfi-bit/aumm-skill
-          token: ${{ secrets.AUMM_SKILL_DEPLOY_TOKEN }}
+          token: ${{ secrets.AUMMSKILL }}
           path: aumm-skill
           fetch-depth: 1
 
