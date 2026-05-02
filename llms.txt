@@ -56,8 +56,6 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 
 **Per-pool profiles:** [`miliarium_profiles/01_ixHelvetia.md`](https://aumm.fi/miliarium_profiles/01_ixHelvetia.md) … [`28_ixMetallum.md`](https://aumm.fi/miliarium_profiles/28_ixMetallum.md) — one file per founding pool.
 
-**Secondary / supporting docs (also in `llms-full.txt`):** [`aureum_schedule.md`](https://aumm.fi/aureum_schedule.md), [`project_aureum_design_final.md`](https://aumm.fi/project_aureum_design_final.md), [`README.md`](https://aumm.fi/README.md)
-
 ---
 
 ## Suggested reading order (for humans and models)

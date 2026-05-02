@@ -4,17 +4,22 @@ Generate llms-full.txt: one absolute HTTPS URL per line (no comments) for LLM/RA
 
 Default base: https://aumm.fi  (override with BASE_URL=https://example.com)
 
-CORE_PATHS order aligns with index.html loadMd() batch and site structure:
-  Intro uses 01_intro.json (not listed here).
-  Nav: Mental Model, Foundations, Tokenomics, Miliarium (05–07), Governance (10,08,09,11), Glossary, Appendices, UX/UI, Team (16); Overview (15) loads programmatically.
+Single source of truth: the canonical file list is parsed from index.html's
+loadMd('FILENAME.md', ...) calls. Adding/removing a tab from the SPA flows
+automatically into both llms-full.txt and the Skill build — no hand-maintained
+allowlist drifts. Pool profiles use a directory glob (they're loaded via
+dynamic router, not enumerated in index.html).
 
-Excluded from output: script.md (internal review notes); 01_intro.json (not Markdown prose).
+Excluded: 01_intro.json (animation data, not Markdown prose); script.md
+(internal review notes); aureum_schedule.md and project_aureum_design_final.md
+(no longer canon — the SPA doesn't load them).
 
 See ../llms.txt for human/AI-readable manifest and tab→file mapping.
 
-Optional Skill build: pass --skill-out <dir> to also generate the aumm-skill references/
-tree (canonical .md subset + 28 pool profiles + _canon.json lockfile). Source files stay
-the canon; references/ files are derived and carry a DO-NOT-EDIT header.
+Optional Skill build: pass --skill-out <dir> to also generate the aumm-skill
+references/ tree (canonical .md set + 28 pool profiles + _canon.json lockfile).
+Source files stay the canon; references/ files are derived and carry a
+DO-NOT-EDIT header.
 """
 from __future__ import annotations
 
@@ -33,58 +38,37 @@ ROOT = Path(__file__).resolve().parent.parent
 
 DEFAULT_BASE = "https://aumm.fi"
 
-# Order matches site nav / plan (index.html loadMd batch + secondary specs).
-CORE_PATHS: list[str] = [
-    "15_overview.md",
-    "02_mental_model.md",
-    "03_theoretical_foundation.md",
-    "04_tokenomics.md",
-    "05_miliarium_aureum.md",
-    "06_miliarium_manifest.md",
-    "07_miliarium_sectors.md",
-    "07a_tokens.md",
-    "08_bootstrap.md",
-    "09_transitions.md",
-    "10_constitution.md",
-    "11_formulas.md",
-    "12_aureum_glossary.md",
-    "13_appendices.md",
-    "14_ux_ui.md",
-    "16_team.md",
-]
+INDEX_HTML = ROOT / "index.html"
+LOAD_MD_RE = re.compile(r"""loadMd\(\s*['"]([^'"]+\.md)['"]""")
 
-SECONDARY_PATHS: list[str] = [
-    "aureum_schedule.md",
-    "project_aureum_design_final.md",
-]
-
-# Contributor-facing; listed after secondary, before pool profiles.
+# Contributor-facing; appended after canon, before pool profiles.
 README_PATH = "README.md"
 
 PROFILE_RE = re.compile(r"^(\d{2})_ix.*\.md$", re.IGNORECASE)
 
-# Subset of canon shipped to the Claude Skill. Pool profiles are added separately.
-SKILL_REFERENCES: list[str] = [
-    "15_overview.md",
-    "02_mental_model.md",
-    "03_theoretical_foundation.md",
-    "04_tokenomics.md",
-    "05_miliarium_aureum.md",
-    "08_bootstrap.md",
-    "10_constitution.md",
-    "11_formulas.md",
-    "12_aureum_glossary.md",
-]
+
+def canon_paths() -> list[str]:
+    """Parse index.html for loadMd('<file>.md', ...) calls — the canonical file set."""
+    if not INDEX_HTML.is_file():
+        print(f"error: {INDEX_HTML.relative_to(ROOT)} missing", file=sys.stderr)
+        return []
+    text = INDEX_HTML.read_text(encoding="utf-8")
+    seen: set[str] = set()
+    out: list[str] = []
+    for m in LOAD_MD_RE.finditer(text):
+        rel = m.group(1)
+        if rel in seen:
+            continue
+        seen.add(rel)
+        if not (ROOT / rel).is_file():
+            print(f"warning: index.html references missing file: {rel}", file=sys.stderr)
+            continue
+        out.append(rel)
+    return out
 
 
 def collect_paths() -> list[str]:
-    paths: list[str] = []
-    for rel in CORE_PATHS + SECONDARY_PATHS:
-        p = ROOT / rel
-        if not p.is_file():
-            print(f"warning: missing file (skipped): {rel}", file=sys.stderr)
-            continue
-        paths.append(rel.replace("\\", "/"))
+    paths = canon_paths()
 
     readme = ROOT / README_PATH
     if readme.is_file():
@@ -131,7 +115,6 @@ def build_skill(out_dir: Path) -> int:
     refs_dir = out_dir / "references"
     profiles_dir = refs_dir / "miliarium_profiles"
 
-    # Wipe and rebuild references/ deterministically.
     if refs_dir.exists():
         shutil.rmtree(refs_dir)
     refs_dir.mkdir(parents=True)
@@ -140,7 +123,7 @@ def build_skill(out_dir: Path) -> int:
     canon_sha = get_canon_sha()
     written: list[str] = []
 
-    for rel in SKILL_REFERENCES:
+    for rel in canon_paths():
         src = ROOT / rel
         if not src.is_file():
             print(f"error: skill reference missing: {rel}", file=sys.stderr)
@@ -173,11 +156,56 @@ def build_skill(out_dir: Path) -> int:
         json.dumps(lockfile, indent=2) + "\n", encoding="utf-8"
     )
 
+    rc = check_local_links(refs_dir, set(written))
+    if rc != 0:
+        return rc
+
     print(
-        f"wrote {len(written)} references + _canon.json to "
-        f"{refs_dir.relative_to(out_dir.parent) if out_dir.parent in refs_dir.parents else refs_dir} "
+        f"wrote {len(written)} references + _canon.json to {refs_dir} "
         f"(canon_sha={canon_sha})"
     )
+    return 0
+
+
+# Match markdown links to local .md files: [text](path/to/file.md) or [text](file.md#anchor).
+# Skips http(s):// and mailto: targets.
+LINK_RE = re.compile(r"\[[^\]]*\]\((?!https?://|mailto:)([^)#]+\.md)(?:#[^)]*)?\)")
+
+
+def check_local_links(refs_dir: Path, shipped: set[str]) -> int:
+    """Fail if any shipped reference contains a markdown link to an unbundled .md file."""
+    shipped_basenames = {Path(p).name for p in shipped}
+    shipped_relpaths = set(shipped)
+    bad: list[tuple[str, str]] = []
+
+    for ref_file in sorted(refs_dir.rglob("*.md")):
+        rel_from_refs = ref_file.relative_to(refs_dir).as_posix()
+        text = ref_file.read_text(encoding="utf-8")
+        for m in LINK_RE.finditer(text):
+            target = m.group(1).strip()
+            # Resolve target relative to the file's directory, against the refs/ tree.
+            base = (ref_file.parent / target).resolve()
+            try:
+                rel_target = base.relative_to(refs_dir.resolve()).as_posix()
+            except ValueError:
+                rel_target = None
+
+            if rel_target and rel_target in shipped_relpaths:
+                continue
+            if Path(target).name in shipped_basenames:
+                continue
+            bad.append((rel_from_refs, target))
+
+    if bad:
+        print("error: dangling cross-references in skill snapshot:", file=sys.stderr)
+        for src, tgt in bad:
+            print(f"  {src} -> {tgt}", file=sys.stderr)
+        print(
+            "Hint: add the missing file to index.html's loadMd() list, or fix "
+            "the link in the source .md.",
+            file=sys.stderr,
+        )
+        return 1
     return 0
 
 
