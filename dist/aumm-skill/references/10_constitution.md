@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@528ea35cc2d034529dab446894f8b5c890b762ea 10_constitution.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@e03b5066dfb138077f118e90c808f62c70ba426c 10_constitution.md — DO NOT EDIT -->
 # Constitution
 
 *The immutable operating law of Aureum.*
