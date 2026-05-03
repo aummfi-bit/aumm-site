@@ -260,7 +260,6 @@ weight_svZCHF = 0.30        // 30%
 | Swap fee | **0.75%**, fully retained **in pool** (not routed through the protocol fee pipeline) |
 | ERC-4626 yield-bearing share | **60%** of pool TVL (sUSDS + svZCHF) earns native vault yield |
 | Emission eligibility | **None** — der Bodensee cannot receive CCB emissions (no self-referential tokens) |
-| UI visibility | **Not surfaced in the official aumm.fi UI during Months 0–6**; visible and tradeable from Month 6 onward in the official UI |
 
 **AuMM inflows.** Only the F-0 bootstrap deposits AuMM into der Bodensee — decaying per block through Month 10, then **permanently zero**. No other mechanism mints AuMM into this pool.
 
@@ -268,7 +267,7 @@ weight_svZCHF = 0.30        // 30%
 
 **Der Bodensee is excluded from the yield skim.** Its own ERC-4626 holdings (svZCHF + sUSDS, 60% of pool TVL) accrue yield continuously via the Rate Provider mechanism, and that yield stays inside the pool — it accrues to Bodensee LPs via their BPT share and reprices AuMM upward via weighted-pool math. Skimming Bodensee's yield and depositing it back into Bodensee would be a circular no-op. The skim mechanism extracts yield from *other* pools only; Bodensee is the **destination** of the skim, not a source. See [Tokenomics §x-a](04_tokenomics.md) for the full self-yield mechanism.
 
-**Price discovery.** No founder-set price, no governance-voted multiple, no TVL measurement window. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically. At Month 6 the pool unhides, and whatever ratio exists at that point is the market's opening price.
+**Price discovery.** No founder-set price, no governance-voted multiple, no TVL measurement window. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically from genesis.
 
 All composition parameters immutable from block 0.
 

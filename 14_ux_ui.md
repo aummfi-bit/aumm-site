@@ -10,12 +10,12 @@ This document lists the full UX/UI surface planned for aumm.fi. Per OQ-18, the f
 
 **MVP — required for testnet (Holesky) and mainnet launch:**
 - §xlvii Miliarium Aureum Pools — registry table with compositions, TVL, 24h volume, CCB multiplier, emission share
-- §xlvi der Bodensee Pool — visible only after `MONTH_6_END_BLOCK`; composition card, reserve depth, AuMM price, pool balances
+- §xlvi der Bodensee Pool — composition card, reserve depth, AuMM price, pool balances (from genesis)
 - LP deposit/withdraw flows for every gauged pool + der Bodensee
 - AuMT display — user's qualified AuMT per pool, pending AuMM emissions, time-in-pool status (14-day qualification, 6-month on-ramp)
 - Governance interface — active proposals list, voting UI, proposal-submission UI (gauge proposals, gauge challenges, composition challenges, fee-change proposals)
 - Swap interface — basic composite-swap via the constellation (can integrate with an aggregator initially rather than building routing from scratch)
-- Block-based time displays — halving countdown, Month 6 unhide countdown, Era transition countdowns (all expressed as blocks with calendar-time aliases per §xxix)
+- Block-based time displays — halving countdown, bootstrap milestones at `MONTH_6_END_BLOCK` / `MONTH_10_END_BLOCK`, Era transition countdowns (all expressed as blocks with calendar-time aliases per §xxix)
 
 **Post-MVP — rolled out over subsequent protocol-months:**
 - §xlv Protocol Overview Dashboard — TradingView-style charts, FDV/TVL ratios, historical data
@@ -44,13 +44,12 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## xlvi. der Bodensee Pool
 
-- [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (piecewise: 80% → 50% at `MONTH_6_END_BLOCK`, 50% → 0% at `MONTH_10_END_BLOCK`), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees. **Render only after `MONTH_6_END_BLOCK`.**
+- [ ] **Bootstrap emission decay** — current Bodensee share of block emission vs time (piecewise: 80% → 50% at `MONTH_6_END_BLOCK`, 50% → 0% at `MONTH_10_END_BLOCK`), small chart or progress ring; cumulative one-sided AuMM from bootstrap vs from fees
 - [ ] **Pool composition card** — fixed weights **40% AuMM / 30% sUSDS / 30% svZCHF** (immutable, no decay); show 60% ERC-4626 yield-bearing share
 - [ ] **Reserve depth** — total stablecoin (sUSDS + svZCHF) accumulated (from fee revenue + governance deposits + Incendiary Boost deposits)
-- [ ] **AuMM price** — derived from pool reserves and fixed weights (no oracle); only displayed from Month 6 onward
+- [ ] **AuMM price** — derived from pool reserves and fixed weights (no oracle)
 - [ ] **Inflow tracker** — cumulative and trailing 30d **one-sided stablecoin** inflows to der Bodensee, broken down by source (**protocol share** of swap fees from **other** pools, yield skim, governance deposits, Incendiary Boost deposits); separately show **in-pool** swap-fee accrual for der Bodensee LPs (0.75% tier) if distinct in subgraph
 - [ ] **Pool balances** — live AuMM, sUSDS, and svZCHF balances
-- [ ] **UI visibility gate** — der Bodensee Pool is **not rendered in the official aumm.fi UI during blocks 0 through `MONTH_6_END_BLOCK`**; the section unhides at `MONTH_6_END_BLOCK + 1`. The pool is fully on-chain and tradeable from genesis via direct Vault calls — the UI gate is a frontend convention only. See [Constitution §xxix](10_constitution.md) for `MONTH_6_END_BLOCK` and [Miliarium Aureum §xii](05_miliarium_aureum.md) for the operational policy.
 
 ---
 

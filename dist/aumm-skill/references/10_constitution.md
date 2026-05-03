@@ -114,7 +114,7 @@ Immutable from block 0, cannot be changed by any means.
 | `BLOCKS_PER_DAY` | 7,200 | 1 day | EMA daily sampling (F-4), per-day rates |
 | `BLOCKS_PER_WEEK` | 50,400 | 7 days | General reference |
 | `BLOCKS_PER_EPOCH` | 100,800 | 14 days ("bi-weekly") | Incendiary Boost duration (F-2), CCB multiplier cadence (F-8), efficiency tournament smoothing unit, fee-change cooldown |
-| `BLOCKS_PER_MONTH` | 219,000 | ~30.4 days | F-0 piecewise boundaries, Month 6 unhide, Month 10 bootstrap termination, Month 11–12 transition, Month 13 efficiency-tournament activation |
+| `BLOCKS_PER_MONTH` | 219,000 | ~30.4 days | F-0 piecewise boundaries, Month 10 bootstrap termination, Month 11–12 transition, Month 13 efficiency-tournament activation |
 | `BLOCKS_PER_QUARTER` | 657,000 | ~91.25 days | General reference |
 | `BLOCKS_PER_YEAR` | 2,628,000 | 365 days (exact) | Year 1 / transition-complete boundary, era-quarter boundary, F-9 governance dampening era boundaries |
 | `BLOCKS_PER_ERA` | 10,512,000 | 1,460 days (4 × 365) | Halving interval; F-9 governance dampening transition (Era 0 → Era 1+) |
@@ -123,7 +123,7 @@ Immutable from block 0, cannot be changed by any means.
 
 | Constant | Formula | Used in |
 |:---------|:--------|:--------|
-| `MONTH_6_END_BLOCK` | `genesis + 6 × BLOCKS_PER_MONTH` | F-0 first piecewise boundary (80%→50%); der Bodensee UI unhide |
+| `MONTH_6_END_BLOCK` | `genesis + 6 × BLOCKS_PER_MONTH` | F-0 first piecewise boundary (80%→50%) |
 | `MONTH_10_END_BLOCK` | `genesis + 10 × BLOCKS_PER_MONTH` | F-0 second piecewise boundary (bootstrap permanently zero) |
 | `YEAR_1_END_BLOCK` | `genesis + BLOCKS_PER_YEAR` | F-3 transition endpoint (α = 1) |
 | `MONTH_13_START_BLOCK` | `genesis + 12 × BLOCKS_PER_MONTH + 1` | Efficiency tournament activation |
@@ -163,7 +163,6 @@ Immutable from block 0, cannot be changed by any means.
 - **Three-token weighted pool**, AuMM/sUSDS/svZCHF only.
 - Months 1–10 one-sided AuMM bootstrap per [F-0](11_formulas.md) (piecewise linear: 80% at genesis → 50% at `MONTH_6_END_BLOCK` → 0% at `MONTH_10_END_BLOCK`). After `MONTH_10_END_BLOCK`, bootstrap channel is permanently zero.
 - **Not emission-eligible** (AuMM cannot be in emission-eligible pools — no self-referential tokens).
-- **Not surfaced in the official aumm.fi UI during Months 0–6** (frontend-only convention); pool is fully on-chain and tradeable from genesis. UI unhides at `MONTH_6_END_BLOCK + 1`.
 - **Rate Providers** configured on svZCHF and sUSDS at registration — the pool natively accrues their underlying yield in-place via weighted-pool math acting on rate-scaled balances.
 
 ### Gauge-challenge deposit (F-12 support)

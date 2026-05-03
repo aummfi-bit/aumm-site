@@ -70,18 +70,6 @@ As the stablecoin side deepens against fixed AuMM supply, weighted-pool math rep
 
 The dilution ceiling is the halving schedule. Emission to LPs falls by half every 10,512,000 blocks. Markets price the curve from day one.
 
-### Why those exact weights?
-
-40% AuMM keeps the protocol's own token at majority weight, which maximizes how much each dollar of stablecoin inflow reprices AuMM. Drop AuMM to 20% and the same inflow moves the price less. 30% sUSDS provides USD depth and Sky's savings yield, in-place. 30% svZCHF brings CHF denomination, deterministic Rate-Provider pricing, and correlation independence from USD assets. svZCHF is also the routing rail across 26 of 28 Miliarium pools and the deposit currency for every governance proposal, Incendiary Boost, and composition challenge, so it accumulates in Bodensee by default.
-
-### Why is Bodensee UI-hidden for six months?
-
-The pool is on-chain and tradeable from genesis. The hide is a frontend convention, not a contract restriction.
-
-Through Months 1 to 6, Bodensee receives the heaviest AuMM bootstrap inflows, 80% to 50% of each block's emission deposited one-sided. Surfacing that to retail and aggregators in those months would mean rational traders dump the implied price before the stablecoin side has had time to deepen. The hide gives the bootstrap and the protocol fee revenue six months to accumulate before public price discovery.
-
-Whatever ratio of AuMM to stablecoins exists at `MONTH_6_END_BLOCK + 1` is the opening market price. There is no founder-set price, no governance-voted multiple, no oracle reference. It's whatever the pool math returns given the inputs.
-
 ### Why is Bodensee excluded from the yield skim?
 
 Bodensee already holds 60% of its TVL in 4626. Skimming 10% of Bodensee's own yield to deposit it back into Bodensee would be a no-op that only burns gas. Bodensee's 4626 yield compounds in-place via Rate Providers. The skim is a one-way pipe from every other gauged pool into Bodensee.
@@ -108,13 +96,15 @@ Before that depth exists, four things bridge the gap. The founding team seeds po
 
 ### Who actually buys AuMM exposure?
 
-Three rough waves.
+Two constituencies buy AuMM, and they don't want the same thing.
 
-First six months: Frankencoin holders who already hold svZCHF and want yield-bearing LP exposure, DeFi-native treasury operators looking for 4626 floor yield with token upside, the founding team and close network. Mercenary LPs come in for the high headline APR on thin pools while the equal-tranche regime is in force.
+The first group is buying scarcity and routed revenue. AuMM has a Bitcoin-style halving and a fixed cap ([What is AuMM?](#what-is-aumm)), so issuance falls on schedule regardless of narrative. The protocol share of swap fees on gauged pools and the ERC-4626 yield skim flow one-sided into der Bodensee, where the immutable 40/30/30 weights reprice AuMM upward as stablecoin depth grows ([What gives AuMM real value accrual?](#what-gives-aumm-real-value-accrual), [Where does protocol revenue come from?](#where-does-protocol-revenue-come-from)). These buyers aren't here for governance. They are holding a fixed-supply curve attached to a live AMM revenue pipeline.
 
-Months 6 through 12, after Bodensee unhides: yield-seeking LPs targeting the AuMM/svZCHF pool itself, where 0.75% in-pool fees plus svZCHF native yield is structurally attractive. Reserve Protocol DTF holders are a natural overlap given the constellation's positioning.
+The second group is LPs and emission-aligned participants. Block emission is denominated in AuMM, not dollars, so when AuMM reprices, the dollar APY on every emission-earning pool scales with it ([How does APY change when AuMM is being bought in Bodensee?](#how-does-apy-change-when-aumm-is-being-bought-in-bodensee)). An LP in a constellation pool benefits whenever Bodensee absorbs more depth — even without holding a single AuMM directly. ("Players" in this context means emission-earning LPs, not the gaming-the-system actors covered elsewhere.)
 
-After Year 1: aggregator integration and sector rotation. Once 1inch and Paraswap route through, organic volume drives the swap fee revenue cycle. When crypto sells off, the gold pool, the bond pools, and the CHF savings pool absorb capital from crypto pools within the same architecture, and the fees stay inside Aureum.
+The two aren't exclusive. An LP who also holds AuMM is long scarcity, routed revenue, and their own pool's dollar yield at the same time.
+
+Not investment advice. The thesis only works as long as swap volume, Bodensee depth, and the contracts themselves do — see [What's the catastrophic-risk profile?](#whats-the-catastrophic-risk-profile).
 
 ---
 
@@ -138,11 +128,13 @@ Governance cannot alter the emission schedule, halving math, CCB engine paramete
 
 ### Why fourth root, then cube root?
 
-Voting power is `(qualified_AuMT_value × time_in_pool)^(1/4)` in Era 0, transitioning permanently to `^(1/3)` at the first halving block. Era 0 is when the protocol is small enough that a single $100M LP could be 100% of TVL. Fourth root cuts that whale's share of governance to roughly 76% under the spec's worked example. By year 4, natural TVL growth has done most of the work. Cube root reflects lower capture risk in a larger ecosystem. The transition fires at one block, immutable, no vote.
+Voting power is `(qualified_AuMT_value × time_in_pool)^(1/4)` in Era 0, transitioning permanently to `^(1/3)` at the first halving block. Era 0 is when the protocol is still small enough that one whale LP could take most governance power from TVL share alone. The fourth root softens that. By year 4, natural TVL growth has done most of the work. The cube root matches lower capture risk in a larger ecosystem. The transition fires at one block: immutable, no vote.
 
 ### Are there really no admin keys?
 
-There is one time-bounded carveout. At the Stage B to governance migration, the Stage B multisig retains an emergency-only role for `BLOCKS_PER_YEAR` (~12 months) afterwards, then dies permanently. After that block, no entity has any administrative authority over the contracts. There is no upgrade path, no multisig, no pause function, no admin key.
+Multisig has emergency-only role for ~12 months (`BLOCKS_PER_YEAR`), then dies permanently. Contracts become fully immutable—no admin keys, upgrades, pauses, or authority. Purpose: safe launch then decentralization.
+
+Actions allowed are emergency-only for ~12 months (`BLOCKS_PER_YEAR`), then gone: pause pools/vault, kill gauges (stop emissions), recovery mode, disable factories, denylist tokens—pure exploit containment, not operations. No upgrades, fee changes, parameter edits, fund routing, or mandate extension. After that window: fully immutable; no admin path.
 
 ---
 
@@ -229,3 +221,7 @@ ixEDEL is one of the two universal connectors in the constellation. It appears i
 ### How does Aureum interact with Frankencoin?
 
 svZCHF is the deeper, primary routing rail. It appears in 26 of 28 Miliarium pools, typically at 26% weight, rising to 80% in ixHelvetia (slot 01), the pure Frankencoin money market pool. Pricing reads directly from the Frankencoin contract through a deterministic Rate Provider, no oracle. svZCHF is also the autonomous-reserve anchor: Bodensee holds 30% svZCHF in fixed weight, and every governance proposal, Incendiary Boost, composition challenge, and protocol fee inflow lands as one-sided svZCHF or sUSDS into the pool. As Aureum grows, it becomes a structural buyer of svZCHF, deepening the reserve in step with its own usage. svZCHF is absent only from slot 02 (ixAetheron) and slot 06 (ixLibertas). The shared design lineage is the Continuous Capital Corporation framing from Dr. Luzius Meisser's 2024 PhD thesis and Frankencoin's implementation.
+
+### Is Aureum affiliated with Reserve, Frankencoin, or Sky?
+
+No. Aureum is a standalone protocol — not endorsed or operated by any of these projects. The integrations are technical, not contractual: ixEDEL is consumed through Reserve's DTF NAV mechanism, svZCHF through Frankencoin's deterministic rate provider, sUSDS through Sky's ERC-4626 savings vault. Each was picked because it's best-in-class for what Aureum needs, and because each shares the same Cyber DeFi values Aureum itself runs on — immutable contracts, on-chain pricing, oracle-light, no admin keys. Aureum routes through them. It doesn't speak for them or any other protocol with tokens traded in the Aureum Protocol.

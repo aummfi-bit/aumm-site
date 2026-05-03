@@ -17,17 +17,14 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Aequilibrium factory opens. Pool creation is permissionless.
 - **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury wallet.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
-- der Bodensee Pool launches as a **three-token weighted pool** with **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay). **Swap fee inside der Bodensee:** **0.75%** at genesis (governance-adjustable within 0.10–1.00% band per [Constitution §xxix](10_constitution.md)), fully retained **in pool** for der Bodensee LPs. **Not surfaced in the official aumm.fi UI during Months 0–6** (frontend convention; pool is on-chain and tradeable from genesis, but not publicly announced or routed by the official UI; self-hides via lopsided F-0 composition).
+- der Bodensee Pool launches as a **three-token weighted pool** with **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay). **Swap fee inside der Bodensee:** **0.75%** at genesis (governance-adjustable within 0.10–1.00% band per [Constitution §xxix](10_constitution.md)), fully retained **in pool** for der Bodensee LPs.
 - **Protocol-captured** fee revenue (**protocol share** of swap fees on **other** gauged pools + ERC-4626 yield fees) starts flowing into der Bodensee as one-sided stablecoin (sUSDS/svZCHF) inflows.
 
 **Month 2 — TVL measurement window opens.**
 - On-chain TVL data begins accumulating for EMA(60) signal.
 
 **Months 1–10 — der Bodensee emission bootstrap (piecewise-linear decay).**
-- Bodensee share decays **linearly from 80% to 50%** between genesis and the **final block of Month 6**, then **linearly from 50% to 0%** between Month 6 and the **final block of Month 10**. LP tranche grows correspondingly (20% → 50% → 100%). Weighted-pool math reprices AuMM as one-sided stablecoin fee inflows deepen the reserve side.
-
-**`MONTH_6_END_BLOCK` — der Bodensee Pool unhides in the official UI.**
-- The aumm.fi UI begins rendering and routing through der Bodensee. Whatever AuMM-to-stablecoin ratio exists at that block is the market's opening price — no founder-set price, no governance-voted multiple. The pool has been tradeable on-chain since genesis; this block is only the UI-visibility milestone.
+- Bodensee share decays **linearly from 80% to 50%** between genesis and the **final block of Month 6**, then **linearly from 50% to 0%** between Month 6 and the **final block of Month 10**. LP tranche grows correspondingly (20% → 50% → 100%). Weighted-pool math reprices AuMM as one-sided stablecoin fee inflows deepen the reserve side. No founder-set price, no governance-voted multiple — the reserve ratio **is** the market price from genesis.
 
 **End of Month 10 — Bootstrap emissions complete.**
 - Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/28** across the 28 Miliarium pools until Month 11.

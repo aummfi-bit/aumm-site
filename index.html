@@ -102,18 +102,22 @@
     overflow: hidden;
   }
   .sidebar-header {
-    display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
     flex-shrink: 0;
   }
+  .sidebar-header-top {
+    display: flex; align-items: center; gap: 8px; min-width: 0; width: 100%;
+  }
+  .sidebar-header-top .header-tab { margin-left: auto; }
   .sidebar-header-brand {
     display: flex; align-items: center; gap: 10px; min-width: 0; flex-shrink: 0;
   }
-  .sidebar-header-spacer { flex: 1; min-width: 4px; }
   .sidebar-header .header-tab {
     flex-shrink: 0; padding: 5px 12px; font-size: 12px; letter-spacing: 0.06em;
   }
   .sidebar-header .theme-toggle {
-    width: auto; flex-shrink: 0;
+    width: 100%; flex-shrink: 0; align-self: stretch;
   }
   .sidebar-header .theme-btn {
     padding: 6px 7px; font-size: 11px; min-width: 2.25em;
@@ -285,12 +289,13 @@
   <div class="doc-shell">
     <aside class="sidebar" id="sidebar" aria-label="Site navigation">
       <div class="sidebar-header">
-        <div class="sidebar-header-brand">
-          <img class="nav-logo" src="./images/aureum.jpeg" alt="" width="32" height="32" decoding="async" fetchpriority="high" />
-          <span class="sidebar-brand">AUREUM</span>
+        <div class="sidebar-header-top">
+          <div class="sidebar-header-brand">
+            <img class="nav-logo" src="./images/aureum.jpeg" alt="" width="32" height="32" decoding="async" fetchpriority="high" />
+            <span class="sidebar-brand">AUREUM</span>
+          </div>
+          <button type="button" class="header-tab" data-tab="faq" role="tab" aria-label="Open FAQ">FAQ</button>
         </div>
-        <button type="button" class="header-tab" data-tab="faq" role="tab" aria-label="Open FAQ">FAQ</button>
-        <span class="sidebar-header-spacer" aria-hidden="true"></span>
         <div class="theme-toggle" role="group" aria-label="Theme">
           <button type="button" class="theme-btn active" data-theme="au">Au</button>
           <button type="button" class="theme-btn" data-theme="day">Day</button>

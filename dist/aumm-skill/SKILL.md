@@ -36,14 +36,11 @@ These are two distinct mechanisms; do not conflate them.
 - **CCC** (Continuous Capital Corporation): the autonomous reserve and rule set. Algorithmic capital allocation, no discretionary management, no separate treasury. (`references/12_aureum_glossary.md` definition)
 - **CCB** (Continuous Central Bank): the automatic emission allocator. Scores each Miliarium pool by smoothed TVL × multiplier, normalizes to fractional shares, distributes block emissions. EMA-driven (60-day TVL EMA per F-4). (`references/12_aureum_glossary.md`, `references/11_formulas.md` F-5/F-6)
 
-### 3. der Bodensee: on-chain from genesis, UI-hidden Months 0–6
+### 3. der Bodensee: on-chain from genesis
 
-Both facts are true simultaneously and should be stated together.
+The pool exists and is tradeable from block 0; protocol revenue and governance deposits route into it per §xxix.
 
-- **On-chain from genesis**: pool exists and is tradeable from block 0.
-- **Not surfaced in the official aumm.fi UI during Months 0–6** (`MONTH_6_END_BLOCK = genesis + 6 × BLOCKS_PER_MONTH`). UI unhides at `MONTH_6_END_BLOCK + 1`.
-
-Source: `references/10_constitution.md` §xxix (canonical time constants line ~125; der Bodensee Pool parameters line ~165).
+Source: `references/10_constitution.md` §xxix (der Bodensee Pool parameters).
 
 ### 4. Miliarium pools cannot be gauge-challenged
 

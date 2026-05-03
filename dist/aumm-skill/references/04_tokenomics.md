@@ -172,9 +172,8 @@ der Bodensee Pool is the protocol's self-regulating reserve and the AuMM trading
 | Swap fee | **0.75%**, fully retained **in pool** for der Bodensee LPs |
 | ERC-4626 yield share | **60% of pool TVL** (sUSDS + svZCHF) earns native vault yield |
 | Emission eligibility | **None** — AuMM cannot sit in an emission-eligible pool (no self-referential tokens) |
-| UI visibility | **Not surfaced in the official aumm.fi UI during Months 0–6**; visible and tradeable from Month 6 onward in the official UI |
 
-There is no founder-set price, no governance-voted multiple, no TVL measurement window, no stabilization inventory, no buyback, and no burn. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically. At Month 6 the pool unhides — whatever ratio exists at that point is the market's opening price.
+There is no founder-set price, no governance-voted multiple, no TVL measurement window, no stabilization inventory, no buyback, and no burn. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically from genesis.
 
 ### How AuMM enters the pool (decaying treasury emission)
 
