@@ -196,6 +196,23 @@
 
   .mobile-sections { display: none; }
 
+  /* HEADER TAB STRIP — high-visibility quick access (e.g. FAQ) */
+  .header-tabs {
+    display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+    border-bottom: 1px solid var(--border); background: var(--bg-light);
+    flex-shrink: 0; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  .header-tabs::-webkit-scrollbar { height: 4px; }
+  .header-tab {
+    background: var(--accent-faint); border: 1px solid var(--accent); color: var(--accent);
+    font-family: var(--font); font-size: 13px; letter-spacing: 0.08em;
+    padding: 6px 16px; cursor: pointer; border-radius: 4px; white-space: nowrap;
+    text-transform: uppercase; transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  }
+  [data-theme="au"] .header-tab { box-shadow: 0 0 8px var(--accent-glow); }
+  .header-tab:hover { background: var(--accent); color: var(--bg); }
+  .header-tab.active { background: var(--accent); color: var(--bg); }
+
   /* CONTENT */
   .tab-content { display: none; flex: 1; min-height: 0; overflow: hidden; }
   .tab-content.active { display: flex; flex-direction: column; }
@@ -329,6 +346,10 @@
           <div class="sidebar-sub" data-menu-for="team"></div>
         </div>
         <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="faq">FAQ</button>
+          <div class="sidebar-sub" data-menu-for="faq"></div>
+        </div>
+        <div class="sidebar-group has-sub">
           <button type="button" class="sidebar-parent" data-tab="glossary">Glossary</button>
           <div class="sidebar-sub" data-menu-for="glossary"></div>
         </div>
@@ -346,6 +367,9 @@
       <div class="mobile-topbar">
         <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Open navigation">&#9776;</button>
         <span class="mobile-topbar-title">AUREUM</span>
+      </div>
+      <div class="header-tabs" id="header-tabs" role="tablist" aria-label="Quick access">
+        <button type="button" class="header-tab" data-tab="faq" role="tab">FAQ</button>
       </div>
 
   <div class="tab-content" id="tab-overview">
@@ -447,6 +471,12 @@
       <div class="footer">AUREUM — Appendices</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-faq">
+    <div class="content">
+      <div id="faq-body"></div>
+      <div class="footer">AUREUM — FAQ</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-ux_ui">
     <div class="content">
       <div id="ux-ui-body"></div>
@@ -480,6 +510,7 @@ var menus = {
   team: [],
   appendices: [],
   ux_ui: [],
+  faq: [],
   intro: []
 };
 var currentTab = 'model';
@@ -729,11 +760,18 @@ function scrollMainPaneToTop() {
   }
 }
 
+function updateHeaderTabsActive(tab) {
+  document.querySelectorAll('#header-tabs .header-tab').forEach(function(el) {
+    el.classList.toggle('active', el.getAttribute('data-tab') === tab);
+  });
+}
+
 function switchTab(tab) {
   currentTab = tab;
   updateSidebarActive(tab);
   syncSidebarAccordion(tab);
   updateSidebarMenuPanelsVisibility();
+  updateHeaderTabsActive(tab);
   document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
   var tabEl = document.getElementById('tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
@@ -797,6 +835,16 @@ if (sidebarNav) {
       }
       switchTab(tab);
     }
+  });
+}
+
+var headerTabsEl = document.getElementById('header-tabs');
+if (headerTabsEl) {
+  headerTabsEl.addEventListener('click', function(e) {
+    var btn = e.target.closest('.header-tab[data-tab]');
+    if (!btn) return;
+    e.preventDefault();
+    switchTab(btn.getAttribute('data-tab'));
   });
 }
 
@@ -897,6 +945,7 @@ loadMd('16_team.md', 'team-body', 'team');
 loadMd('12_aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('13_appendices.md', 'appendices-body', 'appendices');
 loadMd('14_ux_ui.md', 'ux-ui-body', 'ux_ui');
+loadMd('17_faq.md', 'faq-body', 'faq');
 
 // Load intro lines from 01_intro.json and start animation
 fetch('01_intro.json', fetchMdOpts)
@@ -947,6 +996,7 @@ mainDoc.addEventListener('click', function(e) {
     '14_ux_ui.md': 'ux_ui',
     '15_overview.md': 'overview',
     '16_team.md': 'team',
+    '17_faq.md': 'faq',
     'Miliarium_Aureum.md': 'miliarium'
   };
   if (mdToTab[mdBase]) {
