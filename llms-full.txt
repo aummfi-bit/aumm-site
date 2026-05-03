@@ -14,6 +14,7 @@ https://aumm.fi/16_team.md
 https://aumm.fi/12_aureum_glossary.md
 https://aumm.fi/13_appendices.md
 https://aumm.fi/14_ux_ui.md
+https://aumm.fi/17_faq.md
 https://aumm.fi/README.md
 https://aumm.fi/miliarium_profiles/01_ixHelvetia.md
 https://aumm.fi/miliarium_profiles/02_ixAetheron.md

@@ -51,6 +51,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 | UX / UI | [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) |
 | Overview (content loaded; deep links / SECTIONS menu) | [`15_overview.md`](https://aumm.fi/15_overview.md) |
 | Team | [`16_team.md`](https://aumm.fi/16_team.md) |
+| FAQ (sidebar + header quick-access tab) | [`17_faq.md`](https://aumm.fi/17_faq.md) |
 
 **Governance** in the nav is the dropdown (Constitution → Bootstrap → Transitions → Formulas). **Miliarium** is the separate dropdown (Registry, Manifest, Sectors, Tokens). **Team** is its own tab (founding team, disclaimer).
 
