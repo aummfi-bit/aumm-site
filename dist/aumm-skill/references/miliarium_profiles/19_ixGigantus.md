@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@b15a02c85075a04fa6cfbf4884c7ebcb8aaf220a miliarium_profiles/19_ixGigantus.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@d7744a8bf6f825dd5e3b14a8b69cbeab462ce824 miliarium_profiles/19_ixGigantus.md — DO NOT EDIT -->
 # ixGigantus — Slot 19
 
 **Sector:** US Equities (Mega Cap Tech)
