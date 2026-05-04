@@ -370,6 +370,25 @@
           <button type="button" class="sidebar-parent" data-tab="ux_ui">UX / UI</button>
           <div class="sidebar-sub" data-menu-for="ux_ui"></div>
         </div>
+        <div class="sidebar-group has-sub" data-accordion="sagix">
+          <button type="button" class="sidebar-parent" data-tab="sagix_dm">Sagix essays</button>
+          <div class="sidebar-sub">
+            <button type="button" class="sidebar-link" data-tab="sagix_dm">Ep.9 P1 — Decentralized money</button>
+            <button type="button" class="sidebar-link" data-tab="sagix_euro">Ep.9 P2 — Eurodollar shadow</button>
+            <button type="button" class="sidebar-link" data-tab="sagix_p3">Ep.9 P3 — (DDD9)</button>
+            <button type="button" class="sidebar-link" data-tab="sagix_p4">Ep.9 P4 — Rothschild hub</button>
+            <button type="button" class="sidebar-link" data-tab="sagix_layers">Four-layer framework</button>
+            <button type="button" class="sidebar-link" data-tab="sagix_ma">Sagix Miliarium Aureum</button>
+            <button type="button" class="sidebar-link" data-tab="sagix_risk">Risk premium problem</button>
+            <div data-menu-for="sagix_dm"></div>
+            <div data-menu-for="sagix_euro"></div>
+            <div data-menu-for="sagix_p3"></div>
+            <div data-menu-for="sagix_p4"></div>
+            <div data-menu-for="sagix_layers"></div>
+            <div data-menu-for="sagix_ma"></div>
+            <div data-menu-for="sagix_risk"></div>
+          </div>
+        </div>
       </nav>
     </aside>
     <div class="main-column">
@@ -490,6 +509,48 @@
       <div class="footer">AUREUM — UX / UI</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-sagix_dm">
+    <div class="content">
+      <div id="sagix-dm-body"></div>
+      <div class="footer">Sagix — Ep.9 P1 (canon mirror)</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-sagix_euro">
+    <div class="content">
+      <div id="sagix-euro-body"></div>
+      <div class="footer">Sagix — Ep.9 P2 (canon mirror)</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-sagix_p3">
+    <div class="content">
+      <div id="sagix-p3-body"></div>
+      <div class="footer">Sagix — Ep.9 P3 (canon mirror)</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-sagix_p4">
+    <div class="content">
+      <div id="sagix-p4-body"></div>
+      <div class="footer">Sagix — Ep.9 P4 (canon mirror)</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-sagix_layers">
+    <div class="content">
+      <div id="sagix-layers-body"></div>
+      <div class="footer">Sagix — Layer framework (canon mirror)</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-sagix_ma">
+    <div class="content">
+      <div id="sagix-ma-body"></div>
+      <div class="footer">Sagix — Miliarium Aureum (canon mirror)</div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-sagix_risk">
+    <div class="content">
+      <div id="sagix-risk-body"></div>
+      <div class="footer">Sagix — Risk premium (canon mirror)</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-intro">
     <div id="intro-tab-wrap">
       <div id="intro-tab-terminal"></div>
@@ -517,6 +578,13 @@ var menus = {
   team: [],
   appendices: [],
   ux_ui: [],
+  sagix_dm: [],
+  sagix_euro: [],
+  sagix_p3: [],
+  sagix_p4: [],
+  sagix_layers: [],
+  sagix_ma: [],
+  sagix_risk: [],
   faq: [],
   intro: []
 };
@@ -740,6 +808,11 @@ function syncSidebarAccordion(tab) {
     if (gg) gg.classList.add('open');
     return;
   }
+  if (['sagix_dm', 'sagix_euro', 'sagix_p3', 'sagix_p4', 'sagix_layers', 'sagix_ma', 'sagix_risk'].indexOf(tab) !== -1) {
+    var sx = document.querySelector('#sidebar-nav [data-accordion="sagix"]');
+    if (sx) sx.classList.add('open');
+    return;
+  }
   var btn = document.querySelector('#sidebar-nav [data-tab="' + tab + '"]');
   if (btn) {
     var grp = btn.closest('.sidebar-group.has-sub');
@@ -955,6 +1028,15 @@ loadMd('13_appendices.md', 'appendices-body', 'appendices');
 loadMd('14_ux_ui.md', 'ux-ui-body', 'ux_ui');
 loadMd('17_faq.md', 'faq-body', 'faq');
 
+// Sagix essays (mirrored canon; source files under sagix/)
+loadMd('sagix/decentralized_money.md', 'sagix-dm-body', 'sagix_dm');
+loadMd('sagix/eurodollar_shadow.md', 'sagix-euro-body', 'sagix_euro');
+loadMd('sagix/ddd9_part3.md', 'sagix-p3-body', 'sagix_p3');
+loadMd('sagix/ddd9_part4.md', 'sagix-p4-body', 'sagix_p4');
+loadMd('sagix/our_layer_framework.md', 'sagix-layers-body', 'sagix_layers');
+loadMd('sagix/sagix_miliarium_aureum.md', 'sagix-ma-body', 'sagix_ma');
+loadMd('sagix/risk_premium_problem.md', 'sagix-risk-body', 'sagix_risk');
+
 // Load intro lines from 01_intro.json and start animation
 fetch('01_intro.json', fetchMdOpts)
   .then(function(r) { return r.text(); })
@@ -1005,7 +1087,21 @@ mainDoc.addEventListener('click', function(e) {
     '15_overview.md': 'overview',
     '16_team.md': 'team',
     '17_faq.md': 'faq',
-    'Miliarium_Aureum.md': 'miliarium'
+    'Miliarium_Aureum.md': 'miliarium',
+    'sagix/decentralized_money.md': 'sagix_dm',
+    'sagix/eurodollar_shadow.md': 'sagix_euro',
+    'sagix/ddd9_part3.md': 'sagix_p3',
+    'sagix/ddd9_part4.md': 'sagix_p4',
+    'sagix/our_layer_framework.md': 'sagix_layers',
+    'sagix/sagix_miliarium_aureum.md': 'sagix_ma',
+    'sagix/risk_premium_problem.md': 'sagix_risk',
+    'decentralized_money.md': 'sagix_dm',
+    'eurodollar_shadow.md': 'sagix_euro',
+    'ddd9_part3.md': 'sagix_p3',
+    'ddd9_part4.md': 'sagix_p4',
+    'our_layer_framework.md': 'sagix_layers',
+    'sagix_miliarium_aureum.md': 'sagix_ma',
+    'risk_premium_problem.md': 'sagix_risk'
   };
   if (mdToTab[mdBase]) {
     e.preventDefault();

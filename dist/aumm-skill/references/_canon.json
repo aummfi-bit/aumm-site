@@ -1,6 +1,6 @@
 {
-  "canon_sha": "d7744a8bf6f825dd5e3b14a8b69cbeab462ce824",
-  "generated_at": "2026-05-03T15:50:45.023030+00:00",
+  "canon_sha": "793427c1c6d9e06890c7f2fb32a61466eeacfcf5",
+  "generated_at": "2026-05-04T12:49:00.025559+00:00",
   "source_repo": "aummfi-bit/aumm-site",
   "files": [
     "15_overview.md",
@@ -20,6 +20,13 @@
     "13_appendices.md",
     "14_ux_ui.md",
     "17_faq.md",
+    "sagix/decentralized_money.md",
+    "sagix/eurodollar_shadow.md",
+    "sagix/ddd9_part3.md",
+    "sagix/ddd9_part4.md",
+    "sagix/our_layer_framework.md",
+    "sagix/sagix_miliarium_aureum.md",
+    "sagix/risk_premium_problem.md",
     "miliarium_profiles/01_ixHelvetia.md",
     "miliarium_profiles/02_ixAetheron.md",
     "miliarium_profiles/03_ixCasper.md",

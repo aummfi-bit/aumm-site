@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@d7744a8bf6f825dd5e3b14a8b69cbeab462ce824 miliarium_profiles/25_ixMedicix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 miliarium_profiles/25_ixMedicix.md — DO NOT EDIT -->
 # ixMedicix — Slot 25
 
 **Subclass:** Healthcare  

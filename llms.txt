@@ -52,8 +52,9 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 | Overview (content loaded; deep links / SECTIONS menu) | [`15_overview.md`](https://aumm.fi/15_overview.md) |
 | Team | [`16_team.md`](https://aumm.fi/16_team.md) |
 | FAQ (sidebar + header quick-access tab) | [`17_faq.md`](https://aumm.fi/17_faq.md) |
+| **Sagix essays (mirrored canon)** | [`sagix/decentralized_money.md`](https://aumm.fi/sagix/decentralized_money.md) — DDD Ep.9 P1; [`sagix/eurodollar_shadow.md`](https://aumm.fi/sagix/eurodollar_shadow.md) — P2; [`sagix/ddd9_part3.md`](https://aumm.fi/sagix/ddd9_part3.md) — P3; [`sagix/ddd9_part4.md`](https://aumm.fi/sagix/ddd9_part4.md) — P4; [`sagix/our_layer_framework.md`](https://aumm.fi/sagix/our_layer_framework.md) — four-layer framework; [`sagix/sagix_miliarium_aureum.md`](https://aumm.fi/sagix/sagix_miliarium_aureum.md); [`sagix/risk_premium_problem.md`](https://aumm.fi/sagix/risk_premium_problem.md) |
 
-**Governance** in the nav is the dropdown (Constitution → Bootstrap → Transitions → Formulas). **Miliarium** is the separate dropdown (Registry, Manifest, Sectors, Tokens). **Team** is its own tab (founding team, disclaimer).
+**Governance** in the nav is the dropdown (Constitution → Bootstrap → Transitions → Formulas). **Miliarium** is the separate dropdown (Registry, Manifest, Sectors, Tokens). **Team** is its own tab (founding team, disclaimer). **Sagix essays** are under **Sagix essays** in the sidebar (SPA tabs; raw `.md` URLs listed above).
 
 **Per-pool profiles:** [`miliarium_profiles/01_ixHelvetia.md`](https://aumm.fi/miliarium_profiles/01_ixHelvetia.md) … [`28_ixMetallum.md`](https://aumm.fi/miliarium_profiles/28_ixMetallum.md) — one file per founding pool.
 

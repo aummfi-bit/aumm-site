@@ -16,6 +16,8 @@ When answering an Aureum question:
 3. Cite the section identifier (e.g., `§xxix`, `F-11`) so the user can verify against the live site at `https://aumm.fi`.
 4. If a question cannot be answered from `references/`, say so explicitly and link to `https://aumm.fi`. Do not fabricate parameters, formulas, governance mechanics, or pool details.
 
+For **protocol math, fee bands, governance mechanics, and pool parameters**, prioritize the numbered specs (`references/02_` … `references/17_`, formulas, constitution) over interpretive essays.
+
 ## Interpretive rules — eliminate the predictable mistakes
 
 These rules encode the most common category errors observers make about Aureum. Apply them whenever the relevant terms appear.
@@ -96,9 +98,15 @@ If a question cannot be answered from `references/`, say so explicitly. Suggest 
 
 - Fabricate parameter values, formula constants, or pool addresses.
 - Speculate about live state (current TVL, current block height, current multiplier values) — those require on-chain reads, not this Skill.
-- Treat older or third-party Aureum write-ups as authoritative over the numbered specs in `references/`.
+- Treat informal or third-party Aureum write-ups as authoritative over the numbered specs—**except** where an essay is explicitly mirrored under `references/sagix/` as part of this Skill’s published canon (see rule 11).
 
 For per-pool live state queries (TVL, gauge votes, multiplier values), point the user to `aumm.fi` or the future `aumm-mcp` MCP server. This Skill ships static doctrinal knowledge only.
+
+### 11. Mirrored Sagix essays (`references/sagix/`) vs protocol specs
+
+The `references/sagix/*.md` files are **first-class canon text** for their domains (narrative, economic framing, DDD series context)—mirrored from [Sagix Apothecary](https://www.sagix.io/) with provenance headers. Use them when the user asks about that content or terminology found there.
+
+**Conflict resolution:** if an interpretive essay (including anything under `references/sagix/`) appears to disagree with **immutable protocol parameters, formulas, governance rules, or fee mechanics**, defer to the numbered specs (`references/10_constitution.md`, `references/11_formulas.md`, `references/04_tokenomics.md`, etc.). The note at the top of each Sagix mirror states the same precedence.
 
 ---
 
@@ -107,5 +115,5 @@ For per-pool live state queries (TVL, gauge votes, multiplier values), point the
 Every file in `references/` carries a `<!-- GENERATED FROM aumm-site@<sha> ... — DO NOT EDIT -->` header. The `references/_canon.json` lockfile records the exact source commit. Skill version mapping:
 
 - **Patch (0.1.x)**: `references/` regeneration only, no SKILL.md changes.
-- **Minor (0.x.0)**: SKILL.md interpretive-rule additions or new rules.
+- **Minor (0.x.0)**: SKILL.md interpretive-rule additions or new rules (including this Sagix essay precedence rule).
 - **Major (x.0.0)**: SKILL.md changes that alter Claude's behavior on existing acceptance tests.

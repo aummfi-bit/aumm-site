@@ -15,6 +15,13 @@ https://aumm.fi/12_aureum_glossary.md
 https://aumm.fi/13_appendices.md
 https://aumm.fi/14_ux_ui.md
 https://aumm.fi/17_faq.md
+https://aumm.fi/sagix/decentralized_money.md
+https://aumm.fi/sagix/eurodollar_shadow.md
+https://aumm.fi/sagix/ddd9_part3.md
+https://aumm.fi/sagix/ddd9_part4.md
+https://aumm.fi/sagix/our_layer_framework.md
+https://aumm.fi/sagix/sagix_miliarium_aureum.md
+https://aumm.fi/sagix/risk_premium_problem.md
 https://aumm.fi/README.md
 https://aumm.fi/miliarium_profiles/01_ixHelvetia.md
 https://aumm.fi/miliarium_profiles/02_ixAetheron.md
