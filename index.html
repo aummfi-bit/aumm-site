@@ -109,7 +109,10 @@
   .sidebar-header-top {
     display: flex; align-items: center; gap: 8px; min-width: 0; width: 100%;
   }
-  .sidebar-header-top .header-tab { margin-left: auto; }
+  .header-actions {
+    margin-left: auto; display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  }
+  .sidebar-header-top .header-tab { margin-left: 0; }
   .sidebar-header-brand {
     display: flex; align-items: center; gap: 10px; min-width: 0; flex-shrink: 0;
   }
@@ -187,8 +190,9 @@
     background: var(--bg); flex-shrink: 0; z-index: 55;
   }
   .mobile-topbar .header-tab {
-    margin-left: auto; flex-shrink: 0; padding: 5px 12px; font-size: 11px; letter-spacing: 0.06em;
+    margin-left: 0; flex-shrink: 0; padding: 5px 12px; font-size: 11px; letter-spacing: 0.06em;
   }
+  .mobile-topbar .header-actions { margin-left: auto; }
   .sidebar-toggle {
     background: none; border: 1px solid var(--border); color: var(--accent); font-size: 20px; padding: 4px 10px; cursor: pointer; font-family: var(--font); line-height: 1;
   }
@@ -214,6 +218,7 @@
     font-family: var(--font); font-size: 13px; letter-spacing: 0.08em;
     padding: 6px 16px; cursor: pointer; border-radius: 4px; white-space: nowrap;
     text-transform: uppercase; transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    text-decoration: none; display: inline-flex; align-items: center; justify-content: center; line-height: 1.2;
   }
   [data-theme="au"] .header-tab { box-shadow: 0 0 8px var(--accent-glow); }
   .header-tab:hover { background: var(--accent); color: var(--bg); }
@@ -294,7 +299,10 @@
             <img class="nav-logo" src="./images/aureum.jpeg" alt="" width="32" height="32" decoding="async" fetchpriority="high" />
             <span class="sidebar-brand">AUREUM</span>
           </div>
-          <button type="button" class="header-tab" data-tab="faq" role="tab" aria-label="Open FAQ">FAQ</button>
+          <div class="header-actions">
+            <a class="header-tab" href="https://chat.aumm.fi" aria-label="Open AI chat">AI CHAT</a>
+            <button type="button" class="header-tab" data-tab="faq" role="tab" aria-label="Open FAQ">FAQ</button>
+          </div>
         </div>
         <div class="theme-toggle" role="group" aria-label="Theme">
           <button type="button" class="theme-btn active" data-theme="au">Au</button>
@@ -395,7 +403,10 @@
       <div class="mobile-topbar">
         <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Open navigation">&#9776;</button>
         <span class="mobile-topbar-title">AUREUM</span>
-        <button type="button" class="header-tab" data-tab="faq" role="tab" aria-label="Open FAQ">FAQ</button>
+        <div class="header-actions">
+          <a class="header-tab" href="https://chat.aumm.fi" aria-label="Open AI chat">AI CHAT</a>
+          <button type="button" class="header-tab" data-tab="faq" role="tab" aria-label="Open FAQ">FAQ</button>
+        </div>
       </div>
 
   <div class="tab-content" id="tab-overview">
