@@ -33,7 +33,6 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 - Incendiary Boost engine (svZCHF/sUSDS deposit into der Bodensee, 1-epoch (14-day) emission streaming, priority skim, once-per-epoch-per-pool lock)
 - 90-day gauge boost (1.2x fixed CCB multiplier for new gauges, automatic expiry)
 - CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see [Constitution (§xxix)](10_constitution.md))
-- Sandbox fast-track (top 10% efficiency sustained for 3 epochs, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)
 - Miliarium Aureum pool registry (28 pools, non-transferable, revocation on gauge loss)
@@ -43,7 +42,7 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 - Fee router (non–der Bodensee pools: **100%** of the **protocol share** of swap fees to Bodensee as one-sided stablecoin (sUSDS/svZCHF); **~50%** LP residual stays with originating-pool LPs; yield skim: **100%** Bodensee one-sided stablecoin; der Bodensee Pool: **0.75%** swap fee, **100%** in-pool to der Bodensee LPs)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost deposit and priority skim, Sandbox fast-track, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost deposit and priority skim, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 
