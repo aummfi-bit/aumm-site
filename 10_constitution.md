@@ -8,7 +8,6 @@
 
 ### AUREUM Governance Actions (aumm.fi)
 
-- **Gauge Proposal** — new pool **emission eligibility** (gauge approval); deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Proposal).
 - **Gauge Challenge** — **revoke** an existing **non-Miliarium** gauge; deposit **one-sided into der Bodensee Pool** per [F-12](11_formulas.md). **Miliarium Aureum (28) cannot be gauge-challenged** — use Composition Challenge instead. Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Challenge).
 - **Fee proposals** — **swap / yield fee** changes **within immutable bounds**; deposit **one-sided into der Bodensee Pool**. Voting model: [Tokenomics](04_tokenomics.md) §ix (Governance); mechanics: [Bootstrap](08_bootstrap.md) §xxiv (Governance Proposals).
 - **Miliarium Aureum Composition Challenge** — **2/3 supermajority** tessera-weighted vote to deprecate a pool and **replace** assets in-slot (like-for-like); deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv (Miliarium Aureum Composition Challenge) and **### Composition Challenge Rule** below.
@@ -28,13 +27,12 @@ All core contracts immutable from block 0. Governance exists for non-emission ac
 
 ### Governance Scope (Non-Emission Only)
 
-Qualified AuMT holders submit and vote on the **four actions** above. Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
+Qualified AuMT holders submit and vote on the **three actions** above. Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
 
 ### Quorum and Deposit Requirements
 
 | Decision Type | Minimum Turnout | Deposit (svZCHF/sUSDS, to der Bodensee Pool) | Approval Threshold | Failure Mode |
 |--------------|-----------------|------------------------|--------------------|-------------|
-| Gauge approval | 20% of total qualified voting power | 100 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Gauge challenge (revocation) — non-Miliarium gauged pools only | 20% of total qualified voting power | Per [F-12](11_formulas.md): **max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))** in svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
 | Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
