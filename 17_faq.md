@@ -112,9 +112,9 @@ Not investment advice. The thesis only works as long as swap volume, Bodensee de
 
 ### What can governance actually do, and what does each action cost?
 
-Governance is permitted four actions. None of them touch emission allocation.
+Governance is permitted three actions. None of them touch emission allocation.
 
-A gauge proposal grants a new pool emission eligibility. Deposit: 100 svZCHF or sUSDS, one-sided into Bodensee. Threshold: simple majority, 20% quorum.
+Gauge eligibility is not a governance action — a new pool becomes gauge-eligible permissionlessly the moment it satisfies the immutable criteria gate (4626 Quality Gate, $10K TVL on 7-day SMA, no self-referential tokens). Anti-spam fee: 100 svZCHF or sUSDS, one-sided into Bodensee, non-refundable on success or any failed check. No vote, no quorum.
 
 A gauge challenge revokes an existing non-Miliarium gauge. Deposit follows F-12: `max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))`, one-sided into Bodensee. Threshold: simple majority, 20% quorum. Cannot target the 28 Miliarium pools.
 
