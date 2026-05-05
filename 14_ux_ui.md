@@ -127,7 +127,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## lv. Gauged Pools (Non-Miliarium)
 
 - [ ] **Gauge registry** — all non-Miliarium gauged pools with status, TVL, efficiency rank, emission share
-- [ ] **Sandbox pools** — non-gauged pools ranked by efficiency, Fast-Track progress (top 10% for 3 epochs = auto-gauge)
+- [ ] **Sandbox pools** — non-gauged pools ranked by efficiency
 - [ ] **Gauge boost countdown** — 90-day boost timer for newly gauged pools (1.2x multiplier)
 
 ---
