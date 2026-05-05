@@ -18,11 +18,9 @@ Three concerns, cleanly separated: permissionless creation (anyone can build), d
 
 Core emission allocation remains automatic and immutable.
 
-### Sandbox and Fast-Track
+### Sandbox
 
 **Sandbox** is the permissionless default. Any pool deployed without a gauge operates in Sandbox from block 0. Zero CCB emissions, no Incendiary Boost eligibility — but ranked in the Efficiency Tournament alongside gauged pools. Anyone can build and demonstrate performance before seeking gauge approval.
-
-**Fast-Track Rule.** A non-gauged Sandbox pool sustaining **top 10% efficiency** for **3 consecutive epochs (6 weeks)** earns **automatic gauge approval** — no governance vote, deposit waived. Pools that prove capital efficiency earn emissions without campaigning for votes. After fast-track approval: standard 90-day gauge boost (1.2× CCB multiplier) and Incendiary Boost eligibility.
 
 ### The Bootstrapping Sequence
 
