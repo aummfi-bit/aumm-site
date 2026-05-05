@@ -32,7 +32,6 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 **Month 11 — Gauge proposals open, CCB transition begins.**
 - Non-Miliarium pools can submit gauge proposals (100 svZCHF/sUSDS into der Bodensee).
 - All pools begin ranking in the Efficiency Tournament.
-- Sandbox fast-track active: non-gauged pools sustaining top 10% efficiency for 3 epochs (6 weeks) earn automatic gauge approval.
 - CCB transition begins: **α** runs from **0** (first block of Month 11) to **1** (last block of Year 1).
 - Each pool's share blends its equal one-twenty-eighth with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.
 - Pools coasting on equal allocation may see their share decline if TVL lags the protocol average. The transition rewards sustained capital, not incumbency.
