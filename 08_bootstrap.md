@@ -81,7 +81,7 @@ In token-weighted governance (Balancer/Aura), bear markets enable cheap capture 
 
 **Wrappers and composability layers are welcome.** Convex/Aura-style vaults holding AuMT carry full governance weight proportional to underlying TVL. They cannot amplify governance because there is nothing to amplify.
 
-Pools containing AuMT follow all the same rules — permissionless creation, gauge approval via AuMT vote, full anti-gaming criteria.
+Pools containing AuMT follow all the same rules — permissionless creation, permissionless gauge activation, full anti-gaming criteria.
 
 ### Graduated Grace Period
 
@@ -96,7 +96,7 @@ New pools need time to get discovered by aggregators, indexed by bots, and build
 
 Percentile rankings use the protocol's own activity distribution — trailing 3-epoch (6-week) rolling window of fee + yield revenue across all emission-eligible pools. Relative measure: as the protocol grows, the absolute bar rises organically.
 
-**Gaming the grace period.** The exploit vector is the gauge, not the pool. An attacker deploys a pool, gets a gauge approved, milks the grace window before percentile checks activate. Switching deployer wallets or swapping one token doesn't help — the percentile floor is protocol-wide. A pool generating no organic activity sits at the bottom regardless of who deployed it or how many times it's been redeployed. A pool earning zero fees can't stay above the 5th percentile for long, even with generous emission allocation.
+**Gaming the grace period.** The exploit vector is the gauge, not the pool. An attacker deploys a pool, activates its gauge, milks the grace window before percentile checks turn on. Switching deployer wallets or swapping one token doesn't help — the percentile floor is protocol-wide. A pool generating no organic activity sits at the bottom regardless of who deployed it or how many times it's been redeployed. A pool earning zero fees can't stay above the 5th percentile for long, even with generous emission allocation.
 
 ### Hysteresis Buffer (Anti-Oscillation)
 
@@ -135,7 +135,7 @@ Price-agnostic by design — prevents the reflexive disqualification problem whe
 
 **Governance-capture resistant.** A pool with large TVL and large CCB share but minimal fees ranks at the bottom. Despite a high CCB share, it receives at most 0.1% of emissions. Excess redistributed to productive pools.
 
-**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs $10K TVL, a gauge approval vote (100 svZCHF/sUSDS into der Bodensee), and LP approval. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF/sUSDS deposited. Prohibitively expensive.
+**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs $10K TVL, eligibility-criteria-passing composition, and the **anti-spam fee** (100 svZCHF/sUSDS into der Bodensee) to activate. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF/sUSDS in fees. Prohibitively expensive.
 
 ### Disqualification and Gauge Revocation
 
@@ -143,7 +143,7 @@ Two-stage process:
 
 **Stage 1: Disqualification.** Below the 10th volume percentile (or failing structural criteria) — emissions cease immediately. Gauge remains intact. Recover above the 15th percentile for 3 epochs (6 weeks) with no emissions to re-qualify automatically.
 
-**Stage 2: Gauge revocation.** Disqualified for **4 consecutive epochs (8 weeks)** — gauge permanently revoked. Restart requires a new gauge proposal (100 svZCHF/sUSDS into der Bodensee) and a fresh AuMT vote. Dead pools don't hold gauge slots indefinitely.
+**Stage 2: Gauge revocation.** Disqualified for **4 consecutive epochs (8 weeks)** — gauge permanently revoked. Restart requires a fresh **permissionless gauge activation** (100 svZCHF/sUSDS anti-spam fee into der Bodensee) once eligibility criteria are restored. Dead pools don't hold gauge slots indefinitely.
 
 ### How the Criteria Interact
 
