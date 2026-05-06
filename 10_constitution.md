@@ -174,6 +174,16 @@ Immutable from block 0, cannot be changed by any means.
 - `BTC_WRAPPERS` — registered set of wrapped-BTC tokens used for the BTC/CHF reference price (initial set: WBTC, cbBTC). Governance-extensible via standard proposal when new wrappers enter the ecosystem.
 - `FALLBACK_DEPOSIT_FLOOR` — the F-12 10-BTC-equivalent calculation uses spot prices averaged across all gauged pools holding any `BTC_WRAPPERS` token; the F-12 max-of-two-formulas rule ensures the deposit stays meaningful under any BTC price regime.
 
+### Vault-Class Registry parameters
+
+Per §xxvii (Vault-Class Registry Veto Model) and [§xxiv-a in Bootstrap](08_bootstrap.md), the registry admits ERC-4626 token classes via a proposal-with-veto flow. Three parameters govern the flow; their **bounds are immutable** from block 0, concrete values pin at deployment and remain governance-tunable within the bound.
+
+| Parameter | Bound (immutable) | Notes |
+|:----------|:------------------|:------|
+| `proposalBond` | **≥ `antiSpamFee`** | One-sided bond posted by `proposeVaultClass` proposer; routed to der Bodensee Pool, non-refundable. Class-admission stakes must not undercut the simpler permissionless-gauge-activation anti-spam fee. |
+| `vetoThreshold` | **≤ `governanceQuorumThreshold`** | AuMT-weighted veto support required to block auto-finalization. Vetoes must be reachable at lower thresholds than full proposal quorum so a vigilant minority can block a captured-quorum bad admission. |
+| `vetoWindowBlocks` | **∈ [`BLOCKS_PER_EPOCH`, 3 × `BLOCKS_PER_EPOCH`]** | Block-count window between proposal submission and auto-finalization. Minimum ensures a full bi-weekly governance reaction window; maximum avoids stalling legitimate admissions. |
+
 ### CCB multiplier rules (Miliarium pools only)
 
 - Step size: ±0.05
