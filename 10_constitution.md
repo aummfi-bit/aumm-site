@@ -155,7 +155,7 @@ Immutable from block 0, cannot be changed by any means.
 | Pool class | Band (min–max) | Genesis default | Notes |
 |:-----------|:---------------|:----------------|:------|
 | Miliarium Aureum (the 28) | **0.01% – 0.30%** | **0.03%** | Hardcoded at deployment; adjustable via governance vote within band |
-| Non-Miliarium gauged | **0.01% – 0.30%** | Set by gauge-approval vote | Initial fee set by the same vote that approves the gauge |
+| Non-Miliarium gauged | **0.01% – 0.30%** | Set at first gauge activation | Initial fee set as a parameter to `activateGauge(pool)` |
 | Der Bodensee | **0.10% – 1.00%** | **0.75%** | Hardcoded at deployment; adjustable via governance vote within band |
 
 - `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — any pool can have its swap fee changed at most once per epoch (prevents rapid-fire manipulation; aligns with bi-weekly CCB cadence).

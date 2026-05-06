@@ -130,7 +130,7 @@ Governance cannot alter the emission schedule, halving math, CCB engine paramete
 
 Permissionlessly. There is no governance vote on gauging individual pools. A pool becomes gauge-eligible the moment it satisfies the immutable criteria gate, and stays gauged until those criteria fail or someone successfully revokes it.
 
-The activation criteria. (1) The 4626 Quality Gate: at least 52% of pool weight in yield-bearing tokens whose ERC-4626 class is admitted to the Vault-Class Registry. (2) Minimum TVL: $10K on a 7-day SMA. (3) No self-referential tokens — AuMM cannot be a pool component. (4) Pool type recognized by the registry (WeightedPool, StablePool, etc.). All four must hold simultaneously and are enforced on-chain.
+The activation criteria. (1) The 4626 Quality Gate: at least 52% of pool weight in yield-bearing tokens whose ERC-4626 class is admitted to the Vault-Class Registry. (2) Minimum TVL: $10K on a 7-day SMA. (3) No self-referential tokens — AuMM cannot be a pool component. (4) Pool type on the Aequilibrium pool-type allowlist (WeightedPool, StablePool, etc.) — separate from the Vault-Class Registry, which admits 4626 token classes, not pool types. All four must hold simultaneously and are enforced on-chain.
 
 The activation cost. A flat anti-spam fee — `antiSpamFee = 100 svZCHF` or 125 sUSDS — deposited one-sided into Bodensee, non-refundable on success or any failed check. No vote, no quorum, no proposal. The fee exists to prevent zero-cost gauge farming.
 
