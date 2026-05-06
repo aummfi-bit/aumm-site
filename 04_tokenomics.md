@@ -34,6 +34,14 @@ Each era spans 10,512,000 blocks (~4 years at 12 s/block). Per-block terms only 
 - **After Year 1:** pure CCB weighting — each pool scored by smoothed TVL and CCB multiplier, normalized across all eligible pools. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - No voting and no discretionary overrides.
 
+### Pool Eligibility: The 4626 Quality Gate
+
+Eligibility for AuMM emissions is criteria-gated, not vote-gated. The primary criterion is the **4626 Quality Gate**: at least 52% of a pool's weight must be assigned to ERC-4626 yield-bearing tokens whose class is admitted in the **Vault-Class Registry** (see [Bootstrap](08_bootstrap.md)).
+
+> The 52% quality-gate numerator equals the sum of pool weights assigned to ERC-4626 tokens whose class is admitted in the Vault-Class Registry. All other token weights — including ERC-4626 tokens whose class is not admitted — count toward the ≤48% complement.
+>
+> Eligibility is re-evaluated at each tournament epoch boundary against the current registry state; class admissions and revocations take effect at the next boundary.
+
 ### Per-Block Streaming
 
 Emissions stream continuously per Ethereum block (~12 seconds). Each block, AuMM accrues to LPs in eligible pools proportional to:
