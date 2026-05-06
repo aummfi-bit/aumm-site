@@ -157,13 +157,15 @@ Any qualified AuMT holder can submit a governance proposal (fee parameter change
 
 **Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.03%**); der Bodensee uses **0.10%–1.00%** (genesis **0.75%**). **Non-Miliarium gauge approval** includes the **initial swap fee** as a gauge parameter (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
 
-**All** governance deposits — gauge proposal, gauge challenge, fee proposal, composition challenge — are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the autonomous reserve, non-recoverable.
+**All** governance deposits — gauge challenge, fee proposal, composition challenge — and the **anti-spam fee** for permissionless gauge activation are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the autonomous reserve, non-recoverable.
 
-### Gauge Proposal
+### Permissionless Gauge Activation
 
-Any qualified AuMT holder may submit a gauge proposal for a new pool. Deposit: **100 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — lower than other proposals because gauge requests are lower-stakes. If the pool fails immutable criteria, the contract kills it automatically.
+Gauge activation is **permissionless**. Once a pool meets all immutable eligibility criteria — **ERC-4626 Quality Gate ≥52%** by class-admitted weight, sustained **TVL floor**, **pool-type whitelist**, and **forbidden-token block** clear — any address can call **`activateGauge(pool)`**. No vote, no quorum, no governance gating.
 
-If approved, the pool becomes emission-eligible subject to immutable criteria checks.
+**Anti-spam fee:** **100 svZCHF or sUSDS (whichever is higher)**, one-sided into der Bodensee Pool via the shared swap-and-deposit rail. **Non-refundable** on success and on any failed criteria check. Filters spam-activation attempts on freshly-deployed pools that have not yet sustained criteria. Same routing as governance deposits, distinct classification: rate-limiter, not vote bond.
+
+**No boost at permissionless activation.** The pool enters tournament accounting at base CCB multiplier `M_i = 1.0` and competes for emission share through the Efficiency Tournament (§xxiii) from the next epoch boundary. The 90-day boost is reserved for cold-start paths that do not require independent market traction (composition replacement, founding-seeding); permissionless activation occurs only after the TVL floor has already been cleared.
 
 ### Gauge Challenge
 
