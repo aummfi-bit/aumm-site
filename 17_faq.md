@@ -142,13 +142,13 @@ Actions allowed are emergency-only for ~12 months (`BLOCKS_PER_YEAR`), then gone
 
 ### What if a whale tries to gauge a pool of his own shitcoin?
 
-The contract kills the easy version before any vote happens.
+The contract kills the easy version at the criteria gate — no vote, no proposal.
 
 The 4626 Quality Gate requires at least 52% of pool weight in ERC-4626 yield-bearing tokens, and each qualifying 4626 token has to have at least $5M, 30 BTC, or 4,000,000 svZCHF (whichever is largest) in its underlying vault's `totalAssets()`. A shitcoin is not 4626. A freshly minted fake 4626 wrapper fails the vault floor. AuMM itself cannot be a pool component, the no-self-referential-tokens rule. There is also a structural minimum: $10K TVL on a 7-day SMA before any emission flows.
 
-Suppose he passes the gate by stacking 52% in legitimate 4626 (svZCHF and sUSDS) and dropping the shitcoin into the remaining 48%. He still has to win a gauge vote at 20% quorum, where the voters are existing productive LPs who built governance weight on a 6-month on-ramp and have direct economic reason to reject dilution. The 100 svZCHF/sUSDS gauge proposal deposit goes one-sided into Bodensee, non-refundable.
+Suppose he passes the gate by stacking 52% in legitimate 4626 (svZCHF and sUSDS) and dropping the shitcoin into the remaining 48%. The 100 svZCHF/sUSDS anti-spam fee is non-refundable, paid one-sided into Bodensee. Once gauged, qualified AuMT holders — existing productive LPs who built governance weight on a 6-month on-ramp — can submit a gauge challenge at any time, with deposit per F-12 scaling on pool TVL and inverse efficiency. The same hostile electorate that would have blocked the proposal now revokes the gauge.
 
-If the vote somehow passes, the volume floor catches the pool. Months 0 to 3 are exempt. From month 3, the pool must clear the 5th volume percentile; from month 6, the 10th; from month 13, the 15th. A shitcoin pool generates no organic volume. Between the 10th and 15th, the pool sits in the Warning zone: emissions continue, with 3 epochs (6 weeks) to recover above the 15th. Below the 10th, emissions cease immediately. Disqualified for 4 consecutive epochs (8 weeks), gauge revoked permanently. No vote required.
+Once gauged, the volume floor catches the pool. Months 0 to 3 are exempt. From month 3, the pool must clear the 5th volume percentile; from month 6, the 10th; from month 13, the 15th. A shitcoin pool generates no organic volume. Between the 10th and 15th, the pool sits in the Warning zone: emissions continue, with 3 epochs (6 weeks) to recover above the 15th. Below the 10th, emissions cease immediately. Disqualified for 4 consecutive epochs (8 weeks), gauge revoked permanently. No vote required.
 
 If he wash-trades to fake volume, the efficiency tournament caps him at month 13. Efficiency is `(swap_fees + 4626_yield_revenue_to_DAO) / emissions_received`. Inflated TVL makes the denominator huge while real revenue stays near zero. Pools below the 5th percentile cap at 0.1% of total emissions, 5th to 10th at 0.5%, 10th to 15th at 1%. Excess emissions redistribute pro-rata to uncapped pools.
 
