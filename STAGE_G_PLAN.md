@@ -76,11 +76,12 @@ Per precheck **OQ-G4** resolution. Substantial new doctrine:
 | --- | --- | --- | --- |
 | SG.D1 | `04_tokenomics.md` §ix | insert canonical OQ-G4 numerator definition into Quality Gate paragraph | ⏳ pending |
 | SG.D2 | `08_bootstrap.md` | new section: Vault-Class Registry mechanism (admission, fingerprints, proposal+veto+auto-finalize+revoke) | ⏳ pending |
-| SG.D3 | `10_constitution.md` §xxvii | new subsection: Frankencoin-style veto model with tunable bounds; reword L55–L56 "standard gauge approval" | ⏳ pending |
+| SG.D3 | `10_constitution.md` §xxvii | new subsection: Frankencoin-style veto model with tunable bounds; reword L53 "hooked at gauge approval" → "hooked at gauge activation"; reframe L54 composition-challenge follow-on (drop "supermajority vote supplies stronger consent than standard gauge approval" comparison; rephrase "No separate follow-up gauge proposal is needed" → "Replacement gauge auto-registers via `registerGaugeFromComposition(pool)` per G-D7 — no permissionless-activation criteria check, 90-day boost applies") | ⏳ pending |
 | SG.D4 | `10_constitution.md` §xxix | add Vault-Class tunable-bounds row (proposalBond ≥ antiSpamFee, vetoThreshold ≤ governanceQuorumThreshold, window ∈ [BLOCKS_PER_EPOCH, 3×BLOCKS_PER_EPOCH]) | ⏳ pending |
 | SG.D5 | `12_aureum_glossary.md` | new entries: Vault-Class Registry, Anti-Spam Fee, Permissionless Gauge Activation, three admission fingerprints (ImplementationAddress / FactoryAddress / BytecodeHash) | ⏳ pending |
 | SG.D6 | `13_appendices.md` | add Vault-Class Registry to audit scope list | ⏳ pending |
 | SG.D7 | `17_faq.md` | new FAQ entry: "How does a new pool get gauged?" — covers permissionless activation + Vault-Class Registry | ⏳ pending |
+| SG.D8 | `12_aureum_glossary.md` §xxxii-a | rewrite L45 "Gauge" entry: drop "Gauge approval is a governance vote — qualified AuMT holders decide…" → permissionless-criteria-gated framing (Quality Gate ≥52%, $10K TVL SMA, pool-type whitelist, forbidden-token block; no governance vote at activation; revocable via Gauge Challenge) | ⏳ pending |
 
 ---
 
