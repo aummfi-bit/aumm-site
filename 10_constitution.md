@@ -13,7 +13,7 @@
 - **Miliarium Aureum Composition Challenge** — **2/3 supermajority** tessera-weighted vote to deprecate a pool and **replace** assets in-slot (like-for-like); deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv (Miliarium Aureum Composition Challenge) and **### Composition Challenge Rule** below.
 - **Vault-Class Registry Admission** — **propose a new ERC-4626 token class** for inclusion in the **Quality Gate numerator** ([Tokenomics §ix](04_tokenomics.md)); follows a **proposal-with-veto** model rather than vote-to-approve. Deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv-a (Vault-Class Registry).
 
-**All governance proposal deposits** follow the **same treatment:** **one-sided inflow into der Bodensee Pool** in **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the proposer; only **amounts** differ (see table below). No treasury wallet. No alternate routing.
+**All governance proposal deposits** follow the **same treatment:** **one-sided inflow into der Bodensee Pool** in **svZCHF or sUSDS (1:1.25 ratio, proposer's choice of denomination)**, non-refundable, **no LP tokens** minted to the proposer; only **amounts** differ (see table below). No treasury wallet. No alternate routing.
 
 Aureum is immutable and non-custodial from block 0:
 
@@ -34,11 +34,11 @@ Qualified AuMT holders submit and vote on the **four actions** above. Three foll
 
 | Decision Type | Minimum Turnout | Deposit (svZCHF/sUSDS, to der Bodensee Pool) | Approval Threshold | Failure Mode |
 |--------------|-----------------|------------------------|--------------------|-------------|
-| Gauge challenge (revocation) — non-Miliarium gauged pools only | 20% of total qualified voting power | Per [F-12](11_formulas.md): **max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))** in svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
-| Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | Simple majority | Auto-fail if turnout < 20% |
-| Composition challenge | 20% of total qualified voting power | 1,000 svZCHF/sUSDS equivalent | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
+| Gauge challenge (revocation) — non-Miliarium gauged pools only | 20% of total qualified voting power | Per [F-12](11_formulas.md): **max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))** in svZCHF, or 1.25× in sUSDS | Simple majority | Auto-fail if turnout < 20% |
+| Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF or 1,250 sUSDS | Simple majority | Auto-fail if turnout < 20% |
+| Composition challenge | 20% of total qualified voting power | 1,000 svZCHF or 1,250 sUSDS | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 
-All deposits **one-sided into der Bodensee Pool** (no LP tokens minted to proposer), denominated in **svZCHF or sUSDS equivalent, whichever is higher at submission** — preventing gaming via currency fluctuation. Non-refundable. **Gauge challenges apply only to non-Miliarium gauged pools** — the 28 Miliarium Aureum pools cannot be gauge-challenged; structural changes go through the **Composition Challenge** path.
+All deposits **one-sided into der Bodensee Pool** (no LP tokens minted to proposer), denominated in **svZCHF or sUSDS (1:1.25 ratio, proposer's choice of denomination)** — ratio fixed at protocol level, not market-derived. Non-refundable. **Gauge challenges apply only to non-Miliarium gauged pools** — the 28 Miliarium Aureum pools cannot be gauge-challenged; structural changes go through the **Composition Challenge** path.
 
 **Low-Turnout Safeguard.** Minimum turnout: **20% of total qualified voting power**. Below 20%, the proposal is **automatically rejected** — no timelock, no fallback. Uniform across all proposal types ([Tokenomics](04_tokenomics.md) Low-Turnout Safeguard).
 

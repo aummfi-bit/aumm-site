@@ -54,7 +54,7 @@ A worked example at scale. $100M Miliarium TVL across the 28, $20M average daily
 
 ### What's the swap fee, the band, the cooldown?
 
-Miliarium pools genesis at 0.03%, governable within 0.01% to 0.30%. Non-Miliarium gauged pools share that band. Bodensee's band is 0.10% to 1.00%, genesis 0.75%. Any fee change is gated by `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800`, one full epoch, fourteen days. Cooldown is immutable. Proposal cost: 1,000 svZCHF or sUSDS, whichever is higher at submission, deposited one-sided into Bodensee, non-refundable. The 50/50 split on the protocol fee is not governable.
+Miliarium pools genesis at 0.03%, governable within 0.01% to 0.30%. Non-Miliarium gauged pools share that band. Bodensee's band is 0.10% to 1.00%, genesis 0.75%. Any fee change is gated by `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800`, one full epoch, fourteen days. Cooldown is immutable. Proposal cost: 1,000 svZCHF or 1,250 sUSDS, deposited one-sided into Bodensee, non-refundable. The 50/50 split on the protocol fee is not governable.
 
 ---
 
@@ -114,15 +114,15 @@ Not investment advice. The thesis only works as long as swap volume, Bodensee de
 
 Governance is permitted three actions. None of them touch emission allocation.
 
-Gauge eligibility is not a governance action — a new pool becomes gauge-eligible permissionlessly the moment it satisfies the immutable criteria gate (4626 Quality Gate, $10K TVL on 7-day SMA, no self-referential tokens). Anti-spam fee: 100 svZCHF or sUSDS, one-sided into Bodensee, non-refundable on success or any failed check. No vote, no quorum.
+Gauge eligibility is not a governance action — a new pool becomes gauge-eligible permissionlessly the moment it satisfies the immutable criteria gate (4626 Quality Gate, $10K TVL on 7-day SMA, no self-referential tokens). Anti-spam fee: 100 svZCHF or 125 sUSDS, one-sided into Bodensee, non-refundable on success or any failed check. No vote, no quorum.
 
 A gauge challenge revokes an existing non-Miliarium gauge. Deposit follows F-12: `max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))`, one-sided into Bodensee. Threshold: simple majority, 20% quorum. Cannot target the 28 Miliarium pools.
 
-A fee proposal changes a swap fee rate within its immutable band, Miliarium and non-Miliarium gauged at 0.01% to 0.30%, Bodensee at 0.10% to 1.00%. Deposit: 1,000 svZCHF or sUSDS. Threshold: simple majority, 20% quorum. Cannot move the rate outside the band, cannot change the Vault's 50/50 protocol vs LP split.
+A fee proposal changes a swap fee rate within its immutable band, Miliarium and non-Miliarium gauged at 0.01% to 0.30%, Bodensee at 0.10% to 1.00%. Deposit: 1,000 svZCHF or 1,250 sUSDS. Threshold: simple majority, 20% quorum. Cannot move the rate outside the band, cannot change the Vault's 50/50 protocol vs LP split.
 
-A composition challenge deprecates a Miliarium pool slot and replaces it with an already-deployed candidate pool of the same sector, risk profile, and template role. The proposal must reference the candidate's contract address (specified-pool model). Deposit: 1,000 svZCHF or sUSDS. Threshold: 2/3 supermajority, 20% quorum. The slot persists, the pool at the slot can change.
+A composition challenge deprecates a Miliarium pool slot and replaces it with an already-deployed candidate pool of the same sector, risk profile, and template role. The proposal must reference the candidate's contract address (specified-pool model). Deposit: 1,000 svZCHF or 1,250 sUSDS. Threshold: 2/3 supermajority, 20% quorum. The slot persists, the pool at the slot can change.
 
-Every deposit is one-sided into Bodensee, non-refundable, denominated in svZCHF or sUSDS, whichever is higher at submission. Below 20% quorum, the proposal auto-rejects. Governance power requires AuMT in emission-qualified pools held continuously for at least 14 days, with a 6-month sublinear on-ramp to full weight, and any withdrawal at any time, even 1%, resets that position to zero.
+Every deposit is one-sided into Bodensee, non-refundable, denominated in svZCHF or sUSDS (1:1.25 ratio, proposer's choice). Below 20% quorum, the proposal auto-rejects. Governance power requires AuMT in emission-qualified pools held continuously for at least 14 days, with a 6-month sublinear on-ramp to full weight, and any withdrawal at any time, even 1%, resets that position to zero.
 
 Governance cannot alter the emission schedule, halving math, CCB engine parameters, fee distribution split, Bodensee composition, dampening exponents, eligibility criteria, or any other immutable parameter.
 
@@ -132,7 +132,7 @@ Permissionlessly. There is no governance vote on gauging individual pools. A poo
 
 The activation criteria. (1) The 4626 Quality Gate: at least 52% of pool weight in yield-bearing tokens whose ERC-4626 class is admitted to the Vault-Class Registry. (2) Minimum TVL: $10K on a 7-day SMA. (3) No self-referential tokens — AuMM cannot be a pool component. (4) Pool type recognized by the registry (WeightedPool, StablePool, etc.). All four must hold simultaneously and are enforced on-chain.
 
-The activation cost. A flat anti-spam fee — `antiSpamFee = 100 svZCHF` or sUSDS, whichever is higher at submission — deposited one-sided into Bodensee, non-refundable on success or any failed check. No vote, no quorum, no proposal. The fee exists to prevent zero-cost gauge farming.
+The activation cost. A flat anti-spam fee — `antiSpamFee = 100 svZCHF` or 125 sUSDS — deposited one-sided into Bodensee, non-refundable on success or any failed check. No vote, no quorum, no proposal. The fee exists to prevent zero-cost gauge farming.
 
 The Vault-Class Registry. The Quality Gate counts a token toward the 52% threshold only if its ERC-4626 class appears in the registry. A class is identified by one of three fingerprints — `ImplementationAddress`, `FactoryAddress`, or `BytecodeHash` — submitted by the proposer. Genesis classes are hard-coded at Miliarium Aureum construction. New classes enter via a proposal-with-veto flow: post the proposal bond (at least `antiSpamFee`), proposal enters a veto window, auto-finalizes at expiry unless governance casts a vetoing vote that meets the veto threshold. The model fits the action — class admission is a bounded technical verification, not a contested protocol change. Governance retains a backstop via the veto path during the window and via revocation (`revokeVaultClass`) at any later point.
 
@@ -160,7 +160,7 @@ The contract kills the easy version at the criteria gate — no vote, no proposa
 
 The 4626 Quality Gate requires at least 52% of pool weight in ERC-4626 yield-bearing tokens, and each qualifying 4626 token has to have at least $5M, 30 BTC, or 4,000,000 svZCHF (whichever is largest) in its underlying vault's `totalAssets()`. A shitcoin is not 4626. A freshly minted fake 4626 wrapper fails the vault floor. AuMM itself cannot be a pool component, the no-self-referential-tokens rule. There is also a structural minimum: $10K TVL on a 7-day SMA before any emission flows.
 
-Suppose he passes the gate by stacking 52% in legitimate 4626 (svZCHF and sUSDS) and dropping the shitcoin into the remaining 48%. The 100 svZCHF/sUSDS anti-spam fee is non-refundable, paid one-sided into Bodensee. Once gauged, qualified AuMT holders — existing productive LPs who built governance weight on a 6-month on-ramp — can submit a gauge challenge at any time, with deposit per F-12 scaling on pool TVL and inverse efficiency. The same hostile electorate that would have blocked the proposal now revokes the gauge.
+Suppose he passes the gate by stacking 52% in legitimate 4626 (svZCHF and sUSDS) and dropping the shitcoin into the remaining 48%. The 100 svZCHF or 125 sUSDS anti-spam fee is non-refundable, paid one-sided into Bodensee. Once gauged, qualified AuMT holders — existing productive LPs who built governance weight on a 6-month on-ramp — can submit a gauge challenge at any time, with deposit per F-12 scaling on pool TVL and inverse efficiency. The same hostile electorate that would have blocked the proposal now revokes the gauge.
 
 Once gauged, the volume floor catches the pool. Months 0 to 3 are exempt. From month 3, the pool must clear the 5th volume percentile; from month 6, the 10th; from month 13, the 15th. A shitcoin pool generates no organic volume. Between the 10th and 15th, the pool sits in the Warning zone: emissions continue, with 3 epochs (6 weeks) to recover above the 15th. Below the 10th, emissions cease immediately. Disqualified for 4 consecutive epochs (8 weeks), gauge revoked permanently. No vote required.
 

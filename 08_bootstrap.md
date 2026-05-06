@@ -130,7 +130,7 @@ Price-agnostic by design — prevents the reflexive disqualification problem whe
 
 **Governance-capture resistant.** A pool with large TVL and large CCB share but minimal fees ranks at the bottom. Despite a high CCB share, it receives at most 0.1% of emissions. Excess redistributed to productive pools.
 
-**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs $10K TVL, eligibility-criteria-passing composition, and the **anti-spam fee** (100 svZCHF/sUSDS into der Bodensee) to activate. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF/sUSDS in fees. Prohibitively expensive.
+**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs $10K TVL, eligibility-criteria-passing composition, and the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee) to activate. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF or 2,500 sUSDS in fees. Prohibitively expensive.
 
 ### Disqualification and Gauge Revocation
 
@@ -138,7 +138,7 @@ Two-stage process:
 
 **Stage 1: Disqualification.** Below the 10th volume percentile (or failing structural criteria) — emissions cease immediately. Gauge remains intact. Recover above the 15th percentile for 3 epochs (6 weeks) with no emissions to re-qualify automatically.
 
-**Stage 2: Gauge revocation.** Disqualified for **4 consecutive epochs (8 weeks)** — gauge permanently revoked. Restart requires a fresh **permissionless gauge activation** (100 svZCHF/sUSDS anti-spam fee into der Bodensee) once eligibility criteria are restored. Dead pools don't hold gauge slots indefinitely.
+**Stage 2: Gauge revocation.** Disqualified for **4 consecutive epochs (8 weeks)** — gauge permanently revoked. Restart requires a fresh **permissionless gauge activation** (100 svZCHF or 125 sUSDS anti-spam fee into der Bodensee) once eligibility criteria are restored. Dead pools don't hold gauge slots indefinitely.
 
 ### How the Criteria Interact
 
@@ -148,7 +148,7 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 ### Governance Proposals
 
-Any qualified AuMT holder can submit a governance proposal (fee parameter changes). Deposit: **1,000 svZCHF or sUSDS (whichever is higher)**, one-sided into der Bodensee Pool. Automatic on submission, non-refundable.
+Any qualified AuMT holder can submit a governance proposal (fee parameter changes). Deposit: **1,000 svZCHF or 1,250 sUSDS**, one-sided into der Bodensee Pool. Automatic on submission, non-refundable.
 
 **Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.03%**); der Bodensee uses **0.10%–1.00%** (genesis **0.75%**). For non-Miliarium pools, the **initial swap fee** is set as a parameter at **first successful gauge activation** (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
 
@@ -158,7 +158,7 @@ Any qualified AuMT holder can submit a governance proposal (fee parameter change
 
 Gauge activation is **permissionless**. Once a pool meets all immutable eligibility criteria — **ERC-4626 Quality Gate ≥52%** by class-admitted weight, sustained **TVL floor**, **pool-type whitelist**, and **forbidden-token block** clear — any address can call **`activateGauge(pool)`**. No vote, no quorum, no governance gating.
 
-**Anti-spam fee:** **100 svZCHF or sUSDS (whichever is higher)**, one-sided into der Bodensee Pool via the shared swap-and-deposit rail. **Non-refundable** on success and on any failed criteria check. Filters spam-activation attempts on freshly-deployed pools that have not yet sustained criteria. Same routing as governance deposits, distinct classification: rate-limiter, not vote bond.
+**Anti-spam fee:** **100 svZCHF or 125 sUSDS**, one-sided into der Bodensee Pool via the shared swap-and-deposit rail. **Non-refundable** on success and on any failed criteria check. Filters spam-activation attempts on freshly-deployed pools that have not yet sustained criteria. Same routing as governance deposits, distinct classification: rate-limiter, not vote bond.
 
 **No multiplier boost at activation.** The pool enters tournament accounting at base CCB multiplier `M_i = 1.0` and competes for emission share through the Efficiency Tournament (§xxiii) from the next epoch boundary. Cold-start support comes from Incendiary Boost (user-funded, optional) — see §xxii.
 
@@ -166,7 +166,7 @@ Gauge activation is **permissionless**. Once a pool meets all immutable eligibil
 
 Any qualified AuMT holder can challenge an existing **non-Miliarium** gauge. **The 28 Miliarium Aureum pools cannot be gauge-challenged** — structural changes to those slots go exclusively through the **Composition Challenge** path below.
 
-Challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). The **entire** amount is converted to **svZCHF or sUSDS (whichever is higher)** and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet.
+Challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). The **entire** amount is converted to **svZCHF, or 1.25× the svZCHF amount in sUSDS**, and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet.
 
 Challenge triggers a governance vote: majority votes to revoke → gauge removed, emissions lost. **The deposit goes to der Bodensee Pool regardless of outcome** — non-refundable whether the challenge succeeds or fails. The challenger accepted that risk.
 
@@ -174,7 +174,7 @@ Community enforcement layer on top of immutable anti-gaming criteria. The contra
 
 ### Miliarium Aureum Composition Challenge
 
-Pool token composition is immutable on-chain — no mechanism to swap a token inside a deployed contract. A composition challenge follows a **deprecate-and-replace** path. **Deposit:** **1,000 svZCHF or sUSDS (whichever is higher), one-sided into der Bodensee Pool** — same routing as fee proposals ([Constitution §xxvii](10_constitution.md)).
+Pool token composition is immutable on-chain — no mechanism to swap a token inside a deployed contract. A composition challenge follows a **deprecate-and-replace** path. **Deposit:** **1,000 svZCHF or 1,250 sUSDS, one-sided into der Bodensee Pool** — same routing as fee proposals ([Constitution §xxvii](10_constitution.md)).
 
 1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal that references the **address of an already-deployed candidate pool** (specified-pool model). It passes only with **2/3 protocol-wide tessera-weighted approval**.
 2. **Deprecation** — the old pool's gauge is revoked; emissions cease; the old pool persists on-chain with the fee-routing hook still attached.
@@ -214,7 +214,7 @@ Not a stock-picking exercise. Composition challenges activate when an asset **ce
 **Flow:**
 
 1. **Candidate pool deployment (permissionless, any block).** Any party can deploy a replacement pool via the standard Balancer V3 `WeightedPoolFactory`. Example composition: svZCHF 26% + GHO 26% + ixEDEL 16% + WBTC 16% + tBTC 16% — identical yield-core and routing components, with tBTC (Threshold Network's decentralized BTC wrapper) substituting for cbBTC as the Theme Asset B leg. This is a deployed pool with a real address and a Quality Gate check.
-2. **Composition Challenge proposal.** Any qualified AuMT holder submits a proposal referencing the candidate pool's address. Deposit: 1,000 svZCHF/sUSDS equivalent, one-sided into der Bodensee.
+2. **Composition Challenge proposal.** Any qualified AuMT holder submits a proposal referencing the candidate pool's address. Deposit: 1,000 svZCHF or 1,250 sUSDS, one-sided into der Bodensee.
 3. **Vote.** 2/3 supermajority of protocol-wide tessera-weighted votes. Like-for-like evaluation by voters: same sector (Crypto / BTC), same risk profile (BTC wrapper with different custodian — Threshold Network multi-party computation vs Coinbase custody), same template role (Theme Asset B).
 4. **Approval actions (atomic in the approval transaction).** The governance contract calls `MiliariumRegistry.replaceSlot(14, newPoolAddress)`. The old ixAurebit pool's gauge is revoked; the new pool's gauge is auto-registered via `registerGaugeFromComposition`.
 5. **Post-approval state.**
@@ -234,7 +234,7 @@ The 28 Miliarium pools are a curated blueprint for CCB execution — diversified
 If a token, stablecoin, or asset class is missing from the 28, the path is **not** a composition challenge. It is:
 
 1. **Deploy a new pool** — permissionless from block 0
-2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52%, sustained TVL floor, pool-type whitelist, forbidden-token block clear), any address can call `activateGauge(pool)` with the **anti-spam fee** (100 svZCHF/sUSDS into der Bodensee). No vote, no proposal.
+2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52%, sustained TVL floor, pool-type whitelist, forbidden-token block clear), any address can call `activateGauge(pool)` with the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee). No vote, no proposal.
 3. **Earn emissions** — through the standard CCB rules and Incendiary Boost. There is no multiplier boost at activation; cold-start support comes from user-funded Incendiary Boost.
 
 New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost — the 28 founding pools were seeded at genesis. The Miliarium pools are the anchor, not the ceiling.

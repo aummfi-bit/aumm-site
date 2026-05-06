@@ -30,7 +30,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/28** across the 28 Miliarium pools until Month 11.
 
 **Month 11 — Non-Miliarium emissions begin, CCB transition starts.**
-- Non-Miliarium pools that meet eligibility criteria can permissionlessly activate gauges (100 svZCHF/sUSDS anti-spam fee, one-sided into der Bodensee).
+- Non-Miliarium pools that meet eligibility criteria can permissionlessly activate gauges (100 svZCHF or 125 sUSDS anti-spam fee, one-sided into der Bodensee).
 - All pools begin ranking in the Efficiency Tournament.
 - CCB transition begins: **α** runs from **0** (first block of Month 11) to **1** (last block of Year 1).
 - Each pool's share blends its equal one-twenty-eighth with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.

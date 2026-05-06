@@ -277,14 +277,14 @@ All composition parameters immutable from block 0.
 
 **Purpose:** Scale the gauge-challenge deposit so nuisance challenges against **large, efficient** gauges cost real money, while keeping a lower bar for tail or weak pools. **The 28 Miliarium Aureum pools cannot be gauge-challenged** — structural changes to those slots go exclusively through the **Composition Challenge** path ([Constitution §xxvii](10_constitution.md)).
 
-**Effect:** The full deposit (after the `max` below) is paid **one-sided into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the challenger.
+**Effect:** The full deposit (after the `max` below) is paid **one-sided into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF, or 1.25× the svZCHF amount in sUSDS**, non-refundable, **no LP tokens** minted to the challenger.
 
 For a challenge targeting a **non-Miliarium** pool, the deposit equals the **greater** of:
 
-1. **10 BTC** expressed in **CHF**, then converted to **svZCHF or sUSDS equivalent (whichever is higher)** at submission time — then deposited **one-sided into der Bodensee Pool**; and  
-2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF/sUSDS equivalent and deposited **one-sided into der Bodensee Pool**.
+1. **10 BTC** expressed in **CHF**, then converted to **svZCHF, or 1.25× the svZCHF amount in sUSDS**, then deposited **one-sided into der Bodensee Pool**; and  
+2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF, or 1.25× in sUSDS, and deposited **one-sided into der Bodensee Pool**.
 
-**BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF/sUSDS one-sided into der Bodensee.
+**BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF (or 1.25× in sUSDS) one-sided into der Bodensee.
 
 The BTC/CHF rate is a **spot-price average** computed at submission time across all currently-gauged pools holding any token in the `BTC_WRAPPERS` set (see Constitution §xxix; initial set: WBTC, cbBTC). The contract enumerates gauged pools, filters for those containing any BTC wrapper, reads spot rates (wrapped-BTC ↔ svZCHF, or against sUSDS then converted via arbitrage-aligned cross-rates), and averages. If a wrapper deprecates (e.g. cbBTC delisted), it falls out of the average; if a new BTC wrapper enters the constellation via composition challenge or new gauge approval, it auto-joins — no contract change required in either case.
 
@@ -302,7 +302,7 @@ The BTC/CHF rate is a **spot-price average** computed at submission time across 
 deposit_CHF_component = 1_000_000 × sqrt((1 − p_tvl) × (1 − p_eff))
 
 gauge_challenge_deposit = max( 10_BTC_in_CHF ,  deposit_CHF_component )
-// convert to svZCHF/sUSDS equivalent; one-sided deposit into der Bodensee Pool; non-refundable
+// convert to svZCHF (or 1.25× in sUSDS); one-sided deposit into der Bodensee Pool; non-refundable
 ```
 
 **Miliarium Aureum exclusion:** The **28 Miliarium Aureum** pools **cannot be gauge-challenged**. Structural changes to those slots go exclusively through the **Composition Challenge** path ([Constitution §xxvii](10_constitution.md)).
