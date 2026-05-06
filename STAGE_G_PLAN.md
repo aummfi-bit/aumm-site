@@ -38,7 +38,7 @@ Close-out grep at root after Bundle A: zero residual fast-track references at so
 
 ---
 
-## Bundle B — Four→three vote-type model 🚧 IN PROGRESS
+## Bundle B — Four→three vote-type model ✅ COMPLETE
 
 Per precheck **P-1** (replace gauge-approval vote with criteria gate) and **C-2** / **C-5** (FINDINGS OQ-10 four-vote-types → three).
 
@@ -47,12 +47,12 @@ Per precheck **P-1** (replace gauge-approval vote with criteria gate) and **C-2*
 | SG.B1 | `10_constitution.md` §xxvii | drop Gauge Proposal vote (four → three governance actions) | `74f58a5` | ✅ |
 | SG.B2 | `17_faq.md` | governance section reframe (four → three; gauge proposal → permissionless activation) | `4794f0f` | ✅ |
 | SG.B3 | `17_faq.md` | Anti-Gaming section reframe (gate-and-vote → gate-and-challenge) | `20d3214` | ✅ |
-| SG.B4 | `12_aureum_glossary.md` §xxxv | drop Gauge Proposal from overview entry + delete standalone Gauge Proposal entry | — | ⏳ pending |
-| SG.B5 | `04_tokenomics.md` | "gauge approvals" → "gauge activation" at L61, L109, L234; four-vote-list reframe at L109 | — | ⏳ pending |
-| SG.B6 | `02_mental_model.md` | rewrite L59 "gauge approval has a clear mechanism" → permissionless | — | ⏳ pending |
-| SG.B7 | `05_miliarium_aureum.md` | reword L155 "gauge proposal, vote, 90-day boost" + L157 "gauge vote" path | — | ⏳ pending |
-| SG.B8 | `06_miliarium_manifest.md` | reword L69 composition challenge replacement bootstrap path | — | ⏳ pending |
-| SG.B9 | `14_ux_ui.md` | rewrite L86 "Active proposals — gauge approvals…" + L16 proposal list | — | ⏳ pending |
+| SG.B4 | `12_aureum_glossary.md` §xxxv | drop Gauge Proposal from overview entry + delete standalone Gauge Proposal entry | `3eaf797` | ✅ |
+| SG.B5 | `04_tokenomics.md` | "gauge approvals" → "gauge activation" at L61, L109, L234; four-vote-list reframe at L109 | `0d06915` | ✅ |
+| SG.B6 | `02_mental_model.md` | rewrite L59 "gauge approval has a clear mechanism" → permissionless | `b3d94a0` | ✅ |
+| SG.B7 | `05_miliarium_aureum.md` | reword L155 "gauge proposal, vote, 90-day boost" + L157 "gauge vote" path | `9fef6ae` | ✅ |
+| SG.B8 | `06_miliarium_manifest.md` | reword L69 composition challenge replacement bootstrap path | `7cc92fc` | ✅ |
+| SG.B9 | `14_ux_ui.md` | rewrite L86 "Active proposals — gauge approvals…" + L16 proposal list | `b1dae98` | ✅ |
 
 ---
 
@@ -124,3 +124,9 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.B1 | `74f58a5` | −2 | 2026-05-05 |
 | SG.B2 | `4794f0f` | 0 | 2026-05-05 |
 | SG.B3 | `20d3214` | 0 | 2026-05-05 |
+| SG.B4 | `3eaf797` | −1 | 2026-05-05 |
+| SG.B5 | `0d06915` | 0 | 2026-05-05 |
+| SG.B6 | `b3d94a0` | 0 | 2026-05-05 |
+| SG.B7 | `9fef6ae` | 0 | 2026-05-05 |
+| SG.B8 | `7cc92fc` | 0 | 2026-05-05 |
+| SG.B9 | `b1dae98` | 0 | 2026-05-05 |
