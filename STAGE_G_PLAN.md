@@ -56,17 +56,17 @@ Per precheck **P-1** (replace gauge-approval vote with criteria gate) and **C-2*
 
 ---
 
-## Bundle C — Permissionless activation + anti-spam fee terminology
+## Bundle C — Permissionless activation + anti-spam fee terminology ✅ COMPLETE
 
 Per precheck **P-1** and **P-6** (anti-spam fee reclassification). Mostly integrated into Bundle B FAQ rewrites; remaining call-sites in:
 
 | Sub-step | File | Edit | Status |
 | --- | --- | --- | --- |
-| SG.C1 | `08_bootstrap.md` | reword §xxiv "gauge proposal" mechanic → permissionless activation + anti-spam fee | ⏳ pending |
-| SG.C2 | `09_transitions.md` | reword L33 "gauge proposals (100 svZCHF/sUSDS)" → permissionless activation w/ anti-spam fee | ⏳ pending |
-| SG.C3a | `08_bootstrap.md` §xxi | sweep §xxi (Cold-Start Design) — heading L9; doctrine patches L13/L15/L40 (criteria-gate, no LP-vote admission, 90-day boost only on named paths); terminology L17/L23/L34; table row L29 (AuMT vote → criteria gate); approach (B) per chat | ⏳ pending |
-| SG.C3b | `08_bootstrap.md` §xxiii | sweep §xxiii (Anti-Gaming Engine) — terminology L84; attacker scenario L99; sacrificial-lamb L138 (gauge-approval-vote → activation + anti-spam fee); revocation-restart L146 (new gauge proposal → re-activation post-criteria-restoration) | ⏳ pending |
-| SG.C3c | `08_bootstrap.md` §xxiv | sweep §xxiv (Governance Gating) post-SG.C1 — L158 (initial swap fee → first-activation parameter per C-1); L186 (composition-challenge "no separate gauge proposal" → auto-registration phrasing); L242 (worked-example checklist "Get a gauge approved… AuMT vote" → permissionless activation + anti-spam fee). Excludes lines already owned by SG.C1 (L160, L162–166) | ⏳ pending |
+| SG.C1 | `08_bootstrap.md` | reword §xxiv "gauge proposal" mechanic → permissionless activation + anti-spam fee | ✅ |
+| SG.C2 | `09_transitions.md` | reword L33 "gauge proposals (100 svZCHF/sUSDS)" → permissionless activation w/ anti-spam fee | ✅ |
+| SG.C3a | `08_bootstrap.md` §xxi | sweep §xxi (Cold-Start Design) — heading L9; doctrine patches L13/L15/L40 (criteria-gate, no LP-vote admission, 90-day boost only on named paths); terminology L17/L23/L34; table row L29 (AuMT vote → criteria gate); approach (B) per chat | ✅ |
+| SG.C3b | `08_bootstrap.md` §xxiii | sweep §xxiii (Anti-Gaming Engine) — terminology L84; attacker scenario L99; sacrificial-lamb L138 (gauge-approval-vote → activation + anti-spam fee); revocation-restart L146 (new gauge proposal → re-activation post-criteria-restoration) | ✅ |
+| SG.C3c | `08_bootstrap.md` §xxiv | sweep §xxiv (Governance Gating) post-SG.C1 — L158 (initial swap fee → first-activation parameter per C-1); L186 (composition-challenge "no separate gauge proposal" → auto-registration phrasing); L242 (worked-example checklist "Get a gauge approved… AuMT vote" → permissionless activation + anti-spam fee). Excludes lines already owned by SG.C1 (L160, L162–166) | ✅ |
 
 ---
 
@@ -133,3 +133,8 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.B7 | `9fef6ae` | 0 | 2026-05-05 |
 | SG.B8 | `7cc92fc` | 0 | 2026-05-05 |
 | SG.B9 | `b1dae98` | 0 | 2026-05-05 |
+| SG.C1  | `81013bb` | +2 | 2026-05-05 |
+| SG.C2  | `47b8e5b` |  0 | 2026-05-05 |
+| SG.C3a | `22ff001` |  0 | 2026-05-05 |
+| SG.C3b | `7e6eb78` |  0 | 2026-05-05 |
+| SG.C3c | `5216631` |  0 | 2026-05-05 |
