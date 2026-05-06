@@ -248,6 +248,37 @@ New pools route through the constellation's connectors (ixEdelweiss, ixLibertas,
 
 Every proposal must reference only verifiable on-chain data (addresses, block ranges, and contract-derived metrics). Proposals based on off-chain-only claims are invalid.
 
+## xxiv-a. Vault-Class Registry
+
+The protocol's discretion surface narrows to **one question**: which ERC-4626 token classes count toward the **52% Quality Gate numerator** ([Tokenomics §ix](04_tokenomics.md)). Pool deployment, gauge activation (§xxiv), and pool composition are all permissionless; class admission is the single decision governance retains. Admissions issue through a **Frankencoin-inspired proposal-and-veto pattern** — vigilant minorities can block bad admissions, while legitimate admissions auto-finalize without active vote pressure.
+
+A pool may include any tokens. Weight in any 4626 token whose class is **not** admitted contributes **0** to the 52% numerator and falls into the ≤48% complement.
+
+### Class Admission Mechanism (Proposal → Veto Window → Auto-Finalize)
+
+- **Proposal.** Any address calls `proposeVaultClass(admissionType, admissionValue, constraintsHash)` paying a **non-refundable bond** in svZCHF. The bond routes one-sided into der Bodensee Pool via the same swap-and-deposit rail used for the anti-spam fee and governance proposal deposits — no burn, no treasury accumulation.
+- **Veto window.** Bounded block range during which qualified AuMT holders may invoke `vetoProposal(id)`. The proposal is rejected if cumulative AuMT-weighted veto support meets the **veto threshold**.
+- **Auto-finalize.** Window expires without a successful veto → proposal **auto-executes in a single transaction**; the class enters the registry. No two-stage `finalize`-then-`execute` — single-tx state transition on window expiry, minimizing stuck-state surface.
+- **Revocation.** Governance may invoke `revokeVaultClass(id)` to denounce a previously-admitted class. Revocation is **revocable-with-grandfather**: it blocks **new** numerator credit at the next epoch boundary; **existing** gauges are not force-revoked but face the standard graduated grace period from §xxiii if they fall below 52% as a result.
+
+Bond, veto threshold, and veto window are tunables locked in [Constitution §xxix](10_constitution.md) under non-regressable bounds: **`proposalBond ≥ antiSpamFee`** (class admission must not undercut the simpler permissionless-activation fee); **`vetoThreshold ≤ governanceQuorumThreshold`** (a vigilant minority must reach the veto bar at lower weight than full proposal quorum); **veto window ∈ `[BLOCKS_PER_EPOCH, 3 × BLOCKS_PER_EPOCH]`** (long enough for governance reaction, short enough to avoid stalling legitimate admissions).
+
+### Admission Fingerprints (Three Types, Proposer-Stated)
+
+A `VaultClassProposal` declares its `admissionType` from one of three fingerprint kinds. Each carries a different threat model; the proposer selects which fits the class being admitted, and the veto mechanism is the protocol's check on that judgement.
+
+- **`ImplementationAddress`** — admits a specific implementation behind a proxy. Future implementations behind the same proxy automatically inherit admission. Trust delegated to the proxy admin's upgrade discipline.
+- **`FactoryAddress`** — admits all current and future vaults from a specific factory. Trust delegated to the factory's deployment policy.
+- **`BytecodeHash`** — admits exact bytecode match. Future-proof against unannounced implementation rotation; conversely, blocks legitimate upgrades without a fresh proposal.
+
+Glossary definitions in [Glossary §xxxii](12_aureum_glossary.md).
+
+### Genesis Seeding (Constructor-Hardcoded)
+
+The Miliarium-pool ERC-4626 vault classes — waEthUSDC, ixEDEL, sUSDS-class wrappers, and the remainder per per-pool profiles in [miliarium_profiles/](miliarium_profiles/) — are admitted at deploy via **constructor-hardcoded constants** in `VaultClassRegistry.sol`. No one-shot seeding admin entrypoint.
+
+The genesis class set is **bytecode-immutable**. Future classes enter via the `proposeVaultClass` + veto flow once on-chain governance is live. Pre-governance, the registry is frozen at its constructor-seeded set; pools using only genesis-admitted 4626 classes can be gauged permissionlessly through `activateGauge` (§xxiv).
+
 ## xxv. Immutable Reference
 
 See [Immutable Parameters (§xxix)](10_constitution.md).
