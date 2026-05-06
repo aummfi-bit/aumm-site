@@ -35,6 +35,7 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 - CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see [Constitution (§xxix)](10_constitution.md))
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)
+- Vault-Class Registry (gates the ERC-4626 Quality Gate numerator; proposal-with-veto admission flow, auto-finalize at window expiry, governance veto path; admission fingerprints — ImplementationAddress / FactoryAddress / BytecodeHash; post-admission revocation; anti-spam-fee routing to der Bodensee Pool; tunable bounds: [Constitution (§xxix)](10_constitution.md))
 - Miliarium Aureum pool registry (28 pools, non-transferable, revocation on gauge loss)
 - Token supply tracker (cumulative emitted, net circulating)
 - Minimum qualification period enforcer (14-day continuous hold check)
