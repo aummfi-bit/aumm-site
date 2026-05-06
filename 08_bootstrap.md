@@ -6,38 +6,38 @@
 
 ## xxi. Cold-Start Design
 
-### Pool Creation and Gauge Approval
+### Pool Creation and Permissionless Gauge Activation
 
 **Pool creation is permissionless from block 0.** Anyone can deploy any pool with any composition at any time. The Aequilibrium factory is open. This never changes.
 
-A pool becomes eligible for AuMM emissions only after qualified LPs approve a gauge through governance. **Without gauge approval: no emissions, no Incendiary Boost, no 90-day gauge boost.** Existing LPs must collectively decide the new pool deserves a share of the emission budget.
+A pool becomes eligible for AuMM emissions only after its gauge is **activated**. Activation is **permissionless** — any address can call **`activateGauge(pool)`** once the pool meets all immutable eligibility criteria (Quality Gate ≥52%, sustained TVL floor, pool-type whitelist, forbidden-token block clear) and the **anti-spam fee** is paid. **Without an active gauge: no emissions, no Incendiary Boost.** The contract enforces qualification — no governance vote admits a gauge.
 
-**Eligibility criteria are immutable.** Once a gauge is approved, the pool must still meet every anti-gaming criterion. Governance cannot waive, modify, or relax these rules. A gauge vote says "this pool may compete." The contract decides whether it qualifies.
+**Eligibility criteria are immutable.** Activation cannot occur unless every immutable criterion is satisfied at the activation block, and the **Anti-Gaming Engine** (§xxiii) continues enforcing them every epoch thereafter. Governance cannot waive, modify, or relax these rules. The contract is the gate; no governance signal substitutes for criteria compliance.
 
-Three concerns, cleanly separated: permissionless creation (anyone can build), democratic gauge approval (LPs decide what competes), immutable rules (the contract enforces discipline).
+Three concerns, cleanly separated: permissionless creation (anyone can build), permissionless gauge activation (any address can activate once criteria are met), immutable rules (the contract enforces discipline).
 
 Core emission allocation remains automatic and immutable.
 
 ### Sandbox
 
-**Sandbox** is the permissionless default. Any pool deployed without a gauge operates in Sandbox from block 0. Zero CCB emissions, no Incendiary Boost eligibility — but ranked in the Efficiency Tournament alongside gauged pools. Anyone can build and demonstrate performance before seeking gauge approval.
+**Sandbox** is the permissionless default. Any pool deployed without an active gauge operates in Sandbox from block 0. Zero CCB emissions, no Incendiary Boost eligibility — but ranked in the Efficiency Tournament alongside gauged pools. Anyone can build and demonstrate performance before activating a gauge.
 
 ### The Bootstrapping Sequence
 
 | Phase | Days | Driver | Purpose |
 |-------|------|--------|---------|
-| Gauge approval | Day 0 | AuMT governance vote | Quality gate — pool must pass governance before any boost |
+| Gauge activation | Once criteria met | Permissionless `activateGauge(pool)` + anti-spam fee | Quality gate — pool must pass criteria; no governance vote |
 | Incendiary Boost | Any time | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the autonomous reserve to boost a pool |
 | 90-day gauge boost | Days 1–90 | Fixed 1.2x CCB multiplier (automatic) | Cold-start emission ramp — expires without vote or renewal |
 | CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
 
-All layers require gauge approval first. At day 91, the fixed boost expires. A successful pool has 90 days of TVL data baked into its EMA by then — the CCB takes over seamlessly. Failed pools lose the boost and the EMA weight. They die naturally.
+All other layers require an active gauge first. At day 91, where the fixed boost was granted, it expires — a successful pool has 90 days of TVL data baked into its EMA by then, and the CCB takes over seamlessly. Failed pools lose the boost and the EMA weight. They die naturally.
 
 ### Two boosts, different purposes
 
 Two distinct boosts, different purposes, mechanically independent:
 
-**90-day gauge boost (automatic).** Every newly approved gauge receives a fixed **1.2× CCB multiplier** for 90 days. Activates when the gauge passes, expires on its own — no vote, no renewal. The baseline cold-start ramp every approved pool gets for free.
+**90-day gauge boost (automatic, named paths only).** Pools entering via **composition replacement** or **founding-seeding** receive a fixed **1.2× CCB multiplier** for 90 days. Activates with the gauge, expires on its own — no vote, no renewal. **Permissionless activation does not receive this boost** — it is reserved for cold-start paths that cannot demonstrate independent market traction. Permissionless-activated pools have already cleared the TVL floor by definition.
 
 **Incendiary Boost (user-funded, stacks on top).** Anyone can deposit **any amount** of **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow) to activate a **1-epoch (14-day)** supplementary emission stream for a gauged pool, starting the next epoch. Both boosts can run simultaneously. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below).
 
