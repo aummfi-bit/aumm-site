@@ -58,7 +58,7 @@ Emission allocation is driven by the **Continuous Central Bank (CCB)** — not b
 
 #### Protocol Governance (Non-Emission Decisions)
 
-For decisions beyond emission direction (fee parameters, gauge approvals/challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
+For decisions beyond emission direction (fee parameters, gauge challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
 
 ```
 Era 0 (years 0–4, pre-halving):        voting_power = (qualified_AuMT_value × time_in_pool)^(1/4)
@@ -106,7 +106,7 @@ This eliminates:
 
 Every proposal type requires a minimum turnout of **20% of total qualified voting power**. Below 20%, the proposal is **automatically rejected** regardless of vote outcome. No timelock fallback — it fails and must be resubmitted.
 
-Applies uniformly: gauge approvals, gauge challenges, fee changes, and composition challenges all share the same 20% floor. **All governance proposal deposits** are **one-sided into der Bodensee Pool** (same mechanic; see [Constitution §xxvii](10_constitution.md)). **Deposit amounts** are proposal-specific; gauge challenges apply only to **non-Miliarium** pools per [F-12](11_formulas.md) — **Miliarium Aureum pools cannot be gauge-challenged** (structural changes go through the Composition Challenge path). The deposit filters spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
+Applies uniformly: gauge challenges, fee changes, and composition challenges all share the same 20% floor. **All governance proposal deposits** are **one-sided into der Bodensee Pool** (same mechanic; see [Constitution §xxvii](10_constitution.md)). **Deposit amounts** are proposal-specific; gauge challenges apply only to **non-Miliarium** pools per [F-12](11_formulas.md) — **Miliarium Aureum pools cannot be gauge-challenged** (structural changes go through the Composition Challenge path). The deposit filters spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 
 #### Anti-Market Buying
 
@@ -119,7 +119,7 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 **What governance controls:**
 
 - Fee parameters (swap fee %, yield fee %)
-- Gauge approvals and challenges (with timelock)
+- Gauge challenges (with timelock)
 - Miliarium Aureum composition challenges (2/3 supermajority)
 
 **What governance cannot control:** Emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, der Bodensee Pool parameters, and all launch mechanics. Immutable in contract. Full list: [Immutable Parameters (§xxix)](10_constitution.md).
@@ -231,7 +231,7 @@ At scale, combined **protocol-captured** revenue from the **protocol share** of 
 
 As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, accelerating reserve growth. The halving schedule reduces emission dilution every four years while revenue scales with TVL — the reserve grows faster than new supply enters the market.
 
-*All governance proposal deposits — gauge approval, gauge challenge, fee proposals, composition challenge — are one-sided sUSDS/svZCHF inflows into der Bodensee Pool; Incendiary Boost deposits use the same reserve destination. Together they deepen the autonomous reserve.*
+*All governance proposal deposits — gauge challenge, fee proposals, composition challenge — are one-sided sUSDS/svZCHF inflows into der Bodensee Pool; Incendiary Boost deposits use the same reserve destination. Together they deepen the autonomous reserve.*
 
 ### Immutable Reference
 
