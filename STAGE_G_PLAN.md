@@ -84,6 +84,10 @@ Per precheck **OQ-G4** resolution. Substantial new doctrine:
 | SG.D6 | `13_appendices.md` | add Vault-Class Registry to audit scope list | ⏳ pending |
 | SG.D7 | `17_faq.md` | new FAQ entry: "How does a new pool get gauged?" — covers permissionless activation + Vault-Class Registry | ⏳ pending |
 | SG.D8 | `12_aureum_glossary.md` §xxxii-a | rewrite L45 "Gauge" entry: drop "Gauge approval is a governance vote — qualified AuMT holders decide…" → permissionless-criteria-gated framing (Quality Gate ≥52%, $10K TVL SMA, pool-type whitelist, forbidden-token block; no governance vote at activation; revocable via Gauge Challenge) | ⏳ pending |
+| SG.D9 | `02_mental_model.md` | add paragraph: Vault-Class Registry as the single surface where governance exercises class-admission discretion | ⏳ pending |
+| SG.D10 | `05_miliarium_aureum.md` | add callout: Miliarium genesis classes hard-coded at construction; cross-link to §xxiv-a | ⏳ pending |
+| SG.D11 | `14_ux_ui.md` | add VCR subsection: proposed classes queue, veto countdown, admitted-classes list; cross-link to §xxiv-a | ⏳ pending |
+| SG.D12 | `15_overview.md` | add Vault-Class Registry to major-mechanisms list with one-line description | ⏳ pending |
 
 ---
 
