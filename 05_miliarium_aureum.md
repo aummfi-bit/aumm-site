@@ -35,6 +35,8 @@ One ordered list (01 → 28), **split by sector** for readability; rows, weights
 
 Each pool’s weights are shown in three columns — **Yield core**, **Routing** (ixEDEL where used), **Theme** — with *ticker* then *%*. **—** means that bucket has no weight. Non-standard pools may combine tokens in one column or use a single theme leg (see ixLongus). The Yield table uses HTML so **slots 01 and 06** can merge cells when routing and theme are empty, and **slot 05** can merge **Routing + Theme** for **ixEDEL** (price-discovery / routing + theme).
 
+**Genesis class set.** The ERC-4626 yield-core tokens that fill the 52% Yield Core slot across the 28 Miliarium pools belong to vault classes hard-coded into the Vault-Class Registry at construction — pre-admitted, bypassing the propose-and-veto flow that gates new classes added later. This is why each Miliarium pool clears the 4626 Quality Gate from block 0: every yield-core token's class is admitted before block 0 exists. New pools introducing tokens of un-admitted classes must clear the registry first; see [Bootstrap (§xxiv-a)](08_bootstrap.md).
+
 ### Yield — slots 01–07
 
 Savings, staking / LST, FX, ixEDEL price-discovery venue, USD hub, and multi-currency FX connectors.
