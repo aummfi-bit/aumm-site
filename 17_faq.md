@@ -126,6 +126,20 @@ Every deposit is one-sided into Bodensee, non-refundable, denominated in svZCHF 
 
 Governance cannot alter the emission schedule, halving math, CCB engine parameters, fee distribution split, Bodensee composition, dampening exponents, eligibility criteria, or any other immutable parameter.
 
+### How does a new pool get gauged?
+
+Permissionlessly. There is no governance vote on gauging individual pools. A pool becomes gauge-eligible the moment it satisfies the immutable criteria gate, and stays gauged until those criteria fail or someone successfully revokes it.
+
+The activation criteria. (1) The 4626 Quality Gate: at least 52% of pool weight in yield-bearing tokens whose ERC-4626 class is admitted to the Vault-Class Registry. (2) Minimum TVL: $10K on a 7-day SMA. (3) No self-referential tokens — AuMM cannot be a pool component. (4) Pool type recognized by the registry (WeightedPool, StablePool, etc.). All four must hold simultaneously and are enforced on-chain.
+
+The activation cost. A flat anti-spam fee — `antiSpamFee = 100 svZCHF` or sUSDS, whichever is higher at submission — deposited one-sided into Bodensee, non-refundable on success or any failed check. No vote, no quorum, no proposal. The fee exists to prevent zero-cost gauge farming.
+
+The Vault-Class Registry. The Quality Gate counts a token toward the 52% threshold only if its ERC-4626 class appears in the registry. A class is identified by one of three fingerprints — `ImplementationAddress`, `FactoryAddress`, or `BytecodeHash` — submitted by the proposer. Genesis classes are hard-coded at Miliarium Aureum construction. New classes enter via a proposal-with-veto flow: post the proposal bond (at least `antiSpamFee`), proposal enters a veto window, auto-finalizes at expiry unless governance casts a vetoing vote that meets the veto threshold. The model fits the action — class admission is a bounded technical verification, not a contested protocol change. Governance retains a backstop via the veto path during the window and via revocation (`revokeVaultClass`) at any later point.
+
+After activation. The new pool receives a fixed 1.2× CCB multiplier for 90 days on top of standard CCB scoring. Once active, it must continue to satisfy the criteria gate plus a graduated Volume Percentile Floor (5th from Month 3, 10th from Month 6, 15th from Month 13). Disqualified for 4 consecutive epochs and the gauge revokes automatically. Qualified AuMT holders can also submit a Gauge Challenge at any time, with deposit per F-12 scaling on pool TVL and inverse efficiency.
+
+What is NOT permissionless. The 28 Miliarium Aureum slots are locked at launch and cannot be added to — replacing one requires a Composition Challenge (2/3 supermajority, 20% quorum). New ERC-4626 token classes go through the registry's veto flow above.
+
 ### Why fourth root, then cube root?
 
 Voting power is `(qualified_AuMT_value × time_in_pool)^(1/4)` in Era 0, transitioning permanently to `^(1/3)` at the first halving block. Era 0 is when the protocol is still small enough that one whale LP could take most governance power from TVL share alone. The fourth root softens that. By year 4, natural TVL growth has done most of the work. The cube root matches lower capture risk in a larger ecosystem. The transition fires at one block: immutable, no vote.
