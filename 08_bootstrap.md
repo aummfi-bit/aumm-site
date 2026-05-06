@@ -28,18 +28,13 @@ Core emission allocation remains automatic and immutable.
 |-------|------|--------|---------|
 | Gauge activation | Once criteria met | Permissionless `activateGauge(pool)` + anti-spam fee | Quality gate — pool must pass criteria; no governance vote |
 | Incendiary Boost | Any time | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the autonomous reserve to boost a pool |
-| 90-day gauge boost | Days 1–90 | Fixed 1.2x CCB multiplier (automatic) | Cold-start emission ramp — expires without vote or renewal |
-| CCB takeover | Day 91+ | 60-day EMA | Institutional stability — the pool is now permanent infrastructure |
+| CCB allocation | Once active — ongoing | 60-day EMA | Emissions tracked by smoothed TVL via the standard CCB |
 
-All other layers require an active gauge first. At day 91, where the fixed boost was granted, it expires — a successful pool has 90 days of TVL data baked into its EMA by then, and the CCB takes over seamlessly. Failed pools lose the boost and the EMA weight. They die naturally.
+All other layers require an active gauge first. A successful pool builds TVL into its EMA over its first epochs, and the CCB takes over seamlessly. Failed pools lose the EMA weight and die naturally.
 
-### Two boosts, different purposes
+### Incendiary Boost (overview)
 
-Two distinct boosts, different purposes, mechanically independent:
-
-**90-day gauge boost (automatic, named paths only).** Pools entering via **composition replacement** or **founding-seeding** receive a fixed **1.2× CCB multiplier** for 90 days. Activates with the gauge, expires on its own — no vote, no renewal. **Permissionless activation does not receive this boost** — it is reserved for cold-start paths that cannot demonstrate independent market traction. Permissionless-activated pools have already cleared the TVL floor by definition.
-
-**Incendiary Boost (user-funded, stacks on top).** Anyone can deposit **any amount** of **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow) to activate a **1-epoch (14-day)** supplementary emission stream for a gauged pool, starting the next epoch. Both boosts can run simultaneously. The gauge boost adjusts the multiplier inside the CCB score; Incendiary is a separate priority skim from the block emission (see §xxii below).
+**Incendiary Boost (user-funded).** Anyone can deposit **any amount** of **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow) to activate a **1-epoch (14-day)** supplementary emission stream for a gauged pool, starting the next epoch. Incendiary is a priority skim from the block emission (see §xxii below) — not a CCB multiplier.
 
 ## xxii. Incendiary Boost
 
@@ -73,7 +68,7 @@ Pools must meet ALL criteria to remain eligible for AuMM emissions:
 | Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
 | No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
 
-All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax them. CCB multiplier applies automatically to the 28 Miliarium pools ([Theoretical foundations (§vii)](03_theoretical_foundation.md); [Protocol formulas (F-8)](11_formulas.md); bounds in [Constitution (§xxix)](10_constitution.md)). No voting over emission allocation. New gauges: **90-day 1.2× CCB multiplier** — expires automatically, no vote, no renewal.
+All eligibility criteria are immutable from block 0. No governance vote can waive, modify, or relax them. CCB multiplier applies automatically to the 28 Miliarium pools ([Theoretical foundations (§vii)](03_theoretical_foundation.md); [Protocol formulas (F-8)](11_formulas.md); bounds in [Constitution (§xxix)](10_constitution.md)). No voting over emission allocation.
 
 ### Why TVL-Based Governance Eliminates the Wrapper Problem
 
@@ -165,7 +160,7 @@ Gauge activation is **permissionless**. Once a pool meets all immutable eligibil
 
 **Anti-spam fee:** **100 svZCHF or sUSDS (whichever is higher)**, one-sided into der Bodensee Pool via the shared swap-and-deposit rail. **Non-refundable** on success and on any failed criteria check. Filters spam-activation attempts on freshly-deployed pools that have not yet sustained criteria. Same routing as governance deposits, distinct classification: rate-limiter, not vote bond.
 
-**No boost at permissionless activation.** The pool enters tournament accounting at base CCB multiplier `M_i = 1.0` and competes for emission share through the Efficiency Tournament (§xxiii) from the next epoch boundary. The 90-day boost is reserved for cold-start paths that do not require independent market traction (composition replacement, founding-seeding); permissionless activation occurs only after the TVL floor has already been cleared.
+**No multiplier boost at activation.** The pool enters tournament accounting at base CCB multiplier `M_i = 1.0` and competes for emission share through the Efficiency Tournament (§xxiii) from the next epoch boundary. Cold-start support comes from Incendiary Boost (user-funded, optional) — see §xxii.
 
 ### Gauge Challenge
 
@@ -183,7 +178,7 @@ Pool token composition is immutable on-chain — no mechanism to swap a token in
 
 1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal that references the **address of an already-deployed candidate pool** (specified-pool model). It passes only with **2/3 protocol-wide tessera-weighted approval**.
 2. **Deprecation** — the old pool's gauge is revoked; emissions cease; the old pool persists on-chain with the fee-routing hook still attached.
-3. **Slot update** — the Miliarium Registry points the slot to the approved replacement pool; the replacement gauge is **auto-registered** via `registerGaugeFromComposition(pool)` (governance-only entry point) with the **90-day gauge boost** — no separate permissionless activation, no anti-spam fee. Optional Incendiary Boost applies as normal.
+3. **Slot update** — the Miliarium Registry points the slot to the approved replacement pool; the replacement gauge is **auto-registered** via `registerGaugeFromComposition(pool)` (governance-only entry point) — no separate permissionless activation, no anti-spam fee. Optional Incendiary Boost applies as normal.
 
 A single proposal may cover **both** theme assets simultaneously if both have failed — forum discussion builds consensus on the pair before the on-chain vote.
 
@@ -221,10 +216,10 @@ Not a stock-picking exercise. Composition challenges activate when an asset **ce
 1. **Candidate pool deployment (permissionless, any block).** Any party can deploy a replacement pool via the standard Balancer V3 `WeightedPoolFactory`. Example composition: svZCHF 26% + GHO 26% + ixEDEL 16% + WBTC 16% + tBTC 16% — identical yield-core and routing components, with tBTC (Threshold Network's decentralized BTC wrapper) substituting for cbBTC as the Theme Asset B leg. This is a deployed pool with a real address and a Quality Gate check.
 2. **Composition Challenge proposal.** Any qualified AuMT holder submits a proposal referencing the candidate pool's address. Deposit: 1,000 svZCHF/sUSDS equivalent, one-sided into der Bodensee.
 3. **Vote.** 2/3 supermajority of protocol-wide tessera-weighted votes. Like-for-like evaluation by voters: same sector (Crypto / BTC), same risk profile (BTC wrapper with different custodian — Threshold Network multi-party computation vs Coinbase custody), same template role (Theme Asset B).
-4. **Approval actions (atomic in the approval transaction).** The governance contract calls `MiliariumRegistry.replaceSlot(14, newPoolAddress)`. The old ixAurebit pool's gauge is revoked; the new pool's gauge is auto-registered via `registerGaugeFromComposition` with a 90-day CCB multiplier boost (1.2×).
+4. **Approval actions (atomic in the approval transaction).** The governance contract calls `MiliariumRegistry.replaceSlot(14, newPoolAddress)`. The old ixAurebit pool's gauge is revoked; the new pool's gauge is auto-registered via `registerGaugeFromComposition`.
 5. **Post-approval state.**
    - Old ixAurebit pool: persists on-chain, no AuMM emissions, fee-routing hook still attached (residual trading: **protocol share** to Bodensee, **LP residual** to LPs), LPs can hold or withdraw at will, AuMT for the old pool drops to **zero governance weight**.
-   - New ixAurebit pool: active gauge, receives AuMM emissions per CCB, 90-day 1.2× boost, new LP positions earn AuMM emissions and governance weight (subject to 14-day qualification + 6-month on-ramp).
+   - New ixAurebit pool: active gauge, receives AuMM emissions per CCB; new LP positions earn AuMM emissions and governance weight (subject to 14-day qualification + 6-month on-ramp).
    - Market behavior: LPs of the old pool withdraw naturally as cbBTC's redemption window narrows. The new pool attracts liquidity because it's the only emission-eligible BTC pool in slot 14.
 
 **What this example illustrates:**
@@ -240,9 +235,9 @@ If a token, stablecoin, or asset class is missing from the 28, the path is **not
 
 1. **Deploy a new pool** — permissionless from block 0
 2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52%, sustained TVL floor, pool-type whitelist, forbidden-token block clear), any address can call `activateGauge(pool)` with the **anti-spam fee** (100 svZCHF/sUSDS into der Bodensee). No vote, no proposal.
-3. **Earn emissions** — through the standard CCB rules and Incendiary Boost. The 90-day gauge boost does **not** apply to permissionless activation; it is reserved for composition replacement and founding-seeding paths.
+3. **Earn emissions** — through the standard CCB rules and Incendiary Boost. There is no multiplier boost at activation; cold-start support comes from user-funded Incendiary Boost.
 
-New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost — the 28 founding pools additionally received the 90-day gauge boost via founding-seeding at genesis. The Miliarium pools are the anchor, not the ceiling.
+New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost — the 28 founding pools were seeded at genesis. The Miliarium pools are the anchor, not the ceiling.
 
 ### On-Chain-Only Proposal Rule
 

@@ -46,13 +46,13 @@ All deposits **one-sided into der Bodensee Pool** (no LP tokens minted to propos
 
 Governance-gated, **2/3 supermajority** of protocol-wide tessera-weighted votes. A single proposal may cover both theme assets if both have failed.
 
-Pool composition is immutable on-chain. A composition challenge **deprecates** the old pool (gauge revoked, emissions cease) and **launches a replacement** into the same slot via the standard bootstrap path (90-day boost, optional Incendiary Boost).
+Pool composition is immutable on-chain. A composition challenge **deprecates** the old pool (gauge revoked, emissions cease) and **launches a replacement** into the same slot via the standard bootstrap path (Incendiary Boost optional).
 
 **Four operational rules (OQ-7 resolution):**
 
 1. **Deprecation = gauge revoked only.** The old pool persists on-chain as a Sandbox-style pool. It still exists, still accepts swaps, still earns ERC-4626 native yield for its LPs. It loses: AuMM emissions, CCB multiplier, and Miliarium Registry slot status.
 2. **The fee-routing hook stays attached for life.** The deprecated pool keeps routing **100% of the Vault-assigned protocol share** of each swap fee to der Bodensee Pool via the still-attached hook (see **Fee routing** below — **~50%** of the charged swap fee; the **~50% LP residual** stays with originating-pool LPs). The protocol benefits from any residual trading activity on the deprecated pool; the LPs just don't earn AuMM for keeping it open. Once a pool is hooked at gauge activation, it remains a fee source for the life of the pool.
-3. **Specified-pool model.** The composition challenge proposal must reference the **address of an already-deployed candidate pool** with the proposed composition. The 2/3 supermajority vote is binary on that specific pool. On approval, the Miliarium Registry updates the slot pointer, and the replacement gauge **auto-registers via `registerGaugeFromComposition(pool)`** — no permissionless-activation criteria check is run; the 90-day boost applies as usual.
+3. **Specified-pool model.** The composition challenge proposal must reference the **address of an already-deployed candidate pool** with the proposed composition. The 2/3 supermajority vote is binary on that specific pool. On approval, the Miliarium Registry updates the slot pointer, and the replacement gauge **auto-registers via `registerGaugeFromComposition(pool)`** — no permissionless-activation criteria check is run; Incendiary Boost remains available as for any other gauged pool.
 4. **No LP migration assistance.** Old-pool LPs hold their existing AuMT, can withdraw at will, and may choose to enter the new pool independently. No special migration mechanic — a token failure in one pool would have everyone withdrawing anyway. The market handles migration for free.
 
 **AuMT governance weight follows the gauge.** The moment a pool's gauge is revoked — whether by composition challenge, gauge challenge, 4-consecutive-disqualified-epoch automatic revocation, or any other path — the AuMT for that pool drops to **zero governance weight** at that block. The LP's other entitlements continue: pool-share-of-tokens, ERC-4626 native yield, and the **LP residual** of swap fees on that pool (**~50%** of the charged fee — Vault accounting; the hook still routes the **protocol share** to der Bodensee). Only governance power is lost.
@@ -132,7 +132,6 @@ Immutable from block 0, cannot be changed by any means.
 | `YEAR_1_END_BLOCK` | `genesis + BLOCKS_PER_YEAR` | F-3 transition endpoint (α = 1) |
 | `MONTH_13_START_BLOCK` | `genesis + 12 × BLOCKS_PER_MONTH + 1` | Efficiency tournament activation |
 | `FIRST_HALVING_BLOCK` | `genesis + BLOCKS_PER_ERA` | Era 0 → Era 1 transition; F-9 governance dampening exponent shift |
-| `GAUGE_BOOST_DURATION_BLOCKS` | 648,000 | 90-day gauge boost (literal 90 × `BLOCKS_PER_DAY`) |
 | `INCENDIARY_BOOST_DURATION_BLOCKS` | 100,800 | = `BLOCKS_PER_EPOCH` |
 
 ### EMA parameters
