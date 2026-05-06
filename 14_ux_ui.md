@@ -13,7 +13,7 @@ This document lists the full UX/UI surface planned for aumm.fi. Per OQ-18, the f
 - §xlvi der Bodensee Pool — composition card, reserve depth, AuMM price, pool balances (from genesis)
 - LP deposit/withdraw flows for every gauged pool + der Bodensee
 - AuMT display — user's qualified AuMT per pool, pending AuMM emissions, time-in-pool status (14-day qualification, 6-month on-ramp)
-- Governance interface — active proposals list, voting UI, proposal-submission UI (gauge proposals, gauge challenges, composition challenges, fee-change proposals)
+- Governance interface — active proposals list, voting UI, proposal-submission UI (gauge challenges, composition challenges, fee-change proposals)
 - Swap interface — basic composite-swap via the constellation (can integrate with an aggregator initially rather than building routing from scratch)
 - Block-based time displays — halving countdown, bootstrap milestones at `MONTH_6_END_BLOCK` / `MONTH_10_END_BLOCK`, Era transition countdowns (all expressed as blocks with calendar-time aliases per §xxix)
 
@@ -83,7 +83,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## l. Governance
 
-- [ ] **Active proposals** — gauge approvals, gauge challenges, fee changes, composition challenges; status, quorum progress, time remaining, vote tally
+- [ ] **Active proposals** — gauge challenges, fee changes, composition challenges; status, quorum progress, time remaining, vote tally
 - [ ] **Proposal history** — past votes with outcomes, turnout, deposit amounts
 - [ ] **Quorum tracker** — current total qualified voting power, 20% threshold line
 - [ ] **Deposit log** — all governance svZCHF/sUSDS deposits into der Bodensee Pool (linked to proposal)
