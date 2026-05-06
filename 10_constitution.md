@@ -11,6 +11,7 @@
 - **Gauge Challenge** — **revoke** an existing **non-Miliarium** gauge; deposit **one-sided into der Bodensee Pool** per [F-12](11_formulas.md). **Miliarium Aureum (28) cannot be gauge-challenged** — use Composition Challenge instead. Details: [Bootstrap](08_bootstrap.md) §xxiv (Gauge Challenge).
 - **Fee proposals** — **swap / yield fee** changes **within immutable bounds**; deposit **one-sided into der Bodensee Pool**. Voting model: [Tokenomics](04_tokenomics.md) §ix (Governance); mechanics: [Bootstrap](08_bootstrap.md) §xxiv (Governance Proposals).
 - **Miliarium Aureum Composition Challenge** — **2/3 supermajority** tessera-weighted vote to deprecate a pool and **replace** assets in-slot (like-for-like); deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv (Miliarium Aureum Composition Challenge) and **### Composition Challenge Rule** below.
+- **Vault-Class Registry Admission** — **propose a new ERC-4626 token class** for inclusion in the **Quality Gate numerator** ([Tokenomics §ix](04_tokenomics.md)); follows a **proposal-with-veto** model rather than vote-to-approve. Deposit **one-sided into der Bodensee Pool**. Details: [Bootstrap](08_bootstrap.md) §xxiv-a (Vault-Class Registry).
 
 **All governance proposal deposits** follow the **same treatment:** **one-sided inflow into der Bodensee Pool** in **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the proposer; only **amounts** differ (see table below). No treasury wallet. No alternate routing.
 
@@ -27,7 +28,7 @@ All core contracts immutable from block 0. Governance exists for non-emission ac
 
 ### Governance Scope (Non-Emission Only)
 
-Qualified AuMT holders submit and vote on the **three actions** above. Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
+Qualified AuMT holders submit and vote on the **four actions** above. Three follow a **vote-to-approve** model (gauge challenge, fee proposals, composition challenge); **Vault-Class Registry admission** follows a **proposal-with-veto** model (per [Bootstrap](08_bootstrap.md) §xxiv-a). Governance cannot alter emission formulas, halving math, CCB multiplier constants, or other immutable parameters.
 
 ### Quorum and Deposit Requirements
 
@@ -50,8 +51,8 @@ Pool composition is immutable on-chain. A composition challenge **deprecates** t
 **Four operational rules (OQ-7 resolution):**
 
 1. **Deprecation = gauge revoked only.** The old pool persists on-chain as a Sandbox-style pool. It still exists, still accepts swaps, still earns ERC-4626 native yield for its LPs. It loses: AuMM emissions, CCB multiplier, and Miliarium Registry slot status.
-2. **The fee-routing hook stays attached for life.** The deprecated pool keeps routing **100% of the Vault-assigned protocol share** of each swap fee to der Bodensee Pool via the still-attached hook (see **Fee routing** below — **~50%** of the charged swap fee; the **~50% LP residual** stays with originating-pool LPs). The protocol benefits from any residual trading activity on the deprecated pool; the LPs just don't earn AuMM for keeping it open. Once a pool is hooked at gauge approval, it remains a fee source for the life of the pool.
-3. **Specified-pool model.** The composition challenge proposal must reference the **address of an already-deployed candidate pool** with the proposed composition. The 2/3 supermajority vote is binary on that specific pool. On approval, the Miliarium Registry updates the slot pointer, the replacement is automatically gauge-eligible (the supermajority vote supplies stronger consent than standard gauge approval), and the 90-day gauge boost applies as usual. No separate follow-up gauge proposal is needed.
+2. **The fee-routing hook stays attached for life.** The deprecated pool keeps routing **100% of the Vault-assigned protocol share** of each swap fee to der Bodensee Pool via the still-attached hook (see **Fee routing** below — **~50%** of the charged swap fee; the **~50% LP residual** stays with originating-pool LPs). The protocol benefits from any residual trading activity on the deprecated pool; the LPs just don't earn AuMM for keeping it open. Once a pool is hooked at gauge activation, it remains a fee source for the life of the pool.
+3. **Specified-pool model.** The composition challenge proposal must reference the **address of an already-deployed candidate pool** with the proposed composition. The 2/3 supermajority vote is binary on that specific pool. On approval, the Miliarium Registry updates the slot pointer, and the replacement gauge **auto-registers via `registerGaugeFromComposition(pool)`** — no permissionless-activation criteria check is run; the 90-day boost applies as usual.
 4. **No LP migration assistance.** Old-pool LPs hold their existing AuMT, can withdraw at will, and may choose to enter the new pool independently. No special migration mechanic — a token failure in one pool would have everyone withdrawing anyway. The market handles migration for free.
 
 **AuMT governance weight follows the gauge.** The moment a pool's gauge is revoked — whether by composition challenge, gauge challenge, 4-consecutive-disqualified-epoch automatic revocation, or any other path — the AuMT for that pool drops to **zero governance weight** at that block. The LP's other entitlements continue: pool-share-of-tokens, ERC-4626 native yield, and the **LP residual** of swap fees on that pool (**~50%** of the charged fee — Vault accounting; the hook still routes the **protocol share** to der Bodensee). Only governance power is lost.
@@ -65,6 +66,12 @@ Pool composition is immutable on-chain. A composition challenge **deprecates** t
 Like-for-like is enforced two ways: programmatic checks at the registry level for properties the contract can verify (token-type composition, weight bounds, 4626 Quality Gate compliance), and semantic checks via the governance review itself (sector-fit, risk-equivalence, template-role-fit).
 
 Activates only when an asset **ceases to function** (delisting, wrapper sunset, issuer failure). Renewal, not redesign. Worked examples in [Bootstrap (§xxiv)](08_bootstrap.md).
+
+### Vault-Class Registry Veto Model
+
+The **Vault-Class Registry** — the on-chain set of ERC-4626 token classes admitted to the **Quality Gate numerator** ([Tokenomics §ix](04_tokenomics.md)) — follows a **proposal-with-veto** model, not vote-to-approve. A class proposed via `proposeVaultClass(...)` enters a **veto window**; the proposal **auto-finalizes** at window expiry unless governance casts a vetoing vote that meets the veto threshold.
+
+The model fits the action: class admission is a **bounded, well-typed verification** that an ERC-4626 implementation is non-malicious and properly composable — not a contested protocol change. Governance retains a hard backstop via the **veto** path during the window and via **revocation** (`revokeVaultClass(...)`) at any later point. Mechanism details, fingerprint types (ImplementationAddress / FactoryAddress / BytecodeHash), genesis seeding, and revocation: [Bootstrap §xxiv-a](08_bootstrap.md). Tunable bounds (proposal bond, veto threshold, window length): §xxix below.
 
 ### Proposal Data Integrity Rule
 
@@ -189,4 +196,3 @@ Immutable from block 0, cannot be changed by any means.
 ## xxx. No Treasury
 
 No treasury. No entity or wallet receives AuMM for discretionary use. No mechanism holds discretionary funds or disburses capital by vote. **der Bodensee Pool** receives **Months 1–10** bootstrap AuMM as **one-sided pool deposits** (not extractable, no LP tokens minted) on the piecewise decay schedule of [F-0](11_formulas.md); after the final block of Month 10, the bootstrap channel is **permanently zero**. **Protocol-captured** revenue — the **protocol share** of swap fees on non–der Bodensee gauged pools (**100%** of that share per §xxix; **~50%** of charged swap fee volume) plus **ERC-4626 yield fees (100% of the 10% skim on non–der Bodensee gauged pools)** — flows automatically to **der Bodensee Pool** as one-sided svZCHF deposits (per §xxix). **LP residuals** on those swap fees (**~50%** of charged fee) are not protocol revenue — they stay with originating-pool LPs. **Swap fees inside der Bodensee** (0.75% at genesis) stay with **der Bodensee LPs** in full. CCC philosophy: capital allocation is algorithmic, revenue flows are rule-based, no separate treasury can be captured, redirected, or extracted from. Fully autonomous from block 0.
-
