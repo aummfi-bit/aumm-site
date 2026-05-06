@@ -155,7 +155,7 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 Any qualified AuMT holder can submit a governance proposal (fee parameter changes). Deposit: **1,000 svZCHF or sUSDS (whichever is higher)**, one-sided into der Bodensee Pool. Automatic on submission, non-refundable.
 
-**Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.03%**); der Bodensee uses **0.10%–1.00%** (genesis **0.75%**). **Non-Miliarium gauge approval** includes the **initial swap fee** as a gauge parameter (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
+**Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.03%**); der Bodensee uses **0.10%–1.00%** (genesis **0.75%**). For non-Miliarium pools, the **initial swap fee** is set as a parameter at **first successful gauge activation** (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
 
 **All** governance deposits — gauge challenge, fee proposal, composition challenge — and the **anti-spam fee** for permissionless gauge activation are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the autonomous reserve, non-recoverable.
 
@@ -183,7 +183,7 @@ Pool token composition is immutable on-chain — no mechanism to swap a token in
 
 1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal that references the **address of an already-deployed candidate pool** (specified-pool model). It passes only with **2/3 protocol-wide tessera-weighted approval**.
 2. **Deprecation** — the old pool's gauge is revoked; emissions cease; the old pool persists on-chain with the fee-routing hook still attached.
-3. **Slot update** — the Miliarium Registry points the slot to the approved replacement pool; the replacement is **automatically gauge-eligible** with the **90-day gauge boost** (no separate gauge proposal). Optional Incendiary Boost applies as normal.
+3. **Slot update** — the Miliarium Registry points the slot to the approved replacement pool; the replacement gauge is **auto-registered** via `registerGaugeFromComposition(pool)` (governance-only entry point) with the **90-day gauge boost** — no separate permissionless activation, no anti-spam fee. Optional Incendiary Boost applies as normal.
 
 A single proposal may cover **both** theme assets simultaneously if both have failed — forum discussion builds consensus on the pair before the on-chain vote.
 
@@ -221,7 +221,7 @@ Not a stock-picking exercise. Composition challenges activate when an asset **ce
 1. **Candidate pool deployment (permissionless, any block).** Any party can deploy a replacement pool via the standard Balancer V3 `WeightedPoolFactory`. Example composition: svZCHF 26% + GHO 26% + ixEDEL 16% + WBTC 16% + tBTC 16% — identical yield-core and routing components, with tBTC (Threshold Network's decentralized BTC wrapper) substituting for cbBTC as the Theme Asset B leg. This is a deployed pool with a real address and a Quality Gate check.
 2. **Composition Challenge proposal.** Any qualified AuMT holder submits a proposal referencing the candidate pool's address. Deposit: 1,000 svZCHF/sUSDS equivalent, one-sided into der Bodensee.
 3. **Vote.** 2/3 supermajority of protocol-wide tessera-weighted votes. Like-for-like evaluation by voters: same sector (Crypto / BTC), same risk profile (BTC wrapper with different custodian — Threshold Network multi-party computation vs Coinbase custody), same template role (Theme Asset B).
-4. **Approval actions (atomic in the approval transaction).** The governance contract calls `MiliariumRegistry.replaceSlot(14, newPoolAddress)`. The old ixAurebit pool's gauge is revoked; the new pool is automatically gauge-approved with a 90-day CCB multiplier boost (1.2×).
+4. **Approval actions (atomic in the approval transaction).** The governance contract calls `MiliariumRegistry.replaceSlot(14, newPoolAddress)`. The old ixAurebit pool's gauge is revoked; the new pool's gauge is auto-registered via `registerGaugeFromComposition` with a 90-day CCB multiplier boost (1.2×).
 5. **Post-approval state.**
    - Old ixAurebit pool: persists on-chain, no AuMM emissions, fee-routing hook still attached (residual trading: **protocol share** to Bodensee, **LP residual** to LPs), LPs can hold or withdraw at will, AuMT for the old pool drops to **zero governance weight**.
    - New ixAurebit pool: active gauge, receives AuMM emissions per CCB, 90-day 1.2× boost, new LP positions earn AuMM emissions and governance weight (subject to 14-day qualification + 6-month on-ramp).
@@ -239,10 +239,10 @@ The 28 Miliarium pools are a curated blueprint for CCB execution — diversified
 If a token, stablecoin, or asset class is missing from the 28, the path is **not** a composition challenge. It is:
 
 1. **Deploy a new pool** — permissionless from block 0
-2. **Get a gauge approved** — submit a proposal, deposit svZCHF/sUSDS into der Bodensee Pool, win the AuMT vote
-3. **Earn emissions** — through the standard CCB rules, Incendiary Boost, and 90-day gauge boost
+2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52%, sustained TVL floor, pool-type whitelist, forbidden-token block clear), any address can call `activateGauge(pool)` with the **anti-spam fee** (100 svZCHF/sUSDS into der Bodensee). No vote, no proposal.
+3. **Earn emissions** — through the standard CCB rules and Incendiary Boost. The 90-day gauge boost does **not** apply to permissionless activation; it is reserved for composition replacement and founding-seeding paths.
 
-New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary and gauge boost mechanics — the same infrastructure the 28 founding pools use. The Miliarium pools are the anchor, not the ceiling.
+New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost — the 28 founding pools additionally received the 90-day gauge boost via founding-seeding at genesis. The Miliarium pools are the anchor, not the ceiling.
 
 ### On-Chain-Only Proposal Rule
 
