@@ -1,0 +1,126 @@
+# Stage G Plan — aumm-site Spec Coherence Pass
+
+**Status:** In progress. Bundle A complete; Bundle B in progress (3 of 9 sub-steps committed).
+**Sibling plan:** `aumm-deploy/docs/STAGE_G_PLAN.md` — the implementation-side plan.
+**Source of truth (aumm-deploy):**
+- `docs/STAGE_G_PRECHECK_AUTO_GAUGE.md` — pivot decision record (propositions P-1–P-6, conflicts C-1–C-6)
+- `docs/STAGE_G_NOTES.md` — design freeze (G-D1–G-D11)
+- `docs/FINDINGS.md` OQ-G1–OQ-G4 — resolutions
+**Scope:** Update this repo's spec docs to be coherent with the aumm-deploy Stage G auto-gauge pivot (locked 2026-05-05).
+
+---
+
+## Workflow
+
+Every edit follows the §8e.1 cursor-prompt convention from `aumm-deploy/CLAUDE.md`:
+
+- Claude Code (Opus high) authors a `### CURSOR PROMPT` + `### USER VERIFY` two-block §8e.1 prompt per sub-step.
+- Cursor executes the file save and stops.
+- User pastes verify output (`wc -l`, `shasum`, `grep`) back in their terminal.
+- Claude Code (Sonnet for relay, Opus for non-trivial audit) verifies and authors the commit block.
+- Sub-step prefix: `SG.<bundle><n>` (e.g., SG.A1, SG.B3).
+
+---
+
+## Bundle A — Sandbox fast-track deletions ✅ COMPLETE
+
+Per precheck **P-5** (deprecate Sandbox fast-track) and **C-3** (aumm-site §xxi fast-track row must be amended).
+
+| Sub-step | File | Edit | Commit | Status |
+| --- | --- | --- | --- | --- |
+| SG.A1 | `08_bootstrap.md` | drop Sandbox fast-track heading and rule paragraph | `ecfdba6` | ✅ |
+| SG.A2 | `09_transitions.md` | delete Sandbox fast-track bullet | `2cc3258` | ✅ |
+| SG.A3 | `12_aureum_glossary.md` | delete Fast-Track Rule glossary entry | `210f12a` | ✅ |
+| SG.A4 | `13_appendices.md` | delete fast-track from audit scope list and bullet | `4407142` | ✅ |
+| SG.A5 | `14_ux_ui.md` | remove Fast-Track progress from Sandbox pools dashboard bullet | `836d929` | ✅ |
+
+Close-out grep at root after Bundle A: zero residual fast-track references at source-of-truth level. The `dist/aumm-skill/references/` mirror still has stale copies — resyncs in Bundle F via llms.txt regeneration.
+
+---
+
+## Bundle B — Four→three vote-type model 🚧 IN PROGRESS
+
+Per precheck **P-1** (replace gauge-approval vote with criteria gate) and **C-2** / **C-5** (FINDINGS OQ-10 four-vote-types → three).
+
+| Sub-step | File | Edit | Commit | Status |
+| --- | --- | --- | --- | --- |
+| SG.B1 | `10_constitution.md` §xxvii | drop Gauge Proposal vote (four → three governance actions) | `74f58a5` | ✅ |
+| SG.B2 | `17_faq.md` | governance section reframe (four → three; gauge proposal → permissionless activation) | `4794f0f` | ✅ |
+| SG.B3 | `17_faq.md` | Anti-Gaming section reframe (gate-and-vote → gate-and-challenge) | `20d3214` | ✅ |
+| SG.B4 | `12_aureum_glossary.md` §xxxv | drop Gauge Proposal from overview entry + delete standalone Gauge Proposal entry | — | ⏳ pending |
+| SG.B5 | `04_tokenomics.md` | "gauge approvals" → "gauge activation" at L61, L109, L234; four-vote-list reframe at L109 | — | ⏳ pending |
+| SG.B6 | `02_mental_model.md` | rewrite L59 "gauge approval has a clear mechanism" → permissionless | — | ⏳ pending |
+| SG.B7 | `05_miliarium_aureum.md` | reword L155 "gauge proposal, vote, 90-day boost" + L157 "gauge vote" path | — | ⏳ pending |
+| SG.B8 | `06_miliarium_manifest.md` | reword L69 composition challenge replacement bootstrap path | — | ⏳ pending |
+| SG.B9 | `14_ux_ui.md` | rewrite L86 "Active proposals — gauge approvals…" + L16 proposal list | — | ⏳ pending |
+
+---
+
+## Bundle C — Permissionless activation + anti-spam fee terminology
+
+Per precheck **P-1** and **P-6** (anti-spam fee reclassification). Mostly integrated into Bundle B FAQ rewrites; remaining call-sites in:
+
+| Sub-step | File | Edit | Status |
+| --- | --- | --- | --- |
+| SG.C1 | `08_bootstrap.md` | reword §xxiv "gauge proposal" mechanic → permissionless activation + anti-spam fee | ⏳ pending |
+| SG.C2 | `09_transitions.md` | reword L33 "gauge proposals (100 svZCHF/sUSDS)" → permissionless activation w/ anti-spam fee | ⏳ pending |
+| SG.C3 | `08_bootstrap.md` | reword "gauge approval" / "gauge proposal" call-sites at L13, L17, L23, L34, L84, L138, L146, L160, L164, L184 | ⏳ pending |
+
+---
+
+## Bundle D — Vault-Class Registry + class-gated 52% numerator + Frankencoin veto §
+
+Per precheck **OQ-G4** resolution. Substantial new doctrine:
+
+| Sub-step | File | Edit | Status |
+| --- | --- | --- | --- |
+| SG.D1 | `04_tokenomics.md` §ix | insert canonical OQ-G4 numerator definition into Quality Gate paragraph | ⏳ pending |
+| SG.D2 | `08_bootstrap.md` | new section: Vault-Class Registry mechanism (admission, fingerprints, proposal+veto+auto-finalize+revoke) | ⏳ pending |
+| SG.D3 | `10_constitution.md` §xxvii | new subsection: Frankencoin-style veto model with tunable bounds; reword L55–L56 "standard gauge approval" | ⏳ pending |
+| SG.D4 | `10_constitution.md` §xxix | add Vault-Class tunable-bounds row (proposalBond ≥ antiSpamFee, vetoThreshold ≤ governanceQuorumThreshold, window ∈ [BLOCKS_PER_EPOCH, 3×BLOCKS_PER_EPOCH]) | ⏳ pending |
+| SG.D5 | `12_aureum_glossary.md` | new entries: Vault-Class Registry, Anti-Spam Fee, Permissionless Gauge Activation, three admission fingerprints (ImplementationAddress / FactoryAddress / BytecodeHash) | ⏳ pending |
+| SG.D6 | `13_appendices.md` | add Vault-Class Registry to audit scope list | ⏳ pending |
+| SG.D7 | `17_faq.md` | new FAQ entry: "How does a new pool get gauged?" — covers permissionless activation + Vault-Class Registry | ⏳ pending |
+
+---
+
+## Bundle E — F-10 cohort rewrite, growth-signal doctrine, threshold events, vault-floor downgrade
+
+Per precheck **P-2**, **P-3**, **P-4** and **G-D3** (top-15% favored cohort with caps as anti-concentration controls).
+
+| Sub-step | File | Edit | Status |
+| --- | --- | --- | --- |
+| SG.E1 | `11_formulas.md` F-10 | top-15%-favored-cohort framing; rewrite caps as top-cohort anti-concentration; 3-epoch smoothing tag; defer numeric tuning to aumm-deploy G1.x | ⏳ pending |
+| SG.E2 | `09_transitions.md` Month 11+ | growth-signal doctrine note (losing top-tier emissions = intended) | ⏳ pending |
+| SG.E3 | `14_ux_ui.md` | threshold-event dashboard items per STAGE_G_NOTES.md event schema | ⏳ pending |
+| SG.E4 | `11_formulas.md` F-12 | reword L289 "or new gauge approval" → "or new permissionless gauge activation" | ⏳ pending |
+| SG.E5 | vault-floor downgrade | spec-side wording per OQ-22 / OQ-G2 — file TBD at sub-step authoring time | ⏳ pending |
+
+---
+
+## Bundle F — Cross-link cleanup + miliarium_profiles/ batched + llms.txt regeneration
+
+Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regeneration.
+
+| Sub-step | Scope | Edit | Status |
+| --- | --- | --- | --- |
+| SG.F1 | `15_overview.md`, `README.md`, `script.md` | legacy cross-link cleanup (gauge approval → activation, four → three) | ⏳ pending |
+| SG.F.M1 | `miliarium_profiles/` (28 files) | vault-floor row downgrade per OQ-G4 | ⏳ pending |
+| SG.F.M2 | `miliarium_profiles/` (28 files) | 4626 Quality Gate row class-admission qualifier ("≥52% met by tokens whose class is admitted") | ⏳ pending |
+| SG.F.M3 | `miliarium_profiles/` (28 files) | composition challenge row wording ("gauge proposal, vote, 90-day boost" → "permissionless activation w/ 90-day boost") | ⏳ pending |
+| SG.F2 | `llms.txt`, `llms-full.txt`, `dist/aumm-skill/references/` | regeneration to resync with all canonical edits | ⏳ pending |
+
+---
+
+## Completion log
+
+| Sub-step | Commit | Δ lines | Date |
+| --- | --- | --- | --- |
+| SG.A1 | `ecfdba6` | −2 | 2026-05-05 |
+| SG.A2 | `2cc3258` | −1 | 2026-05-05 |
+| SG.A3 | `210f12a` | −1 | 2026-05-05 |
+| SG.A4 | `4407142` | −1 | 2026-05-05 |
+| SG.A5 | `836d929` | 0 | 2026-05-05 |
+| SG.B1 | `74f58a5` | −2 | 2026-05-05 |
+| SG.B2 | `4794f0f` | 0 | 2026-05-05 |
+| SG.B3 | `20d3214` | 0 | 2026-05-05 |
