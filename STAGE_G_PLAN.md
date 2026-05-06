@@ -89,6 +89,16 @@ Per precheck **OQ-G4** resolution. Substantial new doctrine:
 | SG.D11 | `14_ux_ui.md` | add VCR subsection: proposed classes queue, veto countdown, admitted-classes list; cross-link to §xxiv-a | ⏳ pending |
 | SG.D12 | `15_overview.md` | add Vault-Class Registry to major-mechanisms list with one-line description | ⏳ pending |
 
+### Bundle D amendments — post-pivot cross-bundle sweep
+
+Triggered by the 2026-05-05 design-freeze landings (G-D11 asymmetric anti-spam fee, G-D12 90-day boost deprecation in aumm-deploy/docs/STAGE_G_NOTES.md). Cross-bundle sweep — files in Bundle B/C/D scopes touched.
+
+| Sub-step | Scope | Edit | Status |
+| --- | --- | --- | --- |
+| SG.AMEND-1 | 9 files (cross-bundle) | drop 90-day gauge boost from spec — Incendiary Boost is the sole cold-start mechanism | ✅ |
+| SG.AMEND-2 | 6 files (cross-bundle) | asymmetric anti-spam fee sweep — 100 svZCHF / 125 sUSDS canonical; 1:1.25 ratio framing for governance deposits (1,000/1,250) and sacrificial-lamb (2,000/2,500) | ✅ |
+| SG.AMEND-3 | 3 files (cross-bundle) | wording fixes — pool-type whitelist ≠ VCR scope; anti-spam canonical value in glossary; four → three governance actions per SG.D3; `activateGauge(pool)` row in constitution swap-fee table | ✅ |
+
 ---
 
 ## Bundle E — F-10 cohort rewrite, growth-signal doctrine, threshold events, vault-floor downgrade
@@ -114,7 +124,7 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.F1 | `15_overview.md`, `README.md`, `script.md` | legacy cross-link cleanup (gauge approval → activation, four → three) | ⏳ pending |
 | SG.F.M1 | `miliarium_profiles/` (28 files) | vault-floor row downgrade per OQ-G4 | ⏳ pending |
 | SG.F.M2 | `miliarium_profiles/` (28 files) | 4626 Quality Gate row class-admission qualifier ("≥52% met by tokens whose class is admitted") | ⏳ pending |
-| SG.F.M3 | `miliarium_profiles/` (28 files) | composition challenge row wording ("gauge proposal, vote, 90-day boost" → "permissionless activation w/ 90-day boost") | ⏳ pending |
+| SG.F.M3 | `miliarium_profiles/` (28 files) | composition challenge row wording ("gauge proposal, vote, 90-day boost" → "auto-registration via `registerGaugeFromComposition(pool)` — governance-only, no boost") | ⏳ pending |
 | SG.F2 | `llms.txt`, `llms-full.txt`, `dist/aumm-skill/references/` | regeneration to resync with all canonical edits | ⏳ pending |
 
 ---
@@ -142,3 +152,6 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.C3a | `22ff001` |  0 | 2026-05-05 |
 | SG.C3b | `7e6eb78` |  0 | 2026-05-05 |
 | SG.C3c | `5216631` |  0 | 2026-05-05 |
+| SG.AMEND-1 | `055d89f` | −8 | 2026-05-05 |
+| SG.AMEND-2 | `0c9f948` |  0 | 2026-05-05 |
+| SG.AMEND-3 | `55ea7d8` |  0 | 2026-05-05 |
