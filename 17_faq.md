@@ -158,7 +158,7 @@ Actions allowed are emergency-only for ~12 months (`BLOCKS_PER_YEAR`), then gone
 
 The contract kills the easy version at the criteria gate — no vote, no proposal.
 
-The 4626 Quality Gate requires at least 52% of pool weight in ERC-4626 yield-bearing tokens, and each qualifying 4626 token has to have at least $5M, 30 BTC, or 4,000,000 svZCHF (whichever is largest) in its underlying vault's `totalAssets()`. A shitcoin is not 4626. A freshly minted fake 4626 wrapper fails the vault floor. AuMM itself cannot be a pool component, the no-self-referential-tokens rule. There is also a structural minimum: $10K TVL on a 7-day SMA before any emission flows.
+The 4626 Quality Gate requires at least 52% of pool weight in ERC-4626 yield-bearing tokens **whose vault class is admitted to the Vault-Class Registry**. A shitcoin is not 4626. A freshly minted fake 4626 wrapper fails the registry — its class has not been admitted, so its weight contributes zero to the 52% numerator and falls into the ≤48% complement. AuMM itself cannot be a pool component, the no-self-referential-tokens rule. There is also a structural minimum: $10K TVL on a 7-day SMA before any emission flows.
 
 Suppose he passes the gate by stacking 52% in legitimate 4626 (svZCHF and sUSDS) and dropping the shitcoin into the remaining 48%. The 100 svZCHF or 125 sUSDS anti-spam fee is non-refundable, paid one-sided into Bodensee. Once gauged, qualified AuMT holders — existing productive LPs who built governance weight on a 6-month on-ramp — can submit a gauge challenge at any time, with deposit per F-12 scaling on pool TVL and inverse efficiency. The same hostile electorate that would have blocked the proposal now revokes the gauge.
 
@@ -218,7 +218,7 @@ Aureum's answers are concrete. No admin keys (with the one-time Stage B exceptio
 
 ### How does Aureum compare to Yield Basis?
 
-Curve's Yield Basis (March 2026) validated the same core thesis from a different angle: sustainable AMM growth requires conviction capital, not reflexive incentives. Yield Basis enforces that at the user level, requiring an LP to deposit crvUSD before unlocking BTC/ETH pool capacity. Aureum enforces it at the protocol level through EMA-weighted emissions, the 52% 4626 Quality Gate, and immutable anti-gaming gates. Yield Basis depends on the crvUSD peg and a Curve DAO credit line. Aureum's stability layer is internal and oracle-free. The two compose: a future Aureum gauge could include scrvUSD as a 4626 component if the vault floor is met.
+Curve's Yield Basis (March 2026) validated the same core thesis from a different angle: sustainable AMM growth requires conviction capital, not reflexive incentives. Yield Basis enforces that at the user level, requiring an LP to deposit crvUSD before unlocking BTC/ETH pool capacity. Aureum enforces it at the protocol level through EMA-weighted emissions, the 52% 4626 Quality Gate, and immutable anti-gaming gates. Yield Basis depends on the crvUSD peg and a Curve DAO credit line. Aureum's stability layer is internal and oracle-free. The two compose: a future Aureum gauge could include scrvUSD as a 4626 component once its vault class is admitted to the Vault-Class Registry.
 
 ### How does Aureum compare to current Balancer?
 
