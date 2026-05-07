@@ -87,7 +87,7 @@ Per precheck **OQ-G4** resolution. Substantial new doctrine:
 | SG.D9 | `02_mental_model.md` | add paragraph: Vault-Class Registry as the single surface where governance exercises class-admission discretion | ✅ |
 | SG.D10 | `05_miliarium_aureum.md` | add callout: Miliarium genesis classes hard-coded at construction; cross-link to §xxiv-a | ✅ |
 | SG.D11 | `14_ux_ui.md` | add VCR subsection: proposed classes queue, veto countdown, admitted-classes list; cross-link to §xxiv-a | ✅ |
-| SG.D12 | `15_overview.md` | add Vault-Class Registry to major-mechanisms list with one-line description | ⏳ pending |
+| SG.D12 | `15_overview.md` | add Vault-Class Registry to major-mechanisms list with one-line description | ✅ |
 
 ### Bundle D amendments — post-pivot cross-bundle sweep
 
@@ -166,3 +166,4 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.D7 | `0e1dc07` | +14 | 2026-05-06 |
 | SG.D1 | `be06c1d` | +8 | 2026-05-06 |
 | SG.D8 | `d9a101f` | 0 | 2026-05-06 |
+| SG.D12 | `89f319b` | +1 | 2026-05-06 |
