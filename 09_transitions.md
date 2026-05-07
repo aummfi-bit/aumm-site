@@ -36,6 +36,10 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Each pool's share blends its equal one-twenty-eighth with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.
 - Pools coasting on equal allocation may see their share decline if TVL lags the protocol average. The transition rewards sustained capital, not incumbency.
 
+**Growth-signal doctrine — Month 11+.**
+- A Miliarium pool losing top-tier tournament standing exhibits **expected competitive dynamics**, not a protocol failure state. The 28 Miliarium gauges remain immutably registered; only tournament standing is dynamic.
+- `GaugeEfficiencyDropped` and `GaugeEfficiencyRising` events surface each cohort-boundary transition for indexers and bot/aggregator interfaces — external capital can identify pools that have lost their top-tier emission share and bid them back into eligibility. See F-10 in [Protocol formulas](11_formulas.md).
+
 **End of Year 1 — CCB transition complete.**
 - α = 1. Allocation is pure CCB.
 
