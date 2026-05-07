@@ -1,6 +1,6 @@
 # Stage G Plan — aumm-site Spec Coherence Pass
 
-**Status:** In progress. Bundle A complete; Bundle B in progress (3 of 9 sub-steps committed).
+**Status:** ✅ COMPLETE — 2026-05-07. All six bundles (A–F) closed; canonical aumm-site specs aligned with the aumm-deploy Stage G auto-gauge pivot (locked 2026-05-05). See Completion log below for the full commit chain.
 **Sibling plan:** `aumm-deploy/docs/STAGE_G_PLAN.md` — the implementation-side plan.
 **Source of truth (aumm-deploy):**
 - `docs/STAGE_G_PRECHECK_AUTO_GAUGE.md` — pivot decision record (propositions P-1–P-6, conflicts C-1–C-6)
@@ -70,7 +70,7 @@ Per precheck **P-1** and **P-6** (anti-spam fee reclassification). Mostly integr
 
 ---
 
-## Bundle D — Vault-Class Registry + class-gated 52% numerator + Frankencoin veto §
+## Bundle D — Vault-Class Registry + class-gated 52% numerator + Frankencoin veto § ✅ COMPLETE
 
 Per precheck **OQ-G4** resolution. Substantial new doctrine:
 
@@ -101,7 +101,7 @@ Triggered by the 2026-05-05 design-freeze landings (G-D11 asymmetric anti-spam f
 
 ---
 
-## Bundle E — F-10 cohort rewrite, growth-signal doctrine, threshold events, vault-floor downgrade
+## Bundle E — F-10 cohort rewrite, growth-signal doctrine, threshold events, vault-floor downgrade ✅ COMPLETE
 
 Per precheck **P-2**, **P-3**, **P-4** and **G-D3** (top-15% favored cohort with caps as anti-concentration controls).
 
@@ -115,7 +115,7 @@ Per precheck **P-2**, **P-3**, **P-4** and **G-D3** (top-15% favored cohort with
 
 ---
 
-## Bundle F — Cross-link cleanup + miliarium_profiles/ batched + llms.txt regeneration
+## Bundle F — Cross-link cleanup + miliarium_profiles/ batched + llms.txt regeneration ✅ COMPLETE
 
 Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regeneration.
 
