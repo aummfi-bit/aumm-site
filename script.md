@@ -37,7 +37,7 @@
 | **Theme rationale** | Why these specific tokens in this pool |
 | **Volume drivers** | Bullet list of expected trading flows |
 | **Risk profile** | Bullet list of risk factors |
-| **Performance Discipline** | Table with 4626 Quality Gate, Vault TVL floor, Volume percentile floor, Efficiency tournament, CCB multiplier, Composition challenge |
+| **Performance Discipline** | Table with 4626 Quality Gate, Vault-Class Registry, Volume percentile floor, Efficiency tournament, CCB multiplier, Composition challenge |
 | **Cross-References** | Links to manifest, sectors, theoretical foundation, Miliarium Aureum registry |
 
 **Fix:** Complete each profile following the template used by the other 22 profiles.
