@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 05_miliarium_aureum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 05_miliarium_aureum.md — DO NOT EDIT -->
 # The Miliarium Aureum
 
 The 28 pools are pre-defined at launch and locked from block 0.
@@ -35,6 +35,8 @@ One ordered list (01 → 28), **split by sector** for readability; rows, weights
 | Theme Assets (2 tokens) | 32% (16% + 16%) | Sector exposure. Drives aggregator volume from external markets. |
 
 Each pool’s weights are shown in three columns — **Yield core**, **Routing** (ixEDEL where used), **Theme** — with *ticker* then *%*. **—** means that bucket has no weight. Non-standard pools may combine tokens in one column or use a single theme leg (see ixLongus). The Yield table uses HTML so **slots 01 and 06** can merge cells when routing and theme are empty, and **slot 05** can merge **Routing + Theme** for **ixEDEL** (price-discovery / routing + theme).
+
+**Genesis class set.** The ERC-4626 yield-core tokens that fill the 52% Yield Core slot across the 28 Miliarium pools belong to vault classes hard-coded into the Vault-Class Registry at construction — pre-admitted, bypassing the propose-and-veto flow that gates new classes added later. This is why each Miliarium pool clears the 4626 Quality Gate from block 0: every yield-core token's class is admitted before block 0 exists. New pools introducing tokens of un-admitted classes must clear the registry first; see [Bootstrap (§xxiv-a)](08_bootstrap.md).
 
 ### Yield — slots 01–07
 
@@ -153,9 +155,9 @@ Shared **svZCHF** and **ixEDEL** across most pools create arbitrage layers: vaul
 
 **2. der Bodensee Pool revenue routing.** **Protocol-captured** fee revenue — **100%** of the **protocol share** of swap fees on non–der Bodensee gauged pools (**~50%** of charged swap fee; see [Constitution §xxix](10_constitution.md)) plus **ERC-4626 yield fees (100% of the 10% skim)** — flows into der Bodensee Pool as one-sided stablecoin (sUSDS/svZCHF) inflows, deepening the autonomous reserve. **LP residuals** on those swap fees stay with originating-pool LPs. **Swap fees on trades inside der Bodensee Pool** (**0.75%** at genesis) accrue **in pool** in full to der Bodensee LPs — see [Tokenomics (§x — Value capture)](04_tokenomics.md).
 
-**Permanent slots.** The 28 slots never decrease. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: old gauge revoked, replacement pool launched into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Like-for-like means same sector, same risk, same template role ([Bootstrap (§xxiv)](08_bootstrap.md) for worked examples; [Constitution (§xxvii)](10_constitution.md) for the binding rule).
+**Permanent slots.** The 28 slots never decrease. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: old gauge revoked, replacement pool launched into the same slot via composition-challenge approval (automatic gauge registration via `registerGaugeFromComposition`). Like-for-like means same sector, same risk, same template role ([Bootstrap (§xxiv)](08_bootstrap.md) for worked examples; [Constitution (§xxvii)](10_constitution.md) for the binding rule).
 
-**Beyond the 28.** The Miliarium pools are a curated blueprint, not the full economy. Missing a token or asset class? New permissionless pool and a gauge vote — not a composition challenge. [Bootstrap](08_bootstrap.md) §xxi covers gauge approval mechanics.
+**Beyond the 28.** The Miliarium pools are a curated blueprint, not the full economy. Missing a token or asset class? New permissionless pool and permissionless gauge activation — not a composition challenge. [Bootstrap](08_bootstrap.md) §xxi covers gauge activation criteria.
 
 ### Status Tracking
 

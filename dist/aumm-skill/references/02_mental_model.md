@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 02_mental_model.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 02_mental_model.md — DO NOT EDIT -->
 # Aureum Protocol
 
 > **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
@@ -57,7 +57,9 @@ The 28 Miliarium pools are structured as a **miniature economy**, not a random c
 
 **Why 28 pools.** Large enough to span five asset classes and weather macro rotation without one sector dominating. Small enough for the CCB multiplier engine to track each pool’s TVL on-chain every bi-weekly cycle. Fewer pools leave sector gaps that concentrate risk; more dilute the EMA signal and raise gas costs for per-pool multiplier updates. The number is immutable from block 0 — see [Constitution (§xxix)](10_constitution.md).
 
-**The 28 are a blueprint, not the full economy.** The Miliarium pools anchor the CCB engine and guarantee structural fee generation across asset classes from genesis, but they don’t exhaust every token or market. Pool creation is permissionless, gauge approval has a clear mechanism ([Bootstrap §xxi](08_bootstrap.md)), and emissions flow to any gauged pool per standard CCB rules. Missing a stablecoin, tokenized RWA, or crypto token? The path is a new pool and a gauge vote — not a redesign. New pools route through the constellation’s connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost and gauge boost mechanics — the same infrastructure the 28 founding pools use.
+**The 28 are a blueprint, not the full economy.** The Miliarium pools anchor the CCB engine and guarantee structural fee generation across asset classes from genesis, but they don’t exhaust every token or market. Pool creation is permissionless, gauge activation is permissionless once eligibility criteria are met ([Bootstrap §xxi](08_bootstrap.md)), and emissions flow to any gauged pool per standard CCB rules. Missing a stablecoin, tokenized RWA, or crypto token? The path is a new pool and permissionless gauge activation — not a redesign. New pools route through the constellation’s connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost — the same user-funded cold-start mechanism available to every gauged pool.
+
+**Vault-Class Registry — the single discretionary surface.** Gauge activation, pool creation, and emission allocation are permissionless or mechanical; none rely on a vote. Class admission is the one exception: which ERC-4626 vault classes count toward the Quality Gate (the 52% wrapped-yield numerator that governs whether a pool's composition qualifies for full CCB scoring). The Vault-Class Registry runs a Frankencoin-style proposal + veto loop — anyone may propose a new class, AuMT holders veto within a fixed window, and unvetoed proposals auto-finalize without a positive vote. Three admission fingerprints — `ImplementationAddress`, `FactoryAddress`, `BytecodeHash` — match how ERC-4626 vaults deploy in practice. The genesis class set is hard-coded at construction. This is the only place governance exercises substantive class-admission discretion — see [Constitution (§xxix)](10_constitution.md).
 
 ## iii. How Aureum Works — Three Layers
 
@@ -67,7 +69,7 @@ Which pools should receive emissions right now? Base weight = 60-day EMA of on-c
 
 ### 2. Bootstrapping (Starting New Pools)
 
-New pools have no EMA history, so they need a path to earn emissions. Two stacked mechanisms: (a) **Incendiary Boost** — anyone deposits any amount of svZCHF/sUSDS into der Bodensee Pool; the target pool receives a 1-epoch (14-day) supplementary AuMM stream starting next epoch; once per epoch per pool. (b) **90-day gauge boost** — new gauges receive a fixed 1.2× CCB multiplier for 90 days, expiring automatically with no vote and no renewal. After ~90 days, emissions depend purely on real TVL via the CCB. The sequence: conviction (Incendiary) → cold-start ramp (gauge boost) → long-term reality (EMA).
+New pools have no EMA history, so they need a path to earn emissions. **Incendiary Boost** is the cold-start mechanism — anyone deposits any amount of svZCHF/sUSDS one-sided into der Bodensee Pool, and the target pool receives a 1-epoch (14-day) supplementary AuMM stream starting next epoch; once per epoch per pool. After Incendiary's 14-day window, emissions depend purely on real TVL via the CCB. The sequence: conviction (Incendiary) → long-term reality (EMA).
 
 ### 3. Discipline (Keeping the System Clean)
 

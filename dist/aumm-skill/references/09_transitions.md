@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 09_transitions.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 09_transitions.md — DO NOT EDIT -->
 # Transition Rules
 
 *Timeline from equal emissions through a linear blend to fully automatic CCB.*
@@ -30,13 +30,16 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 **End of Month 10 — Bootstrap emissions complete.**
 - Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/28** across the 28 Miliarium pools until Month 11.
 
-**Month 11 — Gauge proposals open, CCB transition begins.**
-- Non-Miliarium pools can submit gauge proposals (100 svZCHF/sUSDS into der Bodensee).
+**Month 11 — Non-Miliarium emissions begin, CCB transition starts.**
+- Non-Miliarium pools that meet eligibility criteria can permissionlessly activate gauges (100 svZCHF or 125 sUSDS anti-spam fee, one-sided into der Bodensee).
 - All pools begin ranking in the Efficiency Tournament.
-- Sandbox fast-track active: non-gauged pools sustaining top 10% efficiency for 3 epochs (6 weeks) earn automatic gauge approval.
 - CCB transition begins: **α** runs from **0** (first block of Month 11) to **1** (last block of Year 1).
 - Each pool's share blends its equal one-twenty-eighth with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.
 - Pools coasting on equal allocation may see their share decline if TVL lags the protocol average. The transition rewards sustained capital, not incumbency.
+
+**Growth-signal doctrine — Month 11+.**
+- A Miliarium pool losing top-tier tournament standing exhibits **expected competitive dynamics**, not a protocol failure state. The 28 Miliarium gauges remain immutably registered; only tournament standing is dynamic.
+- `GaugeEfficiencyDropped` and `GaugeEfficiencyRising` events surface each cohort-boundary transition for indexers and bot/aggregator interfaces — external capital can identify pools that have lost their top-tier emission share and bid them back into eligibility. See F-10 in [Protocol formulas](11_formulas.md).
 
 **End of Year 1 — CCB transition complete.**
 - α = 1. Allocation is pure CCB.
@@ -51,7 +54,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 
 - **Pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - Automatic: no voting, no discretionary multipliers, no transition council.
-- Efficiency tournament fully active — bottom 15% capped, excess redistributed.
+- Efficiency tournament fully active — top 15% favored cohort receives emission precedence; bottom 85% receives residual CCB flow only.
 - Volume percentile floor at full discipline (15th percentile).
 - New gauged pools receive emissions alongside the 28 Miliarium pools.
 - Incendiary Boost available for all gauged pools.

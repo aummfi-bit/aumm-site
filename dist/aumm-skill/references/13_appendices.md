@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 13_appendices.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 13_appendices.md — DO NOT EDIT -->
 # Appendices
 
 ## xxxvi. AMM Architecture: Aequilibrium
@@ -18,7 +18,7 @@ Aequilibrium is Balancer V3's open-source, Certora-verified smart contracts with
 | Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming |
 | Token contract | **New** | BTC-style emission schedule, immutable supply cap |
 | Fee distributor | **New** | **100%** of the **protocol share** of swap fees on non–der Bodensee pools (**~50%** of charged fee; Vault **`protocolSwapFeePercentage`**) to Bodensee + **100%** yield skim to Bodensee; der Bodensee Pool **0.75%** swap fee **in pool** in full |
-| Governance | **New** | LP-weighted voting (AuMT for protocol governance), 90-day gauge boost, no ve-locking |
+| Governance | **New** | LP-weighted voting (AuMT for protocol governance), no ve-locking |
 
 ### What's Unchanged (Critical)
 
@@ -32,11 +32,10 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 - AuMT pool token wrapper (Aureum Market Tessera)
 - CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see [Constitution (§xxix)](10_constitution.md) for all numeric bounds)
 - Incendiary Boost engine (svZCHF/sUSDS deposit into der Bodensee, 1-epoch (14-day) emission streaming, priority skim, once-per-epoch-per-pool lock)
-- 90-day gauge boost (1.2x fixed CCB multiplier for new gauges, automatic expiry)
 - CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see [Constitution (§xxix)](10_constitution.md))
-- Sandbox fast-track (top 10% efficiency sustained for 3 epochs, automatic gauge approval)
 - Emission distributor (per-block streaming with halving logic, CCB-driven weight updates)
 - Gauge eligibility checker (on-chain criteria enforcement, graduated grace period, volume percentile ranking, hysteresis buffer, efficiency tournament with 3-epoch smoothing, gauge revocation logic)
+- Vault-Class Registry (gates the ERC-4626 Quality Gate numerator; proposal-with-veto admission flow, auto-finalize at window expiry, governance veto path; admission fingerprints — ImplementationAddress / FactoryAddress / BytecodeHash; post-admission revocation; anti-spam-fee routing to der Bodensee Pool; tunable bounds: [Constitution (§xxix)](10_constitution.md))
 - Miliarium Aureum pool registry (28 pools, non-transferable, revocation on gauge loss)
 - Token supply tracker (cumulative emitted, net circulating)
 - Minimum qualification period enforcer (14-day continuous hold check)
@@ -44,7 +43,7 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 - Fee router (non–der Bodensee pools: **100%** of the **protocol share** of swap fees to Bodensee as one-sided stablecoin (sUSDS/svZCHF); **~50%** LP residual stays with originating-pool LPs; yield skim: **100%** Bodensee one-sided stablecoin; der Bodensee Pool: **0.75%** swap fee, **100%** in-pool to der Bodensee LPs)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60-day EMA, CCB multiplier logic, 90-day gauge boost, Incendiary Boost deposit and priority skim, Sandbox fast-track, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60-day EMA, CCB multiplier logic, Incendiary Boost deposit and priority skim, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 
@@ -104,7 +103,7 @@ That experiment hasn't failed. It hasn't happened.
 
 ## xxxviii. Yield Basis Hybrid Vaults — Complementary Architecture
 
-Curve's Yield Basis protocol (March 2026) independently validated the same core thesis: sustainable AMM growth requires tying TVL expansion to productive capital, not reflexive incentives. Their Hybrid Vaults require LPs to deposit crvUSD (earning ~4.5% scrvUSD yield) before unlocking BTC/ETH pool capacity — directly supporting the crvUSD peg while scaling. Architecturally orthogonal to Aureum's CCB: Yield Basis enforces anticyclicality at the user level (stable-first deposit → personal cap); Aureum enforces it at the protocol level (EMA-weighted emissions + immutable anti-gaming gates + 52% ERC-4626 Quality Gate). Both reject reflexive liquidity mining. Both force conviction capital upfront. The key divergence: Yield Basis depends on an external stablecoin peg (crvUSD + Curve DAO credit line); Aureum's stability layer is entirely internal and oracle-free. Aureum's routing anchor (ixEDEL) has no peg to defend — its NAV arb surface generates continuous cross-pool fees without the catastrophic depeg risk Hybrid Vaults were engineered to mitigate. The two designs compose well: a future gauge-approved Aureum pool could include scrvUSD as an ERC-4626 component if it meets the $5M vault floor, giving LPs access to both yield layers simultaneously. Source: [@yieldbasis, March 30 2026](https://x.com/yieldbasis/status/2038610652194037966).
+Curve's Yield Basis protocol (March 2026) independently validated the same core thesis: sustainable AMM growth requires tying TVL expansion to productive capital, not reflexive incentives. Their Hybrid Vaults require LPs to deposit crvUSD (earning ~4.5% scrvUSD yield) before unlocking BTC/ETH pool capacity — directly supporting the crvUSD peg while scaling. Architecturally orthogonal to Aureum's CCB: Yield Basis enforces anticyclicality at the user level (stable-first deposit → personal cap); Aureum enforces it at the protocol level (EMA-weighted emissions + immutable anti-gaming gates + 52% ERC-4626 Quality Gate). Both reject reflexive liquidity mining. Both force conviction capital upfront. The key divergence: Yield Basis depends on an external stablecoin peg (crvUSD + Curve DAO credit line); Aureum's stability layer is entirely internal and oracle-free. Aureum's routing anchor (ixEDEL) has no peg to defend — its NAV arb surface generates continuous cross-pool fees without the catastrophic depeg risk Hybrid Vaults were engineered to mitigate. The two designs compose well: a future gauge-active Aureum pool could include scrvUSD as an ERC-4626 component once its vault class is admitted to the Vault-Class Registry, giving LPs access to both yield layers simultaneously. Source: [@yieldbasis, March 30 2026](https://x.com/yieldbasis/status/2038610652194037966).
 
 ---
 

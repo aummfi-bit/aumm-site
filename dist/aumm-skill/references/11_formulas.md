@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -215,29 +215,38 @@ Era 1+ (years 4+):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/3)
 
 ### F-10. Efficiency Tournament
 
-**Purpose:** Rank gauged pools by capital efficiency and cap emissions for the least productive.
+**Purpose:** Rank gauged pools by capital efficiency and assign emission precedence to the most productive cohort.
 
-**Effect:** Bottom 15% capped at tiered levels. Excess redistributed to uncapped pools pro-rata by CCB share. Activates at month 13.
+**Effect:** The **top 15%** by efficiency form the **favored cohort** and receive emission precedence; the bottom 85% receive **residual CCB flow only**. Anti-concentration caps within the favored cohort prevent any single top pool from dominating the top tier. Activates at month 13.
 
 ```
 efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)
                          / emissions_received_i
 // 3-epoch (6-week) moving average
 
-rank pools by efficiency_ratio (highest = rank 1)
+sort eligible gauged pools descending by efficiency_ratio
+// rank 1 = highest efficiency
+// N = count of eligible gauged pools at the epoch snapshot
 
-if rank > 85th percentile:                                     // bottom 15%
-    if rank ∈ [85th, 90th):   emission_cap = 0.01 × total_emissions
-    if rank ∈ [90th, 95th):   emission_cap = 0.005 × total_emissions
-    if rank ≥ 95th:           emission_cap = 0.001 × total_emissions
-else:
-    emission_cap = none                                        // uncapped
+favored_cohort  = pools with rank in [1, ceil(0.15 × N)]      // top 15%
+residual_cohort = pools with rank in [ceil(0.15 × N) + 1, N]  // bottom 85%
 
-excess = Σ (uncapped_emission − capped_emission) for all capped pools
-redistribute excess to uncapped pools pro-rata by CCB_share
+emission precedence: favored_cohort first.
+residual_cohort receives residual CCB flow only — bottom cohorts
+are constrained relative to top, never vice versa.
+
+within favored_cohort: anti-concentration caps applied to prevent
+any single top pool from dominating the top tier; numeric cap values
+set at contract deployment.
+
+excess from any capped favored-cohort pool flows to the remainder
+of the favored cohort first; any unallocated remainder flows to
+the residual cohort pro-rata by CCB share.
 ```
 
-Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
+Caps are anti-concentration controls **within the favored cohort** — they constrain top performers, never a mechanism to privilege low-efficiency pools. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and therefore receive only residual CCB flow alongside the other bottom-cohort pools.
+
+Eligibility is re-evaluated at each tournament epoch boundary against the current registry state. Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
 ---
 
@@ -278,16 +287,16 @@ All composition parameters immutable from block 0.
 
 **Purpose:** Scale the gauge-challenge deposit so nuisance challenges against **large, efficient** gauges cost real money, while keeping a lower bar for tail or weak pools. **The 28 Miliarium Aureum pools cannot be gauge-challenged** — structural changes to those slots go exclusively through the **Composition Challenge** path ([Constitution §xxvii](10_constitution.md)).
 
-**Effect:** The full deposit (after the `max` below) is paid **one-sided into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF or sUSDS equivalent (whichever is higher)**, non-refundable, **no LP tokens** minted to the challenger.
+**Effect:** The full deposit (after the `max` below) is paid **one-sided into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF, or 1.25× the svZCHF amount in sUSDS**, non-refundable, **no LP tokens** minted to the challenger.
 
 For a challenge targeting a **non-Miliarium** pool, the deposit equals the **greater** of:
 
-1. **10 BTC** expressed in **CHF**, then converted to **svZCHF or sUSDS equivalent (whichever is higher)** at submission time — then deposited **one-sided into der Bodensee Pool**; and  
-2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF/sUSDS equivalent and deposited **one-sided into der Bodensee Pool**.
+1. **10 BTC** expressed in **CHF**, then converted to **svZCHF, or 1.25× the svZCHF amount in sUSDS**, then deposited **one-sided into der Bodensee Pool**; and  
+2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF, or 1.25× in sUSDS, and deposited **one-sided into der Bodensee Pool**.
 
-**BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF/sUSDS one-sided into der Bodensee.
+**BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF (or 1.25× in sUSDS) one-sided into der Bodensee.
 
-The BTC/CHF rate is a **spot-price average** computed at submission time across all currently-gauged pools holding any token in the `BTC_WRAPPERS` set (see Constitution §xxix; initial set: WBTC, cbBTC). The contract enumerates gauged pools, filters for those containing any BTC wrapper, reads spot rates (wrapped-BTC ↔ svZCHF, or against sUSDS then converted via arbitrage-aligned cross-rates), and averages. If a wrapper deprecates (e.g. cbBTC delisted), it falls out of the average; if a new BTC wrapper enters the constellation via composition challenge or new gauge approval, it auto-joins — no contract change required in either case.
+The BTC/CHF rate is a **spot-price average** computed at submission time across all currently-gauged pools holding any token in the `BTC_WRAPPERS` set (see Constitution §xxix; initial set: WBTC, cbBTC). The contract enumerates gauged pools, filters for those containing any BTC wrapper, reads spot rates (wrapped-BTC ↔ svZCHF, or against sUSDS then converted via arbitrage-aligned cross-rates), and averages. If a wrapper deprecates (e.g. cbBTC delisted), it falls out of the average; if a new BTC wrapper enters the constellation via composition challenge or new permissionless gauge activation, it auto-joins — no contract change required in either case.
 
 **Why spot (not TWAP) is acceptable:**
 - Averaging across multiple pools dilutes single-pool manipulation; an attacker would need to push BTC/svZCHF across every BTC-holding gauged pool simultaneously in the same block.
@@ -303,7 +312,7 @@ The BTC/CHF rate is a **spot-price average** computed at submission time across 
 deposit_CHF_component = 1_000_000 × sqrt((1 − p_tvl) × (1 − p_eff))
 
 gauge_challenge_deposit = max( 10_BTC_in_CHF ,  deposit_CHF_component )
-// convert to svZCHF/sUSDS equivalent; one-sided deposit into der Bodensee Pool; non-refundable
+// convert to svZCHF (or 1.25× in sUSDS); one-sided deposit into der Bodensee Pool; non-refundable
 ```
 
 **Miliarium Aureum exclusion:** The **28 Miliarium Aureum** pools **cannot be gauge-challenged**. Structural changes to those slots go exclusively through the **Composition Challenge** path ([Constitution §xxvii](10_constitution.md)).

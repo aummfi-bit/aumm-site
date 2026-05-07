@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 14_ux_ui.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 14_ux_ui.md — DO NOT EDIT -->
 # UX / UI — Frontend Requirements
 
 *Dashboard and interface elements for aumm.fi. This is a planning document — no code yet.*
@@ -14,7 +14,7 @@ This document lists the full UX/UI surface planned for aumm.fi. Per OQ-18, the f
 - §xlvi der Bodensee Pool — composition card, reserve depth, AuMM price, pool balances (from genesis)
 - LP deposit/withdraw flows for every gauged pool + der Bodensee
 - AuMT display — user's qualified AuMT per pool, pending AuMM emissions, time-in-pool status (14-day qualification, 6-month on-ramp)
-- Governance interface — active proposals list, voting UI, proposal-submission UI (gauge proposals, gauge challenges, composition challenges, fee-change proposals)
+- Governance interface — active proposals list, voting UI, proposal-submission UI (gauge challenges, composition challenges, fee-change proposals)
 - Swap interface — basic composite-swap via the constellation (can integrate with an aggregator initially rather than building routing from scratch)
 - Block-based time displays — halving countdown, bootstrap milestones at `MONTH_6_END_BLOCK` / `MONTH_10_END_BLOCK`, Era transition countdowns (all expressed as blocks with calendar-time aliases per §xxix)
 
@@ -66,10 +66,13 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## xlviii. Efficiency Tournament & Rankings
 
 - [ ] **Efficiency ranking table** — all gauged pools ranked by efficiency ratio (fees + yield revenue / emissions received), 3-epoch moving average
-- [ ] **Tier indicators** — colour-coded: Safe (above 15th percentile), Warning (10th-15th), Cut (below 10th), with emission cap applied
+- [ ] **Tier indicators** — colour-coded: Favored cohort (top 15%) receiving emission precedence, Residual cohort (bottom 85%) receiving residual CCB flow only; anti-concentration caps shown for favored-cohort pools
 - [ ] **CCB multipliers** — current value for each of the 28 Miliarium pools, bi-weekly update history, direction arrows (up/down/neutral)
 - [ ] **Volume percentile floor** — per-pool status vs current threshold (5th → 10th → 15th graduated schedule)
 - [ ] **Redistribution tracker** — how much excess emission from capped pools was redistributed and to whom
+- [ ] **Threshold transition feed** — live stream of `GaugeEfficiencyDropped` and `GaugeEfficiencyRising` events emitted at epoch boundaries; per event displays pool address, epoch index, **TVL SMA** (7-day, svZCHF-denominated), and **efficiency ratio** (3-epoch moving average per F-10)
+- [ ] **Per-pool transition history** — chronological log of cohort entries and exits for every gauged pool, indexed by epoch; current-cohort badge (favored / residual)
+- [ ] **Cohort-cross indicators on ranking table** — pools that crossed the cohort boundary in the most recent epoch flagged on the Efficiency ranking table; click-through to per-pool transition history
 
 ---
 
@@ -84,10 +87,18 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## l. Governance
 
-- [ ] **Active proposals** — gauge approvals, gauge challenges, fee changes, composition challenges; status, quorum progress, time remaining, vote tally
+- [ ] **Active proposals** — gauge challenges, fee changes, composition challenges; status, quorum progress, time remaining, vote tally
 - [ ] **Proposal history** — past votes with outcomes, turnout, deposit amounts
 - [ ] **Quorum tracker** — current total qualified voting power, 20% threshold line
 - [ ] **Deposit log** — all governance svZCHF/sUSDS deposits into der Bodensee Pool (linked to proposal)
+
+---
+
+## l-a. Vault-Class Registry
+
+- [ ] **Proposed classes queue** — open proposals to admit a new ERC-4626 vault class to the registry; per proposal: proposer, admission fingerprint type (`ImplementationAddress` / `FactoryAddress` / `BytecodeHash`), bond amount, time remaining in veto window, vetoes accumulated vs threshold.
+- [ ] **Veto countdown** — per-proposal time-remaining indicator with auto-finalize block; AuMT-holder veto interface (cast / withdraw veto) gated on qualification.
+- [ ] **Admitted classes list** — full registry: genesis classes hard-coded at construction plus post-genesis admissions; per entry: fingerprint, admission block, originating proposal (if post-genesis), revocation status. See [Bootstrap (§xxiv-a)](08_bootstrap.md) for the registry mechanism.
 
 ---
 
@@ -128,8 +139,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## lv. Gauged Pools (Non-Miliarium)
 
 - [ ] **Gauge registry** — all non-Miliarium gauged pools with status, TVL, efficiency rank, emission share
-- [ ] **Sandbox pools** — non-gauged pools ranked by efficiency, Fast-Track progress (top 10% for 3 epochs = auto-gauge)
-- [ ] **Gauge boost countdown** — 90-day boost timer for newly gauged pools (1.2x multiplier)
+- [ ] **Sandbox pools** — non-gauged pools ranked by efficiency
 
 ---
 

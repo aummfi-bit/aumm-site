@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@793427c1c6d9e06890c7f2fb32a61466eeacfcf5 06_miliarium_manifest.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 06_miliarium_manifest.md — DO NOT EDIT -->
 # Miliarium Aureum — Master Registry
 
 *28 Miliarium Aureum slots, locked from block 0. If a token ceases to exist, a Composition Challenge can deprecate the pool and launch a replacement into the same slot via the standard bootstrap path — preserving each pool's function and sector theme.*
@@ -67,4 +67,4 @@ Active → Warning → Disqualified ⇄ Composition Challenge (deprecate-and-rep
 | **Active** | Above 15th volume percentile, passes all criteria | Full emissions + CCB multiplier | — |
 | **Warning** | 10th–15th volume percentile | Emissions continue (3-epoch grace) | Return above 15th percentile |
 | **Disqualified** | Below 10th volume percentile | Zero (redistributed to remaining eligible pools) | Sustain above 15th for 3 epochs (6 weeks), or Miliarium Aureum Composition Challenge |
-| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | Old pool deprecated; replacement launched into same slot via standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote | Like-for-like: same sector, same risk, same template role. Slot remains active with CCB multiplier |
+| **Composition Challenge** | Token(s) delisted, insufficient volume, or ceased to exist | Old pool deprecated; replacement launched into same slot via composition-challenge approval (automatic gauge registration via `registerGaugeFromComposition`). Requires 2/3 protocol-wide tessera-weighted vote | Like-for-like: same sector, same risk, same template role. Slot remains active with CCB multiplier |
