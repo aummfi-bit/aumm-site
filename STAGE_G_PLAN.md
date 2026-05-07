@@ -122,9 +122,9 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | Sub-step | Scope | Edit | Status |
 | --- | --- | --- | --- |
 | SG.F1 | `15_overview.md`, `README.md`, `script.md`, `09_transitions.md`, `14_ux_ui.md`, `13_appendices.md`, `17_faq.md` | legacy cross-link cleanup (gauge approval → activation, four → three); `09_transitions.md` L52 bottom-15%-capped wording → favored-cohort framing; `14_ux_ui.md` L68 Safe/Warning/Cut tier indicators → favored/residual cohort badges; `13_appendices.md` + `17_faq.md` stale gauge-approved wording sweep | ✅ `6055af5` (README.md + 17_faq.md scanned clean, 0 edits needed) |
-| SG.F.M1 | `miliarium_profiles/` (28 files) | vault-floor row downgrade per OQ-G4 | ⏳ pending |
-| SG.F.M2 | `miliarium_profiles/` (28 files) | 4626 Quality Gate row class-admission qualifier ("≥52% met by tokens whose class is admitted") | ⏳ pending |
-| SG.F.M3 | `miliarium_profiles/` (28 files) | composition challenge row wording ("gauge proposal, vote, 90-day boost" → "auto-registration via `registerGaugeFromComposition(pool)` — governance-only, no boost") | ⏳ pending |
+| SG.F.M1 | `miliarium_profiles/` (28 files) | vault-floor row downgrade per OQ-G4 — row label `Vault TVL floor` → `Vault-Class Registry`, content reframed to genesis admission (per [Bootstrap §xxiv-a](08_bootstrap.md)) | ✅ `38e1a40` (bundled with M2+M3) |
+| SG.F.M2 | `miliarium_profiles/` (28 files) | 4626 Quality Gate row class-admission qualifier — `≥52% — met` → `≥52% (admitted vault classes) — met`, per-pool composition data preserved | ✅ `38e1a40` (bundled with M1+M3) |
+| SG.F.M3 | `miliarium_profiles/` (28 files) | composition challenge row wording — `(gauge proposal, vote, 90-day boost)` and `(specified-pool model, 90-day boost)` → `(auto-registration via `registerGaugeFromComposition(pool)`, governance-only — no permissionless-activation check, optional 90-day boost)` per Constitution §xxvii + Bootstrap §xxiv (boost remains available) | ✅ `38e1a40` (bundled with M1+M2) |
 | SG.F2 | `llms.txt`, `llms-full.txt`, `dist/aumm-skill/references/` | regeneration to resync with all canonical edits | ⏳ pending |
 
 ---
@@ -173,3 +173,4 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.E3 | `1828c17` | +3 | 2026-05-06 |
 | SG.E5 | `9c1cd5d` | 0 | 2026-05-06 |
 | SG.F1 | `6055af5` | 0 | 2026-05-06 |
+| SG.F.M1+M2+M3 | `38e1a40` | 0 (28 files × 84 in/out, line counts unchanged) | 2026-05-06 |
