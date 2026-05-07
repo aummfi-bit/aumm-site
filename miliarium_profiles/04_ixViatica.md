@@ -41,12 +41,12 @@
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | ≥52% — met by svZCHF (26%) + GHO (26%) + st-EURA (16%) = 68% |
-| Vault TVL floor | Each vault ≥$5M / 30 BTC / 4M svZCHF |
+| 4626 Quality Gate | ≥52% (admitted vault classes) — met by svZCHF (26%) + GHO (26%) + st-EURA (16%) = 68% |
+| Vault-Class Registry | All ERC-4626 tokens admitted at genesis (per [Bootstrap §xxiv-a](08_bootstrap.md)) |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
 | CCB multiplier | Immutable band, initialised at 1.0 — see [Constitution (§xxix)](10_constitution.md) |
-| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (gauge proposal, vote, 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see [Bootstrap (§xxiv)](08_bootstrap.md) |
+| Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (auto-registration via `registerGaugeFromComposition(pool)`, governance-only — no permissionless-activation check, optional 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see [Bootstrap (§xxiv)](08_bootstrap.md) |
 
 ## Cross-References
 
