@@ -69,6 +69,9 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 - [ ] **CCB multipliers** — current value for each of the 28 Miliarium pools, bi-weekly update history, direction arrows (up/down/neutral)
 - [ ] **Volume percentile floor** — per-pool status vs current threshold (5th → 10th → 15th graduated schedule)
 - [ ] **Redistribution tracker** — how much excess emission from capped pools was redistributed and to whom
+- [ ] **Threshold transition feed** — live stream of `GaugeEfficiencyDropped` and `GaugeEfficiencyRising` events emitted at epoch boundaries; per event displays pool address, epoch index, **TVL SMA** (7-day, svZCHF-denominated), and **efficiency ratio** (3-epoch moving average per F-10)
+- [ ] **Per-pool transition history** — chronological log of cohort entries and exits for every gauged pool, indexed by epoch; current-cohort badge (favored / residual)
+- [ ] **Cohort-cross indicators on ranking table** — pools that crossed the cohort boundary in the most recent epoch flagged on the Efficiency ranking table; click-through to per-pool transition history
 
 ---
 
