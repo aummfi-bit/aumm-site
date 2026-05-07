@@ -109,7 +109,7 @@ Per precheck **P-2**, **P-3**, **P-4** and **G-D3** (top-15% favored cohort with
 | --- | --- | --- | --- |
 | SG.E1 | `11_formulas.md` F-10 | top-15%-favored-cohort framing; rewrite caps as top-cohort anti-concentration; 3-epoch smoothing tag; defer numeric tuning to aumm-deploy G1.x | ✅ |
 | SG.E2 | `09_transitions.md` Month 11+ | growth-signal doctrine note (losing top-tier emissions = intended) | ✅ |
-| SG.E3 | `14_ux_ui.md` | threshold-event dashboard items per STAGE_G_NOTES.md event schema | ⏳ pending |
+| SG.E3 | `14_ux_ui.md` | threshold-event dashboard items per STAGE_G_NOTES.md event schema | ✅ |
 | SG.E4 | `11_formulas.md` F-12 | reword L289 "or new gauge approval" → "or new permissionless gauge activation" | ✅ |
 | SG.E5 | vault-floor downgrade | spec-side wording per OQ-22 / OQ-G2 — file TBD at sub-step authoring time | ⏳ pending |
 
@@ -121,7 +121,7 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 
 | Sub-step | Scope | Edit | Status |
 | --- | --- | --- | --- |
-| SG.F1 | `15_overview.md`, `README.md`, `script.md`, `09_transitions.md` | legacy cross-link cleanup (gauge approval → activation, four → three); `09_transitions.md` L52 bottom-15%-capped wording → favored-cohort framing | ⏳ pending |
+| SG.F1 | `15_overview.md`, `README.md`, `script.md`, `09_transitions.md`, `14_ux_ui.md` | legacy cross-link cleanup (gauge approval → activation, four → three); `09_transitions.md` L52 bottom-15%-capped wording → favored-cohort framing; `14_ux_ui.md` L68 Safe/Warning/Cut tier indicators → favored/residual cohort badges | ⏳ pending |
 | SG.F.M1 | `miliarium_profiles/` (28 files) | vault-floor row downgrade per OQ-G4 | ⏳ pending |
 | SG.F.M2 | `miliarium_profiles/` (28 files) | 4626 Quality Gate row class-admission qualifier ("≥52% met by tokens whose class is admitted") | ⏳ pending |
 | SG.F.M3 | `miliarium_profiles/` (28 files) | composition challenge row wording ("gauge proposal, vote, 90-day boost" → "auto-registration via `registerGaugeFromComposition(pool)` — governance-only, no boost") | ⏳ pending |
@@ -170,3 +170,4 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.E4 | `1c50732` | 0 | 2026-05-06 |
 | SG.E1 | `ad90be3` | +9 | 2026-05-06 |
 | SG.E2 | `c0da205` | +4 | 2026-05-06 |
+| SG.E3 | `1828c17` | +3 | 2026-05-06 |
