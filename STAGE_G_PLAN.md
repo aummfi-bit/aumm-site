@@ -125,7 +125,7 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.F.M1 | `miliarium_profiles/` (28 files) | vault-floor row downgrade per OQ-G4 — row label `Vault TVL floor` → `Vault-Class Registry`, content reframed to genesis admission (per [Bootstrap §xxiv-a](08_bootstrap.md)) | ✅ `38e1a40` (bundled with M2+M3) |
 | SG.F.M2 | `miliarium_profiles/` (28 files) | 4626 Quality Gate row class-admission qualifier — `≥52% — met` → `≥52% (admitted vault classes) — met`, per-pool composition data preserved | ✅ `38e1a40` (bundled with M1+M3) |
 | SG.F.M3 | `miliarium_profiles/` (28 files) | composition challenge row wording — `(gauge proposal, vote, 90-day boost)` and `(specified-pool model, 90-day boost)` → `(auto-registration via `registerGaugeFromComposition(pool)`, governance-only — no permissionless-activation check, optional 90-day boost)` per Constitution §xxvii + Bootstrap §xxiv (boost remains available) | ✅ `38e1a40` (bundled with M1+M2) |
-| SG.F2 | `llms.txt`, `llms-full.txt`, `dist/aumm-skill/references/` | regeneration to resync with all canonical edits | ⏳ pending |
+| SG.F2 | `llms.txt`, `llms-full.txt`, `dist/aumm-skill/references/` | regeneration to resync with all canonical edits | ✅ `d6ea52d` (script-driven via `python3 scripts/generate_llms_manifest.py --skill-out dist/aumm-skill`; `llms.txt` surveyed and needs no edits — content remains spec-correct) |
 
 ---
 
@@ -174,3 +174,5 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.E5 | `9c1cd5d` | 0 | 2026-05-06 |
 | SG.F1 | `6055af5` | 0 | 2026-05-06 |
 | SG.F.M1+M2+M3 | `38e1a40` | 0 (28 files × 84 in/out, line counts unchanged) | 2026-05-06 |
+| SG.F2 | `d6ea52d` | +94 (53 files: 28 profiles + 17 canon docs + sagix essays + `_canon.json` SHA refresh; `llms.txt` 0 edits) | 2026-05-07 |
+| SG.F1-followup | `35fd4f5` | 0 (script.md L40 — Vault TVL floor → Vault-Class Registry; deferred from SG.F1, unblocked by SG.F.M1) | 2026-05-07 |
