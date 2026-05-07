@@ -107,7 +107,7 @@ Per precheck **P-2**, **P-3**, **P-4** and **G-D3** (top-15% favored cohort with
 
 | Sub-step | File | Edit | Status |
 | --- | --- | --- | --- |
-| SG.E1 | `11_formulas.md` F-10 | top-15%-favored-cohort framing; rewrite caps as top-cohort anti-concentration; 3-epoch smoothing tag; defer numeric tuning to aumm-deploy G1.x | ⏳ pending |
+| SG.E1 | `11_formulas.md` F-10 | top-15%-favored-cohort framing; rewrite caps as top-cohort anti-concentration; 3-epoch smoothing tag; defer numeric tuning to aumm-deploy G1.x | ✅ |
 | SG.E2 | `09_transitions.md` Month 11+ | growth-signal doctrine note (losing top-tier emissions = intended) | ⏳ pending |
 | SG.E3 | `14_ux_ui.md` | threshold-event dashboard items per STAGE_G_NOTES.md event schema | ⏳ pending |
 | SG.E4 | `11_formulas.md` F-12 | reword L289 "or new gauge approval" → "or new permissionless gauge activation" | ✅ |
@@ -168,3 +168,4 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.D8 | `d9a101f` | 0 | 2026-05-06 |
 | SG.D12 | `89f319b` | +1 | 2026-05-06 |
 | SG.E4 | `1c50732` | 0 | 2026-05-06 |
+| SG.E1 | `ad90be3` | +9 | 2026-05-06 |
