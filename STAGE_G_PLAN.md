@@ -77,12 +77,12 @@ Per precheck **OQ-G4** resolution. Substantial new doctrine:
 | Sub-step | File | Edit | Status |
 | --- | --- | --- | --- |
 | SG.D1 | `04_tokenomics.md` §ix | insert canonical OQ-G4 numerator definition into Quality Gate paragraph | ⏳ pending |
-| SG.D2 | `08_bootstrap.md` | new section: Vault-Class Registry mechanism (admission, fingerprints, proposal+veto+auto-finalize+revoke) | ⏳ pending |
-| SG.D3 | `10_constitution.md` §xxvii | new subsection: Frankencoin-style veto model with tunable bounds; reword L53 "hooked at gauge approval" → "hooked at gauge activation"; reframe L54 composition-challenge follow-on (drop "supermajority vote supplies stronger consent than standard gauge approval" comparison; rephrase "No separate follow-up gauge proposal is needed" → "Replacement gauge auto-registers via `registerGaugeFromComposition(pool)` per G-D7 — no permissionless-activation criteria check, 90-day boost applies") | ⏳ pending |
-| SG.D4 | `10_constitution.md` §xxix | add Vault-Class tunable-bounds row (proposalBond ≥ antiSpamFee, vetoThreshold ≤ governanceQuorumThreshold, window ∈ [BLOCKS_PER_EPOCH, 3×BLOCKS_PER_EPOCH]) | ⏳ pending |
-| SG.D5 | `12_aureum_glossary.md` | new entries: Vault-Class Registry, Anti-Spam Fee, Permissionless Gauge Activation, three admission fingerprints (ImplementationAddress / FactoryAddress / BytecodeHash) | ⏳ pending |
-| SG.D6 | `13_appendices.md` | add Vault-Class Registry to audit scope list | ⏳ pending |
-| SG.D7 | `17_faq.md` | new FAQ entry: "How does a new pool get gauged?" — covers permissionless activation + Vault-Class Registry | ⏳ pending |
+| SG.D2 | `08_bootstrap.md` | new section: Vault-Class Registry mechanism (admission, fingerprints, proposal+veto+auto-finalize+revoke) | ✅ |
+| SG.D3 | `10_constitution.md` §xxvii | new subsection: Frankencoin-style veto model with tunable bounds; reword L53 "hooked at gauge approval" → "hooked at gauge activation"; reframe L54 composition-challenge follow-on (drop "supermajority vote supplies stronger consent than standard gauge approval" comparison; rephrase "No separate follow-up gauge proposal is needed" → "Replacement gauge auto-registers via `registerGaugeFromComposition(pool)` per G-D7 — no permissionless-activation criteria check, 90-day boost applies") | ✅ |
+| SG.D4 | `10_constitution.md` §xxix | add Vault-Class tunable-bounds row (proposalBond ≥ antiSpamFee, vetoThreshold ≤ governanceQuorumThreshold, window ∈ [BLOCKS_PER_EPOCH, 3×BLOCKS_PER_EPOCH]) | ✅ |
+| SG.D5 | `12_aureum_glossary.md` | new entries: Vault-Class Registry, Anti-Spam Fee, Permissionless Gauge Activation, three admission fingerprints (ImplementationAddress / FactoryAddress / BytecodeHash) | ✅ |
+| SG.D6 | `13_appendices.md` | add Vault-Class Registry to audit scope list | ✅ |
+| SG.D7 | `17_faq.md` | new FAQ entry: "How does a new pool get gauged?" — covers permissionless activation + Vault-Class Registry | ✅ |
 | SG.D8 | `12_aureum_glossary.md` §xxxii-a | rewrite L45 "Gauge" entry: drop "Gauge approval is a governance vote — qualified AuMT holders decide…" → permissionless-criteria-gated framing (Quality Gate ≥52%, $10K TVL SMA, pool-type whitelist, forbidden-token block; no governance vote at activation; revocable via Gauge Challenge) | ⏳ pending |
 | SG.D9 | `02_mental_model.md` | add paragraph: Vault-Class Registry as the single surface where governance exercises class-admission discretion | ✅ |
 | SG.D10 | `05_miliarium_aureum.md` | add callout: Miliarium genesis classes hard-coded at construction; cross-link to §xxiv-a | ✅ |
@@ -158,3 +158,9 @@ Final pass: legacy cross-links, 28-pool profile sweep, and AI-skill bundle regen
 | SG.D9 | `3364e15` | +2 | 2026-05-06 |
 | SG.D10 | `7af9b3e` | +2 | 2026-05-06 |
 | SG.D11 | `0df47d0` | +8 | 2026-05-06 |
+| SG.D2 | `471be2b` | +31 | 2026-05-06 |
+| SG.D3 | `5d3b3ff` | +6 | 2026-05-06 |
+| SG.D4 | `932b20f` | +10 | 2026-05-06 |
+| SG.D5 | `f8b4c8b` | +9 | 2026-05-06 |
+| SG.D6 | `4506e9b` | +1 | 2026-05-06 |
+| SG.D7 | `0e1dc07` | +14 | 2026-05-06 |
