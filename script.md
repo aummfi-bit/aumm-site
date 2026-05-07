@@ -155,7 +155,7 @@ But ixHelvetia (slot 01) also has no ixEDEL. The earlier sentence ("Twenty-six o
 
 **Suggested fix:** Add a one-line definition early in Section xxviii:
 
-> "**Eligible pools** for CCB emissions: the 28 permanent Miliarium Aureum slots plus any external pool with an active, approved gauge that passes all anti-gaming criteria (4626 Quality Gate, TVL floor, volume percentile floor, efficiency tournament)."
+> "**Eligible pools** for CCB emissions: the 28 permanent Miliarium Aureum slots plus any external pool with an active gauge that passes all anti-gaming criteria (4626 Quality Gate, $10K TVL SMA floor, volume percentile floor, efficiency tournament)."
 
 ---
 

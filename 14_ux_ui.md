@@ -65,7 +65,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## xlviii. Efficiency Tournament & Rankings
 
 - [ ] **Efficiency ranking table** — all gauged pools ranked by efficiency ratio (fees + yield revenue / emissions received), 3-epoch moving average
-- [ ] **Tier indicators** — colour-coded: Safe (above 15th percentile), Warning (10th-15th), Cut (below 10th), with emission cap applied
+- [ ] **Tier indicators** — colour-coded: Favored cohort (top 15%) receiving emission precedence, Residual cohort (bottom 85%) receiving residual CCB flow only; anti-concentration caps shown for favored-cohort pools
 - [ ] **CCB multipliers** — current value for each of the 28 Miliarium pools, bi-weekly update history, direction arrows (up/down/neutral)
 - [ ] **Volume percentile floor** — per-pool status vs current threshold (5th → 10th → 15th graduated schedule)
 - [ ] **Redistribution tracker** — how much excess emission from capped pools was redistributed and to whom

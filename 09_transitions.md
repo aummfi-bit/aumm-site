@@ -53,7 +53,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 
 - **Pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - Automatic: no voting, no discretionary multipliers, no transition council.
-- Efficiency tournament fully active — bottom 15% capped, excess redistributed.
+- Efficiency tournament fully active — top 15% favored cohort receives emission precedence; bottom 85% receives residual CCB flow only.
 - Volume percentile floor at full discipline (15th percentile).
 - New gauged pools receive emissions alongside the 28 Miliarium pools.
 - Incendiary Boost available for all gauged pools.

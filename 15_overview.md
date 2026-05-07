@@ -74,7 +74,7 @@ No signer, council, or progressive decentralization phase. No wallet receives Au
 
 ## Governance (Non-Emission)
 
-- Gauge proposal and gauge challenge votes are active.
+- Gauge challenge and composition challenge votes are active.
 - Fee proposals are active within immutable bounds.
 - All proposals must reference verifiable on-chain data only.
 - **Vault-Class Registry** — single discretionary governance surface. ERC-4626 vault classes enter via Frankencoin-inspired proposal-and-veto: any address proposes with a non-refundable bond, qualified AuMT may veto within a bounded window, absent a successful veto the class auto-finalizes in a single transaction. Admitted classes' weights count toward the 52% Quality Gate numerator (§ix). Genesis classes hard-coded at deploy; revocation is governance-only. See [Bootstrap §xxiv-a](08_bootstrap.md).
