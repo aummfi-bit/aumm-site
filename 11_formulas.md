@@ -214,29 +214,38 @@ Era 1+ (years 4+):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/3)
 
 ### F-10. Efficiency Tournament
 
-**Purpose:** Rank gauged pools by capital efficiency and cap emissions for the least productive.
+**Purpose:** Rank gauged pools by capital efficiency and assign emission precedence to the most productive cohort.
 
-**Effect:** Bottom 15% capped at tiered levels. Excess redistributed to uncapped pools pro-rata by CCB share. Activates at month 13.
+**Effect:** The **top 15%** by efficiency form the **favored cohort** and receive emission precedence; the bottom 85% receive **residual CCB flow only**. Anti-concentration caps within the favored cohort prevent any single top pool from dominating the top tier. Activates at month 13.
 
 ```
 efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)
                          / emissions_received_i
 // 3-epoch (6-week) moving average
 
-rank pools by efficiency_ratio (highest = rank 1)
+sort eligible gauged pools descending by efficiency_ratio
+// rank 1 = highest efficiency
+// N = count of eligible gauged pools at the epoch snapshot
 
-if rank > 85th percentile:                                     // bottom 15%
-    if rank ∈ [85th, 90th):   emission_cap = 0.01 × total_emissions
-    if rank ∈ [90th, 95th):   emission_cap = 0.005 × total_emissions
-    if rank ≥ 95th:           emission_cap = 0.001 × total_emissions
-else:
-    emission_cap = none                                        // uncapped
+favored_cohort  = pools with rank in [1, ceil(0.15 × N)]      // top 15%
+residual_cohort = pools with rank in [ceil(0.15 × N) + 1, N]  // bottom 85%
 
-excess = Σ (uncapped_emission − capped_emission) for all capped pools
-redistribute excess to uncapped pools pro-rata by CCB_share
+emission precedence: favored_cohort first.
+residual_cohort receives residual CCB flow only — bottom cohorts
+are constrained relative to top, never vice versa.
+
+within favored_cohort: anti-concentration caps applied to prevent
+any single top pool from dominating the top tier; numeric cap values
+set at contract deployment.
+
+excess from any capped favored-cohort pool flows to the remainder
+of the favored cohort first; any unallocated remainder flows to
+the residual cohort pro-rata by CCB share.
 ```
 
-Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
+Caps are anti-concentration controls **within the favored cohort** — they constrain top performers, never a mechanism to privilege low-efficiency pools. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and therefore receive only residual CCB flow alongside the other bottom-cohort pools.
+
+Eligibility is re-evaluated at each tournament epoch boundary against the current registry state. Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
 ---
 
