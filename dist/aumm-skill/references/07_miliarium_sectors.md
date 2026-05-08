@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 07_miliarium_sectors.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 07_miliarium_sectors.md — DO NOT EDIT -->
 # Sector Taxonomy
 
 *How the 28 Miliarium pools map to a diversified on-chain economy.*

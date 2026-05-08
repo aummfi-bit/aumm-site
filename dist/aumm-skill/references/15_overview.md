@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 15_overview.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 15_overview.md — DO NOT EDIT -->
 # Overview
 
 *Project Aureum at a glance.*
@@ -89,7 +89,6 @@ See [Team](16_team.md) for the founding team roster, roles, and prior work.
 - **Fork risk.** Aequilibrium inherits Balancer V3's smart contract security via byte-identical pool contracts, but the new tokenomics contracts require independent audit. Until audited, unverified risk.
 - **Liquidity risk.** Genesis pools will have minimal TVL. If depth doesn't reach aggregator thresholds, the routing thesis never activates.
 - **Regulatory risk.** Fair-launch tokens with no pre-mine have the strongest regulatory position, but the landscape is uncertain.
-- **Team risk.** Small, self-funded founding team. Key-person dependency high in early phases.
 - **Market risk.** Bear market or DeFi apathy at launch could delay adoption regardless of architectural merit.
 
 See [Immutable Parameters (§xxix)](10_constitution.md).

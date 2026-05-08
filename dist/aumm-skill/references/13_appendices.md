@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 13_appendices.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 13_appendices.md — DO NOT EDIT -->
 # Appendices
 
 ## xxxvi. AMM Architecture: Aequilibrium
@@ -43,7 +43,7 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 - Fee router (non–der Bodensee pools: **100%** of the **protocol share** of swap fees to Bodensee as one-sided stablecoin (sUSDS/svZCHF); **~50%** LP residual stays with originating-pool LPs; yield skim: **100%** Bodensee one-sided stablecoin; der Bodensee Pool: **0.75%** swap fee, **100%** in-pool to der Bodensee LPs)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
-Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60-day EMA, CCB multiplier logic, Incendiary Boost deposit and priority skim, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, token supply tracking). The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
+Estimated audit scope: new Solidity implementing the CCB emission engine (60-day EMA), CCB multiplier logic, Incendiary Boost deposit and priority skim, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, and token supply tracking. The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
 
 ---
 
@@ -54,8 +54,6 @@ Estimated audit scope: ~4,500 lines of new Solidity (CCB emission engine with 60
 Fair launches were the gold standard in 2020 (Yearn, SushiSwap). Today they're nearly extinct. The reasons are structural.
 
 **The Bootstrap Paradox.** An AMM needs liquidity to be useful. VC-backed projects pay from their war chest. Fair launches have none. No liquidity → high slippage → no traders → no fees → LPs leave → death spiral.
-
-**The Builder Burnout Problem.** If 100% of tokens go to the community, who pays for audits ($100–250K), legal counsel, infrastructure, and the dev's rent? Most fair launch founders end up working for free while yield farmers dump.
 
 **Governance Capture.** Fair launches distribute tokens based on liquidity provision. Whales bring massive capital on day one, earn the majority of "fair" tokens, and vote to redirect the treasury to themselves. Fair Launch becomes Whale Launch.
 
@@ -78,7 +76,6 @@ The deeper failure: SushiSwap was a fair launch of a **commodity product** — s
 | Failure Mode | What Killed Them | Aureum's Fix |
 |-------------|-----------------|-------------|
 | **Bootstrap Paradox** | No capital to seed liquidity | Founding team seeds pools with existing assets (ixEDEL, svZCHF). ERC-4626 pools generate 2-2.8% native yield from day one — LPs have a reason to stay before any AuMM emission has value. |
-| **Builder Burnout** | Devs work for free, farmers dump | Founding team earns AuMM by being early LPs — the highest emission rate goes to the first providers. der Bodensee Pool accumulates **protocol-captured** revenue (**protocol share** of swap fees on other gauged pools + yield skim) from block 0 as one-sided stablecoin (sUSDS/svZCHF) inflows, plus **in-pool** swap fees on der Bodensee trades (**0.75%** at genesis), building autonomous reserve depth. No token sales fund development. |
 | **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. No treasury. **100% of the LP emission tranche** flows to LPs from block 0; **Months 1–10** the remainder of each block’s emission is one-sided AuMM into der Bodensee Pool on a piecewise decay (80%→50% by Month 6, 50%→0% by Month 10 — no wallet receives it). **Protocol-captured** revenue (**protocol share** of swap fees on other pools + yield fees) flows to der Bodensee Pool as one-sided stablecoin (sUSDS/svZCHF) inflows; **der Bodensee** swap fees (**0.75%** at genesis) stay **in pool** for LPs. No human can redirect revenue, change the supply curve, or extract bootstrap AuMM. The system is a Continuous Capital Corporation — fully rule-based from genesis. |
 | **Vampire Attack Dependency** | Liquidity rented via incentives, leaves when APR drops | Constituent tokens (WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay. |
 | **Governance Capture** | Token-weighted voting = capital buys control | Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 0 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power). |

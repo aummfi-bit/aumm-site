@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@7312414666b8cec6a6bbeb483f459f84ee3af822 17_faq.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 17_faq.md — DO NOT EDIT -->
 # FAQ
 
 ## Foundations
@@ -38,8 +38,6 @@ Highest AuMM per dollar in Year 1. Through Month 10, all 28 Miliarium pools spli
 Cross-pool arbitrage. The ixEDEL NAV mint/redeem cycle and svZCHF rate updates generate continuous arbitrage flow between pools. Each cross-pool hop pays fees in two pools at once. This is volume that does not depend on retail.
 
 Mechanical AuMM repricing. The protocol share of swap fees from every non-Bodensee gauged pool plus 100% of the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee. AuMM inflows to Bodensee decay to zero by Month 10 and stay there. Stablecoin inflows are continuous. Fixed weights enforce upward repricing.
-
-The honest risk: roughly 4,500 lines of new Solidity (CCB engine, gauge system, fee router, Incendiary Boost, emission distributor) are unaudited at launch. The pool math is byte-identical to Certora-verified Balancer V3, so that part is safe. The tokenomics layer is not.
 
 ### Where does protocol revenue come from?
 
@@ -195,17 +193,15 @@ The anticyclical EMA underneath this is what retains liquidity. When a sector cr
 
 ### What's the catastrophic-risk profile?
 
-The first risk is the smart contract layer. Roughly 4,500 lines of new Solidity (CCB engine, gauge eligibility, Bodensee deposit router, Incendiary Boost, emission distributor) are unaudited at launch. The pool math is byte-identical to Certora-verified Balancer V3, but everything wrapped around it is unverified until audit. Severity: permanent total loss possible.
+First, the smart contract layer. Aequilibrium reuses Certora-verified Balancer V3 pool math for the AMM layer; the new tokenomics layer (CCB, gauges, fee routing, Incendiary Boost, Bodensee integration, emissions) must still be independently audited before any user should trust deployment. Smart-contract failure can imply total loss of funds.
 
 The second is liquidity failure. If TVL never reaches aggregator-competitive depth, organic volume doesn't materialize, AuMM gets no price discovery, and the LP emission's dollar value goes to zero. The 4626 floor still pays in stablecoins, so it's not a wipeout, but the value-accrual mechanism stops working. Permanent token impairment.
 
 Third, fork risk. The code is open source. A better-capitalized team could fork the architecture with pre-mined capital, undercut the equal-emission tranche in Year 1, and own aggregator routing slots before Aureum reaches critical mass.
 
-Fourth, key-person risk. The founding team is small and self-funded. There's no war chest for legal, audit, or infrastructure if core contributors leave.
+Fourth, regulatory. Fair-launch with no pre-mine is the strongest posture available, but the protocol fee routing creates revenue that reaches Bodensee LPs, and that could attract attention in jurisdictions that pattern-match to investment pools.
 
-Fifth, regulatory. Fair-launch with no pre-mine is the strongest posture available, but the protocol fee routing creates revenue that reaches Bodensee LPs, and that could attract attention in jurisdictions that pattern-match to investment pools.
-
-Sixth, market apathy. A bear market at launch delays adoption while the halving schedule keeps running. Year 1 is the highest-issuance window and delay is costly.
+Fifth, market apathy. A bear market at launch delays adoption while the halving schedule keeps running. Year 1 is the highest-issuance window and delay is costly.
 
 ---
 

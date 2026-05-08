@@ -2,8 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://aumm.fi/</loc><lastmod>2026-05-08T13:32:17Z</lastmod></url>
   <url><loc>https://aumm.fi/llms.txt</loc><lastmod>2026-05-08T13:32:55Z</lastmod></url>
-  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-05-08T13:33:00Z</lastmod></url>
-  <url><loc>https://aumm.fi/15_overview.md</loc><lastmod>2026-05-07T01:16:59Z</lastmod></url>
+  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-05-08T14:40:55Z</lastmod></url>
+  <url><loc>https://aumm.fi/15_overview.md</loc><lastmod>2026-05-08T14:40:44Z</lastmod></url>
   <url><loc>https://aumm.fi/08_bootstrap.md</loc><lastmod>2026-05-06T21:27:00Z</lastmod></url>
   <url><loc>https://aumm.fi/09_transitions.md</loc><lastmod>2026-05-07T01:16:59Z</lastmod></url>
   <url><loc>https://aumm.fi/10_constitution.md</loc><lastmod>2026-05-06T21:45:02Z</lastmod></url>
@@ -17,9 +17,9 @@
   <url><loc>https://aumm.fi/07a_tokens.md</loc><lastmod>2026-04-20T13:25:37Z</lastmod></url>
   <url><loc>https://aumm.fi/16_team.md</loc><lastmod>2026-04-14T23:30:22Z</lastmod></url>
   <url><loc>https://aumm.fi/12_aureum_glossary.md</loc><lastmod>2026-05-06T22:56:45Z</lastmod></url>
-  <url><loc>https://aumm.fi/13_appendices.md</loc><lastmod>2026-05-07T01:17:00Z</lastmod></url>
+  <url><loc>https://aumm.fi/13_appendices.md</loc><lastmod>2026-05-08T14:40:48Z</lastmod></url>
   <url><loc>https://aumm.fi/14_ux_ui.md</loc><lastmod>2026-05-07T01:17:00Z</lastmod></url>
-  <url><loc>https://aumm.fi/17_faq.md</loc><lastmod>2026-05-07T01:09:19Z</lastmod></url>
+  <url><loc>https://aumm.fi/17_faq.md</loc><lastmod>2026-05-08T14:40:43Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/decentralized_money.md</loc><lastmod>2026-05-04T12:48:13Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/eurodollar_shadow.md</loc><lastmod>2026-05-04T12:48:14Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/ddd9_part3.md</loc><lastmod>2026-05-04T12:48:15Z</lastmod></url>
@@ -27,7 +27,7 @@
   <url><loc>https://aumm.fi/sagix/our_layer_framework.md</loc><lastmod>2026-05-04T12:48:15Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/sagix_miliarium_aureum.md</loc><lastmod>2026-05-04T12:48:15Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/risk_premium_problem.md</loc><lastmod>2026-05-04T12:48:16Z</lastmod></url>
-  <url><loc>https://aumm.fi/README.md</loc><lastmod>2026-05-08T13:32:58Z</lastmod></url>
+  <url><loc>https://aumm.fi/README.md</loc><lastmod>2026-05-08T13:33:09Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/01_ixHelvetia.md</loc><lastmod>2026-05-07T01:29:47Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/02_ixAetheron.md</loc><lastmod>2026-05-07T01:29:47Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/03_ixCasper.md</loc><lastmod>2026-05-07T01:29:47Z</lastmod></url>
