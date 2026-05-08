@@ -2,12 +2,16 @@
 """
 Generate llms-full.txt: one absolute HTTPS URL per line (no comments) for LLM/RAG ingestion.
 
+Also writes ../sitemap.xml for crawlers: same URL set plus site root,
+/llms.txt, and /llms-full.txt. lastmod uses each backing file's mtime at
+generation time (UTC, W3C dateTime); homepage uses index.html mtime.
+
 Default base: https://aumm.fi  (override with BASE_URL=https://example.com)
 
 Single source of truth: the canonical file list is parsed from index.html's
 loadMd('FILENAME.md', ...) calls. Adding/removing a tab from the SPA flows
-automatically into both llms-full.txt and the Skill build — no hand-maintained
-allowlist drifts. Pool profiles use a directory glob (they're loaded via
+automatically into llms-full.txt, sitemap.xml, and the Skill build — no
+hand-maintained allowlist drifts. Pool profiles use a directory glob (they're loaded via
 dynamic router, not enumerated in index.html).
 
 Excluded: 01_intro.json (animation data, not Markdown prose); script.md
@@ -30,6 +34,7 @@ import re
 import shutil
 import subprocess
 import sys
+from xml.sax.saxutils import escape as xml_escape
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -92,6 +97,48 @@ def collect_paths() -> list[str]:
             print(f"warning: missing profile (skipped): {rel}", file=sys.stderr)
 
     return paths
+
+
+def utc_lastmod_from_path(path: Path) -> str:
+    """W3C lastmod from filesystem mtime, or UTC 'now' if file is missing."""
+    if not path.is_file():
+        return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    ts = path.stat().st_mtime
+    return datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def write_sitemap(base: str, rel_paths: list[str]) -> None:
+    """Emit sitemap.xml at repo root; URLs = base, llms.txt, llms-full.txt, then each rel."""
+    ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        f'<urlset xmlns="{ns}">',
+    ]
+    entries: list[tuple[str, Path]] = [
+        (f"{base}/", INDEX_HTML),
+        (f"{base}/llms.txt", ROOT / "llms.txt"),
+        (f"{base}/llms-full.txt", ROOT / "llms-full.txt"),
+    ]
+    seen_loc: set[str] = set()
+    for loc, lm_path in entries:
+        if loc in seen_loc:
+            continue
+        seen_loc.add(loc)
+        lm = utc_lastmod_from_path(lm_path)
+        esc = xml_escape(loc)
+        lines.append(f"  <url><loc>{esc}</loc><lastmod>{lm}</lastmod></url>")
+    for rel in rel_paths:
+        loc = f"{base}/{rel}"
+        if loc in seen_loc:
+            continue
+        seen_loc.add(loc)
+        lm = utc_lastmod_from_path(ROOT / rel)
+        esc = xml_escape(loc)
+        lines.append(f"  <url><loc>{esc}</loc><lastmod>{lm}</lastmod></url>")
+    lines.append("</urlset>")
+    out = ROOT / "sitemap.xml"
+    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"wrote {out.relative_to(ROOT)} ({len(seen_loc)} URLs, base={base})")
 
 
 def get_canon_sha() -> str:
@@ -237,6 +284,8 @@ def main(argv: list[str] | None = None) -> int:
     out = ROOT / "llms-full.txt"
     out.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"wrote {len(lines)} URLs to {out.relative_to(ROOT)} (base={base})")
+
+    write_sitemap(base, rels)
 
     if args.skill_out is not None:
         rc = build_skill(args.skill_out)

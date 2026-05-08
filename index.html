@@ -261,9 +261,37 @@
   [data-theme="day"] .content code, [data-theme="night"] .content code { font-family: monospace; font-size: 13px; }
   .section { margin-bottom: 32px; }
   .footer { text-align: center; padding: 40px 0; color: var(--text-dim); font-size: 14px; border-top: 1px solid var(--border); }
+  .sidebar-canon-footer {
+    flex-shrink: 0; margin-top: auto; padding: 12px 14px 16px; border-top: 1px solid var(--border);
+    font-size: 12px; line-height: 1.5; color: var(--text-dim);
+  }
+  .sidebar-canon-footer .sidebar-canon-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 8px; color: var(--text-dim); }
+  .sidebar-canon-links { margin: 0 0 6px; }
+  .sidebar-canon-links:last-child { margin-bottom: 0; }
+  .sidebar-canon-footer a { color: var(--accent); text-decoration: none; word-break: break-all; }
+  .sidebar-canon-footer a:hover { text-decoration: underline; }
+  .noscript-canon-panel {
+    position: fixed; z-index: 2000; left: 0; right: 0; bottom: 0; padding: 12px 16px;
+    background: #111110; border-top: 1px solid rgba(255,176,0,0.35); font-family: 'Inter', sans-serif;
+    font-size: 12px; color: #c9d1d9;
+  }
+  .noscript-canon-panel a { color: #58a6ff; }
 </style>
 </head>
 <body data-theme="au">
+<noscript>
+  <div class="noscript-canon-panel">
+    <strong>Canonical prose (no JS):</strong>
+    <a href="/llms.txt">llms.txt</a> ·
+    <a href="/llms-full.txt">llms-full.txt</a> ·
+    <a href="/sitemap.xml">sitemap.xml</a> ·
+    <a href="/17_faq.md">17_faq.md</a> ·
+    <a href="/03_theoretical_foundation.md">03_theoretical_foundation.md</a> ·
+    <a href="/12_aureum_glossary.md">12_aureum_glossary.md</a> ·
+    <a href="/10_constitution.md">10_constitution.md</a>
+    — Full URL list in <a href="/llms-full.txt">llms-full.txt</a>.
+  </div>
+</noscript>
 <div class="scanlines"></div>
 
 <div id="intro-screen">
@@ -398,6 +426,16 @@
           </div>
         </div>
       </nav>
+      <footer class="sidebar-canon-footer" aria-label="Canonical source files">
+        <p class="sidebar-canon-label">Source files · AI · crawlers</p>
+        <p class="sidebar-canon-links">
+          <a href="/llms.txt">llms.txt</a><span aria-hidden="true"> · </span><a href="/llms-full.txt">llms-full.txt</a><span aria-hidden="true"> · </span><a href="/robots.txt">robots.txt</a><span aria-hidden="true"> · </span><a href="/sitemap.xml">sitemap.xml</a>
+        </p>
+        <p class="sidebar-canon-links">
+          <a href="/17_faq.md">FAQ</a><span aria-hidden="true"> · </span><a href="/03_theoretical_foundation.md">Foundations</a><span aria-hidden="true"> · </span><a href="/12_aureum_glossary.md">Glossary</a><span aria-hidden="true"> · </span><a href="/10_constitution.md">Constitution</a>
+        </p>
+        <p class="sidebar-canon-links">All specs: URL list in <a href="/llms-full.txt">llms-full.txt</a>.</p>
+      </footer>
     </aside>
     <div class="main-column">
       <div class="mobile-topbar">

@@ -12,6 +12,8 @@
 **One HTTPS URL per line (no commentary):**  
 `https://aumm.fi/llms-full.txt`
 
+**Crawler / search index bundle:** [`sitemap.xml`](https://aumm.fi/sitemap.xml) — `<loc>` for `https://aumm.fi/`, manifests, every canonical `.md` URL (`robots.txt` references it).
+
 Regenerate after doc changes:
 
 ```bash
@@ -102,7 +104,7 @@ Do **not** treat it as authoritative over the numbered `.md` specs.
 
 ## `robots.txt`
 
-Crawling policy and an expanded list of welcomed user-agents: [`https://aumm.fi/robots.txt`](https://aumm.fi/robots.txt)
+Crawling policy, welcomed user-agents, and **`Sitemap: https://aumm.fi/sitemap.xml`**: [`https://aumm.fi/robots.txt`](https://aumm.fi/robots.txt)
 
 ---
 

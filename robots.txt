@@ -18,6 +18,8 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://aumm.fi/sitemap.xml
+
 # =============================================================================
 # AI CRAWLERS — explicitly named (same Allow policy as above; listed for clarity)
 # =============================================================================

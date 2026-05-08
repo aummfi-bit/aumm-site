@@ -13,8 +13,9 @@ Static documentation and registry for **Project Aureum**: tokenomics, governance
 | [miliarium_profiles/](miliarium_profiles/) | One profile per pool (`NN_ixCanonicalName.md`); manifest and sector taxonomy: [Manifest](06_miliarium_manifest.md), [Sectors](07_miliarium_sectors.md), [Token inventory](07a_tokens.md) (deduplicated tickers) |
 | Numbered specs `02_*.md` … `16_*.md` | Core protocol docs (mental model, foundations, tokenomics, Miliarium registry, bootstrap, transitions, constitution, formulas, glossary, appendices, UX/UI, overview, team/disclaimer) — see [llms.txt](llms.txt) for full **tab → file** map |
 | [Constitution](10_constitution.md), [Tokenomics](04_tokenomics.md), [Protocol formulas](11_formulas.md), … | Immutable law, economics, F-0–F-12 (gauge-challenge deposit **F-12** for non-Miliarium pools; **§xxix** canonical time constants, fee routing, swap-fee bands, Bodensee yield-skim exclusion, `BTC_WRAPPERS`) |
-| `llms.txt`, `llms-full.txt` | **AI / LLM manifest** (human-readable guide + one URL per line); `llms-full.txt` is **generated** by `scripts/generate_llms_manifest.py` (numbered specs **02–16**, secondary docs, **README.md**, **28** pool profiles) |
-| `robots.txt` | Crawl policy: **all AI crawlers and future agents welcome**; points to `llms.txt` / `llms-full.txt` |
+| `llms.txt`, `llms-full.txt`, `sitemap.xml` | **AI / crawler discovery**: human manifest + bulk URL list + XML sitemap of every canonical prose URL (`sitemap.xml` and `llms-full.txt` are **generated** by `scripts/generate_llms_manifest.py`) |
+| `robots.txt` | Crawl policy: **all AI crawlers welcome**; `Sitemap: https://aumm.fi/sitemap.xml`; points readers to `llms.txt` / `llms-full.txt` |
+| `vercel.json` | Deployment headers (Markdown and manifest files served as UTF-8 `text/markdown` / `text/plain` / `application/xml` where applicable on Vercel) |
 
 ## AI agents, crawlers, and tools
 
@@ -22,9 +23,22 @@ This project **welcomes** search indexes, assistants, and research bots to use t
 
 - **[llms.txt](llms.txt)** — Structured manifest: reading order, retrieval hints, Governance/Miliarium nav mapping, exclusions (`editorial_sprints.md`, `script.md`), confidentiality note. Compatible with [llmstxt.org](https://llmstxt.org/).
 - **[llms-full.txt](llms-full.txt)** — Canonical list of spec URLs (default origin `https://aumm.fi`). Regenerate after adding or renaming `.md` files.
-- **[robots.txt](robots.txt)** — `Allow: /` for all user agents; named AI bots listed for clarity.
+- **[sitemap.xml](sitemap.xml)** — Same corpus as `llms-full.txt` plus `/`, `/llms.txt`, `/llms-full.txt`; submit in Search Console / use for crawler seeding.
+- **[robots.txt](robots.txt)** — `Allow: /`; `Sitemap` directive; named AI bots listed for clarity.
 
-`index.html` includes `<link rel="llms-txt" href="/llms.txt">`.
+`index.html` includes `<link rel="llms-txt" href="/llms.txt">`, a static sidebar block linking to manifests and key `.md` sources, and a `<noscript>` panel with the same links for clients that do not run JavaScript.
+
+### Canonical Claude skill repo (`aumm-skill`)
+
+The skill bundle generated under [`dist/aumm-skill/`](dist/aumm-skill/) is intended for the public repo **[github.com/aummfi-bit/aumm-skill](https://github.com/aummfi-bit/aumm-skill)**. **External tools (ChatGPT browsing, crawlers, other assistants) can only retrieve that corpus if the GitHub repo is public and kept in sync.**
+
+Regenerate references and `_canon.json` after canon edits:
+
+```bash
+python3 scripts/generate_llms_manifest.py --skill-out ./dist/aumm-skill
+```
+
+Then push those files from `dist/aumm-skill/` to the `aumm-skill` remote (maintainers only). If the repo is private or empty, cite **only** `https://aumm.fi/…` URLs in prompts—not the GitHub path.
 
 ## Section numbering (site-wide)
 
@@ -55,7 +69,7 @@ Or: `npx --yes serve -p 8080`
 
 - **Intro** is driven by `01_intro.json` (JSON array of typed lines).
 - After the intro, **ENTER** goes straight to the documentation (see `index.html`).
-- **Navigation** — left **sidebar** (desktop): full doc tree with section anchors under each long page; **theme** (Au / Day / Night) in the sidebar footer. On narrow viewports the sidebar is a **drawer** (hamburger in the top bar + backdrop).
+- **Navigation** — left **sidebar** (desktop): full doc tree with section anchors under each long page; footer block with canonical manifest / `.md` links for crawlers; **theme** (Au / Day / Night). On narrow viewports the sidebar is a **drawer** (hamburger in the top bar + backdrop).
 - **Miliarium** — **Registry** ([05_miliarium_aureum.md](05_miliarium_aureum.md)), **Manifest** ([06_miliarium_manifest.md](06_miliarium_manifest.md)), **Sectors** ([07_miliarium_sectors.md](07_miliarium_sectors.md)), **Tokens** ([07a_tokens.md](07a_tokens.md)); in-app rendering of pool profiles so `.md` links do not open as raw files.
 - **Governance** — **Constitution** ([10_constitution.md](10_constitution.md)), **Bootstrap** ([08_bootstrap.md](08_bootstrap.md)), **Transitions** ([09_transitions.md](09_transitions.md)), **Formulas** ([11_formulas.md](11_formulas.md)).
 - **Team** — **Team / disclaimer** ([16_team.md](16_team.md)).
@@ -69,10 +83,11 @@ Start with the **[Overview](15_overview.md)** — it contains a [How to Read Thi
 - Change pool data in the **[Miliarium Aureum registry](05_miliarium_aureum.md)** first, then align [Manifest](06_miliarium_manifest.md) and profiles as needed.
 - **[Overview](15_overview.md)** summarizes protocol character at a glance.
 
-### LLM manifest (`llms.txt` / `llms-full.txt`)
+### LLM manifest (`llms.txt` / `llms-full.txt`) and sitemap
 
 - **`llms.txt`** — Editable manifest for humans and AI: welcome policy, tab→file table, reading order, exclusions. Site root.
 - **`llms-full.txt`** — One absolute URL per canonical Markdown file (and `README.md`); **generated** — do not edit by hand.
+- **`sitemap.xml`** — **Generated**; lists the site root, both manifests, and every canonical `.md` URL for search engines.
 - After adding or renaming `.md` files (especially under `miliarium_profiles/`), regenerate:
 
 ```bash
@@ -81,7 +96,7 @@ python3 scripts/generate_llms_manifest.py
 
 Use `BASE_URL=https://example.com` if you need a different origin in the output.
 
-Excluded from **`llms-full.txt`** (not canonical protocol spec): **`editorial_sprints.md`**, **`script.md`**. Supporting docs **are** in the manifest: `aureum_schedule.md`, `project_aureum_design_final.md`, `README.md`.
+Excluded from **`llms-full.txt` / `sitemap.xml`** (not canonical protocol spec): **`editorial_sprints.md`**, **`script.md`**. Supporting **`README.md`** is included.
 
 ## License
 
