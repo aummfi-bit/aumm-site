@@ -5,6 +5,9 @@
 #   1. The aummfi-bit/aumm-skill repo exists.
 #   2. Repo secret AUMMSKILL is set to a fine-grained PAT (or
 #      app token) with contents:write on aummfi-bit/aumm-skill.
+#   3. Repo secret AUMMCHATBOT_DISPATCH_TOKEN is set to a fine-grained
+#      PAT (or app token) with contents:write on aummfi-bit/aumm-chat-bot
+#      to send repository_dispatch after a skill sync.
 #
 # Until both are in place, this workflow will fail loudly — by design. The
 # alternative (silent skip) would mask drift.
@@ -64,6 +67,7 @@ jobs:
           rsync -a --exclude='references' --exclude='references/**' aumm-site/dist/aumm-skill/ aumm-skill/
 
       - name: Commit and push if changed
+        id: push_skill
         working-directory: aumm-skill
         run: |
           set -euo pipefail
@@ -72,8 +76,21 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "no changes — skipping commit"
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           CANON_SHA="${{ github.sha }}"
           git commit -m "sync: aumm-site@${CANON_SHA:0:7}"
           git push origin HEAD:main
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+          echo "skill_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch aumm-chat-bot submodule refresh
+        if: steps.push_skill.outputs.pushed == 'true'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.AUMMCHATBOT_DISPATCH_TOKEN }}
+          repository: aummfi-bit/aumm-chat-bot
+          event-type: aumm_skill_updated
+          client-payload: >-
+            {"source_repo":"aummfi-bit/aumm-site","canon_sha":"${{ github.sha }}","skill_sha":"${{ steps.push_skill.outputs.skill_sha }}"}
