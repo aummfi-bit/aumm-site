@@ -69,11 +69,11 @@ Emission allocation is driven by the **Continuous Central Bank (CCB)** — not b
 For decisions beyond emission direction (fee parameters, gauge challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
 
 ```
-Era 0 (years 0–4, pre-halving):        voting_power = (qualified_AuMT_value × time_in_pool)^(1/4)
-Era 1+ (year 4 onward, post-halving):  voting_power = (qualified_AuMT_value × time_in_pool)^(1/3)
+Era 0:   voting_power = (pool_TVL_EMA)^(1/4) × (holder_LP / pool_total_LP) × time_factor
+Era 1+:  voting_power = (pool_TVL_EMA)^(1/3) × (holder_LP / pool_total_LP) × time_factor
 ```
 
-**`qualified_AuMT_value` is the USD-denominated value of the liquidity the tessera represents** — not the number of AuMT tokens held. Each tessera is a proportional claim on its pool's TVL. An AuMT representing a $50K position in ixEquitix carries more governance weight than one representing a $5K position in a smaller pool because the underlying locked value differs. The governance formula normalises across all pools by pricing each tessera at the current market value of the liquidity it represents.
+pool_TVL_EMA is the pool's 60-day EMA TVL (F-4, never spot); time_factor ramps linearly from the 14-day qualification cliff to full weight at the 6-month on-ramp (F-9). The root applies to the pool aggregate, so splitting a position across wallets is weight-neutral.
 
 Governance power reflects real economic commitment — how much capital you have at risk in productive pools, not which pool you happen to be in.
 
@@ -81,8 +81,8 @@ The dampening exponent transitions from fourth root to cube root at the first ha
 
 **Why these specific exponents:** The ratio of the largest LP to total protocol TVL changes dramatically over time — the exponent must match the capture risk of each era.
 
-- **Era 0 (fourth root):** At genesis, a $100M LP in a $1M protocol is 100% of TVL. Without dampening, that single actor controls the entire governance surface. Fourth-root compression reduces the gap: a $100M position has 18× the governance weight of a $1K position (vs. 100,000× under linear weighting). Maximum compression when the protocol is most vulnerable. The whale still has more weight than a small LP — they just cannot steamroll every vote.
-- **Era 1+ (cube root, permanent from year 4):** By year 4, TVL growth has naturally diluted individual power. The same $100M LP in a $1B protocol is 10%, not 100%. Cube root: a $100M position has 46× the governance weight of a $1K position — more responsive to capital differences than fourth root, reflecting lower capture risk in a larger ecosystem. The exponent relaxes at the first halving block and stays at cube root permanently — subsequent halvings affect emission rate only, not governance mechanics.
+- **Era 0 (fourth root):** At genesis, a $100M LP in a $1M protocol is 100% of TVL. Without dampening, that single actor controls the entire governance surface. Fourth-root compression reduces the gap: a $100M pool has ~18× the governance weight of a $1K pool, divided pro-rata among its holders — splitting a position across wallets changes nothing, because the root applies to the pool aggregate, not the position. Maximum compression when the protocol is most vulnerable. The whale still has more weight than a small LP — they just cannot steamroll every vote.
+- **Era 1+ (cube root, permanent from year 4):** By year 4, TVL growth has naturally diluted individual power. The same $100M LP in a $1B protocol is 10%, not 100%. Cube root: a $100M pool has ~46× the governance weight of a $1K pool — more responsive to capital differences than fourth root, reflecting lower capture risk in a larger ecosystem. The exponent relaxes at the first halving block and stays at cube root permanently — subsequent halvings affect emission rate only, not governance mechanics.
 
 **Worked example:** At genesis, $1M total TVL. One LP deposits $100M (100× the rest). Under linear weighting, that LP holds 99% of governance power — functionally a dictatorship. Under fourth root: the $100M LP has power proportional to $(100M)^{1/4} \approx 100$, while the remaining $1M of LPs collectively has $(1M)^{1/4} \approx 31.6$. The whale holds ~76% — still dominant, but a coalition of smaller LPs can contest any proposal. By year 4, suppose $1B TVL and the same LP still has $100M (now 10%). Under cube root: $(100M)^{1/3} \approx 464$, while the remaining $900M has $(900M)^{1/3} \approx 965$. The whale holds ~32% — influential but far from controlling. Natural TVL growth did most of the work; the exponent relaxation reflects that.
 
@@ -92,13 +92,13 @@ AuMT in pools that fail any eligibility criterion carries zero governance weight
 
 **Governance power for non-emission decisions derives exclusively from active, qualified AuMT positions. AuMT in non-qualified pools carries zero weight. Voting power cannot be purchased on the open market.**
 
-- **Voting power = dampened AuMT.** `(AuMT_value × time_in_pool)^(1/4)` — same formula as protocol governance. 14-day qualification, 6-month on-ramp, any withdrawal resets to zero. See [Glossary (section xxxv)](12_aureum_glossary.md) for the full rule set.
+- **Voting power = dampened AuMT.** Pool-aggregate dampening per F-9: the pool's TVL EMA raised to the era root (1/4 or 1/3), divided pro-rata by LP share, scaled by `time_factor`. 14-day qualification, 6-month linear on-ramp, any withdrawal resets to zero. See [Glossary (section xxxv)](12_aureum_glossary.md) for the full rule set.
 
 #### Minimum Qualification Period and Governance On-Ramp
 
 **Days 0–14: Zero governance weight.** Voting power requires at least **14 days (one full governance cycle)** of continuous qualified AuMT holding. During this period, `time_in_pool = 0` — the position is invisible to governance.
 
-**Days 14–180: Governance on-ramp.** After the 14-day qualification, `time_in_pool` accrues from zero. Because the formula uses `(qualified_AuMT_value × time_in_pool)^(1/4)`, voting power grows sublinearly with time. An LP at day 14 has minimal power. By month 6 (day 180), they reach **full voting weight**. The 6-month on-ramp ensures governance power reflects sustained commitment, not recent capital deployment.
+**Days 14–180: Governance on-ramp.** After the 14-day qualification, `time_in_pool` accrues from zero. Because the F-9 `time_factor` ramps linearly from zero, voting power grows linearly with time in the on-ramp phase. An LP at day 14 has minimal power. By month 6 (day 180), they reach **full voting weight**. The 6-month on-ramp ensures governance power reflects sustained commitment, not recent capital deployment.
 
 **Any withdrawal resets everything to zero.** Remove any amount of liquidity from a qualified pool — even 1% — and governance power for that position drops to zero immediately. `time_in_pool` resets. The 14-day qualification clock restarts from scratch. The 6-month on-ramp begins again.
 
@@ -112,7 +112,7 @@ This eliminates:
 
 #### Low-Turnout Safeguard
 
-Every proposal type requires a minimum turnout of **20% of total qualified voting power**. Below 20%, the proposal is **automatically rejected** regardless of vote outcome. No timelock fallback — it fails and must be resubmitted.
+Every proposal type requires a minimum turnout of **20% of total qualified voting power, measured live at tally time — not a snapshot taken at proposal creation**. Below 20%, the proposal is **automatically rejected** regardless of vote outcome. No timelock fallback — it fails and must be resubmitted.
 
 Applies uniformly: gauge challenges, fee changes, and composition challenges all share the same 20% floor. **All governance proposal deposits** are **one-sided into der Bodensee Pool** (same mechanic; see [Constitution §xxvii](10_constitution.md)). **Deposit amounts** are proposal-specific; gauge challenges apply only to **non-Miliarium** pools per [F-12](11_formulas.md) — **Miliarium Aureum pools cannot be gauge-challenged** (structural changes go through the Composition Challenge path). The deposit filters spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 

@@ -120,7 +120,7 @@ A fee proposal changes a swap fee rate within its immutable band, Miliarium and 
 
 A composition challenge deprecates a Miliarium pool slot and replaces it with an already-deployed candidate pool of the same sector, risk profile, and template role. The proposal must reference the candidate's contract address (specified-pool model). Deposit: 1,000 svZCHF or 1,250 sUSDS. Threshold: 2/3 supermajority, 20% quorum. The slot persists, the pool at the slot can change.
 
-Every deposit is one-sided into Bodensee, non-refundable, denominated in svZCHF or sUSDS (1:1.25 ratio, proposer's choice). Below 20% quorum, the proposal auto-rejects. Governance power requires AuMT in emission-qualified pools held continuously for at least 14 days, with a 6-month sublinear on-ramp to full weight, and any withdrawal at any time, even 1%, resets that position to zero.
+Every deposit is one-sided into Bodensee, non-refundable, denominated in svZCHF or sUSDS (1:1.25 ratio, proposer's choice). Below 20% quorum, the proposal auto-rejects. Governance power requires AuMT in emission-qualified pools held continuously for at least 14 days, with a 6-month linear on-ramp to full weight, and any withdrawal at any time, even 1%, resets that position to zero.
 
 Governance cannot alter the emission schedule, halving math, CCB engine parameters, fee distribution split, Bodensee composition, dampening exponents, eligibility criteria, or any other immutable parameter.
 
@@ -140,7 +140,7 @@ What is NOT permissionless. The 28 Miliarium Aureum slots are locked at launch a
 
 ### Why fourth root, then cube root?
 
-Voting power is `(qualified_AuMT_value × time_in_pool)^(1/4)` in Era 0, transitioning permanently to `^(1/3)` at the first halving block. Era 0 is when the protocol is still small enough that one whale LP could take most governance power from TVL share alone. The fourth root softens that. By year 4, natural TVL growth has done most of the work. The cube root matches lower capture risk in a larger ecosystem. The transition fires at one block: immutable, no vote.
+Each gauge-approved pool's weight is `(pool_TVL_EMA)^(1/4)` in Era 0, transitioning permanently to `^(1/3)` at the first halving block; holders divide their pool's weight pro-rata by LP share, scaled by time-in-pool — so splitting a position across wallets changes nothing. Era 0 is when the protocol is still small enough that one whale LP could take most governance power from TVL share alone. The fourth root softens that. By year 4, natural TVL growth has done most of the work. The cube root matches lower capture risk in a larger ecosystem. The transition fires at one block: immutable, no vote.
 
 ### Are there really no admin keys?
 

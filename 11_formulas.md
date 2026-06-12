@@ -199,16 +199,21 @@ Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any othe
 
 ### F-9. Governance Power
 
-**Purpose:** Convert LP stake and time commitment into governance weight with sub-linear dampening to prevent whale capture.
+**Purpose:** Convert LP stake and time commitment into governance weight with sub-linear dampening to prevent whale capture. The root applies to the pool aggregate — not to individual positions — so weight is invariant under splitting a position across any number of wallets (Sybil-neutral by construction).
 
-**Effect:** Root function compresses large positions — 100× capital ≠ 100× voting power. Era 0: fourth root (maximum compression when TVL is lowest). Era 1+: cube root (TVL growth has diluted individual power).
+**Effect:** Root function compresses pool weight — 100× pool TVL ≠ 100× pool voting power. Within a pool, holders divide that compressed weight pro-rata by LP share, scaled by their time commitment; splitting capital across wallets neither gains nor loses weight. Concentrating capital in one pool dilutes its own per-dollar weight; spreading real liquidity across gauge-approved pools is the only way to raise it. Era 0: fourth root (maximum compression when TVL is lowest). Era 1+: cube root (TVL growth has diluted individual power).
 
 ```
-Era 0 (years 0–4):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/4)
-Era 1+ (years 4+):    Power = (qualified_AuMT_value × time_in_pool) ^ (1/3)
+Era 0 (years 0–4):    pool_power = (pool_TVL_EMA) ^ (1/4)
+Era 1+ (years 4+):    pool_power = (pool_TVL_EMA) ^ (1/3)
+
+holder_power = pool_power × (holder_LP / pool_total_LP) × time_factor
+
+time_factor  = 0                                          while time_in_pool < qualification period (14 days)
+             = min(time_in_pool, on_ramp) / on_ramp       thereafter (on_ramp = 6 months)
 ```
 
-**qualified_AuMT_value** is the USD value of the LP position — not token count. Transition occurs at the halving block. Both exponents are immutable.
+**pool_TVL_EMA** is the pool's 60-day exponential moving average USD TVL per F-4 — never the spot value; a pool whose EMA is unseeded or younger than 60 days confers zero power. **holder_LP / pool_total_LP** is the holder's share of the pool's total LP supply — total, not qualified-only: weight forfeited by holders still inside the qualification period vanishes rather than redistributing. **time_in_pool** runs from the protocol's recorder clock and resets on withdrawal. Only gauge-approved pools confer power. Transition occurs at the halving block. Both exponents are immutable.
 
 ---
 
