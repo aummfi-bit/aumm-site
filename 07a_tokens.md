@@ -14,7 +14,6 @@
 | BlackRock (on-chain) | BLKon | ERC-20 | 0x7a0F89c1606f71499950AA2590d547c3975B728E | | | Tokenised equity | ixColossix |
 | Coinbase Wrapped BTC | cbBTC | ERC-20 | 0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf | | | Coinbase custody BTC | ixAurebit |
 | Coinbase (on-chain) | COIN | ERC-20 | 0xF042cfa86cf1D598a75Bdb55c3507a1F39f9493b | | | Tokenised equity | ixMercatura |
-| Ether.fi governance token | ETHFI | ERC-20 | 0xFe0c30065B384F05761f15d0CC899D4F9F9Cc0eB | | 0x1E9ea34eaB5e4EDDAb4170047232F296746F8b00 | EtherFi; Balancer NeoFi 6 | ixAetheron |
 | Reserve Protocol ETH+ (yield-bearing ETH basket) | ETHPLUS | ERC-20 | 0xE72B141DF173b999AE7c1aDcbF60Cc9833Ce56a8 | | | Reserve DTF | ixRegistrum |
 | iShares Fallen Angels High Yield Bond ETF (on-chain) | FLHYon | ERC-20 | 0x54C1Ff361b402f66c13107421E6A431C3375EF24 | | | Tokenised ETF | ixAltrix |
 | Flux BRZ (Brazilian Real stable) | fBRZ | ERC-20 | | | | [Flux docs](https://docs.fluxfinance.com/addresses) list no fBRZ; BRZ underlying e.g. `0x01d33fd36ec67c6ada32cf36b31e88ee190b1839` | ixViatica |
@@ -42,7 +41,6 @@
 | Pendle | PENDLE | ERC-20 | 0x808507121B80c02388fAd14726482e061B8da827 | | 0x1E9ea34eaB5e4EDDAb4170047232F296746F8b00 | Pendle; Balancer NeoFi 6 | |
 | Invesco QQQ (on-chain) | QQQon | ERC-20 | 0x0e397938C1Aa0680954093495B70A9F5e2249aBa | | | Tokenised ETF | ixInnovix |
 | Nasdaq xStock (QQQx) | QQQX | ERC-20 | 0xa753A7395cAe905Cd615Da0B82A53E0560f250af | | | xStock tokenised index; [CoinGecko — Nasdaq xStock](https://www.coingecko.com/en/coins/nasdaq-xstock) | ixInnovix |
-| Rocket Pool Protocol | RPL | ERC-20 | 0xD33526068D116cE69F19A9ee46F0bd304F21A51f | | | Rocket Pool | ixAetheron |
 | Frax USD | frxUSD | ERC-20 | 0xCAcd6fd266aF91b8AeD52aCCc382b4e165586E29 | | 0x4d968a5Db8dA0822A2F08840f553De4129aAe5F3 | Stake → **sfrxUSD** (Frax USD savings, ERC-4626, row below); Curve frxUSD–scrvUSD pool ([Curve deposit](https://www.curve.finance/dex/ethereum/pools/0x4d968a5db8da0822a2f08840f553de4129aae5f3/deposit)) | ixLibertas |
 | Frax USD savings | sfrxUSD | ERC-4626 | 0xcf62F905562626CfcDD2261162a51fd02Fc9c5b6 | [sfrxUSD (Etherscan)](https://etherscan.io/token/0xcf62F905562626CfcDD2261162a51fd02Fc9c5b6) | 0xcf62F905562626CfcDD2261162a51fd02Fc9c5b6 | Frax staked frxUSD (ERC-4626); [docs](https://docs.frax.com/frxusd/stake-and-unstake-quickstart-ethereum) | ixLibertas, ixMagnix, ixAurix |
 | Curve savings crvUSD | scrvUSD | ERC-4626 | 0x0655977FEb2f289A4aB78af67BAB0d17aAb84367 | | 0x4d968a5Db8dA0822A2F08840f553De4129aAe5F3 | Curve savings vault; frxUSD–scrvUSD pool ([Curve deposit](https://www.curve.finance/dex/ethereum/pools/0x4d968a5db8da0822a2f08840f553de4129aae5f3/deposit)) | ixLibertas |
@@ -64,18 +62,30 @@
 | Tether USD | USDT | ERC-20 | 0x7Bc3485026Ac48b6cf9BaF0A377477Fff5703Af8 | [waEthUSDT rate provider](https://etherscan.io/address/0xEdf63cce4bA70cbE74064b7687882E71ebB0e988) | 0x7Bc3485026Ac48b6cf9BaF0A377477Fff5703Af8 | Tether; Balancer V3 atomic wrap ↔ waEthUSDT | ixLibertas |
 | Wrapped Ether | WETH | ERC-20 | 0x0bfc9d54Fc184518A81162F8fB99c2eACa081202 | [waEthWETH rate provider](https://etherscan.io/address/0xBe7bE04807762Bc433911dD927fD54a385Fa91d6) | 0x0bfc9d54Fc184518A81162F8fB99c2eACa081202 | Wrapped Aave Ethereum WETH (waEthWETH); Balancer V3 atomic wrap | ixLibertas |
 | Global X Uranium ETF (on-chain) | URAon | ERC-20 | 0xf98Ec282300892b3518B5cB996012b18d9B7D435 | | | Tokenised ETF | ixMetallum |
-| Aave stataToken — Rocket Pool rETH | waEthrETH | ERC-4626 | 0xae78736Cd615f374D3085123A210448E74Fc6393 | [Rocket Pool ETH](https://etherscan.io/address/0x1a8F81c256aee9C640e14bB0453ce247ea0DFE6F) | | Aave V3 wrapper → rETH | ixAetheron |
 | Aave stataToken — USDC | waEthUSDC | ERC-4626 | 0xD4fa2D31b7968E448877f69A96DE69f5de8cD23E | [waEthUSDC rate provider](https://etherscan.io/address/0x8f4E8439b970363648421C692dd897Fb9c0Bd1D9) | 0xD4fa2D31b7968E448877f69A96DE69f5de8cD23E | Wrapped Aave Ethereum USDC; Balancer V3 atomic wrap ↔ USDC | ixEdelweiss, ixBrevis, ixAltrix, ixMediox, ixLongus, ixStrata, ixInnovix |
 | Aave stataToken — USDT | waEthUSDT | ERC-4626 | 0x7Bc3485026Ac48b6cf9BaF0A377477Fff5703Af8 | [waEthUSDT rate provider](https://etherscan.io/address/0xEdf63cce4bA70cbE74064b7687882E71ebB0e988) | 0x7Bc3485026Ac48b6cf9BaF0A377477Fff5703Af8 | Aave V3 wrapper → USDT; Balancer V3 atomic wrap ↔ USDT | ixEdelweiss, ixForum, ixGigantus, ixMetallum |
 | Aave stataToken — WETH | waEthWETH | ERC-4626 | 0x0bfc9d54Fc184518A81162F8fB99c2eACa081202 | [waEthWETH rate provider](https://etherscan.io/address/0xBe7bE04807762Bc433911dD927fD54a385Fa91d6) | 0x0bfc9d54Fc184518A81162F8fB99c2eACa081202 | Wrapped Aave Ethereum WETH; Balancer V3 atomic wrap ↔ WETH | |
 | Wrapped eETH | weETH | ERC-20 | 0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee | [weETH (Etherscan)](https://etherscan.io/address/0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee) | 0xBDbADc891BB95DEE80eBC491699228EF0f7D6fF1 | EtherFi weETH; Balancer pool hook | ixAetheron |
-| Aave stataToken — EtherFi weETH | waEthweETH | ERC-4626 | 0x867b0CDC4B39a19945E616c29639b0390b39db3B | [weETH oracle (Aave)](https://etherscan.io/address/0x87625393534d5C102cADB66D37201dF24cc26d4C) | 0x867b0CDC4B39a19945E616c29639b0390b39db3B | Aave V3 Core `weETH_STATIC_A_TOKEN` → weETH; [Etherscan](https://etherscan.io/address/0x867b0CDC4B39a19945E616c29639b0390b39db3B) | ixAetheron |
 | Wrapped liquid staked Ether 2.0 | wstETH | ERC-20 | 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 | | | Lido wstETH | ixCasper |
 | Aave stataToken — Lido wstETH | waEthwstETH | ERC-4626 | 0x322AA5F5Be95644d6c36544B6c5061F072D16DF5 | [wstETH oracle (Aave)](https://etherscan.io/address/0xe1D97bF61901B075E9626c8A2340a7De385861Ef) | 0x322AA5F5Be95644d6c36544B6c5061F072D16DF5 | Aave V3 Core stataEthwstETH → wstETH; [Etherscan](https://etherscan.io/address/0x322AA5F5Be95644d6c36544B6c5061F072D16DF5). Aave **Lido** instance uses `0x775F661b0bD1739349b9A2A3EF60be277c5d2D29` instead | ixCasper |
 | Wrapped BTC (BitGo) | WBTC | ERC-20 | 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599 | | | BitGo WBTC | ixAurebit |
 | Tether Gold (XAUt) | XAUt | ERC-20 | 0x68749665FF8D2d112Fa859AA293F07A622782F38 | | | Gold token | ixAurix |
 | JPY Coin (regulated Japanese yen stablecoin) | JPYC | ERC-20 | 0xE7C3D8C9a439feDe00D2600032D5dB0Be71C3c29 | | | Regulated JPY stablecoin (JPYC Inc., Japan PSA-licensed; backed 1:1 by JGBs and bank deposits) | ixCambio |
+| Frax staked ETH | sfrxETH | ERC-4626 | 0xac3E018457B222d93114458476f3E3416Abbe38F | [sfrxETH (Etherscan)](https://etherscan.io/address/0xac3E018457B222d93114458476f3E3416Abbe38F) | 0xac3E018457B222d93114458476f3E3416Abbe38F | Frax staked frxETH (ERC-4626, native); share-price accrual via previewRedeem | ixAetheron |
+| Origin wrapped OETH | wOETH | ERC-4626 | 0xDcEe70654261AF21C44c093C300eD3Bb97b78192 | [wOETH (Etherscan)](https://etherscan.io/address/0xDcEe70654261AF21C44c093C300eD3Bb97b78192) | 0xDcEe70654261AF21C44c093C300eD3Bb97b78192 | Origin wrapped OETH (ERC-4626, native; OETH 1:1 ETH); share-price accrual | ixAetheron |
+| Rocket Pool ETH | rETH | ERC-20 | 0xae78736Cd615f374D3085123A210448E74Fc6393 | [rETH rate provider](https://etherscan.io/address/0x1a8F81c256aee9C640e14bB0453ce247ea0DFE6F) | | Rocket Pool LST (non-Lido); priced by the Balancer rETH rate provider (intrinsic exchange rate) | ixAetheron |
 
-**Row count:** 71 unique tickers. **AuMM** is in **der Bodensee Pool** only — not a Miliarium slot ([Miliarium Aureum §xii](05_miliarium_aureum.md)).
+**Row count:** 70 unique tickers in the 28 pools (+ 4 candidate / future tokens below). **AuMM** is in **der Bodensee Pool** only — not a Miliarium slot ([Miliarium Aureum §xii](05_miliarium_aureum.md)).
+
+## Candidate / future tokens
+
+*Tokens evaluated for a Miliarium pool but not in the current 28-pool composition — retained for reference and potential future Composition Challenges.*
+
+| Token name | Ticker | Token type | Ethereum address | Notes |
+|:-----------|:-------|:-----------|:-------------------|:------|
+| Aave stataToken — Rocket Pool rETH | waEthrETH | ERC-4626 | 0x867Cf025B5dA438c4e215c60B59bBB3aFe896Fda | Aave V3 Core static aToken for rETH (from the bgd-labs Aave address-book). Evaluated as an ixAetheron yield core; superseded by native-4626 sfrxETH / wOETH to avoid the Aave stataToken oracle dependency. |
+| Aave stataToken — EtherFi weETH | waEthweETH | ERC-4626 | 0x867b0CDC4B39a19945E616c29639b0390b39db3B | Aave V3 Core `weETH_STATIC_A_TOKEN` (weETH oracle `0x87625393534d5C102cADB66D37201dF24cc26d4C`). Evaluated as an ixAetheron yield core; superseded per above. |
+| Rocket Pool Protocol | RPL | ERC-20 | 0xD33526068D116cE69F19A9ee46F0bd304F21A51f | Rocket Pool governance token; evaluated as an ixAetheron theme leg, not in the current composition. |
+| Ether.fi governance token | ETHFI | ERC-20 | 0xFe0c30065B384F05761f15d0CC899D4F9F9Cc0eB | EtherFi governance token; evaluated as an ixAetheron theme leg, not in the current composition. |
 
 See [Miliarium sectors](07_miliarium_sectors.md) · [Manifest](06_miliarium_manifest.md) · [Registry](05_miliarium_aureum.md).
