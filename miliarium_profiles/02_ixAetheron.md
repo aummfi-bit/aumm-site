@@ -1,7 +1,7 @@
 # ixAetheron — Slot 02
 
 **Sector:** ETH Staking
-**Template:** Non-Standard (54% / 15% / 31%)
+**Template:** Non-Standard (56% / 16% / 28%)
 
 ---
 
@@ -9,42 +9,43 @@
 
 | Component | Token | Weight | Standard | Role |
 |:----------|:------|:-------|:---------|:-----|
-| Yield Core A | waEthrETH | 27% | ERC-4626 | Aave V3 stataToken wrapper for Rocket Pool rETH |
-| Yield Core B | waEthweETH | 27% | ERC-4626 | Aave V3 stataToken wrapper for EtherFi weETH |
-| Routing Anchor | ixEDEL | 15% | ERC-20 (DTF) | Cross-pool arbitrage routing |
-| Theme Asset A | RPL | 15% | ERC-20 | Rocket Pool governance token |
-| Theme Asset B | ETHFI | 16% | ERC-20 | EtherFi governance token |
+| Yield Core A | sfrxETH | 28% | ERC-4626 | Frax staked ETH — native ERC-4626 vault over frxETH |
+| Yield Core B | wOETH | 28% | ERC-4626 | Origin wrapped OETH — native ERC-4626 vault over OETH (1:1 ETH) |
+| Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
+| LST Leg A | rETH | 14% | ERC-20 | Rocket Pool ETH — non-Lido LST |
+| LST Leg B | weETH | 14% | ERC-20 | EtherFi weETH — non-Lido LST |
 
-**ERC-4626 composition:** 54% (waEthrETH + waEthweETH) — exceeds 52% threshold.
+**ERC-4626 composition:** 56% (sfrxETH + wOETH) — exceeds 52% threshold.
 
 ## Profile
 
-**Real-world analogue:** Staking infrastructure fund — like owning shares in the clearing houses and custodians that settle transactions.
+**Real-world analogue:** Non-Lido ETH-staking basket — a spread of the validator networks and staking custodians that settle Ethereum, deliberately outside the Lido monopoly.
 
-**Theme rationale:** This pool uses an **ETH-native** yield core (no svZCHF): waEthrETH and waEthweETH are Aave V3 stataToken wrappers that earn both staking yield AND Aave lending yield simultaneously. RPL and ETHFI provide governance exposure to the two largest non-Lido staking protocols.
+**Theme rationale:** This pool is an **ETH-native, non-Lido staking basket** (no svZCHF). The two yield cores are **native ERC-4626** vaults — **sfrxETH** (Frax) and **wOETH** (Origin) — that accrue ETH-staking yield through their share price, with no external oracle and no Aave wrapper layer. The two theme legs hold the underlying LSTs directly — **rETH** (Rocket Pool) and **weETH** (EtherFi) — each priced by its own intrinsic exchange rate. Four independent non-Lido staking protocols (Frax, Origin, Rocket Pool, EtherFi) in one venue; svZCHF is skipped, ixEDEL stays as the routing anchor.
 
 **Non-standard notes:**
-- No svZCHF in the yield core — **ixCasper** (slot 03) also uses non–Frankencoin yield cores (Flux LST vaults); here the pair is specifically rETH/weETH **Aave stataTokens**
-- Yield core generates dual yield: ETH staking rewards + Aave V3 supply rate
-- Slightly higher ERC-4626 composition (54%) due to rounding of non-standard weights
+- No svZCHF in the yield core — **ixCasper** (slot 03) is the sibling LST pool (Fluid vaults + Lido wstETH); ixAetheron is the **non-Lido** counterpart
+- Yield cores are **native ERC-4626** (sfrxETH, wOETH) — share-price accrual, oracle-free, no wrapper-layer dependency
+- LST legs (rETH, weETH) priced by their intrinsic exchange rate (Rocket Pool rate provider; weETH's own rate) — also oracle-free
+- ERC-4626 composition 56% — a +4pp margin over the 52% gate
 
 **Volume drivers:**
-- LST rebalancing (rETH ↔ weETH rotation)
-- Staking governance token demand (RPL, ETHFI)
-- ETH staking yield arbitrage between protocols
-- Aave stataToken wrapping/unwrapping flows
+- LST rebalancing across protocols (sfrxETH ↔ wOETH ↔ rETH ↔ weETH rotation)
+- ETH staking yield arbitrage between Frax / Origin / Rocket Pool / EtherFi
+- Non-Lido staking demand (validator-set diversification away from Lido)
+- Native ERC-4626 wrap/unwrap flows on the yield cores
 
 **Risk profile:**
-- ETH staking slashing risk (underlying rETH, weETH validators)
-- Aave V3 stataToken smart contract risk (wrapper layer)
-- RPL tokenomics risk (Rocket Pool bond requirements)
-- Higher IL risk (ETH-denominated yield core vs ERC-20 theme assets)
+- ETH staking slashing risk (underlying validators across four protocols)
+- Smart-contract risk on the native vault wrappers (Frax sfrxETH, Origin wOETH) and the Origin AMO peg
+- LST de-peg / liquidity risk on rETH and weETH
+- Higher IL risk (ETH-denominated cores vs the ERC-20 LST legs)
 
 ## Performance Discipline
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | ≥52% (admitted vault classes) — met by waEthrETH (27%) + waEthweETH (27%) = 54% |
+| 4626 Quality Gate | ≥52% (admitted vault classes) — met by sfrxETH (28%) + wOETH (28%) = 56% |
 | Vault-Class Registry | All ERC-4626 tokens admitted at genesis (per [Bootstrap §xxiv-a](08_bootstrap.md)) |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
