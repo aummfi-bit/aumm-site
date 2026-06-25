@@ -1,4 +1,12 @@
 {
+  "buildCommand": "python3 scripts/generate_llms_manifest.py && python3 scripts/build_ask_index.py && python3 scripts/append_agent_footer.py",
+  "rewrites": [
+    {
+      "source": "/(.*\\.md)",
+      "has": [{ "type": "query", "key": "ask" }],
+      "destination": "/api/ask"
+    }
+  ],
   "headers": [
     {
       "source": "/:path.md",
@@ -60,6 +68,19 @@
         {
           "key": "Content-Type",
           "value": "text/plain; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/api/ask",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
         }
       ]
     }

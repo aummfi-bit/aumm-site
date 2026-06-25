@@ -7,7 +7,61 @@
 
 ---
 
-## Complete URL list (for RAG, crawlers, bulk fetch)
+## Agent discovery — start here
+
+This file is the **root-level entry point** for agents that have not yet read any doc page. Fetch it first — the way crawlers fetch `robots.txt` or `sitemap.xml` — to learn both the corpus layout and how to query it.
+
+| If you are… | Start with… |
+|-------------|-------------|
+| A **browsing agent** with a question | **Query endpoint** below — append `?ask=` to any `.md` URL; no bulk fetch required |
+| A **browsing agent** building context | This file (structure + reading order), then [`llms-full.txt`](https://aumm.fi/llms-full.txt) for the complete URL list |
+| An agent that **already fetched a page** | The **Agent Instructions** footer at the foot of every served `.md` page (same `ask` convention) |
+| A **Claude agent with the installed skill** | Local `references/` in [aumm-skill](https://github.com/aummfi-bit/aumm-skill); live fallback URL in `SKILL.md` when content post-dates your snapshot |
+
+**Discovery ladder (weakest → strongest signal):**
+
+1. **Crawl surface** — [`sitemap.xml`](https://aumm.fi/sitemap.xml), [`robots.txt`](https://aumm.fi/robots.txt), raw `.md` URLs (machine-readable prose; not the rendered SPA DOM alone).
+2. **This file** — corpus map, reading order, retrieval hints, and the **`ask` endpoint named explicitly** (you are reading it now).
+3. **In-page Agent Instructions** — every served `.md` page repeats the `ask`/`goal` convention at the foot; self-bootstrapping once any page is loaded.
+4. **Installed skill** — Claude agents with [aumm-skill](https://github.com/aummfi-bit/aumm-skill) hold the corpus locally; `SKILL.md` hands them the live endpoint when the snapshot is stale.
+
+---
+
+## Query endpoint (`ask`) — preferred for questions
+
+**Do not bulk-fetch the corpus to answer a single question.** Use the GitBook-compatible query convention instead:
+
+```
+GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+```
+
+| Parameter | Required | Purpose |
+|-----------|----------|---------|
+| `ask` | yes | Immediate, self-contained question in natural language |
+| `goal` | no | Broader objective; tailors the answer toward what is actually useful |
+
+**Example:**
+
+```
+GET https://aumm.fi/04_tokenomics.md?ask=What+is+the+AuMM+maximum+supply
+```
+
+**Response (JSON):**
+
+| Field | Meaning |
+|-------|---------|
+| `answer` | Direct natural-language answer |
+| `citations` | Array of `{ section_id, file, excerpt }` — verify against source (`§xxix`, `F-5`, …) |
+| `canon_sha` | Git commit the index was built from (parallel to aumm-skill `_canon.json`) |
+| `answered_from_corpus` | `false` when retrieval found nothing relevant — fall back to human or live site |
+
+Grounding rules match the [aumm-skill](https://github.com/aummfi-bit/aumm-skill) Claude skill: quote canonical language where precision matters; cite section IDs; say explicitly when the corpus does not contain the answer — do not fabricate parameters, formulas, or pool details.
+
+The `<page>` in the URL is a routing hint (any canonical `.md` path works); retrieval spans the **full corpus**, not just that file.
+
+---
+
+## Complete URL list (bulk fetch / RAG / crawlers)
 
 **One HTTPS URL per line (no commentary):**  
 `https://aumm.fi/llms-full.txt`

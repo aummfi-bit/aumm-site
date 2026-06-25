@@ -25,6 +25,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Prepare site (manifest + agent footers)
+        run: |
+          python3 scripts/generate_llms_manifest.py
+          python3 scripts/append_agent_footer.py
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 

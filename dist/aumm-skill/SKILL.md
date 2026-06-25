@@ -14,7 +14,7 @@ When answering an Aureum question:
 1. Search `references/` for the relevant section before responding.
 2. Quote canonical language verbatim where precision matters (formulas, parameter values, fee bands, immutable bounds).
 3. Cite the section identifier (e.g., `§xxix`, `F-11`) so the user can verify against the live site at `https://aumm.fi`.
-4. If a question cannot be answered from `references/`, say so explicitly and link to `https://aumm.fi`. Do not fabricate parameters, formulas, governance mechanics, or pool details.
+4. If a question cannot be answered from `references/`, say so explicitly and link to `https://aumm.fi`. For questions that may post-date this snapshot, query the live endpoint: `GET https://aumm.fi/<page>.md?ask=<question>` (optional `&goal=<end_goal>`). Do not fabricate parameters, formulas, governance mechanics, or pool details.
 
 For **protocol math, fee bands, governance mechanics, and pool parameters**, prioritize the numbered specs (`references/02_` … `references/17_`, formulas, constitution) over interpretive essays.
 

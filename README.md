@@ -15,7 +15,8 @@ Static documentation and registry for **Project Aureum**: tokenomics, governance
 | [Constitution](10_constitution.md), [Tokenomics](04_tokenomics.md), [Protocol formulas](11_formulas.md), … | Immutable law, economics, F-0–F-12 (gauge-challenge deposit **F-12** for non-Miliarium pools; **§xxix** canonical time constants, fee routing, swap-fee bands, Bodensee yield-skim exclusion, `BTC_WRAPPERS`) |
 | `llms.txt`, `llms-full.txt`, `sitemap.xml` | **AI / crawler discovery**: human manifest + bulk URL list + XML sitemap of every canonical prose URL (`sitemap.xml` and `llms-full.txt` are **generated** by `scripts/generate_llms_manifest.py`) |
 | `robots.txt` | Crawl policy: **all AI crawlers welcome**; `Sitemap: https://aumm.fi/sitemap.xml`; points readers to `llms.txt` / `llms-full.txt` |
-| `vercel.json` | Deployment headers (Markdown and manifest files served as UTF-8 `text/markdown` / `text/plain` / `application/xml` where applicable on Vercel) |
+| `vercel.json` | Deployment headers (Markdown and manifest files served as UTF-8 `text/markdown` / `text/plain` / `application/xml` where applicable on Vercel); **`ask` query rewrite** to serverless RAG endpoint |
+| [ask/](ask/) | RAG query layer: `GET /<page>.md?ask=<question>&goal=<goal>` returns cited JSON answers (Vercel only; see [ask/README.md](ask/README.md), design spec [ASK_SPEC.md](ASK_SPEC.md)) |
 
 ## AI agents, crawlers, and tools
 

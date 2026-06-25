@@ -5,8 +5,13 @@
 # treated the same: you may access the same paths as everyone else (see User-agent: *).
 #
 # Machine-readable entry points for AI (see https://llmstxt.org/):
-#   /llms.txt       — Structured manifest, tab→file map, reading order, retrieval hints
+#   /llms.txt       — START HERE: corpus map, reading order, and ?ask= query endpoint
 #   /llms-full.txt  — Complete list of canonical .md and README URLs (one per line)
+#
+# Query endpoint (grounded Q&A over full corpus — GitBook-compatible):
+#   GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+#   Example: https://aumm.fi/04_tokenomics.md?ask=What+is+the+AuMM+max+supply
+#   Returns JSON: answer, citations, canon_sha, answered_from_corpus
 #
 # The site is a single-page app: index.html loads Markdown via fetch(); navigation is
 # a left sidebar (drawer on small screens). For training and grounding, prefer raw

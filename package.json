@@ -1,0 +1,16 @@
+{
+  "name": "aumm-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:ask-index": "python3 scripts/build_ask_index.py",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vercel/node": "^5.1.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
+  }
+}
