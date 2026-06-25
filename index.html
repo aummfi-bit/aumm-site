@@ -346,15 +346,9 @@
           <button type="button" class="sidebar-parent" data-tab="overview">Overview</button>
           <div class="sidebar-sub" data-menu-for="overview"></div>
         </div>
-        <div class="sidebar-group has-sub" data-accordion="model">
+        <div class="sidebar-group has-sub">
           <button type="button" class="sidebar-parent active" data-tab="model">Mental Model</button>
-          <div class="sidebar-sub">
-            <div class="sidebar-sub-tabs">
-              <button type="button" class="sidebar-link" data-tab="model-flywheel">Flywheel</button>
-            </div>
-            <div data-menu-for="model"></div>
-            <div data-menu-for="model-flywheel"></div>
-          </div>
+          <div class="sidebar-sub" data-menu-for="model"></div>
         </div>
         <div class="sidebar-group has-sub">
           <button type="button" class="sidebar-parent" data-tab="foundations">Theoretical Foundations</button>
@@ -487,14 +481,9 @@
   <div class="tab-content active" id="tab-model">
     <div class="content">
 <div id="mental-model-body"></div>
+<div id="flywheel-canonical-body" hidden aria-hidden="true" style="display:none"></div>
 
       <div class="footer">AUREUM — Mental Model</div>
-    </div>
-  </div>
-  <div class="tab-content" id="tab-model-flywheel">
-    <div class="content">
-      <div id="flywheel-body"></div>
-      <div class="footer">AUREUM — The Flywheel</div>
     </div>
   </div>
   <div class="tab-content" id="tab-glossary">
@@ -628,7 +617,6 @@ var menus = {
   transitions: [],
   constitution: [],
   model: [],
-  'model-flywheel': [],
   glossary: [],
   foundations: [],
   tokenomics: [],
@@ -860,11 +848,6 @@ function syncSidebarAccordion(tab) {
     if (miliariumGrp) miliariumGrp.classList.add('open');
     return;
   }
-  if (['model', 'model-flywheel'].indexOf(tab) !== -1) {
-    var mod = document.querySelector('#sidebar-nav [data-accordion="model"]');
-    if (mod) mod.classList.add('open');
-    return;
-  }
   if (['miliarium', 'miliarium-manifest', 'miliarium-sectors', 'miliarium-tokens'].indexOf(tab) !== -1) {
     var mg = document.querySelector('#sidebar-nav [data-accordion="miliarium"]');
     if (mg) mg.classList.add('open');
@@ -1084,7 +1067,7 @@ loadMd('11_formulas.md', 'formulas-body', 'formulas');
 // Load other tabs
 loadMd('03_theoretical_foundation.md', 'foundations-body', 'foundations');
 loadMd('02_mental_model.md', 'mental-model-body', 'model');
-loadMd('02a_flywheel.md', 'flywheel-body', 'model-flywheel');
+loadMd('02a_flywheel.md', 'flywheel-canonical-body', null);
 loadMd('04_tokenomics.md', 'tokenomics-body', 'tokenomics');
 loadMd('05_miliarium_aureum.md', 'miliarium-body', 'miliarium');
 loadMd('06_miliarium_manifest.md', 'manifest-body', 'miliarium-manifest');
@@ -1138,13 +1121,14 @@ mainDoc.addEventListener('click', function(e) {
   }
   if (/02a_flywheel\.md$/i.test(norm)) {
     e.preventDefault();
-    switchTab('model-flywheel');
+    switchTab('model');
+    scrollToAnchor('v-the-flywheel');
     return;
   }
   var mdBase = norm.replace(/^.*[/\\]/, '');
+  var hash = href.indexOf('#') >= 0 ? href.split('#')[1] : '';
   var mdToTab = {
     '02_mental_model.md': 'model',
-    '02a_flywheel.md': 'model-flywheel',
     '03_theoretical_foundation.md': 'foundations',
     '04_tokenomics.md': 'tokenomics',
     '05_miliarium_aureum.md': 'miliarium',
@@ -1180,6 +1164,7 @@ mainDoc.addEventListener('click', function(e) {
   if (mdToTab[mdBase]) {
     e.preventDefault();
     switchTab(mdToTab[mdBase]);
+    if (hash) scrollToAnchor(hash.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''));
     return;
   }
   if (/^miliarium_profiles\/?$/i.test(norm) || norm === './miliarium_profiles' || norm === 'miliarium_profiles') {

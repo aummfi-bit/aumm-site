@@ -1,9 +1,11 @@
-<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 02a_flywheel.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@d3218973000184271e54ef74217118118a9d532b 02a_flywheel.md — DO NOT EDIT -->
 # The Flywheel
 
-> The CCB directs emissions, **der Bodensee** captures revenue, the **Miliarium** generates it. Read separately, the [preceding sections](02_mental_model.md) look like three components. They are one closed circuit.
+*Section **v.** of [Mental model](02_mental_model.md#v-the-flywheel) — read in context there.*
 
-## i. The Circuit
+> The CCB directs emissions, **der Bodensee** captures revenue, the **Miliarium** generates it. Sections **i–iv** above look like three components. They are one closed circuit.
+
+### v-a. The Circuit
 
 Follow one dollar around the loop. It returns larger.
 
@@ -21,7 +23,7 @@ emissions → TVL → fees + 4626 yield → der Bodensee deepens
 
 Reflexive by construction: each turn's output is the next turn's input. The only external fuel is the first few turns of capital.
 
-## ii. Why the Loop Cannot Leak
+### v-b. Why the Loop Cannot Leak
 
 Most token economies bleed at the seams — treasury sales, insider unlocks, buybacks that can reverse. Aureum closed every seam at block 0.
 
@@ -32,7 +34,7 @@ Most token economies bleed at the seams — treasury sales, insider unlocks, buy
 
 The loop has nowhere to lose value. *Der Bodensee: a lake that only gets deeper.*
 
-## iii. Where You Stand in the Loop
+### v-c. Where You Stand in the Loop
 
 Same circuit from the protocol's view; three participant positions, three leverage profiles.
 
@@ -48,7 +50,7 @@ Same circuit from the protocol's view; three participant positions, three levera
 
 Cost: impermanent loss on the AuMM leg — sharp appreciation means net-selling AuMM vs. simply holding. Deep-conviction only: long AuMM, wear the rebalancing cost, collect the toll on everyone else's recruitment.
 
-## iv. The One Input the Loop Cannot Engineer
+### v-d. The One Input the Loop Cannot Engineer
 
 Every step above is unconditional — the mechanism runs whether or not anyone acts. But the magnitude of every step scales with one input the protocol can incentivize and cannot command: **TVL**. A flywheel is real once it turns; the open question is only whether the first turns happen — the cold-start.
 

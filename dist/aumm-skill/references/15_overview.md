@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 15_overview.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@d3218973000184271e54ef74217118118a9d532b 15_overview.md — DO NOT EDIT -->
 # Overview
 
 *Project Aureum at a glance.*
@@ -14,8 +14,7 @@ Two tracks, depending on what you need:
 | Step | File | What you learn |
 |:-----|:-----|:---------------|
 | 1 | [Overview](15_overview.md) (this file) | Protocol character, team, risk factors |
-| 2 | [Mental model](02_mental_model.md) | Three-layer architecture, emission regimes, constellation routing as a small-world network (dual universal connectors) |
-| 2a | [The Flywheel](02a_flywheel.md) | Closed revenue loop, leak-proof design, participant positions, cold-start caveat (TVL) |
+| 2 | [Mental model](02_mental_model.md) | Three-layer architecture, emission regimes, **§v. Flywheel**, constellation routing |
 | 3 | [Tokenomics](04_tokenomics.md) §ix–x | Token design, fee splits, value capture |
 | 4 | Any pool profile in [miliarium_profiles/](miliarium_profiles/) | Composition, sector thesis, volume drivers for one pool |
 | 5 | [Appendices](13_appendices.md) §xxxvii, §xxxix | Why fair-launch AMMs failed before and how Aureum differs; competitive position |
@@ -35,8 +34,7 @@ Two tracks, depending on what you need:
 | File | Purpose | Primary audience |
 |:-----|:--------|:-----------------|
 | [Overview](15_overview.md) | Protocol at a glance — character, team, risks | Everyone |
-| [Mental model](02_mental_model.md) | Conceptual architecture: thesis, principles, three layers, emission regimes, routing | LP / Investor |
-| [The Flywheel](02a_flywheel.md) | Reflexive value loop, leak-proof design, holder / buyer / Bodensee LP positions, adoption risk | LP / Investor |
+| [Mental model](02_mental_model.md) | Conceptual architecture: thesis, principles, three layers, emission regimes, **§v. Flywheel**, routing | LP / Investor |
 | [Tokenomics](04_tokenomics.md) | Token design, emission schedule, fee splits, governance model, value capture | LP / Investor |
 | [Theoretical foundations](03_theoretical_foundation.md) | Research foundations, CCB allocation narrative, multiplier engine | Builder / Auditor |
 | [Protocol formulas](11_formulas.md) | Formal definitions of every protocol formula | Builder / Auditor |
