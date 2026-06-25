@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@d3218973000184271e54ef74217118118a9d532b 17_faq.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 17_faq.md — DO NOT EDIT -->
 # FAQ
 
 ## Foundations
@@ -211,7 +211,7 @@ Fifth, market apathy. A bear market at launch delays adoption while the halving 
 
 The fair-launch graveyard is mostly the same set of failures. SushiSwap had a backdoor: Chef Nomi controlled the dev fund and sold $14M, with admin keys hidden in the migration contract. It had a vampire dependency: rented liquidity that left when incentives faded. It had immediate governance capture: FTX/Alameda accumulated tokens and directed treasury spending. Underneath all that, SushiSwap was a commodity product. Same Uniswap V2 pairs, same architecture, no moat once incentives ran out.
 
-Aureum's answers are concrete. No admin keys (with the one-time Stage B exception above). No migration contract. No treasury wallet. AuMM is unmintable to any wallet. Constituent tokens, WBTC, cbBTC, PAXG, XAUt, sfrxUSD, stEURA, AAVE, LINK, trade $898M+ daily on chain, so volume isn't conditional on incentives. ERC-4626 native yield provides floor return at zero emissions. Governance requires active AuMT in emission-qualified pools; it cannot be bought on an exchange. The halving curve is priced from day one. Multi-asset weighted pools with hooks and constellation routing don't exist on Uniswap, Curve, or Aerodrome.
+Aureum's answers are concrete. No admin keys (with the one-time Stage B exception above). No migration contract. No treasury wallet. AuMM is unmintable to any wallet. Constituent tokens, WBTC, cbBTC, PAXG, XAUt, ysyBOLD, stEURA, AAVE, LINK, trade $898M+ daily on chain, so volume isn't conditional on incentives. ERC-4626 native yield provides floor return at zero emissions. Governance requires active AuMT in emission-qualified pools; it cannot be bought on an exchange. The halving curve is priced from day one. Multi-asset weighted pools with hooks and constellation routing don't exist on Uniswap, Curve, or Aerodrome.
 
 ### How does Aureum compare to Yield Basis?
 

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@d3218973000184271e54ef74217118118a9d532b 06_miliarium_manifest.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 06_miliarium_manifest.md — DO NOT EDIT -->
 # Miliarium Aureum — Master Registry
 
 *28 Miliarium Aureum slots, locked from block 0. If a token ceases to exist, a Composition Challenge can deprecate the pool and launch a replacement into the same slot via the standard bootstrap path — preserving each pool's function and sector theme.*
@@ -30,14 +30,14 @@
 | 17 | [ixEquitix](17_ixEquitix.md) | Stocks | US Equities (Large Cap) | svZCHF | sUSDS | ixEDEL | SPYon | IVVon | Standard |
 | 18 | [ixInnovix](18_ixInnovix.md) | Stocks | US Equities (Tech Index) | svZCHF | waEthUSDC | ixEDEL | QQQon | QQQX | Standard |
 | 19 | [ixGigantus](19_ixGigantus.md) | Stocks | US Equities (Mega Cap Tech) | svZCHF | waEthUSDT | ixEDEL | NVDAon | TSLAon | Standard |
-| 20 | [ixMagnix](20_ixMagnix.md) | Stocks | US Equities (Mega Cap Tech) | svZCHF | sfrxUSD | ixEDEL | MSFTon | AAPLon | Standard |
+| 20 | [ixMagnix](20_ixMagnix.md) | Stocks | US Equities (Mega Cap Tech) | svZCHF | ysyBOLD | ixEDEL | MSFTon | AAPLon | Standard |
 | 21 | [ixNubix](21_ixNubix.md) | Stocks | Mega-cap tech | svZCHF | sUSDS | ixEDEL | GOOGLon | AMZNon | Standard |
 | 22 | [ixMoneta](22_ixMoneta.md) | Stocks | Banking / Financials | svZCHF | GHO | ixEDEL | JPMon | GSon | Standard |
 | 23 | [ixColossix](23_ixColossix.md) | Stocks | Financials | svZCHF | sUSDS | ixEDEL | BLKon | BACon | Standard |
 | 24 | [ixVitalix](24_ixVitalix.md) | Stocks | Healthcare | svZCHF | sUSDS | ixEDEL | LLYon | NVOon | Standard |
 | 25 | [ixMedicix](25_ixMedicix.md) | Stocks | Healthcare | svZCHF | sUSDS | ixEDEL | JNJon | ABBVon | Standard |
 | 26 | [ixMercatura](26_ixMercatura.md) | Stocks | Fintech / Brokers | svZCHF | sUSDS | ixEDEL | COIN | HOOD | Standard |
-| 27 | [ixAurix](27_ixAurix.md) | Metals | Gold / Commodities | svZCHF | sfrxUSD | ixEDEL | PAXG | XAUt | Standard |
+| 27 | [ixAurix](27_ixAurix.md) | Metals | Gold / Commodities | svZCHF | ysyBOLD | ixEDEL | PAXG | XAUt | Standard |
 | 28 | [ixMetallum](28_ixMetallum.md) | Metals | Silver & uranium (ETFs) | svZCHF | waEthUSDT | ixEDEL | SLVon | URAon | Standard |
 
 ## xiv. Registry grouping

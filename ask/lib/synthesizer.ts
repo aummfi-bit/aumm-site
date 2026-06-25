@@ -1,7 +1,7 @@
 import type { AskResponse, Citation } from "./types.js";
 import { type RetrievedChunk } from "./retriever.js";
 
-const DEFAULT_MODEL = "claude-sonnet-4-20250514";
+const DEFAULT_MODEL = "claude-sonnet-4-6";
 
 const SYSTEM_PROMPT = `You answer questions about Project Aureum (AuMM) strictly from the provided documentation excerpts. The grounding rules are non-negotiable and match the aumm-skill Claude skill:
 

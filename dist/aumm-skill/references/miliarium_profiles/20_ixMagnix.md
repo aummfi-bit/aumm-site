@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@d3218973000184271e54ef74217118118a9d532b miliarium_profiles/20_ixMagnix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f miliarium_profiles/20_ixMagnix.md — DO NOT EDIT -->
 # ixMagnix — Slot 20
 
 **Sector:** US Equities (Mega Cap Tech)
@@ -11,12 +11,12 @@
 | Component | Token | Weight | Standard | Role |
 |:----------|:------|:-------|:---------|:-----|
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
-| Yield Core B | sfrxUSD | 26% | ERC-4626 | Frax savings vault |
+| Yield Core B | ysyBOLD | 26% | ERC-4626 | Yearn staked yBOLD vault (Liquity BOLD) |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
 | Theme Asset A | MSFTon | 16% | ERC-20 | Tokenised Microsoft Corp |
 | Theme Asset B | AAPLon | 16% | ERC-20 | Tokenised Apple Inc |
 
-**ERC-4626 composition:** 52% (svZCHF + sfrxUSD)
+**ERC-4626 composition:** 52% (svZCHF + ysyBOLD)
 
 ## Profile
 
@@ -40,7 +40,7 @@
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | ≥52% (admitted vault classes) — met by svZCHF (26%) + sfrxUSD (26%) |
+| 4626 Quality Gate | ≥52% (admitted vault classes) — met by svZCHF (26%) + ysyBOLD (26%) |
 | Vault-Class Registry | All ERC-4626 tokens admitted at genesis (per [Bootstrap §xxiv-a](08_bootstrap.md)) |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@d3218973000184271e54ef74217118118a9d532b 12_aureum_glossary.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 12_aureum_glossary.md — DO NOT EDIT -->
 # Aureum Protocol - Glossary
 
 ## xxxi. Core Tokens

@@ -185,7 +185,7 @@ Implementation:
 | Variable | Where | Purpose |
 |----------|-------|---------|
 | `ANTHROPIC_API_KEY` | Vercel (runtime) | Answer synthesis (Claude) |
-| `ASK_MODEL` | Vercel (optional) | Override default model (`claude-sonnet-4-20250514`) |
+| `ASK_MODEL` | Vercel (optional) | Override default model (`claude-sonnet-4-6`) |
 
 GitHub Pages serves static markdown with agent footers only; the RAG JSON endpoint requires Vercel.
 

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@d3218973000184271e54ef74217118118a9d532b 05_miliarium_aureum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 05_miliarium_aureum.md — DO NOT EDIT -->
 # The Miliarium Aureum
 
 The 28 pools are pre-defined at launch and locked from block 0.
@@ -82,7 +82,7 @@ Savings, staking / LST, FX, ixEDEL price-discovery venue, USD hub, and multi-cur
 <tr>
 <td>06</td>
 <td><strong>ixLibertas</strong></td>
-<td colspan="3">scrvUSD 15%, PYUSD 15%, GHO 14%, sUSDS 14%, sfrxUSD 14%, USDT 14%, USDC 14%</td>
+<td colspan="3">scrvUSD 15%, PYUSD 15%, GHO 14%, sUSDS 14%, ysyBOLD 14%, USDT 14%, USDC 14%</td>
 </tr>
 <tr>
 <td>07</td>
@@ -126,7 +126,7 @@ Tokenised equities; **Subclass** narrows the sleeve (ETF vs index vs mega-cap vs
 | 17 | **ixEquitix** | Broad ETF | svZCHF 26%, sUSDS 26% | ixEDEL 16% | SPYon 16%, IVVon 16% |
 | 18 | **ixInnovix** | Tech index | svZCHF 26%, waEthUSDC 26% | ixEDEL 16% | QQQon 16%, QQQX 16% |
 | 19 | **ixGigantus** | Mega-cap tech | svZCHF 26%, waEthUSDT 26% | ixEDEL 16% | NVDAon 16%, TSLAon 16% |
-| 20 | **ixMagnix** | Mega-cap tech | svZCHF 26%, sfrxUSD 26% | ixEDEL 16% | MSFTon 16%, AAPLon 16% |
+| 20 | **ixMagnix** | Mega-cap tech | svZCHF 26%, ysyBOLD 26% | ixEDEL 16% | MSFTon 16%, AAPLon 16% |
 | 21 | **ixNubix** | Mega-cap tech | svZCHF 26%, sUSDS 26% | ixEDEL 16% | GOOGLon 16%, AMZNon 16% |
 | 22 | **ixMoneta** | Financials | svZCHF 26%, GHO 26% | ixEDEL 16% | JPMon 16%, GSon 16% |
 | 23 | **ixColossix** | Financials | svZCHF 26%, sUSDS 26% | ixEDEL 16% | BLKon 16%, BACon 16% |
@@ -140,7 +140,7 @@ Physical gold vs silver / uranium ETF themes.
 
 | Slot | Pool | Yield core | Routing | Theme |
 |:-----|:-----|:-----------|:--------|:------|
-| 27 | **ixAurix** | svZCHF 26%, sfrxUSD 26% | ixEDEL 16% | PAXG 16%, XAUt 16% |
+| 27 | **ixAurix** | svZCHF 26%, ysyBOLD 26% | ixEDEL 16% | PAXG 16%, XAUt 16% |
 | 28 | **ixMetallum** | svZCHF 26%, waEthUSDT 26% | ixEDEL 16% | SLVon 16%, URAon 16% |
 
 ---
