@@ -10,12 +10,12 @@
 | Component | Token | Weight | Standard | Role |
 |:----------|:------|:-------|:---------|:-----|
 | Yield Core A | svZCHF | 26% | ERC-4626 | Frankencoin savings vault (~3.75% yield) |
-| Yield Core B | sfrxUSD | 26% | ERC-4626 | Frax savings vault |
+| Yield Core B | ysyBOLD | 26% | ERC-4626 | Yearn staked yBOLD vault (Liquity BOLD) |
 | Routing Anchor | ixEDEL | 16% | ERC-20 (DTF) | Cross-pool arbitrage routing |
 | Theme Asset A | PAXG | 16% | ERC-20 | Paxos Gold — 1:1 physical gold backing |
 | Theme Asset B | XAUt | 16% | ERC-20 | Tether Gold — 1:1 physical gold backing |
 
-**ERC-4626 composition:** 52% (svZCHF + sfrxUSD)
+**ERC-4626 composition:** 52% (svZCHF + ysyBOLD)
 
 ## Profile
 
@@ -41,7 +41,7 @@ This pool captures the on-chain gold market and provides a flight-to-safety dest
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | ≥52% (admitted vault classes) — met by svZCHF (26%) + sfrxUSD (26%) |
+| 4626 Quality Gate | ≥52% (admitted vault classes) — met by svZCHF (26%) + ysyBOLD (26%) |
 | Vault-Class Registry | All ERC-4626 tokens admitted at genesis (per [Bootstrap §xxiv-a](08_bootstrap.md)) |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
