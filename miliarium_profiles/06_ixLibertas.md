@@ -13,19 +13,19 @@
 | USD Stable 2 | PYUSD | 15% | ERC-20 | PayPal USD stablecoin |
 | USD Stable 3 | GHO | 14% | ERC-4626 | Aave GHO stablecoin |
 | USD Stable 4 | sUSDS | 14% | ERC-4626 | Sky savings rate vault |
-| USD Stable 5 | sfrxUSD | 14% | ERC-4626 | Frax savings vault |
+| USD Stable 5 | ysyBOLD | 14% | ERC-4626 | Yearn staked yBOLD vault (Liquity BOLD) |
 | USD Stable 6 | USDT | 14% | ERC-20 | Tether USD |
 | USD Stable 7 | USDC | 14% | ERC-20 | Circle USD Coin |
 
 **No ixEDEL.** **ixHelvetia** (slot 01) also omits ixEDEL; here the absence is intentional for a pure seven-token USD hub.
 
-**ERC-4626 composition:** 57% (scrvUSD + GHO + sUSDS + sfrxUSD) — exceeds 52% threshold.
+**ERC-4626 composition:** 57% (scrvUSD + GHO + sUSDS + ysyBOLD) — exceeds 52% threshold.
 
 ## Profile
 
 **Real-world analogue:** Money market fund — a deep, diversified USD liquidity pool spanning seven issuers, like a prime money market fund that holds T-bills from multiple sources.
 
-**Theme rationale:** ixLibertas is the protocol's **universal USD on-ramp**. Seven stablecoins — covering every major issuer (Tether, Circle, PayPal, Aave, Sky, Frax, Curve) — in a single pool. Any USD stablecoin holder can enter Aureum through this pool with minimal slippage. The absence of ixEDEL is intentional: this pool serves as a standalone deep-liquidity venue, not a routing node.
+**Theme rationale:** ixLibertas is the protocol's **universal USD on-ramp**. Seven stablecoins — covering every major issuer (Tether, Circle, PayPal, Aave, Sky, Liquity, Curve) — in a single pool. Any USD stablecoin holder can enter Aureum through this pool with minimal slippage. The absence of ixEDEL is intentional: this pool serves as a standalone deep-liquidity venue, not a routing node.
 
 **Structural role:**
 - Universal USD entry point (any of 7 stablecoins)
@@ -34,9 +34,9 @@
 - Backup routing path when ixEDEL pools are congested
 
 **Volume drivers:**
-- Stablecoin swaps (USDT ↔ USDC ↔ PYUSD ↔ GHO ↔ sUSDS ↔ sfrxUSD ↔ scrvUSD)
+- Stablecoin swaps (USDT ↔ USDC ↔ PYUSD ↔ GHO ↔ sUSDS ↔ ysyBOLD ↔ scrvUSD)
 - Aggregator routing for stablecoin pairs
-- Yield rate arbitrage between savings vaults (sUSDS vs sfrxUSD vs scrvUSD vs GHO)
+- Yield rate arbitrage between savings vaults (sUSDS vs ysyBOLD vs scrvUSD vs GHO)
 - Stablecoin depeg events (massive volume during stress)
 
 **Risk profile:**
@@ -50,7 +50,7 @@
 
 | Criterion | Requirement |
 |:----------|:-----------|
-| 4626 Quality Gate | ≥52% (admitted vault classes) — met by scrvUSD (15%) + GHO (14%) + sUSDS (14%) + sfrxUSD (14%) = 57% |
+| 4626 Quality Gate | ≥52% (admitted vault classes) — met by scrvUSD (15%) + GHO (14%) + sUSDS (14%) + ysyBOLD (14%) = 57% |
 | Vault-Class Registry | All ERC-4626 tokens admitted at genesis (per [Bootstrap §xxiv-a](08_bootstrap.md)) |
 | Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
