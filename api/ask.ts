@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { embedQuery } from "../ask/lib/embed.js";
 import { retrieve } from "../ask/lib/retriever.js";
 import { synthesize } from "../ask/lib/synthesizer.js";
 import type { AskIndex } from "../ask/lib/types.js";
@@ -15,6 +14,18 @@ function loadIndex(): AskIndex {
   const path = join(process.cwd(), "ask", "index.json");
   cachedIndex = JSON.parse(readFileSync(path, "utf-8")) as AskIndex;
   return cachedIndex;
+}
+
+function routedFile(req: VercelRequest): string | undefined {
+  const fromQuery = req.query.file;
+  if (typeof fromQuery === "string" && fromQuery.endsWith(".md")) {
+    return fromQuery;
+  }
+  const original = req.headers["x-vercel-original-path"];
+  if (typeof original === "string" && original.endsWith(".md")) {
+    return original.replace(/^\//, "");
+  }
+  return undefined;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -35,29 +46,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
-  const openaiKey = process.env.OPENAI_API_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
-  if (!openaiKey || !anthropicKey) {
+  if (!anthropicKey) {
     return res.status(503).json({
-      error: "Ask endpoint is not configured (missing API keys).",
+      error: "Ask endpoint is not configured (missing ANTHROPIC_API_KEY).",
     });
   }
 
   try {
     const index = loadIndex();
-    const queryText = goal ? `${goal}\n\n${ask}` : ask;
-    const queryEmbedding = await embedQuery(queryText, openaiKey);
-    const chunks = retrieve(index, queryEmbedding);
+    const file = routedFile(req);
+    const queryText = goal ? `${goal} ${ask}` : ask;
+    const chunks = retrieve(index, queryText, file);
     const response = await synthesize(
       ask,
       goal,
       chunks,
       index.canon_sha,
       anthropicKey,
+      process.env.ASK_MODEL,
     );
 
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     return res.status(200).json(response);
   } catch (err) {
     console.error("ask handler error:", err);

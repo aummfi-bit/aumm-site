@@ -21,27 +21,31 @@ GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
 
 Returns JSON (`answer`, `citations`, `canon_sha`, `answered_from_corpus`).
 
-Requires Vercel deployment (serverless function at `api/ask.ts`). GitHub Pages serves static Markdown only; the `ask` runtime lives on Vercel.
+Requires Vercel deployment (serverless function at `api/ask.ts`). Requests **without** `?ask=` pass through to static `.md` — the SPA is unaffected.
 
-## Build the embedding index
+## Build the index
 
 ```bash
-export OPENAI_API_KEY=...
 python3 scripts/build_ask_index.py
+python3 scripts/test_ask_retrieval.py   # optional sanity check
 ```
 
-Writes `ask/index.json` (not committed — built at deploy time via `vercel.json` `buildCommand`).
+Writes `ask/index.json` (BM25 lexical index — no embedding API). Built at deploy via `vercel.json` `buildCommand`.
 
 ## Environment variables (Vercel)
 
 | Variable | Purpose |
 |----------|---------|
-| `OPENAI_API_KEY` | Query + index embeddings (`text-embedding-3-small`) |
-| `ANTHROPIC_API_KEY` | Answer synthesis (Claude) |
+| `ANTHROPIC_API_KEY` | Answer synthesis (required) |
+| `ASK_MODEL` | Optional model override |
+
+## Retrieval
+
+BM25 (k1=1.5, b=0.75) with length normalization so short factual chunks (e.g. supply tables) rank above long chunks that repeat query terms. The routed `<page>.md` in the URL gets a 1.4× score boost.
 
 ## Canon coupling
 
-Index is stamped with `canon_sha` from `git rev-parse HEAD`, same as `_canon.json` in the skill snapshot. Rebuild on every canon advance (Vercel build + optional local run after edits).
+Index is stamped with `canon_sha` from `dist/aumm-skill/references/_canon.json` when present, else `git rev-parse HEAD` — same pin as the skill lockfile.
 
 ## Agent Instructions footer
 

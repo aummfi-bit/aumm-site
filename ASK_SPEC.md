@@ -58,8 +58,8 @@ The corpus is small (~50 files), so this needs no heavy infrastructure.
 
 1. **Corpus** — exists already: the canonical markdown + `_canon.json` manifest. Input, unchanged.
 2. **Chunker** — split each doc at its existing section boundaries (headings, `§` anchors, `F-N` formula IDs). Carry the section identifier as chunk metadata so citations resolve to a verifiable anchor. Do not chunk blindly by token count; the docs are already structured — preserve that structure. (`scripts/chunk_corpus.py`)
-3. **Embedding index** — embed chunks into vectors. For a corpus this size a flat file (a JSON array of `{section_id, text, embedding}`) loaded in memory is sufficient; a hosted vector DB is optional, not required. (`scripts/build_ask_index.py` → `ask/index.json`)
-4. **Retriever** — embed the incoming question, run top-k cosine similarity, return the k highest chunks with their section IDs. (`ask/lib/retriever.ts`)
+3. **Embedding index** — chunk metadata bundle (`ask/index.json`); retrieval is **BM25 lexical search** at runtime (no embedding provider). Rebuilt on every deploy.
+4. **Retriever** — BM25 with length normalization (k1=1.5, b=0.75), top-k over corpus; optional boost for the routed `.md` page in the URL. (`ask/lib/retriever.ts`)
 5. **Synthesizer (LLM)** — pass retrieved chunks + `ask` + optional `goal` to the Anthropic API. The system prompt MUST enforce the same grounding rules already written in the skill's `SKILL.md` (§5 below). The model never sees the corpus directly — only the retrieved chunks — which keeps answers bounded by what was actually retrieved. (`ask/lib/synthesizer.ts`, `ask/lib/prompts.ts`)
 6. **HTTP handler** — parse `ask`/`goal`, run retrieve → synthesize, return the response (§5 shape). Strip and ignore any other query params. (`api/ask.ts`)
 7. **Hosting** — a serverless function co-deployed with the static site (Vercel function). The LLM API key stays server-side and is never exposed to the client.
@@ -184,8 +184,8 @@ Implementation:
 
 | Variable | Where | Purpose |
 |----------|-------|---------|
-| `OPENAI_API_KEY` | Vercel (build + runtime) | Embeddings (`text-embedding-3-small`) |
 | `ANTHROPIC_API_KEY` | Vercel (runtime) | Answer synthesis (Claude) |
+| `ASK_MODEL` | Vercel (optional) | Override default model (`claude-sonnet-4-20250514`) |
 
 GitHub Pages serves static markdown with agent footers only; the RAG JSON endpoint requires Vercel.
 

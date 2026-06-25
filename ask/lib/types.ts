@@ -3,13 +3,11 @@ export interface IndexChunk {
   section_id: string;
   heading: string;
   text: string;
-  embedding: number[];
 }
 
 export interface AskIndex {
   canon_sha: string;
-  embed_model: string;
-  chunk_count: number;
+  chunk_count?: number;
   chunks: IndexChunk[];
 }
 

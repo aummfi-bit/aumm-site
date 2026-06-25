@@ -4,7 +4,7 @@
     {
       "source": "/(.*\\.md)",
       "has": [{ "type": "query", "key": "ask" }],
-      "destination": "/api/ask"
+      "destination": "/api/ask?file=$1"
     }
   ],
   "headers": [

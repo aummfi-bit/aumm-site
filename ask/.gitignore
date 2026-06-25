@@ -1,2 +1,2 @@
-# Embedding index — generated at deploy; do not commit
+# Embedding index — generated at deploy; optional to commit for faster cold starts
 index.json
