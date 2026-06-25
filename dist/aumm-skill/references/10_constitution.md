@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 10_constitution.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 10_constitution.md — DO NOT EDIT -->
 # Constitution
 
 *The immutable operating law of Aureum.*
@@ -41,7 +41,7 @@ Qualified AuMT holders submit and vote on the **four actions** above. Three foll
 
 All deposits **one-sided into der Bodensee Pool** (no LP tokens minted to proposer), denominated in **svZCHF or sUSDS (1:1.25 ratio, proposer's choice of denomination)** — ratio fixed at protocol level, not market-derived. Non-refundable. **Gauge challenges apply only to non-Miliarium gauged pools** — the 28 Miliarium Aureum pools cannot be gauge-challenged; structural changes go through the **Composition Challenge** path.
 
-**Low-Turnout Safeguard.** Minimum turnout: **20% of total qualified voting power**. Below 20%, the proposal is **automatically rejected** — no timelock, no fallback. Uniform across all proposal types ([Tokenomics](04_tokenomics.md) Low-Turnout Safeguard).
+**Low-Turnout Safeguard.** Minimum turnout: **20% of total qualified voting power, measured live at tally time**. Below 20%, the proposal is **automatically rejected** — no timelock, no fallback. Uniform across all proposal types ([Tokenomics](04_tokenomics.md) Low-Turnout Safeguard).
 
 ### Composition Challenge Rule (Miliarium Aureum)
 
@@ -198,7 +198,7 @@ Per §xxvii (Vault-Class Registry Veto Model) and [§xxiv-a in Bootstrap](08_boo
 
 ### Governance
 
-- Governance dampening exponents: fourth root (Era 0, years 0–4), cube root (Era 1+, from `FIRST_HALVING_BLOCK` onward) — transition is permanent and occurs once
+- Governance dampening exponents: fourth root (Era 0, years 0–4), cube root (Era 1+, from `FIRST_HALVING_BLOCK` onward) — applied to pool-aggregate EMA TVL per F-9 and divided pro-rata within the pool.
 - Any withdrawal resets AuMT governance power
 - AuMT governance weight requires active gauged-pool status — when a pool's gauge is revoked, the AuMT for that pool drops to zero governance weight at that block (other LP entitlements continue — see §xxvii Composition Challenge Rule)
 - No admin keys, no multisig, no upgradability, no pause functions — *except:* at the one-time Stage B→governance migration, the Stage B multisig retains an emergency-only role for `BLOCKS_PER_YEAR` blocks (~12 months) post-migration, after which the multisig clause dies permanently. The multisig has no authority thereafter, ever.

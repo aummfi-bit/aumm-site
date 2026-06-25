@@ -48,7 +48,7 @@ Then push those files from `dist/aumm-skill/` to the `aumm-skill` remote (mainta
 
 Normative Markdown reflects a single coherent baseline across the site (gap resolutions and follow-on edits through 2026). For grounding and search, treat these as fixed points:
 
-- **[Mental model](02_mental_model.md):** **AuMM** is the reward token earned by **liquidity** (productive pools). **Bitcoin-style** means **issuance schedule** (cap, halving) for **AuMM**, not mining or minting Bitcoin.
+- **[Mental model](02_mental_model.md):** **AuMM** is the reward token earned by **liquidity** (productive pools). **Bitcoin-style** means **issuance schedule** (cap, halving) for **AuMM**, not mining or minting Bitcoin. **[The Flywheel](02a_flywheel.md)** — reflexive value loop and participant positions.
 - **[Constitution §xxix](10_constitution.md):** Block-number time aliases (`BLOCKS_PER_*`, `MONTH_*_END_BLOCK`, …), EMA sampling (see **F-4**), fee routing to der Bodensee (**protocol share** of swap fees on non–Bodensee **gauged** pools; **LP residual** stays with originating-pool LPs), **ERC-4626 yield skim** from other gauged pools only (Bodensee excluded), swap-fee **bands**, `BTC_WRAPPERS` / F-12, **Composition Challenge** sub-rules (specified-pool model, fee hook on deprecated pools), bounded Stage B multisig window.
 - **[Tokenomics §x-a](04_tokenomics.md) / [F-11](11_formulas.md):** Bodensee **Rate Provider** self-yield vs protocol skim; reserve and fee tables match §xxix.
 - **[Miliarium / tokens](05_miliarium_aureum.md) / [07a_tokens.md](07a_tokens.md) / profiles:** e.g. **ixCambio** composition (incl. **JPYC**, **tGBP**), **st-EURA** as ERC-4626, **ixViatica** 4626 totals — registry and profiles stay in sync.

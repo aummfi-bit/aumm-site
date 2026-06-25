@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 02_mental_model.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 02_mental_model.md — DO NOT EDIT -->
 # Aureum Protocol
 
 > **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
@@ -87,7 +87,7 @@ The 28 Miliarium pools are not a flat hub-and-spoke and not a random graph. Topo
 
 **On top of its routing role, svZCHF is also the autonomous-reserve anchor.** **der Bodensee Pool** (AuMM/sUSDS/svZCHF), protocol fee inflows, governance deposits, Incendiary Boost intake, and composition-challenge deposits all land as one-sided svZCHF (or sUSDS) into der Bodensee — the same CHF-anchored stable that routes inside every pool also stacks captured revenue and conviction capital into the autonomous reserve. ixEDEL has no equivalent reserve role. Balancer V3 Rate Providers on svZCHF and sUSDS make the reserve-side ERC-4626 weight yield-accruing in-place; see [Tokenomics §x-a](04_tokenomics.md) for the full mechanism.
 
-**Slot exceptions (deliberate departures from the universal-connector pattern).** **ixHelvetia (01)** is the Frankencoin MMA — pure svZCHF/sUSDS, no ixEDEL bridge. **ixAetheron (02)** is the ETH-staking pool with an ETH-native yield core (waEthrETH / waEthweETH) — keeps the ixEDEL anchor but skips svZCHF. **ixLibertas (06)** is the seven-token USD stable hub — holds **neither** anchor, giving traders a pure stablecoin venue with no CHF or basket exposure. These three slots serve flows that should not pay the cross-anchor cost; they are exceptions inside the small-world graph, not failures of it.
+**Slot exceptions (deliberate departures from the universal-connector pattern).** **ixHelvetia (01)** is the Frankencoin MMA — pure svZCHF/sUSDS, no ixEDEL bridge. **ixAetheron (02)** is the ETH-staking pool with an ETH-native yield core (sfrxETH / wOETH) — keeps the ixEDEL anchor but skips svZCHF. **ixLibertas (06)** is the seven-token USD stable hub — holds **neither** anchor, giving traders a pure stablecoin venue with no CHF or basket exposure. These three slots serve flows that should not pay the cross-anchor cost; they are exceptions inside the small-world graph, not failures of it.
 
 This small-world / dual-anchor design is Aureum's inheritance of the original Sagix construction — see [Sagix — Miliarium Aureum](https://www.sagix.io/sagix-miliarium-aureum/), which uses the same Watts–Strogatz framing for the Balancer V3 pool graph, and the [Sagix four-layer framework](https://www.sagix.io/our-layer-framework/) for the venue / routing / anchor / reserve liquidity-risk decomposition the two rails operationalise.
 
@@ -102,3 +102,5 @@ In Roman terms: **svZCHF and ixEDEL are the two viae** (the roads connecting eve
 **Why equal first.** The EMA needs ~60 days of on-chain data before it produces a meaningful signal. Allocating by TVL from block 0 would reward whichever pool attracted the earliest whale, not sustained capital. So all 28 Miliarium pools get identical treatment regardless of TVL until the EMA has real data.
 
 **Why a two-month transition.** An abrupt switch from equal to CCB at a single block would cause overnight emission shocks — pools receiving 1/28 could suddenly get much more or much less. The two-month linear blend gives LPs and operators time to watch the CCB’s scoring in real time and adjust positions. Pools that attracted deep, sticky capital see their share rise; pools coasting on equal allocation see it fall. The transition rewards sustained capital commitment, not historical incumbency.
+
+**The closed circuit.** The three layers above — CCB, der Bodensee, Miliarium — are not independent modules. They form one reflexive loop: emissions recruit capital, capital generates revenue, revenue deepens the reserve, a deeper reserve reprices AuMM, a higher AuMM price raises token-denominated APR, and higher APR recruits more capital. See [The Flywheel](02a_flywheel.md) for the full circuit and where you stand inside it.

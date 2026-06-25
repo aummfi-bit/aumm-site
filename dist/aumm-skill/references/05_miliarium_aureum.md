@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 05_miliarium_aureum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 05_miliarium_aureum.md — DO NOT EDIT -->
 # The Miliarium Aureum
 
 The 28 pools are pre-defined at launch and locked from block 0.
@@ -55,9 +55,9 @@ Savings, staking / LST, FX, ixEDEL price-discovery venue, USD hub, and multi-cur
 <tr>
 <td>02</td>
 <td><strong>ixAetheron</strong></td>
-<td>waEthrETH 27%, waEthweETH 27%</td>
-<td>ixEDEL 15%</td>
-<td>RPL 15%, ETHFI 16%</td>
+<td>sfrxETH 28%, wOETH 28%</td>
+<td>ixEDEL 16%</td>
+<td>rETH 14%, weETH 14%</td>
 </tr>
 <tr>
 <td>03</td>

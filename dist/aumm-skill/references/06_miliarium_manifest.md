@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 06_miliarium_manifest.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 06_miliarium_manifest.md — DO NOT EDIT -->
 # Miliarium Aureum — Master Registry
 
 *28 Miliarium Aureum slots, locked from block 0. If a token ceases to exist, a Composition Challenge can deprecate the pool and launch a replacement into the same slot via the standard bootstrap path — preserving each pool's function and sector theme.*
@@ -12,7 +12,7 @@
 | Slot | Pool Name | Registry category | Sector | Yield Core A (26%) | Yield Core B (26%) | Routing Anchor (16%) | Theme Asset A (16%) | Theme Asset B (16%) | Template |
 |:-----|:----------|:------------------|:-------|:-------------------|:-------------------|:---------------------|:-------------------|:-------------------|:---------|
 | 01 | [ixHelvetia](01_ixHelvetia.md) | Yield-bearing | Frankencoin MMA | svZCHF **80%** | sUSDS **20%** | — | — | — | Two-asset (no ixEDEL) |
-| 02 | [ixAetheron](02_ixAetheron.md) | Yield-bearing | ETH Staking | waEthrETH | waEthweETH | ixEDEL | RPL | ETHFI | Non-Standard |
+| 02 | [ixAetheron](02_ixAetheron.md) | Yield-bearing | ETH Staking | sfrxETH | wOETH | ixEDEL | rETH | weETH | Non-Standard |
 | 03 | [ixCasper](03_ixCasper.md) | Yield-bearing | LST / Staking Derivatives | fWSTETH | fWETH | ixEDEL | svZCHF | waEthwstETH | Standard |
 | 04 | [ixViatica](04_ixViatica.md) | Yield-bearing | FX / Emerging Markets | svZCHF | GHO | ixEDEL | fBRZ | st-EURA | Standard |
 | 05 | [ixEdelweiss](05_ixEdelweiss.md) | Yield-bearing | Routing Infrastructure | — | — | — | — | — | Non-Standard |

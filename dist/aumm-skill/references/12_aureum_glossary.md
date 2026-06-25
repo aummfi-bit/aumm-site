@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 12_aureum_glossary.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 12_aureum_glossary.md — DO NOT EDIT -->
 # Aureum Protocol - Glossary
 
 ## xxxi. Core Tokens
@@ -87,7 +87,7 @@
 - **Tessera-Weighted Voting**: voting power derived exclusively from active LP positions — `(USD value of qualified AuMT × time_in_pool)^(1/4)` in Era 0, relaxing to `^(1/3)` in Era 1. No token purchase grants governance power — only productive liquidity held over time. Sub-linear dampening prevents whale capture.
 - **Governance Power**: sub-linear function of LP position USD value × time held. Era 0: fourth-root (maximum compression); Era 1+: cube-root. Transition at the halving block; both exponents immutable. Formal expression: [Protocol formulas](11_formulas.md).
 - **Qualification Period**: 14 days of continuous qualified AuMT holding before any governance weight accrues (`time_in_pool = 0` during this window).
-- **Governance On-Ramp**: after the 14-day qualification, `time_in_pool` accrues sublinearly. Full voting weight reached at ~6 months (day 180).
+- **Governance On-Ramp**: after the 14-day qualification, `time_factor` ramps linearly from zero to one. Full voting weight reached at ~6 months (day 180).
 - **Withdrawal Reset**: any withdrawal from a qualifying pool — any amount — resets governance power to zero and restarts the 14-day qualification clock.
 - **Gauge Challenge**: challenge/revoke an active **non-Miliarium** gauge; deposit is **one-sided into der Bodensee Pool** per [F-12](11_formulas.md) (see [Constitution §xxvii](10_constitution.md)). **Miliarium Aureum (28) cannot be gauge-challenged** — use Composition Challenge instead.
 - **General Proposal** (fee parameters): 1,000 svZCHF or 1,250 sUSDS (deposited one-sided into der Bodensee Pool).

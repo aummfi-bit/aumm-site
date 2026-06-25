@@ -38,6 +38,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 |--------|----------------|
 | Intro (terminal + tab) | [`01_intro.json`](https://aumm.fi/01_intro.json) only |
 | Mental Model | [`02_mental_model.md`](https://aumm.fi/02_mental_model.md) |
+| Mental Model → Flywheel | [`02a_flywheel.md`](https://aumm.fi/02a_flywheel.md) |
 | Theoretical Foundations | [`03_theoretical_foundation.md`](https://aumm.fi/03_theoretical_foundation.md) |
 | Tokenomics | [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) |
 | Miliarium → Registry | [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) |
@@ -66,6 +67,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 
 1. [`15_overview.md`](https://aumm.fi/15_overview.md) — protocol at a glance  
 2. [`02_mental_model.md`](https://aumm.fi/02_mental_model.md) — **AuMM** earned by **liquidity**; **Bitcoin-style** issuance is for **AuMM** (not Bitcoin mining); three-layer model, feedback loop  
+2a. [`02a_flywheel.md`](https://aumm.fi/02a_flywheel.md) — closed reflexive loop (emissions → TVL → revenue → der Bodensee → repricing → APR); holder, buyer, Bodensee LP positions  
 3. [`10_constitution.md`](https://aumm.fi/10_constitution.md) — immutable operating law, **§xxix** parameters (time constants, fee routing, bands, skim exclusion), governance actions, quorum table  
 4. [`03_theoretical_foundation.md`](https://aumm.fi/03_theoretical_foundation.md) — CCB, EMA (§vi-b), multiplier  
 5. [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) — AuMM supply, fees, governance voting  

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bc0af363f9b0531350040a934baa1d2ab47f6269 miliarium_profiles/18_ixInnovix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@cbf2f197c4e40a6398aea53483cefc9311cea393 miliarium_profiles/18_ixInnovix.md — DO NOT EDIT -->
 # ixInnovix — Slot 18
 
 **Sector:** US Equities (Tech Index)

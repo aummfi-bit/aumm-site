@@ -5,6 +5,7 @@ https://aumm.fi/10_constitution.md
 https://aumm.fi/11_formulas.md
 https://aumm.fi/03_theoretical_foundation.md
 https://aumm.fi/02_mental_model.md
+https://aumm.fi/02a_flywheel.md
 https://aumm.fi/04_tokenomics.md
 https://aumm.fi/05_miliarium_aureum.md
 https://aumm.fi/06_miliarium_manifest.md
