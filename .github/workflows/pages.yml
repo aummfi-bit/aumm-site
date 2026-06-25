@@ -1,10 +1,10 @@
-# Deploy static site (index.html + Markdown) to GitHub Pages on every push to main.
+# Deploy static site to GitHub Pages (fallback / staging only).
+# Production: Vercel — see README.md § Deployment.
 # Repo Settings → Pages → Build and deployment: Source = GitHub Actions (required once).
 name: Deploy GitHub Pages
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch: {}
 
 permissions:
   contents: read

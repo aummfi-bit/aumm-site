@@ -1,5 +1,11 @@
 {
   "buildCommand": "python3 scripts/generate_llms_manifest.py && python3 scripts/build_ask_index.py && python3 scripts/append_agent_footer.py",
+  "outputDirectory": ".",
+  "functions": {
+    "api/ask.ts": {
+      "maxDuration": 60
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*\\.md)",

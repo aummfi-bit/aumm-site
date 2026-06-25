@@ -66,6 +66,44 @@ python3 -m http.server 8080
 
 Or: `npx --yes serve -p 8080`
 
+## Deployment (Vercel — production)
+
+**Production host:** [Vercel project `aumm-site`](https://vercel.com/aummfi-bits-projects/aumm-site) (team: `aummfi-bit`). GitHub repo `aummfi-bit/aumm-site` is connected — every push to `main` deploys automatically.
+
+GitHub Pages is **disabled for push** (manual `workflow_dispatch` only) so `aumm.fi` is not served from two hosts.
+
+### One-time DNS cutover
+
+1. Vercel dashboard → **aumm-site** → **Settings** → **Domains** → add `aumm.fi` and `www.aumm.fi`.
+2. At your DNS provider, point `aumm.fi` to Vercel (remove the GitHub Pages CNAME target). Vercel shows the exact A/CNAME records after you add the domain.
+3. Wait for SSL provisioning (usually minutes).
+
+### Environment variables (Vercel → Settings → Environment Variables)
+
+| Variable | Environments | Purpose |
+|----------|--------------|---------|
+| `ANTHROPIC_API_KEY` | Production, Preview | **`ask` endpoint** — required for `?ask=` queries |
+| `ASK_MODEL` | optional | Override default Claude model |
+
+Without `ANTHROPIC_API_KEY`, the static site works but `GET /<page>.md?ask=…` returns 503.
+
+### Verify after deploy
+
+```bash
+curl -s 'https://aumm.fi/llms.txt' | head
+curl -s 'https://aumm.fi/04_tokenomics.md?ask=What+is+the+AuMM+maximum+supply' | jq .
+```
+
+### Local Vercel CLI
+
+```bash
+npx vercel link    # already linked for this repo
+npx vercel deploy  # preview
+npx vercel --prod  # production
+```
+
+Build runs `generate_llms_manifest.py` → `build_ask_index.py` → `append_agent_footer.py` (see `vercel.json`).
+
 ## UI notes
 
 - **Intro** is driven by `01_intro.json` (JSON array of typed lines).

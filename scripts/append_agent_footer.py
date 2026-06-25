@@ -25,8 +25,11 @@ def main() -> int:
         return 1
 
     footer = FOOTER_PATH.read_text(encoding="utf-8").strip()
-    if not footer.startswith(MARKER):
-        print("error: agent-instructions.md must start with Agent Instructions heading", file=sys.stderr)
+    if MARKER not in footer:
+        print(
+            "error: agent-instructions.md must contain Agent Instructions heading",
+            file=sys.stderr,
+        )
         return 1
 
     updated = 0
