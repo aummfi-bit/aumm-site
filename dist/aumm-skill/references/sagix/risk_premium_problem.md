@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f sagix/risk_premium_problem.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@5bd962473c7d8fa4e482777b368166a6252b49d8 sagix/risk_premium_problem.md — DO NOT EDIT -->
 # The Risk premium problem
 
 **Canonical source (Sagix Apothecary):** https://www.sagix.io/the-risk-premium-problem/

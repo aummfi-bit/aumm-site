@@ -7,11 +7,13 @@
 | Parameter | Value |
 |-----------|-------|
 | Token name | **AuMM** |
-| Pool token | **AuMT** |
+| Pool token (per-pool LP receipt) | **AuMT** |
 | Maximum supply | **21,000,000 AuMM** |
 | Emission unit | Block emission rate |
 | Halving interval | Every 10,512,000 blocks (~4 years) |
 | Emission model | Bitcoin-style geometric halving |
+
+*AuMT is not a second protocol token — it is each pool's own LP share token, the ERC-20 minted on deposit and burned on withdrawal (Balancer V3's BPT). No supply schedule, no market of its own; acquired only by providing liquidity. See [Glossary (§xxxi)](12_aureum_glossary.md).*
 
 ### Emission Schedule
 
@@ -244,3 +246,24 @@ As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale
 ### Immutable Reference
 
 See [Immutable Parameters (§xxix)](10_constitution.md).
+
+---
+
+## Agent Instructions
+
+This page is part of the canonical Aureum specification at `https://aumm.fi`.
+
+**Root discovery:** fetch [`https://aumm.fi/llms.txt`](https://aumm.fi/llms.txt) first for corpus structure, reading order, and the full agent discovery ladder.
+
+**Query this corpus** for a grounded, cited answer instead of reading every file:
+
+```
+GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+```
+
+- **`ask`** (required) — your immediate, self-contained question in natural language.
+- **`goal`** (optional) — the broader objective you are pursuing; used to tailor the answer toward what is actually useful.
+
+**Response:** JSON with `answer`, `citations` (each with `section_id`, `file`, and verbatim `excerpt`), `canon_sha`, and `answered_from_corpus`. When `answered_from_corpus` is `false`, the corpus did not contain relevant material — verify at `https://aumm.fi` or ask a human.
+
+Retrieval spans the **full corpus**, not just this page. Answers follow the same grounding rules as the [aumm-skill](https://github.com/aummfi-bit/aumm-skill) Claude skill. Cite section identifiers (`§xxix`, `F-5`, …) to verify claims against the source.

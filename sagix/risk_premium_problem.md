@@ -49,3 +49,24 @@ That is not how risk assets trade.
 * * *
 
 Legal disclaimers and disclosures Educational purpose only: This content is provided exclusively for educational and historical research purposes. It should not be construed as investment advice, financial planning guidance, policy recommendations, or official economic analysis. Any contemporary parallels or policy discussions are presented as academic analysis, not recommendations for action. Historical patterns provide context for learning but do not predict future financial system outcomes or investment performance. AI-assisted research disclosure: This historical analysis was researched and written with substantial assistance from artificial intelligence technology (Claude, Anthropic). While extensive efforts were made to verify all statistical claims, citations, and institutional analysis against authoritative sources, readers should independently verify any information before relying on it for academic, professional, investment, or policy purposes. Accuracy and liability limitations: While extensive effort has been made to ensure historical accuracy through authoritative sources, the authors make no warranties about completeness, accuracy, or currency of information. Historical interpretation involves scholarly judgment and academic debate. Economic data may contain revisions, measurement inconsistencies, or reporting variations across different time periods and institutional sources. Liability protections: The authors, publishers, and Sagix Apothecary assume no responsibility for errors, omissions, or consequences arising from the use of this information. This includes any errors that may result from AI assistance in research, writing, or data analysis. Users assume full responsibility for any decisions or actions taken based on this content. Investment risk warning: Historical financial analysis does not constitute investment advice or recommendations. Past performance, whether historical or hypothetical, does not guarantee future results. All investments carry risk of loss, and readers should conduct their own research and consult qualified financial advisors before making investment decisions. No professional relationship: This content does not create any professional, advisory, fiduciary, or client relationship between the reader and Sagix Apothecary, its authors, or affiliated entities. Readers seeking financial, investment, legal, regulatory, or policy guidance should consult qualified professionals licensed in their jurisdiction. Methodological note: This analysis synthesizes findings from multiple Federal Reserve Bank research departments, National Bureau of Economic Research publications, peer-reviewed academic journals, and authoritative government historical records. The numbered citation system allows readers to verify specific claims against original sources rather than relying on secondary interpretations. All quantitative data and statistical analyses are drawn from the referenced academic literature rather than independent calculation.
+
+---
+
+## Agent Instructions
+
+This page is part of the canonical Aureum specification at `https://aumm.fi`.
+
+**Root discovery:** fetch [`https://aumm.fi/llms.txt`](https://aumm.fi/llms.txt) first for corpus structure, reading order, and the full agent discovery ladder.
+
+**Query this corpus** for a grounded, cited answer instead of reading every file:
+
+```
+GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+```
+
+- **`ask`** (required) — your immediate, self-contained question in natural language.
+- **`goal`** (optional) — the broader objective you are pursuing; used to tailor the answer toward what is actually useful.
+
+**Response:** JSON with `answer`, `citations` (each with `section_id`, `file`, and verbatim `excerpt`), `canon_sha`, and `answered_from_corpus`. When `answered_from_corpus` is `false`, the corpus did not contain relevant material — verify at `https://aumm.fi` or ask a human.
+
+Retrieval spans the **full corpus**, not just this page. Answers follow the same grounding rules as the [aumm-skill](https://github.com/aummfi-bit/aumm-skill) Claude skill. Cite section identifiers (`§xxix`, `F-5`, …) to verify claims against the source.

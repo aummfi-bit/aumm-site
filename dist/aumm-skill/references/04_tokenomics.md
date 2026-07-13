@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 04_tokenomics.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@5bd962473c7d8fa4e482777b368166a6252b49d8 04_tokenomics.md — DO NOT EDIT -->
 # Tokenomics
 
 ## ix. Token Design: AuMM (Aureum Market Maker)
@@ -8,11 +8,13 @@
 | Parameter | Value |
 |-----------|-------|
 | Token name | **AuMM** |
-| Pool token | **AuMT** |
+| Pool token (per-pool LP receipt) | **AuMT** |
 | Maximum supply | **21,000,000 AuMM** |
 | Emission unit | Block emission rate |
 | Halving interval | Every 10,512,000 blocks (~4 years) |
 | Emission model | Bitcoin-style geometric halving |
+
+*AuMT is not a second protocol token — it is each pool's own LP share token, the ERC-20 minted on deposit and burned on withdrawal (Balancer V3's BPT). No supply schedule, no market of its own; acquired only by providing liquidity. See [Glossary (§xxxi)](12_aureum_glossary.md).*
 
 ### Emission Schedule
 

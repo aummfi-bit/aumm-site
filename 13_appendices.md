@@ -28,7 +28,7 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 ### What's New (Requires Audit)
 
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
-- AuMT pool token wrapper (Aureum Market Tessera)
+- AuMT accounting layer (Aureum Market Tessera — the token itself is the unchanged Balancer V3 pool token/BPT; the new code is only the per-pool deposit/withdrawal recording that feeds emission claims and governance weight)
 - CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see [Constitution (§xxix)](10_constitution.md) for all numeric bounds)
 - Incendiary Boost engine (svZCHF/sUSDS deposit into der Bodensee, 1-epoch (14-day) emission streaming, priority skim, once-per-epoch-per-pool lock)
 - CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see [Constitution (§xxix)](10_constitution.md))
@@ -158,3 +158,24 @@ The model works — and is architecturally opposite to Aureum on every dimension
 Prop AMMs solved routing through centralization. Aureum solves it through architecture — multi-asset pools with native yield, constellation routing, aggregator-competitive fees — without concentrating control in one team. Whether decentralized infrastructure can match proprietary execution quality is the open question. The ERC-4626 yield floor, multi-pair capital efficiency, and cross-pool arbitrage engine are the mechanisms that make it possible.
 
 ---
+
+---
+
+## Agent Instructions
+
+This page is part of the canonical Aureum specification at `https://aumm.fi`.
+
+**Root discovery:** fetch [`https://aumm.fi/llms.txt`](https://aumm.fi/llms.txt) first for corpus structure, reading order, and the full agent discovery ladder.
+
+**Query this corpus** for a grounded, cited answer instead of reading every file:
+
+```
+GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+```
+
+- **`ask`** (required) — your immediate, self-contained question in natural language.
+- **`goal`** (optional) — the broader objective you are pursuing; used to tailor the answer toward what is actually useful.
+
+**Response:** JSON with `answer`, `citations` (each with `section_id`, `file`, and verbatim `excerpt`), `canon_sha`, and `answered_from_corpus`. When `answered_from_corpus` is `false`, the corpus did not contain relevant material — verify at `https://aumm.fi` or ask a human.
+
+Retrieval spans the **full corpus**, not just this page. Answers follow the same grounding rules as the [aumm-skill](https://github.com/aummfi-bit/aumm-skill) Claude skill. Cite section identifiers (`§xxix`, `F-5`, …) to verify claims against the source.

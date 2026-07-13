@@ -54,3 +54,24 @@ Cost: impermanent loss on the AuMM leg — sharp appreciation means net-selling 
 Every step above is unconditional — the mechanism runs whether or not anyone acts. But the magnitude of every step scales with one input the protocol can incentivize and cannot command: **TVL**. A flywheel is real once it turns; the open question is only whether the first turns happen — the cold-start.
 
 Era 0 front-loads ~50% of supply, Incendiary Boost lets anyone fund a pool's ignition, and equal allocation through the first ten months keeps the field level until the EMA has data. These improve the odds of the first turn; they do not guarantee it. Aureum engineered away every endogenous risk — insider supply, discretionary dispositions, unlock overhang, redirectable emissions — and kept only the honest one: whether adoption arrives.
+
+---
+
+## Agent Instructions
+
+This page is part of the canonical Aureum specification at `https://aumm.fi`.
+
+**Root discovery:** fetch [`https://aumm.fi/llms.txt`](https://aumm.fi/llms.txt) first for corpus structure, reading order, and the full agent discovery ladder.
+
+**Query this corpus** for a grounded, cited answer instead of reading every file:
+
+```
+GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+```
+
+- **`ask`** (required) — your immediate, self-contained question in natural language.
+- **`goal`** (optional) — the broader objective you are pursuing; used to tailor the answer toward what is actually useful.
+
+**Response:** JSON with `answer`, `citations` (each with `section_id`, `file`, and verbatim `excerpt`), `canon_sha`, and `answered_from_corpus`. When `answered_from_corpus` is `false`, the corpus did not contain relevant material — verify at `https://aumm.fi` or ask a human.
+
+Retrieval spans the **full corpus**, not just this page. Answers follow the same grounding rules as the [aumm-skill](https://github.com/aummfi-bit/aumm-skill) Claude skill. Cite section identifiers (`§xxix`, `F-5`, …) to verify claims against the source.

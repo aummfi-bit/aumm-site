@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 02_mental_model.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@5bd962473c7d8fa4e482777b368166a6252b49d8 02_mental_model.md — DO NOT EDIT -->
 # Aureum Protocol
 
 > **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
@@ -45,7 +45,7 @@ The **Miliarium Aureum** (Golden Milestone) was the monument in the Roman Forum 
 
 **AuMM** (Aureum Market Maker) is the reward token — mined by providing liquidity, backed by protocol revenue flowing into der Bodensee Pool. BTC-style scarcity.
 
-**AuMT** (Aureum Market Tessera) is the proof-of-participation token. In Rome, a tessera was a small tablet — ticket, voucher, proof of identity. It proved you belonged and carried rights: entry, grain rations, assembly votes. Your AuMT proves your stake in the protocol's liquidity and carries equivalent rights: emissions and governance power.
+**AuMT** (Aureum Market Tessera) is not a new token — it is the pool token itself. Every Aureum pool is an ERC-20: deposit liquidity and the pool mints you AuMT, its LP share token (Balancer V3's BPT); redeem AuMT and you withdraw your proportional share of the pool's underlying tokens, at any time. There is no separate AuMT contract, no AuMT supply schedule, and nothing to buy on a market — each pool issues its own AuMT, and the only way to acquire it is to provide liquidity to that pool. In Rome, a tessera was a small tablet — ticket, voucher, proof of identity — that proved you belonged and carried rights: entry, grain rations, assembly votes. Your AuMT is the same object in ERC-20 form: the deposit receipt that proves your stake in the protocol's liquidity and carries its rights — emission claims and governance power.
 
 **Aequilibrium** is the AMM engine — Latin for "equal balance." The pool layer powering every trade, every arb, every routing path. Balancer V3's Certora-verified smart contracts, reborn under a new economic model.
 

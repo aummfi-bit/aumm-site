@@ -41,7 +41,7 @@
   { "text": "Meet $AuMM.", "cta": true, "highlight": "$AuMM", "pause": 800 },
   { "text": "Get your Tessera.", "cta": true, "highlight": "Tessera", "pause": 1200 },
   { "text": "", "spacer": true, "pause": 800 },
-  { "text": "$AuMT proves you are participating.", "highlight": "$AuMT", "pause": 700 },
+  { "text": "Your Tessera is the pool token itself — your receipt.", "highlight": "Tessera", "pause": 700 },
   { "text": "$AuMM drives value to your participation.", "highlight": "$AuMM", "pause": 1200 },
   { "text": "Meet $AuMM.", "cta": true, "highlight": "$AuMM", "pause": 0 }
 ]

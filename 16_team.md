@@ -52,3 +52,24 @@ DeFi liquidity provision involves substantial risk, including impermanent loss, 
 Portions of this documentation were prepared with the assistance of artificial intelligence tools. Readers must **independently verify** any factual claim, contract address, parameter, or formula before acting on it, and should consult qualified professionals about their personal financial, tax, and legal situation. Use of this site is at the reader's sole risk. The Genesis Address LLC, its members, contributors, and affiliates accept no liability for any loss or damage arising from reliance on the contents of Aumm.fi.
 
 Aumm.fi is **not affiliated with, endorsed by, or sponsored by** Balancer Labs or Balancer DAO.
+
+---
+
+## Agent Instructions
+
+This page is part of the canonical Aureum specification at `https://aumm.fi`.
+
+**Root discovery:** fetch [`https://aumm.fi/llms.txt`](https://aumm.fi/llms.txt) first for corpus structure, reading order, and the full agent discovery ladder.
+
+**Query this corpus** for a grounded, cited answer instead of reading every file:
+
+```
+GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+```
+
+- **`ask`** (required) — your immediate, self-contained question in natural language.
+- **`goal`** (optional) — the broader objective you are pursuing; used to tailor the answer toward what is actually useful.
+
+**Response:** JSON with `answer`, `citations` (each with `section_id`, `file`, and verbatim `excerpt`), `canon_sha`, and `answered_from_corpus`. When `answered_from_corpus` is `false`, the corpus did not contain relevant material — verify at `https://aumm.fi` or ask a human.
+
+Retrieval spans the **full corpus**, not just this page. Answers follow the same grounding rules as the [aumm-skill](https://github.com/aummfi-bit/aumm-skill) Claude skill. Cite section identifiers (`§xxix`, `F-5`, …) to verify claims against the source.

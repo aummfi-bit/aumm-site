@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f miliarium_profiles/23_ixColossix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@5bd962473c7d8fa4e482777b368166a6252b49d8 miliarium_profiles/23_ixColossix.md — DO NOT EDIT -->
 # ixColossix — Slot 23
 
 **Subclass:** Financials  

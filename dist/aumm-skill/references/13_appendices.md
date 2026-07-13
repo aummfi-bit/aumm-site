@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 13_appendices.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@5bd962473c7d8fa4e482777b368166a6252b49d8 13_appendices.md — DO NOT EDIT -->
 # Appendices
 
 ## xxxvi. AMM Architecture: Aequilibrium
@@ -29,7 +29,7 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 ### What's New (Requires Audit)
 
 - AuMM token contract (ERC-20 with immutable supply cap and halving logic)
-- AuMT pool token wrapper (Aureum Market Tessera)
+- AuMT accounting layer (Aureum Market Tessera — the token itself is the unchanged Balancer V3 pool token/BPT; the new code is only the per-pool deposit/withdrawal recording that feeds emission claims and governance weight)
 - CCB emission engine (60-day EMA calculator, CCB multiplier computation with slope-based adjustments and dead zone — see [Constitution (§xxix)](10_constitution.md) for all numeric bounds)
 - Incendiary Boost engine (svZCHF/sUSDS deposit into der Bodensee, 1-epoch (14-day) emission streaming, priority skim, once-per-epoch-per-pool lock)
 - CCB multiplier engine (slope calculation, dead zone, step adjustments, clamp — all immutable; see [Constitution (§xxix)](10_constitution.md))

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@dd5fd5f210483395ca105ac7449c0a2202ed2a7f 17_faq.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@5bd962473c7d8fa4e482777b368166a6252b49d8 17_faq.md — DO NOT EDIT -->
 # FAQ
 
 ## Foundations
@@ -12,6 +12,10 @@ Aureum forks the verified contracts, drops the broken token layer, and replaces 
 ### What is AuMM?
 
 AuMM is a fair-launch ERC-20 on Ethereum with a 21,000,000 hard cap and a Bitcoin-style halving every 10,512,000 blocks (~4 years). The only way to earn it is by providing liquidity to emission-qualified Aequilibrium pools. No pre-mine, no team allocation, no VC round. AuMM has zero governance power. Value accrual is mechanical, not narrative: the protocol share of swap fees on every non-Bodensee gauged pool plus the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee Pool, whose fixed 40% AuMM / 30% sUSDS / 30% svZCHF weights reprice AuMM upward as the stablecoin side deepens. No buyback, no burn, no oracle.
+
+### What is AuMT? Is it a new token?
+
+No. AuMT (Aureum Market Tessera) is the pool token itself — the ERC-20 a pool mints when you provide liquidity and burns when you withdraw; in Balancer V3 terms, the BPT. Your AuMT balance *is* your LP position: the receipt you redeem, at any time, for your share of the pool's underlying tokens. There is no separate AuMT contract, no fixed supply, and no exchange listing — each pool issues its own AuMT, supply floats with deposits and withdrawals, and the only way to get it is to LP. Everything these docs attribute to AuMT — emission claims, governance weight (14-day qualification, dampened per [F-9](11_formulas.md)) — attaches to holding this receipt in an emission-qualified pool. That is why governance power cannot be bought on any market: the voting asset is the LP position itself.
 
 ### Is emission allocation rule-based or discretionary, and what's the difference between CCC and CCB?
 

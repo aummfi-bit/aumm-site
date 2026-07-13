@@ -3,7 +3,7 @@
 ## xxxi. Core Tokens
 
 - **AuMM** (Aureum Market Maker): reward token. 21,000,000 max supply, immutable halving schedule. Earned by LPs, backed by protocol revenue flowing into der Bodensee Pool. Zero governance power. Not a Miliarium Aureum pool slot — the 28 Miliarium pools are the ix-named registry in the [Miliarium Aureum registry](05_miliarium_aureum.md). Price discovery happens in **der Bodensee Pool** (AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30); **Months 1–10** it also receives **piecewise-decaying bootstrap** AuMM (one-sided deposits, 80%→50% by Month 6, 50%→0% by Month 10); **after Month 10**, the bootstrap channel is permanently zero and emissions route only to LP pools + gauges. See [Tokenomics](04_tokenomics.md).
-- **AuMT** (Aureum Market Tessera): LP participation token — your tessera. Proves an active liquidity position in a qualifying gauged pool. Governance weight scales with USD value of the underlying position and time held, dampened per [F-9](11_formulas.md). **Governance weight requires active gauged status** — when a pool's gauge is revoked (composition challenge, gauge challenge, automatic 4-epoch-disqualified revocation, or any other path), AuMT for that pool drops to **zero governance weight** at that block. Other LP entitlements continue: pool-share-of-tokens, ERC-4626 native yield, and the **LP residual** of swap fees (**~50%** of the charged fee on that pool; the hook still routes the **protocol share** to der Bodensee). AuMT in non-qualifying pools carries zero weight.
+- **AuMT** (Aureum Market Tessera): the pool token itself, not a separately issued asset — the ERC-20 LP share a pool mints on deposit and burns on withdrawal (Balancer V3's BPT), redeemable at any time for the position's share of the pool's underlying tokens. Each pool issues its own AuMT; there is no protocol-wide AuMT contract, supply, or market. Proves an active liquidity position in a qualifying gauged pool. Governance weight scales with USD value of the underlying position and time held, dampened per [F-9](11_formulas.md). **Governance weight requires active gauged status** — when a pool's gauge is revoked (composition challenge, gauge challenge, automatic 4-epoch-disqualified revocation, or any other path), AuMT for that pool drops to **zero governance weight** at that block. Other LP entitlements continue: pool-share-of-tokens, ERC-4626 native yield, and the **LP residual** of swap fees (**~50%** of the charged fee on that pool; the hook still routes the **protocol share** to der Bodensee). AuMT in non-qualifying pools carries zero weight.
 - **Tessera**: Roman term for a small tablet used as a ticket, voucher, or proof of identity — the conceptual name for AuMT. In Rome, a tessera proved you belonged: entry, grain distribution, voting in assemblies. Here it proves your stake in protocol liquidity and carries the same rights — emissions and governance power.
 
 ## xxxi-a. Protocol Time
@@ -93,3 +93,24 @@
 - **Composition Challenge**: deprecate a Miliarium pool and launch a replacement into the same slot (for delistings/failures). Pool composition is immutable on-chain — no in-place token swap. **Deposit:** one-sided into der Bodensee Pool ([Constitution §xxvii](10_constitution.md)). Requires 2/3 protocol-wide tessera-weighted approval. Like-for-like renewal only (same sector, risk, template role). Uses the **specified-pool model**: the proposal must reference an already-deployed candidate pool address; the vote is binary on that specific pool; on approval, the Miliarium Registry updates the slot pointer and the replacement auto-gauges via `registerGaugeFromComposition`. **Deprecation is gauge-revoked-only** — the old pool persists on-chain as a Sandbox-style pool with the fee-routing hook permanently attached (**protocol share** to Bodensee for life; **LP residual** still accrues to LPs on that pool). See [Bootstrap (§xxiv)](08_bootstrap.md) and [Constitution §xxvii](10_constitution.md).
 - **On-Chain-Only Proposal Rule**: every proposal must cite verifiable on-chain state only — contract addresses, block ranges, deterministic metrics. Off-chain claims are invalid.
 See [Immutable Parameters (§xxix)](10_constitution.md).
+
+---
+
+## Agent Instructions
+
+This page is part of the canonical Aureum specification at `https://aumm.fi`.
+
+**Root discovery:** fetch [`https://aumm.fi/llms.txt`](https://aumm.fi/llms.txt) first for corpus structure, reading order, and the full agent discovery ladder.
+
+**Query this corpus** for a grounded, cited answer instead of reading every file:
+
+```
+GET https://aumm.fi/<page>.md?ask=<question>&goal=<end_goal>
+```
+
+- **`ask`** (required) — your immediate, self-contained question in natural language.
+- **`goal`** (optional) — the broader objective you are pursuing; used to tailor the answer toward what is actually useful.
+
+**Response:** JSON with `answer`, `citations` (each with `section_id`, `file`, and verbatim `excerpt`), `canon_sha`, and `answered_from_corpus`. When `answered_from_corpus` is `false`, the corpus did not contain relevant material — verify at `https://aumm.fi` or ask a human.
+
+Retrieval spans the **full corpus**, not just this page. Answers follow the same grounding rules as the [aumm-skill](https://github.com/aummfi-bit/aumm-skill) Claude skill. Cite section identifiers (`§xxix`, `F-5`, …) to verify claims against the source.
