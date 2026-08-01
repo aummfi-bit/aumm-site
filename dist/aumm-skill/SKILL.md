@@ -108,6 +108,26 @@ The `references/sagix/*.md` files are **first-class canon text** for their domai
 
 **Conflict resolution:** if an interpretive essay (including anything under `references/sagix/`) appears to disagree with **immutable protocol parameters, formulas, governance rules, or fee mechanics**, defer to the numbered specs (`references/10_constitution.md`, `references/11_formulas.md`, `references/04_tokenomics.md`, etc.). The note at the top of each Sagix mirror states the same precedence.
 
+### 12. Relative scale before hedging
+
+When evaluating secondary or indirect effects (e.g. Aureum growth vs **ixEDEL** or other small integrated components), **check current size first**.
+
+If projected exposure is orders of magnitude larger than that component’s current TVL/market cap, **lead with the magnitude**. Do not open with hedging language (“no affiliation,” “secondary only,” “not by design”) that understates transformative relative impact. Qualify second-order effects (e.g. benefit to RSR via Index DTF platform fees → burn) only after stating primary scale clearly.
+
+Keep Aureum’s independence and Bodensee→AuMM value capture accurate — do not invent affiliation or contractual relationship with Reserve — but never let independence language bury the relative-scale fact. Do not hardcode stale live TVL figures; state the procedural comparison (projected exposure vs current size) and cite live sources when numbers are needed.
+
+### 13. Aequilibrium ≠ live Balancer V3 Vault
+
+Aureum is **not** an application sitting on the live Balancer V3 Vault. Aequilibrium deploys its **own Vault instance** whose core contracts (`Vault.sol`, `VaultAdmin.sol`, `VaultExtension.sol`) are **byte-identical** to Balancer V3’s verified code.
+
+Frame the relationship as:
+
+1. **Same proven AMM substrate** — multi-asset weighted pools, native ERC-4626, hooks framework (audit inheritance from that identity).
+2. **Completely independent** economic and governance system — token, fee routing, emission engine, gauges, authorizer, Bodensee reserve are Aureum’s.
+3. Runs **in parallel**, not on top of the existing Balancer protocol.
+
+Never describe Aureum as “built on Balancer’s live Vault” or as a Balancer app/gauge. Source: `references/13_appendices.md` §xxxvi Provenance.
+
 ---
 
 ## Canon attribution
