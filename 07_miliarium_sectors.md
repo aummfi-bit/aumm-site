@@ -49,7 +49,7 @@ The Miliarium Aureum is a **miniature economy**, not a random collection of liqu
 |:-----|:--------|:------|
 | [ixHelvetia](01_ixHelvetia.md) | Frankencoin MMA | **80% svZCHF / 20% sUSDS** — not a standard 52/16/32 pool; no ixEDEL |
 | [ixAetheron](02_ixAetheron.md) | ETH staking | sfrxETH / wOETH; non-standard weights |
-| [ixCasper](03_ixCasper.md) | LST / Flux | fWSTETH / fWETH; svZCHF appears as theme |
+| [ixCasper](03_ixCasper.md) | LST / Fluid | fWSTETH / fWETH; svZCHF appears as theme |
 | [ixViatica](04_ixViatica.md) | FX / EM | fBRZ / st-EURA |
 | [ixEdelweiss](05_ixEdelweiss.md) | ixEDEL price discovery | Non-standard connector |
 | [ixLibertas](06_ixLibertas.md) | USD stable hub | No ixEDEL |
