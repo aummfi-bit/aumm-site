@@ -94,7 +94,7 @@ The ceiling is the AuMM side itself. After Month 10, no new AuMM enters via boot
 
 Aggregators route to depth. 1inch, Paraswap, and CoW route based on best execution, which is a function of slippage, which is a function of liquidity. The constellation's small-world topology, with svZCHF and ixEDEL as connectors, is latent until pools cross the depth at which aggregators begin splitting routes through them.
 
-Before that depth exists, three things bridge the gap. The founding team seeds pools with svZCHF and ixEDEL at launch, which gives every Miliarium pool ERC-4626 yield from block 0. Through Month 10, all 28 pools split the LP tranche equally, so even a thin pool earns tokens. Anyone can pay for an Incendiary Boost: deposit svZCHF or sUSDS one-sided into Bodensee and a target pool gets a 14-day priority emission stream.
+Before that depth exists, three things bridge the gap. The founding team seeds pools with svZCHF and ixEDEL at launch, which gives every Miliarium pool ERC-4626 yield from block 0. Through Month 10, all 28 pools split the LP tranche equally, so even a thin pool earns tokens. Anyone can pay for an Incendiary Boost: deposit svZCHF or sUSDS one-sided into Bodensee and a target pool gets a priority emission stream, running across as many consecutive epochs as the shared per-epoch cap requires.
 
 ### Who actually buys AuMM exposure?
 
