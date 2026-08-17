@@ -152,7 +152,7 @@ All **protocol-captured** fee revenue flows to a single destination: **der Boden
 |--------|-------------|-------|
 | **Protocol share** of swap fees on **non–der Bodensee gauged pools** ( **`protocolSwapFeePercentage = 50e16`** — **~50%** of the pool's charged swap fee) | der Bodensee Pool (one-sided svZCHF) via Balancer V3 hook on `onAfterSwap` | **100%** of that protocol share |
 | **LP residual** of swap fees on **non–der Bodensee gauged pools** | LPs of the originating pool (Vault accounting) | **~50%** of the charged swap fee |
-| ERC-4626 yield fee (10% skim) on **non–der Bodensee gauged pools** | der Bodensee Pool (one-sided svZCHF) | **100%** of the skim (separate from swap-fee split) |
+| ERC-4626 yield fee (10% skim) on **non–der Bodensee gauged pools** | der Bodensee Pool (one-sided svZCHF) | **100%** of the skim (separate from swap-fee split). Yield fees accrue continuously and are collected permissionlessly; routing into der Bodensee is governance-gated and happens at most once per epoch for any given pool |
 | ERC-4626 yield on **der Bodensee's own holdings** (svZCHF + sUSDS) | Accrues in-pool via Rate Providers — no skim, no external routing | 100% in-pool |
 | Swap fees on **trades inside der Bodensee Pool** | der Bodensee LPs (retained in pool) | **100%** of the in-pool tier (e.g. **0.75%** at genesis) |
 
