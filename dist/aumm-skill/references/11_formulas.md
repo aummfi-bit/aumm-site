@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@0a6262c45e7d5cd7933a80283d4d3841abb40f5e 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -55,7 +55,7 @@ Where **i** ranges over the 28 Miliarium Aureum pools.
 
 ### F-2. Incendiary Boost Priority Claim
 
-**Purpose:** Anyone deposits any amount of svZCHF/sUSDS one-sided into der Bodensee Pool in exchange for a **1-epoch (14-day)** supplementary emission stream for a gauged pool, starting at the next epoch boundary — from the same fixed block emission, not new inflation.
+**Purpose:** Anyone deposits svZCHF/sUSDS one-sided into der Bodensee Pool in exchange for a supplementary emission stream for a gauged pool, starting at the next epoch boundary — from the same fixed block emission, not new inflation. The deposit buys an entitlement, not a fixed window: a larger deposit spans more consecutive epochs rather than a larger single-epoch stream.
 
 **Effect:** Incendiary claims are subtracted from the **LP emission tranche** (after F-0’s bootstrap skim) **before** the tranche splits across pools (equal or CCB). Whatever remains is what equal split or CCB allocates. One boost per pool per epoch.
 
@@ -65,7 +65,7 @@ lp_tranche(block) = lp_share(block) × block_emission(block)
 Remaining(block) = lp_tranche(block) − Incendiary_claims(block)
 ```
 
-Deposit amount at user discretion; full amount one-sided into der Bodensee Pool, non-refundable.
+Deposit amount at user discretion; full amount one-sided into der Bodensee Pool, non-refundable. Placement is FCFS walk-forward: from the next epoch boundary each epoch allocates `min(remaining entitlement, bucket capacity left)`, carrying the remainder forward until exhausted, so a boost spans as many consecutive epochs as the cap requires. All pools draw from **one shared bucket** capped at **15% of that epoch's emission integral** — integral form rather than `rate × BLOCKS_PER_EPOCH` because epochs straddle halvings — which is the anti-drought guard protecting ordinary LPs. Boosts stack: allocations are additive per (epoch, pool), with no per-pool limit.
 
 ---
 

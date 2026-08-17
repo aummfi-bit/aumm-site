@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://aumm.fi/</loc><lastmod>2026-06-25T12:41:00Z</lastmod></url>
   <url><loc>https://aumm.fi/llms.txt</loc><lastmod>2026-08-01T18:45:17Z</lastmod></url>
-  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-08-17T01:29:33Z</lastmod></url>
   <url><loc>https://aumm.fi/15_overview.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/08_bootstrap.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/08_bootstrap.md</loc><lastmod>2026-08-17T01:11:53Z</lastmod></url>
   <url><loc>https://aumm.fi/09_transitions.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/10_constitution.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/11_formulas.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/03_theoretical_foundation.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/02_mental_model.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/10_constitution.md</loc><lastmod>2026-08-17T01:12:04Z</lastmod></url>
+  <url><loc>https://aumm.fi/11_formulas.md</loc><lastmod>2026-08-17T01:11:48Z</lastmod></url>
+  <url><loc>https://aumm.fi/03_theoretical_foundation.md</loc><lastmod>2026-08-17T01:12:04Z</lastmod></url>
+  <url><loc>https://aumm.fi/02_mental_model.md</loc><lastmod>2026-08-17T01:11:50Z</lastmod></url>
   <url><loc>https://aumm.fi/02a_flywheel.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/04_tokenomics.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/05_miliarium_aureum.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/04_tokenomics.md</loc><lastmod>2026-08-17T01:23:05Z</lastmod></url>
+  <url><loc>https://aumm.fi/05_miliarium_aureum.md</loc><lastmod>2026-08-17T01:15:13Z</lastmod></url>
   <url><loc>https://aumm.fi/06_miliarium_manifest.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/07_miliarium_sectors.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/07a_tokens.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/07_miliarium_sectors.md</loc><lastmod>2026-08-17T00:58:40Z</lastmod></url>
+  <url><loc>https://aumm.fi/07a_tokens.md</loc><lastmod>2026-08-17T01:03:18Z</lastmod></url>
   <url><loc>https://aumm.fi/16_team.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/12_aureum_glossary.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/13_appendices.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/12_aureum_glossary.md</loc><lastmod>2026-08-17T01:11:54Z</lastmod></url>
+  <url><loc>https://aumm.fi/13_appendices.md</loc><lastmod>2026-08-17T01:11:56Z</lastmod></url>
   <url><loc>https://aumm.fi/14_ux_ui.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/17_faq.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/17_faq.md</loc><lastmod>2026-08-17T01:15:13Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/decentralized_money.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/eurodollar_shadow.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/ddd9_part3.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
@@ -31,11 +31,11 @@
   <url><loc>https://aumm.fi/README.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/01_ixHelvetia.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/02_ixAetheron.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/03_ixCasper.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/04_ixViatica.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/03_ixCasper.md</loc><lastmod>2026-08-17T00:58:46Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/04_ixViatica.md</loc><lastmod>2026-08-17T01:27:32Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/05_ixEdelweiss.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/06_ixLibertas.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/07_ixCambio.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/07_ixCambio.md</loc><lastmod>2026-08-17T01:27:32Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/08_ixBrevis.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/09_ixAltrix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/10_ixMediox.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@0a6262c45e7d5cd7933a80283d4d3841abb40f5e 05_miliarium_aureum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 05_miliarium_aureum.md — DO NOT EDIT -->
 # The Miliarium Aureum
 
 The 28 pools are pre-defined at launch and locked from block 0.
@@ -6,7 +6,7 @@ The 28 pools are pre-defined at launch and locked from block 0.
 ### Scope
 
 - **28** Miliarium Aureum pools (the founding constellation), immutable from block 0.
-- Through **end of Month 10**, the **LP emission tranche** splits **equal** (**1/28** each). **Months 11–12** blend **linearly** from equal to CCB (see [Constitution](10_constitution.md)). **After Year 1**, **pure CCB** (EMA TVL × CCB multiplier). Incendiary Boost is a separate priority skim on the LP tranche (1 epoch per boost, any amount, once per epoch per pool).
+- Through **end of Month 10**, the **LP emission tranche** splits **equal** (**1/28** each). **Months 11–12** blend **linearly** from equal to CCB (see [Constitution](10_constitution.md)). **After Year 1**, **pure CCB** (EMA TVL × CCB multiplier). Incendiary Boost is a separate priority skim on the LP tranche (FCFS walk-forward placement, any deposit amount, spanning as many consecutive epochs as the shared 15%-per-epoch cap requires, stacking additive per pool).
 
 ### AuMM vs the 28 pools
 

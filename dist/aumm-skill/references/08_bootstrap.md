@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@0a6262c45e7d5cd7933a80283d4d3841abb40f5e 08_bootstrap.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 08_bootstrap.md — DO NOT EDIT -->
 # Bootstrap Rules
 
 *How new pools enter the emission economy.*
@@ -35,7 +35,7 @@ All other layers require an active gauge first. A successful pool builds TVL int
 
 ### Incendiary Boost (overview)
 
-**Incendiary Boost (user-funded).** Anyone can deposit **any amount** of **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow) to activate a **1-epoch (14-day)** supplementary emission stream for a gauged pool, starting the next epoch. Incendiary is a priority skim from the block emission (see §xxii below) — not a CCB multiplier.
+**Incendiary Boost (user-funded).** Anyone can deposit **svZCHF/sUSDS** into der Bodensee Pool (one-sided inflow) to activate a supplementary emission stream for a gauged pool, starting the next epoch and running for as many consecutive epochs as the shared cap requires. Incendiary is a priority skim from the block emission (see §xxii below) — not a CCB multiplier.
 
 ## xxii. Incendiary Boost
 
@@ -45,7 +45,7 @@ Proof-of-conviction bootstrap. Anyone deposits **any amount** of svZCHF/sUSDS **
 
 - **Any gauged pool** can be boosted.
 - **Anyone** can pay for a boost — not limited to pool operators.
-- **Once per epoch per pool.** A pool can be boosted as many times as people want, but only once per epoch. A new boost for the same pool cannot start until the current boost epoch ends.
+- **Stacking is additive.** A pool can be boosted any number of times, and concurrent boosts on the same pool sum rather than queue — allocations are additive per (epoch, pool). A new boost does not wait for an earlier one to finish; boosts compete only for the shared per-epoch bucket.
 - **Deposit amount:** user's choice. The full amount goes one-sided into der Bodensee Pool — no LP tokens minted, non-refundable.
 
 ### Priority Skim
@@ -54,7 +54,7 @@ Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priorit
 
 ### Immutable Parameters
 
-All parameters immutable from block 0: 1-epoch (14-day) duration, priority skim, svZCHF/sUSDS deposit to der Bodensee.
+All parameters immutable from block 0: the **15% aggregate cap** on all boost allocations active in an epoch, FCFS walk-forward placement, priority skim, svZCHF/sUSDS deposit to der Bodensee.
 
 ## xxiii. Anti-Gaming Engine
 

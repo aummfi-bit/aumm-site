@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@0a6262c45e7d5cd7933a80283d4d3841abb40f5e 10_constitution.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 10_constitution.md — DO NOT EDIT -->
 # Constitution
 
 *The immutable operating law of Aureum.*
@@ -95,7 +95,7 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 
 ### Full CCB (from Year 1 end onward)
 
-Incendiary Boost claims (1 epoch / 14 days each, any deposit amount, once per epoch per pool) are skimmed from the **LP emission tranche** (after bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day EMA of on-chain TVL ([Theoretical foundations §vi-b](03_theoretical_foundation.md)). The CCB scores each eligible pool by combining smoothed TVL with its CCB multiplier (Miliarium pools only; others use a neutral value), then normalizes to produce fractional shares. Multipliers update bi-weekly for the 28 only, within the immutable band in §xxix below. No voting, no human override. Formal definitions in [Protocol formulas](11_formulas.md).
+Incendiary Boost claims (placed FCFS walk-forward from the next epoch boundary, spanning as many consecutive epochs as the shared 15%-per-epoch cap requires; deposit amount at user discretion; stacking additive per pool) are skimmed from the **LP emission tranche** (after bootstrap skim; post–Month 10 the tranche is the full block emission) **before** the CCB splits the remainder. Each pool carries a 60-day EMA of on-chain TVL ([Theoretical foundations §vi-b](03_theoretical_foundation.md)). The CCB scores each eligible pool by combining smoothed TVL with its CCB multiplier (Miliarium pools only; others use a neutral value), then normalizes to produce fractional shares. Multipliers update bi-weekly for the 28 only, within the immutable band in §xxix below. No voting, no human override. Formal definitions in [Protocol formulas](11_formulas.md).
 
 ## xxix. Immutable Parameters (Canonical Source)
 
@@ -118,7 +118,7 @@ Immutable from block 0, cannot be changed by any means.
 |:---------|:---------------|:---------------|:--------|
 | `BLOCKS_PER_DAY` | 7,200 | 1 day | EMA daily sampling (F-4), per-day rates |
 | `BLOCKS_PER_WEEK` | 50,400 | 7 days | General reference |
-| `BLOCKS_PER_EPOCH` | 100,800 | 14 days ("bi-weekly") | Incendiary Boost duration (F-2), CCB multiplier cadence (F-8), efficiency tournament smoothing unit, fee-change cooldown |
+| `BLOCKS_PER_EPOCH` | 100,800 | 14 days ("bi-weekly") | Incendiary Boost placement and accounting unit (F-2), CCB multiplier cadence (F-8), efficiency tournament smoothing unit, fee-change cooldown |
 | `BLOCKS_PER_MONTH` | 219,000 | ~30.4 days | F-0 piecewise boundaries, Month 10 bootstrap termination, Month 11–12 transition, Month 13 efficiency-tournament activation |
 | `BLOCKS_PER_QUARTER` | 657,000 | ~91.25 days | General reference |
 | `BLOCKS_PER_YEAR` | 2,628,000 | 365 days (exact) | Year 1 / transition-complete boundary, era-quarter boundary, F-9 governance dampening era boundaries |
@@ -133,7 +133,7 @@ Immutable from block 0, cannot be changed by any means.
 | `YEAR_1_END_BLOCK` | `genesis + BLOCKS_PER_YEAR` | F-3 transition endpoint (α = 1) |
 | `MONTH_13_START_BLOCK` | `genesis + 12 × BLOCKS_PER_MONTH + 1` | Efficiency tournament activation |
 | `FIRST_HALVING_BLOCK` | `genesis + BLOCKS_PER_ERA` | Era 0 → Era 1 transition; F-9 governance dampening exponent shift |
-| `INCENDIARY_BOOST_DURATION_BLOCKS` | 100,800 | = `BLOCKS_PER_EPOCH` |
+| `BOOST_CAP_BPS` | 1,500 bps = 15% of an epoch's emission integral | Incendiary aggregate cap across all boosts active in that epoch (F-2); the epoch is the bucket unit, not a boost duration |
 
 ### EMA parameters
 

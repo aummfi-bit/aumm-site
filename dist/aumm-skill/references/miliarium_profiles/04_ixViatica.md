@@ -1,10 +1,12 @@
-<!-- GENERATED FROM aumm-site@0a6262c45e7d5cd7933a80283d4d3841abb40f5e miliarium_profiles/04_ixViatica.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 miliarium_profiles/04_ixViatica.md — DO NOT EDIT -->
 # ixViatica — Slot 04
 
 **Sector:** FX / Emerging Markets
 **Template:** Standard (52% / 16% / 32%)
 
 ---
+
+> **Slot 04 is not in the launch constellation.** The protocol launched 26 of 28 Miliarium pools; slots 04 and 07 were descoped per PB-D8. `fBRZ` does not exist: the Flux Finance address list (`docs.fluxfinance.com/addresses`, browser-verified 2026-07-12, page last updated 13 June 2024) carries exactly fUSDC, fDAI, fUSDT, fFRAX and fOUSG, and Fluid lists no BRZ wrapper either — so the five-token composition below cannot be assembled as specced. The composition stands unamended deliberately: substituting an alternative BRL leg is a spec amendment, and spec amendments belong to the Stage-O composition-challenge path (`registerGaugeFromComposition`, governance-only, like-for-like), not to a unilateral swap. The slot re-enters if and when a BRZ vault exists.
 
 ## Composition
 

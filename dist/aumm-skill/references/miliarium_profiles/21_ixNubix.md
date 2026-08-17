@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@0a6262c45e7d5cd7933a80283d4d3841abb40f5e miliarium_profiles/21_ixNubix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 miliarium_profiles/21_ixNubix.md — DO NOT EDIT -->
 # ixNubix — Slot 21
 
 **Subclass:** Mega-cap tech  
