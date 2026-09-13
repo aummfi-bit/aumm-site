@@ -1,4 +1,3 @@
-<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 02_mental_model.md — DO NOT EDIT -->
 # Aureum Protocol
 
 > **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
@@ -85,7 +84,7 @@ The 28 Miliarium pools are not a flat hub-and-spoke and not a random graph. Topo
 
 **The hub-and-spoke overlay.** Inside the small-world graph, **ixEdelweiss (slot 05)** is the dedicated price-discovery hub for ixEDEL — 46% ixEDEL, the deepest ixEDEL venue, and the Roman monument the constellation is named after. The other 25 ixEDEL-holding pools are spokes around it. Hub-and-spoke describes the **price-discovery** topology for ixEDEL specifically; the small-world graph describes the **full routed liquidity surface** across both universal connectors.
 
-**On top of its routing role, svZCHF is also the autonomous-reserve anchor.** **der Bodensee Pool** (AuMM/sUSDS/svZCHF), protocol fee inflows, governance deposits, Incendiary Boost intake, and composition-challenge deposits all land as one-sided svZCHF (or sUSDS) into der Bodensee — the same CHF-anchored stable that routes inside every pool also stacks captured revenue and conviction capital into the autonomous reserve. ixEDEL has no equivalent reserve role. Balancer V3 Rate Providers on svZCHF and sUSDS make the reserve-side ERC-4626 weight yield-accruing in-place; see [Tokenomics §x-a](04_tokenomics.md) for the full mechanism.
+**On top of its routing role, svZCHF is also the fee-sink anchor.** **der Bodensee Pool** (AuMM/sUSDS/svZCHF), protocol fee inflows, governance deposits, Incendiary Boost intake, and composition-challenge deposits all land as one-sided svZCHF (or sUSDS) into der Bodensee — the same CHF-anchored stable that routes inside every pool also stacks captured revenue and conviction capital into the protocol fee sink. ixEDEL has no equivalent fee-sink role. Balancer V3 Rate Providers on svZCHF and sUSDS make the reserve-side ERC-4626 weight yield-accruing in-place; see [Tokenomics §x-a](04_tokenomics.md) for the full mechanism.
 
 **Slot exceptions (deliberate departures from the universal-connector pattern).** **ixHelvetia (01)** is the Frankencoin MMA — pure svZCHF/sUSDS, no ixEDEL bridge. **ixAetheron (02)** is the ETH-staking pool with an ETH-native yield core (sfrxETH / wOETH) — keeps the ixEDEL anchor but skips svZCHF. **ixLibertas (06)** is the seven-token USD stable hub — holds **neither** anchor, giving traders a pure stablecoin venue with no CHF or basket exposure. These three slots serve flows that should not pay the cross-anchor cost; they are exceptions inside the small-world graph, not failures of it.
 
@@ -109,18 +108,18 @@ In Roman terms: **svZCHF and ixEDEL are the two viae** (the roads connecting eve
 
 ### v-a. The Circuit
 
-Follow one dollar around the loop. It returns larger.
+Follow one dollar around the loop.
 
 1. **Emissions recruit capital.** A fixed AuMM stream per block — **1.00 AuMM/block in Era 0** ([Tokenomics](04_tokenomics.md)) — pays LPs who deposit productive capital. The stream is fixed in *tokens*; its dollar value is `AuMM_per_block × AuMM_price`.
-2. **Capital generates revenue.** Every dollar of TVL in an ERC-4626 pool yields from block 0; every trade pays a swap fee — the **Day-One Revenue Guarantee**, no volume required.
-3. **Revenue deepens the reserve.** Protocol swap fees (**~50%** of charged fee) and the **10%** ERC-4626 yield skim route one-sided into der Bodensee as sUSDS/svZCHF; der Bodensee's **60%** stablecoin side compounds in-place via Rate Providers. Three inflows, one direction ([Tokenomics §x-a](04_tokenomics.md)).
-4. **A deeper reserve reprices AuMM.** Fixed **40%** AuMM side; bootstrap one-sided inflow decays to **zero at Month 10** ([F-0](11_formulas.md)), after which AuMM enters only via swap. Weighted-pool math — fixed numerator, growing denominator — lifts price mechanically. No buyback, no burn, no discretion. **The pool is the value-capture mechanism.**
-5. **Higher AuMM price raises every pool's APR.** Token-denominated emissions mean repricing lifts the dollar value of the same per-block stream — headline APR rises with **no new fee revenue**.
-6. **Higher APR recruits more capital.** Step 1 again, one turn richer.
+2. **Capital generates revenue.** Every dollar of TVL in an ERC-4626 pool can yield from block 0; every trade pays a swap fee — the **Day-one fee architecture**, not volume-dependent.
+3. **Revenue deepens der Bodensee.** Protocol swap fees (**~50%** of charged fee) and the **10%** ERC-4626 yield skim route one-sided into der Bodensee as sUSDS/svZCHF; der Bodensee's **60%** stablecoin side compounds in-place via Rate Providers. Three inflows, one direction ([Tokenomics §x-a](04_tokenomics.md)).
+4. **Balances set AuMM’s implied spot.** Fixed **40%** AuMM side; bootstrap one-sided inflow decays to **zero at Month 10** ([F-0](11_formulas.md)), after which AuMM enters only via swap. When the stablecoin side grows relative to the AuMM side, weighted-pool math updates the AuMM↔stablecoin exchange rate. No buyback, no burn, no discretion. **The pool is the value-capture mechanism.**
+5. **Implied spot feeds emission APR.** Token-denominated emissions mean a higher AuMM↔stablecoin exchange rate increases the dollar value of the same per-block stream — headline APR can rise with **no new fee revenue**. Contingent on fee inflows and adoption ([§v-d](#v-d-the-one-input-the-loop-cannot-engineer)).
+6. **Higher APR can recruit more capital.** Step 1 again, if the loop turns.
 
 ```
 emissions → TVL → fees + 4626 yield → der Bodensee deepens
-    → AuMM reprices up → AuMM-denominated APR rises → more TVL → …
+    → implied AuMM spot (from balances) → AuMM-denominated APR may change → more TVL → …
 ```
 
 Reflexive by construction: each turn's output is the next turn's input. The only external fuel is the first few turns of capital.
@@ -134,23 +133,23 @@ Most token economies bleed at the seams — treasury sales, insider unlocks, buy
 - **No buyback to mis-route.** Value accrues through pool math, not a wallet that could dump.
 - **No emission vote.** CCB allocation is mechanical ([Constitution §xxix](10_constitution.md)); governance cannot redirect the loop.
 
-The loop has nowhere to lose value. *Every swap fee deepens the lake.*
+The loop has nowhere to lose value — protocol-captured fees route to der Bodensee; there is no secondary treasury.
 
 ### v-c. Where You Stand in the Loop
 
 Same circuit from the protocol's view; three participant positions, three leverage profiles.
 
-**The holder.** Buy and hold. You capture step 4 — repricing — at spot when you transact. No IL, no liquidity provided. Long a fixed numerator against a deepening reserve: the cleanest patience bet.
+**The holder.** Buy and hold. You capture step 4 — the implied spot from balances — at the market when you transact. No IL, no liquidity provided. Long a fixed AuMM side against a fee-deepened stablecoin side: a patience position, contingent on adoption.
 
-**The buyer-as-participant.** Buying AuMM from der Bodensee turns the wheel: your purchase deepens the reserve, thins the AuMM side, lifts price (step 4) and AuMM-denominated APR across eligible pools (step 5). Leverage is inverse to reserve depth — a shallow early reserve moves hard on the same buy that barely registers once mature. The early believer has the most wheel leverage for the same reason the wheel needs them most.
+**The buyer-as-participant.** Buying AuMM from der Bodensee turns the wheel: your purchase deepens the stablecoin side, thins the AuMM side, and moves the implied exchange rate (step 4) and AuMM-denominated APR across eligible pools (step 5). Leverage is inverse to pool depth — a shallow early pool moves hard on the same buy that barely registers once mature. The early believer has the most wheel leverage for the same reason the wheel needs them most.
 
 **The der Bodensee LP.** Provide AuMM into der Bodensee — the apex seat, where every revenue stream terminates and you own a pro-rata slice. Three returns stack:
 
 - full **0.75%** in-pool swap fee on every trade, including every recruitment buy;
 - in-place ERC-4626 yield on the **60%** stablecoin side via Rate Providers;
-- repricing on your **40%** AuMM leg as the reserve deepens.
+- exposure to the implied AuMM↔stablecoin exchange rate on your **40%** AuMM leg as fee inflows change balances.
 
-Cost: impermanent loss on the AuMM leg — sharp appreciation means net-selling AuMM vs. simply holding. Deep-conviction only: long AuMM, wear the rebalancing cost, collect the toll on everyone else's recruitment.
+Cost: impermanent loss on the AuMM leg — if AuMM’s implied spot moves up sharply, the pool nets you selling AuMM vs. simply holding. Deep-conviction only: long AuMM, wear the rebalancing cost, collect the toll on everyone else's recruitment.
 
 ### v-d. The One Input the Loop Cannot Engineer
 

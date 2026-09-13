@@ -35,12 +35,12 @@ Frame: Bitcoin-style *issuance schedule* applied to a liquidity-mining mechanism
 
 These are two distinct mechanisms; do not conflate them.
 
-- **CCC** (Continuous Capital Corporation): the autonomous reserve and rule set. Algorithmic capital allocation, no discretionary management, no separate treasury. (`references/12_aureum_glossary.md` definition)
+- **CCC** (Continuous Capital Corporation): rule-based reserve management and emission rules via der Bodensee. Algorithmic capital allocation, no discretionary management, no separate treasury. (`references/12_aureum_glossary.md` definition)
 - **CCB** (Continuous Central Bank): the automatic emission allocator. Scores each Miliarium pool by smoothed TVL × multiplier, normalizes to fractional shares, distributes block emissions. EMA-driven (60-day TVL EMA per F-4). (`references/12_aureum_glossary.md`, `references/11_formulas.md` F-5/F-6)
 
 ### 3. der Bodensee: on-chain from genesis
 
-The pool exists and is tradeable from block 0; protocol revenue and governance deposits route into it per §xxix.
+The pool exists and is tradeable from block 0; protocol revenue and governance deposits route into it per §xxix. AuMM’s implied spot comes from pool balances — not a treasury price floor or buyback. Follow Voice / Lexicon in `references/12_aureum_glossary.md` when summarizing value capture.
 
 Source: `references/10_constitution.md` §xxix (der Bodensee Pool parameters).
 

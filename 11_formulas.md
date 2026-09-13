@@ -256,9 +256,9 @@ Eligibility is re-evaluated at each tournament epoch boundary against the curren
 
 ### F-11. der Bodensee Pool Composition (Fixed Weights)
 
-**Purpose:** Define the immutable composition of der Bodensee Pool — the protocol's autonomous reserve and AuMM price-discovery venue.
+**Purpose:** Define the immutable composition of der Bodensee Pool — the protocol's fee sink and AuMM price-discovery venue.
 
-**Effect:** Three-token weighted pool with **fixed** weights from block 0. No time-decay curve. No discretionary reweighting. Weighted-pool math is the only pricing mechanism — as the stablecoin side deepens via continuous one-sided fee inflows while the AuMM side is capped by the decaying F-0 bootstrap (zero after Month 10), the ratio re-prices AuMM mechanically.
+**Effect:** Three-token weighted pool with **fixed** weights from block 0. No time-decay curve. No discretionary reweighting. Weighted-pool math is the only pricing mechanism — as the stablecoin side deepens via one-sided fee inflows while the AuMM side is capped by the decaying F-0 bootstrap (zero after Month 10), the ratio updates AuMM’s implied spot from balances.
 
 ```
 weight_AuMM   = 0.40        // 40%
@@ -279,7 +279,7 @@ weight_svZCHF = 0.30        // 30%
 
 **Stablecoin inflows.** **100%** of the **protocol share** of swap fees on all non–der Bodensee gauged pools (**100%** of the Vault-assigned protocol fee — **`protocolSwapFeePercentage = 50e16`**, i.e. **~50%** of charged swap fee volume; see [Constitution §xxix — Fee routing](10_constitution.md)) plus **100%** of the ERC-4626 yield fee (10% skim on all yield-bearing tokens held in **non–der Bodensee gauged pools**) enter as **one-sided stablecoin deposits** (always routed as svZCHF per Constitution §xxix), continuously deepening the reserve side. **LP residuals** on swap fees stay with originating-pool LPs. Governance deposits and Incendiary Boost deposits use the same one-sided path.
 
-**Der Bodensee is excluded from the yield skim.** Its own ERC-4626 holdings (svZCHF + sUSDS, 60% of pool TVL) accrue yield continuously via the Rate Provider mechanism, and that yield stays inside the pool — it accrues to Bodensee LPs via their BPT share and reprices AuMM upward via weighted-pool math. Skimming Bodensee's yield and depositing it back into Bodensee would be a circular no-op. The skim mechanism extracts yield from *other* pools only; Bodensee is the **destination** of the skim, not a source. See [Tokenomics §x-a](04_tokenomics.md) for the full self-yield mechanism.
+**Der Bodensee is excluded from the yield skim.** Its own ERC-4626 holdings (svZCHF + sUSDS, 60% of pool TVL) accrue yield continuously via the Rate Provider mechanism, and that yield stays inside the pool — it accrues to Bodensee LPs via their BPT share and changes rate-scaled balances (and thus AuMM’s implied spot) via weighted-pool math. Skimming Bodensee's yield and depositing it back into Bodensee would be a circular no-op. The skim mechanism extracts yield from *other* pools only; Bodensee is the **destination** of the skim, not a source. See [Tokenomics §x-a](04_tokenomics.md) for the full self-yield mechanism.
 
 **Price discovery.** No founder-set price, no governance-voted multiple, no TVL measurement window. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically from genesis.
 

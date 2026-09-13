@@ -24,7 +24,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - On-chain TVL data begins accumulating for EMA(60) signal.
 
 **Months 1–10 — der Bodensee emission bootstrap (piecewise-linear decay).**
-- Bodensee share decays **linearly from 80% to 50%** between genesis and the **final block of Month 6**, then **linearly from 50% to 0%** between Month 6 and the **final block of Month 10**. LP tranche grows correspondingly (20% → 50% → 100%). Weighted-pool math reprices AuMM as one-sided stablecoin fee inflows deepen the reserve side. No founder-set price, no governance-voted multiple — the reserve ratio **is** the market price from genesis.
+- Bodensee share decays **linearly from 80% to 50%** between genesis and the **final block of Month 6**, then **linearly from 50% to 0%** between Month 6 and the **final block of Month 10**. LP tranche grows correspondingly (20% → 50% → 100%). Weighted-pool math updates AuMM’s implied spot as one-sided stablecoin fee inflows deepen the stablecoin side. No founder-set price, no governance-voted multiple — the reserve ratio **is** the market price from genesis.
 
 **End of Month 10 — Bootstrap emissions complete.**
 - Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/28** across the 28 Miliarium pools until Month 11.
@@ -47,7 +47,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Bootstrap share reaches **zero**. The treasury/bootstrap channel is **immutable at zero from this block forward** — der Bodensee never receives AuMM via emission again. The AuMM side of the pool is fixed; only swap-ins by traders can add AuMM after this point.
 
 **After Month 10 — Reserve grows from fees alone.**
-- Stablecoin fee inflows continue indefinitely. Weighted-pool math reprices AuMM mechanically as the stablecoin side deepens against a capped AuMM side. No buyback, no burn, no market purchases.
+- Stablecoin fee inflows continue indefinitely. Weighted-pool math updates AuMM’s implied spot as the stablecoin side deepens against a capped AuMM side. No buyback, no burn, no market purchases.
 
 ### After Year 1 (full CCB)
 

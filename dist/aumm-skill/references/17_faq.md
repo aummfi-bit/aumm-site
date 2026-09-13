@@ -1,4 +1,3 @@
-<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 17_faq.md — DO NOT EDIT -->
 # FAQ
 
 ## Foundations
@@ -11,7 +10,7 @@ Aureum forks the verified contracts, drops the broken token layer, and replaces 
 
 ### What is AuMM?
 
-AuMM is a fair-launch ERC-20 on Ethereum with a 21,000,000 hard cap and a Bitcoin-style halving every 10,512,000 blocks (~4 years). The only way to earn it is by providing liquidity to emission-qualified Aequilibrium pools. No pre-mine, no team allocation, no VC round. AuMM has zero governance power. Value accrual is mechanical, not narrative: the protocol share of swap fees on every non-Bodensee gauged pool plus the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee Pool, whose fixed 40% AuMM / 30% sUSDS / 30% svZCHF weights reprice AuMM upward as the stablecoin side deepens. No buyback, no burn, no oracle.
+AuMM is a fair-launch ERC-20 on Ethereum with a 21,000,000 hard cap and a Bitcoin-style halving every 10,512,000 blocks (~4 years). The only way to earn it is by providing liquidity to emission-qualified Aequilibrium pools. No pre-mine, no team allocation, no VC round. AuMM has zero governance power. Value accrual is fee routing and pool math, not narrative: the protocol share of swap fees on every non-Bodensee gauged pool plus the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee Pool; when the stablecoin side deepens relative to the fixed AuMM weight, weighted-pool math updates the implied AuMM↔stablecoin exchange rate. Contingent on fee inflows. No buyback, no burn, no oracle.
 
 ### What is AuMT? Is it a new token?
 
@@ -41,7 +40,7 @@ Highest AuMM per dollar in Year 1. Through Month 10, all 28 Miliarium pools spli
 
 Cross-pool arbitrage. The ixEDEL NAV mint/redeem cycle and svZCHF rate updates generate continuous arbitrage flow between pools. Each cross-pool hop pays fees in two pools at once. This is volume that does not depend on retail.
 
-Mechanical AuMM repricing. The protocol share of swap fees from every non-Bodensee gauged pool plus 100% of the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee. AuMM inflows to Bodensee decay to zero by Month 10 and stay there. Stablecoin inflows are continuous. Fixed weights enforce upward repricing.
+Balance-driven AuMM implied spot. The protocol share of swap fees from every non-Bodensee gauged pool plus 100% of the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee. AuMM inflows to Bodensee decay to zero by Month 10 and stay there. Stablecoin inflows continue when the protocol earns fees. Fixed weights update the implied exchange rate as balances change.
 
 ### Where does protocol revenue come from?
 
@@ -69,7 +68,7 @@ Mechanics, not narrative.
 
 Bodensee holds 40% AuMM, 30% sUSDS, 30% svZCHF, in fixed weights, immutable from block 0. The pool's invariant enforces those proportions at every trade. AuMM inflows decay from 80% of each block at genesis to 50% by the end of Month 6, then to zero by the end of Month 10. After that, no AuMM enters the pool except by being purchased. Stablecoin inflows are continuous and grow with usage.
 
-As the stablecoin side deepens against fixed AuMM supply, weighted-pool math reprices AuMM upward. There is no buyback, no burn, no oracle, no discretion. On top of that, 60% of Bodensee's TVL sits in svZCHF and sUSDS, and that yield compounds inside the pool through the Rate Providers, raising rate-scaled balances on the stablecoin side without any token movement.
+As the stablecoin side deepens against fixed AuMM supply, weighted-pool math updates AuMM’s implied spot from balances. There is no buyback, no burn, no oracle, no discretion. On top of that, 60% of Bodensee's TVL sits in svZCHF and sUSDS, and that yield compounds inside the pool through the Rate Providers, raising rate-scaled balances on the stablecoin side without any token movement.
 
 The dilution ceiling is the halving schedule. Emission to LPs falls by half every 10,512,000 blocks. Markets price the curve from day one.
 
@@ -79,9 +78,9 @@ Bodensee already holds 60% of its TVL in 4626. Skimming 10% of Bodensee's own yi
 
 ### How does APY change when AuMM is being bought in Bodensee?
 
-Bodensee is the price oracle for AuMM. Buying pulls AuMM out of the pool and pushes stablecoin in, and the pool reprices AuMM upward to enforce the 40% weight. Emission APY in dollar terms is `(emitted AuMM × AuMM price × blocks/year) / LP TVL`. Block emission is fixed. A higher price flows directly into LP APY.
+Bodensee is the price-discovery venue for AuMM. Buying pulls AuMM out of the pool and pushes stablecoin in, and the pool updates the implied exchange rate to enforce the 40% weight. Emission APY in dollar terms is `(emitted AuMM × AuMM price × blocks/year) / LP TVL`. Block emission is fixed. A higher implied spot flows directly into LP APY.
 
-There is a reflexive loop. Higher LP APY pulls more TVL into Miliarium pools, which produces more swap volume, which sends more protocol-share stablecoin into Bodensee. Bodensee deepens. AuMM reprices higher. The 60-day EMA dampener is what keeps it from running away: new TVL takes weeks to register fully in emission weights, so APY stays elevated longer than capital can compete it down.
+There is a reflexive loop when adoption arrives. Higher LP APY can pull more TVL into Miliarium pools, which produces more swap volume, which sends more protocol-share stablecoin into Bodensee. Bodensee deepens. The implied AuMM spot moves with balances. The 60-day EMA dampener is what keeps allocation from running away: new TVL takes weeks to register fully in emission weights, so APY stays elevated longer than capital can compete it down.
 
 Bodensee LPs benefit separately. Every AuMM trade inside the pool charges 0.75%, retained in pool, on top of the in-place vault yield.
 
@@ -101,9 +100,9 @@ Before that depth exists, three things bridge the gap. The founding team seeds p
 
 Two constituencies buy AuMM, and they don't want the same thing.
 
-The first group is buying scarcity and routed revenue. AuMM has a Bitcoin-style halving and a fixed cap ([What is AuMM?](#what-is-aumm)), so issuance falls on schedule regardless of narrative. The protocol share of swap fees on gauged pools and the ERC-4626 yield skim flow one-sided into der Bodensee, where the immutable 40/30/30 weights reprice AuMM upward as stablecoin depth grows ([What gives AuMM real value accrual?](#what-gives-aumm-real-value-accrual), [Where does protocol revenue come from?](#where-does-protocol-revenue-come-from)). These buyers aren't here for governance. They are holding a fixed-supply curve attached to a live AMM revenue pipeline.
+The first group is buying scarcity and routed revenue. AuMM has a Bitcoin-style halving and a fixed cap ([What is AuMM?](#what-is-aumm)), so issuance falls on schedule regardless of narrative. The protocol share of swap fees on gauged pools and the ERC-4626 yield skim flow one-sided into der Bodensee, where the immutable 40/30/30 weights set AuMM’s implied spot as stablecoin depth grows ([What gives AuMM real value accrual?](#what-gives-aumm-real-value-accrual), [Where does protocol revenue come from?](#where-does-protocol-revenue-come-from)). These buyers aren't here for governance. They are holding a fixed-supply curve attached to a live AMM revenue pipeline.
 
-The second group is LPs and emission-aligned participants. Block emission is denominated in AuMM, not dollars, so when AuMM reprices, the dollar APY on every emission-earning pool scales with it ([How does APY change when AuMM is being bought in Bodensee?](#how-does-apy-change-when-aumm-is-being-bought-in-bodensee)). An LP in a constellation pool benefits whenever Bodensee absorbs more depth — even without holding a single AuMM directly. ("Players" in this context means emission-earning LPs, not the gaming-the-system actors covered elsewhere.)
+The second group is LPs and emission-aligned participants. Block emission is denominated in AuMM, not dollars, so when AuMM’s implied spot moves, the dollar APY on every emission-earning pool scales with it ([How does APY change when AuMM is being bought in Bodensee?](#how-does-apy-change-when-aumm-is-being-bought-in-bodensee)). An LP in a constellation pool benefits whenever Bodensee absorbs more depth — even without holding a single AuMM directly. ("Players" in this context means emission-earning LPs, not the gaming-the-system actors covered elsewhere.)
 
 The two aren't exclusive. An LP who also holds AuMM is long scarcity, routed revenue, and their own pool's dollar yield at the same time.
 
@@ -223,7 +222,7 @@ Curve's Yield Basis (March 2026) validated the same core thesis from a different
 
 ### How does Aureum compare to current Balancer?
 
-Balancer V3 is the source code, byte-identical at the pool layer; the divergence is purely economic. Balancer routes its protocol fee share to a discretionary DAO treasury managed by a team. Aureum routes 100% of its protocol share to an immutable pool that mechanically reprices the token, with no human controlling the destination. Aureum's incremental risk relative to Balancer V3 is the new tokenomics layer above the verified pool math.
+Balancer V3 is the source code, byte-identical at the pool layer; the divergence is purely economic. Balancer routes its protocol fee share to a discretionary DAO treasury managed by a team. Aureum routes 100% of its protocol share to an immutable pool whose balances set the token’s implied spot, with no human controlling the destination. Aureum's incremental risk relative to Balancer V3 is the new tokenomics layer above the verified pool math.
 
 ---
 
@@ -235,7 +234,7 @@ ixEDEL is one of the two universal connectors in the constellation. It appears i
 
 ### How does Aureum interact with Frankencoin?
 
-svZCHF is the deeper, primary routing rail. It appears in 26 of 28 Miliarium pools, typically at 26% weight, rising to 80% in ixHelvetia (slot 01), the pure Frankencoin money market pool. Pricing reads directly from the Frankencoin contract through a deterministic Rate Provider, no oracle. svZCHF is also the autonomous-reserve anchor: Bodensee holds 30% svZCHF in fixed weight, and every governance proposal, Incendiary Boost, composition challenge, and protocol fee inflow lands as one-sided svZCHF or sUSDS into the pool. As Aureum grows, it becomes a structural buyer of svZCHF, deepening the reserve in step with its own usage. svZCHF is absent only from slot 02 (ixAetheron) and slot 06 (ixLibertas). The shared design lineage is the Continuous Capital Corporation framing from Dr. Luzius Meisser's 2024 PhD thesis and Frankencoin's implementation.
+svZCHF is the deeper, primary routing rail. It appears in 26 of 28 Miliarium pools, typically at 26% weight, rising to 80% in ixHelvetia (slot 01), the pure Frankencoin money market pool. Pricing reads directly from the Frankencoin contract through a deterministic Rate Provider, no oracle. svZCHF is also the fee-sink anchor: Bodensee holds 30% svZCHF in fixed weight, and every governance proposal, Incendiary Boost, composition challenge, and protocol fee inflow lands as one-sided svZCHF or sUSDS into the pool. As Aureum grows, it becomes a structural buyer of svZCHF, deepening the fee sink in step with its own usage. svZCHF is absent only from slot 02 (ixAetheron) and slot 06 (ixLibertas). The shared design lineage is the Continuous Capital Corporation framing from Dr. Luzius Meisser's 2024 PhD thesis and Frankencoin's implementation.
 
 ### Is Aureum affiliated with Reserve, Frankencoin, or Sky?
 

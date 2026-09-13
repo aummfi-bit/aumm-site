@@ -27,7 +27,7 @@ Core emission allocation remains automatic and immutable.
 | Phase | Days | Driver | Purpose |
 |-------|------|--------|---------|
 | Gauge activation | Once criteria met | Permissionless `activateGauge(pool)` + anti-spam fee | Quality gate — pool must pass criteria; no governance vote |
-| Incendiary Boost | Any time | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the autonomous reserve to boost a pool |
+| Incendiary Boost | Any time | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the protocol fee sink to boost a pool |
 | CCB allocation | Once active — ongoing | 60-day EMA | Emissions tracked by smoothed TVL via the standard CCB |
 
 All other layers require an active gauge first. A successful pool builds TVL into its EMA over its first epochs, and the CCB takes over seamlessly. Failed pools lose the EMA weight and die naturally.
@@ -38,7 +38,7 @@ All other layers require an active gauge first. A successful pool builds TVL int
 
 ## xxii. Incendiary Boost
 
-Proof-of-conviction bootstrap. Anyone deposits **any amount** of svZCHF/sUSDS **one-sided into der Bodensee Pool**. In return, the target pool receives a supplementary AuMM emission stream for **1 epoch (14 days)**, starting at the **next epoch boundary**. The deposit amount is entirely at the paying user's discretion — conviction capital sacrificed to deepen the autonomous reserve.
+Proof-of-conviction bootstrap. Anyone deposits **any amount** of svZCHF/sUSDS **one-sided into der Bodensee Pool**. In return, the target pool receives a supplementary AuMM emission stream for **1 epoch (14 days)**, starting at the **next epoch boundary**. The deposit amount is entirely at the paying user's discretion — conviction capital sacrificed to deepen the protocol fee sink.
 
 ### Rules
 
@@ -152,7 +152,7 @@ Any qualified AuMT holder can submit a governance proposal (fee parameter change
 
 **Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.03%**); der Bodensee uses **0.10%–1.00%** (genesis **0.75%**). For non-Miliarium pools, the **initial swap fee** is set as a parameter at **first successful gauge activation** (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
 
-**All** governance deposits — gauge challenge, fee proposal, composition challenge — and the **anti-spam fee** for permissionless gauge activation are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the autonomous reserve, non-recoverable.
+**All** governance deposits — gauge challenge, fee proposal, composition challenge — and the **anti-spam fee** for permissionless gauge activation are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the protocol fee sink, non-recoverable.
 
 ### Permissionless Gauge Activation
 

@@ -1,4 +1,3 @@
-<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 13_appendices.md — DO NOT EDIT -->
 # Appendices
 
 ## xxxvi. AMM Architecture: Aequilibrium
@@ -87,7 +86,7 @@ The deeper failure: SushiSwap was a fair launch of a **commodity product** — s
 | **Chef Nomi Backdoor** | Founder controls dev fund, sells | No admin keys. No migration contract. No treasury. **100% of the LP emission tranche** flows to LPs from block 0; **Months 1–10** the remainder of each block’s emission is one-sided AuMM into der Bodensee Pool on a piecewise decay (80%→50% by Month 6, 50%→0% by Month 10 — no wallet receives it). **Protocol-captured** revenue (**protocol share** of swap fees on other pools + yield fees) flows to der Bodensee Pool as one-sided stablecoin (sUSDS/svZCHF) inflows; **der Bodensee** swap fees (**0.75%** at genesis) stay **in pool** for LPs. No human can redirect revenue, change the supply curve, or extract bootstrap AuMM. The system is a Continuous Capital Corporation — fully rule-based from genesis. |
 | **Vampire Attack Dependency** | Liquidity rented via incentives, leaves when APR drops | Constituent tokens (WBTC, cbBTC, PAXG, XAUt, ysyBOLD, stEURA, AAVE, LINK) trade $898M+ daily. Aggregator routing creates organic volume independent of incentives. ERC-4626 native yield provides floor return even at zero emissions. LPs have structural reasons to stay. |
 | **Governance Capture** | Token-weighted voting = capital buys control | Protocol governance is AuMT-weighted — but only AuMT from emission-qualified pools counts. You cannot buy governance power on the open market. You must be providing liquidity to productive pools that meet every anti-gaming criterion. Phased dampening: fourth root in Era 0 (maximum compression at low TVL), cube root post-first-halving (TVL growth has naturally decentralised power). |
-| **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. **Protocol-captured** revenue (one-sided stablecoin into der Bodensee) and **in-pool** der Bodensee swap fees deepen reserves, strengthening the AuMM price floor. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
+| **Death Spiral** | Token price drops → APR drops → LPs leave | Dual revenue streams: swap fees + ERC-4626 yield fees. Yield fees accrue regardless of AuMM price or trading volume. **Protocol-captured** revenue (one-sided stablecoin into der Bodensee) and **in-pool** der Bodensee swap fees deepen the stablecoin side; weighted-pool math updates AuMM’s implied spot from balances. BTC halving schedule means emissions decline predictably — the market prices the full curve from day one. |
 | **Commodity Product** | No architectural moat → users leave when incentives fade | Multi-asset weighted pools, ERC-4626 native yield, hooks, constellation routing — these pool designs cannot exist on Uniswap, Curve, or Aerodrome. The moat is the architecture, not the token. LPs stay because no other venue offers the same capital efficiency. |
 
 ### The White Space
@@ -143,7 +142,7 @@ Curve's Yield Basis protocol (March 2026) independently validated the same core 
 | LP = governor | No | No | No | No | Yes |
 | Emissions to governance staking | Yes (80/20) | N/A | Yes (veCRV) | No | No (banned) |
 | Constellation routing network | No | No | No | No | Yes (ixEDEL hub by network effect) |
-| Autonomous reserve (der Bodensee Pool) from day 1 | No | No | No | No | Yes |
+| Protocol fee sink (der Bodensee Pool) from day 1 | No | No | No | No | Yes |
 
 ### The Prop AMM Contrast
 
@@ -159,7 +158,7 @@ The model works — and is architecturally opposite to Aureum on every dimension
 | Pricing logic | Private algorithms, off-chain oracles | On-chain weighted pool math, formally verified |
 | Transparency | Opaque — users cannot assess fairness or execution quality | Fully transparent — pool weights, fees, and rules are on-chain |
 | Governance | None — one team controls all parameters | AuMT-weighted — LPs govern protocol decisions |
-| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — no treasury; **LP tranche** to LPs from block 0; **Months 1–10** piecewise-decaying bootstrap AuMM one-sided into der Bodensee Pool. **Protocol-captured** revenue (**protocol share** of swap fees on other pools + yield skim) flows to der Bodensee Pool (autonomous reserve) as one-sided stablecoin (sUSDS/svZCHF) inflows; **der Bodensee** swap fees (**0.75%** at genesis) stay **in pool**. |
+| Token distribution | Insider-heavy — typically 90%+ to foundation, team, ecosystem with vesting | Zero pre-mine — no treasury; **LP tranche** to LPs from block 0; **Months 1–10** piecewise-decaying bootstrap AuMM one-sided into der Bodensee Pool. **Protocol-captured** revenue (**protocol share** of swap fees on other pools + yield skim) flows to der Bodensee Pool (protocol fee sink) as one-sided stablecoin (sUSDS/svZCHF) inflows; **der Bodensee** swap fees (**0.75%** at genesis) stay **in pool**. |
 | Failure mode | Single team goes down, 35%+ of chain volume disappears | Permissionless — no single point of failure, pools exist independently |
 | Chain dependency | Requires sub-second block times for active quoting — Solana-native | Passive LP model designed for Ethereum's 12-second blocks |
 | LP participation | None — users cannot provide liquidity or earn fees | Core design — LP is the only way to earn tokens and governance power |
