@@ -67,7 +67,7 @@ No signer, council, or progressive decentralization phase. No wallet receives Au
 
 ## Emission Regime
 
-- **Through end of Month 10:** each block, a **piecewise-decaying der Bodensee bootstrap** (80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) mints one-sided AuMM into der Bodensee Pool; the **LP tranche** splits **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury share.
+- **Through end of Month 10:** each block, a **piecewise-decaying der Bodensee bootstrap** (80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) mints one-sided AuMM into der Bodensee Pool; the **LP tranche** splits **1/M** across the **M** live Miliarium pools (26 at launch; 28 with every slot filled). **100%** to LPs from block 0 — no treasury share.
 - **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — fully automatic emission allocator; see [Glossary](12_aureum_glossary.md)). **α** from 0 to 1; **α = 0.5** at midpoint.
 - **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. Full rules and immutable parameters: [Constitution (§§xxviii–xxix)](10_constitution.md).
 - No governance voting controls emission allocation.

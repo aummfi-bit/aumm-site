@@ -15,7 +15,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 
 **Month 1 — Genesis.**
 - Aequilibrium factory opens. Pool creation is permissionless.
-- **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/28** across the 28 Miliarium pools. **100%** to LPs from block 0 — no treasury wallet.
+- **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/M** across the **M** live Miliarium pools (26 at launch; 28 with every slot filled). **100%** to LPs from block 0 — no treasury wallet.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
 - der Bodensee Pool launches as a **three-token weighted pool** with **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay). **Swap fee inside der Bodensee:** **0.75%** at genesis (governance-adjustable within 0.10–1.00% band per [Constitution §xxix](10_constitution.md)), fully retained **in pool** for der Bodensee LPs.
 - **Protocol-captured** fee revenue (**protocol share** of swap fees on **other** gauged pools + ERC-4626 yield fees) starts flowing into der Bodensee as one-sided stablecoin (sUSDS/svZCHF) inflows.
@@ -27,13 +27,13 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Bodensee share decays **linearly from 80% to 50%** between genesis and the **final block of Month 6**, then **linearly from 50% to 0%** between Month 6 and the **final block of Month 10**. LP tranche grows correspondingly (20% → 50% → 100%). Weighted-pool math updates AuMM’s implied spot as one-sided stablecoin fee inflows deepen the stablecoin side. No founder-set price, no governance-voted multiple — the reserve ratio **is** the market price from genesis.
 
 **End of Month 10 — Bootstrap emissions complete.**
-- Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/28** across the 28 Miliarium pools until Month 11.
+- Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/M** across the **M** live Miliarium pools until Month 11.
 
 **Month 11 — Non-Miliarium emissions begin, CCB transition starts.**
 - Non-Miliarium pools that meet eligibility criteria can permissionlessly activate gauges (100 svZCHF or 125 sUSDS anti-spam fee, one-sided into der Bodensee).
 - All pools begin ranking in the Efficiency Tournament.
 - CCB transition begins: **α** runs from **0** (first block of Month 11) to **1** (last block of Year 1).
-- Each pool's share blends its equal one-twenty-eighth with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.
+- Each pool's share blends its equal **1/M** share with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.
 - Pools coasting on equal allocation may see their share decline if TVL lags the protocol average. The transition rewards sustained capital, not incumbency.
 
 **Growth-signal doctrine — Month 11+.**
