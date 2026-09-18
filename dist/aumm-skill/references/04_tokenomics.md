@@ -1,3 +1,4 @@
+<!-- GENERATED FROM aumm-site@0c3d1487912af5c4febe5d11725e9fdf85244ba8 04_tokenomics.md — DO NOT EDIT -->
 # Tokenomics
 
 ## ix. Token Design: AuMM (Aureum Market Maker)
@@ -31,8 +32,8 @@ Each era spans 10,512,000 blocks (~4 years at 12 s/block). Per-block terms only 
 
 ### Emission Distribution
 
-- **Through end of Month 10 (Year 1):** each block’s emission splits into a **der Bodensee bootstrap** share and an **LP tranche**. The bootstrap share follows a **piecewise linear decay**: **80% at genesis → 50% at end of Month 6**, then **50% → 0% by end of Month 10**; minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens — same mechanic as one-sided stablecoin fee inflows; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). The **LP tranche** is the remainder. The **28 Miliarium pools** each receive **1/28 of the LP tranche** (not of the full block emission while the bootstrap share is positive).
-- **Months 11–12 (Year 1):** a **two-month linear transition** blending each pool’s equal one-twenty-eighth share with its CCB-derived share, ramping from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At midpoint, half and half. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
+- **Through end of Month 10 (Year 1):** each block’s emission splits into a **der Bodensee bootstrap** share and an **LP tranche**. The bootstrap share follows a **piecewise linear decay**: **80% at genesis → 50% at end of Month 6**, then **50% → 0% by end of Month 10**; minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens — same mechanic as one-sided stablecoin fee inflows; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). The **LP tranche** is the remainder. The **M live Miliarium pools** each receive **1/M of the LP tranche** (not of the full block emission while the bootstrap share is positive), **M** being the number of Miliarium pools deployed and gauged: 26 at launch, 28 with every slot filled.
+- **Months 11–12 (Year 1):** a **two-month linear transition** blending each pool’s equal **1/M** share with its CCB-derived share, ramping from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At midpoint, half and half. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - **After Year 1:** pure CCB weighting — each pool scored by smoothed TVL and CCB multiplier, normalized across all eligible pools. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - No voting and no discretionary overrides.
 

@@ -1,3 +1,4 @@
+<!-- GENERATED FROM aumm-site@0c3d1487912af5c4febe5d11725e9fdf85244ba8 17_faq.md — DO NOT EDIT -->
 # FAQ
 
 ## Foundations
@@ -22,7 +23,7 @@ Rule-based, and governance cannot touch it by any path.
 
 CCC, the Continuous Capital Corporation, is the design philosophy. It comes from Dr. Luzius Meisser's 2024 PhD thesis and Frankencoin's implementation: a protocol that runs as a fully autonomous corporation, allocating capital and managing reserves through fixed on-chain rules with no treasury wallet and no human override. Aureum adopts this from block 0.
 
-CCB, the Continuous Central Bank, is the algorithm that does the allocation. Three phases. Through Month 10, each of the 28 Miliarium pools receives 1/28 of the LP emission tranche regardless of TVL. Months 11 and 12 linearly blend equal weighting into CCB. After Year 1, every eligible pool scores by its 60-day TVL EMA times its CCB multiplier, normalized across the protocol. The multiplier adjusts bi-weekly for the 28 Miliarium pools only, within an immutable ±0.05 step, [0.75, 1.25] clamp, and 0.1% dead zone. Other gauged pools score on EMA only.
+CCB, the Continuous Central Bank, is the algorithm that does the allocation. Three phases. Through Month 10, each live Miliarium pool receives an equal 1/M of the LP emission tranche regardless of TVL, M being the number deployed and gauged (26 at launch; 28 with every slot filled). Months 11 and 12 linearly blend equal weighting into CCB. After Year 1, every eligible pool scores by its 60-day TVL EMA times its CCB multiplier, normalized across the protocol. The multiplier adjusts bi-weekly for the 28 Miliarium pools only, within an immutable ±0.05 step, [0.75, 1.25] clamp, and 0.1% dead zone. Other gauged pools score on EMA only.
 
 CCC is the rulebook. CCB is what the rulebook does every block.
 
@@ -36,7 +37,7 @@ Four overlapping yield streams, and the first one starts before AuMM has any pri
 
 ERC-4626 native yield. Every Miliarium pool holds at least 52% yield-bearing tokens by weight. svZCHF, sUSDS, Aave wrappers, and similar 4626 tokens accrue in-place via Balancer V3 Rate Providers. Aggregate native yield runs in the 2.0% to 2.8% range, structural, independent of trading volume.
 
-Highest AuMM per dollar in Year 1. Through Month 10, all 28 Miliarium pools split the LP tranche equally, 1/28 each, regardless of TVL. Era 0 emits 1.00 AuMM per block. After the first halving, that drops to 0.50 forever. Era 0 is the highest-issuance window the protocol will ever have.
+Highest AuMM per dollar in Year 1. Through Month 10, all live Miliarium pools split the LP tranche equally, 1/M each, regardless of TVL. Era 0 emits 1.00 AuMM per block. After the first halving, that drops to 0.50 forever. Era 0 is the highest-issuance window the protocol will ever have.
 
 Cross-pool arbitrage. The ixEDEL NAV mint/redeem cycle and svZCHF rate updates generate continuous arbitrage flow between pools. Each cross-pool hop pays fees in two pools at once. This is volume that does not depend on retail.
 
@@ -94,7 +95,7 @@ The ceiling is the AuMM side itself. After Month 10, no new AuMM enters via boot
 
 Aggregators route to depth. 1inch, Paraswap, and CoW route based on best execution, which is a function of slippage, which is a function of liquidity. The constellation's small-world topology, with svZCHF and ixEDEL as connectors, is latent until pools cross the depth at which aggregators begin splitting routes through them.
 
-Before that depth exists, three things bridge the gap. The founding team seeds pools with svZCHF and ixEDEL at launch, which gives every Miliarium pool ERC-4626 yield from block 0. Through Month 10, all 28 pools split the LP tranche equally, so even a thin pool earns tokens. Anyone can pay for an Incendiary Boost: deposit svZCHF or sUSDS one-sided into Bodensee and a target pool gets a priority emission stream, running across as many consecutive epochs as the shared per-epoch cap requires.
+Before that depth exists, three things bridge the gap. The founding team seeds pools with svZCHF and ixEDEL at launch, which gives every Miliarium pool ERC-4626 yield from block 0. Through Month 10, all live Miliarium pools split the LP tranche equally, so even a thin pool earns tokens. Anyone can pay for an Incendiary Boost: deposit svZCHF or sUSDS one-sided into Bodensee and a target pool gets a priority emission stream, running across as many consecutive epochs as the shared per-epoch cap requires.
 
 ### Who actually buys AuMM exposure?
 

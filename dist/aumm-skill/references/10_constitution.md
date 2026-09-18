@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@81c2668138e4ff0c6b58b19e843fe5c8f3ded9e1 10_constitution.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@0c3d1487912af5c4febe5d11725e9fdf85244ba8 10_constitution.md — DO NOT EDIT -->
 # Constitution
 
 *The immutable operating law of Aureum.*
@@ -87,11 +87,11 @@ Protocol **months** (Month 1 … Month 12) are defined on-chain as fixed block r
 ### Equal regime (through end of Month 10)
 
 - Each block’s emission splits between **der Bodensee bootstrap** and the **LP tranche**. Bootstrap is **piecewise linear**: **80% at genesis → 50% at end of Month 6**, then **50% → 0% by end of Month 10**; minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). See [Protocol formulas (F-0)](11_formulas.md).
-- Through the final block of Month 10, the **LP tranche** is split **equally** — **1/28** each (not 1/28 of the full block emission while bootstrap is positive). **100%** to LPs — no treasury wallet.
+- Through the final block of Month 10, the **LP tranche** is split **equally** across the **M** live Miliarium pools — **1/M** each (not 1/M of the full block emission while bootstrap is positive). **M** is the number of Miliarium pools deployed and gauged: 26 at launch, 28 with every slot filled. **100%** to LPs — no treasury wallet.
 
 ### Transition regime (Months 11–12)
 
-**Months 11–12** linearly blend **equal 1/28** with the **CCB** share. Blend parameter: zero (pure equal) at the first block of Month 11 → one (pure CCB) at the last block of Year 1. At midpoint, exactly half and half. The CCB leg uses the same score as post–Year-1 (smoothed TVL × CCB multiplier). Formal blend formula in [Protocol formulas](11_formulas.md). (Bootstrap is zero from Month 11; LP tranche = full block emission.)
+**Months 11–12** linearly blend **equal 1/M** with the **CCB** share. Blend parameter: zero (pure equal) at the first block of Month 11 → one (pure CCB) at the last block of Year 1. At midpoint, exactly half and half. The CCB leg uses the same score as post–Year-1 (smoothed TVL × CCB multiplier). Formal blend formula in [Protocol formulas](11_formulas.md). (Bootstrap is zero from Month 11; LP tranche = full block emission.)
 
 ### Full CCB (from Year 1 end onward)
 

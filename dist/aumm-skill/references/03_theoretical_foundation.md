@@ -1,3 +1,4 @@
+<!-- GENERATED FROM aumm-site@0c3d1487912af5c4febe5d11725e9fdf85244ba8 03_theoretical_foundation.md — DO NOT EDIT -->
 # Theoretical Foundations
 
 ## v. Research foundations
@@ -36,7 +37,7 @@ der Bodensee Pool (AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30) 
 
 ### 2. How the block emission flows
 
-**Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the 28 Miliarium pools — **one twenty-eighth** each. No treasury wallet. Other pools may exist on the AMM but receive none of this tranche.
+**Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the live Miliarium pools — **1/M** each, **M** being the number deployed and gauged. No treasury wallet. Other pools may exist on the AMM but receive none of this tranche.
 
 **Months 11–12:** the protocol ramps from equal toward full CCB. Early in the window, mostly equal; by the last block of Year 1, fully CCB. At midpoint, half and half. Exact block math is fixed on-chain — see [Constitution (§xxviii)](10_constitution.md).
 

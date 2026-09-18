@@ -1,3 +1,4 @@
+<!-- GENERATED FROM aumm-site@0c3d1487912af5c4febe5d11725e9fdf85244ba8 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -40,12 +41,12 @@ AuMM routed to der Bodensee Pool in block **b** equals **bodensee_share(b) × bl
 
 **Purpose:** Guarantee every founding pool an identical share of the **LP emission tranche** during cold-start, removing any advantage from early TVL differences.
 
-**Effect:** Each of the 28 pools receives **one twenty-eighth** of the LP tranche every block — not of the full block emission when **bodensee_share > 0** (see F-0).
+**Effect:** Each of the **M** live Miliarium pools receives **1/M** of the LP tranche every block — not of the full block emission when **bodensee_share > 0** (see F-0). **M** is the number of Miliarium pools deployed and gauged: 26 at launch, 28 with every slot filled. No share is withheld for an empty slot.
 
 ```
-share_of_LP_tranche_i = 1 / 28
+share_of_LP_tranche_i = 1 / M
 
-emission_to_pool_i(block) = lp_share(block) × block_emission(block) × (1 / 28)
+emission_to_pool_i(block) = lp_share(block) × block_emission(block) × (1 / M)
 ```
 
 Where **i** ranges over the 28 Miliarium Aureum pools.
@@ -74,10 +75,10 @@ Deposit amount at user discretion; full amount one-sided into der Bodensee Pool,
 
 **Purpose:** Shift from equal to full CCB over two months, avoiding overnight emission shocks.
 
-**Effect:** Each pool's share of the **post-Incendiary LP tranche** (F-2) blends its equal share (1/28) with its CCB-derived share. **α** rises linearly from zero (pure equal) to one (pure CCB). At midpoint, half and half. During Months 11–12, **bodensee_share = 0** — LP tranche equals full block emission before Incendiary.
+**Effect:** Each pool's share of the **post-Incendiary LP tranche** (F-2) blends its equal share (1/M) with its CCB-derived share. **α** rises linearly from zero (pure equal) to one (pure CCB). At midpoint, half and half. During Months 11–12, **bodensee_share = 0** — LP tranche equals full block emission before Incendiary.
 
 ```
-share_i(block) = (1 − α(block)) × (1/28) + α(block) × CCB_share_i(block)
+share_i(block) = (1 − α(block)) × (1/M) + α(block) × CCB_share_i(block)
 ```
 
 Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime (CCB multiplier and Incendiary inside the CCB leg where applicable). Multiply **share_i** by **Remaining(block)** from F-2 to get AuMM to pool **i** for this leg.

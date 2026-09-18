@@ -1,3 +1,4 @@
+<!-- GENERATED FROM aumm-site@0c3d1487912af5c4febe5d11725e9fdf85244ba8 02_mental_model.md — DO NOT EDIT -->
 # Aureum Protocol
 
 > **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
@@ -94,13 +95,13 @@ In Roman terms: **svZCHF and ixEDEL are the two viae** (the roads connecting eve
 
 ## iv. Emission Regimes
 
-- **Through end of Month 10:** each block, **der Bodensee bootstrap** AuMM (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is deposited one-sided into der Bodensee Pool. The **LP tranche** goes **100%** to the 28 Miliarium pools, split **purely equal** (**1/28 of the LP tranche** each). No treasury share. Other pools may exist but do not receive this equal tranche.
+- **Through end of Month 10:** each block, **der Bodensee bootstrap** AuMM (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is deposited one-sided into der Bodensee Pool. The **LP tranche** goes **100%** to the live Miliarium pools, split **purely equal** (**1/M of the LP tranche** each, **M** being the number deployed and gauged). No treasury share. Other pools may exist but do not receive this equal tranche.
 - **Months 11–12 (two-month transition):** blend linearly from equal to CCB over the window. At the midpoint, the mix is half equal and half CCB. See [Protocol formulas](11_formulas.md) for the blend formula.
 - **After Year 1:** emissions follow only the CCB — each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. No vote. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 
 **Why equal first.** The EMA needs ~60 days of on-chain data before it produces a meaningful signal. Allocating by TVL from block 0 would reward whichever pool attracted the earliest whale, not sustained capital. So all 28 Miliarium pools get identical treatment regardless of TVL until the EMA has real data.
 
-**Why a two-month transition.** An abrupt switch from equal to CCB at a single block would cause overnight emission shocks — pools receiving 1/28 could suddenly get much more or much less. The two-month linear blend gives LPs and operators time to watch the CCB’s scoring in real time and adjust positions. Pools that attracted deep, sticky capital see their share rise; pools coasting on equal allocation see it fall. The transition rewards sustained capital commitment, not historical incumbency.
+**Why a two-month transition.** An abrupt switch from equal to CCB at a single block would cause overnight emission shocks — pools receiving 1/M could suddenly get much more or much less. The two-month linear blend gives LPs and operators time to watch the CCB’s scoring in real time and adjust positions. Pools that attracted deep, sticky capital see their share rise; pools coasting on equal allocation see it fall. The transition rewards sustained capital commitment, not historical incumbency.
 
 ## v. The Flywheel
 
