@@ -225,6 +225,8 @@ Allow: /
 # - Incendiary Boost — svZCHF/sUSDS to der Bodensee, 1-epoch priority emission skim
 # - ixEDEL / routing — constellation routing (see glossary and miliarium docs)
 #
+# Internal-only repo files (not in llms-full.txt): editorial_sprints.md, script.md
+#
 # Questions this documentation answers include:
 # - What is Project Aureum? (constitutional capital market — capital allocation under immutable laws)
 # - How do emissions and halving work (for AuMM)?
