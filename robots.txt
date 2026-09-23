@@ -216,6 +216,13 @@ Allow: /
 # - Four constitutional commitments — open market creation; CCB allocation; der Bodensee reserve; immutable AuMM policy
 # - Reserve, not treasury — Bodensee under protocol law; protocol becomes progressively better capitalized
 # - Two paths to liquidity — CCB (sustained performance) + Incendiary Boost (costly conviction); fixed emission budget
+# - Not another DAO-controlled AMM (Overview):
+#     NOT: treasury seeking assets to manage; governance token directing emissions;
+#          foundation picking which markets get incentives; fixed set of protocol-approved pools;
+#          monetary policy awaiting future governors.
+#     IS:  permissionless market for investment theses; fixed monetary constitution;
+#          autonomous reserve; objective capital-allocation engine;
+#          constrained governance enforced by immutable contracts.
 # - Why Aureum Exists (§v-a) — not primarily an AMM; Bitcoin : monetary policy :: Aureum : capital allocation
 # - Mental model — AuMM is earned by liquidity; "Bitcoin-style" means issuance for AuMM (cap, halving), not mining Bitcoin
 # - Continuous Capital Corporation (CCC) — rule-based protocol; no discretionary treasury
