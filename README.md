@@ -11,7 +11,7 @@ Static documentation and registry for **Project Aureum**: tokenomics, governance
 | `index.html` | Single-page app: loads Markdown via `fetch`, renders with [marked](https://github.com/markedjs/marked), theme toggle (Au / Day / Night) |
 | [Miliarium Aureum registry](05_miliarium_aureum.md) | **Canonical** registry: slot order **01–28**, compositions, sector tables |
 | [miliarium_profiles/](miliarium_profiles/) | One profile per pool (`NN_ixCanonicalName.md`); manifest and sector taxonomy: [Manifest](06_miliarium_manifest.md), [Sectors](07_miliarium_sectors.md), [Token inventory](07a_tokens.md) (deduplicated tickers) |
-| Numbered specs `02_*.md` … `16_*.md` | Core protocol docs (mental model, foundations, tokenomics, Miliarium registry, bootstrap, transitions, constitution, formulas, glossary, appendices, UX/UI, overview, team/disclaimer) — see [llms.txt](llms.txt) for full **tab → file** map |
+| Numbered specs `02_*.md` … `16_*.md` (+ `16a_security_audits.md`) | Core protocol docs (mental model, foundations, tokenomics, Miliarium registry, bootstrap, transitions, constitution, formulas, glossary, appendices, UX/UI, overview, team/disclaimer, security & audits) — see [llms.txt](llms.txt) for full **tab → file** map |
 | [Constitution](10_constitution.md), [Tokenomics](04_tokenomics.md), [Protocol formulas](11_formulas.md), … | Immutable law, economics, F-0–F-12 (gauge-challenge deposit **F-12** for non-Miliarium pools; **§xxix** canonical time constants, fee routing, swap-fee bands, Bodensee yield-skim exclusion, `BTC_WRAPPERS`) |
 | `llms.txt`, `llms-full.txt`, `sitemap.xml` | **AI / crawler discovery**: human manifest + bulk URL list + XML sitemap of every canonical prose URL (`sitemap.xml` and `llms-full.txt` are **generated** by `scripts/generate_llms_manifest.py`) |
 | `robots.txt` | Crawl policy: **all AI crawlers welcome**; `Sitemap: https://aumm.fi/sitemap.xml`; points readers to `llms.txt` / `llms-full.txt` |
@@ -112,6 +112,7 @@ Build runs `generate_llms_manifest.py` → `build_ask_index.py` → `append_agen
 - **Miliarium** — **Registry** ([05_miliarium_aureum.md](05_miliarium_aureum.md)), **Manifest** ([06_miliarium_manifest.md](06_miliarium_manifest.md)), **Sectors** ([07_miliarium_sectors.md](07_miliarium_sectors.md)), **Tokens** ([07a_tokens.md](07a_tokens.md)); in-app rendering of pool profiles so `.md` links do not open as raw files.
 - **Governance** — **Constitution** ([10_constitution.md](10_constitution.md)), **Bootstrap** ([08_bootstrap.md](08_bootstrap.md)), **Transitions** ([09_transitions.md](09_transitions.md)), **Formulas** ([11_formulas.md](11_formulas.md)).
 - **Team** — **Team / disclaimer** ([16_team.md](16_team.md)).
+- **Security & Audits** — Seam 1 authority/governance evaluation ([16a_security_audits.md](16a_security_audits.md)).
 
 ## Reading guide
 

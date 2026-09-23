@@ -12,6 +12,7 @@ https://aumm.fi/06_miliarium_manifest.md
 https://aumm.fi/07_miliarium_sectors.md
 https://aumm.fi/07a_tokens.md
 https://aumm.fi/16_team.md
+https://aumm.fi/16a_security_audits.md
 https://aumm.fi/12_aureum_glossary.md
 https://aumm.fi/13_appendices.md
 https://aumm.fi/14_ux_ui.md

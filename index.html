@@ -287,6 +287,7 @@
     query any <code>.md</code> with <code>?ask=</code> ·
     <a href="/sitemap.xml">sitemap.xml</a> ·
     <a href="/17_faq.md">17_faq.md</a> ·
+    <a href="/16a_security_audits.md">16a_security_audits.md</a> ·
     <a href="/03_theoretical_foundation.md">03_theoretical_foundation.md</a> ·
     <a href="/12_aureum_glossary.md">12_aureum_glossary.md</a> ·
     <a href="/10_constitution.md">10_constitution.md</a>
@@ -391,6 +392,10 @@
           <button type="button" class="sidebar-parent" data-tab="team">Team</button>
           <div class="sidebar-sub" data-menu-for="team"></div>
         </div>
+        <div class="sidebar-group has-sub">
+          <button type="button" class="sidebar-parent" data-tab="security_audits">Security &amp; Audits</button>
+          <div class="sidebar-sub" data-menu-for="security_audits"></div>
+        </div>
         <div class="sidebar-group has-sub sidebar-group-faq open">
           <button type="button" class="sidebar-parent" data-tab="faq">FAQ</button>
           <div class="sidebar-sub" data-menu-for="faq"></div>
@@ -433,7 +438,7 @@
           <a href="/llms.txt">llms.txt</a><span aria-hidden="true"> · </span><a href="/llms-full.txt">llms-full.txt</a><span aria-hidden="true"> · </span><a href="/robots.txt">robots.txt</a><span aria-hidden="true"> · </span><a href="/sitemap.xml">sitemap.xml</a>
         </p>
         <p class="sidebar-canon-links">
-          <a href="/17_faq.md">FAQ</a><span aria-hidden="true"> · </span><a href="/03_theoretical_foundation.md">Foundations</a><span aria-hidden="true"> · </span><a href="/12_aureum_glossary.md">Glossary</a><span aria-hidden="true"> · </span><a href="/10_constitution.md">Constitution</a>
+          <a href="/17_faq.md">FAQ</a><span aria-hidden="true"> · </span><a href="/16a_security_audits.md">Security &amp; Audits</a><span aria-hidden="true"> · </span><a href="/03_theoretical_foundation.md">Foundations</a><span aria-hidden="true"> · </span><a href="/12_aureum_glossary.md">Glossary</a><span aria-hidden="true"> · </span><a href="/10_constitution.md">Constitution</a>
         </p>
         <p class="sidebar-canon-links">Agents: <a href="/llms.txt">llms.txt</a> (start here) · query any <code>.md</code> with <code>?ask=</code> · full URL list in <a href="/llms-full.txt">llms-full.txt</a>.</p>
       </footer>
@@ -542,6 +547,12 @@
       <div class="footer">AUREUM — Team</div>
     </div>
   </div>
+  <div class="tab-content" id="tab-security_audits">
+    <div class="content">
+      <div id="security-audits-body"></div>
+      <div class="footer">AUREUM — Security &amp; Audits</div>
+    </div>
+  </div>
   <div class="tab-content" id="tab-appendices">
     <div class="content">
       <div id="appendices-body"></div>
@@ -627,6 +638,7 @@ var menus = {
   'miliarium-tokens': [],
   'miliarium-profile': [],
   team: [],
+  security_audits: [],
   appendices: [],
   ux_ui: [],
   sagix_dm: [],
@@ -1075,6 +1087,7 @@ loadMd('06_miliarium_manifest.md', 'manifest-body', 'miliarium-manifest');
 loadMd('07_miliarium_sectors.md', 'sectors-body', 'miliarium-sectors');
 loadMd('07a_tokens.md', 'tokens-body', 'miliarium-tokens');
 loadMd('16_team.md', 'team-body', 'team');
+loadMd('16a_security_audits.md', 'security-audits-body', 'security_audits');
 loadMd('12_aureum_glossary.md', 'glossary-body', 'glossary');
 loadMd('13_appendices.md', 'appendices-body', 'appendices');
 loadMd('14_ux_ui.md', 'ux-ui-body', 'ux_ui');
@@ -1145,6 +1158,7 @@ mainDoc.addEventListener('click', function(e) {
     '14_ux_ui.md': 'ux_ui',
     '15_overview.md': 'overview',
     '16_team.md': 'team',
+    '16a_security_audits.md': 'security_audits',
     '17_faq.md': 'faq',
     'Miliarium_Aureum.md': 'miliarium',
     'sagix/decentralized_money.md': 'sagix_dm',

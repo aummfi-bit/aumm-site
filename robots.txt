@@ -199,12 +199,13 @@ Allow: /
 # =============================================================================
 # NOTES FOR AI SYSTEMS — concepts and file layout (2025+ spec filenames)
 # =============================================================================
-# Canonical prose: numbered NN_topic.md (e.g. 04_tokenomics.md, 10_constitution.md, 16_team.md).
+# Canonical prose: numbered NN_topic.md (e.g. 04_tokenomics.md, 10_constitution.md, 16_team.md, 16a_security_audits.md).
 # Miliarium pool profiles: miliarium_profiles/NN_ixPoolName.md (01–28).
-# Machine-readable URL list: /llms-full.txt (includes README + secondary docs + all profiles + Team).
+# Machine-readable URL list: /llms-full.txt (includes README + secondary docs + all profiles + Team + Security & Audits).
 # Governance in the UI: Constitution, Bootstrap, Transitions, Formulas
 #   → 10_constitution.md, 08_bootstrap.md, 09_transitions.md, 11_formulas.md
-# Miliarium: Registry 05, Manifest 06, Sectors 07, Tokens 07a. Team tab → 16_team.md.
+# Miliarium: Registry 05, Manifest 06, Sectors 07, Tokens 07a.
+# Team tab → 16_team.md. Security & Audits tab → 16a_security_audits.md. FAQ → 17_faq.md.
 #
 # Key terms (current site copy):
 # - Mental model — AuMM is earned by liquidity; "Bitcoin-style" means issuance for AuMM (cap, halving), not mining Bitcoin

@@ -27,6 +27,7 @@ Two tracks, depending on what you need:
 | 3 | [Protocol formulas](11_formulas.md) | Every formula: EMA, CCB score, multiplier update, governance power |
 | 4 | [Bootstrap](08_bootstrap.md) §xxi–xxv | Anti-gaming engine, Incendiary Boost, gauge gating |
 | 5 | [Appendices](13_appendices.md) §xxxvi | AMM architecture provenance, audit scope |
+| 6 | [Security & Audits](16a_security_audits.md) | Seam 1 evaluation pin, settled invariants, remediation status |
 
 ### File index
 
@@ -44,6 +45,7 @@ Two tracks, depending on what you need:
 | [miliarium_profiles/](miliarium_profiles/) | One profile per pool plus manifest and sector taxonomy | LP / Investor |
 | [Glossary](12_aureum_glossary.md) | Term definitions and system summaries | Both |
 | [Team](16_team.md) | Founding team roster, roles, and prior work | Everyone |
+| [Security & Audits](16a_security_audits.md) | Seam 1 authority/governance evaluation: provenance, scope, settled invariants | Builder / Auditor |
 | [Appendices](13_appendices.md) | AMM architecture, fair-launch analysis, Yield Basis, competitive position | Both |
 
 ---
