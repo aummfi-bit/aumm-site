@@ -14,7 +14,7 @@
 
 ## i. One Line
 
-**Capital allocation under immutable laws.** A constitutional capital market combining permissionless pools, Bitcoin-style emissions, autonomous reserve accumulation, and rule-based capital allocation.
+**Capital allocation under immutable laws.** AUREUM is a constitutional capital market built on a Balancer V3-derived AMM substrate. Anyone can create a pool, express an investment thesis, and compete for fixed AuMM emissions under the same on-chain rules. No premine. No treasury. No discretionary emission allocation.
 
 ## i-a. The Thesis
 

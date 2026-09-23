@@ -2,11 +2,17 @@
 
 ## Foundations
 
+### What is Aureum?
+
+**Capital allocation under immutable laws.** Aureum is a **constitutional capital market** built on a Balancer V3-derived AMM substrate — not primarily an AMM and not a better Balancer. Anyone can create a pool, express an investment thesis, and compete for fixed AuMM emissions under the same on-chain rules. No premine. No treasury. No discretionary emission allocation. Permissionless pools, BTC-style emissions, autonomous reserve (der Bodensee), constitutional governance. The 28 Miliarium pools are the **genesis market**, not a closed market. Short stack: [Overview](15_overview.md). Full thesis: [Theoretical Foundations §v-a](03_theoretical_foundation.md).
+
 ### Why does Aureum exist?
+
+The AMM architecture was never the whole problem. The economics were.
 
 Balancer V3 has the best AMM architecture in DeFi, and the worst tokenomics. Multi-asset weighted pools, ERC-4626 native yield, hooks, Certora-verified pool math. Emissions still bled into legacy pools and circular governance staking. Meta-governance capture concentrated power. The founding entity shut down. Their parting proposal eliminated emissions outright, removing the only path external builders had to bootstrap new infrastructure on top of the architecture.
 
-Aureum forks the verified contracts, drops the broken token layer, and replaces it with a fair launch where the only way to earn tokens is to provide liquidity to productive pools. Same code. Different economics.
+Aureum forks the verified contracts, drops the broken token layer, and replaces it with a fair launch where the only way to earn tokens is to provide liquidity to productive pools — under a constitutional capital-allocation model rather than a discretionary treasury–governance state. Same AMM substrate. Different economics.
 
 ### What is AuMM?
 

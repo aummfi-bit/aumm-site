@@ -209,8 +209,13 @@ Allow: /
 # Team tab → 16_team.md. Security & Audits tab → 16a_security_audits.md. FAQ → 17_faq.md.
 #
 # Key terms (current site copy):
-# - Capital allocation under immutable laws — homepage / OG hero; constitutional capital market
-#   (permissionless pools, Bitcoin-style emissions, autonomous reserve, rule-based allocation)
+# - Capital allocation under immutable laws — Intro / OG / Overview hero; constitutional capital market
+#   (Balancer V3-derived AMM substrate; create a pool / express a thesis / compete for fixed AuMM emissions;
+#   No premine. No treasury. No discretionary emission allocation.)
+# - More than an AMM — AMM is infrastructure; purpose is autonomous capital market (Overview + §v-a)
+# - Four constitutional commitments — open market creation; CCB allocation; der Bodensee reserve; immutable AuMM policy
+# - Reserve, not treasury — Bodensee under protocol law; protocol becomes progressively better capitalized
+# - Two paths to liquidity — CCB (sustained performance) + Incendiary Boost (costly conviction); fixed emission budget
 # - Why Aureum Exists (§v-a) — not primarily an AMM; Bitcoin : monetary policy :: Aureum : capital allocation
 # - Mental model — AuMM is earned by liquidity; "Bitcoin-style" means issuance for AuMM (cap, halving), not mining Bitcoin
 # - Continuous Capital Corporation (CCC) — rule-based protocol; no discretionary treasury
@@ -219,7 +224,7 @@ Allow: /
 # - Constitution §xxix — BLOCKS_PER_* / MONTH_*_END_BLOCK aliases; fee routing; swap fee bands; FEE_CHANGE_COOLDOWN_BLOCKS;
 #   BTC_WRAPPERS for F-12; Composition Challenge rules; bounded Stage B multisig after migration
 # - Continuous Central Bank (CCB) — automatic emission allocation; EMA(60) with daily cadence + 720-block TWAP (F-4); F-8 multiplier
-# - Miliarium Aureum — 28 pools; Composition Challenge for slot replacement; F-12 for non-Miliarium gauge challenges
+# - Miliarium Aureum — 28 genesis pools (not a closed market); Composition Challenge for slot replacement; F-12 for non-Miliarium gauge challenges
 # - AuMM — reward token (21M max, halving schedule); AuMT — LP tessera; governance weight to zero when gauge revoked
 # - Aequilibrium — AMM engine (Balancer-class design layer); substrate, not the product
 # - Incendiary Boost — svZCHF/sUSDS to der Bodensee, 1-epoch priority emission skim
@@ -228,10 +233,11 @@ Allow: /
 # Internal-only repo files (not in llms-full.txt): editorial_sprints.md, script.md
 #
 # Questions this documentation answers include:
-# - What is Project Aureum? (constitutional capital market — capital allocation under immutable laws)
+# - What is Project Aureum? (constitutional capital market — capital allocation under immutable laws; more than an AMM)
+# - What are the four constitutional commitments? Reserve vs treasury? CCB vs Incendiary Boost?
 # - How do emissions and halving work (for AuMM)?
 # - How does the CCB allocate emissions? What is EMA(60) and how is it sampled (F-4)?
 # - What is der Bodensee Pool and how do swap fees, yield skim, and governance deposits flow there?
-# - What are the 28 Miliarium pools and how do profiles differ (e.g. ixCambio token set)?
+# - What are the 28 Miliarium pools (genesis market) and how do profiles differ (e.g. ixCambio token set)?
 # - How does governance work (AuMT-weighted, deposits, quorum, composition challenge)?
 # - How are swap and yield fees routed (§xxix) and what are the fee bands?

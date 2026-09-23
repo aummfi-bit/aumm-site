@@ -5,7 +5,7 @@ description: Use this skill whenever a user asks about Project Aureum, AuMM, AuM
 
 # Aureum Skill
 
-Project Aureum: **capital allocation under immutable laws** — a constitutional capital market combining permissionless pools, Bitcoin-style emissions, autonomous reserve accumulation, and rule-based capital allocation. This Skill grounds answers in the canonical specification under `references/`, derived directly from `aummfi-bit/aumm-site`. The lockfile at `references/_canon.json` records the exact canon commit each snapshot reflects.
+Project Aureum: **capital allocation under immutable laws** — a constitutional capital market on a Balancer V3-derived AMM substrate. Anyone can create a pool, express an investment thesis, and compete for fixed AuMM emissions under the same on-chain rules. No premine. No treasury. No discretionary emission allocation. Start agents on `references/15_overview.md` (More than an AMM; four constitutional commitments; reserve vs treasury; CCB vs Incendiary Boost), then `references/03_theoretical_foundation.md` §v-a. This Skill grounds answers in the canonical specification under `references/`, derived directly from `aummfi-bit/aumm-site`. The lockfile at `references/_canon.json` records the exact canon commit each snapshot reflects.
 
 ## How to use this Skill
 
