@@ -113,6 +113,8 @@ Curve's Yield Basis protocol (March 2026) independently validated the same core 
 
 ## xxxix. Competitive Position
 
+The mechanisms compared below — multi-asset pools, ERC-4626 yield, fair launch, der Bodensee — exist to test a single idea: whether constitutional capital allocation can outperform political treasury governance. That thesis is stated in [Theoretical Foundations §v-a — Why Aureum Exists](03_theoretical_foundation.md). Aureum is not aiming to be a better Curve or a better Balancer; it is aiming at a different constitutional model.
+
 ### LP Advantage Over Uniswap
 
 | Feature | Uniswap V3 Pair | Aureum Pool |

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@45a68313a50c0c317797d11c3d9688a7ed563074 02_mental_model.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@83001e03f39b1f1ec57d7c577d343f0ed445f7c0 02_mental_model.md — DO NOT EDIT -->
 # Aureum Protocol
 
 > **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
@@ -15,9 +15,11 @@
 
 ## i. One Line
 
-An immutable fair-launch AMM with fixed Bitcoin-style issuance for **AuMM** and fully automatic on-chain allocation.
+**Capital allocation under immutable laws.** A constitutional capital market combining permissionless pools, Bitcoin-style emissions, autonomous reserve accumulation, and rule-based capital allocation.
 
 ## i-a. The Thesis
+
+Aureum is **not primarily an AMM**, and it is **not a better Balancer**. The AMM is infrastructure. The claim is a constitutional capital market: capital allocation under immutable laws rather than ongoing political decisions — Bitcoin's lesson applied to capital, not only to money. Full framing: [Theoretical Foundations §v-a — Why Aureum Exists](03_theoretical_foundation.md).
 
 The best AMM architecture in DeFi is about to lose its growth mechanism. The token is priced for terminal decline. But the code is open source, formally verified, and architecturally superior to every competitor. Project Aureum takes that code and replaces the broken tokenomics with a fair launch — the only way to earn tokens is to provide liquidity to productive pools. Let the market discover what formally verified multi-asset pools can do when the economic layer isn't sabotaged. The experiment hasn't failed. It hasn't happened.
 
@@ -25,7 +27,7 @@ The best AMM architecture in DeFi is about to lose its growth mechanism. The tok
 
 Balancer V3 is the most advanced AMM architecture in DeFi: multi-asset weighted pools, ERC-4626 native yield, hooks, formal verification by Certora. The tokenomics failed anyway. Emissions went to legacy pools and governance staking — circular economics. Meta-governance capture concentrated power. The founding entity shut down. The team's last proposal: eliminate emissions entirely, removing the only mechanism external builders had to bootstrap new infrastructure.
 
-The architecture deserves a second run under a clean economic model. Project Aureum forks the V3 smart contracts and replaces the tokenomics with a fair launch. Same verified core. Different economics. See [Appendices](13_appendices.md) for a detailed comparison to historical fair-launch failure modes, Yield Basis Hybrid Vaults, and competitive positioning against Uniswap, Curve, Aerodrome, and proprietary AMMs.
+The architecture deserves a second run under a clean economic model. Project Aureum forks the V3 smart contracts and replaces the tokenomics with a fair launch. Same verified core. Different economics. See [Theoretical Foundations §v-a — Why Aureum Exists](03_theoretical_foundation.md) for the deeper principal-agent thesis (Generation 1–3 framing: treasury versus reserve, constitution over politics). See [Appendices](13_appendices.md) for a detailed comparison to historical fair-launch failure modes, Yield Basis Hybrid Vaults, and competitive positioning against Uniswap, Curve, Aerodrome, and proprietary AMMs.
 
 ## ii. Core Principles
 

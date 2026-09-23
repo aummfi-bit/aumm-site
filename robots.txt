@@ -209,6 +209,9 @@ Allow: /
 # Team tab → 16_team.md. Security & Audits tab → 16a_security_audits.md. FAQ → 17_faq.md.
 #
 # Key terms (current site copy):
+# - Capital allocation under immutable laws — homepage / OG hero; constitutional capital market
+#   (permissionless pools, Bitcoin-style emissions, autonomous reserve, rule-based allocation)
+# - Why Aureum Exists (§v-a) — not primarily an AMM; Bitcoin : monetary policy :: Aureum : capital allocation
 # - Mental model — AuMM is earned by liquidity; "Bitcoin-style" means issuance for AuMM (cap, halving), not mining Bitcoin
 # - Continuous Capital Corporation (CCC) — rule-based protocol; no discretionary treasury
 # - der Bodensee Pool — AuMM/sUSDS/svZCHF weighted pool (fixed 40/30/30); protocol-captured swap fees
@@ -218,14 +221,13 @@ Allow: /
 # - Continuous Central Bank (CCB) — automatic emission allocation; EMA(60) with daily cadence + 720-block TWAP (F-4); F-8 multiplier
 # - Miliarium Aureum — 28 pools; Composition Challenge for slot replacement; F-12 for non-Miliarium gauge challenges
 # - AuMM — reward token (21M max, halving schedule); AuMT — LP tessera; governance weight to zero when gauge revoked
-# - Aequilibrium — AMM engine (Balancer-class design layer)
+# - Aequilibrium — AMM engine (Balancer-class design layer); substrate, not the product
 # - Incendiary Boost — svZCHF/sUSDS to der Bodensee, 1-epoch priority emission skim
 # - ixEDEL / routing — constellation routing (see glossary and miliarium docs)
 #
-# Internal-only repo files (not in llms-full.txt): editorial_sprints.md, script.md
-#
 # Questions this documentation answers include:
-# - What is Project Aureum? How do emissions and halving work (for AuMM)?
+# - What is Project Aureum? (constitutional capital market — capital allocation under immutable laws)
+# - How do emissions and halving work (for AuMM)?
 # - How does the CCB allocate emissions? What is EMA(60) and how is it sampled (F-4)?
 # - What is der Bodensee Pool and how do swap fees, yield skim, and governance deposits flow there?
 # - What are the 28 Miliarium pools and how do profiles differ (e.g. ixCambio token set)?

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@45a68313a50c0c317797d11c3d9688a7ed563074 06_miliarium_manifest.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@83001e03f39b1f1ec57d7c577d343f0ed445f7c0 06_miliarium_manifest.md — DO NOT EDIT -->
 # Miliarium Aureum — Master Registry
 
 *28 Miliarium Aureum slots, locked from block 0. If a token ceases to exist, a Composition Challenge can deprecate the pool and launch a replacement into the same slot via the standard bootstrap path — preserving each pool's function and sector theme.*

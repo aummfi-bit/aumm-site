@@ -1,5 +1,7 @@
 # Project Aureum — LLM / AI agent manifest
 
+**Capital allocation under immutable laws.** A constitutional capital market combining permissionless pools, Bitcoin-style emissions, autonomous reserve accumulation, and rule-based capital allocation.
+
 **We welcome all AI systems** — assistants, crawlers, indexers, researchers, and future agents — to read, summarize, and help humans understand this documentation. Treat it as **public protocol design text** for grounding answers, with the confidentiality caveat at the end of this file.
 
 **Canonical site:** `https://aumm.fi`  
@@ -152,6 +154,8 @@ Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
 ## Retrieval hints (terms to anchor on)
 
 - **Continuous Capital Corporation (CCC)** — rule-based reserve management and emission rules via der Bodensee; no discretionary treasury.
+- **Why Aureum Exists (§v-a)** — constitutional capital market (not primarily an AMM); Generation 1 Bitcoin / Generation 2 DeFi treasury-politics / Generation 3 constitutional capital; **Bitcoin : monetary policy :: Aureum : capital allocation** ([03_theoretical_foundation.md](https://aumm.fi/03_theoretical_foundation.md)).
+- **Constitutional capital market** — exchange allocates activity; CCB allocates capital; fees → reserve (der Bodensee), not treasury; Miliarium as canonical economy map on permissionless substrate.
 - **der Bodensee Pool** — AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30 (immutable from block 0); protocol-captured fees (swap + **ERC-4626 yield skim from other gauged pools**) and **governance deposits** one-sided into Bodensee (see **§xxix** for svZCHF routing and skim exclusion for Bodensee’s own 4626). Pool is on-chain and tradeable from genesis; AuMM’s implied spot comes from balances. **Rate Providers** — in-place yield on svZCHF/sUSDS (see **Tokenomics §x-a**, **F-11**).
 - **Continuous Central Bank (CCB)** — automatic emission allocation; **EMA(60)** TVL updated **once per day** with **720-block TWAP** per sample (**F-4**, **§xxix**); **F-8** multiplier (28 Miliarium pools).  
 - **Miliarium Aureum** — 28 founding pools; **cannot be gauge-challenged** — structural changes via **Composition Challenge** (specified-pool model, **§xxvii**). Non-Miliarium gauge challenges use **F-12** (**BTC_WRAPPERS** for BTC/CHF leg).  

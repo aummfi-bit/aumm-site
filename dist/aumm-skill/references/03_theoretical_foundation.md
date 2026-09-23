@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@45a68313a50c0c317797d11c3d9688a7ed563074 03_theoretical_foundation.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@83001e03f39b1f1ec57d7c577d343f0ed445f7c0 03_theoretical_foundation.md — DO NOT EDIT -->
 # Theoretical Foundations
 
 ## v. Research foundations
@@ -20,6 +20,136 @@ The CCB draws on research across multiple disciplines:
 **Automatic Stabilizers:** The EMA acts like fiscal automatic stabilizers (unemployment insurance) — elevating yield during crashes without a governance vote.
 
 **Hysteresis:** The EMA gives Aureum institutional memory. Most DeFi is memoryless and reflexive.
+
+---
+
+## v-a. Why Aureum Exists
+
+Aureum should not be understood primarily as an automated market maker. The AMM is infrastructure. The protocol's true purpose is a **constitutional capital market**. Bitcoin showed that money can operate under immutable laws rather than discretionary management; Aureum extends that principle to **capital allocation**. Permissionless pools express investment theses. The Continuous Central Bank allocates emissions according to transparent rules. der Bodensee accumulates value without a treasury. Governance is constrained by constitutional limits. The result is a system designed to answer a simple question: can capital markets operate more effectively under laws than under politics?
+
+This is not an attempt to be a better Curve. It is not an attempt to be a better Balancer. It is an attempt at a **different constitutional model**.
+
+### Constitutional capital market
+
+An exchange facilitates activity. A **capital market allocates capital**. The CCB is fundamentally a capital-allocation mechanism, not a trading widget.
+
+Most DeFi protocols look like: exchange → fees → **treasury**. Aureum looks like: exchange → fees → **reserve**, and nobody gets to decide. That is the Continuous Capital Corporation shape — value accrues to the system itself.
+
+The stack:
+
+- Balancer-derived Vault substrate (AMM infrastructure)
+- Permissionless pools and asset creation
+- On-chain ETF-style compositions — **Miliarium Aureum** as a **canonical model of the economy** (sector map and founding theses), not mandatory neutral DEX plumbing; anyone can still create pools
+- Capital allocation engine (CCB)
+- Autonomous reserve (der Bodensee)
+- Bitcoin-style AuMM emissions
+- Constitutional (minimized) governance
+
+**Bitcoin : monetary policy :: Aureum : capital allocation.**
+
+Many readers will still land on gauges, emissions, and the Balancer fork and conclude "interesting tokenomics." The larger point is the principal-agent problem: DeFi's biggest failure was not the AMMs — it was the emergence of treasuries, political governance, and continuous human allocation of capital.
+
+### Three generations
+
+| | Model | Character |
+| :--- | :--- | :--- |
+| **Generation 1 — Bitcoin** | Immutable money | No treasury. No governance. No insiders. Monetary policy known in advance and applied equally. |
+| **Generation 2 — DeFi** | Treasury + politics | Treasury. Governance. Emissions. Stakeholders. Continuous human allocation of capital and incentives. |
+| **Generation 3 — Aureum** | Constitutional capital | Immutable money **plus** immutable capital allocation, autonomous reserve accumulation, and constitutional (minimized) governance. |
+
+Generation 2's AMMs worked. The vaults settled. Liquidity routed. The contracts executed. Yet the economics failed in a recurring pattern: a protocol launched; a treasury accumulated; governance acquired control; emissions became political; stakeholders formed; incentives diverged; the protocol increasingly existed to manage itself.
+
+The machine was no longer producing capital. The machine was producing governance.
+
+The result was not necessarily corruption. In most cases it was institutional gravity. Treasuries funded operations. Operations required budgets. Budgets required proposals. Proposals required governance. Governance required coalitions. Coalitions required incentives. The protocol became concerned with its own administration.
+
+Aureum begins from a different premise:
+
+**The protocol should not own capital. The protocol should become capital.**
+
+### Treasury versus Reserve
+
+Most protocols accumulate value in a treasury. A treasury is a pool of assets awaiting future human decisions. By definition, a treasury exists to be spent.
+
+Aureum rejects this model entirely.
+
+No fees accrue to a discretionary treasury. No governance body controls a war chest. No multisig receives protocol revenue. No future council decides how accumulated capital should be deployed.
+
+Instead, value flows to a single autonomous destination: **der Bodensee**.
+
+The distinction is fundamental.
+
+A treasury asks: *Who should decide?*
+
+der Bodensee asks: *Why should anyone decide?*
+
+The reserve exists not to fund future activity but to continuously deepen the economic foundation of the system itself. Like the retained earnings of an idealized Continuous Capital Corporation, capital is reinvested automatically rather than politically allocated.
+
+The reserve grows. The protocol strengthens. The question of distribution never arises.
+
+### Governance versus Constitution
+
+Most DeFi systems assume governance is inevitable. Aureum assumes governance is a liability to be minimized.
+
+The protocol therefore shifts decisions from governance to constitutional design. Parameters are specified before launch. Rules are encoded before launch. Emission laws are specified before launch.
+
+The objective is not to create better governors. The objective is to create fewer opportunities requiring governance.
+
+Human judgment is moved from continuous operation to initial design.
+
+Aureum does not claim to eliminate judgment. It claims that judgment should occur once rather than forever.
+
+### Why Fair Launch Matters
+
+Every protocol claims decentralization. Few begin decentralized.
+
+Treasuries, team allocations, investor rounds, ecosystem carve-outs, foundation reserves, advisor grants, and strategic allocations all create classes of participants whose interests differ from those of future users.
+
+Aureum rejects this structure entirely.
+
+No premine. No investor allocation. No foundation allocation. No treasury allocation. No team allocation.
+
+Every AuMM enters circulation through the same immutable emission schedule.
+
+This is not merely a distribution mechanism. It is a legitimacy mechanism.
+
+A launch can only occur once. A fair launch can only occur once. What is allocated before genesis can never be unallocated afterwards.
+
+For this reason the launch architecture is not an implementation detail. It is part of the protocol's constitution.
+
+### Bitcoin's Lesson
+
+The most important lesson from Bitcoin was never proof-of-work. It was never SHA-256. It was never even scarcity.
+
+Bitcoin demonstrated that a monetary system gains extraordinary legitimacy when no privileged class exists above the rules. The emission schedule is known. The monetary policy is known. The rules apply equally to everyone.
+
+Aureum applies this principle to capital allocation.
+
+The objective is not to replicate Bitcoin. The objective is to extend the logic of an immutable monetary constitution into an immutable capital-market constitution.
+
+### The Aureum Thesis
+
+Aureum does not believe the future of DeFi lies in better treasuries. It does not believe the future lies in better governance campaigns. It does not believe the future lies in more sophisticated political allocation of emissions.
+
+It believes the future lies in replacing discretion with rules.
+
+The experiment is simple.
+
+Can a protocol governed primarily by constitutional law outperform one governed primarily by political process?
+
+Can emissions be allocated by economic performance rather than influence?
+
+Can value accrue to the system itself rather than to entities acting on behalf of the system?
+
+Can capital allocation become mechanical rather than political?
+
+Aureum does not claim to know the answer. Aureum exists to test it.
+
+The sections that follow — CCB, EMA, multipliers — and the rest of the canon (der Bodensee, Incendiary Boost, Miliarium) are mechanisms in service of that test. They are how Generation 3 is built, not what Generation 3 is for.
+
+Publishing the thesis in the canon also places the ideas in the open: reserve instead of treasury, immutable emissions, allocation without political governance, capital policy treated the way Bitcoin treats monetary policy. Philosophical claims travel easily without attribution; stating them here makes the intellectual lineage hard to miss.
+
+For how prior fair launches failed, how Yield Basis relates, and how Aureum sits against Uniswap, Curve, Aerodrome, and proprietary AMMs, see [Appendices §xxxvii–§xxxix](13_appendices.md).
 
 ---
 

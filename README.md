@@ -1,4 +1,6 @@
-# AUREUM — Protocol design site
+# AUREUM — Capital allocation under immutable laws
+
+A constitutional capital market combining permissionless pools, Bitcoin-style emissions, autonomous reserve accumulation, and rule-based capital allocation.
 
 Static documentation and registry for **Project Aureum**: tokenomics, governance bounds, and the **Miliarium Aureum** constellation of **28** immutable liquidity pools.
 
@@ -44,7 +46,7 @@ Then push those files from `dist/aumm-skill/` to the `aumm-skill` remote (mainta
 
 ## Section numbering (site-wide)
 
-`##` headings use **lowercase Roman numerals with a dot** (e.g. `## i.`, `## ii.`, … `## xxxix.`) in one continuous sequence in nav order: **i.–iv.** Mental Model → **v.–viii.** Theoretical Foundations → **ix.–x.** Tokenomics → **xi.–xii.** Miliarium registry ([05_miliarium_aureum.md](05_miliarium_aureum.md)) → **xiii.–xv.** Manifest → **xvi.–xx.** Sectors → **xxi.–xxv.** Bootstrap → **xxvi.** Transitions → **xxvii.–xxx.** Constitution → **xxxi.–xxxv.** Glossary → **xxxvi.–xl.** Appendices. In [Miliarium Aureum registry](05_miliarium_aureum.md), the registry block is **Section xi** and the AuMM pool block is **Section xii**. **[Overview](15_overview.md)** uses unnumbered `##` headings (not in the sequence). **[Team](16_team.md)** uses **§xl–§xliii** for team, prior work, confidentiality, and disclaimer.
+`##` headings use **lowercase Roman numerals with a dot** (e.g. `## i.`, `## ii.`, … `## xxxix.`) in one continuous sequence in nav order: **i.–iv.** Mental Model → **v.–viii.** Theoretical Foundations (incl. **§v-a Why Aureum Exists** before CCB; **§viii** Immutable Reference; **§ix** References list) → **ix.–x.** Tokenomics → **xi.–xii.** Miliarium registry ([05_miliarium_aureum.md](05_miliarium_aureum.md)) → **xiii.–xv.** Manifest → **xvi.–xx.** Sectors → **xxi.–xxv.** Bootstrap → **xxvi.** Transitions → **xxvii.–xxx.** Constitution → **xxxi.–xxxv.** Glossary → **xxxvi.–xl.** Appendices. In [Miliarium Aureum registry](05_miliarium_aureum.md), the registry block is **Section xi** and the AuMM pool block is **Section xii**. **[Overview](15_overview.md)** uses unnumbered `##` headings (not in the sequence). **[Team](16_team.md)** uses **§xl–§xliii** for team, prior work, confidentiality, and disclaimer.
 
 ## Spec alignment (current docs)
 

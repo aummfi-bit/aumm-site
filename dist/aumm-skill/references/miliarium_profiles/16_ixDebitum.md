@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@45a68313a50c0c317797d11c3d9688a7ed563074 miliarium_profiles/16_ixDebitum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@83001e03f39b1f1ec57d7c577d343f0ed445f7c0 miliarium_profiles/16_ixDebitum.md — DO NOT EDIT -->
 # ixDebitum — Slot 16
 
 **Sector:** DeFi Lending Infra

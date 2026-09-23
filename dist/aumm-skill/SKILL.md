@@ -5,7 +5,7 @@ description: Use this skill whenever a user asks about Project Aureum, AuMM, AuM
 
 # Aureum Skill
 
-Project Aureum is an immutable on-chain capital allocation protocol. This Skill grounds answers in the canonical specification under `references/`, derived directly from `aummfi-bit/aumm-site`. The lockfile at `references/_canon.json` records the exact canon commit each snapshot reflects.
+Project Aureum: **capital allocation under immutable laws** — a constitutional capital market combining permissionless pools, Bitcoin-style emissions, autonomous reserve accumulation, and rule-based capital allocation. This Skill grounds answers in the canonical specification under `references/`, derived directly from `aummfi-bit/aumm-site`. The lockfile at `references/_canon.json` records the exact canon commit each snapshot reflects.
 
 ## How to use this Skill
 

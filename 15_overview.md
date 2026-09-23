@@ -1,6 +1,6 @@
 # Overview
 
-*Project Aureum at a glance.*
+**Capital allocation under immutable laws.** A constitutional capital market combining permissionless pools, Bitcoin-style emissions, autonomous reserve accumulation, and rule-based capital allocation.
 
 ---
 
@@ -22,7 +22,7 @@ Two tracks, depending on what you need:
 
 | Step | File | What you learn |
 |:-----|:-----|:---------------|
-| 1 | [Theoretical foundations](03_theoretical_foundation.md) | Research foundations, CCB narrative, multiplier engine — read this first for context on the systems the other files formalize |
+| 1 | [Theoretical foundations](03_theoretical_foundation.md) | Research foundations, **§v-a Why Aureum Exists** (principal-agent thesis — read before the CCB mechanics), CCB narrative, multiplier engine |
 | 2 | [Constitution](10_constitution.md) | Immutable parameters, governance scope, emission operating rules |
 | 3 | [Protocol formulas](11_formulas.md) | Every formula: EMA, CCB score, multiplier update, governance power |
 | 4 | [Bootstrap](08_bootstrap.md) §xxi–xxv | Anti-gaming engine, Incendiary Boost, gauge gating |
@@ -36,7 +36,7 @@ Two tracks, depending on what you need:
 | [Overview](15_overview.md) | Protocol at a glance — character, team, risks | Everyone |
 | [Mental model](02_mental_model.md) | Conceptual architecture: thesis, principles, three layers, emission regimes, **§v. Flywheel**, routing | LP / Investor |
 | [Tokenomics](04_tokenomics.md) | Token design, emission schedule, fee splits, governance model, value capture | LP / Investor |
-| [Theoretical foundations](03_theoretical_foundation.md) | Research foundations, CCB allocation narrative, multiplier engine | Builder / Auditor |
+| [Theoretical foundations](03_theoretical_foundation.md) | Research foundations, **§v-a Why Aureum Exists**, CCB allocation narrative, multiplier engine | Builder / Auditor |
 | [Protocol formulas](11_formulas.md) | Formal definitions of every protocol formula | Builder / Auditor |
 | [Constitution](10_constitution.md) | Immutable operating law: governance scope, emission rules, parameter list | Builder / Auditor |
 | [Bootstrap](08_bootstrap.md) | Pool bootstrapping: gauge gating, Incendiary Boost, anti-gaming criteria | Builder / Auditor |
@@ -52,6 +52,7 @@ Two tracks, depending on what you need:
 
 ## Protocol Character
 
+- Constitutional capital market (AMM substrate, not the product)
 - Fair launch
 - Immutable from block 0
 - No multisig
