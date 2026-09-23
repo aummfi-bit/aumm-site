@@ -8,6 +8,7 @@ Aureum is a fork of open-source Balancer V3. While the protocol is in final pre-
 
 | Artifact | Role | Link |
 | :--- | :--- | :--- |
+| Whitehat ledger (`AUREUM_WHITEHAT_OUTPUT.md`) | Findings and remediation log (F-series). Audits and patch cycles are still in flight; the ledger will be published here once remediation closes and findings / fixes are ready for public review. | Forthcoming |
 | Run metadata | Snapshot date, commit pins, submodule hashes | [`audit/seam-1/RUN-METADATA.md`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) |
 | Audit instructions | Scope, ground truth, out-of-scope, engagement rules | [`audit/seam-1/AUDIT-INSTRUCTIONS.md`](https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md) |
 | Threat-model seed | Review questions for the capability / lifetime agenda (not settled claims) | [`audit/seam-1/THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md) |

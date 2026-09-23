@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@e3c2d641afa770b463d98a5f3e3bf12129a942eb miliarium_profiles/01_ixHelvetia.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@45a68313a50c0c317797d11c3d9688a7ed563074 miliarium_profiles/01_ixHelvetia.md — DO NOT EDIT -->
 # ixHelvetia — Slot 01
 
 **Sector:** Yield-bearing (Frankencoin money market)  

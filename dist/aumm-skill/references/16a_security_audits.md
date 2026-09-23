@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@e3c2d641afa770b463d98a5f3e3bf12129a942eb 16a_security_audits.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@45a68313a50c0c317797d11c3d9688a7ed563074 16a_security_audits.md — DO NOT EDIT -->
 # Security & Audits
 
 This chapter documents the formal security evaluation of **Seam 1 (Authority and Governance)** for the Aureum Protocol. The evaluation was conducted against a static snapshot of the codebase using the `auditician` automated verification harness alongside manual code review.
@@ -9,6 +9,7 @@ Aureum is a fork of open-source Balancer V3. While the protocol is in final pre-
 
 | Artifact | Role | Link |
 | :--- | :--- | :--- |
+| Whitehat ledger (`AUREUM_WHITEHAT_OUTPUT.md`) | Findings and remediation log (F-series). Audits and patch cycles are still in flight; the ledger will be published here once remediation closes and findings / fixes are ready for public review. | Forthcoming |
 | Run metadata | Snapshot date, commit pins, submodule hashes | [`audit/seam-1/RUN-METADATA.md`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) |
 | Audit instructions | Scope, ground truth, out-of-scope, engagement rules | [`audit/seam-1/AUDIT-INSTRUCTIONS.md`](https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md) |
 | Threat-model seed | Review questions for the capability / lifetime agenda (not settled claims) | [`audit/seam-1/THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md) |
