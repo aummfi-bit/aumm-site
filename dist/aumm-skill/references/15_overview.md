@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@58cef8e8b3921ef3e2ece281c74dc2afd72a5162 15_overview.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@2d7785bf5cc82ee71c085c683a1c669aca8659b4 15_overview.md — DO NOT EDIT -->
 # Overview
 
 **Capital allocation under immutable laws.** AUREUM is a constitutional capital market built on a Balancer V3-derived AMM substrate. Anyone can create a pool, express an investment thesis, and compete for fixed AuMM emissions under the same on-chain rules. No premine. No treasury. No discretionary emission allocation.
@@ -34,6 +34,12 @@ A treasury is capital awaiting a future human decision. **der Bodensee** is capi
 - **Incendiary Boost** — Anyone may sacrifice capital into der Bodensee to accelerate emissions to a qualified pool, without minting new AuMM or expanding the fixed supply.
 
 CCB rewards demonstrated persistence. Incendiary Boost expresses costly conviction. Both operate within the same fixed emission budget.
+
+### Not another DAO-controlled AMM
+
+AUREUM is **not**: a treasury seeking assets to manage · a governance token directing emissions · a foundation picking which markets get incentives · a fixed set of protocol-approved pools · monetary policy awaiting future governors.
+
+AUREUM **is**: a permissionless market for investment theses · a fixed monetary constitution · an autonomous reserve · an objective capital-allocation engine · constrained governance enforced by immutable contracts.
 
 ---
 

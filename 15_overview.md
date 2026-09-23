@@ -34,6 +34,12 @@ A treasury is capital awaiting a future human decision. **der Bodensee** is capi
 
 CCB rewards demonstrated persistence. Incendiary Boost expresses costly conviction. Both operate within the same fixed emission budget.
 
+### Not another DAO-controlled AMM
+
+AUREUM is **not**: a treasury seeking assets to manage · a governance token directing emissions · a foundation picking which markets get incentives · a fixed set of protocol-approved pools · monetary policy awaiting future governors.
+
+AUREUM **is**: a permissionless market for investment theses · a fixed monetary constitution · an autonomous reserve · an objective capital-allocation engine · constrained governance enforced by immutable contracts.
+
 ---
 
 ## How to Read This Documentation
