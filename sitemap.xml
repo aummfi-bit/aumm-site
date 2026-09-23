@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://aumm.fi/</loc><lastmod>2026-09-23T16:23:04Z</lastmod></url>
-  <url><loc>https://aumm.fi/llms.txt</loc><lastmod>2026-09-23T16:34:06Z</lastmod></url>
-  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-09-23T16:35:04Z</lastmod></url>
+  <url><loc>https://aumm.fi/llms.txt</loc><lastmod>2026-09-23T16:39:37Z</lastmod></url>
+  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-09-23T16:39:40Z</lastmod></url>
   <url><loc>https://aumm.fi/15_overview.md</loc><lastmod>2026-09-23T16:20:04Z</lastmod></url>
   <url><loc>https://aumm.fi/08_bootstrap.md</loc><lastmod>2026-09-23T16:35:02Z</lastmod></url>
   <url><loc>https://aumm.fi/09_transitions.md</loc><lastmod>2026-09-18T12:57:56Z</lastmod></url>
@@ -17,7 +17,7 @@
   <url><loc>https://aumm.fi/07_miliarium_sectors.md</loc><lastmod>2026-09-23T16:35:02Z</lastmod></url>
   <url><loc>https://aumm.fi/07a_tokens.md</loc><lastmod>2026-09-23T16:35:02Z</lastmod></url>
   <url><loc>https://aumm.fi/16_team.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/16a_security_audits.md</loc><lastmod>2026-09-23T16:34:43Z</lastmod></url>
+  <url><loc>https://aumm.fi/16a_security_audits.md</loc><lastmod>2026-09-23T16:39:30Z</lastmod></url>
   <url><loc>https://aumm.fi/12_aureum_glossary.md</loc><lastmod>2026-09-23T16:35:02Z</lastmod></url>
   <url><loc>https://aumm.fi/13_appendices.md</loc><lastmod>2026-09-23T16:35:02Z</lastmod></url>
   <url><loc>https://aumm.fi/14_ux_ui.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
@@ -58,8 +58,8 @@
   <url><loc>https://aumm.fi/miliarium_profiles/26_ixMercatura.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/27_ixAurix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/miliarium_profiles/28_ixMetallum.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md</loc><lastmod>2026-09-23T16:35:04Z</lastmod></url>
-  <url><loc>https://aumm.fi/audit/seam-1/CORRECTIONS.md</loc><lastmod>2026-09-23T16:35:04Z</lastmod></url>
-  <url><loc>https://aumm.fi/audit/seam-1/RUN-METADATA.md</loc><lastmod>2026-09-23T16:35:04Z</lastmod></url>
-  <url><loc>https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md</loc><lastmod>2026-09-23T16:35:04Z</lastmod></url>
+  <url><loc>https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md</loc><lastmod>2026-09-23T16:39:36Z</lastmod></url>
+  <url><loc>https://aumm.fi/audit/seam-1/CORRECTIONS.md</loc><lastmod>2026-09-23T16:39:36Z</lastmod></url>
+  <url><loc>https://aumm.fi/audit/seam-1/RUN-METADATA.md</loc><lastmod>2026-09-23T16:39:36Z</lastmod></url>
+  <url><loc>https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md</loc><lastmod>2026-09-23T16:39:37Z</lastmod></url>
 </urlset>

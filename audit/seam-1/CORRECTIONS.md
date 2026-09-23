@@ -1,4 +1,4 @@
-> **Primary source (Seam 1).** Mirrored from private `aumm-deploy` at audited commit `9ec513d99a68fb454a8a54271b34b884f40f2088` (snapshot 2026-08-19). Not protocol operating law — supporting audit artifact. Narrative: [Security & Audits](../16a_security_audits.md).
+> **Primary source (Seam 1).** Mirrored from the pre-release implementation repo (`aumm-deploy`) at audited commit `9ec513d99a68fb454a8a54271b34b884f40f2088` (snapshot 2026-08-19). Not protocol operating law — supporting audit artifact. Narrative: [Security & Audits](../16a_security_audits.md).
 
 ---
 

@@ -1,11 +1,11 @@
-<!-- GENERATED FROM aumm-site@2f33483747c8b141129a621f6e561750ee9d8a58 16a_security_audits.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@e3c2d641afa770b463d98a5f3e3bf12129a942eb 16a_security_audits.md — DO NOT EDIT -->
 # Security & Audits
 
 This chapter documents the formal security evaluation of **Seam 1 (Authority and Governance)** for the Aureum Protocol. The evaluation was conducted against a static snapshot of the codebase using the `auditician` automated verification harness alongside manual code review.
 
 ## Primary Sources
 
-Because the protocol repository is private, the Seam 1 harness artifacts are mirrored here as frozen primary sources. They are **supporting audit artifacts**, not protocol operating law. Citations in these files bind only to commit `9ec513d`; if protocol code at `HEAD` diverges, line-level claims may be void.
+Aureum is a fork of open-source Balancer V3. While the protocol is in final pre-release development, the implementation repository remains private, so the Seam 1 harness artifacts are mirrored here as frozen primary sources. They are **supporting audit artifacts**, not protocol operating law. Citations in these files bind only to commit `9ec513d`; if protocol code at `HEAD` diverges, line-level claims may be void.
 
 | Artifact | Role | Link |
 | :--- | :--- | :--- |

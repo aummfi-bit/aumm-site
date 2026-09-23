@@ -107,8 +107,7 @@ Build runs `generate_llms_manifest.py` → `build_ask_index.py` → `append_agen
 
 ## UI notes
 
-- **Intro** is driven by `01_intro.json` (JSON array of typed lines).
-- After the intro, **ENTER** goes straight to the documentation (see `index.html`).
+- **Intro** is driven by `01_intro.json` (JSON array of typed lines) in the **Intro** sidebar tab. The site boots straight into the docs shell (default Night theme); there is no full-screen gate or ENTER screen.
 - **Navigation** — left **sidebar** (desktop): full doc tree with section anchors under each long page; footer block with canonical manifest / `.md` links for crawlers; **theme** (Au / Day / Night). On narrow viewports the sidebar is a **drawer** (hamburger in the top bar + backdrop).
 - **Miliarium** — **Registry** ([05_miliarium_aureum.md](05_miliarium_aureum.md)), **Manifest** ([06_miliarium_manifest.md](06_miliarium_manifest.md)), **Sectors** ([07_miliarium_sectors.md](07_miliarium_sectors.md)), **Tokens** ([07a_tokens.md](07a_tokens.md)); in-app rendering of pool profiles so `.md` links do not open as raw files.
 - **Governance** — **Constitution** ([10_constitution.md](10_constitution.md)), **Bootstrap** ([08_bootstrap.md](08_bootstrap.md)), **Transitions** ([09_transitions.md](09_transitions.md)), **Formulas** ([11_formulas.md](11_formulas.md)).

@@ -86,7 +86,8 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 
 - **Single-page app:** [`index.html`](https://aumm.fi/index.html) loads Markdown via `fetch()` and renders with [marked](https://marked.js.org/). Raw `.md` URLs are the **best machine-readable source** (not the rendered DOM alone). **Navigation** is a **left sidebar** (section anchors under each doc); on small screens it becomes a **drawer** (hamburger + backdrop).
 - **File naming:** Numbered specs use **`NN_descriptive_snake_case.md`** (two-digit prefix `01`–`15` for primary sections, then topic name). Pool profiles: **`miliarium_profiles/NN_ixName.md`** (slots 01–28).
-- **Intro animation:** [`01_intro.json`](https://aumm.fi/01_intro.json) — JSON lines for the terminal intro, **not** prose documentation.
+- **Intro animation:** [`01_intro.json`](https://aumm.fi/01_intro.json) — JSON lines for the **Intro** sidebar tab terminal (not a full-screen gate; not prose documentation).
+- **Default theme:** Night (Au / Day / Night toggle in the sidebar).
 
 ---
 
@@ -94,7 +95,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 
 | UI area | Markdown file |
 |--------|----------------|
-| Intro (terminal + tab) | [`01_intro.json`](https://aumm.fi/01_intro.json) only |
+| Intro (sidebar tab; terminal from JSON) | [`01_intro.json`](https://aumm.fi/01_intro.json) only |
 | Mental Model | [`02_mental_model.md`](https://aumm.fi/02_mental_model.md) (incl. **§v. Flywheel**; standalone mirror [`02a_flywheel.md`](https://aumm.fi/02a_flywheel.md)) |
 | Theoretical Foundations | [`03_theoretical_foundation.md`](https://aumm.fi/03_theoretical_foundation.md) |
 | Tokenomics | [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) |
@@ -121,7 +122,7 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 
 ### Seam 1 primary sources (supporting artifacts)
 
-Mirrored under [`audit/seam-1/`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) for public provenance (private `aumm-deploy`). **Not** protocol operating law — cite only at audited commit `9ec513d`. Narrative: [`16a_security_audits.md`](https://aumm.fi/16a_security_audits.md).
+Mirrored under [`audit/seam-1/`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) for public provenance (pre-release implementation repo). **Not** protocol operating law — cite only at audited commit `9ec513d`. Narrative: [`16a_security_audits.md`](https://aumm.fi/16a_security_audits.md).
 
 - [`audit/seam-1/RUN-METADATA.md`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) — snapshot date, commit pins, submodule hashes
 - [`audit/seam-1/AUDIT-INSTRUCTIONS.md`](https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md) — scope, ground truth, out-of-scope, engagement rules

@@ -4,7 +4,7 @@ This chapter documents the formal security evaluation of **Seam 1 (Authority and
 
 ## Primary Sources
 
-Because the protocol repository is private, the Seam 1 harness artifacts are mirrored here as frozen primary sources. They are **supporting audit artifacts**, not protocol operating law. Citations in these files bind only to commit `9ec513d`; if protocol code at `HEAD` diverges, line-level claims may be void.
+Aureum is a fork of open-source Balancer V3. While the protocol is in final pre-release development, the implementation repository remains private, so the Seam 1 harness artifacts are mirrored here as frozen primary sources. They are **supporting audit artifacts**, not protocol operating law. Citations in these files bind only to commit `9ec513d`; if protocol code at `HEAD` diverges, line-level claims may be void.
 
 | Artifact | Role | Link |
 | :--- | :--- | :--- |
