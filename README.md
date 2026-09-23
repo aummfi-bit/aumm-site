@@ -81,6 +81,12 @@ GitHub Pages is **disabled for push** (manual `workflow_dispatch` only) so `aumm
 2. At your DNS provider, point `aumm.fi` to Vercel (remove the GitHub Pages CNAME target). Vercel shows the exact A/CNAME records after you add the domain.
 3. Wait for SSL provisioning (usually minutes).
 
+### Web Analytics
+
+Visitor stats (country, referrers, pages) use [Vercel Web Analytics](https://vercel.com/docs/analytics). `index.html` loads `/_vercel/insights/script.js` and records each sidebar/header tab as a virtual pageview under `/t/<tab-id>` (e.g. `/t/model`, `/t/foundations`) so the **Pages** panel shows which docs tabs were opened.
+
+**One-time enable:** Vercel dashboard → [aumm-site](https://vercel.com/aummfi-bits-projects/aumm-site) → **Analytics** → **Enable**. Without that, the script 404s and no data is collected. After enabling, redeploy or wait for the next `main` push.
+
 ### Environment variables (Vercel → Settings → Environment Variables)
 
 | Variable | Environments | Purpose |

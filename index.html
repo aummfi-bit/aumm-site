@@ -581,6 +581,9 @@
 </div>
 
 <script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script>
 var menus = {
   overview: [],
   bootstrap: [],
@@ -788,8 +791,15 @@ function updateHeaderTabsActive(tab) {
   });
 }
 
+function trackTabPageview(tab) {
+  if (typeof window.va !== 'function' || !tab) return;
+  var path = '/t/' + tab;
+  window.va('pageview', { path: path, route: path });
+}
+
 function switchTab(tab) {
   currentTab = tab;
+  trackTabPageview(tab);
   updateSidebarActive(tab);
   syncSidebarAccordion(tab);
   updateSidebarMenuPanelsVisibility();
@@ -1077,6 +1087,8 @@ var profileBackBtn = document.getElementById('profile-back-btn');
 if (profileBackBtn) profileBackBtn.addEventListener('click', function(e) { e.preventDefault(); switchTab(profileBackBtn.getAttribute('data-tab')); });
 
 updateSidebarMenuPanelsVisibility();
+trackTabPageview(currentTab);
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
