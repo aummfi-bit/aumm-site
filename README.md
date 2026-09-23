@@ -23,9 +23,10 @@ Static documentation and registry for **Project Aureum**: tokenomics, governance
 This project **welcomes** search indexes, assistants, and research bots to use the public Markdown as grounding context.
 
 - **[llms.txt](llms.txt)** — Structured manifest: reading order, retrieval hints, Governance/Miliarium nav mapping, exclusions (`editorial_sprints.md`, `script.md`), confidentiality note. Compatible with [llmstxt.org](https://llmstxt.org/).
-- **[llms-full.txt](llms-full.txt)** — Canonical list of spec URLs (default origin `https://aumm.fi`). Regenerate after adding or renaming `.md` files.
+- **[llms-full.txt](llms-full.txt)** — Canonical list of spec URLs (default origin `https://aumm.fi`), including pool profiles and `audit/seam-1/` primary sources. Regenerate after adding or renaming `.md` files.
 - **[sitemap.xml](sitemap.xml)** — Same corpus as `llms-full.txt` plus `/`, `/llms.txt`, `/llms-full.txt`; submit in Search Console / use for crawler seeding.
 - **[robots.txt](robots.txt)** — `Allow: /`; `Sitemap` directive; named AI bots listed for clarity.
+- **[`audit/seam-1/`](audit/seam-1/RUN-METADATA.md)** — Mirrored Seam 1 primary sources (run metadata, audit instructions, threat-model seed, corrections); supporting artifacts linked from [Security & Audits](16a_security_audits.md).
 
 `index.html` includes `<link rel="llms-txt" href="/llms.txt">`, a static sidebar block linking to manifests and key `.md` sources, and a `<noscript>` panel with the same links for clients that do not run JavaScript.
 

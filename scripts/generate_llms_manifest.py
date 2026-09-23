@@ -80,21 +80,27 @@ def collect_paths() -> list[str]:
         paths.append(README_PATH)
 
     prof_dir = ROOT / "miliarium_profiles"
-    if not prof_dir.is_dir():
+    if prof_dir.is_dir():
+        prof_files: list[tuple[int, str]] = []
+        for name in os.listdir(prof_dir):
+            m = PROFILE_RE.match(name)
+            if m:
+                prof_files.append((int(m.group(1)), f"miliarium_profiles/{name}"))
+        prof_files.sort(key=lambda x: x[0])
+        for _slot, rel in prof_files:
+            if (ROOT / rel).is_file():
+                paths.append(rel.replace("\\", "/"))
+            else:
+                print(f"warning: missing profile (skipped): {rel}", file=sys.stderr)
+    else:
         print("warning: miliarium_profiles/ missing", file=sys.stderr)
-        return paths
 
-    prof_files: list[tuple[int, str]] = []
-    for name in os.listdir(prof_dir):
-        m = PROFILE_RE.match(name)
-        if m:
-            prof_files.append((int(m.group(1)), f"miliarium_profiles/{name}"))
-    prof_files.sort(key=lambda x: x[0])
-    for _slot, rel in prof_files:
-        if (ROOT / rel).is_file():
-            paths.append(rel.replace("\\", "/"))
-        else:
-            print(f"warning: missing profile (skipped): {rel}", file=sys.stderr)
+    # Seam 1 primary sources (supporting audit artifacts — not skill-canon)
+    audit_dir = ROOT / "audit" / "seam-1"
+    if audit_dir.is_dir():
+        for name in sorted(os.listdir(audit_dir)):
+            if name.endswith(".md") and (audit_dir / name).is_file():
+                paths.append(f"audit/seam-1/{name}")
 
     return paths
 

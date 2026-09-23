@@ -119,6 +119,15 @@ Optional: `BASE_URL=https://your.domain python3 scripts/generate_llms_manifest.p
 
 **Per-pool profiles:** [`miliarium_profiles/01_ixHelvetia.md`](https://aumm.fi/miliarium_profiles/01_ixHelvetia.md) … [`28_ixMetallum.md`](https://aumm.fi/miliarium_profiles/28_ixMetallum.md) — one file per founding pool.
 
+### Seam 1 primary sources (supporting artifacts)
+
+Mirrored under [`audit/seam-1/`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) for public provenance (private `aumm-deploy`). **Not** protocol operating law — cite only at audited commit `9ec513d`. Narrative: [`16a_security_audits.md`](https://aumm.fi/16a_security_audits.md).
+
+- [`audit/seam-1/RUN-METADATA.md`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) — snapshot date, commit pins, submodule hashes
+- [`audit/seam-1/AUDIT-INSTRUCTIONS.md`](https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md) — scope, ground truth, out-of-scope, engagement rules
+- [`audit/seam-1/THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md) — review questions (not settled claims)
+- [`audit/seam-1/CORRECTIONS.md`](https://aumm.fi/audit/seam-1/CORRECTIONS.md) — settled invariants / refuted hypotheses at the pin
+
 ---
 
 ## Suggested reading order (for humans and models)

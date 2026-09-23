@@ -53,3 +53,7 @@ https://aumm.fi/miliarium_profiles/25_ixMedicix.md
 https://aumm.fi/miliarium_profiles/26_ixMercatura.md
 https://aumm.fi/miliarium_profiles/27_ixAurix.md
 https://aumm.fi/miliarium_profiles/28_ixMetallum.md
+https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md
+https://aumm.fi/audit/seam-1/CORRECTIONS.md
+https://aumm.fi/audit/seam-1/RUN-METADATA.md
+https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md

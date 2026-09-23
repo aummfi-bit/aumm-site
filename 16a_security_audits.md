@@ -1,10 +1,25 @@
 # Security & Audits
 
-## Seam 1 — Scope & Reproduction
-
 This chapter documents the formal security evaluation of **Seam 1 (Authority and Governance)** for the Aureum Protocol. The evaluation was conducted against a static snapshot of the codebase using the `auditician` automated verification harness alongside manual code review.
 
+## Primary Sources
+
+Because the protocol repository is private, the Seam 1 harness artifacts are mirrored here as frozen primary sources. They are **supporting audit artifacts**, not protocol operating law. Citations in these files bind only to commit `9ec513d`; if protocol code at `HEAD` diverges, line-level claims may be void.
+
+| Artifact | Role | Link |
+| :--- | :--- | :--- |
+| Run metadata | Snapshot date, commit pins, submodule hashes | [`audit/seam-1/RUN-METADATA.md`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) |
+| Audit instructions | Scope, ground truth, out-of-scope, engagement rules | [`audit/seam-1/AUDIT-INSTRUCTIONS.md`](https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md) |
+| Threat-model seed | Review questions for the capability / lifetime agenda (not settled claims) | [`audit/seam-1/THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md) |
+| Corrections | Settled invariants / refuted hypotheses at the pin | [`audit/seam-1/CORRECTIONS.md`](https://aumm.fi/audit/seam-1/CORRECTIONS.md) |
+
+---
+
+## Seam 1 — Scope & Reproduction
+
 ### Cryptographic Provenance & Target Pin
+
+Full reproduction header: [`RUN-METADATA.md`](https://aumm.fi/audit/seam-1/RUN-METADATA.md).
 
 * **Evaluation Seam:** Seam 1 — Authority and Governance (`src/governance/`)
 * **Snapshot Date:** 2026-08-19
@@ -24,6 +39,8 @@ The core Vault architecture (`Vault.sol`, `VaultAdmin.sol`, `VaultExtension.sol`
 ---
 
 ## What Was Audited
+
+Engagement scope and rules of engagement: [`AUDIT-INSTRUCTIONS.md`](https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md).
 
 The scope for Seam 1 covers the protocol's authority routing, governance execution, and voting weight calculation mechanics.
 
@@ -53,6 +70,8 @@ The scope for Seam 1 covers the protocol's authority routing, governance executi
 
 ## Authority & Protocol Lifetime
 
+Review agenda (questions, not settled claims): [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).
+
 Aureum enforces a strict decentralization roadmap. Post-deployment permissions are partitioned between automated governance logic, temporary emergency multisig controls, and specialized pool role managers.
 
 ### Post-Stage K Authority Architecture
@@ -76,11 +95,13 @@ where `EMERGENCY_WINDOW_END_BLOCK = block.number_at_deploy + EMERGENCY_WINDOW_BL
 * **`setGovernanceContract`:** Restricted function used to update the governance execution target during the operational setup phase.
 * **`Vault.setAuthorizer`:** Executable exclusively via a formal `VaultAuthorizerChange` proposal passed by token holder consensus.
 
-*Note: The complete, itemized principal-to-action capability matrix represents an internal operational artifact tied to commit `9ec513d`. Public documentation publishes the review methodology and verified boundary proofs below.*
+*Note: The complete, itemized principal-to-action capability matrix represents an internal operational artifact tied to commit `9ec513d`. Public documentation publishes the review methodology and verified boundary proofs below; the seed questions are in [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).*
 
 ---
 
 ## Verified Invariants & Boundary Proofs
+
+Settled corrections and refuted hypotheses at the pin: [`CORRECTIONS.md`](https://aumm.fi/audit/seam-1/CORRECTIONS.md).
 
 The evaluation established several load-bearing security proofs and verified system boundaries, refuting potential vulnerability hypotheses and clarifying system behavior at commit `9ec513d`.
 
@@ -105,7 +126,7 @@ At commit `9ec513d`, the initial Seam 1 evaluation recorded **82 confirmed** tec
 | Low | 14 |
 | Info | 17 |
 
-*Methodology Rule: Any line-level code citation from the Seam 1 evaluation is void if `git diff 9ec513d..HEAD` touches the referenced lines during subsequent remediation cycles. Entries here are findings with citations, not permanent safety certificates.*
+*Methodology Rule: Any line-level code citation from the Seam 1 evaluation is void if `git diff 9ec513d..HEAD` touches the referenced lines during subsequent remediation cycles. Entries here are findings with citations, not permanent safety certificates. See also [`CORRECTIONS.md`](https://aumm.fi/audit/seam-1/CORRECTIONS.md).*
 
 ---
 

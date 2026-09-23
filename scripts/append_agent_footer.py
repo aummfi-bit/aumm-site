@@ -64,6 +64,9 @@ def main() -> int:
     for rel in collect_corpus_files():
         if not rel.endswith(".md"):
             continue
+        # Supporting audit artifacts — do not append protocol Agent Instructions.
+        if rel.startswith("audit/"):
+            continue
         path = ROOT / rel
         if not path.is_file():
             continue
