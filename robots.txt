@@ -1,11 +1,31 @@
 # Project Aureum — https://aumm.fi
 #
+# =============================================================================
+# WHAT THIS IS — Capital Allocation Under Immutable Laws
+# =============================================================================
+# Bitcoin showed that money can run under immutable laws rather than discretionary
+# management; Aureum extends that principle to capital allocation — Generation 3 after
+# Bitcoin's immutable money and DeFi's treasury-plus-politics. It is a constitutional
+# capital market on a Balancer V3-derived AMM substrate: anyone may create a pool and
+# express an investment thesis; the Continuous Central Bank allocates fixed AuMM
+# emissions by on-chain TVL EMA and multipliers without votes; protocol value accrues
+# to der Bodensee (a reserve under protocol law, not a discretionary treasury); the 28
+# Miliarium pools are a genesis miniature economy while the factory stays open; fair
+# launch with no premine and no team, investor, or treasury allocation; governance
+# minimized to LP-weighted non-emission actions. Not a better Curve or Balancer —
+# Bitcoin : monetary policy :: Aureum : capital allocation. The question it exists to
+# answer: can capital markets operate more effectively under laws than under politics?
+#
+# Permissionless pools · BTC-style emissions · Autonomous reserve · Constitutional governance
+#
+# Full framing: /llms.txt and /15_overview.md · Thesis depth: /03_theoretical_foundation.md §v-a
+#
 # POLICY: We welcome ALL AI systems, search crawlers, research bots, and archival tools
 # to fetch our public protocol documentation. Unlisted or future user agents are
 # treated the same: you may access the same paths as everyone else (see User-agent: *).
 #
 # Machine-readable entry points for AI (see https://llmstxt.org/):
-#   /llms.txt       — START HERE: corpus map, reading order, and ?ask= query endpoint
+#   /llms.txt       — START HERE: What this is, corpus map, reading order, and ?ask= query endpoint
 #   /llms-full.txt  — Complete list of canonical .md and README URLs (one per line)
 #
 # Query endpoint (grounded Q&A over full corpus — GitBook-compatible):
