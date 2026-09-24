@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@03e026a9147eb730b73c754d19acf81c7350189a miliarium_profiles/06_ixLibertas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@a47edf03bbfbba859c070479d0a97f4ecd164cb9 miliarium_profiles/06_ixLibertas.md — DO NOT EDIT -->
 # ixLibertas — Slot 06
 
 **Sector:** Routing Infrastructure
