@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@68a8d9ee49254ce0b6053831205974144d03f99e 02_mental_model.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@03e026a9147eb730b73c754d19acf81c7350189a 02_mental_model.md — DO NOT EDIT -->
 # Aureum Protocol
 
 > **AuMM** is earned by **liquidity**: capital in productive pools, not hashrate or proof-of-work.  
@@ -15,7 +15,7 @@
 
 ## i. One Line
 
-**Capital allocation under immutable laws.** AUREUM is a constitutional capital market built on a Balancer V3-derived AMM substrate. Anyone can create a pool, express an investment thesis, and compete for fixed AuMM emissions under the same on-chain rules. No premine. No treasury. No discretionary emission allocation.
+**Capital Allocation Under Immutable Laws.** AUREUM is a constitutional capital market built on a Balancer V3-derived AMM substrate. Anyone can create a pool, express an investment thesis, and compete for fixed AuMM emissions under the same on-chain rules. No premine. No treasury. No discretionary emission allocation.
 
 ## i-a. The Thesis
 

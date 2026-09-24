@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@68a8d9ee49254ce0b6053831205974144d03f99e sagix/eurodollar_shadow.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@03e026a9147eb730b73c754d19acf81c7350189a sagix/eurodollar_shadow.md — DO NOT EDIT -->
 # The Druid Deep Dive, Episode 9, Part 2: The Eurodollar shadow: when dollars escape their makers
 
 **Canonical source (Sagix Apothecary):** https://www.sagix.io/the-druid-deep-dive-episode-9-part-2-the-eurodollar-shadow-when-dollars-escape-their-makers/

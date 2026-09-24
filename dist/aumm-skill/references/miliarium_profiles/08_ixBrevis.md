@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@68a8d9ee49254ce0b6053831205974144d03f99e miliarium_profiles/08_ixBrevis.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@03e026a9147eb730b73c754d19acf81c7350189a miliarium_profiles/08_ixBrevis.md — DO NOT EDIT -->
 # ixBrevis — Slot 08
 
 **Sector:** US Fixed Income (short / ultra-short)

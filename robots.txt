@@ -229,7 +229,7 @@ Allow: /
 # Team tab → 16_team.md. Security & Audits tab → 16a_security_audits.md. FAQ → 17_faq.md.
 #
 # Key terms (current site copy):
-# - Capital allocation under immutable laws — Intro / OG / Overview hero; constitutional capital market
+# - Capital Allocation Under Immutable Laws — Intro / OG / Overview / chrome tagline; constitutional capital market
 #   (Balancer V3-derived AMM substrate; create a pool / express a thesis / compete for fixed AuMM emissions;
 #   No premine. No treasury. No discretionary emission allocation.)
 # - More than an AMM — AMM is infrastructure; purpose is autonomous capital market (Overview + §v-a)

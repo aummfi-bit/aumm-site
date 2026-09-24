@@ -1,6 +1,6 @@
 [
   { "text": "AUREUM", "cta": true, "pause": 500 },
-  { "text": "Capital allocation under immutable laws.", "cta": true, "pause": 1400 },
+  { "text": "Capital Allocation Under Immutable Laws.", "cta": true, "pause": 1400 },
   { "text": "", "spacer": true, "pause": 400 },
   { "text": "A constitutional capital market.", "pause": 800 },
   { "text": "Built on a Balancer V3-derived AMM substrate.", "pause": 700 },
