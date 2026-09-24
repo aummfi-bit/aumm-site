@@ -178,7 +178,7 @@ This article is part of the Druid Deep Dive series exploring historical parallel
 
 **Contemporary financial systems:** References to modern financial systems, cryptocurrency protocols, or DeFi mechanisms are made for educational comparison purposes only. These comparisons do not constitute endorsements, recommendations, or predictions about the performance or suitability of any current financial products or services.
 
-Last updated: March 2026 | Series: The Druid Deep Dive |Publisher: The Genesis Address LLC
+Last updated: March 2026 | Series: The Druid Deep Dive |Publisher: The Genesis Address Publishing LLC
 
 ---
 

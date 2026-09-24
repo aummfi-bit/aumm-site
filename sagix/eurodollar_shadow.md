@@ -156,7 +156,7 @@ But even deep pools with backstops face a risk that only becomes visible when yo
 
 **Crisis analysis** : Historical analysis of financial crises is provided for educational understanding of systemic risk patterns. This content does not predict future crises or recommend specific crisis preparation strategies. Readers should consult qualified professionals for personalized risk management advice.
 
-**Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: The Genesis Address LLC
+**Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: The Genesis Address Publishing LLC
 
 ---
 

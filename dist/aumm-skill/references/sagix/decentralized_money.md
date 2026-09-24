@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bd0ea9d9d478518b10507d68888d544fb3948874 sagix/decentralized_money.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@68a8d9ee49254ce0b6053831205974144d03f99e sagix/decentralized_money.md — DO NOT EDIT -->
 # The Druid Deep Dive, Episode 9, Part 1: The bank war: Central vs. decentralized money
 
 **Canonical source (Sagix Apothecary):** https://www.sagix.io/decentralized-money/
@@ -177,7 +177,7 @@ Our Episode 9 4 part series continous below:
 
 **Contemporary financial systems** : References to modern financial systems, cryptocurrency protocols, or DeFi mechanisms are made for educational comparison purposes only. These comparisons do not constitute endorsements, recommendations, or predictions about the performance or suitability of any current financial products or services.
 
-**Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: The Genesis Address LLC
+**Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: The Genesis Address Publishing LLC
 
 ---
 

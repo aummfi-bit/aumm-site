@@ -186,7 +186,7 @@ The Rothschild fortune was not built by creating assets. It was built by connect
 
 **Contemporary financial systems** : References to modern financial systems, cryptocurrency protocols, or DeFi mechanisms are made for educational comparison purposes only. These comparisons do not constitute endorsements, recommendations, or predictions about the performance or suitability of any current financial products or services.
 
-**Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: The Genesis Address LLC
+**Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: The Genesis Address Publishing LLC
 
 ---
 

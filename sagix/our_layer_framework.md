@@ -154,7 +154,7 @@ The complete Episode 9 series is also available as narrated videos:
 
 **Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: Sagix Apothecary
 
-Publisher: The Genesis Address LLC
+Publisher: The Genesis Address Publishing LLC
 
 ---
 

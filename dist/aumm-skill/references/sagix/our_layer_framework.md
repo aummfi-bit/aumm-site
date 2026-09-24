@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@bd0ea9d9d478518b10507d68888d544fb3948874 sagix/our_layer_framework.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@68a8d9ee49254ce0b6053831205974144d03f99e sagix/our_layer_framework.md — DO NOT EDIT -->
 # The four-layer framework: a complete liquidity risk assessment for DeFi
 
 **Canonical source (Sagix Apothecary):** https://www.sagix.io/our-layer-framework/
@@ -155,7 +155,7 @@ The complete Episode 9 series is also available as narrated videos:
 
 **Publication information** : Last Updated: March 2026 | Series: The Druid Deep Dive | Publisher: Sagix Apothecary
 
-Publisher: The Genesis Address LLC
+Publisher: The Genesis Address Publishing LLC
 
 ---
 

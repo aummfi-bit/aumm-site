@@ -6,7 +6,7 @@ Permissionless pools · BTC-style emissions · Autonomous reserve · Constitutio
 
 Static documentation and registry for **Project Aureum**: tokenomics, governance bounds, and the **Miliarium Aureum** constellation of **28** immutable liquidity pools (genesis market; factory remains permissionless).
 
-**Aumm.fi is a publication of The Genesis Address LLC.**
+**Aumm.fi is a publication of The Genesis Address Publishing LLC.**
 
 ## Contents
 
@@ -158,11 +158,11 @@ Protocol design documentation for Project Aureum. **`editorial_sprints.md`** and
 
 **Nothing on Aumm.fi constitutes financial advice.**
 
-Aumm.fi is a publication of **The Genesis Address LLC**. All content in this repository — protocol specifications, tokenomics, the Miliarium Aureum registry, governance documents, formulas, pool profiles, and commentary — is provided **exclusively for educational, informational, and historical research purposes**. It should **not** be construed as investment advice, financial planning guidance, tax or legal advice, policy recommendation, or a solicitation to buy or sell any securities, tokens, or other financial instruments.
+Aumm.fi is a publication of **The Genesis Address Publishing LLC**. All content in this repository — protocol specifications, tokenomics, the Miliarium Aureum registry, governance documents, formulas, pool profiles, and commentary — is provided **exclusively for educational, informational, and historical research purposes**. It should **not** be construed as investment advice, financial planning guidance, tax or legal advice, policy recommendation, or a solicitation to buy or sell any securities, tokens, or other financial instruments.
 
 DeFi liquidity provision involves substantial risk, including impermanent loss, smart‑contract risk, oracle risk, governance risk, regulatory risk, and the total loss of deposited assets. Forward‑looking statements about emissions, transitions, or governance are subject to change and are not guarantees. References to third‑party protocols are factual and do not imply affiliation or endorsement.
 
-Portions of this documentation were prepared with the assistance of artificial intelligence tools. Readers must **independently verify** any factual claim, contract address, parameter, or formula before acting on it, and should consult qualified professionals about their personal financial, tax, and legal situation. Use of this material is at the reader's sole risk. The Genesis Address LLC, its members, contributors, and affiliates accept no liability for any loss or damage arising from reliance on the contents of Aumm.fi.
+Portions of this documentation were prepared with the assistance of artificial intelligence tools. Readers must **independently verify** any factual claim, contract address, parameter, or formula before acting on it, and should consult qualified professionals about their personal financial, tax, and legal situation. Use of this material is at the reader's sole risk. The Genesis Address Publishing LLC, its members, contributors, and affiliates accept no liability for any loss or damage arising from reliance on the contents of Aumm.fi.
 
 See [Team → Disclaimer](16_team.md#xliii-disclaimer) for the on‑site version.
 
