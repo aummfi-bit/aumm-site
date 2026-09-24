@@ -12,7 +12,7 @@
 # to der Bodensee (a reserve under protocol law, not a discretionary treasury); the 28
 # Miliarium pools are a genesis miniature economy while the factory stays open; fair
 # launch with no premine and no team, investor, or treasury allocation; governance
-# minimized to LP-weighted non-emission actions. Not a better Curve or Balancer —
+# minimized to LP-weighted non-emission actions. Not a better Curve or Balancer, a different category —
 # Bitcoin : monetary policy :: Aureum : capital allocation. The question it exists to
 # answer: can capital markets operate more effectively under laws than under politics?
 #
