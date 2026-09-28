@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@85b66ea5eaf0545b4afaccab7a36b8fe9b97b197 05_miliarium_aureum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@383597f21f8cfaecb96c9256b578a195655a9e4d 05_miliarium_aureum.md — DO NOT EDIT -->
 # The Miliarium Aureum
 
 The 28 pools are pre-defined at launch and locked from block 0.
@@ -153,7 +153,7 @@ Shared **svZCHF** and **ixEDEL** across most pools create arbitrage layers: vaul
 
 **1. CCB emission multiplier.** Miliarium pools are the only pools eligible for the automatic CCB multiplier (see [Theoretical foundations (§vii)](03_theoretical_foundation.md) and [Protocol formulas (F-8)](11_formulas.md); for numeric bounds, see [Constitution (§xxix)](10_constitution.md)).
 
-**2. der Bodensee Pool revenue routing.** **Protocol-captured** fee revenue — **100%** of the **protocol share** of swap fees on non–der Bodensee gauged pools (**~50%** of charged swap fee; see [Constitution §xxix](10_constitution.md)) plus **ERC-4626 yield fees (100% of the 10% skim)** — flows into der Bodensee Pool as one-sided stablecoin (sUSDS/svZCHF) inflows, deepening the protocol fee sink. **LP residuals** on those swap fees stay with originating-pool LPs. **Swap fees on trades inside der Bodensee Pool** (**0.75%** at genesis) accrue **in pool** in full to der Bodensee LPs — see [Tokenomics (§x — Value capture)](04_tokenomics.md).
+**2. der Bodensee Pool revenue routing.** **Protocol-captured** fee revenue — **100%** of the **protocol share** of swap fees on non–der Bodensee gauged pools (**99.9999%** of charged swap fee; see [Constitution §xxix](10_constitution.md)) plus **ERC-4626 yield fees (100% of the 10% skim)** — flows into der Bodensee Pool as one-sided stablecoin (sUSDS/svZCHF) inflows, deepening the protocol fee sink. **LP residuals** on those swap fees stay with originating-pool LPs. **Swap fees on trades inside der Bodensee Pool** (**0.75%** at genesis) accrue **in pool** in full to der Bodensee LPs — see [Tokenomics (§x — Value capture)](04_tokenomics.md).
 
 **Permanent slots.** The 28 slots never decrease. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: old gauge revoked, replacement pool launched into the same slot via composition-challenge approval (automatic gauge registration via `registerGaugeFromComposition`). Like-for-like means same sector, same risk, same template role ([Bootstrap (§xxiv)](08_bootstrap.md) for worked examples; [Constitution (§xxvii)](10_constitution.md) for the binding rule).
 

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@85b66ea5eaf0545b4afaccab7a36b8fe9b97b197 02a_flywheel.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@383597f21f8cfaecb96c9256b578a195655a9e4d 02a_flywheel.md — DO NOT EDIT -->
 # The Flywheel
 
 *Section **v.** of [Mental model](02_mental_model.md#v-the-flywheel) — read in context there.*
@@ -11,7 +11,7 @@ Follow one dollar around the loop.
 
 1. **Emissions recruit capital.** A fixed AuMM stream per block — **1.00 AuMM/block in Era 0** ([Tokenomics](04_tokenomics.md)) — pays LPs who deposit productive capital. The stream is fixed in *tokens*; its dollar value is `AuMM_per_block × AuMM_price`.
 2. **Capital generates revenue.** Every dollar of TVL in an ERC-4626 pool can yield from block 0; every trade pays a swap fee — the **Day-one fee architecture**, not volume-dependent.
-3. **Revenue deepens der Bodensee.** Protocol swap fees (**~50%** of charged fee) and the **10%** ERC-4626 yield skim route one-sided into der Bodensee as sUSDS/svZCHF; der Bodensee's **60%** stablecoin side compounds in-place via Rate Providers. Three inflows, one direction ([Tokenomics §x-a](04_tokenomics.md)).
+3. **Revenue deepens der Bodensee.** Protocol swap fees (**99.9999%** of charged fee) and the **10%** ERC-4626 yield skim route one-sided into der Bodensee as sUSDS/svZCHF; der Bodensee's **60%** stablecoin side compounds in-place via Rate Providers. Three inflows, one direction ([Tokenomics §x-a](04_tokenomics.md)).
 4. **Balances set AuMM’s implied spot.** Fixed **40%** AuMM side; bootstrap one-sided inflow decays to **zero at Month 10** ([F-0](11_formulas.md)), after which AuMM enters only via swap. When the stablecoin side grows relative to the AuMM side, weighted-pool math updates the AuMM↔stablecoin exchange rate. No buyback, no burn, no discretion. **The pool is the value-capture mechanism.**
 5. **Implied spot feeds emission APR.** Token-denominated emissions mean a higher AuMM↔stablecoin exchange rate increases the dollar value of the same per-block stream — headline APR can rise with **no new fee revenue**. Contingent on fee inflows and adoption ([§v-d](#v-d-the-one-input-the-loop-cannot-engineer)).
 6. **Higher APR can recruit more capital.** Step 1 again, if the loop turns.

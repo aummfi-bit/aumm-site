@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@85b66ea5eaf0545b4afaccab7a36b8fe9b97b197 miliarium_profiles/24_ixVitalix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@383597f21f8cfaecb96c9256b578a195655a9e4d miliarium_profiles/24_ixVitalix.md — DO NOT EDIT -->
 # ixVitalix — Slot 24
 
 **Sector:** Healthcare
