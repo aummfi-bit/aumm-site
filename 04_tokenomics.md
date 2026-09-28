@@ -150,13 +150,13 @@ All **protocol-captured** fee revenue flows to a single destination: **der Boden
 
 | Stream | Destination | Share |
 |--------|-------------|-------|
-| **Protocol share** of swap fees on **non–der Bodensee gauged pools** ( **`protocolSwapFeePercentage = 50e16`** — **~50%** of the pool's charged swap fee) | der Bodensee Pool (one-sided svZCHF) via Balancer V3 hook on `onAfterSwap` | **100%** of that protocol share |
-| **LP residual** of swap fees on **non–der Bodensee gauged pools** | LPs of the originating pool (Vault accounting) | **~50%** of the charged swap fee |
+| **Protocol share** of swap fees on **non–der Bodensee gauged pools** ( **`protocolSwapFeePercentage = 99.9999e16`** — **99.9999%** of the pool's charged swap fee) | der Bodensee Pool (one-sided svZCHF) via Balancer V3 hook on `onAfterSwap` | **100%** of that protocol share |
+| **LP residual** of swap fees on **non–der Bodensee gauged pools** | LPs of the originating pool (Vault accounting) | **0.0001%** of the charged swap fee, the Vault floor |
 | ERC-4626 yield fee (10% skim) on **non–der Bodensee gauged pools** | der Bodensee Pool (one-sided svZCHF) | **100%** of the skim (separate from swap-fee split). Yield fees accrue continuously and are collected permissionlessly; routing into der Bodensee is governance-gated and happens at most once per epoch for any given pool |
 | ERC-4626 yield on **der Bodensee's own holdings** (svZCHF + sUSDS) | Accrues in-pool via Rate Providers — no skim, no external routing | 100% in-pool |
 | Swap fees on **trades inside der Bodensee Pool** | der Bodensee LPs (retained in pool) | **100%** of the in-pool tier (e.g. **0.75%** at genesis) |
 
-**Non–der Bodensee pools:** the **OQ-11** bands (e.g. **0.01–0.30%** on Miliarium) set the **rate the pool charges**; the **50/50 protocol vs LP** split on that fee is a **Vault registration invariant**, not governable.
+**Non–der Bodensee pools:** the **OQ-11** bands (e.g. **0.01–0.30%** on Miliarium) set the **rate the pool charges**; the **99.9999% / 0.0001% protocol vs LP** split on that fee is a **Vault registration invariant**, not governable.
 
 **der Bodensee Pool** uses a **0.75%** swap-fee tier at genesis. Every wei of that fee **stays in the pool** for der Bodensee LPs — it does **not** route through the protocol fee pipeline.
 
@@ -168,7 +168,7 @@ ERC-4626 pools can generate yield fee revenue from the first block when yield-be
 
 ## x-a. der Bodensee Pool
 
-**Miliarium** LP returns include **AuMM emissions**, **ERC-4626 native yield**, and **~50%** of swap fees charged on the pool (the Vault LP residual); the **other ~50%** is the protocol share the hook routes to der Bodensee. **Der Bodensee** LPs **additionally** earn the **full in-pool swap-fee tier** on the three-token pool (e.g. **0.75%** at genesis).
+**Miliarium** LP returns are **AuMM emissions** and **ERC-4626 native yield**, plus just **0.0001%** of swap fees charged on the pool (the Vault LP residual); the **other 99.9999%** is the protocol share the hook routes to der Bodensee. **Der Bodensee** LPs **additionally** earn the **full in-pool swap-fee tier** on the three-token pool (e.g. **0.75%** at genesis).
 
 der Bodensee Pool is the protocol's fee sink and AuMM trading venue — a **three-token weighted pool** with **fixed** composition. It replaces discretionary treasuries and discretionary price management.
 
@@ -196,7 +196,7 @@ Bootstrap AuMM is minted **one-sided** into der Bodensee with no LP tokens issue
 
 ### How stablecoins enter the pool (continuous protocol revenue)
 
-**100%** of the **protocol share** of swap fees on all non–der Bodensee gauged pools (**100%** of what **`protocolSwapFeePercentage`** assigns — **~50%** of charged swap fee volume) plus **100%** of the ERC-4626 yield fee (10% skim on yield-bearing tokens in **non–der Bodensee gauged pools**) enter der Bodensee as **one-sided stablecoin deposits** (routed as svZCHF per Constitution §xxix), deepening the reserve side every block. **LP residuals** on those swap fees remain with originating-pool LPs. Governance proposal deposits and Incendiary Boost deposits use the same one-sided path.
+**100%** of the **protocol share** of swap fees on all non–der Bodensee gauged pools (**100%** of what **`protocolSwapFeePercentage`** assigns — **99.9999%** of charged swap fee volume) plus **100%** of the ERC-4626 yield fee (10% skim on yield-bearing tokens in **non–der Bodensee gauged pools**) enter der Bodensee as **one-sided stablecoin deposits** (routed as svZCHF per Constitution §xxix), deepening the reserve side every block. **LP residuals** on those swap fees remain with originating-pool LPs. Governance proposal deposits and Incendiary Boost deposits use the same one-sided path.
 
 ### Value capture (no buyback, no burn, no market purchases)
 
@@ -229,15 +229,15 @@ der Bodensee Pool is a CCC reserve in the spirit of Dr. Luzius Meisser's thesis 
 
 At scale, combined **protocol-captured** revenue from the **protocol share** of **swap fees on other pools** (**100%** of that share to Bodensee) and **yield fees** (**100%** of the skim to Bodensee) flows into der Bodensee Pool as one-sided stablecoin inflows, deepening the stablecoin side when fees arrive — **in addition to** **0.75%** swap fees retained **in pool** for der Bodensee LPs on **trades inside der Bodensee**.
 
-**Worked example.** Assume **$100M protocol-wide TVL across the 28 Miliarium pools (excluding der Bodensee)** and $20M average daily volume at maturity. The pool charges **0.03%** (Miliarium genesis default); **~50%** of that fee is the **protocol share** routed to Bodensee (**100%** of the protocol leg), **~50%** the **LP residual** (not reserve inflow).
+**Worked example.** Assume **$100M protocol-wide TVL across the 28 Miliarium pools (excluding der Bodensee)** and $20M average daily volume at maturity. The pool charges **0.03%** (Miliarium genesis default); **99.9999%** of that fee is the **protocol share** routed to Bodensee (**100%** of the protocol leg), **0.0001%** the **LP residual** (not reserve inflow).
 
 | Revenue source | Calculation | Annual stablecoin inflow |
 |:---------------|:------------|:-------------------------|
-| Swap fee revenue (protocol leg) | $20M/day × 0.03% × **50%** protocol share × **100%** to Bodensee × 365 days | ~$1,095,000/year |
+| Swap fee revenue (protocol leg) | $20M/day × 0.03% × **99.9999%** protocol share × **100%** to Bodensee × 365 days | ~$2,190,000/year |
 | Yield fee revenue | $100M Miliarium TVL × ~60% ERC-4626 weight × 2.5% avg yield × 10% skim × 100% to Bodensee | ~$150,000/year |
-| **Total annual reserve inflow** | | **~$1,245,000/year** in stablecoin depth |
+| **Total annual reserve inflow** | | **~$2,340,000/year** in stablecoin depth |
 
-*Note: revenue figures above use calendar-year conventions for illustration; contract computations use block-based time per [Constitution §xxix](10_constitution.md). The **yield fee** targets ERC-4626 holdings in **non-Bodensee** gauged pools only — der Bodensee's own 60% 4626 holdings compound in-place via Rate Providers (see "How yield accrues to AuMM without leaving the pool" above). The **50/50** split on swap fees is the Vault **`protocolSwapFeePercentage`** invariant — see [Constitution §xxix](10_constitution.md).*
+*Note: revenue figures above use calendar-year conventions for illustration; contract computations use block-based time per [Constitution §xxix](10_constitution.md). The **yield fee** targets ERC-4626 holdings in **non-Bodensee** gauged pools only — der Bodensee's own 60% 4626 holdings compound in-place via Rate Providers (see "How yield accrues to AuMM without leaving the pool" above). The **99.9999% / 0.0001%** split on swap fees is the Vault **`protocolSwapFeePercentage`** invariant — see [Constitution §xxix](10_constitution.md).*
 
 As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, accelerating reserve growth. The halving schedule reduces emission dilution every four years while revenue scales with TVL — the reserve grows faster than new supply enters the market.
 

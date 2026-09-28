@@ -24,7 +24,7 @@ The table below shows what was inherited (byte-identical code, own deployment) a
 | Smart Order Router | Balancer V3 | None |
 | Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming |
 | Token contract | **New** | BTC-style emission schedule, immutable supply cap |
-| Fee distributor | **New** | **100%** of the **protocol share** of swap fees on non–der Bodensee pools (**~50%** of charged fee; Vault **`protocolSwapFeePercentage`**) to Bodensee + **100%** yield skim to Bodensee; der Bodensee Pool **0.75%** swap fee **in pool** in full |
+| Fee distributor | **New** | **100%** of the **protocol share** of swap fees on non–der Bodensee pools (**99.9999%** of charged fee; Vault **`protocolSwapFeePercentage`**) to Bodensee + **100%** yield skim to Bodensee; der Bodensee Pool **0.75%** swap fee **in pool** in full |
 | Governance | **New** | LP-weighted voting (AuMT for protocol governance), no ve-locking |
 
 ### What's Unchanged (Critical)
@@ -47,7 +47,7 @@ The LP trust proposition: *"The AMM you're depositing into is the same formally 
 - Token supply tracker (cumulative emitted, net circulating)
 - Minimum qualification period enforcer (14-day continuous hold check)
 - Quorum calculator and timelock router
-- Fee router (non–der Bodensee pools: **100%** of the **protocol share** of swap fees to Bodensee as one-sided stablecoin (sUSDS/svZCHF); **~50%** LP residual stays with originating-pool LPs; yield skim: **100%** Bodensee one-sided stablecoin; der Bodensee Pool: **0.75%** swap fee, **100%** in-pool to der Bodensee LPs)
+- Fee router (non–der Bodensee pools: **100%** of the **protocol share** of swap fees to Bodensee as one-sided stablecoin (sUSDS/svZCHF); **0.0001%** LP residual stays with originating-pool LPs; yield skim: **100%** Bodensee one-sided stablecoin; der Bodensee Pool: **0.75%** swap fee, **100%** in-pool to der Bodensee LPs)
 - Governance voting (AuMT for protocol governance — with phased fourth root→cube root dampening)
 
 Estimated audit scope: new Solidity implementing the CCB emission engine (60-day EMA), CCB multiplier logic, Incendiary Boost deposit and priority skim, efficiency tournament logic, governance deposit routing to Bodensee, der Bodensee Pool fixed-weight three-token configuration, Miliarium Aureum pool registry, and token supply tracking. The bulk of the protocol inherits Balancer V3's existing Certora audit coverage.
@@ -124,9 +124,9 @@ The mechanisms compared below — multi-asset pools, ERC-4626 yield, fair launch
 | IL profile | Full directional exposure to one pair | Dampened — correlated assets diversify directional risk |
 | Fee tier | 0.05–0.3% | 0.01–0.30% (Miliarium genesis 0.03%, governance-adjustable within band with 14-day cooldown; der Bodensee 0.10–1.00% band, genesis 0.75%) |
 | Active management required | Yes (range adjustments) | No (weighted pools are set-and-forget) |
-| Yield sources | Swap fees only | ERC-4626 native yield (≥52% of pool) + AuMM emissions + cross-pool arb fees + swap-fee LP residual[^swap-residual] |
+| Yield sources | Swap fees only | ERC-4626 native yield (≥52% of pool) + AuMM emissions[^swap-residual] |
 
-[^swap-residual]: For **Miliarium** (and other non–der Bodensee gauged) pools, swap-fee yield to LPs is the **LP residual — ~50%** of the pool's charged swap fee (OQ-11 sets the **rate**; the **50/50** split is the Vault **`protocolSwapFeePercentage`** invariant). The **other ~50%** is the **protocol share** the hook settles to der Bodensee (**100%** of that leg). **Der Bodensee** LPs earn the **full in-pool tier** (e.g. **0.75%** on the AuMM/sUSDS/svZCHF pool) — unchanged. See [Constitution §xxix — Fee routing](10_constitution.md).
+[^swap-residual]: For **Miliarium** (and other non–der Bodensee gauged) pools, swap-fee yield to LPs is only the **LP residual — 0.0001%** of the pool's charged swap fee (OQ-11 sets the **rate**; the **99.9999% / 0.0001%** split is the Vault **`protocolSwapFeePercentage`** invariant). The **other 99.9999%** is the **protocol share** the hook settles to der Bodensee (**100%** of that leg). **Der Bodensee** LPs earn the **full in-pool tier** (e.g. **0.75%** on the AuMM/sUSDS/svZCHF pool) — unchanged. See [Constitution §xxix — Fee routing](10_constitution.md).
 
 ### Protocol Comparison
 
