@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@841191a39bf3f7ce36b31261303ed357bfa50e9a 04_tokenomics.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@a3456386f44855cc580e6f7fc4e4636463e78c86 04_tokenomics.md — DO NOT EDIT -->
 # Tokenomics
 
 ## ix. Token Design: AuMM (Aureum Market Maker)
@@ -26,7 +26,7 @@
 | 3 | 12–16 | 0.125 | 1,314,000 | 328,500 | 19,710,000 | 93.86% |
 | 4 | 16–20 | 0.0625 | 657,000 | 164,250 | 20,367,000 | 96.98% |
 | 5 | 20–24 | 0.03125 | 328,500 | 82,125 | 20,695,500 | 98.55% |
-| 6+ | 24+ | halving continues | diminishing | diminishing | approaches 21,000,000 | approaches 100% |
+| 6+ | 24+ | halving continues | diminishing | diminishing | reaches 21,000,000 in era 9, where the cap clamps the schedule | 100% |
 
 Each era spans 10,512,000 blocks (~4 years at 12 s/block). Per-block terms only — no cycle-based accounting.
 
@@ -99,7 +99,7 @@ AuMT in pools that fail any eligibility criterion carries zero governance weight
 
 #### Minimum Qualification Period and Governance On-Ramp
 
-**Days 0–14: Zero governance weight.** Voting power requires at least **14 days (one full governance cycle)** of continuous qualified AuMT holding. During this period, `time_in_pool = 0` — the position is invisible to governance.
+**Days 0–14: Zero governance weight.** Voting power requires at least **14 days (one full governance cycle)** of continuous qualified AuMT holding, counted from the recorded deposit whether or not the pool's gauge is active yet. During this period, `time_in_pool = 0` — the position is invisible to governance.
 
 **Days 14–180: Governance on-ramp.** After the 14-day qualification, `time_in_pool` accrues from zero. Because the F-9 `time_factor` ramps linearly from zero, voting power grows linearly with time in the on-ramp phase. An LP at day 14 has minimal power. By month 6 (day 180), they reach **full voting weight**. The 6-month on-ramp ensures governance power reflects sustained commitment, not recent capital deployment.
 
@@ -115,7 +115,7 @@ This eliminates:
 
 #### Low-Turnout Safeguard
 
-Every proposal type requires a minimum turnout of **20% of total qualified voting power, measured live at tally time — not a snapshot taken at proposal creation**. Below 20%, the proposal is **automatically rejected** regardless of vote outcome. No timelock fallback — it fails and must be resubmitted.
+Every proposal type requires a minimum turnout of **20% of total qualified voting power, measured at the proposal's snapshot block, which is set when the proposal is created, so weight gained or poked after that block cannot move it**. Below 20%, the proposal is **automatically rejected** regardless of vote outcome. No timelock fallback — it fails and must be resubmitted.
 
 Applies uniformly: gauge challenges, fee changes, and composition challenges all share the same 20% floor. **All governance proposal deposits** are **one-sided into der Bodensee Pool** (same mechanic; see [Constitution §xxvii](10_constitution.md)). **Deposit amounts** are proposal-specific; gauge challenges apply only to **non-Miliarium** pools per [F-12](11_formulas.md) — **Miliarium Aureum pools cannot be gauge-challenged** (structural changes go through the Composition Challenge path). The deposit filters spam; the turnout floor prevents a small coordinated group from pushing through structural changes while the broader LP community is inactive.
 
@@ -129,9 +129,11 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 
 **What governance controls:**
 
-- Fee parameters (swap fee %, yield fee %)
+- Swap-fee rates within their bands (the 10% yield skim and der Bodensee's 0.75% are fixed)
 - Gauge challenges (with timelock)
-- Miliarium Aureum composition challenges (2/3 supermajority)
+- Miliarium Aureum composition challenges and empty-slot fills (2/3 supermajority)
+- Vault-class admission (proposal-with-veto) and revocation (simple majority)
+- Emergency levers: Vault authorizer change and pool pause (2/3 supermajority); pool unpause, Vault unpause and recovery-mode disable (simple majority), per [Constitution §xxvii](10_constitution.md)
 
 **What governance cannot control:** Emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, der Bodensee Pool parameters, and all launch mechanics. Immutable in contract. Full list: [Immutable Parameters (§xxix)](10_constitution.md).
 
@@ -153,7 +155,7 @@ All **protocol-captured** fee revenue flows to a single destination: **der Boden
 |--------|-------------|-------|
 | **Protocol share** of swap fees on **non–der Bodensee gauged pools** ( **`protocolSwapFeePercentage = 99.9999e16`** — **99.9999%** of the pool's charged swap fee) | der Bodensee Pool (one-sided svZCHF) via Balancer V3 hook on `onAfterSwap` | **100%** of that protocol share |
 | **LP residual** of swap fees on **non–der Bodensee gauged pools** | LPs of the originating pool (Vault accounting) | **0.0001%** of the charged swap fee, the Vault floor |
-| ERC-4626 yield fee (10% skim) on **non–der Bodensee gauged pools** | der Bodensee Pool (one-sided svZCHF) | **100%** of the skim (separate from swap-fee split). Yield fees accrue continuously and are collected permissionlessly; routing into der Bodensee is governance-gated and happens at most once per epoch for any given pool |
+| ERC-4626 yield fee (10% skim) on **non–der Bodensee gauged pools** | der Bodensee Pool (one-sided svZCHF) | **100%** of the skim (separate from swap-fee split). Yield fees accrue continuously and are collected permissionlessly; routing into der Bodensee is permissionless under an on-chain floor ([Constitution §xxix](10_constitution.md)) and happens at most once per epoch for any given pool |
 | ERC-4626 yield on **der Bodensee's own holdings** (svZCHF + sUSDS) | Accrues in-pool via Rate Providers — no skim, no external routing | 100% in-pool |
 | Swap fees on **trades inside der Bodensee Pool** | der Bodensee LPs (retained in pool) | **100%** of the in-pool tier (e.g. **0.75%** at genesis) |
 
@@ -230,19 +232,19 @@ der Bodensee Pool is a CCC reserve in the spirit of Dr. Luzius Meisser's thesis 
 
 At scale, combined **protocol-captured** revenue from the **protocol share** of **swap fees on other pools** (**100%** of that share to Bodensee) and **yield fees** (**100%** of the skim to Bodensee) flows into der Bodensee Pool as one-sided stablecoin inflows, deepening the stablecoin side when fees arrive — **in addition to** **0.75%** swap fees retained **in pool** for der Bodensee LPs on **trades inside der Bodensee**.
 
-**Worked example.** Assume **$100M protocol-wide TVL across the 28 Miliarium pools (excluding der Bodensee)** and $20M average daily volume at maturity. The pool charges **0.03%** (Miliarium genesis default); **99.9999%** of that fee is the **protocol share** routed to Bodensee (**100%** of the protocol leg), **0.0001%** the **LP residual** (not reserve inflow).
+**Worked example.** Assume **$100M protocol-wide TVL across the 28 Miliarium pools (excluding der Bodensee)** and $20M average daily volume at maturity. The pool charges **0.02%** (Miliarium genesis default); **99.9999%** of that fee is the **protocol share** routed to Bodensee (**100%** of the protocol leg), **0.0001%** the **LP residual** (not reserve inflow).
 
 | Revenue source | Calculation | Annual stablecoin inflow |
 |:---------------|:------------|:-------------------------|
-| Swap fee revenue (protocol leg) | $20M/day × 0.03% × **99.9999%** protocol share × **100%** to Bodensee × 365 days | ~$2,190,000/year |
+| Swap fee revenue (protocol leg) | $20M/day × 0.02% × **99.9999%** protocol share × **100%** to Bodensee × 365 days | ~$1,460,000/year |
 | Yield fee revenue | $100M Miliarium TVL × ~60% ERC-4626 weight × 2.5% avg yield × 10% skim × 100% to Bodensee | ~$150,000/year |
-| **Total annual reserve inflow** | | **~$2,340,000/year** in stablecoin depth |
+| **Total annual reserve inflow** | | **~$1,610,000/year** in stablecoin depth |
 
 *Note: revenue figures above use calendar-year conventions for illustration; contract computations use block-based time per [Constitution §xxix](10_constitution.md). The **yield fee** targets ERC-4626 holdings in **non-Bodensee** gauged pools only — der Bodensee's own 60% 4626 holdings compound in-place via Rate Providers (see "How yield accrues to AuMM without leaving the pool" above). The **99.9999% / 0.0001%** split on swap fees is the Vault **`protocolSwapFeePercentage`** invariant — see [Constitution §xxix](10_constitution.md).*
 
 As protocol TVL grows beyond $100M, both swap volume and yield fee revenue scale with it, accelerating reserve growth. The halving schedule reduces emission dilution every four years while revenue scales with TVL — the reserve grows faster than new supply enters the market.
 
-*All governance proposal deposits — gauge challenge, fee proposals, composition challenge — are one-sided sUSDS/svZCHF inflows into der Bodensee Pool; Incendiary Boost deposits use the same destination. Together they deepen the protocol fee sink.*
+*All governance proposal deposits and vault-class bonds are one-sided sUSDS/svZCHF inflows into der Bodensee Pool; Incendiary Boost deposits use the same destination. Together they deepen the protocol fee sink.*
 
 ### Immutable Reference
 

@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@841191a39bf3f7ce36b31261303ed357bfa50e9a 09_transitions.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@a3456386f44855cc580e6f7fc4e4636463e78c86 09_transitions.md — DO NOT EDIT -->
 # Transition Rules
 
 *Timeline from equal emissions through a linear blend to fully automatic CCB.*
@@ -18,7 +18,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Aequilibrium factory opens. Pool creation is permissionless.
 - **der Bodensee bootstrap emissions** begin: **80%** of each block’s emission minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens). The **remaining ~20%** is the **LP tranche**, split **1/M** across the **M** live Miliarium pools (26 at launch; 28 with every slot filled). **100%** to LPs from block 0 — no treasury wallet.
 - Non-Miliarium pools can exist and build liquidity but receive no emissions.
-- der Bodensee Pool launches as a **three-token weighted pool** with **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay). **Swap fee inside der Bodensee:** **0.75%** at genesis (governance-adjustable within 0.10–1.00% band per [Constitution §xxix](10_constitution.md)), fully retained **in pool** for der Bodensee LPs.
+- der Bodensee Pool launches as a **three-token weighted pool** with **fixed weights 40% AuMM / 30% sUSDS / 30% svZCHF** (immutable from block 0, no time-decay). **Swap fee inside der Bodensee:** **0.75%**, fixed from block 0 with no governance path ([Constitution §xxix](10_constitution.md)), fully retained **in pool** for der Bodensee LPs.
 - **Protocol-captured** fee revenue (**protocol share** of swap fees on **other** gauged pools + ERC-4626 yield fees) starts flowing into der Bodensee as one-sided stablecoin (sUSDS/svZCHF) inflows.
 
 **Month 2 — TVL measurement window opens.**
@@ -31,7 +31,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/M** across the **M** live Miliarium pools until Month 11.
 
 **Month 11 — Non-Miliarium emissions begin, CCB transition starts.**
-- Non-Miliarium pools that meet eligibility criteria can permissionlessly activate gauges (100 svZCHF or 125 sUSDS anti-spam fee, one-sided into der Bodensee).
+- Non-Miliarium gauged pools begin receiving emissions. Gauge activation itself is permissionless from block 0 for any pool that meets the eligibility criteria (100 svZCHF or 125 sUSDS anti-spam fee, one-sided into der Bodensee; [Bootstrap](08_bootstrap.md)), so a pool gauged earlier earns nothing before Month 11.
 - All pools begin ranking in the Efficiency Tournament.
 - CCB transition begins: **α** runs from **0** (first block of Month 11) to **1** (last block of Year 1).
 - Each pool's share blends its equal **1/M** share with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.

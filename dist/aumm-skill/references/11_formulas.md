@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@841191a39bf3f7ce36b31261303ed357bfa50e9a 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@a3456386f44855cc580e6f7fc4e4636463e78c86 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -75,10 +75,10 @@ Deposit amount at user discretion; full amount one-sided into der Bodensee Pool,
 
 **Purpose:** Shift from equal to full CCB over two months, avoiding overnight emission shocks.
 
-**Effect:** Each pool's share of the **post-Incendiary LP tranche** (F-2) blends its equal share (1/M) with its CCB-derived share. **α** rises linearly from zero (pure equal) to one (pure CCB). At midpoint, half and half. During Months 11–12, **bodensee_share = 0** — LP tranche equals full block emission before Incendiary.
+**Effect:** Each pool's share of the **post-Incendiary LP tranche** (F-2) blends its equal share (1/M, M counting the live Miliarium pools) with its CCB-derived share; a non-Miliarium pool takes no equal share, only its CCB leg. **α** rises linearly from zero (pure equal) to one (pure CCB). At midpoint, half and half. During Months 11–12, **bodensee_share = 0** — LP tranche equals full block emission before Incendiary.
 
 ```
-share_i(block) = (1 − α(block)) × (1/M) + α(block) × CCB_share_i(block)
+share_i(block) = (1 − α(block)) × (1/M) × [i is Miliarium] + α(block) × CCB_share_i(block)
 ```
 
 Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime (CCB multiplier and Incendiary inside the CCB leg where applicable). Multiply **share_i** by **Remaining(block)** from F-2 to get AuMM to pool **i** for this leg.
@@ -93,7 +93,7 @@ Where **α** runs linearly from **0** at the first block of Month 11 to **1** at
 
 **Effect:** A pool that loses all TVL today retains ~50% of its signal after three weeks, ~25% after six. Low-pass filter: suppresses daily volatility, passes only the long-term capital signal. The protocol cannot be jolted into instant reallocation by a single day's movement.
 
-**Sampling cadence.** The EMA updates **once per `BLOCKS_PER_DAY` (7,200 blocks)**, not every block. Each sample is an **intra-day TWAP over the last `TWAP_WINDOW_BLOCKS` (720 blocks, ~1 hour) before the sample boundary**, not a single-block spot read. The TWAP eliminates block-timing manipulation at trivial gas cost; the accumulator pattern (running `cumulativeTVL` and `cumulativeBlock` updated on each swap/liquidity event) lets the sample be read as `(cumulativeTVL_now − cumulativeTVL_dayAgo) / (cumulativeBlock_now − cumulativeBlock_dayAgo)`.
+**Sampling cadence.** The EMA updates **once per `BLOCKS_PER_DAY` (7,200 blocks)**, not every block. Each sample is an **intra-day TWAP over the last `TWAP_WINDOW_BLOCKS` (720 blocks, ~2.4 hours at 12-second blocks) before the sample boundary**, not a single-block spot read. The TWAP eliminates block-timing manipulation at trivial gas cost; the accumulator pattern (running `cumulativeTVL` and `cumulativeBlock` updated on each swap/liquidity event) lets the sample be read as `(cumulativeTVL_now − cumulativeTVL_windowStart) / (cumulativeBlock_now − cumulativeBlock_windowStart)`, the window being the last `TWAP_WINDOW_BLOCKS`.
 
 **Update rule.** Using canonical constants from Constitution §xxix (`EMA_ALPHA_NUMERATOR = 2`, `EMA_ALPHA_DENOMINATOR = 61`):
 
@@ -114,6 +114,8 @@ if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:
 ```
 
 The EMA runs **per pool** independently. Half-life is approximately 21 days. Gas cost: ~50k per pool per day for the EMA update, plus negligible accumulator updates on each swap/liquidity event.
+
+**Valuation.** TVL is denominated in svZCHF and read from each pool's Vault balances averaged over the TWAP window, with no external price feed. Each leg is priced by its underlying's weighted balance ratio against svZCHF across the constellation's venues, directly or through one hop token. A leg with no such price is valued at the pool's own normalized weights against its priced legs, but only when those carry at least half the pool, which caps the extrapolation at twice the priced value; a new base token therefore needs no mapping, while a new ERC-4626 token maps to its asset once its vault class is admitted.
 
 ---
 
@@ -154,7 +156,7 @@ emission_from_CCB_i = Remaining(block) × CCB_share_i
 ```
 // Step 0 — EMA update (runs continuously for each pool)
 alpha = 2 / (60 + 1)                                           // ≈ 0.0328
-TVL_EMA(pool, today) = alpha × TVL_spot(pool, today)
+TVL_EMA(pool, today) = alpha × TVL_twap(pool, today)            // F-4's TWAP_WINDOW_BLOCKS sample
                      + (1 - alpha) × TVL_EMA(pool, yesterday)
 
 // Step 1 — Incendiary priority skim
@@ -220,9 +222,9 @@ time_factor  = 0                                          while time_in_pool < q
 
 ### F-10. Efficiency Tournament
 
-**Purpose:** Rank gauged pools by capital efficiency and assign emission precedence to the most productive cohort.
+**Purpose:** Rank gauged pools by capital efficiency and cap the emissions of the least efficient, so emissions flow to productive pools without penalising any pool during AuMM price appreciation.
 
-**Effect:** The **top 15%** by efficiency form the **favored cohort** and receive emission precedence; the bottom 85% receive **residual CCB flow only**. Anti-concentration caps within the favored cohort prevent any single top pool from dominating the top tier. Activates at month 13.
+**Effect:** Gauged pools above the $10K TVL floor are ranked by efficiency ratio. The **bottom 15%** take hard emission caps by band, and the excess a capped pool cannot take flows to the uncapped pools pro-rata by CCB share ([Bootstrap](08_bootstrap.md) §xxiii). The **top 15%** form the **favored cohort**, exposed as a view and marked by events; it carries no allocation precedence and no cap. Activates at month 13.
 
 ```
 efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)
@@ -233,23 +235,19 @@ sort eligible gauged pools descending by efficiency_ratio
 // rank 1 = highest efficiency
 // N = count of eligible gauged pools at the epoch snapshot
 
-favored_cohort  = pools with rank in [1, ceil(0.15 × N)]      // top 15%
-residual_cohort = pools with rank in [ceil(0.15 × N) + 1, N]  // bottom 85%
+favored_cohort = pools with rank in [1, ceil(0.15 × N)]      // top 15%, informational
 
-emission precedence: favored_cohort first.
-residual_cohort receives residual CCB flow only — bottom cohorts
-are constrained relative to top, never vice versa.
+cap(pool_i) = 0.1% of total protocol emissions   if rank_i is in the bottom 5%
+            = 0.5%                                if rank_i is in the bottom 10–5%
+            = 1%                                  if rank_i is in the bottom 15–10%
+            = none                                otherwise
+// a pool with a zero efficiency_ratio takes the 0.1% cap
 
-within favored_cohort: anti-concentration caps applied to prevent
-any single top pool from dominating the top tier; numeric cap values
-set at contract deployment.
-
-excess from any capped favored-cohort pool flows to the remainder
-of the favored cohort first; any unallocated remainder flows to
-the residual cohort pro-rata by CCB share.
+excess from every capped pool flows to the uncapped pools
+pro-rata by CCB share.
 ```
 
-Caps are anti-concentration controls **within the favored cohort** — they constrain top performers, never a mechanism to privilege low-efficiency pools. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and therefore receive only residual CCB flow alongside the other bottom-cohort pools.
+Caps constrain the least efficient pools, never the most productive. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and take the most severe cap.
 
 Eligibility is re-evaluated at each tournament epoch boundary against the current registry state. Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
 

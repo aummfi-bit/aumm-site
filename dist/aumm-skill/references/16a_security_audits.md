@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@841191a39bf3f7ce36b31261303ed357bfa50e9a 16a_security_audits.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@a3456386f44855cc580e6f7fc4e4636463e78c86 16a_security_audits.md — DO NOT EDIT -->
 # Security & Audits
 
 This chapter documents the formal security evaluation of **Seam 1 (Authority and Governance)** for the Aureum Protocol. The evaluation was conducted against a static snapshot of the codebase using the `auditician` automated verification harness alongside manual code review.
@@ -74,13 +74,13 @@ The scope for Seam 1 covers the protocol's authority routing, governance executi
 
 Review agenda (questions, not settled claims): [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).
 
-Aureum enforces a strict decentralization roadmap. Post-deployment permissions are partitioned between automated governance logic, temporary emergency multisig controls, and specialized pool role managers.
+Aureum enforces a strict decentralization roadmap. Post-deployment permissions are partitioned between automated governance logic and temporary emergency multisig controls; every pool role account is the zero address, and every other deployment slot is sealed or burned by the deployment itself.
 
 ### Post-Stage K Authority Architecture
 
 * **`EMERGENCY_MULTISIG`:** Exercises temporary operational oversight strictly constrained by a ~12-month block window after authorizer deployment.
-* **`AureumGovernance`:** The primary operational authority capable of executing passed governance proposals, modifying pool parameters, and updating protocol contracts.
-* **Pool Role Managers:** Operational accounts assigned to granular pool-level actions (`pauseManager`, `swapFeeManager`).
+* **`AureumGovernance`:** The primary operational authority, executing passed proposals of the types [Constitution](10_constitution.md) §xxvii lists; it holds no upgrade path and no general call.
+* **Pool role accounts:** `pauseManager` and `swapFeeManager` are the zero address on every pool; pausing a pool is a governance proposal.
 
 ### Emergency Window Decay
 
@@ -94,7 +94,7 @@ where `EMERGENCY_WINDOW_END_BLOCK = block.number_at_deploy + EMERGENCY_WINDOW_BL
 
 ### Governance Mutation Surfaces
 
-* **`setGovernanceContract`:** Restricted function used to update the governance execution target during the operational setup phase.
+* **`setGovernanceContract`:** The setup-phase rebind of each seat to `AureumGovernance`, run once in the deployment; afterwards each seat is burned or held by `AureumGovernance`, whose proposal types include no call to it.
 * **`Vault.setAuthorizer`:** Executable exclusively via a formal `VaultAuthorizerChange` proposal passed by token holder consensus.
 
 *Note: The complete, itemized principal-to-action capability matrix represents an internal operational artifact tied to commit `9ec513d`. Public documentation publishes the review methodology and verified boundary proofs below; the seed questions are in [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).*
