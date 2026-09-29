@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@383597f21f8cfaecb96c9256b578a195655a9e4d 16a_security_audits.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@841191a39bf3f7ce36b31261303ed357bfa50e9a 16a_security_audits.md — DO NOT EDIT -->
 # Security & Audits
 
 This chapter documents the formal security evaluation of **Seam 1 (Authority and Governance)** for the Aureum Protocol. The evaluation was conducted against a static snapshot of the codebase using the `auditician` automated verification harness alongside manual code review.
@@ -112,7 +112,7 @@ The evaluation established several load-bearing security proofs and verified sys
 * **Inert Factory Owner:** The owner account of `AureumVaultFactory` cannot deploy additional Vault instances. Vault initialization enforces `protocolFeeController.vault() == address(this)` against the canonical Vault, rendering the factory owner slot operationally inert post-deployment.
 * **Disambiguated Action Identifiers:** Emergency action routing in `AureumGovernanceAuthorizer` incorporates contract-address disambiguation. Cross-contract emergency action-ID collisions are impossible at this pin.
 * **Localized Pool Pausing:** Executing `pausePool` on a specific pool isolates emergency recovery mechanisms to that pool alone. Pausing an individual liquidity pool does not trigger protocol-wide recovery mode across the Vault.
-* **Decoupled Mint Path:** Minted AuMM confers zero voting weight by any in-protocol route. `VotingWeight` enumerates Miliarium pools only; governance power requires holding eligible gauged-pool LP (AuMT / BPT) and poking through the weight path — not the mint chain.
+* **Decoupled Mint Path:** Minted AuMM confers zero voting weight by any in-protocol route. `VotingWeight` enumerates Miliarium pools only; governance power requires holding eligible gauged-pool LP (AuMT / BPT) and poking through the weight path — not the mint chain. *(The enumeration premise no longer holds after Stage P-Prime: `VotingWeight.pokePools` reads weight from any gauged pool. The conclusion stands on other grounds: both gauge admission paths refuse a pool carrying AuMM or a hook other than the fee-routing hook, no proposal type reaches the ungated founding-pool seed, and der Bodensee's observation hook records no LP. Check `git diff 9ec513d..HEAD` before relying on the line-level form.)*
 * **Immutable Block Boundary:** The ~12-month emergency countdown is measured in blocks (`EMERGENCY_WINDOW_BLOCKS`), not wall-clock timestamps. Claims that slot-timing drift could extend the window were false positives at this pin.
 * **One-Directional Voting Weight Cap:** The voting weight capping logic in `VotingWeight` (`held < lp ? held : lp`) prevents artificial voting-power inflation via credited balance without held BPT. *(This capping interface is a named remediation target in Stage P-Prime; check `git diff 9ec513d..HEAD` before relying on the line-level form.)*
 
