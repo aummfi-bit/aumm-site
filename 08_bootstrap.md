@@ -148,11 +148,11 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 ### Governance Proposals
 
-Any qualified AuMT holder can submit a governance proposal (fee parameter changes). Deposit: **1,000 svZCHF or 1,250 sUSDS**, one-sided into der Bodensee Pool. Automatic on submission, non-refundable.
+Any qualified AuMT holder can submit a governance proposal (any of the actions in [Constitution](10_constitution.md) §xxvii). Deposit: **1,000 svZCHF or 1,250 sUSDS** (a gauge challenge's per [F-12](11_formulas.md)), one-sided into der Bodensee Pool. Automatic on submission, non-refundable. If der Bodensee cannot take the deposit at submission, for example while it is paused, the deposit is held in escrow and any caller may flush it into der Bodensee once it can; the proposal proceeds either way.
 
-**Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.03%**); der Bodensee uses **0.10%–1.00%** (genesis **0.75%**). For non-Miliarium pools, the **initial swap fee** is set as a parameter at **first successful gauge activation** (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
+**Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.02%**); der Bodensee's fee is fixed at **0.75%**, with no governance path. For non-Miliarium pools, the **initial swap fee** is set as a parameter at **first successful gauge activation** (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
 
-**All** governance deposits — gauge challenge, fee proposal, composition challenge — and the **anti-spam fee** for permissionless gauge activation are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the protocol fee sink, non-recoverable.
+**All** governance deposits and vault-class bonds, and the **anti-spam fee** for permissionless gauge activation are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the protocol fee sink, non-recoverable.
 
 ### Permissionless Gauge Activation
 

@@ -176,7 +176,7 @@ Then individual `miliarium_profiles/NN_ix*.md` for pool-level detail.
 - **AuMM / AuMT** — AuMM: reward token (**Bitcoin-style issuance schedule for AuMM**, not BTC). AuMT: **the pool token itself** — each pool's LP share ERC-20 (Balancer V3 BPT), minted on deposit, burned on withdrawal, redeemable for the underlying; **not a separately issued or tradeable token** (governance weight drops to zero when gauge revoked).
 - **Aequilibrium** — AMM engine: **own Vault instance**; core contracts (`Vault.sol`, `VaultAdmin.sol`, `VaultExtension.sol`) **byte-identical** to Balancer V3; independent tokenomics/fees/gauges/governance; runs **in parallel**, not on the live Balancer Vault ([§xxxvi](https://aumm.fi/13_appendices.md)). Substrate, not the product.
 - **Incendiary Boost** — any amount to der Bodensee, 1-epoch (14-day) priority emission skim; once per epoch per pool.
-- **Swap fee bands** — Miliarium / non-Miliarium gauged: **0.01–0.30%** (genesis **0.03%** Miliarium); Bodensee: **0.10–1.00%** (genesis **0.75%**); fee-change cooldown **one epoch** (**§xxix**).
+- **Swap fee bands** — Miliarium / non-Miliarium gauged: **0.01–0.30%** (genesis **0.02%** Miliarium); Bodensee: fixed at **0.75%**; fee-change cooldown **one epoch** (**§xxix**).
 
 ---
 
