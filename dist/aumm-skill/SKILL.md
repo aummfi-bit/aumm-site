@@ -51,16 +51,22 @@ The 28 Miliarium Aureum pools have a different governance path for structural ch
 - **Non-Miliarium gauged pools**: gauge challenges are valid; deposit follows **F-12** (`references/11_formulas.md`).
 - **Miliarium pools (the 28)**: cannot be gauge-challenged. Structural changes go through the **Composition Challenge Rule** in `references/10_constitution.md` §xxvii (subsection "Composition Challenge Rule (Miliarium Aureum)" around lines 46–69). 2/3 supermajority, like-for-like replacement, deprecated pool persists as Sandbox-style.
 
-### 5. Four governance actions, not two
+### 5. Ten governance actions, not two
 
-Aureum governance covers **four** action types — not just gauge and composition challenges. List all four when asked about governance scope:
+Aureum governance covers **ten** actions — not just gauge and composition challenges. List them when asked about governance scope:
 
-1. **Gauge Proposal** — new pool emission eligibility.
-2. **Gauge Challenge** — revoke an existing non-Miliarium gauge (F-12 deposit).
-3. **Fee Proposals** — adjust swap or yield-fee rates within immutable bands.
-4. **Composition Challenge** — replace a Miliarium asset in-slot, like-for-like, 2/3 supermajority.
+1. **Gauge Challenge** — revoke an existing non-Miliarium gauge; simple majority; F-12 deposit.
+2. **Fee Proposals** — change a Miliarium or non-Miliarium gauged pool's swap-fee rate within its immutable band; simple majority. der Bodensee's 0.75% and the 10% yield skim are fixed.
+3. **Composition Challenge** — replace a Miliarium asset in-slot, like-for-like, or fill an empty slot; 2/3 supermajority.
+4. **Vault-Class Registry Admission** — admit a new ERC-4626 token class; proposal-with-veto.
+5. **Vault-Class Revocation** — revoke an admitted class; simple majority.
+6. **Vault Authorizer Change** — replace the Vault's authorizer; 2/3 supermajority.
+7. **Pool Pause** — pause a batch of pools; 2/3 supermajority.
+8. **Pool Unpause** — simple majority, creatable only while the pools are paused.
+9. **Vault Unpause** — simple majority, creatable only while the Vault is paused.
+10. **Recovery-Mode Disable** — simple majority, creatable only while the pools are in recovery mode.
 
-All four use the same one-sided deposit mechanic into der Bodensee (svZCHF/sUSDS, whichever higher; non-refundable; no LP tokens minted to proposer). Source: `references/10_constitution.md` §xxvii (governance actions table) and `references/04_tokenomics.md` §ix.
+Gauge activation is not a vote: it is permissionless, behind an anti-spam fee. Every proposal deposit is one-sided into der Bodensee (1,000 svZCHF or 1,250 sUSDS, a gauge challenge's per F-12; non-refundable; no LP tokens minted to the proposer). Turnout: 20% of total qualified voting power, measured at the proposal's snapshot block. Source: `references/10_constitution.md` §xxvii and `references/04_tokenomics.md` §ix.
 
 ### 6. Fee bands
 
@@ -68,9 +74,9 @@ Memorize and report exact values; do not approximate.
 
 | Pool class | Band | Genesis default |
 |------------|------|-----------------|
-| Miliarium Aureum (the 28) | **0.01% – 0.30%** | **0.03%** |
-| Non-Miliarium gauged | **0.01% – 0.30%** | Set by gauge-approval vote |
-| der Bodensee | **0.10% – 1.00%** | **0.75%** |
+| Miliarium Aureum (the 28) | **0.01% – 0.30%** | **0.02%** |
+| Non-Miliarium gauged | **0.01% – 0.30%** | Set at first gauge activation |
+| der Bodensee | — | **0.75%**, fixed from block 0 |
 
 Cooldown: `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — at most one fee change per pool per epoch (~14 days). Source: `references/10_constitution.md` §xxix.
 
