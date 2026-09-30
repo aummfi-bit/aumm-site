@@ -174,7 +174,7 @@ Once gauged, the volume floor catches the pool. Months 0 to 3 are exempt. From m
 
 If he wash-trades to fake volume, the efficiency tournament caps him at month 13. Efficiency is `(swap_fees + 4626_yield_revenue_to_DAO) / emissions_received`. Inflated TVL makes the denominator huge while real revenue stays near zero. Pools below the 5th percentile cap at 0.1% of total emissions, 5th to 10th at 0.5%, 10th to 15th at 1%. Excess emissions redistribute pro-rata to uncapped pools.
 
-Inflating TVL with his own shitcoin can boost his EMA, but the EMA samples once per day on a 720-block (2.4-hour) TWAP and uses a 60-day half-life with α = 2/61. A sudden injection takes weeks to fully register. The bi-weekly CCB multiplier never applies to his pool, only to the 28 Miliarium pools. Anything else competes on raw EMA only.
+Inflating TVL with his own shitcoin can boost his EMA, but the EMA samples once per day on a 720-block (2.4-hour) TWAP and uses a 60-day EMA horizon with α = 2/61, a half-life of about 21 days. A sudden injection takes weeks to fully register. The bi-weekly CCB multiplier never applies to his pool, only to the 28 Miliarium pools. Anything else competes on raw EMA only.
 
 ### Why is the attack uneconomic even when technically possible?
 
