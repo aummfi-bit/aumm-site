@@ -10,7 +10,7 @@
 
 **Pool creation is permissionless from block 0.** Anyone can deploy any pool with any composition at any time. The Aequilibrium factory is open. This never changes.
 
-A pool becomes eligible for AuMM emissions only after its gauge is **activated**. Activation is **permissionless** — any address can call **`activateGauge(pool, payToken)`** once the pool meets all immutable eligibility criteria (Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, and a registered swap fee within 0.01%–0.30%) and the **anti-spam fee** is paid. **Without an active gauge: no emissions, no Incendiary Boost.** The contract enforces qualification — no governance vote admits a gauge.
+A pool becomes eligible for AuMM emissions only after its gauge is **activated**. Activation is **permissionless** — any address can call **`activateGauge(pool, payToken)`** once the pool meets all immutable eligibility criteria (Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook) and the **anti-spam fee** is paid. **Without an active gauge: no emissions, no Incendiary Boost.** The contract enforces qualification — no governance vote admits a gauge.
 
 **Eligibility criteria are immutable.** Activation cannot occur unless every immutable criterion is satisfied at the activation block, and the **Anti-Gaming Engine** (§xxiii) continues enforcing them every epoch thereafter. Governance cannot waive, modify, or relax these rules. The contract is the gate; no governance signal substitutes for criteria compliance.
 
@@ -61,14 +61,14 @@ Pools must meet ALL criteria to remain eligible for AuMM emissions:
 
 | Criterion | Requirement | Rationale |
 |-----------|-------------|-----------|
-| Protocol version | Aequilibrium only | No legacy pool farming |
+| Fee-routing hook | Registered on the protocol's fee-routing hook | Its swap fees route to der Bodensee |
 | ERC-4626 composition ("4626 Quality Gate") | **≥52%** yield-bearing tokens by weight. Only tokens admitted to the Vault-Class Registry count toward the 52%. | Ensures pools generate real protocol yield fees. |
 | Minimum TVL | **10,000 svZCHF** on the latest completed day window (the 720-block TWAP ending at the day boundary). Activation always requires it; the ongoing check is exempt during the months 0–3 grace period. | Filters ghost pools. The floor reads the pool's own window-averaged balances, not spot balances, so a flash or same-block deposit cannot carry a pool over it. A new pool activates only once a day window over which it held the floor has completed. |
 | Pool type | Created by the single Aureum weighted-pool factory fixed at deployment | Factory provenance is what makes the pool's self-reported weights trustworthy for the 52% gate |
 | Recovery mode | Not in recovery mode | A pool in recovery mode pays no protocol swap fee |
 | Role accounts | `pauseManager`, `swapFeeManager` and `poolCreator` all zero | No key outside governance can pause the pool, set its fee or take creator fees |
 | Fee rail | Holds svZCHF or sUSDS, or its recovery path was admitted at deployment | Its fees must be able to reach der Bodensee |
-| Swap fee | Registered static fee within 0.01%–0.30% | Fixed when the pool is created, so it is checked at activation |
+| Swap fee | Registered static fee within 0.01%–0.30% | Set when the pool is created, so it is checked at activation |
 | Volume percentile floor | Graduated by pool age (see Graduated Grace Period below) | Benchmarks pool activity against protocol-wide distribution |
 | Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
 | No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
@@ -135,7 +135,7 @@ Price-agnostic by design — prevents the reflexive disqualification problem whe
 
 **Governance-capture resistant.** A pool with large TVL and large CCB share but minimal fees ranks at the bottom. Despite a high CCB share, it receives at most 0.1% of emissions. Excess redistributed to productive pools.
 
-**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs $10K TVL, eligibility-criteria-passing composition, and the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee) to activate. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF or 2,500 sUSDS in fees. Prohibitively expensive.
+**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs 10,000 svZCHF TVL on the latest completed day window, eligibility-criteria-passing composition, and the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee) to activate. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF or 2,500 sUSDS in fees. Prohibitively expensive.
 
 ### Disqualification and Gauge Revocation
 
@@ -161,7 +161,7 @@ Any qualified AuMT holder can submit a governance proposal (any of the actions i
 
 ### Permissionless Gauge Activation
 
-Gauge activation is **permissionless**. Once a pool meets all immutable eligibility criteria — Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, and a registered swap fee within 0.01%–0.30% — any address can call **`activateGauge(pool, payToken)`**. No vote, no quorum, no governance gating.
+Gauge activation is **permissionless**. Once a pool meets all immutable eligibility criteria — Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook — any address can call **`activateGauge(pool, payToken)`**. No vote, no quorum, no governance gating.
 
 **Anti-spam fee:** **100 svZCHF or 125 sUSDS**, one-sided into der Bodensee Pool via the shared swap-and-deposit rail. **Non-refundable** on success and on any failed criteria check. Filters spam-activation attempts on freshly-deployed pools that have not yet sustained criteria. Same routing as governance deposits, distinct classification: rate-limiter, not vote bond.
 
@@ -239,7 +239,7 @@ The 28 Miliarium pools are a curated blueprint for CCB execution — diversified
 If a token, stablecoin, or asset class is missing from the 28, the path is **not** a composition challenge. It is:
 
 1. **Deploy a new pool** — permissionless from block 0
-2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, and a registered swap fee within 0.01%–0.30%), any address can call `activateGauge(pool, payToken)` with the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee). No vote, no proposal.
+2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook), any address can call `activateGauge(pool, payToken)` with the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee). No vote, no proposal.
 3. **Earn emissions** — through the standard CCB rules and Incendiary Boost. There is no multiplier boost at activation; cold-start support comes from user-funded Incendiary Boost.
 
 New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost — the 28 founding pools were seeded at genesis. The Miliarium pools are the anchor, not the ceiling.
