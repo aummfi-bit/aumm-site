@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@a3456386f44855cc580e6f7fc4e4636463e78c86 miliarium_profiles/15_ixRegistrum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@ccd6be2a43c0c812d0b4e1a7e413c01aa6e0534d miliarium_profiles/15_ixRegistrum.md — DO NOT EDIT -->
 # ixRegistrum — Slot 15
 
 **Sector:** DeFi Ecosystem
