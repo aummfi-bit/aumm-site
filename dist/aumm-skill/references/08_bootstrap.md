@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@ccd6be2a43c0c812d0b4e1a7e413c01aa6e0534d 08_bootstrap.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@1cea33cffee16c1a0b15a50ebfc641576f9ca21b 08_bootstrap.md — DO NOT EDIT -->
 # Bootstrap Rules
 
 *How new pools enter the emission economy.*
@@ -11,7 +11,7 @@
 
 **Pool creation is permissionless from block 0.** Anyone can deploy any pool with any composition at any time. The Aequilibrium factory is open. This never changes.
 
-A pool becomes eligible for AuMM emissions only after its gauge is **activated**. Activation is **permissionless** — any address can call **`activateGauge(pool)`** once the pool meets all immutable eligibility criteria (Quality Gate ≥52%, sustained TVL floor, pool-type whitelist, forbidden-token block clear) and the **anti-spam fee** is paid. **Without an active gauge: no emissions, no Incendiary Boost.** The contract enforces qualification — no governance vote admits a gauge.
+A pool becomes eligible for AuMM emissions only after its gauge is **activated**. Activation is **permissionless** — any address can call **`activateGauge(pool, payToken)`** once the pool meets all immutable eligibility criteria (Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook) and the **anti-spam fee** is paid. **Without an active gauge: no emissions, no Incendiary Boost.** The contract enforces qualification — no governance vote admits a gauge.
 
 **Eligibility criteria are immutable.** Activation cannot occur unless every immutable criterion is satisfied at the activation block, and the **Anti-Gaming Engine** (§xxiii) continues enforcing them every epoch thereafter. Governance cannot waive, modify, or relax these rules. The contract is the gate; no governance signal substitutes for criteria compliance.
 
@@ -27,7 +27,7 @@ Core emission allocation remains automatic and immutable.
 
 | Phase | Days | Driver | Purpose |
 |-------|------|--------|---------|
-| Gauge activation | Once criteria met | Permissionless `activateGauge(pool)` + anti-spam fee | Quality gate — pool must pass criteria; no governance vote |
+| Gauge activation | Once criteria met | Permissionless `activateGauge(pool, payToken)` + anti-spam fee | Quality gate — pool must pass criteria; no governance vote |
 | Incendiary Boost | Any time | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the protocol fee sink to boost a pool |
 | CCB allocation | Once active — ongoing | 60-day EMA | Emissions tracked by smoothed TVL via the standard CCB |
 
@@ -62,9 +62,14 @@ Pools must meet ALL criteria to remain eligible for AuMM emissions:
 
 | Criterion | Requirement | Rationale |
 |-----------|-------------|-----------|
-| Protocol version | Aequilibrium only | No legacy pool farming |
-| ERC-4626 composition ("4626 Quality Gate") | **≥52%** yield-bearing tokens by weight. Each ERC-4626 token must have **≥$5M, 30 BTC, or 4,000,000 svZCHF (whichever is largest) in its underlying vault** (`totalAssets()`) to count toward the 52% threshold. | Ensures pools generate real protocol yield fees. Three independent currency-denominated floors (USD, BTC, CHF) prevent any single inflation or devaluation event from eroding the quality gate. |
-| Minimum TVL | $10K **7-day SMA** (exempt during months 0–3 grace period) | Filters ghost pools. The 7-day SMA prevents flickering eligibility from intra-day price fluctuations — a pool at $10,001 that dips to $9,999 from a price move doesn't lose eligibility until the 7-day average drops below $10K. |
+| Fee-routing hook | Registered on the protocol's fee-routing hook | Its swap fees route to der Bodensee |
+| ERC-4626 composition ("4626 Quality Gate") | **≥52%** yield-bearing tokens by weight. Only tokens admitted to the Vault-Class Registry count toward the 52%. | Ensures pools generate real protocol yield fees. |
+| Minimum TVL | **10,000 svZCHF** on the latest completed day window (the 720-block TWAP ending at the day boundary). Activation always requires it; the ongoing check is exempt during the months 0–3 grace period. | Filters ghost pools. The floor reads the pool's own window-averaged balances, not spot balances, so a flash or same-block deposit cannot carry a pool over it. A new pool activates only once a day window over which it held the floor has completed. |
+| Pool type | Created by the single Aureum weighted-pool factory fixed at deployment | Factory provenance is what makes the pool's self-reported weights trustworthy for the 52% gate |
+| Recovery mode | Not in recovery mode | A pool in recovery mode pays no protocol swap fee |
+| Role accounts | `pauseManager`, `swapFeeManager` and `poolCreator` all zero | No key outside governance can pause the pool, set its fee or take creator fees |
+| Fee rail | Holds svZCHF or sUSDS, or its recovery path was admitted at deployment | Its fees must be able to reach der Bodensee |
+| Swap fee | Registered static fee within 0.01%–0.30% | Set when the pool is created, so it is checked at activation |
 | Volume percentile floor | Graduated by pool age (see Graduated Grace Period below) | Benchmarks pool activity against protocol-wide distribution |
 | Efficiency-based emission caps | Gauged pools ranked by efficiency ratio; bottom 15% capped (see Emission Efficiency Tournament below). **Activates at month 13 (after CCB transition).** | Throttles inefficient pools without reflexive disqualification. Price-agnostic. |
 | No self-referential tokens | AuMM cannot be a pool component | Prevents circular farming |
@@ -131,7 +136,7 @@ Price-agnostic by design — prevents the reflexive disqualification problem whe
 
 **Governance-capture resistant.** A pool with large TVL and large CCB share but minimal fees ranks at the bottom. Despite a high CCB share, it receives at most 0.1% of emissions. Excess redistributed to productive pools.
 
-**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs $10K TVL, eligibility-criteria-passing composition, and the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee) to activate. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF or 2,500 sUSDS in fees. Prohibitively expensive.
+**Sacrificial lamb resistant.** Flooding the bottom 15% with junk pools to shield an extractive pool: each lamb needs 10,000 svZCHF TVL on the latest completed day window, eligibility-criteria-passing composition, and the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee) to activate. Twenty lambs = $200K+ capital at risk plus 2,000 svZCHF or 2,500 sUSDS in fees. Prohibitively expensive.
 
 ### Disqualification and Gauge Revocation
 
@@ -151,13 +156,13 @@ After month 13, a gauged pool must clear the volume floor (or be disqualified) A
 
 Any qualified AuMT holder can submit a governance proposal (any of the actions in [Constitution](10_constitution.md) §xxvii). Deposit: **1,000 svZCHF or 1,250 sUSDS** (a gauge challenge's per [F-12](11_formulas.md)), one-sided into der Bodensee Pool. Automatic on submission, non-refundable. If der Bodensee cannot take the deposit at submission, for example while it is paused, the deposit is held in escrow and any caller may flush it into der Bodensee once it can; the proposal proceeds either way.
 
-**Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.02%**); der Bodensee's fee is fixed at **0.75%**, with no governance path. For non-Miliarium pools, the **initial swap fee** is set as a parameter at **first successful gauge activation** (within the 0.01–0.30% band), so a separate fee-change proposal is not required when the pool is created.
+**Swap-fee changes (within immutable bands):** `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — no pool's swap fee can be changed more often than once per epoch. **Class-dependent bands:** Miliarium Aureum pools and non-Miliarium gauged pools use **0.01%–0.30%** (Miliarium genesis **0.02%**); der Bodensee's fee is fixed at **0.75%**, with no governance path. For non-Miliarium pools, the **initial swap fee** is set at pool creation and checked at activation; activation refuses a registered fee outside the 0.01–0.30% band, so a separate fee-change proposal is not required when the pool is created.
 
 **All** governance deposits and vault-class bonds, and the **anti-spam fee** for permissionless gauge activation are **one-sided into der Bodensee Pool**. Same mechanic throughout. Filters spam, deepens the protocol fee sink, non-recoverable.
 
 ### Permissionless Gauge Activation
 
-Gauge activation is **permissionless**. Once a pool meets all immutable eligibility criteria — **ERC-4626 Quality Gate ≥52%** by class-admitted weight, sustained **TVL floor**, **pool-type whitelist**, and **forbidden-token block** clear — any address can call **`activateGauge(pool)`**. No vote, no quorum, no governance gating.
+Gauge activation is **permissionless**. Once a pool meets all immutable eligibility criteria — Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook — any address can call **`activateGauge(pool, payToken)`**. No vote, no quorum, no governance gating.
 
 **Anti-spam fee:** **100 svZCHF or 125 sUSDS**, one-sided into der Bodensee Pool via the shared swap-and-deposit rail. **Non-refundable** on success and on any failed criteria check. Filters spam-activation attempts on freshly-deployed pools that have not yet sustained criteria. Same routing as governance deposits, distinct classification: rate-limiter, not vote bond.
 
@@ -235,7 +240,7 @@ The 28 Miliarium pools are a curated blueprint for CCB execution — diversified
 If a token, stablecoin, or asset class is missing from the 28, the path is **not** a composition challenge. It is:
 
 1. **Deploy a new pool** — permissionless from block 0
-2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52%, sustained TVL floor, pool-type whitelist, forbidden-token block clear), any address can call `activateGauge(pool)` with the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee). No vote, no proposal.
+2. **Activate the gauge** — once eligibility criteria are met (Quality Gate ≥52% by class-admitted weight, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook), any address can call `activateGauge(pool, payToken)` with the **anti-spam fee** (100 svZCHF or 125 sUSDS into der Bodensee). No vote, no proposal.
 3. **Earn emissions** — through the standard CCB rules and Incendiary Boost. There is no multiplier boost at activation; cold-start support comes from user-funded Incendiary Boost.
 
 New pools route through the constellation's connectors (ixEdelweiss, ixLibertas, ixCambio), generate yield from ERC-4626 vaults, and bootstrap via Incendiary Boost — the 28 founding pools were seeded at genesis. The Miliarium pools are the anchor, not the ceiling.
@@ -259,13 +264,9 @@ A pool may include any tokens. Weight in any 4626 token whose class is **not** a
 
 Bond, veto threshold, and veto window are tunables locked in [Constitution §xxix](10_constitution.md) under non-regressable bounds: **`proposalBond ≥ antiSpamFee`** (class admission must not undercut the simpler permissionless-activation fee); **`vetoThreshold ≤ governanceQuorumThreshold`** (a vigilant minority must reach the veto bar at lower weight than full proposal quorum); **veto window ∈ `[BLOCKS_PER_EPOCH, 3 × BLOCKS_PER_EPOCH]`** (long enough for governance reaction, short enough to avoid stalling legitimate admissions).
 
-### Admission Fingerprints (Three Types, Proposer-Stated)
+### Admission by Token Address
 
-A `VaultClassProposal` declares its `admissionType` from one of three fingerprint kinds. Each carries a different threat model; the proposer selects which fits the class being admitted, and the veto mechanism is the protocol's check on that judgement.
-
-- **`ImplementationAddress`** — admits a specific implementation behind a proxy. Future implementations behind the same proxy automatically inherit admission. Trust delegated to the proxy admin's upgrade discipline.
-- **`FactoryAddress`** — admits all current and future vaults from a specific factory. Trust delegated to the factory's deployment policy.
-- **`BytecodeHash`** — admits exact bytecode match. Future-proof against unannounced implementation rotation; conversely, blocks legitimate upgrades without a fresh proposal.
+> A `VaultClassProposal` names the vault token it admits by that token's own address, the address the Quality Gate reads when it counts a pool leg. A vault behind a proxy keeps its admission across implementation upgrades, so trust is delegated to the proxy admin's upgrade discipline, and the veto is the protocol's check on that judgement. The admission is recorded as type `ImplementationAddress`; `FactoryAddress` and `BytecodeHash` are refused, because neither names a token the gate reads.
 
 Glossary definitions in [Glossary §xxxii](12_aureum_glossary.md).
 

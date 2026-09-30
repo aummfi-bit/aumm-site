@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@ccd6be2a43c0c812d0b4e1a7e413c01aa6e0534d miliarium_profiles/04_ixViatica.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@1cea33cffee16c1a0b15a50ebfc641576f9ca21b miliarium_profiles/04_ixViatica.md — DO NOT EDIT -->
 # ixViatica — Slot 04
 
 **Sector:** FX / Emerging Markets

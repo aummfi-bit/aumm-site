@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@ccd6be2a43c0c812d0b4e1a7e413c01aa6e0534d 10_constitution.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@1cea33cffee16c1a0b15a50ebfc641576f9ca21b 10_constitution.md — DO NOT EDIT -->
 # Constitution
 
 *The immutable operating law of Aureum.*
@@ -80,7 +80,7 @@ Activates only when an asset **ceases to function** (delisting, wrapper sunset, 
 
 The **Vault-Class Registry** — the on-chain set of ERC-4626 token classes admitted to the **Quality Gate numerator** ([Tokenomics §ix](04_tokenomics.md)) — follows a **proposal-with-veto** model, not vote-to-approve. A class proposed via `proposeVaultClass(...)` enters a **veto window**; the proposal **auto-finalizes** at window expiry unless governance casts a vetoing vote that meets the veto threshold.
 
-The model fits the action: class admission is a **bounded, well-typed verification** that an ERC-4626 implementation is non-malicious and properly composable — not a contested protocol change. Governance retains a hard backstop via the **veto** path during the window and via **revocation** (`revokeVaultClass(...)`) at any later point. Mechanism details, fingerprint types (ImplementationAddress / FactoryAddress / BytecodeHash), genesis seeding, and revocation: [Bootstrap §xxiv-a](08_bootstrap.md). Tunable bounds (proposal bond, veto threshold, window length): §xxix below.
+The model fits the action: class admission is a **bounded, well-typed verification** that an ERC-4626 implementation is non-malicious and properly composable — not a contested protocol change. Governance retains a hard backstop via the **veto** path during the window and via **revocation** (`revokeVaultClass(...)`) at any later point. Mechanism details, admission by token address, genesis seeding, and revocation: [Bootstrap §xxiv-a](08_bootstrap.md). Tunable bounds (proposal bond, veto threshold, window length): §xxix below.
 
 ### Proposal Data Integrity Rule
 
@@ -165,7 +165,7 @@ Immutable from block 0, cannot be changed by any means.
 | Pool class | Band (min–max) | Genesis default | Notes |
 |:-----------|:---------------|:----------------|:------|
 | Miliarium Aureum (the 28) | **0.01% – 0.30%** | **0.02%** | Hardcoded at deployment; adjustable via governance vote within band |
-| Non-Miliarium gauged | **0.01% – 0.30%** | Set at first gauge activation | Initial fee set as a parameter to `activateGauge(pool)` |
+| Non-Miliarium gauged | **0.01% – 0.30%** | Set at pool creation, checked at activation | Activation refuses a registered fee outside the band |
 | Der Bodensee | — | **0.75%** | Fixed from block 0; no governance path changes it |
 
 - `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — any pool can have its swap fee changed at most once per epoch (prevents rapid-fire manipulation; aligns with bi-weekly CCB cadence).
