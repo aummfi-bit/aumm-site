@@ -63,8 +63,8 @@ jobs:
       - name: Sync SKILL.md, README.md, references/, and .github/ into aumm-skill
         run: |
           set -euo pipefail
-          rsync -a --delete "${{ github.workspace }}/aumm-skill-build/references/" aumm-skill/references/
-          rsync -a --exclude='references' --exclude='references/**' aumm-site/dist/aumm-skill/ aumm-skill/
+          rsync -a --checksum --delete "${{ github.workspace }}/aumm-skill-build/references/" aumm-skill/references/
+          rsync -a --checksum --exclude='references' --exclude='references/**' aumm-site/dist/aumm-skill/ aumm-skill/
 
       - name: Commit and push if changed
         id: push_skill
