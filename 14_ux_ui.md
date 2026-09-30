@@ -95,9 +95,9 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## l-a. Vault-Class Registry
 
-- [ ] **Proposed classes queue** — open proposals to admit a new ERC-4626 vault class to the registry; per proposal: proposer, admission fingerprint type (`ImplementationAddress` / `FactoryAddress` / `BytecodeHash`), bond amount, time remaining in veto window, vetoes accumulated vs threshold.
+- [ ] **Proposed classes queue** — open proposals to admit a new ERC-4626 vault class to the registry; per proposal: proposer, the vault token admitted by its own address, bond amount, time remaining in veto window, vetoes accumulated vs threshold.
 - [ ] **Veto countdown** — per-proposal time-remaining indicator with auto-finalize block; AuMT-holder veto interface (cast / withdraw veto) gated on qualification.
-- [ ] **Admitted classes list** — full registry: genesis classes hard-coded at construction plus post-genesis admissions; per entry: fingerprint, admission block, originating proposal (if post-genesis), revocation status. See [Bootstrap (§xxiv-a)](08_bootstrap.md) for the registry mechanism.
+- [ ] **Admitted classes list** — full registry: genesis classes hard-coded at construction plus post-genesis admissions; per entry: the vault token's own address, admission block, originating proposal (if post-genesis), revocation status. See [Bootstrap (§xxiv-a)](08_bootstrap.md) for the registry mechanism.
 
 ---
 

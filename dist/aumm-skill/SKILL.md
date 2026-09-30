@@ -75,7 +75,7 @@ Memorize and report exact values; do not approximate.
 | Pool class | Band | Genesis default |
 |------------|------|-----------------|
 | Miliarium Aureum (the 28) | **0.01% – 0.30%** | **0.02%** |
-| Non-Miliarium gauged | **0.01% – 0.30%** | Set at first gauge activation |
+| Non-Miliarium gauged | **0.01% – 0.30%** | Set at pool creation, checked at activation |
 | der Bodensee | — | **0.75%**, fixed from block 0 |
 
 Cooldown: `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — at most one fee change per pool per epoch (~14 days). Source: `references/10_constitution.md` §xxix.
