@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 14_ux_ui.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@c6bf1adb71063fae7d024c07a9d58237eb7ec944 14_ux_ui.md — DO NOT EDIT -->
 # UX / UI — Frontend Requirements
 
 *Dashboard and interface elements for aumm.fi. This is a planning document — no code yet.*
@@ -66,7 +66,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## xlviii. Efficiency Tournament & Rankings
 
 - [ ] **Efficiency ranking table** — ranked pools ordered by efficiency ratio (fees + yield revenue / emissions received), 3-epoch moving average; ranked means gauged, gated EMA at the 10,000 svZCHF floor, not Disqualified, and a slot holder or past its own month 12 (a young non-slot pool is shown as not yet ranked)
-- [ ] **Tier indicators** — colour-coded: Favored cohort (top 15%) receiving emission precedence, Residual cohort (bottom 85%) receiving residual CCB flow only; anti-concentration caps shown for favored-cohort pools
+- [ ] **Tier indicators** — colour-coded: Favored cohort (top 15% of ranked pools — informational, no emission precedence and no cap), capped bands (bottom 15%: 1%, 0.5% and 0.1% of total emissions), uncapped pools
 - [ ] **CCB multipliers** — current value for each of the 28 Miliarium pools, bi-weekly update history, direction arrows (up/down/neutral)
 - [ ] **Volume percentile floor** — per-pool status (Safe / Warning / Disqualified) against the warn and cut lines for the pool's age (months 4–6: 5th / none; months 7–12: 10th / 5th; month 13+: 15th / 10th); Miliarium slot holders shown as exempt
 - [ ] **Redistribution tracker** — how much excess emission from capped pools was redistributed and to whom

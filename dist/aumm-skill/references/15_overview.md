@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 15_overview.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@c6bf1adb71063fae7d024c07a9d58237eb7ec944 15_overview.md — DO NOT EDIT -->
 # Overview
 
 ## Capital Allocation Under Immutable Laws
@@ -21,7 +21,7 @@ Depth: [Theoretical Foundations §v-a — Why Aureum Exists](03_theoretical_foun
 
 ### Four constitutional commitments
 
-1. **Open market creation** — Anyone can create a pool from block zero. A pool created with the anti-spam fee approved is gauged in the same call; any other pool begins in the Sandbox and may qualify permissionlessly for emissions under the same immutable requirements.
+1. **Open market creation** — Anyone can create a pool from block zero. A pool created with the anti-spam fee approved to the gauge registry is gauged in the same call; any other pool begins in the Sandbox and may qualify permissionlessly for emissions under the same immutable requirements.
 2. **Rule-based capital allocation** — The Continuous Central Bank allocates the emission tranche by transparent on-chain measures, not token voting. After the Year-1 transition, eligible pools compete through normalized TVL EMA and CCB multiplier scores.
 3. **Autonomous value accrual** — Protocol value flows into **der Bodensee**, not a discretionary treasury. Boosts, activation fees, and governance deposits deepen one reserve by predefined rules.
 4. **Immutable monetary policy** — AuMM follows a fixed, BTC-style capped emission schedule. No premine, discretionary token wallet, or governance authority that can redirect core emissions.

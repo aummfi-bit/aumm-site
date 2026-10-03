@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 09_transitions.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@c6bf1adb71063fae7d024c07a9d58237eb7ec944 09_transitions.md — DO NOT EDIT -->
 # Transition Rules
 
 *Timeline from equal emissions through a linear blend to fully automatic CCB.*
@@ -31,7 +31,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 - Bootstrap share reaches **zero**. **100%** of each block’s emission is the LP tranche, still **1/M** across the **M** live Miliarium pools until Month 11.
 
 **Month 11 — Non-Miliarium emissions begin, CCB transition starts.**
-- Non-Miliarium gauged pools begin receiving emissions. Gauging itself is permissionless from block 0: a pool created by the Aureum factory with the fee approved is gauged in its creation call, and any other pool that meets the eligibility criteria can be activated (100 svZCHF or 125 sUSDS anti-spam fee, one-sided into der Bodensee; [Bootstrap](08_bootstrap.md)), so a pool gauged earlier earns nothing before Month 11.
+- Non-Miliarium gauged pools begin receiving emissions. Gauging itself is permissionless from block 0: a pool created by the Aureum factory with the fee approved to the gauge registry is gauged in its creation call, and any other pool that meets the eligibility criteria can be activated (100 svZCHF or 125 sUSDS anti-spam fee, one-sided into der Bodensee; [Bootstrap](08_bootstrap.md)), so a pool gauged earlier earns nothing before Month 11.
 - Ranked pools begin ranking in the Efficiency Tournament: gauged pools at the 10,000 svZCHF floor that are not Disqualified and hold a Miliarium slot or are past their own month 12. A non-slot pool takes no rank position until then ([Bootstrap §xxiii](08_bootstrap.md)).
 - CCB transition begins: **α** runs from **0** (first block of Month 11) to **1** (last block of Year 1).
 - Each pool's share blends its equal **1/M** share with its CCB-derived share. At midpoint, **α = 0.5** — half equal, half CCB.
@@ -54,7 +54,7 @@ Protocol **months** (Month 1 … Month 12) are fixed on-chain block ranges of `B
 
 - **Pure** CCB: each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. See [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - Automatic: no voting, no discretionary multipliers, no transition council.
-- Efficiency tournament fully active — top 15% favored cohort receives emission precedence; bottom 85% receives residual CCB flow only.
+- Efficiency tournament fully active — the bottom 15% of ranked pools take hard emission caps, with the excess redistributed to the uncapped pools pro-rata by CCB share; the top 15% form an informational favored cohort with no allocation precedence and no cap ([Protocol formulas (F-10)](11_formulas.md)).
 - Volume percentile floor at full discipline for a non-slot pool in month 13 of its own life: Warned below the 15th percentile, Disqualified below the 10th. Miliarium slot holders are exempt.
 - New gauged pools receive emissions alongside the 28 Miliarium pools.
 - Incendiary Boost available for all gauged pools.

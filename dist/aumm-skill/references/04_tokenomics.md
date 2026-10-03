@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 04_tokenomics.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@c6bf1adb71063fae7d024c07a9d58237eb7ec944 04_tokenomics.md — DO NOT EDIT -->
 # Tokenomics
 
 ## ix. Token Design: AuMM (Aureum Market Maker)
@@ -91,7 +91,7 @@ The dampening exponent transitions from fourth root to cube root at the first ha
 
 The transition trigger is the halving block itself — immutable in the contract, no governance vote, no discretionary timing.
 
-**Which pools confer weight.** A pool confers governance weight while its **gauge is active** — registered and not revoked. A pool that **holds no Miliarium slot** also needs its **gated 60-day EMA at or above 10,000 svZCHF**; slot holders are exempt from that floor. **A Disqualified pool keeps its LPs' weight**: disqualification stops emissions, not weight, and weight ends only at automatic revocation or when the EMA falls below the floor. A non-slot pool below the floor — a $1K pool, say — confers zero, so splitting capital across many small pools cannot multiply weight through the per-pool root. Governance power flows exclusively from real capital in live gauged pools — the capital that generates protocol fees.
+**Which pools confer weight.** A pool confers governance weight while its **gauge is active** — registered and not revoked. A pool that **holds no Miliarium slot** also needs its **gated 60-day EMA at or above 10,000 svZCHF**; slot holders are exempt from that floor. **A Disqualified pool keeps its LPs' weight**: disqualification stops emissions, not weight, and weight ends at revocation — automatic, or by governance, since a Disqualified pool stays an active gauge and can still be revoked — or when the EMA falls below the floor. A non-slot pool below the floor — a $1K pool, say — confers zero, so splitting capital across many small pools cannot multiply weight through the per-pool root. Governance power flows exclusively from real capital in live gauged pools — the capital that generates protocol fees.
 
 **Governance power for non-emission decisions derives exclusively from active AuMT positions in pools that confer weight. AuMT in any other pool carries zero weight. Voting power cannot be purchased on the open market.**
 

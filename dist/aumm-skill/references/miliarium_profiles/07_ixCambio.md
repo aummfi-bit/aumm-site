@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 miliarium_profiles/07_ixCambio.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@c6bf1adb71063fae7d024c07a9d58237eb7ec944 miliarium_profiles/07_ixCambio.md — DO NOT EDIT -->
 # ixCambio — Slot 07
 
 **Sector:** Routing Infrastructure
