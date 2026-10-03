@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@c6bf1adb71063fae7d024c07a9d58237eb7ec944 08_bootstrap.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@b1c71b68f8203fe2b7025ebb31d0ad484c4e425a 08_bootstrap.md — DO NOT EDIT -->
 # Bootstrap Rules
 
 *How new pools enter the emission economy.*
@@ -198,9 +198,9 @@ Community enforcement layer on top of immutable anti-gaming criteria. The contra
 
 Pool token composition is immutable on-chain — no mechanism to swap a token inside a deployed contract. A composition challenge follows a **deprecate-and-replace** path. **Deposit:** **1,000 svZCHF or 1,250 sUSDS, one-sided into der Bodensee Pool** — same routing as fee proposals ([Constitution §xxvii](10_constitution.md)).
 
-1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal that references the **address of an already-deployed candidate pool** (specified-pool model). It passes only with **2/3 protocol-wide tessera-weighted approval**.
+1. **Governance vote** — a qualified AuMT holder submits a composition challenge proposal that references the **address of an already-deployed candidate pool** (specified-pool model). The candidate must clear the **composition gate** — the static activation checks (canonical fee-routing hook, roles renounced, swap fee within the band, ≥52% admitted ERC-4626 weight with no AuMM, approved Aureum factory), plus a fee rail and no recovery mode — at proposal and again at execution ([Constitution §xxvii](10_constitution.md)). It passes only with **2/3 protocol-wide tessera-weighted approval**.
 2. **Deprecation** — the old pool's gauge is revoked; emissions cease; the old pool persists on-chain with the fee-routing hook still attached.
-3. **Slot update** — the Miliarium Registry points the slot to the approved replacement pool; the replacement gauge is **auto-registered** via `registerGaugeFromComposition(pool)` (governance-only entry point) — no separate permissionless activation, no anti-spam fee. The candidate may be an automatically revoked pool: composition registration is one of its restart paths, and it keeps its creation-block age. The seated pool holds the slot, so it is exempt from the volume discipline from that block (§xxiii). Optional Incendiary Boost applies as normal.
+3. **Slot update** — the Miliarium Registry points the slot to the approved replacement pool; the replacement gauge is **auto-registered** via `registerGaugeFromComposition(pool)` (governance-only entry point) — no separate permissionless activation, no TVL floor, no anti-spam fee; the gate in step 1 has already run the static checks. The candidate may be an automatically revoked pool: composition registration is one of its restart paths, and it keeps its creation-block age. The seated pool holds the slot, so it is exempt from the volume discipline from that block (§xxiii). Optional Incendiary Boost applies as normal.
 
 A single proposal may cover **both** theme assets simultaneously if both have failed — forum discussion builds consensus on the pair before the on-chain vote.
 
