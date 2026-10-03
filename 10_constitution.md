@@ -59,7 +59,7 @@ Pool composition is immutable on-chain. A composition challenge **deprecates** t
 **Four operational rules (OQ-7 resolution):**
 
 1. **Deprecation = gauge revoked only.** The old pool persists on-chain as a Sandbox-style pool. It still exists, still accepts swaps, still earns ERC-4626 native yield for its LPs. It loses: AuMM emissions (any caller removes its score from the emission split once the gauge is revoked), CCB multiplier, and Miliarium Registry slot status.
-2. **The fee-routing hook stays attached for life.** The deprecated pool keeps routing **100% of the Vault-assigned protocol share** of each swap fee to der Bodensee Pool via the still-attached hook (see **Fee routing** below — **99.9999%** of the charged swap fee; the **0.0001% LP residual** stays with originating-pool LPs). The protocol benefits from any residual trading activity on the deprecated pool; the LPs just don't earn AuMM for keeping it open. Once a pool is hooked at gauge activation, it remains a fee source for the life of the pool.
+2. **The fee-routing hook stays attached for life.** The deprecated pool keeps routing **100% of the Vault-assigned protocol share** of each swap fee to der Bodensee Pool via the still-attached hook (see **Fee routing** below — **99.9999%** of the charged swap fee; the **0.0001% LP residual** stays with originating-pool LPs). The protocol benefits from any residual trading activity on the deprecated pool; the LPs just don't earn AuMM for keeping it open. Once a pool is hooked (a gauging criterion, checked at creation or activation), it remains a fee source for the life of the pool.
 3. **Specified-pool model.** The composition challenge proposal must reference the **address of an already-deployed candidate pool** with the proposed composition. The 2/3 supermajority vote is binary on that specific pool. On approval, the Miliarium Registry updates the slot pointer, and the replacement gauge **auto-registers via `registerGaugeFromComposition(pool)`** — no permissionless-activation criteria check is run; Incendiary Boost remains available as for any other gauged pool.
 4. **No LP migration assistance.** Old-pool LPs hold their existing AuMT, can withdraw at will, and may choose to enter the new pool independently. No special migration mechanic — a token failure in one pool would have everyone withdrawing anyway. The market handles migration for free.
 
@@ -126,7 +126,7 @@ Immutable from block 0, cannot be changed by any means.
 | `BLOCKS_PER_DAY` | 7,200 | 1 day | EMA daily sampling (F-4), per-day rates |
 | `BLOCKS_PER_WEEK` | 50,400 | 7 days | General reference |
 | `BLOCKS_PER_EPOCH` | 100,800 | 14 days ("bi-weekly") | Incendiary Boost placement and accounting unit (F-2), CCB multiplier cadence (F-8), efficiency tournament smoothing unit, fee-change cooldown |
-| `BLOCKS_PER_MONTH` | 219,000 | ~30.4 days | F-0 piecewise boundaries, Month 10 bootstrap termination, Month 11–12 transition, Month 13 efficiency-tournament activation |
+| `BLOCKS_PER_MONTH` | 219,000 | ~30.4 days | F-0 piecewise boundaries, Month 10 bootstrap termination, Month 11–12 transition, Month 13 efficiency-tournament activation (slot holders from the genesis start; any other pool from month 13 of its own life), pool-age months for the volume bands and the ongoing TVL check (counted from the pool's creation block, genesis pools from `GENESIS_BLOCK`) |
 | `BLOCKS_PER_QUARTER` | 657,000 | ~91.25 days | General reference |
 | `BLOCKS_PER_YEAR` | 2,628,000 | 365 days (exact) | Year 1 / transition-complete boundary, era-quarter boundary, F-9 governance dampening era boundaries |
 | `BLOCKS_PER_ERA` | 10,512,000 | 1,460 days (4 × 365) | Halving interval; F-9 governance dampening transition (Era 0 → Era 1+) |
@@ -138,7 +138,7 @@ Immutable from block 0, cannot be changed by any means.
 | `MONTH_6_END_BLOCK` | `genesis + 6 × BLOCKS_PER_MONTH` | F-0 first piecewise boundary (80%→50%) |
 | `MONTH_10_END_BLOCK` | `genesis + 10 × BLOCKS_PER_MONTH` | F-0 second piecewise boundary (bootstrap permanently zero) |
 | `YEAR_1_END_BLOCK` | `genesis + BLOCKS_PER_YEAR` | F-3 transition endpoint (α = 1) |
-| `MONTH_13_START_BLOCK` | `genesis + 12 × BLOCKS_PER_MONTH + 1` | Efficiency tournament activation |
+| `MONTH_13_START_BLOCK` | `genesis + 12 × BLOCKS_PER_MONTH + 1` | Efficiency tournament activation for Miliarium slot holders (the genesis month-13 start); a non-slot pool's month 13 begins at its creation block + `12 × BLOCKS_PER_MONTH` + 1, and genesis pools count from `GENESIS_BLOCK`, where it equals this constant |
 | `FIRST_HALVING_BLOCK` | `genesis + BLOCKS_PER_ERA` | Era 0 → Era 1 transition; F-9 governance dampening exponent shift |
 | `BOOST_CAP_BPS` | 1,500 bps = 15% of an epoch's emission integral | Incendiary aggregate cap across all boosts active in that epoch (F-2); the epoch is the bucket unit, not a boost duration |
 
@@ -164,7 +164,7 @@ Immutable from block 0, cannot be changed by any means.
 | Pool class | Band (min–max) | Genesis default | Notes |
 |:-----------|:---------------|:----------------|:------|
 | Miliarium Aureum (the 28) | **0.01% – 0.30%** | **0.02%** | Hardcoded at deployment; adjustable via governance vote within band |
-| Non-Miliarium gauged | **0.01% – 0.30%** | Set at pool creation, checked at activation | Activation refuses a registered fee outside the band |
+| Non-Miliarium gauged | **0.01% – 0.30%** | Set at pool creation, checked when the pool is gauged (at creation or at activation) | Gauging at creation and activation both refuse a registered fee outside the band |
 | Der Bodensee | — | **0.75%** | Fixed from block 0; no governance path changes it |
 
 - `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — any pool can have its swap fee changed at most once per epoch (prevents rapid-fire manipulation; aligns with bi-weekly CCB cadence).
@@ -208,7 +208,7 @@ Per §xxvii (Vault-Class Registry Veto Model) and [§xxiv-a in Bootstrap](08_boo
 
 - Governance dampening exponents: fourth root (Era 0, years 0–4), cube root (Era 1+, from `FIRST_HALVING_BLOCK` onward) — applied to pool-aggregate EMA TVL per F-9 and divided pro-rata within the pool.
 - Any withdrawal resets AuMT governance power
-- AuMT governance weight requires active gauged-pool status — when a pool's gauge is revoked, the AuMT for that pool drops to zero governance weight at that block (other LP entitlements continue — see §xxvii Composition Challenge Rule)
+- AuMT governance weight requires active gauged-pool status — when a pool's gauge is revoked, the AuMT for that pool drops to zero governance weight at that block (other LP entitlements continue — see §xxvii Composition Challenge Rule). A pool holding no Miliarium slot also needs its gated EMA at or above 10,000 svZCHF (slot holders are exempt); a Disqualified pool keeps its LPs' weight until revocation or until it falls below the floor
 - No admin keys, no multisig, no upgradability, no pause functions held by a key — *except:* at the one-time Stage B→governance migration, the Stage B multisig retains an emergency-only role for `BLOCKS_PER_YEAR` blocks (~12 months) post-migration, limited to pausing and unpausing the Vault and enabling and disabling recovery mode, its two entry actions ending one epoch before the window does. The role expires in code at the window's end, after which the multisig clause dies permanently; the multisig has no authority thereafter, ever. Every other slot a key held at deployment is sealed or burned by the deployment itself, and after the window pausing a pool, unpausing a pool or the Vault, and disabling recovery mode are governance proposals (§xxvii), never a key.
 
 ## xxx. No Treasury

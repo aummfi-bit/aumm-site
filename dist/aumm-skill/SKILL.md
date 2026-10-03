@@ -66,7 +66,7 @@ Aureum governance covers **ten** actions — not just gauge and composition chal
 9. **Vault Unpause** — simple majority, creatable only while the Vault is paused.
 10. **Recovery-Mode Disable** — simple majority, creatable only while the pools are in recovery mode.
 
-Gauge activation is not a vote: it is permissionless, behind an anti-spam fee. Every proposal deposit is one-sided into der Bodensee (1,000 svZCHF or 1,250 sUSDS, a gauge challenge's per F-12; non-refundable; no LP tokens minted to the proposer). Turnout: 20% of total qualified voting power, measured at the proposal's snapshot block. Source: `references/10_constitution.md` §xxvii and `references/04_tokenomics.md` §ix.
+Gauging is not a vote: a pool is gauged in its creation call or by permissionless activation, behind an anti-spam fee. Every proposal deposit is one-sided into der Bodensee (1,000 svZCHF or 1,250 sUSDS, a gauge challenge's per F-12; non-refundable; no LP tokens minted to the proposer). Turnout: 20% of total qualified voting power, measured at the proposal's snapshot block. Source: `references/10_constitution.md` §xxvii and `references/04_tokenomics.md` §ix.
 
 ### 6. Fee bands
 
@@ -75,7 +75,7 @@ Memorize and report exact values; do not approximate.
 | Pool class | Band | Genesis default |
 |------------|------|-----------------|
 | Miliarium Aureum (the 28) | **0.01% – 0.30%** | **0.02%** |
-| Non-Miliarium gauged | **0.01% – 0.30%** | Set at pool creation, checked at activation |
+| Non-Miliarium gauged | **0.01% – 0.30%** | Set at pool creation, checked when the pool is gauged (at creation or at activation) |
 | der Bodensee | — | **0.75%**, fixed from block 0 |
 
 Cooldown: `FEE_CHANGE_COOLDOWN_BLOCKS = BLOCKS_PER_EPOCH = 100,800` — at most one fee change per pool per epoch (~14 days). Source: `references/10_constitution.md` §xxix.

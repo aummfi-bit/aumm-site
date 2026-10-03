@@ -252,7 +252,7 @@ Allow: /
 #   BTC_WRAPPERS for F-12; Composition Challenge rules; bounded Stage B multisig after migration
 # - Continuous Central Bank (CCB) — automatic emission allocation; EMA(60) with daily cadence + 720-block TWAP (F-4); F-8 multiplier
 # - Miliarium Aureum — 28 genesis pools (not a closed market); Composition Challenge for slot replacement; F-12 for non-Miliarium gauge challenges
-# - AuMM — reward token (21M max, halving schedule); AuMT — LP tessera; governance weight to zero when gauge revoked
+# - AuMM — reward token (21M max, halving schedule); AuMT — LP tessera; governance weight to zero when gauge revoked or, outside the Miliarium, below the 10,000 svZCHF floor
 # - Aequilibrium — AMM engine (Balancer-class design layer); substrate, not the product
 # - Incendiary Boost — svZCHF/sUSDS to der Bodensee, 1-epoch priority emission skim
 # - ixEDEL / routing — constellation routing (see glossary and miliarium docs)

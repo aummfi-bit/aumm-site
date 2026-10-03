@@ -55,7 +55,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## xlvii. Miliarium Aureum Pools
 
-- [ ] **28-pool registry table** — slot, name, sector, template, composition, TVL, 24h volume, 24h fees, CCB multiplier, emission share %, status (Active / Warning / Disqualified)
+- [ ] **28-pool registry table** — slot, name, sector, template, composition, TVL, 24h volume, 24h fees, CCB multiplier, emission share %, status (Active / Composition Challenge) — slot holders are never Warned or Disqualified
 - [ ] **Atomic liquidity supply** — per-pool LP depth, available liquidity at price levels
 - [ ] **Sector grouping view** — Yield (01-07), Bonds (08-11), Crypto (12-16), Stocks (17-26), Metals (27-28) with sector-level aggregates
 - [ ] **Individual pool pages** — composition table, TradingView chart (TVL, volume, fees), EMA(60) vs spot TVL, CCB multiplier history, emission share history, Incendiary Boost status, 4626 Quality Gate status
@@ -64,10 +64,10 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## xlviii. Efficiency Tournament & Rankings
 
-- [ ] **Efficiency ranking table** — all gauged pools ranked by efficiency ratio (fees + yield revenue / emissions received), 3-epoch moving average
+- [ ] **Efficiency ranking table** — ranked pools ordered by efficiency ratio (fees + yield revenue / emissions received), 3-epoch moving average; ranked means gauged, gated EMA at the 10,000 svZCHF floor, not Disqualified, and a slot holder or past its own month 12 (a young non-slot pool is shown as not yet ranked)
 - [ ] **Tier indicators** — colour-coded: Favored cohort (top 15%) receiving emission precedence, Residual cohort (bottom 85%) receiving residual CCB flow only; anti-concentration caps shown for favored-cohort pools
 - [ ] **CCB multipliers** — current value for each of the 28 Miliarium pools, bi-weekly update history, direction arrows (up/down/neutral)
-- [ ] **Volume percentile floor** — per-pool status vs current threshold (5th → 10th → 15th graduated schedule)
+- [ ] **Volume percentile floor** — per-pool status (Safe / Warning / Disqualified) against the warn and cut lines for the pool's age (months 4–6: 5th / none; months 7–12: 10th / 5th; month 13+: 15th / 10th); Miliarium slot holders shown as exempt
 - [ ] **Redistribution tracker** — how much excess emission from capped pools was redistributed and to whom
 - [ ] **Threshold transition feed** — live stream of `GaugeEfficiencyDropped` and `GaugeEfficiencyRising` events emitted at epoch boundaries; per event displays pool address, epoch index, **TVL SMA** (7-day, svZCHF-denominated), and **efficiency ratio** (3-epoch moving average per F-10)
 - [ ] **Per-pool transition history** — chronological log of cohort entries and exits for every gauged pool, indexed by epoch; current-cohort badge (favored / residual)
@@ -138,7 +138,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## lv. Gauged Pools (Non-Miliarium)
 
 - [ ] **Gauge registry** — all non-Miliarium gauged pools with status, TVL, efficiency rank, emission share
-- [ ] **Sandbox pools** — non-gauged pools ranked by efficiency
+- [ ] **Sandbox pools** — non-gauged pools (created ungauged, or automatically revoked), not ranked in either ranking; per pool, the activation criteria still unmet
 
 ---
 

@@ -52,7 +52,7 @@
 |:----------|:-----------|
 | 4626 Quality Gate | ≥52% (admitted vault classes) — met by scrvUSD (15%) + GHO (14%) + sUSDS (14%) + ysyBOLD (14%) = 57% |
 | Vault-Class Registry | All ERC-4626 tokens admitted at genesis (per [Bootstrap §xxiv-a](08_bootstrap.md)) |
-| Volume percentile floor | 5th (months 3–6) → 10th (months 6–12) → 15th (month 13+) |
+| Volume percentile floor | Exempt — a Miliarium slot holder is never Warned or Disqualified; it still ranks in the volume census ([Bootstrap §xxiii](08_bootstrap.md)) |
 | Efficiency tournament | Bottom 15% → emission cap (month 13+) |
 | CCB multiplier | Immutable band, initialised at 1.0 — see [Constitution (§xxix)](10_constitution.md) |
 | Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (auto-registration via `registerGaugeFromComposition(pool)`, governance-only — no permissionless-activation check, optional 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see [Bootstrap (§xxiv)](08_bootstrap.md) |

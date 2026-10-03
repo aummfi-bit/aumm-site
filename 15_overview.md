@@ -12,7 +12,7 @@ Permissionless pools · BTC-style emissions · Autonomous reserve · Constitutio
 
 The AMM is infrastructure. AUREUM’s purpose is an **autonomous capital market**.
 
-Anyone may deploy a pool expressing an investment thesis. Pools that satisfy the immutable on-chain requirements can activate a gauge permissionlessly and compete for AuMM emissions. No committee selects the winners, and no governance vote directs the core emission flow. Capital allocation follows transparent rules enforced by contracts.
+Anyone may deploy a pool expressing an investment thesis. Pools that satisfy the immutable on-chain requirements are gauged at creation or can activate a gauge permissionlessly, and compete for AuMM emissions. No committee selects the winners, and no governance vote directs the core emission flow. Capital allocation follows transparent rules enforced by contracts.
 
 The **28 Miliarium Aureum** pools form the **genesis market**, not a closed market — diversified starting points while the permissionless factory remains open to future assets, sectors, and theses.
 
@@ -20,7 +20,7 @@ Depth: [Theoretical Foundations §v-a — Why Aureum Exists](03_theoretical_foun
 
 ### Four constitutional commitments
 
-1. **Open market creation** — Anyone can create a pool from block zero. Pools begin in the Sandbox and may qualify permissionlessly for emissions under the same immutable requirements.
+1. **Open market creation** — Anyone can create a pool from block zero. A pool created with the anti-spam fee approved is gauged in the same call; any other pool begins in the Sandbox and may qualify permissionlessly for emissions under the same immutable requirements.
 2. **Rule-based capital allocation** — The Continuous Central Bank allocates the emission tranche by transparent on-chain measures, not token voting. After the Year-1 transition, eligible pools compete through normalized TVL EMA and CCB multiplier scores.
 3. **Autonomous value accrual** — Protocol value flows into **der Bodensee**, not a discretionary treasury. Boosts, activation fees, and governance deposits deepen one reserve by predefined rules.
 4. **Immutable monetary policy** — AuMM follows a fixed, BTC-style capped emission schedule. No premine, discretionary token wallet, or governance authority that can redirect core emissions.
@@ -32,7 +32,7 @@ A treasury is capital awaiting a future human decision. **der Bodensee** is capi
 ### Two paths to liquidity
 
 - **CCB** — Sustained capital and economic performance earn emissions automatically under a common allocation law.
-- **Incendiary Boost** — Anyone may sacrifice capital into der Bodensee to accelerate emissions to a qualified pool, without minting new AuMM or expanding the fixed supply.
+- **Incendiary Boost** — Anyone may sacrifice capital into der Bodensee to accelerate emissions to a gauged pool, without minting new AuMM or expanding the fixed supply.
 
 CCB rewards demonstrated persistence. Incendiary Boost expresses costly conviction. Both operate within the same fixed emission budget.
 
