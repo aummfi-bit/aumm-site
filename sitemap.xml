@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://aumm.fi/</loc><lastmod>2026-09-24T12:36:56Z</lastmod></url>
-  <url><loc>https://aumm.fi/llms.txt</loc><lastmod>2026-09-29T23:57:12Z</lastmod></url>
-  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-09-30T14:47:49Z</lastmod></url>
-  <url><loc>https://aumm.fi/15_overview.md</loc><lastmod>2026-09-28T12:40:47Z</lastmod></url>
-  <url><loc>https://aumm.fi/08_bootstrap.md</loc><lastmod>2026-09-30T14:46:59Z</lastmod></url>
-  <url><loc>https://aumm.fi/09_transitions.md</loc><lastmod>2026-09-29T23:57:59Z</lastmod></url>
-  <url><loc>https://aumm.fi/10_constitution.md</loc><lastmod>2026-09-30T14:37:23Z</lastmod></url>
-  <url><loc>https://aumm.fi/11_formulas.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
+  <url><loc>https://aumm.fi/llms.txt</loc><lastmod>2026-10-03T11:53:05Z</lastmod></url>
+  <url><loc>https://aumm.fi/llms-full.txt</loc><lastmod>2026-10-03T11:55:34Z</lastmod></url>
+  <url><loc>https://aumm.fi/15_overview.md</loc><lastmod>2026-10-03T11:53:35Z</lastmod></url>
+  <url><loc>https://aumm.fi/08_bootstrap.md</loc><lastmod>2026-10-03T11:50:23Z</lastmod></url>
+  <url><loc>https://aumm.fi/09_transitions.md</loc><lastmod>2026-10-03T11:52:47Z</lastmod></url>
+  <url><loc>https://aumm.fi/10_constitution.md</loc><lastmod>2026-10-03T11:53:54Z</lastmod></url>
+  <url><loc>https://aumm.fi/11_formulas.md</loc><lastmod>2026-10-03T11:50:57Z</lastmod></url>
   <url><loc>https://aumm.fi/03_theoretical_foundation.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
-  <url><loc>https://aumm.fi/02_mental_model.md</loc><lastmod>2026-09-30T14:37:32Z</lastmod></url>
+  <url><loc>https://aumm.fi/02_mental_model.md</loc><lastmod>2026-10-03T11:52:47Z</lastmod></url>
   <url><loc>https://aumm.fi/02a_flywheel.md</loc><lastmod>2026-09-28T12:39:13Z</lastmod></url>
-  <url><loc>https://aumm.fi/04_tokenomics.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
-  <url><loc>https://aumm.fi/05_miliarium_aureum.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
-  <url><loc>https://aumm.fi/06_miliarium_manifest.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/04_tokenomics.md</loc><lastmod>2026-10-03T11:53:35Z</lastmod></url>
+  <url><loc>https://aumm.fi/05_miliarium_aureum.md</loc><lastmod>2026-10-03T11:52:47Z</lastmod></url>
+  <url><loc>https://aumm.fi/06_miliarium_manifest.md</loc><lastmod>2026-10-03T11:51:43Z</lastmod></url>
   <url><loc>https://aumm.fi/07_miliarium_sectors.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
   <url><loc>https://aumm.fi/07a_tokens.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
   <url><loc>https://aumm.fi/16_team.md</loc><lastmod>2026-09-24T12:16:01Z</lastmod></url>
   <url><loc>https://aumm.fi/16a_security_audits.md</loc><lastmod>2026-09-29T23:55:28Z</lastmod></url>
-  <url><loc>https://aumm.fi/12_aureum_glossary.md</loc><lastmod>2026-09-30T14:47:00Z</lastmod></url>
-  <url><loc>https://aumm.fi/13_appendices.md</loc><lastmod>2026-09-30T14:37:32Z</lastmod></url>
-  <url><loc>https://aumm.fi/14_ux_ui.md</loc><lastmod>2026-09-30T14:37:34Z</lastmod></url>
-  <url><loc>https://aumm.fi/17_faq.md</loc><lastmod>2026-09-30T14:47:00Z</lastmod></url>
+  <url><loc>https://aumm.fi/12_aureum_glossary.md</loc><lastmod>2026-10-03T11:53:35Z</lastmod></url>
+  <url><loc>https://aumm.fi/13_appendices.md</loc><lastmod>2026-10-03T11:52:57Z</lastmod></url>
+  <url><loc>https://aumm.fi/14_ux_ui.md</loc><lastmod>2026-10-03T11:52:47Z</lastmod></url>
+  <url><loc>https://aumm.fi/17_faq.md</loc><lastmod>2026-10-03T11:53:35Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/decentralized_money.md</loc><lastmod>2026-09-24T12:16:01Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/eurodollar_shadow.md</loc><lastmod>2026-09-24T12:16:01Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/ddd9_part3.md</loc><lastmod>2026-09-24T12:16:01Z</lastmod></url>
@@ -30,34 +30,34 @@
   <url><loc>https://aumm.fi/sagix/sagix_miliarium_aureum.md</loc><lastmod>2026-09-24T12:16:01Z</lastmod></url>
   <url><loc>https://aumm.fi/sagix/risk_premium_problem.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
   <url><loc>https://aumm.fi/README.md</loc><lastmod>2026-09-24T12:37:06Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/01_ixHelvetia.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/02_ixAetheron.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/03_ixCasper.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/04_ixViatica.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/05_ixEdelweiss.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/06_ixLibertas.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/07_ixCambio.md</loc><lastmod>2026-09-30T10:47:38Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/08_ixBrevis.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/09_ixAltrix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/10_ixMediox.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/11_ixLongus.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/12_ixStrata.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/13_ixForum.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/14_ixAurebit.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/15_ixRegistrum.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/16_ixDebitum.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/17_ixEquitix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/18_ixInnovix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/19_ixGigantus.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/20_ixMagnix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/21_ixNubix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/22_ixMoneta.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/23_ixColossix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/24_ixVitalix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/25_ixMedicix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/26_ixMercatura.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/27_ixAurix.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
-  <url><loc>https://aumm.fi/miliarium_profiles/28_ixMetallum.md</loc><lastmod>2026-08-01T18:45:20Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/01_ixHelvetia.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/02_ixAetheron.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/03_ixCasper.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/04_ixViatica.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/05_ixEdelweiss.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/06_ixLibertas.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/07_ixCambio.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/08_ixBrevis.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/09_ixAltrix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/10_ixMediox.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/11_ixLongus.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/12_ixStrata.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/13_ixForum.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/14_ixAurebit.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/15_ixRegistrum.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/16_ixDebitum.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/17_ixEquitix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/18_ixInnovix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/19_ixGigantus.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/20_ixMagnix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/21_ixNubix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/22_ixMoneta.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/23_ixColossix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/24_ixVitalix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/25_ixMedicix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/26_ixMercatura.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/27_ixAurix.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
+  <url><loc>https://aumm.fi/miliarium_profiles/28_ixMetallum.md</loc><lastmod>2026-10-03T11:53:12Z</lastmod></url>
   <url><loc>https://aumm.fi/audit/seam-1/AUDIT-INSTRUCTIONS.md</loc><lastmod>2026-09-23T16:39:36Z</lastmod></url>
   <url><loc>https://aumm.fi/audit/seam-1/CORRECTIONS.md</loc><lastmod>2026-09-23T16:39:36Z</lastmod></url>
   <url><loc>https://aumm.fi/audit/seam-1/RUN-METADATA.md</loc><lastmod>2026-09-23T16:39:36Z</lastmod></url>

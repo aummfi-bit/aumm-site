@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@1cea33cffee16c1a0b15a50ebfc641576f9ca21b 04_tokenomics.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 04_tokenomics.md — DO NOT EDIT -->
 # Tokenomics
 
 ## ix. Token Design: AuMM (Aureum Market Maker)
@@ -43,7 +43,7 @@ Eligibility for AuMM emissions is criteria-gated, not vote-gated. The primary cr
 
 > The 52% quality-gate numerator equals the sum of pool weights assigned to ERC-4626 tokens whose class is admitted in the Vault-Class Registry. All other token weights — including ERC-4626 tokens whose class is not admitted — count toward the ≤48% complement.
 >
-> Eligibility is re-evaluated at each tournament epoch boundary against the current registry state; class admissions and revocations take effect at the next boundary.
+> The Quality Gate is checked once, when a pool is gauged — in its creation call or at activation — against the registry as it stands then; class admissions and revocations take effect at the next epoch boundary, and a gauged pool is not re-tested against the gate. The one structural criterion re-evaluated afterwards is TVL: from month 4 of a pool's life, its gated 60-day EMA must stay at or above 10,000 svZCHF (see [Bootstrap](08_bootstrap.md) §xxiii).
 
 ### Per-Block Streaming
 
@@ -69,7 +69,7 @@ Emission allocation is driven by the **Continuous Central Bank (CCB)** — not b
 
 #### Protocol Governance (Non-Emission Decisions)
 
-For decisions beyond emission direction (fee parameters, gauge challenges, composition challenges), governance power is proportional to **active LP position in emission-qualified pools only** (AuMT held in qualifying pools):
+For decisions beyond emission direction (fee parameters, gauge challenges, composition challenges), governance power is proportional to **active LP position in pools that confer weight** (AuMT held in pools with an active gauge and, outside the Miliarium, a gated EMA at or above the 10,000 svZCHF floor — see below):
 
 ```
 Era 0:   voting_power = (pool_TVL_EMA)^(1/4) × (holder_LP / pool_total_LP) × time_factor
@@ -84,16 +84,16 @@ The dampening exponent transitions from fourth root to cube root at the first ha
 
 **Why these specific exponents:** The ratio of the largest LP to total protocol TVL changes dramatically over time — the exponent must match the capture risk of each era.
 
-- **Era 0 (fourth root):** At genesis, a $100M LP in a $1M protocol is 100% of TVL. Without dampening, that single actor controls the entire governance surface. Fourth-root compression reduces the gap: a $100M pool has ~18× the governance weight of a $1K pool, divided pro-rata among its holders — splitting a position across wallets changes nothing, because the root applies to the pool aggregate, not the position. Maximum compression when the protocol is most vulnerable. The whale still has more weight than a small LP — they just cannot steamroll every vote.
-- **Era 1+ (cube root, permanent from year 4):** By year 4, TVL growth has naturally diluted individual power. The same $100M LP in a $1B protocol is 10%, not 100%. Cube root: a $100M pool has ~46× the governance weight of a $1K pool — more responsive to capital differences than fourth root, reflecting lower capture risk in a larger ecosystem. The exponent relaxes at the first halving block and stays at cube root permanently — subsequent halvings affect emission rate only, not governance mechanics.
+- **Era 0 (fourth root):** At genesis, a $100M LP in a $1M protocol is 100% of TVL. Without dampening, that single actor controls the entire governance surface. Fourth-root compression reduces the gap: a $100M pool has ~10× the governance weight of a $10K pool (about the 10,000 svZCHF floor below which a non-slot pool confers none), divided pro-rata among its holders — splitting a position across wallets changes nothing, because the root applies to the pool aggregate, not the position. Maximum compression when the protocol is most vulnerable. The whale still has more weight than a small LP — they just cannot steamroll every vote.
+- **Era 1+ (cube root, permanent from year 4):** By year 4, TVL growth has naturally diluted individual power. The same $100M LP in a $1B protocol is 10%, not 100%. Cube root: a $100M pool has ~22× the governance weight of a $10K pool — more responsive to capital differences than fourth root, reflecting lower capture risk in a larger ecosystem. The exponent relaxes at the first halving block and stays at cube root permanently — subsequent halvings affect emission rate only, not governance mechanics.
 
 **Worked example:** At genesis, $1M total TVL. One LP deposits $100M (100× the rest). Under linear weighting, that LP holds 99% of governance power — functionally a dictatorship. Under fourth root: the $100M LP has power proportional to $(100M)^{1/4} \approx 100$, while the remaining $1M of LPs collectively has $(1M)^{1/4} \approx 31.6$. The whale holds ~76% — still dominant, but a coalition of smaller LPs can contest any proposal. By year 4, suppose $1B TVL and the same LP still has $100M (now 10%). Under cube root: $(100M)^{1/3} \approx 464$, while the remaining $900M has $(900M)^{1/3} \approx 965$. The whale holds ~32% — influential but far from controlling. Natural TVL growth did most of the work; the exponent relaxation reflects that.
 
 The transition trigger is the halving block itself — immutable in the contract, no governance vote, no discretionary timing.
 
-AuMT in pools that fail any eligibility criterion carries zero governance weight. Governance power flows exclusively from productive capital — the same capital that earns emissions and generates protocol fees.
+**Which pools confer weight.** A pool confers governance weight while its **gauge is active** — registered and not revoked. A pool that **holds no Miliarium slot** also needs its **gated 60-day EMA at or above 10,000 svZCHF**; slot holders are exempt from that floor. **A Disqualified pool keeps its LPs' weight**: disqualification stops emissions, not weight, and weight ends only at automatic revocation or when the EMA falls below the floor. A non-slot pool below the floor — a $1K pool, say — confers zero, so splitting capital across many small pools cannot multiply weight through the per-pool root. Governance power flows exclusively from real capital in live gauged pools — the capital that generates protocol fees.
 
-**Governance power for non-emission decisions derives exclusively from active, qualified AuMT positions. AuMT in non-qualified pools carries zero weight. Voting power cannot be purchased on the open market.**
+**Governance power for non-emission decisions derives exclusively from active AuMT positions in pools that confer weight. AuMT in any other pool carries zero weight. Voting power cannot be purchased on the open market.**
 
 - **Voting power = dampened AuMT.** Pool-aggregate dampening per F-9: the pool's TVL EMA raised to the era root (1/4 or 1/3), divided pro-rata by LP share, scaled by `time_factor`. 14-day qualification, 6-month linear on-ramp, any withdrawal resets to zero. See [Glossary (section xxxv)](12_aureum_glossary.md) for the full rule set.
 
@@ -103,7 +103,7 @@ AuMT in pools that fail any eligibility criterion carries zero governance weight
 
 **Days 14–180: Governance on-ramp.** After the 14-day qualification, `time_in_pool` accrues from zero. Because the F-9 `time_factor` ramps linearly from zero, voting power grows linearly with time in the on-ramp phase. An LP at day 14 has minimal power. By month 6 (day 180), they reach **full voting weight**. The 6-month on-ramp ensures governance power reflects sustained commitment, not recent capital deployment.
 
-**Any withdrawal resets everything to zero.** Remove any amount of liquidity from a qualified pool — even 1% — and governance power for that position drops to zero immediately. `time_in_pool` resets. The 14-day qualification clock restarts from scratch. The 6-month on-ramp begins again.
+**Any withdrawal resets everything to zero.** Remove any amount of liquidity from a pool that confers weight — even 1% — and governance power for that position drops to zero immediately. `time_in_pool` resets. The 14-day qualification clock restarts from scratch. The 6-month on-ramp begins again.
 
 This eliminates:
 
@@ -121,7 +121,7 @@ Applies uniformly: gauge challenges, fee changes, and composition challenges all
 
 #### Anti-Market Buying
 
-Only active liquidity providers in **emission-qualified pools** have governance voting power. AuMT in pools that fail eligibility carries zero weight. You cannot buy governance power on the open market or earn it by parking capital in unproductive pools.
+Only active liquidity providers in **pools that confer weight** have governance voting power — a pool with an active gauge, and for any pool outside the Miliarium, a gated EMA at or above the 10,000 svZCHF floor. AuMT in any other pool carries zero weight. You cannot buy governance power on the open market or earn it by parking capital in unproductive pools.
 
 Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum compression when the protocol is smallest, relaxing as TVL growth naturally decentralizes power. Time-weighting rewards commitment without lock mechanisms.
 
@@ -141,7 +141,7 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 
 AuMM is **100% liquid**. No locking, no staking, no ve-mechanism, no wrapper. You hold it, you can sell it.
 
-**AuMM carries zero governance power.** It does not vote on emissions, fee parameters, or any protocol decision. All governance — including emission direction — is AuMT-weighted (active LP positions in qualified pools). AuMM is a pure reward and value-capture token: earned by LPs, backed by protocol revenue.
+**AuMM carries zero governance power.** It does not vote on emissions, fee parameters, or any protocol decision. All governance — including emission direction — is AuMT-weighted (active LP positions in pools that confer weight). AuMM is a pure reward and value-capture token: earned by LPs, backed by protocol revenue.
 
 AuMM accrues value through **der Bodensee Pool** — the protocol's fee sink and revenue destination. **Protocol-captured** revenue (the **protocol share** of swap fees from **other** gauged pools — see §x — plus ERC-4626 yield fees) enters as **one-sided stablecoin (sUSDS/svZCHF) inflows**, deepening the stablecoin side when fees arrive. **Swap fees on trades inside der Bodensee Pool** accrue to der Bodensee LPs in full (see §x). The pool holds **fixed weights — 40% AuMM / 30% sUSDS / 30% svZCHF, immutable from block 0**. AuMM supply in the pool is capped (only the decaying F-0 bootstrap adds AuMM, and that channel goes permanently to zero at the end of Month 10), while stablecoin depth grows with protocol fees. When the stablecoin side grows relative to the AuMM side, weighted-pool math updates the implied AuMM↔stablecoin exchange rate. No buyback. No burn. No market purchases. Value backed by real revenue.
 

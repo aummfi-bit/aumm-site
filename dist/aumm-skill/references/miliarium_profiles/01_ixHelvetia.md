@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@1cea33cffee16c1a0b15a50ebfc641576f9ca21b miliarium_profiles/01_ixHelvetia.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 miliarium_profiles/01_ixHelvetia.md — DO NOT EDIT -->
 # ixHelvetia — Slot 01
 
 **Sector:** Yield-bearing (Frankencoin money market)  
@@ -39,7 +39,7 @@
 |:----------|:-----------|
 | 4626 Quality Gate | ≥52% (admitted vault classes) — met (100% ERC-4626) |
 | Vault-Class Registry | All ERC-4626 tokens admitted at genesis (per [Bootstrap §xxiv-a](08_bootstrap.md)) |
-| Volume percentile floor | Per protocol schedule |
+| Volume percentile floor | Exempt — a Miliarium slot holder is never Warned or Disqualified; it still ranks in the volume census ([Bootstrap §xxiii](08_bootstrap.md)) |
 | Efficiency tournament | Per protocol schedule |
 | CCB multiplier | Immutable band, initialised at 1.0 — see [Constitution (§xxix)](10_constitution.md) |
 | Composition challenge | If tokens lack volume or cease to exist, a Miliarium Aureum Composition Challenge can deprecate this pool and launch a replacement into the same slot via the standard bootstrap path (auto-registration via `registerGaugeFromComposition(pool)`, governance-only — no permissionless-activation check, optional 90-day boost). Requires 2/3 protocol-wide tessera-weighted vote; replacement must be like-for-like (same sector, risk, template role) — see [Bootstrap (§xxiv)](08_bootstrap.md) |

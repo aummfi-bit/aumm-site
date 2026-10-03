@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@1cea33cffee16c1a0b15a50ebfc641576f9ca21b 05_miliarium_aureum.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 05_miliarium_aureum.md — DO NOT EDIT -->
 # The Miliarium Aureum
 
 The 28 pools are pre-defined at launch and locked from block 0.
@@ -157,7 +157,7 @@ Shared **svZCHF** and **ixEDEL** across most pools create arbitrage layers: vaul
 
 **Permanent slots.** The 28 slots never decrease. If a pool underperforms due to sector rotation, the CCB emission multiplier boosts it automatically (anticyclical by design). If specific tokens within a pool lack on-chain volume or cease to exist, any AuMT holder can initiate a **Miliarium Aureum Composition Challenge**. Pool composition is immutable on-chain, so the challenge follows a deprecate-and-replace path: old gauge revoked, replacement pool launched into the same slot via composition-challenge approval (automatic gauge registration via `registerGaugeFromComposition`). Like-for-like means same sector, same risk, same template role ([Bootstrap (§xxiv)](08_bootstrap.md) for worked examples; [Constitution (§xxvii)](10_constitution.md) for the binding rule).
 
-**Beyond the 28.** The Miliarium pools are a curated blueprint, not the full economy. Missing a token or asset class? New permissionless pool and permissionless gauge activation — not a composition challenge. [Bootstrap](08_bootstrap.md) §xxi covers gauge activation criteria.
+**Beyond the 28.** The Miliarium pools are a curated blueprint, not the full economy. Missing a token or asset class? New permissionless pool, gauged at creation or by permissionless gauge activation — not a composition challenge. [Bootstrap](08_bootstrap.md) §xxi covers the gauging criteria.
 
 ### Status Tracking
 

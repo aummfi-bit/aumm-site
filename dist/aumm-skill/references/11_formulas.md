@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@1cea33cffee16c1a0b15a50ebfc641576f9ca21b 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@28190d658df0b8bbc9a90c457bb7fb6469eaeaa0 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -204,7 +204,7 @@ Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any othe
 
 **Purpose:** Convert LP stake and time commitment into governance weight with sub-linear dampening to prevent whale capture. The root applies to the pool aggregate — not to individual positions — so weight is invariant under splitting a position across any number of wallets (Sybil-neutral by construction).
 
-**Effect:** Root function compresses pool weight — 100× pool TVL ≠ 100× pool voting power. Within a pool, holders divide that compressed weight pro-rata by LP share, scaled by their time commitment; splitting capital across wallets neither gains nor loses weight. Concentrating capital in one pool dilutes its own per-dollar weight; spreading real liquidity across gauge-approved pools is the only way to raise it. Era 0: fourth root (maximum compression when TVL is lowest). Era 1+: cube root (TVL growth has diluted individual power).
+**Effect:** Root function compresses pool weight — 100× pool TVL ≠ 100× pool voting power. Within a pool, holders divide that compressed weight pro-rata by LP share, scaled by their time commitment; splitting capital across wallets neither gains nor loses weight. Concentrating capital in one pool dilutes its own per-dollar weight; spreading real liquidity across pools that confer weight is the only way to raise it — and a non-slot pool below the 10,000 svZCHF floor confers none, so splitting capital into many tiny pools gains nothing. Era 0: fourth root (maximum compression when TVL is lowest). Era 1+: cube root (TVL growth has diluted individual power).
 
 ```
 Era 0 (years 0–4):    pool_power = (pool_TVL_EMA) ^ (1/4)
@@ -216,7 +216,7 @@ time_factor  = 0                                          while time_in_pool < q
              = min(time_in_pool, on_ramp) / on_ramp       thereafter (on_ramp = 6 months)
 ```
 
-**pool_TVL_EMA** is the pool's 60-day exponential moving average USD TVL per F-4 — never the spot value; a pool whose EMA is unseeded or younger than 60 days confers zero power. **holder_LP / pool_total_LP** is the holder's share of the pool's total LP supply — total, not qualified-only: weight forfeited by holders still inside the qualification period vanishes rather than redistributing. **time_in_pool** runs from the protocol's recorder clock and resets on withdrawal. Only gauge-approved pools confer power. Transition occurs at the halving block. Both exponents are immutable.
+**pool_TVL_EMA** is the pool's 60-day exponential moving average USD TVL per F-4 — never the spot value; a pool whose EMA is unseeded or younger than 60 days confers zero power. **holder_LP / pool_total_LP** is the holder's share of the pool's total LP supply — total, not qualified-only: weight forfeited by holders still inside the qualification period vanishes rather than redistributing. **time_in_pool** runs from the protocol's recorder clock and resets on withdrawal. Only pools that confer weight carry power: the pool's gauge must be active (registered and not revoked), and a pool that holds no Miliarium slot also needs its gated EMA — the F-4 EMA with its maturity, sample and staleness gates applied — at or above 10,000 svZCHF; slot holders are exempt from the floor. A Disqualified pool keeps its LPs' weight, since disqualification stops emissions, not weight; weight ends at automatic revocation or when the EMA falls below the floor. Transition occurs at the halving block. Both exponents are immutable.
 
 ---
 
@@ -224,16 +224,19 @@ time_factor  = 0                                          while time_in_pool < q
 
 **Purpose:** Rank gauged pools by capital efficiency and cap the emissions of the least efficient, so emissions flow to productive pools without penalising any pool during AuMM price appreciation.
 
-**Effect:** Gauged pools above the $10K TVL floor are ranked by efficiency ratio. The **bottom 15%** take hard emission caps by band, and the excess a capped pool cannot take flows to the uncapped pools pro-rata by CCB share ([Bootstrap](08_bootstrap.md) §xxiii). The **top 15%** form the **favored cohort**, exposed as a view and marked by events; it carries no allocation precedence and no cap. Activates at month 13.
+**Effect:** **Ranked pools** are ordered by efficiency ratio: gauged pools whose gated EMA meets the 10,000 svZCHF floor, that are **not Disqualified**, and that hold a Miliarium slot or are past their own month 12. A non-slot pool in months 1–12 takes no rank position, and its efficiency cap reads zero until its own month 13. The **bottom 15%** take hard emission caps by band, and the excess a capped pool cannot take flows to the uncapped pools pro-rata by CCB share ([Bootstrap](08_bootstrap.md) §xxiii). The **top 15%** form the **favored cohort**, exposed as a view and marked by events; it carries no allocation precedence and no cap. Activates at month 13 — a slot holder's from the genesis month-13 start (`MONTH_13_START_BLOCK`), any other pool's from month 13 of its own life, counted from its creation block (genesis pools from `GENESIS_BLOCK`).
 
 ```
 efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)
                          / emissions_received_i
 // 3-epoch (6-week) moving average
 
-sort eligible gauged pools descending by efficiency_ratio
+// ranked pool = gauged AND gated EMA ≥ 10,000 svZCHF AND not Disqualified
+//               AND (holds a Miliarium slot OR past its own month 12)
+
+sort ranked pools descending by efficiency_ratio
 // rank 1 = highest efficiency
-// N = count of eligible gauged pools at the epoch snapshot
+// N = count of ranked pools at the epoch snapshot
 
 favored_cohort = pools with rank in [1, ceil(0.15 × N)]      // top 15%, informational
 
@@ -249,7 +252,7 @@ pro-rata by CCB share.
 
 Caps constrain the least efficient pools, never the most productive. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and take the most severe cap.
 
-Eligibility is re-evaluated at each tournament epoch boundary against the current registry state. Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
+Ranking membership is re-evaluated at each tournament epoch boundary; the criteria checked once at creation or activation are not re-tested. Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
 ---
 
