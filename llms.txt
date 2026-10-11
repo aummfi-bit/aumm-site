@@ -146,7 +146,7 @@ Mirrored under [`audit/seam-1/`](https://aumm.fi/audit/seam-1/RUN-METADATA.md) f
 3. [`03_theoretical_foundation.md`](https://aumm.fi/03_theoretical_foundation.md) — **§v-a Why Aureum Exists** (constitutional capital market thesis) before CCB / EMA / multiplier mechanics
 4. [`10_constitution.md`](https://aumm.fi/10_constitution.md) — immutable operating law, **§xxix** parameters (time constants, fee routing, bands, skim exclusion), governance actions, quorum table
 5. [`04_tokenomics.md`](https://aumm.fi/04_tokenomics.md) — AuMM supply, fees, governance voting
-6. [`11_formulas.md`](https://aumm.fi/11_formulas.md) — F-0–F-12 (F-0 block constants; **F-4** daily TWAP EMA; **F-11** Bodensee / skim; **F-12** gauge-challenge deposit + **BTC_WRAPPERS** spot average)
+6. [`11_formulas.md`](https://aumm.fi/11_formulas.md) — F-0–F-12 (F-0 block constants; **F-4** daily TWAP EMA; **F-11** Bodensee / skim; **F-12** gauge-challenge deposit + **BTC_WRAPPERS** day-window price, 1,000 svZCHF floor)
 7. [`05_miliarium_aureum.md`](https://aumm.fi/05_miliarium_aureum.md) — 28-pool registry (genesis market; **ixCambio** row; **Status Tracking** / composition deprecation note)
 8. [`06_miliarium_manifest.md`](https://aumm.fi/06_miliarium_manifest.md), [`07_miliarium_sectors.md`](https://aumm.fi/07_miliarium_sectors.md), [`07a_tokens.md`](https://aumm.fi/07a_tokens.md) (token inventory)
 9. [`08_bootstrap.md`](https://aumm.fi/08_bootstrap.md), [`09_transitions.md`](https://aumm.fi/09_transitions.md), [`12_aureum_glossary.md`](https://aumm.fi/12_aureum_glossary.md), [`13_appendices.md`](https://aumm.fi/13_appendices.md), [`14_ux_ui.md`](https://aumm.fi/14_ux_ui.md) — as needed (bootstrap: fee proposals + composition-challenge worked example; UX: MVP split)

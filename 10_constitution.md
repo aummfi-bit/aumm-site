@@ -38,7 +38,7 @@ Qualified AuMT holders submit and vote on the **ten actions** above. All but one
 
 | Decision Type | Minimum Turnout | Deposit (svZCHF/sUSDS, to der Bodensee Pool) | Approval Threshold | Failure Mode |
 |--------------|-----------------|------------------------|--------------------|-------------|
-| Gauge challenge (revocation) — non-Miliarium gauged pools only | 20% of total qualified voting power | Per [F-12](11_formulas.md): **max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))** in svZCHF, or 1.25× in sUSDS | Simple majority | Auto-fail if turnout < 20% |
+| Gauge challenge (revocation) — non-Miliarium gauged pools only | 20% of total qualified voting power | Per [F-12](11_formulas.md): **max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))** in svZCHF, never below **1,000 svZCHF**, or 1.25× in sUSDS | Simple majority | Auto-fail if turnout < 20% |
 | Fee parameter changes | 20% of total qualified voting power | 1,000 svZCHF or 1,250 sUSDS | Simple majority | Auto-fail if turnout < 20% |
 | Composition challenge | 20% of total qualified voting power | 1,000 svZCHF or 1,250 sUSDS | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
 | Vault authorizer change | 20% of total qualified voting power | 1,000 svZCHF or 1,250 sUSDS | 2/3 supermajority | Auto-fail if turnout < 20% or < 2/3 approval |
@@ -179,8 +179,8 @@ Immutable from block 0, cannot be changed by any means.
 
 ### Gauge-challenge deposit (F-12 support)
 
-- `BTC_WRAPPERS` — registered set of wrapped-BTC tokens used for the BTC/CHF reference price (initial set: WBTC, cbBTC). Governance-extensible via standard proposal when new wrappers enter the ecosystem.
-- `FALLBACK_DEPOSIT_FLOOR` — the F-12 10-BTC-equivalent calculation uses spot prices averaged across all gauged pools holding any `BTC_WRAPPERS` token; the F-12 max-of-two-formulas rule ensures the deposit stays meaningful under any BTC price regime.
+- `BTC_WRAPPERS` — the two wrapped-BTC tokens whose day-window prices set the F-12 BTC/CHF reference price: **WBTC and cbBTC**, fixed at deployment and seated once in the gauge registry before governance takes it over. No governance path changes or extends the set.
+- `CHALLENGE_DEPOSIT_FLOOR_SVZCHF` — **1,000 svZCHF**, F-12's third term: the deposit is the largest of the 10 BTC term (`CHALLENGE_BTC_UNITS` = 10, priced on the latest completed day window and zero when neither wrapper has a price), the percentile term (`CHALLENGE_PERCENTILE_CHF` = 1,000,000 CHF) and this floor, so it stays meaningful under any BTC price regime and never falls below any other proposal's deposit.
 
 ### Vault-Class Registry parameters
 

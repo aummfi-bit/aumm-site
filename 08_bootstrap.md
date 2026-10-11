@@ -187,7 +187,7 @@ Any qualified AuMT holder can submit a governance proposal (any of the actions i
 
 Any qualified AuMT holder can challenge an existing **non-Miliarium** gauge. **The 28 Miliarium Aureum pools cannot be gauge-challenged** — structural changes to those slots go exclusively through the **Composition Challenge** path below.
 
-Challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md). The **entire** amount is converted to **svZCHF, or 1.25× the svZCHF amount in sUSDS**, and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet.
+Challenge deposit is the **greater** of **10 BTC** (CHF equivalent) and **1,000,000 CHF** × **√((1 − p_tvl)(1 − p_eff))**, with **p_tvl** and **p_eff** defined as **rank/N** elite-tail fractions per [F-12](11_formulas.md), converted to svZCHF and never less than **1,000 svZCHF**. The **entire** deposit is paid in **svZCHF, or 1.25× the svZCHF amount in sUSDS**, and deposited **one-sided into der Bodensee Pool** — not to the challenged pool, not to a treasury wallet. The challenger names the most it will pay; a deposit above that refuses the challenge before any token moves.
 
 Challenge triggers a governance vote: majority votes to revoke → gauge removed, emissions lost. **The deposit goes to der Bodensee Pool regardless of outcome** — non-refundable whether the challenge succeeds or fails. The challenger accepted that risk.
 
