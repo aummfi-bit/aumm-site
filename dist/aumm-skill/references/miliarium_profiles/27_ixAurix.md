@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@e9acea6ddded5a04c290251f089ea88b4fad6fdf miliarium_profiles/27_ixAurix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@7c94ea49abc27b41667ca656ef4bbacbd394d2cd miliarium_profiles/27_ixAurix.md — DO NOT EDIT -->
 # ixAurix — Slot 27
 
 **Sector:** Gold / Commodities
