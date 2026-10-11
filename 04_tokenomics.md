@@ -71,11 +71,11 @@ Emission allocation is driven by the **Continuous Central Bank (CCB)** — not b
 For decisions beyond emission direction (fee parameters, gauge challenges, composition challenges), governance power is proportional to **active LP position in pools that confer weight** (AuMT held in pools with an active gauge and, outside the Miliarium, a gated EMA at or above the 10,000 svZCHF floor — see below):
 
 ```
-Era 0:   voting_power = (pool_TVL_EMA)^(1/4) × (holder_LP / pool_total_LP) × time_factor
-Era 1+:  voting_power = (pool_TVL_EMA)^(1/3) × (holder_LP / pool_total_LP) × time_factor
+Era 0:   voting_power = (pool_TVL_EMA)^(1/4) × Σ (deposit_LP × time_factor) / pool_total_LP
+Era 1+:  voting_power = (pool_TVL_EMA)^(1/3) × Σ (deposit_LP × time_factor) / pool_total_LP
 ```
 
-pool_TVL_EMA is the pool's 60-day EMA TVL (F-4, never spot); time_factor ramps linearly from the 14-day qualification cliff to full weight at the 6-month on-ramp (F-9). The root applies to the pool aggregate, so splitting a position across wallets is weight-neutral.
+pool_TVL_EMA is the pool's 60-day EMA TVL (F-4, never spot); the sum runs over the holder's deposits in the pool, each with its own time_factor, zero for at least its first 14 days and then counting from the deposit to full weight by the 6-month on-ramp (F-9 states when a later deposit sharing its 180-day epoch delays it). The root applies to the pool aggregate, so splitting a position across wallets is weight-neutral.
 
 Governance power reflects real economic commitment — how much capital you have at risk in productive pools, not which pool you happen to be in.
 
@@ -98,11 +98,11 @@ The transition trigger is the halving block itself — immutable in the contract
 
 #### Minimum Qualification Period and Governance On-Ramp
 
-**Days 0–14: Zero governance weight.** Voting power requires at least **14 days (one full governance cycle)** of continuous qualified AuMT holding, counted from the recorded deposit whether or not the pool's gauge is active yet. During this period, `time_in_pool = 0` — the position is invisible to governance.
+**Days 0–14: Zero governance weight.** Each deposit carries its own clock. A deposit confers no voting power before at least **14 days (one full governance cycle)** of continuous qualified AuMT holding, counted from its own recorded deposit whether or not the pool's gauge is active yet, and an earlier deposit never shortens a later one's wait. During this period the deposit counts for nothing — it is invisible to governance.
 
-**Days 14–180: Governance on-ramp.** After the 14-day qualification, `time_in_pool` accrues from zero. Because the F-9 `time_factor` ramps linearly from zero, voting power grows linearly with time in the on-ramp phase. An LP at day 14 has minimal power. By month 6 (day 180), they reach **full voting weight**. The 6-month on-ramp ensures governance power reflects sustained commitment, not recent capital deployment.
+**Days 14–180: Governance on-ramp.** Once a deposit counts, its time in the pool runs from the deposit itself, so its F-9 `time_factor` starts at no less than 14/180 and grows linearly with time: a deposit that has just begun to count carries at least 14/180, about 8%, of its full power, and by month 6 (day 180) it carries **full voting weight**. A later deposit whose 180 days end in the same 14-day epoch can hold an earlier one back by under one epoch, never shortening its wait (F-9). A holder's power sums each deposit's LP times its own `time_factor`, so new capital starts its own ramp while capital already held keeps its own. The 6-month on-ramp ensures governance power reflects sustained commitment, not recent capital deployment.
 
-**Any withdrawal resets everything to zero.** Remove any amount of liquidity from a pool that confers weight — even 1% — and governance power for that position drops to zero immediately. `time_in_pool` resets. The 14-day qualification clock restarts from scratch. The 6-month on-ramp begins again.
+**Any withdrawal resets everything to zero.** Remove any amount of liquidity from a pool that confers weight — even 1% — and governance power for that position drops to zero immediately. Every deposit's time in the pool resets, and the liquidity that remains counts as one fresh deposit made at the withdrawal. The 14-day qualification clock restarts from scratch. The 6-month on-ramp begins again.
 
 This eliminates:
 

@@ -104,7 +104,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## li. LP Position Manager
 
 - [ ] **My positions** — per-pool AuMT holdings, USD value, emission earnings (accrued, claimed), governance power
-- [ ] **Governance power calculator** — show current power based on (USD value x time held)^(1/4 or 1/3), qualification status (14-day minimum, 6-month ramp)
+- [ ] **Governance power calculator** — show current power based on (pool TVL EMA)^(1/4 or 1/3) x LP share x each deposit's time factor, qualification status (14-day minimum, 6-month ramp)
 - [ ] **Emission estimator** — projected AuMM earnings per block/day/month based on current pool weights and LP share
 - [ ] **Deposit / Withdraw** — pool entry and exit interface with IL estimate
 
