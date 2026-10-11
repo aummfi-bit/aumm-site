@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@b1c71b68f8203fe2b7025ebb31d0ad484c4e425a miliarium_profiles/20_ixMagnix.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@e9acea6ddded5a04c290251f089ea88b4fad6fdf miliarium_profiles/20_ixMagnix.md — DO NOT EDIT -->
 # ixMagnix — Slot 20
 
 **Sector:** US Equities (Mega Cap Tech)

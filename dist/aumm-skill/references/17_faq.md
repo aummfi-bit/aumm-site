@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@b1c71b68f8203fe2b7025ebb31d0ad484c4e425a 17_faq.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@e9acea6ddded5a04c290251f089ea88b4fad6fdf 17_faq.md — DO NOT EDIT -->
 # FAQ
 
 ## Foundations
@@ -125,7 +125,7 @@ Governance is permitted three actions. None of them touch emission allocation.
 
 Gauge eligibility is not a governance action — a new pool becomes gauge-eligible permissionlessly the moment it satisfies the immutable criteria gate (4626 Quality Gate ≥52% by class-admitted weight, 10,000 svZCHF TVL on the latest completed day window at activation, creation by the Aureum weighted-pool factory, no self-referential tokens, not in recovery mode, role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook). A pool created by the factory with the fee approved to the gauge registry is gauged in its creation call, with no TVL required; a pool that passes the factory but fails a static criterion, or lacks the approval, is created ungauged and activated later. Anti-spam fee: 100 svZCHF or 125 sUSDS, one-sided into Bodensee, non-refundable once taken. No vote, no quorum.
 
-A gauge challenge revokes an existing non-Miliarium gauge. Deposit follows F-12: `max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))`, one-sided into Bodensee. Threshold: simple majority, 20% quorum. Cannot target the 28 Miliarium pools.
+A gauge challenge revokes an existing non-Miliarium gauge. Deposit follows F-12: `max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))`, never less than 1,000 svZCHF, one-sided into Bodensee. Threshold: simple majority, 20% quorum. Cannot target the 28 Miliarium pools.
 
 A fee proposal changes a swap fee rate within its immutable band, Miliarium and non-Miliarium gauged at 0.01% to 0.30%; Bodensee's 0.75% is fixed and outside the proposal's reach. Deposit: 1,000 svZCHF or 1,250 sUSDS. Threshold: simple majority, 20% quorum. Cannot move the rate outside the band, cannot change the Vault's 99.9999% / 0.0001% protocol vs LP split.
 

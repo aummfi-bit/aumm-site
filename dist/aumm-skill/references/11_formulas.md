@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@b1c71b68f8203fe2b7025ebb31d0ad484c4e425a 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@e9acea6ddded5a04c290251f089ea88b4fad6fdf 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -295,30 +295,38 @@ All composition parameters immutable from block 0.
 
 **Effect:** The full deposit (after the `max` below) is paid **one-sided into der Bodensee Pool** — same mechanic as other governance deposits: **svZCHF, or 1.25× the svZCHF amount in sUSDS**, non-refundable, **no LP tokens** minted to the challenger.
 
-For a challenge targeting a **non-Miliarium** pool, the deposit equals the **greater** of:
+For a challenge targeting a **non-Miliarium** pool, the deposit equals the **largest** of:
 
-1. **10 BTC** expressed in **CHF**, then converted to **svZCHF, or 1.25× the svZCHF amount in sUSDS**, then deposited **one-sided into der Bodensee Pool**; and  
-2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF, or 1.25× in sUSDS, and deposited **one-sided into der Bodensee Pool**.
+1. **10 BTC** expressed in **CHF**, then converted to **svZCHF**;
+2. **1,000,000 CHF** × **sqrt((1 − p_tvl) × (1 − p_eff))**, likewise converted to svZCHF; and
+3. **1,000 svZCHF**, a floor so that a gauge challenge never costs less than any other proposal.
+
+The two CHF terms convert at **svZCHF's own ERC-4626 rate**, CHF read as ZCHF and rounded up; the floor is already in svZCHF. The deposit is computed at submission and paid in **svZCHF, or 1.25× the svZCHF amount in sUSDS** (rounded up), **one-sided into der Bodensee Pool**. The challenger names the **most it will pay** in its pay token, and a deposit above that maximum refuses the challenge before any token moves.
 
 **BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF (or 1.25× in sUSDS) one-sided into der Bodensee.
 
-The BTC/CHF rate is a **spot-price average** computed at submission time across all currently-gauged pools holding any token in the `BTC_WRAPPERS` set (see Constitution §xxix; initial set: WBTC, cbBTC). The contract enumerates gauged pools, filters for those containing any BTC wrapper, reads spot rates (wrapped-BTC ↔ svZCHF, or against sUSDS then converted via arbitrage-aligned cross-rates), and averages. If a wrapper deprecates (e.g. cbBTC delisted), it falls out of the average; if a new BTC wrapper enters the constellation via composition challenge or new permissionless gauge activation, it auto-joins — no contract change required in either case.
+The BTC/CHF rate is the **mean** of the prices of the two `BTC_WRAPPERS` tokens, WBTC and cbBTC, fixed at deployment (see Constitution §xxix). Each is priced on the **latest completed day window**, the 720-block TWAP ending at a day boundary, by its weighted balance ratio against svZCHF's rate-scaled balance, its ZCHF value, across the constellation's venues — the Miliarium pools and der Bodensee — directly or through one hop token, so the price is read in ZCHF. A wrapper with no price on that window is left out of the mean; with neither priced, term (1) is zero and the larger of (2) and (3) stands. A Miliarium pool holding a wrapper, such as one a composition challenge seats, joins the price from the first completed day window after its balances are recorded, with no contract change; a pool outside the constellation never prices it, and no governance action changes the set.
 
-**Why spot (not TWAP) is acceptable:**
-- Averaging across multiple pools dilutes single-pool manipulation; an attacker would need to push BTC/svZCHF across every BTC-holding gauged pool simultaneously in the same block.
-- Arbitrage keeps cross-pool BTC rates aligned naturally.
-- The F-12 max-of-two-formulas rule backstops a low BTC reading — if manipulation pushes the (1) calculation toward zero, the (2) CHF-denominated calculation dominates and keeps the deposit meaningful.
-- Gauge challenges are a one-time-fee low-frequency operation paid from the challenger's wallet; spending a few hundred thousand gas on pool enumeration + spot reads is acceptable here.
+**Why a day window, and what backstops it:**
+- A window cannot be moved inside the challenge's own block: shifting it means holding a skewed BTC price against arbitrage through the 720 blocks (~2.4 hours) before a day boundary, and the price bought lasts only until the next.
+- At genesis one venue holds the wrappers, ixAurebit (slot 14, WBTC and cbBTC at 16% each), so no cross-venue average dilutes a skew. The largest-of-three rule backstops a low BTC reading: if manipulation pushes (1) toward zero, (2) and the (3) floor keep the deposit meaningful, and the challenger's maximum refuses a challenge that a skew has priced above it.
+- The contract never enumerates the gauges: the challenger proves the target's ranks (below) at a fixed cost per witness, so no number of gauges makes a challenge unpriceable.
 
-**Elite tail convention:** **p_tvl** and **p_eff** use **rank / N** (not CDF-from-bottom). Among **all gauged pools** (including Miliarium), **N** = count of gauged pools. Sort by **spot TVL**; **rank 1** = highest TVL → **p_tvl = rank / N**. Independently sort by **efficiency ratio** as in F-10 (3-epoch moving average); **rank 1** = highest efficiency → **p_eff = rank / N**. **Ties** break deterministically (e.g. lower pool contract address hex first).
+**Elite tail convention:** **p_tvl** and **p_eff** use **rank / N** (not CDF-from-bottom). Among **all active gauges** (Miliarium and Disqualified pools included), **N** = count of active gauges. Rank by the **gated TVL EMA**, the F-4 EMA with its maturity, sample-count and staleness gates applied, never spot TVL; **rank 1** = highest → **p_tvl = rank / N**. Independently rank by **efficiency ratio** as in F-10 (3-epoch moving average), a pool with no emissions having no ratio and ranking below every pool with one; **rank 1** = highest efficiency → **p_eff = rank / N**. **Ties** break on address: the lower pool contract address ranks higher.
 
-**(1 − p_tvl)** and **(1 − p_eff)** are large when the target is elite on both axes (rank 1 ⇒ **p ≈ 1/N** ⇒ factors near **1 − 1/N**). The weakest pool on either axis has **p ≈ 1** → that factor → **0**, so the **10 BTC** floor typically binds.
+**Rank proof.** For each axis the challenger names **witness** pools in strictly ascending address order. A witness counts when it is an active gauge other than the target that ranks above it on that axis, by a higher metric or an equal one at a lower address; any other entry, or one that breaks the ascending order, is skipped, and none counts twice. The target's **rank = 1 + counted witnesses**: an empty list prices it at rank 1, and a short list prices it as stronger than it is, so the deposit is never below F-12's at the target's true rank.
+
+**(1 − p_tvl)** and **(1 − p_eff)** are large when the target is elite on both axes (rank 1 ⇒ **p ≈ 1/N** ⇒ factors near **1 − 1/N**). The weakest pool on either axis has **p ≈ 1** → that factor → **0**, so the **10 BTC** term typically binds, with the **1,000 svZCHF** floor beneath it.
 
 ```
 deposit_CHF_component = 1_000_000 × sqrt((1 − p_tvl) × (1 − p_eff))
+                      = 1_000_000 × sqrt((N − rank_tvl) × (N − rank_eff)) / N   // rounded up
 
-gauge_challenge_deposit = max( 10_BTC_in_CHF ,  deposit_CHF_component )
-// convert to svZCHF (or 1.25× in sUSDS); one-sided deposit into der Bodensee Pool; non-refundable
+10_BTC_in_CHF = 10 × mean(BTC/CHF of each priced BTC_WRAPPERS token)   // 0 if neither is priced
+
+gauge_challenge_deposit = max( to_svZCHF( max(10_BTC_in_CHF, deposit_CHF_component) ), 1_000 svZCHF )
+// to_svZCHF: svZCHF's ERC-4626 rate, rounded up; paid in svZCHF, or 1.25× in sUSDS (rounded up);
+// refused above the challenger's maximum; one-sided deposit into der Bodensee Pool; non-refundable
 ```
 
 **Miliarium Aureum exclusion:** The **28 Miliarium Aureum** pools **cannot be gauge-challenged**. Structural changes to those slots go exclusively through the **Composition Challenge** path ([Constitution §xxvii](10_constitution.md)).
