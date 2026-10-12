@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@7c94ea49abc27b41667ca656ef4bbacbd394d2cd 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@771f7a7c53ec2d6dd709681450bfcbb11fe2757c 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -210,13 +210,14 @@ Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any othe
 Era 0 (years 0–4):    pool_power = (pool_TVL_EMA) ^ (1/4)
 Era 1+ (years 4+):    pool_power = (pool_TVL_EMA) ^ (1/3)
 
-holder_power = pool_power × (holder_LP / pool_total_LP) × time_factor
+holder_power  = pool_power × Σ_c (LP_c × time_factor_c) / pool_total_LP
 
-time_factor  = 0                                          while time_in_pool < qualification period (14 days)
-             = min(time_in_pool, on_ramp) / on_ramp       thereafter (on_ramp = 6 months)
+time_factor_c = 0                                         while block < latest_c + qualification period (14 days)
+              = (block − average_c) / on_ramp             thereafter, until epoch c begins (on_ramp = 6 months)
+              = 1                                         from the first block of epoch c
 ```
 
-**pool_TVL_EMA** is the pool's 60-day exponential moving average USD TVL per F-4 — never the spot value; a pool whose EMA is unseeded or younger than 60 days confers zero power. **holder_LP / pool_total_LP** is the holder's share of the pool's total LP supply — total, not qualified-only: weight forfeited by holders still inside the qualification period vanishes rather than redistributing. **time_in_pool** runs from the protocol's recorder clock and resets on withdrawal. Only pools that confer weight carry power: the pool's gauge must be active (registered and not revoked), and a pool that holds no Miliarium slot also needs its gated EMA — the F-4 EMA with its maturity, sample and staleness gates applied — at or above 10,000 svZCHF; slot holders are exempt from the floor. A Disqualified pool keeps its LPs' weight, since disqualification stops emissions, not weight; weight ends at revocation — automatic, or by governance, since a Disqualified pool stays an active gauge and can still be revoked — or when the EMA falls below the floor. Transition occurs at the halving block. Both exponents are immutable.
+**pool_TVL_EMA** is the pool's 60-day exponential moving average USD TVL per F-4 — never the spot value; a pool whose EMA is unseeded or younger than 60 days confers zero power. **pool_total_LP** is the pool's total LP supply — total, not qualified-only: weight forfeited by deposits still inside their qualification period vanishes rather than redistributing. **The tranches c** are the holder's in the pool: each deposit joins the tranche of epoch c, the 14-day epoch in which its block plus the on-ramp falls, so deposits whose 180 days end in the same epoch share one tranche, LP_c being their LP, latest_c their latest deposit block and average_c the LP-weighted average of their deposit blocks. No deposit counts before its own 14 days; a later deposit in the same tranche can delay an earlier one by under one epoch but never shortens a wait; and any withdrawal clears every tranche, the LP that remains starting one tranche at the withdrawal block. Only pools that confer weight carry power: the pool's gauge must be active (registered and not revoked), and a pool that holds no Miliarium slot also needs its gated EMA — the F-4 EMA with its maturity, sample and staleness gates applied — at or above 10,000 svZCHF; slot holders are exempt from the floor. A Disqualified pool keeps its LPs' weight, since disqualification stops emissions, not weight; weight ends at revocation — automatic, or by governance, since a Disqualified pool stays an active gauge and can still be revoked — or when the EMA falls below the floor. Transition occurs at the halving block. Both exponents are immutable.
 
 ---
 
