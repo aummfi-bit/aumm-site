@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@1974f997d75a690cc1ee8390c0199a395aab97c7 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@8e732563b0b6d567f6a77c06873fc262d67ec0cb 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -115,7 +115,7 @@ if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:
 
 The EMA runs **per pool** independently. Half-life is approximately 21 days. Gas cost: ~50k per pool per day for the EMA update, plus negligible accumulator updates on each swap/liquidity event.
 
-**Valuation.** TVL is denominated in svZCHF and read from each pool's Vault balances averaged over the TWAP window, with no external price feed. Each leg is priced by its underlying's weighted balance ratio against svZCHF across the constellation's venues, directly or through one hop token. A leg with no such price is valued at the pool's own normalized weights against its priced legs, but only when those carry at least half the pool, which caps the extrapolation at twice the priced value; a new base token therefore needs no mapping, while a new ERC-4626 token maps to its asset once its vault class is admitted.
+**Valuation.** TVL is denominated in svZCHF and read from each pool's Vault balances averaged over the TWAP window, with no external price feed. Each leg is priced by its underlying's weighted balance ratio against svZCHF across the constellation's venues, directly or through one hop token, and only when the pool registers it under the rate provider the TVL oracle records for its token, none for a plain token; a leg under any other provider is unpriced. A leg with no such price is valued at the pool's own normalized weights against its priced legs, but only when those carry at least half the pool, which caps the extrapolation at twice the priced value; a new base token therefore needs no mapping, while a new ERC-4626 token maps to its asset once its vault class is admitted, under a rate provider the TVL oracle deploys on the vault's own `convertToAssets`, composed with its asset's recorded provider.
 
 ---
 

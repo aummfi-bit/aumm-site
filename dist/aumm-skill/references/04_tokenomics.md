@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@1974f997d75a690cc1ee8390c0199a395aab97c7 04_tokenomics.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@8e732563b0b6d567f6a77c06873fc262d67ec0cb 04_tokenomics.md — DO NOT EDIT -->
 # Tokenomics
 
 ## ix. Token Design: AuMM (Aureum Market Maker)
@@ -41,7 +41,7 @@ Each era spans 10,512,000 blocks (~4 years at 12 s/block). Per-block terms only 
 
 Eligibility for AuMM emissions is criteria-gated, not vote-gated. The primary criterion is the **4626 Quality Gate**: at least 52% of a pool's weight must be assigned to ERC-4626 yield-bearing tokens whose class is admitted in the **Vault-Class Registry** (see [Bootstrap](08_bootstrap.md)).
 
-> The 52% quality-gate numerator equals the sum of pool weights assigned to ERC-4626 tokens whose class is admitted in the Vault-Class Registry. All other token weights — including ERC-4626 tokens whose class is not admitted — count toward the ≤48% complement.
+> The 52% quality-gate numerator equals the sum of pool weights assigned to ERC-4626 tokens whose class is admitted in the Vault-Class Registry and which the pool registers under the non-zero rate provider the TVL oracle records for the token. All other token weights — including ERC-4626 tokens whose class is not admitted, admitted tokens registered under any other provider, and admitted tokens for which the oracle records no provider, one not yet mapped among them — count toward the ≤48% complement.
 >
 > The Quality Gate is checked once, when a pool is gauged — in its creation call or at activation — against the registry as it stands then; class admissions and revocations take effect at the next epoch boundary, and a gauged pool is not re-tested against the gate. The one structural criterion re-evaluated afterwards is TVL: from month 4 of a pool's life, its gated 60-day EMA must stay at or above 10,000 svZCHF (see [Bootstrap](08_bootstrap.md) §xxiii).
 
