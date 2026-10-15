@@ -21,6 +21,7 @@ The table below shows what was inherited (byte-identical code, own deployment) a
 | Stable pools | Balancer V3 (Certora verified) | None |
 | Hooks (StableSurge etc.) | Balancer V3 (Certora verified) | None |
 | ERC-4626 rate providers | Balancer V3 (Certora verified) | None |
+| Aureum rate providers (`ERC4626RateProvider`, `CompositeRateProvider`, `AdmittedVaultRateProvider`) | **New** | ERC-4626 rate providers Aureum deploys, for genesis tokens with no usable one and, by the TVL oracle, for every vault class mapped after genesis |
 | Smart Order Router | Balancer V3 | None |
 | Gauge system | **Rewritten** | New emission logic, eligibility criteria, anti-gaming |
 | Token contract | **New** | BTC-style emission schedule, immutable supply cap |
@@ -29,7 +30,7 @@ The table below shows what was inherited (byte-identical code, own deployment) a
 
 ### What's Unchanged (Critical)
 
-Pool contracts, vault core (`Vault.sol`, `VaultAdmin.sol`, `VaultExtension.sol`), SOR, hooks, and rate providers are **byte-identical** to the Certora-verified Balancer V3 code — deployed as Aureum’s **own** Vault instance, not shared with live Balancer. The audit and formal verification apply directly to that substrate. Only the tokenomics layer requires independent audit.
+Pool contracts, vault core (`Vault.sol`, `VaultAdmin.sol`, `VaultExtension.sol`), SOR, hooks, and Balancer's rate providers are **byte-identical** to the Certora-verified Balancer V3 code — deployed as Aureum’s **own** Vault instance, not shared with live Balancer. The audit and formal verification apply directly to that substrate. Only the tokenomics layer, the rate providers Aureum deploys included, requires independent audit.
 
 The LP trust proposition: *"The AMM you're depositing into is the same formally verified code. The token you're earning is different. The Vault is Aureum’s — not Balancer’s live Vault."*
 
