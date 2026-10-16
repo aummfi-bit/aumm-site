@@ -26,7 +26,7 @@ These rules encode the most common category errors observers make about Aureum. 
 
 AuMM uses a **Bitcoin-style emission schedule** (21M hard cap, four-year halving), but **mining is not by electricity**.
 
-> "**Mining is LP.** Productive capital in, tokens out. No staking rewards. No bribe markets."
+> "**Mining is LP.** Productive capital in, tokens out. No rewards for staking AuMM. No bribe markets."
 > — `references/02_mental_model.md` (line 33)
 
 Frame: Bitcoin-style *issuance schedule* applied to a liquidity-mining mechanism. Never describe AuMM as proof-of-work or electricity-consuming.

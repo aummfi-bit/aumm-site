@@ -49,7 +49,7 @@
   { "text": "", "spacer": true, "pause": 400 },
   { "text": "No extraction. No gaming. No exceptions.", "pause": 800 },
   { "text": "No rug pulls. Enforced by immutable smart contracts.", "pause": 900 },
-  { "text": "Liquid. Transferable. No locking. No staking.", "pause": 600 },
+  { "text": "Liquid. Transferable. No locking.", "pause": 600 },
   { "text": "Negotiable 24/7 from day one.", "pause": 1200 },
   { "text": "", "spacer": true, "pause": 700 },
   { "text": "Meet $AuMM.", "cta": true, "highlight": "$AuMM", "pause": 800 },
