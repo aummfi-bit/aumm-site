@@ -10,7 +10,7 @@ This document lists the full UX/UI surface planned for aumm.fi. Per OQ-18, the f
 
 **MVP — required for testnet (Holesky) and mainnet launch:**
 - §xlvii Miliarium Aureum Pools — registry table with compositions, TVL, 24h volume, CCB multiplier, emission share
-- §xlvi der Bodensee Pool — composition card, reserve depth, AuMM price, pool balances (from genesis)
+- §xlvi der Bodensee Pool — composition card, reserve depth, AuMM price, pool balances (from its initialization)
 - LP deposit/withdraw flows for every gauged pool + der Bodensee, and stake/unstake flows for every gauged pool (an approval or the pool token's permit, then the stake)
 - AuMT display — user's staked and qualified AuMT per pool, pending AuMM emissions, time-in-stake status (qualification at the first epoch boundary at least 14 days after the stake, 6-month on-ramp)
 - Governance interface — active proposals list, voting UI, proposal-submission UI (gauge challenges, composition challenges, fee-change proposals)

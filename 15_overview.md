@@ -20,7 +20,7 @@ Depth: [Theoretical Foundations §v-a — Why Aureum Exists](03_theoretical_foun
 
 ### Four constitutional commitments
 
-1. **Open market creation** — Anyone can create a pool from block zero. A pool created with the anti-spam fee approved to the gauge registry is gauged in the same call; any other pool begins in the Sandbox and may qualify permissionlessly for emissions under the same immutable requirements.
+1. **Open market creation** — Anyone can create a pool from block zero. A pool created with the anti-spam fee approved to the gauge registry is gauged in the same call once der Bodensee is initialized; any other pool begins in the Sandbox and may qualify permissionlessly for emissions under the same immutable requirements.
 2. **Rule-based capital allocation** — The Continuous Central Bank allocates the emission tranche by transparent on-chain measures, not token voting. After the Year-1 transition, eligible pools compete through normalized TVL EMA and CCB multiplier scores.
 3. **Autonomous value accrual** — Protocol value flows into **der Bodensee**, not a discretionary treasury. Boosts, activation fees, and governance deposits deepen one reserve by predefined rules.
 4. **Immutable monetary policy** — AuMM follows a fixed, BTC-style capped emission schedule. No premine, discretionary token wallet, or governance authority that can redirect core emissions.
@@ -106,11 +106,11 @@ No treasury. All protocol revenue flows to one immutable destination:
 
 - **der Bodensee Pool** (three-token weighted pool, fixed **40% AuMM / 30% sUSDS / 30% svZCHF**) — **all protocol-captured** revenue: **protocol share** of swap fees on other gauged pools (**100%** of that share to Bodensee; **99.9999%** of charged swap fee volume) + **ERC-4626 yield fees (100% of the 10% skim)** as one-sided stablecoin (sUSDS/svZCHF) inflows; **0.75%** swap fee on **trades inside der Bodensee** stays **in pool** in full for der Bodensee LPs.
 
-No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only on a **piecewise-linear decay** (80%→50% by Month 6, 50%→0% by Month 10), then **permanently zero** (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
+No signer, council, or progressive decentralization phase. No wallet receives AuMM for discretionary use — **Months 1–10** bootstrap AuMM accrues for der Bodensee Pool only, on a **piecewise-linear decay** (80%→50% by Month 6, 50%→0% by Month 10), and is delivered one-sided in bounded flushes once the pool is initialized; accrual is then **permanently zero** (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). Continuous Capital Corporation (CCC) from block 0.
 
 ## Emission Regime
 
-- **Through end of Month 10:** each block, a **piecewise-decaying der Bodensee bootstrap** (80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) mints one-sided AuMM into der Bodensee Pool; the **LP tranche** splits **1/M** across the **M** live Miliarium pools (26 at launch; 28 with every slot filled). **100%** to LPs from block 0 — no treasury share.
+- **Through end of Month 10:** each block, a **piecewise-decaying der Bodensee bootstrap** (80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) accrues for der Bodensee Pool, delivered as one-sided AuMM in bounded flushes once it is initialized; the **LP tranche** splits **1/M** across the **M** live Miliarium pools (26 at launch; 28 with every slot filled). **100%** to LPs from block 0 — no treasury share.
 - **Months 11–12:** linear transition from equal to CCB (Continuous Central Bank — fully automatic emission allocator; see [Glossary](12_aureum_glossary.md)). **α** from 0 to 1; **α = 0.5** at midpoint.
 - **After Year 1:** pure CCB — **TVL EMA(60) × CCB multiplier** scores, normalized across eligible pools. Incendiary Boost is a priority skim on the LP tranche. Full rules and immutable parameters: [Constitution (§§xxviii–xxix)](10_constitution.md).
 - No governance voting controls emission allocation.

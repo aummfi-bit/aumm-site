@@ -31,7 +31,7 @@ Each era spans 10,512,000 blocks (~4 years at 12 s/block). Per-block terms only 
 
 ### Emission Distribution
 
-- **Through end of Month 10 (Year 1):** each block’s emission splits into a **der Bodensee bootstrap** share and an **LP tranche**. The bootstrap share follows a **piecewise linear decay**: **80% at genesis → 50% at end of Month 6**, then **50% → 0% by end of Month 10**; minted as **one-sided AuMM** into der Bodensee Pool (no LP tokens — same mechanic as one-sided stablecoin fee inflows; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). The **LP tranche** is the remainder. The **M live Miliarium pools** each receive **1/M of the LP tranche** (not of the full block emission while the bootstrap share is positive), **M** being the number of Miliarium pools deployed and gauged: 26 at launch, 28 with every slot filled.
+- **Through end of Month 10 (Year 1):** each block’s emission splits into a **der Bodensee bootstrap** share and an **LP tranche**. The bootstrap share follows a **piecewise linear decay**: **80% at genesis → 50% at end of Month 6**, then **50% → 0% by end of Month 10**; it accrues per block and is delivered into der Bodensee Pool as **one-sided AuMM** in bounded flushes once the pool is initialized (no LP tokens — same mechanic as one-sided stablecoin fee inflows; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)). The **LP tranche** is the remainder. The **M live Miliarium pools** each receive **1/M of the LP tranche** (not of the full block emission while the bootstrap share is positive), **M** being the number of Miliarium pools deployed and gauged: 26 at launch, 28 with every slot filled.
 - **Months 11–12 (Year 1):** a **two-month linear transition** blending each pool’s equal **1/M** share with its CCB-derived share, ramping from pure equal at the start of Month 11 to pure CCB at the end of Year 1. At midpoint, half and half. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - **After Year 1:** pure CCB weighting — each pool scored by smoothed TVL and CCB multiplier, normalized across all eligible pools. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 - No voting and no discretionary overrides.
@@ -142,7 +142,7 @@ AuMM is **100% liquid**. No locking, no staking, no ve-mechanism, no wrapper. Yo
 
 **AuMM carries zero governance power.** It does not vote on emissions, fee parameters, or any protocol decision. All governance — including emission direction — is AuMT-weighted (staked LP positions in pools that confer weight). AuMM is a pure reward and value-capture token: earned by LPs, backed by protocol revenue.
 
-AuMM accrues value through **der Bodensee Pool** — the protocol's fee sink and revenue destination. **Protocol-captured** revenue (the **protocol share** of swap fees from **other** gauged pools — see §x — plus ERC-4626 yield fees) enters as **one-sided stablecoin (sUSDS/svZCHF) inflows**, deepening the stablecoin side when fees arrive. **Swap fees on trades inside der Bodensee Pool** accrue to der Bodensee LPs in full (see §x). The pool holds **fixed weights — 40% AuMM / 30% sUSDS / 30% svZCHF, immutable from block 0**. AuMM supply in the pool is capped (only the decaying F-0 bootstrap adds AuMM, and that channel goes permanently to zero at the end of Month 10), while stablecoin depth grows with protocol fees. When the stablecoin side grows relative to the AuMM side, weighted-pool math updates the implied AuMM↔stablecoin exchange rate. No buyback. No burn. No market purchases. Value backed by real revenue.
+AuMM accrues value through **der Bodensee Pool** — the protocol's fee sink and revenue destination. **Protocol-captured** revenue (the **protocol share** of swap fees from **other** gauged pools — see §x — plus ERC-4626 yield fees) enters as **one-sided stablecoin (sUSDS/svZCHF) inflows**, deepening the stablecoin side when fees arrive. **Swap fees on trades inside der Bodensee Pool** accrue to der Bodensee LPs in full (see §x). The pool holds **fixed weights — 40% AuMM / 30% sUSDS / 30% svZCHF, immutable from block 0**. The protocol adds AuMM to the pool only through the decaying F-0 bootstrap, which accrues nothing after the end of Month 10 and is delivered in flushes until any backlog drains; der Bodensee's founding liquidity, liquidity providers and trades also move AuMM in and out, while stablecoin depth grows with protocol fees. When the stablecoin side grows relative to the AuMM side, weighted-pool math updates the implied AuMM↔stablecoin exchange rate. No buyback. No burn. No market purchases. Value backed by real revenue.
 
 ## x. Value Capture
 
@@ -166,7 +166,7 @@ No treasury. All **protocol-captured** revenue flows to **der Bodensee Pool** as
 
 ### The Day-one Fee Architecture
 
-ERC-4626 pools can generate yield fee revenue from the first block when yield-bearing deposits exist — not dependent on routing, aggregator integration, or TVL growth. Architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. From block 0, **protocol-captured** fees (yield skim + **protocol share** of swap fees on other gauged pools) flow into der Bodensee Pool as one-sided stablecoin inflows; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs in full.
+ERC-4626 pools can generate yield fee revenue from the first block when yield-bearing deposits exist — not dependent on routing, aggregator integration, or TVL growth. Architectural. Every dollar of yield-bearing tokens in any pool generates protocol revenue automatically. **Protocol-captured** fees (yield skim + **protocol share** of swap fees on other gauged pools) are taken from block 0 and flow into der Bodensee Pool as one-sided stablecoin inflows from its initialization, waiting on the fee-routing hook before it; **swap fees on trades inside der Bodensee** stay **in pool** for der Bodensee LPs in full.
 
 ## x-a. der Bodensee Pool
 
@@ -184,25 +184,25 @@ der Bodensee Pool is the protocol's fee sink and AuMM trading venue — a **thre
 | ERC-4626 yield share | **60% of pool TVL** (sUSDS + svZCHF) earns native vault yield |
 | Emission eligibility | **None** — AuMM cannot sit in an emission-eligible pool (no self-referential tokens) |
 
-There is no founder-set price, no governance-voted multiple, no TVL measurement window, no stabilization inventory, no buyback, and no burn. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically from genesis.
+There is no governance-voted multiple, no TVL measurement window, no stabilization inventory, no buyback, and no burn. Whoever initializes der Bodensee sets its founding ratio, and arbitrage corrects it; from then on the ratio of AuMM to stablecoins in the pool **is** the price, and weighted-pool math handles it organically.
 
-### How AuMM enters the pool (decaying treasury emission)
+### How AuMM enters the pool (decaying bootstrap emission, liquidity and trades)
 
 | Period | Bootstrap share | Behavior |
 |:-------|:----------------|:---------|
 | Block 0 → end of Month 6 | 80% → 50% | Linear per block |
 | End of Month 6 → end of Month 10 | 50% → 0% | Linear per block |
-| After Month 10 | **0% (permanent)** | Immutable — der Bodensee never receives AuMM via emission again |
+| After Month 10 | **0% (permanent)** | Immutable — nothing more accrues; a backlog carried past Month 10 still drains in flushes |
 
-Bootstrap AuMM is minted **one-sided** into der Bodensee with no LP tokens issued. Formal definition: [F-0](11_formulas.md). After Month 10 the AuMM side of the pool is fixed forever — the only way more AuMM can enter is via swap-in by traders.
+Bootstrap AuMM accrues per block and is delivered **one-sided** into der Bodensee in bounded flushes, with no LP tokens issued. Formal definition: [F-0](11_formulas.md). After Month 10 nothing more accrues for the pool; any backlog drains in later flushes, and beyond that AuMM enters only through der Bodensee's founding liquidity, liquidity providers' deposits and trades.
 
 ### How stablecoins enter the pool (continuous protocol revenue)
 
-**100%** of the **protocol share** of swap fees on all non–der Bodensee gauged pools (**100%** of what **`protocolSwapFeePercentage`** assigns — **99.9999%** of charged swap fee volume) plus **100%** of the ERC-4626 yield fee (10% skim on yield-bearing tokens in **non–der Bodensee gauged pools**) enter der Bodensee as **one-sided stablecoin deposits** (routed as svZCHF per Constitution §xxix), deepening the reserve side every block. **LP residuals** on those swap fees remain with originating-pool LPs. Governance proposal deposits and Incendiary Boost deposits use the same one-sided path.
+**100%** of the **protocol share** of swap fees on all non–der Bodensee gauged pools (**100%** of what **`protocolSwapFeePercentage`** assigns — **99.9999%** of charged swap fee volume) plus **100%** of the ERC-4626 yield fee (10% skim on yield-bearing tokens in **non–der Bodensee gauged pools**) enter der Bodensee as **one-sided stablecoin deposits** (routed as svZCHF per Constitution §xxix), deepening the reserve side with every route once der Bodensee is initialized and waiting on the fee-routing hook before it. **LP residuals** on those swap fees remain with originating-pool LPs. Governance proposal deposits and Incendiary Boost deposits use the same one-sided path and revert until der Bodensee is initialized.
 
 ### Value capture (no buyback, no burn, no market purchases)
 
-The pool **is** the value capture mechanism. AuMM inflows are decaying and stop permanently at Month 10. Stablecoin inflows continue when protocol usage generates fees. AuMM becomes progressively scarcer relative to fee-deepened stablecoin depth, and weighted-pool math updates the implied exchange rate as balances change. No burn is required — the pool math does the work.
+The pool **is** the value capture mechanism. Bootstrap AuMM accrual decays and stops permanently at Month 10, any backlog draining in flushes; der Bodensee's founding liquidity, liquidity providers' deposits and trades also move its AuMM side. Stablecoin inflows continue when protocol usage generates fees. AuMM becomes progressively scarcer relative to fee-deepened stablecoin depth, and weighted-pool math updates the implied exchange rate as balances change. No burn is required — the pool math does the work.
 
 ### How yield accrues to AuMM without leaving the pool
 
@@ -211,9 +211,9 @@ Der Bodensee holds svZCHF and sUSDS — both ERC-4626 yield-bearing tokens — d
 The consequence runs through four steps:
 
 1. **Yield accrues silently.** As time passes with no swap activity, the svZCHF and sUSDS Rate Providers report higher rates. The pool's accounted balances (in rate-scaled terms) rise on the stablecoin sides without any token movement.
-2. **Weighted-pool invariant adjusts.** The pool's 40% AuMM / 30% sUSDS / 30% svZCHF target is enforced on rate-scaled balances. As the stablecoin sides grow in value while the AuMM side stays fixed (no AuMM enters via emission after Month 10), the implied AuMM↔stablecoin exchange rate moves by pool math — there are now more rate-scaled stablecoins against the same AuMM supply.
+2. **Weighted-pool invariant adjusts.** The pool's 40% AuMM / 30% sUSDS / 30% svZCHF target is enforced on rate-scaled balances. As the stablecoin sides grow in value while the AuMM side moves only with der Bodensee's founding liquidity, liquidity providers' deposits, trades and any bootstrap backlog (no AuMM accrues via emission after Month 10), the implied AuMM↔stablecoin exchange rate moves by pool math — there are now more rate-scaled stablecoins against the AuMM side.
 3. **No yield leaves the pool.** No wei of AuMM, svZCHF, or sUSDS is transferred out. The yield is fully embedded in the rising rate of the 4626 tokens, captured 100% by Bodensee LPs through their pro-rata BPT share of the growing pool value, and reflected in AuMM's price through the weighted-pool math acting on rate-adjusted balances.
-4. **No skim, no buyback, no burn.** AuMM scarcity is enforced by the F-0 bootstrap channel (decaying then permanently zero at Month 10). Stablecoin depth grows from two independent sources: the continuous one-sided fee inflows from other pools (**protocol share** of swap fees + 10% yield skim from non-Bodensee gauged pools), *and* the ongoing in-place yield on every stablecoin already sitting in der Bodensee. The pool feeds its own growth.
+4. **No skim, no buyback, no burn.** AuMM scarcity is enforced by the F-0 bootstrap channel (decaying, then permanently zero at Month 10, any backlog draining in flushes). Stablecoin depth grows from two independent sources: the continuous one-sided fee inflows from other pools (**protocol share** of swap fees + 10% yield skim from non-Bodensee gauged pools), *and* the ongoing in-place yield on every stablecoin already sitting in der Bodensee. The pool feeds its own growth.
 
 This is why no buyback / burn / market-purchase logic exists anywhere in the protocol. The pool math is the value-capture mechanism.
 
@@ -225,7 +225,7 @@ der Bodensee Pool is a CCC reserve in the spirit of Dr. Luzius Meisser's thesis 
 
 ### The Self-Reinforcing Loop
 
-**60%** of der Bodensee Pool TVL sits in ERC-4626 yield-bearing vaults (sUSDS + svZCHF). That yield compounds **in-place** via Rate Providers (not via the protocol's 10% skim, which applies to **other** gauged pools only — see "How yield accrues to AuMM without leaving the pool" above). Separately, **10%** of ERC-4626 yield from **non-Bodensee** gauged pools is skimmed and deposited one-sided into Bodensee as svZCHF. During **Months 1–10** der Bodensee also receives the decaying one-sided AuMM bootstrap; **after** Month 10 the AuMM channel is permanently zero, but stablecoin depth continues to grow from fee routing, skim inflows, and in-place vault compounding. Higher protocol TVL means more yield-fee revenue from Miliarium and other gauged pools, more stablecoin depth, and — when that depth grows relative to the AuMM side — a higher implied AuMM↔stablecoin exchange rate from pool math.
+**60%** of der Bodensee Pool TVL sits in ERC-4626 yield-bearing vaults (sUSDS + svZCHF). That yield compounds **in-place** via Rate Providers (not via the protocol's 10% skim, which applies to **other** gauged pools only — see "How yield accrues to AuMM without leaving the pool" above). Separately, **10%** of ERC-4626 yield from **non-Bodensee** gauged pools is skimmed and deposited one-sided into Bodensee as svZCHF. Bootstrap AuMM accrues for der Bodensee during **Months 1–10** and reaches it one-sided in bounded flushes; **after** Month 10 nothing more accrues, but stablecoin depth continues to grow from fee routing, skim inflows, and in-place vault compounding. Higher protocol TVL means more yield-fee revenue from Miliarium and other gauged pools, more stablecoin depth, and — when that depth grows relative to the AuMM side — a higher implied AuMM↔stablecoin exchange rate from pool math.
 
 ### Reserve Depth Growth
 

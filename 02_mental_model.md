@@ -30,7 +30,7 @@ The architecture deserves a second run under a clean economic model. Project Aur
 
 ## ii. Core Principles
 
-- **Fair launch.** No pre-mine, no team allocation, no VC, **no treasury wallet**. **100% of the LP emission tranche** goes to LPs from block 0; **Months 1–10** a piecewise-decaying share enters der Bodensee Pool as one-sided AuMM (80%→50% by Month 6, 50%→0% by Month 10; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)).
+- **Fair launch.** No pre-mine, no team allocation, no VC, **no treasury wallet**. **100% of the LP emission tranche** goes to LPs from block 0; **Months 1–10** a piecewise-decaying share accrues for der Bodensee Pool and reaches it as one-sided AuMM in bounded flushes once it is initialized (80%→50% by Month 6, 50%→0% by Month 10; see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)).
 - **Fixed supply.** 21,000,000 maximum. Per-block halving schedule. Declining emission rate.
 - **Mining is LP.** Productive capital in, tokens out. No rewards for staking AuMM. No bribe markets.
 - **Anti-capture by design.** Governance power derives exclusively from staked LP positions with a 6-month on-ramp.
@@ -96,7 +96,7 @@ In Roman terms: **svZCHF and ixEDEL are the two viae** (the roads connecting eve
 
 ## iv. Emission Regimes
 
-- **Through end of Month 10:** each block, **der Bodensee bootstrap** AuMM (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is deposited one-sided into der Bodensee Pool. The **LP tranche** goes **100%** to the live Miliarium pools, split **purely equal** (**1/M of the LP tranche** each, **M** being the number deployed and gauged). No treasury share. Other pools may exist but do not receive this equal tranche.
+- **Through end of Month 10:** each block, **der Bodensee bootstrap** AuMM (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) accrues for der Bodensee and is delivered one-sided into der Bodensee Pool in bounded flushes once it is initialized. The **LP tranche** goes **100%** to the live Miliarium pools, split **purely equal** (**1/M of the LP tranche** each, **M** being the number deployed and gauged). No treasury share. Other pools may exist but do not receive this equal tranche.
 - **Months 11–12 (two-month transition):** blend linearly from equal to CCB over the window. At the midpoint, the mix is half equal and half CCB. See [Protocol formulas](11_formulas.md) for the blend formula.
 - **After Year 1:** emissions follow only the CCB — each pool scored by smoothed TVL and CCB multiplier, normalized across eligible pools. No vote. See the [Constitution](10_constitution.md) and [Protocol formulas](11_formulas.md).
 
@@ -115,7 +115,7 @@ Follow one dollar around the loop.
 1. **Emissions recruit capital.** A fixed AuMM stream per block — **1.00 AuMM/block in Era 0** ([Tokenomics](04_tokenomics.md)) — pays LPs who deposit productive capital and stake their AuMT. The stream is fixed in *tokens*; its dollar value is `AuMM_per_block × AuMM_price`.
 2. **Capital generates revenue.** Every dollar of TVL in an ERC-4626 pool can yield from block 0; every trade pays a swap fee — the **Day-one fee architecture**, not volume-dependent.
 3. **Revenue deepens der Bodensee.** Protocol swap fees (**99.9999%** of charged fee) and the **10%** ERC-4626 yield skim route one-sided into der Bodensee as sUSDS/svZCHF; der Bodensee's **60%** stablecoin side compounds in-place via Rate Providers. Three inflows, one direction ([Tokenomics §x-a](04_tokenomics.md)).
-4. **Balances set AuMM’s implied spot.** Fixed **40%** AuMM side; bootstrap one-sided inflow decays to **zero at Month 10** ([F-0](11_formulas.md)), after which AuMM enters only via swap. When the stablecoin side grows relative to the AuMM side, weighted-pool math updates the AuMM↔stablecoin exchange rate. No buyback, no burn, no discretion. **The pool is the value-capture mechanism.**
+4. **Balances set AuMM’s implied spot.** Fixed **40%** AuMM weight; bootstrap accrual decays to **zero at Month 10** ([F-0](11_formulas.md)), any backlog still draining in flushes, and beyond the bootstrap, AuMM enters through der Bodensee's founding liquidity, liquidity providers' deposits and trades. When the stablecoin side grows relative to the AuMM side, weighted-pool math updates the AuMM↔stablecoin exchange rate. No buyback, no burn, no discretion. **The pool is the value-capture mechanism.**
 5. **Implied spot feeds emission APR.** Token-denominated emissions mean a higher AuMM↔stablecoin exchange rate increases the dollar value of the same per-block stream — headline APR can rise with **no new fee revenue**. Contingent on fee inflows and adoption ([§v-d](#v-d-the-one-input-the-loop-cannot-engineer)).
 6. **Higher APR can recruit more capital.** Step 1 again, if the loop turns.
 
@@ -141,15 +141,16 @@ The loop has nowhere to lose value — protocol-captured fees route to der Boden
 
 Same circuit from the protocol's view; three participant positions, three leverage profiles.
 
-**The holder.** Buy and hold. You capture step 4 — the implied spot from balances — at the market when you transact. No IL, no liquidity provided. Long a fixed AuMM side against a fee-deepened stablecoin side: a patience position, contingent on adoption.
+**The holder.** Buy and hold. You capture step 4 — the implied spot from balances — at the market when you transact. No IL, no liquidity provided. Long the 40%-weight AuMM side against a fee-deepened stablecoin side: a patience position, contingent on adoption.
 
 **The buyer-as-participant.** Buying AuMM from der Bodensee turns the wheel: your purchase deepens the stablecoin side, thins the AuMM side, and moves the implied exchange rate (step 4) and AuMM-denominated APR across eligible pools (step 5). Leverage is inverse to pool depth — a shallow early pool moves hard on the same buy that barely registers once mature. The early believer has the most wheel leverage for the same reason the wheel needs them most.
 
-**The der Bodensee LP.** Provide AuMM into der Bodensee — the apex seat, where every revenue stream terminates and you own a pro-rata slice. Three returns stack:
+**The der Bodensee LP.** Provide AuMM into der Bodensee — the apex seat, where every revenue stream terminates and you own a pro-rata slice. Four returns stack:
 
 - full **0.75%** in-pool swap fee on every trade, including every recruitment buy;
 - in-place ERC-4626 yield on the **60%** stablecoin side via Rate Providers;
-- exposure to the implied AuMM↔stablecoin exchange rate on your **40%** AuMM leg as fee inflows change balances.
+- exposure to the implied AuMM↔stablecoin exchange rate on your **40%** AuMM leg as fee inflows change balances;
+- a pro-rata share of every bootstrap flush and fee donation into der Bodensee, as the founding BPT also has.
 
 Cost: impermanent loss on the AuMM leg — if AuMM’s implied spot moves up sharply, the pool nets you selling AuMM vs. simply holding. Deep-conviction only: long AuMM, wear the rebalancing cost, collect the toll on everyone else's recruitment.
 

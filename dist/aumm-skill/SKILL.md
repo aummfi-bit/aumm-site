@@ -38,9 +38,9 @@ These are two distinct mechanisms; do not conflate them.
 - **CCC** (Continuous Capital Corporation): rule-based reserve management and emission rules via der Bodensee. Algorithmic capital allocation, no discretionary management, no separate treasury. (`references/12_aureum_glossary.md` definition)
 - **CCB** (Continuous Central Bank): the automatic emission allocator. Scores each Miliarium pool by smoothed TVL × multiplier, normalizes to fractional shares, distributes block emissions. EMA-driven (60-day TVL EMA per F-4). (`references/12_aureum_glossary.md`, `references/11_formulas.md` F-5/F-6)
 
-### 3. der Bodensee: on-chain from genesis
+### 3. der Bodensee: registered at genesis, live from its initialization
 
-The pool exists and is tradeable from block 0; protocol revenue and governance deposits route into it per §xxix. AuMM’s implied spot comes from pool balances — not a treasury price floor or buyback. Follow Voice / Lexicon in `references/12_aureum_glossary.md` when summarizing value capture.
+The pool is registered at genesis and tradeable from its initialization by the Stage B multisig, as soon as it can after emissions start; the code lets anyone initialize, but the founding BPT goes only to the multisig, and the initializer sets the founding ratio, which arbitrage corrects. The multisig keeps the founding BPT as an ordinary LP position with the same rights as any other and no special authority. Protocol revenue and governance deposits route into it per §xxix, protocol fees held on the fee-routing hook and proposal deposits in escrow until it is initialized. AuMM’s implied spot comes from pool balances — not a treasury price floor or buyback. Follow Voice / Lexicon in `references/12_aureum_glossary.md` when summarizing value capture.
 
 Source: `references/10_constitution.md` §xxix (der Bodensee Pool parameters).
 
