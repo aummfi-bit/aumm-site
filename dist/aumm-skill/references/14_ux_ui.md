@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@8e732563b0b6d567f6a77c06873fc262d67ec0cb 14_ux_ui.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@9403cee1531a5910042df0455032bebea701febc 14_ux_ui.md — DO NOT EDIT -->
 # UX / UI — Frontend Requirements
 
 *Dashboard and interface elements for aumm.fi. This is a planning document — no code yet.*
@@ -11,9 +11,9 @@ This document lists the full UX/UI surface planned for aumm.fi. Per OQ-18, the f
 
 **MVP — required for testnet (Holesky) and mainnet launch:**
 - §xlvii Miliarium Aureum Pools — registry table with compositions, TVL, 24h volume, CCB multiplier, emission share
-- §xlvi der Bodensee Pool — composition card, reserve depth, AuMM price, pool balances (from genesis)
-- LP deposit/withdraw flows for every gauged pool + der Bodensee
-- AuMT display — user's qualified AuMT per pool, pending AuMM emissions, time-in-pool status (14-day qualification, 6-month on-ramp)
+- §xlvi der Bodensee Pool — composition card, reserve depth, AuMM price, pool balances (from its initialization)
+- LP deposit/withdraw flows for every gauged pool + der Bodensee, and stake/unstake flows for every gauged pool (an approval or the pool token's permit, then the stake)
+- AuMT display — user's staked and qualified AuMT per pool, pending AuMM emissions, time-in-stake status (qualification at the first epoch boundary at least 14 days after the stake, 6-month on-ramp)
 - Governance interface — active proposals list, voting UI, proposal-submission UI (gauge challenges, composition challenges, fee-change proposals)
 - Swap interface — basic composite-swap via the constellation (can integrate with an aggregator initially rather than building routing from scratch)
 - Block-based time displays — halving countdown, bootstrap milestones at `MONTH_6_END_BLOCK` / `MONTH_10_END_BLOCK`, Era transition countdowns (all expressed as blocks with calendar-time aliases per §xxix)
@@ -104,10 +104,10 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## li. LP Position Manager
 
-- [ ] **My positions** — per-pool AuMT holdings, USD value, emission earnings (accrued, claimed), governance power
-- [ ] **Governance power calculator** — show current power based on (pool TVL EMA)^(1/4 or 1/3) x LP share x each deposit's time factor, qualification status (14-day minimum, 6-month ramp)
-- [ ] **Emission estimator** — projected AuMM earnings per block/day/month based on current pool weights and LP share
-- [ ] **Deposit / Withdraw** — pool entry and exit interface with IL estimate
+- [ ] **My positions** — per-pool AuMT holdings, staked and unstaked, USD value, emission earnings (accrued, claimed), governance power
+- [ ] **Governance power calculator** — show current power based on (pool staked-value EMA)^(1/4 or 1/3) x share of the pool's qualified staked LP x each stake's time factor, qualification status (first epoch boundary at least 14 days after the stake, 6-month ramp)
+- [ ] **Emission estimator** — projected AuMM earnings per block/day/month based on current pool weights and staked LP share
+- [ ] **Deposit / Withdraw, Stake / Unstake** — pool entry and exit interface with IL estimate, and staking AuMT (an approval or the pool token's permit, then the stake) with unstaking at any block
 
 ---
 

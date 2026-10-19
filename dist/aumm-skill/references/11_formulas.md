@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@8e732563b0b6d567f6a77c06873fc262d67ec0cb 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@9403cee1531a5910042df0455032bebea701febc 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -11,9 +11,9 @@ All parameters listed here are **immutable from block 0**. See [Immutable Parame
 
 ### F-0. der Bodensee Bootstrap Emission Decay
 
-**Purpose:** Deepen der Bodensee reserves with one-sided AuMM inflows during cold-start, so weighted-pool price discovery begins from block 0 without allocating emissions to any treasury.
+**Purpose:** Deepen der Bodensee reserves with one-sided AuMM inflows during cold-start, so weighted-pool price discovery begins from der Bodensee's initialization without allocating emissions to any treasury.
 
-**Effect:** A **piecewise-linear, per-block decaying** fraction of each block's emission is minted as a **one-sided AuMM deposit** into der Bodensee Pool (no LP tokens — same mechanic as one-sided stablecoin fee inflows). The remainder is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). Two segments: genesis → end of Month 6 decays **linearly from 80% to 50%**; end of Month 6 → end of Month 10 decays **linearly from 50% to 0%**. After the final block of Month 10, **bodensee_share = 0 permanently**; 100% to LPs until Month 11.
+**Effect:** A **piecewise-linear, per-block decaying** fraction of each block's emission accrues for der Bodensee Pool and is delivered as a **one-sided AuMM deposit** in flushes (no LP tokens — same mechanic as one-sided stablecoin fee inflows; delivery below). The remainder is the **LP tranche** for the 28 Miliarium pools (equal split per F-1). Two segments: genesis → end of Month 6 decays **linearly from 80% to 50%**; end of Month 6 → end of Month 10 decays **linearly from 50% to 0%**. After the final block of Month 10, **bodensee_share = 0 permanently**; 100% to LPs until Month 11.
 
 ```
 // Using canonical block constants from Constitution §xxix:
@@ -33,7 +33,7 @@ else:
 lp_share(block) = 1 − bodensee_share(block)
 ```
 
-AuMM routed to der Bodensee Pool in block **b** equals **bodensee_share(b) × block_emission(b)**. After the final block of Month 10 the treasury/bootstrap channel is **immutable at zero** — der Bodensee never again receives AuMM via emission.
+AuMM accrued for der Bodensee Pool in block **b** equals **bodensee_share(b) × block_emission(b)**. The channel delivers the accrual in **flushes**, at most one a day, each at most two days of accrual at the opening rate (80% of the genesis block emission), carrying the rest to the next flush; a flush defers to a later block whenever the block already holds a liquidity add to der Bodensee other than a donation, so no add, flush and remove fit in one block. Delivery begins once der Bodensee is initialized. After the final block of Month 10 nothing more accrues — the treasury/bootstrap channel is **immutable at zero** — and any backlog still carried drains in later flushes.
 
 ---
 
@@ -115,7 +115,7 @@ if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:
 
 The EMA runs **per pool** independently. Half-life is approximately 21 days. Gas cost: ~50k per pool per day for the EMA update, plus negligible accumulator updates on each swap/liquidity event.
 
-**Valuation.** TVL is denominated in svZCHF and read from each pool's Vault balances averaged over the TWAP window, with no external price feed. Each leg is priced by its underlying's weighted balance ratio against svZCHF across the constellation's venues, directly or through one hop token, and only when the pool registers it under the rate provider the TVL oracle records for its token, none for a plain token; a leg under any other provider is unpriced. A leg with no such price is valued at the pool's own normalized weights against its priced legs, but only when those carry at least half the pool, which caps the extrapolation at twice the priced value; a new base token therefore needs no mapping, while a new ERC-4626 token maps to its asset once its vault class is admitted, under a rate provider the TVL oracle deploys on the vault's own `convertToAssets`, composed with its asset's recorded provider.
+**Valuation.** TVL is denominated in svZCHF and read from each pool's Vault balances averaged over the TWAP window, with no external price feed. Each leg is priced by its underlying's weighted balance ratio against svZCHF across the constellation's venues, directly or through one hop token (der Bodensee is a venue for AuMM alone), and only when the pool registers it under the rate provider the TVL oracle records for its token, none for a plain token; a leg under any other provider is unpriced. A leg with no such price is valued at the pool's own normalized weights against its priced legs, but only when those carry at least half the pool, which caps the extrapolation at twice the priced value; a new base token therefore needs no mapping, while a new ERC-4626 token maps to its asset once its vault class is admitted, under a rate provider the TVL oracle deploys on the vault's own `convertToAssets`, composed with its asset's recorded provider.
 
 ---
 
@@ -204,20 +204,20 @@ Only **i ∈ {28 Miliarium pools}** receive CCB multiplier updates; for any othe
 
 **Purpose:** Convert LP stake and time commitment into governance weight with sub-linear dampening to prevent whale capture. The root applies to the pool aggregate — not to individual positions — so weight is invariant under splitting a position across any number of wallets (Sybil-neutral by construction).
 
-**Effect:** Root function compresses pool weight — 100× pool TVL ≠ 100× pool voting power. Within a pool, holders divide that compressed weight pro-rata by LP share, scaled by their time commitment; splitting capital across wallets neither gains nor loses weight. Concentrating capital in one pool dilutes its own per-dollar weight; spreading real liquidity across pools that confer weight is the only way to raise it — and a non-slot pool below the 10,000 svZCHF floor confers none, so splitting capital into many tiny pools gains nothing. Era 0: fourth root (maximum compression when TVL is lowest). Era 1+: cube root (TVL growth has diluted individual power).
+**Effect:** Root function compresses pool weight — 100× staked pool value ≠ 100× pool voting power. Within a pool, holders divide that compressed weight pro-rata by their share of the pool's qualified staked LP, scaled by their time commitment; splitting capital across wallets neither gains nor loses weight. Concentrating capital in one pool dilutes its own per-dollar weight; spreading real liquidity across pools that confer weight is the only way to raise it — and a non-slot pool below the 10,000 svZCHF floor confers none, so splitting capital into many tiny pools gains nothing. Era 0: fourth root (maximum compression when TVL is lowest). Era 1+: cube root (TVL growth has diluted individual power).
 
 ```
-Era 0 (years 0–4):    pool_power = (pool_TVL_EMA) ^ (1/4)
-Era 1+ (years 4+):    pool_power = (pool_TVL_EMA) ^ (1/3)
+Era 0 (years 0–4):    pool_power = (pool_staked_EMA) ^ (1/4)
+Era 1+ (years 4+):    pool_power = (pool_staked_EMA) ^ (1/3)
 
-holder_power  = pool_power × Σ_c (LP_c × time_factor_c) / pool_total_LP
+holder_power  = pool_power × Σ_c (LP_c × time_factor_c) / pool_qualified_LP
 
-time_factor_c = 0                                         while block < latest_c + qualification period (14 days)
+time_factor_c = 0                                         while block < qualify_c (the qualification boundary)
               = (block − average_c) / on_ramp             thereafter, until epoch c begins (on_ramp = 6 months)
               = 1                                         from the first block of epoch c
 ```
 
-**pool_TVL_EMA** is the pool's 60-day exponential moving average USD TVL per F-4 — never the spot value; a pool whose EMA is unseeded or younger than 60 days confers zero power. **pool_total_LP** is the pool's total LP supply — total, not qualified-only: weight forfeited by deposits still inside their qualification period vanishes rather than redistributing. **The tranches c** are the holder's in the pool: each deposit joins the tranche of epoch c, the 14-day epoch in which its block plus the on-ramp falls, so deposits whose 180 days end in the same epoch share one tranche, LP_c being their LP, latest_c their latest deposit block and average_c the LP-weighted average of their deposit blocks. No deposit counts before its own 14 days; a later deposit in the same tranche can delay an earlier one by under one epoch but never shortens a wait; and any withdrawal clears every tranche, the LP that remains starting one tranche at the withdrawal block. Only pools that confer weight carry power: the pool's gauge must be active (registered and not revoked), and a pool that holds no Miliarium slot also needs its gated EMA — the F-4 EMA with its maturity, sample and staleness gates applied — at or above 10,000 svZCHF; slot holders are exempt from the floor. A Disqualified pool keeps its LPs' weight, since disqualification stops emissions, not weight; weight ends at revocation — automatic, or by governance, since a Disqualified pool stays an active gauge and can still be revoked — or when the EMA falls below the floor. Transition occurs at the halving block. Both exponents are immutable.
+**pool_staked_EMA** is the 60-day exponential moving average of the pool's staked value, kept beside the F-4 TVL EMA — never a spot value: each sample is the pool's F-4 TVL TWAP times its qualified staked LP over its LP supply averaged over the same window, and it carries the TVL EMA's maturity, sample and staleness gates, so a pool whose staked-value EMA is unseeded or younger than 60 days confers zero power. **pool_qualified_LP** is the pool's staked LP past its qualification boundaries — qualified-only: neither LP that is not staked nor a tranche still inside its qualification period dilutes the holders who count. **The tranches c** are the holder's staked LP in the pool: each stake joins the tranche of epoch c, the 14-day epoch in which its block plus the on-ramp falls, so stakes whose 180 days end in the same epoch share one tranche, LP_c being their LP, latest_c their latest stake block, average_c the LP-weighted average of their stake blocks and qualify_c the first epoch boundary at least 14 days after latest_c. No stake counts before that boundary, so a stake begins to count after 14 to 28 days; a later stake in the same tranche can delay an earlier one by at most one epoch but never shortens a wait; and any unstake clears every tranche, the LP that stays staked starting one tranche at the unstake block. LP held but not staked confers no power. Only pools that confer weight carry power: the pool's gauge must be active (registered and not revoked), and a pool that holds no Miliarium slot also needs its gated TVL EMA — the F-4 EMA with its maturity, sample and staleness gates applied — at or above 10,000 svZCHF; slot holders are exempt from the floor. A Disqualified pool keeps its LPs' weight, since disqualification stops emissions, not weight; weight ends at revocation — automatic, or by governance, since a Disqualified pool stays an active gauge and can still be revoked — or when the TVL EMA falls below the floor. Transition occurs at the halving block. Both exponents are immutable.
 
 ---
 
@@ -261,7 +261,7 @@ Ranking membership is re-evaluated at each tournament epoch boundary; the criter
 
 **Purpose:** Define the immutable composition of der Bodensee Pool — the protocol's fee sink and AuMM price-discovery venue.
 
-**Effect:** Three-token weighted pool with **fixed** weights from block 0. No time-decay curve. No discretionary reweighting. Weighted-pool math is the only pricing mechanism — as the stablecoin side deepens via one-sided fee inflows while the AuMM side is capped by the decaying F-0 bootstrap (zero after Month 10), the ratio updates AuMM’s implied spot from balances.
+**Effect:** Three-token weighted pool with **fixed** weights from block 0. No time-decay curve. No discretionary reweighting. Weighted-pool math is the only pricing mechanism — as the stablecoin side deepens via one-sided fee inflows while the AuMM side grows through the decaying F-0 bootstrap, delivered in flushes, through der Bodensee's founding liquidity, through liquidity providers' deposits and through trades, the ratio updates AuMM’s implied spot from balances.
 
 ```
 weight_AuMM   = 0.40        // 40%
@@ -278,13 +278,13 @@ weight_svZCHF = 0.30        // 30%
 | ERC-4626 yield-bearing share | **60%** of pool TVL (sUSDS + svZCHF) earns native vault yield |
 | Emission eligibility | **None** — der Bodensee cannot receive CCB emissions (no self-referential tokens) |
 
-**AuMM inflows.** Only the F-0 bootstrap deposits AuMM into der Bodensee — decaying per block through Month 10, then **permanently zero**. No other mechanism mints AuMM into this pool.
+**AuMM inflows.** The protocol deposits AuMM into der Bodensee only through the F-0 bootstrap — accruing per block through Month 10, then **permanently zero**, and delivered in flushes until any backlog drains. Its founding liquidity, supplied by the Stage B multisig, which keeps the founding BPT, and liquidity providers' deposits, with BPT in return, also bring AuMM. No other mechanism mints AuMM into this pool.
 
 **Stablecoin inflows.** **100%** of the **protocol share** of swap fees on all non–der Bodensee gauged pools (**100%** of the Vault-assigned protocol fee — **`protocolSwapFeePercentage = 99.9999e16`**, i.e. **99.9999%** of charged swap fee volume; see [Constitution §xxix — Fee routing](10_constitution.md)) plus **100%** of the ERC-4626 yield fee (10% skim on all yield-bearing tokens held in **non–der Bodensee gauged pools**) enter as **one-sided stablecoin deposits** (always routed as svZCHF per Constitution §xxix), continuously deepening the reserve side. **LP residuals** on swap fees stay with originating-pool LPs. Governance deposits and Incendiary Boost deposits use the same one-sided path.
 
 **Der Bodensee is excluded from the yield skim.** Its own ERC-4626 holdings (svZCHF + sUSDS, 60% of pool TVL) accrue yield continuously via the Rate Provider mechanism, and that yield stays inside the pool — it accrues to Bodensee LPs via their BPT share and changes rate-scaled balances (and thus AuMM’s implied spot) via weighted-pool math. Skimming Bodensee's yield and depositing it back into Bodensee would be a circular no-op. The skim mechanism extracts yield from *other* pools only; Bodensee is the **destination** of the skim, not a source. See [Tokenomics §x-a](04_tokenomics.md) for the full self-yield mechanism.
 
-**Price discovery.** No founder-set price, no governance-voted multiple, no TVL measurement window. The ratio of AuMM to stablecoins in the pool **is** the price; weighted-pool math handles it organically from genesis.
+**Price discovery.** No governance-voted multiple and no TVL measurement window. Whoever initializes der Bodensee sets its founding ratio, and arbitrage corrects it; from then on the ratio of AuMM to stablecoins in the pool **is** the price, and weighted-pool math handles it organically.
 
 All composition parameters immutable from block 0.
 
@@ -306,7 +306,7 @@ The two CHF terms convert at **svZCHF's own ERC-4626 rate**, CHF read as ZCHF an
 
 **BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF (or 1.25× in sUSDS) one-sided into der Bodensee.
 
-The BTC/CHF rate is the **mean** of the prices of the two `BTC_WRAPPERS` tokens, WBTC and cbBTC, fixed at deployment (see Constitution §xxix). Each is priced on the **latest completed day window**, the 720-block TWAP ending at a day boundary, by its weighted balance ratio against svZCHF's rate-scaled balance, its ZCHF value, across the constellation's venues — the Miliarium pools and der Bodensee — directly or through one hop token, so the price is read in ZCHF. A wrapper with no price on that window is left out of the mean; with neither priced, term (1) is zero and the larger of (2) and (3) stands. A Miliarium pool holding a wrapper, such as one a composition challenge seats, joins the price from the first completed day window after its balances are recorded, with no contract change; a pool outside the constellation never prices it, and no governance action changes the set.
+The BTC/CHF rate is the **mean** of the prices of the two `BTC_WRAPPERS` tokens, WBTC and cbBTC, fixed at deployment (see Constitution §xxix). Each is priced on the **latest completed day window**, the 720-block TWAP ending at a day boundary, by its weighted balance ratio against svZCHF's rate-scaled balance, its ZCHF value, across the constellation's venues — the Miliarium pools — directly or through one hop token, so the price is read in ZCHF. A wrapper with no price on that window is left out of the mean; with neither priced, term (1) is zero and the larger of (2) and (3) stands. A Miliarium pool holding a wrapper, such as one a composition challenge seats, joins the price from the first completed day window after its balances are recorded, with no contract change; a pool outside the constellation never prices it, and no governance action changes the set.
 
 **Why a day window, and what backstops it:**
 - A window cannot be moved inside the challenge's own block: shifting it means holding a skewed BTC price against arbitrage through the 720 blocks (~2.4 hours) before a day boundary, and the price bought lasts only until the next.

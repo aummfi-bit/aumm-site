@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@8e732563b0b6d567f6a77c06873fc262d67ec0cb 17_faq.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@9403cee1531a5910042df0455032bebea701febc 17_faq.md — DO NOT EDIT -->
 # FAQ
 
 ## Foundations
@@ -17,11 +17,11 @@ Aureum forks the verified contracts, drops the broken token layer, and replaces 
 
 ### What is AuMM?
 
-AuMM is a fair-launch ERC-20 on Ethereum with a 21,000,000 hard cap and a Bitcoin-style halving every 10,512,000 blocks (~4 years). The only way to earn it is by providing liquidity to emission-qualified Aequilibrium pools. No pre-mine, no team allocation, no VC round. AuMM has zero governance power. Value accrual is fee routing and pool math, not narrative: the protocol share of swap fees on every non-Bodensee gauged pool plus the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee Pool; when the stablecoin side deepens relative to the fixed AuMM weight, weighted-pool math updates the implied AuMM↔stablecoin exchange rate. Contingent on fee inflows. No buyback, no burn, no oracle.
+AuMM is a fair-launch ERC-20 on Ethereum with a 21,000,000 hard cap and a Bitcoin-style halving every 10,512,000 blocks (~4 years). The only way to earn it is by providing liquidity to emission-qualified Aequilibrium pools and staking the pool token. No pre-mine, no team allocation, no VC round. AuMM has zero governance power. Value accrual is fee routing and pool math, not narrative: the protocol share of swap fees on every non-Bodensee gauged pool plus the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee Pool; when the stablecoin side deepens relative to the fixed AuMM weight, weighted-pool math updates the implied AuMM↔stablecoin exchange rate. Contingent on fee inflows. No buyback, no burn, no oracle.
 
 ### What is AuMT? Is it a new token?
 
-No. AuMT (Aureum Market Tessera) is the pool token itself — the ERC-20 a pool mints when you provide liquidity and burns when you withdraw; in Balancer V3 terms, the BPT. Your AuMT balance *is* your LP position: the receipt you redeem, at any time, for your share of the pool's underlying tokens. There is no separate AuMT contract, no fixed supply, and no exchange listing — each pool issues its own AuMT, supply floats with deposits and withdrawals, and the only way to get it is to LP. Everything these docs attribute to AuMT — emission claims, governance weight (14-day qualification, dampened per [F-9](11_formulas.md)) — attaches to holding this receipt in a pool that confers weight. That is why governance power cannot be bought on any market: the voting asset is the LP position itself.
+No. AuMT (Aureum Market Tessera) is the pool token itself — the ERC-20 a pool mints when you provide liquidity and burns when you withdraw; in Balancer V3 terms, the BPT. Your AuMT balance *is* your LP position: the receipt you redeem, at any time, for your share of the pool's underlying tokens. There is no separate AuMT contract, no fixed supply, and no exchange listing — each pool issues its own AuMT, supply floats with deposits and withdrawals, and the only way to mint it is to LP. Everything these docs attribute to AuMT — emission claims, governance weight (qualification at the first epoch boundary at least 14 days after you stake, dampened per [F-9](11_formulas.md)) — attaches to staking this receipt in a pool that confers weight, and you can unstake at any block. That is why no governance token is sold: the voting asset is the staked LP position itself, and AuMT, however acquired, confers no voting power until it is staked, and then only from its own qualification, rising over its on-ramp.
 
 ### Is emission allocation rule-based or discretionary, and what's the difference between CCC and CCB?
 
@@ -47,15 +47,15 @@ Highest AuMM per dollar in Year 1. Through Month 10, all live Miliarium pools sp
 
 Cross-pool arbitrage. The ixEDEL NAV mint/redeem cycle and svZCHF rate updates generate continuous arbitrage flow between pools. Each cross-pool hop pays fees in two pools at once. This is volume that does not depend on retail.
 
-Balance-driven AuMM implied spot. The protocol share of swap fees from every non-Bodensee gauged pool plus 100% of the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee. AuMM inflows to Bodensee decay to zero by Month 10 and stay there. Stablecoin inflows continue when the protocol earns fees. Fixed weights update the implied exchange rate as balances change.
+Balance-driven AuMM implied spot. The protocol share of swap fees from every non-Bodensee gauged pool plus 100% of the 10% ERC-4626 yield skim flows as one-sided stablecoin into der Bodensee. Bootstrap AuMM accrual decays to zero by Month 10, any backlog draining in flushes; der Bodensee's founding liquidity, liquidity providers' deposits and trades also move its AuMM side. Stablecoin inflows continue when the protocol earns fees, from der Bodensee's initialization. Fixed weights update the implied exchange rate as balances change.
 
 ### Where does protocol revenue come from?
 
 Two streams.
 
-Swap fees. Miliarium pools charge 0.02% at genesis, governable within the 0.01% to 0.30% band. The split is a Vault registration invariant, not a governance parameter: `protocolSwapFeePercentage = 99.9999e16`, the Vault maximum, hardcoded at pool registration, immutable. 99.9999% of every swap fee is the protocol share. The remaining 0.0001% stays with originating-pool LPs through Vault accounting, a floor the Vault sets rather than an allocation. The Balancer V3 hook fires `onAfterSwap`, swaps the protocol share to svZCHF, and one-sided deposits it into Bodensee. No treasury, no wallet split.
+Swap fees. Miliarium pools charge 0.02% at genesis, governable within the 0.01% to 0.30% band. The split is a Vault registration invariant, not a governance parameter: `protocolSwapFeePercentage = 99.9999e16`, the Vault maximum, hardcoded at pool registration, immutable. 99.9999% of every swap fee is the protocol share. The remaining 0.0001% stays with originating-pool LPs through Vault accounting, a floor the Vault sets rather than an allocation. The Balancer V3 hook fires `onAfterSwap`, swaps the protocol share to svZCHF, and one-sided deposits it into Bodensee once Bodensee is initialized, holding it on the hook until then. No treasury, no wallet split.
 
-ERC-4626 yield skim. The protocol takes 10% of yield generated by 4626 tokens held inside non-Bodensee gauged pools and routes 100% of that to Bodensee as one-sided svZCHF. The source is vault yield, not trading. This is why the protocol earns from block 0 regardless of volume.
+ERC-4626 yield skim. The protocol takes 10% of yield generated by 4626 tokens held inside non-Bodensee gauged pools and routes 100% of that to Bodensee as one-sided svZCHF, holding it on the fee-routing hook until Bodensee is initialized. The source is vault yield, not trading. This is why the protocol earns from block 0 regardless of volume.
 
 Trades inside Bodensee charge 0.75%, fixed from block 0; no proposal changes it. The full fee stays in pool for Bodensee LPs and does not pass through the protocol pipeline.
 
@@ -73,9 +73,9 @@ Miliarium pools genesis at 0.02%, governable within 0.01% to 0.30%. Non-Miliariu
 
 Mechanics, not narrative.
 
-Bodensee holds 40% AuMM, 30% sUSDS, 30% svZCHF, in fixed weights, immutable from block 0. The pool's invariant enforces those proportions at every trade. AuMM inflows decay from 80% of each block at genesis to 50% by the end of Month 6, then to zero by the end of Month 10. After that, no AuMM enters the pool except by being purchased. Stablecoin inflows are continuous and grow with usage.
+Bodensee holds 40% AuMM, 30% sUSDS, 30% svZCHF, in fixed weights, immutable from block 0. The pool's invariant enforces those proportions at every trade. Bootstrap AuMM accrual decays from 80% of each block at genesis to 50% by the end of Month 6, then to zero by the end of Month 10, delivered in bounded flushes once the pool is initialized. After that, AuMM enters the pool only through any carried backlog, der Bodensee's founding liquidity, liquidity providers' deposits and trades. Stablecoin inflows are continuous and grow with usage.
 
-As the stablecoin side deepens against fixed AuMM supply, weighted-pool math updates AuMM’s implied spot from balances. There is no buyback, no burn, no oracle, no discretion. On top of that, 60% of Bodensee's TVL sits in svZCHF and sUSDS, and that yield compounds inside the pool through the Rate Providers, raising rate-scaled balances on the stablecoin side without any token movement.
+As the stablecoin side deepens against an AuMM side that moves only with der Bodensee's founding liquidity, liquidity providers' deposits, trades and any bootstrap backlog, weighted-pool math updates AuMM’s implied spot from balances. There is no buyback, no burn, no oracle, no discretion. On top of that, 60% of Bodensee's TVL sits in svZCHF and sUSDS, and that yield compounds inside the pool through the Rate Providers, raising rate-scaled balances on the stablecoin side without any token movement.
 
 The dilution ceiling is the halving schedule. Emission to LPs falls by half every 10,512,000 blocks. Markets price the curve from day one.
 
@@ -91,7 +91,7 @@ There is a reflexive loop when adoption arrives. Higher LP APY can pull more TVL
 
 Bodensee LPs benefit separately. Every AuMM trade inside the pool charges 0.75%, retained in pool, on top of the in-place vault yield.
 
-The ceiling is the AuMM side itself. After Month 10, no new AuMM enters via bootstrap. Sustained buying without matching protocol stablecoin inflows eventually thins the AuMM side and widens spreads.
+The ceiling is the AuMM side itself. After Month 10, no new AuMM accrues via bootstrap, and once any carried backlog has drained none enters that way. Sustained buying without matching protocol stablecoin inflows eventually thins the AuMM side and widens spreads.
 
 ---
 
@@ -101,7 +101,7 @@ The ceiling is the AuMM side itself. After Month 10, no new AuMM enters via boot
 
 Aggregators route to depth. 1inch, Paraswap, and CoW route based on best execution, which is a function of slippage, which is a function of liquidity. The constellation's small-world topology, with svZCHF and ixEDEL as connectors, is latent until pools cross the depth at which aggregators begin splitting routes through them.
 
-Before that depth exists, three things bridge the gap. The founding team seeds pools with svZCHF and ixEDEL at launch, which gives every Miliarium pool ERC-4626 yield from block 0. Through Month 10, all live Miliarium pools split the LP tranche equally, so even a thin pool earns tokens. Anyone can pay for an Incendiary Boost: deposit svZCHF or sUSDS one-sided into Bodensee and a target pool gets a priority emission stream, running across as many consecutive epochs as the shared per-epoch cap requires.
+Before that depth exists, three things bridge the gap. The founding team seeds pools with svZCHF and ixEDEL at launch, which gives every Miliarium pool ERC-4626 yield from block 0. Through Month 10, all live Miliarium pools split the LP tranche equally, so even a thin pool earns tokens. Once Bodensee is initialized, anyone can pay for an Incendiary Boost: deposit svZCHF or sUSDS one-sided into Bodensee and a target pool gets a priority emission stream, running across as many consecutive epochs as the shared per-epoch cap requires.
 
 ### Who actually buys AuMM exposure?
 
@@ -123,7 +123,7 @@ Not investment advice. The thesis only works as long as swap volume, Bodensee de
 
 Governance is permitted three actions. None of them touch emission allocation.
 
-Gauge eligibility is not a governance action — a new pool becomes gauge-eligible permissionlessly the moment it satisfies the immutable criteria gate (4626 Quality Gate ≥52% by class-admitted weight under the TVL oracle's recorded rate providers, 10,000 svZCHF TVL on the latest completed day window at activation, creation by the Aureum weighted-pool factory, no self-referential tokens, not in recovery mode, role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, and registered on the protocol's fee-routing hook). A pool created by the factory with the fee approved to the gauge registry is gauged in its creation call, with no TVL required; a pool that passes the factory but fails a static criterion, or lacks the approval, is created ungauged and activated later. Anti-spam fee: 100 svZCHF or 125 sUSDS, one-sided into Bodensee, non-refundable once taken. No vote, no quorum.
+Gauge eligibility is not a governance action — a new pool becomes gauge-eligible permissionlessly the moment it satisfies the immutable criteria gate (4626 Quality Gate ≥52% by class-admitted weight under the TVL oracle's recorded rate providers, 10,000 svZCHF TVL on the latest completed day window at activation, creation by the Aureum weighted-pool factory, no self-referential tokens, not in recovery mode, role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, donation not enabled in its Vault configuration, and registered on the protocol's fee-routing hook). A pool created by the factory with the fee approved to the gauge registry is gauged in its creation call once der Bodensee is initialized, with no TVL required; a pool that passes the factory but fails a static criterion, lacks the approval, or is created before der Bodensee is initialized, is created ungauged and activated later. Anti-spam fee: 100 svZCHF or 125 sUSDS, one-sided into Bodensee, non-refundable once taken. No vote, no quorum.
 
 A gauge challenge revokes an existing non-Miliarium gauge. Deposit follows F-12: `max(10 BTC CHF equiv., 1,000,000 CHF × √((1−p_tvl)(1−p_eff)))`, never less than 1,000 svZCHF, one-sided into Bodensee. Threshold: simple majority, 20% quorum. Cannot target the 28 Miliarium pools.
 
@@ -131,15 +131,15 @@ A fee proposal changes a swap fee rate within its immutable band, Miliarium and 
 
 A composition challenge deprecates a Miliarium pool slot and replaces it with an already-deployed candidate pool of the same sector, risk profile, and template role. The proposal must reference the candidate's contract address (specified-pool model). Deposit: 1,000 svZCHF or 1,250 sUSDS. Threshold: 2/3 supermajority, 20% quorum. The slot persists, the pool at the slot can change.
 
-Every deposit is one-sided into Bodensee, non-refundable, denominated in svZCHF or sUSDS (1:1.25 ratio, proposer's choice). Below 20% quorum, the proposal auto-rejects. Governance power requires AuMT in a pool that confers weight (an active gauge, plus a gated EMA of at least 10,000 svZCHF for any pool outside the Miliarium) held continuously for at least 14 days, with a 6-month linear on-ramp to full weight, and any withdrawal at any time, even 1%, resets that position to zero.
+Every deposit is one-sided into Bodensee, non-refundable, denominated in svZCHF or sUSDS (1:1.25 ratio, proposer's choice). Below 20% quorum, the proposal auto-rejects. Governance power requires AuMT staked in a pool that confers weight (an active gauge, plus a gated TVL EMA of at least 10,000 svZCHF for any pool outside the Miliarium), staked continuously until the first epoch boundary at least 14 days after the stake, with a 6-month linear on-ramp to full weight, and any unstake at any time, even 1%, resets that position to zero.
 
 Governance cannot alter the emission schedule, halving math, CCB engine parameters, fee distribution split, Bodensee composition, dampening exponents, eligibility criteria, or any other immutable parameter.
 
 ### How does a new pool get gauged?
 
-Permissionlessly. There is no governance vote on gauging individual pools. A pool created by the Aureum weighted-pool factory is gauged in its creation call when it meets the static criteria — every criterion below except the TVL floor — and its creator has approved the anti-spam fee to the gauge registry, which takes it in that call. A pool that passes the factory but fails a static criterion, or whose creator has not approved the fee, is created ungauged and becomes gauge-eligible the moment it satisfies the immutable criteria gate, TVL included; any address can then activate it. Once gauged, it stays gauged until the discipline automatically revokes it or someone successfully revokes it through a Gauge Challenge.
+Permissionlessly. There is no governance vote on gauging individual pools. A pool created by the Aureum weighted-pool factory is gauged in its creation call, once der Bodensee is initialized, when it meets the static criteria — every criterion below except the TVL floor — and its creator has approved the anti-spam fee to the gauge registry, which takes it in that call. A pool that passes the factory but fails a static criterion, or whose creator has not approved the fee, or that is created before der Bodensee is initialized, is created ungauged and becomes gauge-eligible the moment it satisfies the immutable criteria gate, TVL included; any address can then activate it once der Bodensee is initialized. Once gauged, it stays gauged until the discipline automatically revokes it or someone successfully revokes it through a Gauge Challenge.
 
-The activation criteria. (1) The 4626 Quality Gate: at least 52% of pool weight in yield-bearing tokens whose ERC-4626 class is admitted to the Vault-Class Registry, each counting only under the rate provider the TVL oracle records for it. (2) Minimum TVL: 10,000 svZCHF on the latest completed day window — required at activation, not when a pool is gauged at creation. (3) No self-referential tokens — AuMM cannot be a pool component. (4) Created by the Aureum weighted-pool factory. (5) Not in recovery mode. (6) Role accounts renounced: `pauseManager`, `swapFeeManager` and `poolCreator` all zero. (7) A fee rail to der Bodensee: the pool holds svZCHF or sUSDS, or its recovery path was admitted at deployment. (8) A registered static swap fee within 0.01%–0.30%. (9) Registered on the protocol's fee-routing hook. All nine must hold simultaneously at activation (eight at creation, TVL excepted) and are enforced on-chain. After gauging only TVL is re-checked, from month 4, on the gated 60-day EMA; the rest are checked once.
+The activation criteria. (1) The 4626 Quality Gate: at least 52% of pool weight in yield-bearing tokens whose ERC-4626 class is admitted to the Vault-Class Registry, each counting only under the rate provider the TVL oracle records for it. (2) Minimum TVL: 10,000 svZCHF on the latest completed day window — required at activation, not when a pool is gauged at creation. (3) No self-referential tokens — AuMM cannot be a pool component. (4) Created by the Aureum weighted-pool factory. (5) Not in recovery mode. (6) Role accounts renounced: `pauseManager`, `swapFeeManager` and `poolCreator` all zero. (7) A fee rail to der Bodensee: the pool holds svZCHF or sUSDS, or its recovery path was admitted at deployment. (8) A registered static swap fee within 0.01%–0.30%. (9) Donation not enabled in the pool's Vault configuration. (10) Registered on the protocol's fee-routing hook. All ten must hold simultaneously at activation (nine at creation, TVL excepted) and are enforced on-chain. After gauging only TVL is re-checked, from month 4, on the gated 60-day TVL EMA; the rest are checked once.
 
 The gauging cost. A flat anti-spam fee — `antiSpamFee = 100 svZCHF` or 125 sUSDS — deposited one-sided into Bodensee. At creation the gauge registry takes it from the creator's allowance to the registry, and only when the static criteria pass; at activation it is non-refundable on success or any failed check. No vote, no quorum, no proposal. The fee exists to prevent zero-cost gauge farming.
 
@@ -151,7 +151,7 @@ What is NOT permissionless. The 28 Miliarium Aureum slots are locked at launch a
 
 ### Why fourth root, then cube root?
 
-Each pool that confers weight — an active gauge, and for a pool outside the Miliarium a gated EMA of at least 10,000 svZCHF — has weight `(pool_TVL_EMA)^(1/4)` in Era 0, transitioning permanently to `^(1/3)` at the first halving block; holders divide their pool's weight pro-rata by LP share, scaled by time-in-pool — so splitting a position across wallets changes nothing. Era 0 is when the protocol is still small enough that one whale LP could take most governance power from TVL share alone. The fourth root softens that. By year 4, natural TVL growth has done most of the work. The cube root matches lower capture risk in a larger ecosystem. The transition fires at one block: immutable, no vote.
+Each pool that confers weight — an active gauge, and for a pool outside the Miliarium a gated TVL EMA of at least 10,000 svZCHF — has weight `(pool_staked_EMA)^(1/4)` in Era 0, transitioning permanently to `^(1/3)` at the first halving block; holders divide their pool's weight pro-rata by their share of its qualified staked LP, scaled by time-in-pool — so splitting a position across wallets changes nothing. Era 0 is when the protocol is still small enough that one whale LP could take most governance power from TVL share alone. The fourth root softens that. By year 4, natural TVL growth has done most of the work. The cube root matches lower capture risk in a larger ecosystem. The transition fires at one block: immutable, no vote.
 
 ### Are there really no admin keys?
 
@@ -179,7 +179,7 @@ Inflating TVL with his own shitcoin can boost his EMA, but the EMA samples once 
 
 ### Why is the attack uneconomic even when technically possible?
 
-The capital that buys him governance weight is also his hostage. Any withdrawal, any amount, resets governance power to zero and restarts the 6-month on-ramp. So his real LP capital has to stay deposited for the entire duration of the attack, not just long enough to vote.
+The capital that buys him governance weight is also his hostage. Any unstake, any amount, resets governance power to zero and restarts the 6-month on-ramp. So his real LP capital has to stay staked for the entire duration of the attack, not just long enough to vote.
 
 To cash out farmed AuMM, he sells into Bodensee, where his sells push the price down against stablecoin reserves he didn't help build. Exit pressure works against farming profits.
 
@@ -221,7 +221,7 @@ Fifth, market apathy. A bear market at launch delays adoption while the halving 
 
 The fair-launch graveyard is mostly the same set of failures. SushiSwap had a backdoor: Chef Nomi controlled the dev fund and sold $14M, with admin keys hidden in the migration contract. It had a vampire dependency: rented liquidity that left when incentives faded. It had immediate governance capture: FTX/Alameda accumulated tokens and directed treasury spending. Underneath all that, SushiSwap was a commodity product. Same Uniswap V2 pairs, same architecture, no moat once incentives ran out.
 
-Aureum's answers are concrete. No admin keys (with the one-time Stage B exception above). No migration contract. No treasury wallet. AuMM is unmintable to any wallet. Constituent tokens, WBTC, cbBTC, PAXG, XAUt, ysyBOLD, stEURA, AAVE, LINK, trade $898M+ daily on chain, so volume isn't conditional on incentives. ERC-4626 native yield provides floor return at zero emissions. Governance requires active AuMT in pools that confer weight; it cannot be bought on an exchange. The halving curve is priced from day one. Multi-asset weighted pools with hooks and constellation routing don't exist on Uniswap, Curve, or Aerodrome.
+Aureum's answers are concrete. No admin keys (with the one-time Stage B exception above). No migration contract. No treasury wallet. AuMM is unmintable to any wallet. Constituent tokens, WBTC, cbBTC, PAXG, XAUt, ysyBOLD, stEURA, AAVE, LINK, trade $898M+ daily on chain, so volume isn't conditional on incentives. ERC-4626 native yield provides floor return at zero emissions. Governance requires AuMT staked in pools that confer weight; no governance token is sold, and AuMT, however acquired, confers no voting power until it is staked, and then only from its own qualification, rising over its on-ramp. The halving curve is priced from day one. Multi-asset weighted pools with hooks and constellation routing don't exist on Uniswap, Curve, or Aerodrome.
 
 ### How does Aureum compare to Yield Basis?
 

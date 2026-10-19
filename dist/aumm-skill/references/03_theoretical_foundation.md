@@ -1,11 +1,11 @@
-<!-- GENERATED FROM aumm-site@8e732563b0b6d567f6a77c06873fc262d67ec0cb 03_theoretical_foundation.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@9403cee1531a5910042df0455032bebea701febc 03_theoretical_foundation.md — DO NOT EDIT -->
 # Theoretical Foundations
 
 ## v. Research foundations
 
 The CCB draws on research across multiple disciplines:
 
-**Continuous Capital Corporation (CCC):** Dr. Luzius Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts this as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are algorithmic and immutable from block 0. No treasury wallet: **Months 1–10** bootstrap AuMM is one-sided into der Bodensee Pool only (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)); thereafter emissions accrue to LPs per the fixed rules.
+**Continuous Capital Corporation (CCC):** Dr. Luzius Meisser’s CCC thesis (*Essays in Decentralized Finance*, 2024) and Frankencoin (ZCHF) demonstrate that a protocol can operate as a fully autonomous corporation — pricing, issuing, and redeeming equity via fixed on-chain rules without discretionary management or a separate treasury. Aureum adopts this as its core design philosophy: emission allocation (CCB), reserve management (der Bodensee Pool), and fee routing are algorithmic and immutable from block 0. No treasury wallet: **Months 1–10** bootstrap AuMM accrues per block for der Bodensee Pool only and is delivered one-sided in bounded flushes once the pool is initialized (see [Protocol formulas — Bodensee bootstrap (F-0)](11_formulas.md)); thereafter emissions accrue to LPs per the fixed rules.
 
 **Layered liquidity-risk decomposition:** Sagix’s [four-layer framework](https://www.sagix.io/our-layer-framework/) treats DeFi liquidity risk as a stack of separable layers — venue, routing, anchor, reserve — rather than a single undifferentiated number. The [Sagix Miliarium Aureum](https://www.sagix.io/sagix-miliarium-aureum/), live on Balancer V3 Ethereum mainnet, operationalises that framework with **two** universal cross-pool connectors present in **26 of 28** pools: **svZCHF** as the **deeper, primary routing rail** (deterministic Rate-Provider pricing, yield-bearing ERC-4626, lowest slippage variance) and **ixEDEL** as the **secondary routing / arbitrage-extraction rail** whose NAV mint/redeem cycles bridge otherwise isolated asset clusters. svZCHF additionally serves as the fee-sink anchor (der Bodensee, governance deposits, Incendiary boosts, fee consolidation) — that fee-sink role sits on top of, not instead of, its cross-pool routing duty. Aureum inherits both anchors — see [Mental model (§iii — Dual anchors)](02_mental_model.md) — and stacks the CCB / EMA discipline layer on top of them.
 
@@ -165,11 +165,11 @@ Each **eligible** pool gets a **CCB score** combining its smoothed TVL (EMA) and
 
 The CCB turns scores into **shares**: each pool’s share is its score divided by the total score of all eligible pools. Allocation is **relative** — a pool’s emissions depend on how it ranks against every other eligible pool, not on a fixed percentage.
 
-der Bodensee Pool (AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30) receives **bootstrap** AuMM **Months 1–10** only (one-sided deposits, piecewise decay 80%→50%→0%; see [Miliarium Aureum registry (§xii — der Bodensee)](05_miliarium_aureum.md)). Its TVL is **excluded** from the CCB denominator so it does not dilute emission-eligible pool scores.
+der Bodensee Pool (AuMM/sUSDS/svZCHF three-token weighted pool, fixed 40/30/30) receives **bootstrap** AuMM accrued over **Months 1–10** only (one-sided, in bounded flushes once the pool is initialized; piecewise decay 80%→50%→0%; see [Miliarium Aureum registry (§xii — der Bodensee)](05_miliarium_aureum.md)). Its TVL is **excluded** from the CCB denominator so it does not dilute emission-eligible pool scores.
 
 ### 2. How the block emission flows
 
-**Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) is minted as one-sided AuMM into der Bodensee Pool. The **LP emission tranche** is split **evenly** across the live Miliarium pools — **1/M** each, **M** being the number deployed and gauged. No treasury wallet. Other pools may exist on the AMM but receive none of this tranche.
+**Through the end of Month 10:** each block, a **der Bodensee bootstrap** share (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10) accrues for der Bodensee Pool and is delivered as one-sided AuMM in bounded flushes once the pool is initialized. The **LP emission tranche** is split **evenly** across the live Miliarium pools — **1/M** each, **M** being the number deployed and gauged. No treasury wallet. Other pools may exist on the AMM but receive none of this tranche.
 
 **Months 11–12:** the protocol ramps from equal toward full CCB. Early in the window, mostly equal; by the last block of Year 1, fully CCB. At midpoint, half and half. Exact block math is fixed on-chain — see [Constitution (§xxviii)](10_constitution.md).
 
