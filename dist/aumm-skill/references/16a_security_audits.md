@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@9403cee1531a5910042df0455032bebea701febc 16a_security_audits.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@09f269038989b4745f5f7960310a0e7dd990172a 16a_security_audits.md — DO NOT EDIT -->
 # Security & Audits
 
 This chapter documents the formal security evaluation of **Seam 1 (Authority and Governance)** for the Aureum Protocol. The evaluation was conducted against a static snapshot of the codebase using the `auditician` automated verification harness alongside manual code review.

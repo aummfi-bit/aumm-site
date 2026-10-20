@@ -1,4 +1,4 @@
-<!-- GENERATED FROM aumm-site@9403cee1531a5910042df0455032bebea701febc 11_formulas.md — DO NOT EDIT -->
+<!-- GENERATED FROM aumm-site@09f269038989b4745f5f7960310a0e7dd990172a 11_formulas.md — DO NOT EDIT -->
 # Protocol Formulas
 
 *Every formula governing emission allocation, multiplier adjustment, governance power, and (for non-Miliarium targets) gauge-challenge deposits — organized by protocol phase. **All governance deposits** are **one-sided into der Bodensee Pool**; only amounts differ ([Constitution §xxvii](10_constitution.md)).*
@@ -93,7 +93,7 @@ Where **α** runs linearly from **0** at the first block of Month 11 to **1** at
 
 **Effect:** A pool that loses all TVL today retains ~50% of its signal after three weeks, ~25% after six. Low-pass filter: suppresses daily volatility, passes only the long-term capital signal. The protocol cannot be jolted into instant reallocation by a single day's movement.
 
-**Sampling cadence.** The EMA updates **once per `BLOCKS_PER_DAY` (7,200 blocks)**, not every block. Each sample is an **intra-day TWAP over the last `TWAP_WINDOW_BLOCKS` (720 blocks, ~2.4 hours at 12-second blocks) before the sample boundary**, not a single-block spot read. The TWAP eliminates block-timing manipulation at trivial gas cost; the accumulator pattern (running `cumulativeTVL` and `cumulativeBlock` updated on each swap/liquidity event) lets the sample be read as `(cumulativeTVL_now − cumulativeTVL_windowStart) / (cumulativeBlock_now − cumulativeBlock_windowStart)`, the window being the last `TWAP_WINDOW_BLOCKS`.
+**Sampling cadence.** The EMA updates **once per `BLOCKS_PER_DAY` (7,200 blocks)**, not every block. Each sample is an **intra-day TWAP over the last `TWAP_WINDOW_BLOCKS` (720 blocks, ~2.4 hours at 12-second blocks) before the sample boundary**, not a single-block spot read. The TWAP eliminates block-timing manipulation: each pool's hook keeps **per-token balance records**, every swap recording every token's live balance and every add or remove recording the pool's balances, and the sample values the pool on each token's balance averaged over the window, the window being the last `TWAP_WINDOW_BLOCKS` before the day boundary.
 
 **Update rule.** Using canonical constants from Constitution §xxix (`EMA_ALPHA_NUMERATOR = 2`, `EMA_ALPHA_DENOMINATOR = 61`):
 
@@ -101,9 +101,9 @@ Where **α** runs linearly from **0** at the first block of Month 11 to **1** at
 alpha = 2 / 61                                            // ≈ 0.0328
 
 // Triggered once per BLOCKS_PER_DAY (permissionless call; deterministic math):
-if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:
-    twapTVL = (cumulativeTVL[pool].atBlock(block.number) − cumulativeTVL[pool].atBlock(block.number − TWAP_WINDOW_BLOCKS))
-              / TWAP_WINDOW_BLOCKS
+if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:          // and the pool has a window TVL (Recovery mode, below)
+    twapTVL = svZCHF value of the pool's window-average balances      // Valuation, below
+              // window = the last TWAP_WINDOW_BLOCKS before the day boundary
 
     tvlEMA[pool] = (EMA_ALPHA_NUMERATOR × twapTVL
                  + (EMA_ALPHA_DENOMINATOR − EMA_ALPHA_NUMERATOR) × tvlEMA[pool])
@@ -113,9 +113,9 @@ if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:
     lastEMAUpdateBlock[pool] = block.number
 ```
 
-The EMA runs **per pool** independently. Half-life is approximately 21 days. Gas cost: ~50k per pool per day for the EMA update, plus negligible accumulator updates on each swap/liquidity event.
+The EMA runs **per pool** independently. Half-life is approximately 21 days. Gas cost: an EMA update stays under **10,000,000 gas** for every Miliarium pool deployed at launch, and every swap pays for its per-token balance records. **Recovery mode.** A pool the Vault reports in recovery mode has **no window TVL**: its EMA does not advance, it prices nothing for other pools, and gauge discipline gives it no verdict ([Bootstrap](08_bootstrap.md) §xxiii). Once it leaves recovery mode it reads again only after a **clean write**, a balance record made outside recovery mode, **and then a full window**. A gauge activation attempted before then fails its TVL read, and its anti-spam fee is spent.
 
-**Valuation.** TVL is denominated in svZCHF and read from each pool's Vault balances averaged over the TWAP window, with no external price feed. Each leg is priced by its underlying's weighted balance ratio against svZCHF across the constellation's venues, directly or through one hop token (der Bodensee is a venue for AuMM alone), and only when the pool registers it under the rate provider the TVL oracle records for its token, none for a plain token; a leg under any other provider is unpriced. A leg with no such price is valued at the pool's own normalized weights against its priced legs, but only when those carry at least half the pool, which caps the extrapolation at twice the priced value; a new base token therefore needs no mapping, while a new ERC-4626 token maps to its asset once its vault class is admitted, under a rate provider the TVL oracle deploys on the vault's own `convertToAssets`, composed with its asset's recorded provider.
+**Valuation.** TVL is denominated in svZCHF and read from each pool's per-token balance records averaged over the TWAP window, with no external price feed. Each leg is priced by its underlying's weighted balance ratio against svZCHF across the constellation's venues, read on the same window, directly or through one hop token (der Bodensee is a venue for AuMM alone), and only when the pool registers it under the rate provider the TVL oracle records for its token, none for a plain token; a leg under any other provider is unpriced. A venue with no window TVL under Recovery mode above, one whose pool data cannot be read and one reading a zero balance on either side are skipped, so AuMM, which no gauged pool may hold, leaving der Bodensee its only venue, is unpriced while der Bodensee is in recovery mode and, after its exit, until a full window has passed after its next swap, add or bootstrap flush. A leg with no such price is valued at the pool's own normalized weights against its priced legs, but only when those carry at least half the pool, which caps the extrapolation at twice the priced value; a new base token therefore needs no mapping, while a new ERC-4626 token maps to its asset once its vault class is admitted, under a rate provider the TVL oracle deploys on the vault's own `convertToAssets`, composed with its asset's recorded provider.
 
 ---
 
@@ -228,8 +228,8 @@ time_factor_c = 0                                         while block < qualify_
 **Effect:** **Ranked pools** are ordered by efficiency ratio: gauged pools whose gated EMA meets the 10,000 svZCHF floor, that are **not Disqualified**, and that hold a Miliarium slot or are past their own month 12. A non-slot pool in months 1–12 takes no rank position, and no efficiency cap applies to it until its own month 13. The **bottom 15%** take hard emission caps by band, and the excess a capped pool cannot take flows to the uncapped pools pro-rata by CCB share ([Bootstrap](08_bootstrap.md) §xxiii). The **top 15%** form the **favored cohort**, exposed as a view and marked by events; it carries no allocation precedence and no cap. Activates at month 13 — a slot holder's from the genesis month-13 start (`MONTH_13_START_BLOCK`), any other pool's from month 13 of its own life, counted from its creation block (genesis pools from `GENESIS_BLOCK`).
 
 ```
-efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)
-                         / emissions_received_i
+efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)   // svZCHF, each fee priced on the latest completed window
+                         / emissions_received_i                        // svZCHF, the AuMM priced on the latest completed window
 // 3-epoch (6-week) moving average
 
 // ranked pool = gauged AND gated EMA ≥ 10,000 svZCHF AND not Disqualified
@@ -253,7 +253,7 @@ pro-rata by CCB share.
 
 Caps constrain the least efficient pools, never the most productive. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and take the most severe cap.
 
-Ranking membership is re-evaluated at each tournament epoch boundary; the criteria checked once at creation or activation are not re-tested. Price-agnostic — numerator (revenue) and denominator (emissions) measured in the same unit. See [Bootstrap (§xxiii)](08_bootstrap.md).
+Ranking membership is re-evaluated at each tournament epoch boundary; the criteria checked once at creation or activation are not re-tested. Revenue and emissions are both in svZCHF, each priced on the latest completed window when it is recorded, so the ratio carries AuMM's price; the ranking is relative, and a uniform move in AuMM's price keeps the order within an epoch. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
 ---
 
@@ -306,11 +306,11 @@ The two CHF terms convert at **svZCHF's own ERC-4626 rate**, CHF read as ZCHF an
 
 **BTC/CHF reference price source.** BTC is a **unit of account** here, not a payment currency — the yardstick the deposit size is measured against, deliberately chosen because BTC tracks purchasing power across cycles better than any USD-denominated figure. A "10-BTC-equivalent deposit" remains economically meaningful at $40K BTC and at $200K BTC. Nothing about BTC changes hands; the deposit is always paid in svZCHF (or 1.25× in sUSDS) one-sided into der Bodensee.
 
-The BTC/CHF rate is the **mean** of the prices of the two `BTC_WRAPPERS` tokens, WBTC and cbBTC, fixed at deployment (see Constitution §xxix). Each is priced on the **latest completed day window**, the 720-block TWAP ending at a day boundary, by its weighted balance ratio against svZCHF's rate-scaled balance, its ZCHF value, across the constellation's venues — the Miliarium pools — directly or through one hop token, so the price is read in ZCHF. A wrapper with no price on that window is left out of the mean; with neither priced, term (1) is zero and the larger of (2) and (3) stands. A Miliarium pool holding a wrapper, such as one a composition challenge seats, joins the price from the first completed day window after its balances are recorded, with no contract change; a pool outside the constellation never prices it, and no governance action changes the set.
+The BTC/CHF rate is the **mean** of the prices of the two `BTC_WRAPPERS` tokens, WBTC and cbBTC, fixed at deployment (see Constitution §xxix). Each is priced on the **latest completed day window**, the 720-block TWAP ending at a day boundary, by its weighted balance ratio against svZCHF's rate-scaled balance, its ZCHF value, across the constellation's venues — the Miliarium pools — directly or through one hop token, so the price is read in ZCHF. A wrapper with no price on that window is left out of the mean; with neither priced, term (1) is zero and the larger of (2) and (3) stands. A Miliarium pool holding a wrapper, such as one a composition challenge seats, joins the price from the first completed day window after its balances are recorded, with no contract change; a pool outside the constellation never prices it, and no governance action changes the set. A composition challenge whose seat would leave a wrapper with no Miliarium venue must declare that loss, and once it executes that wrapper drops out of the mean ([Constitution §xxvii](10_constitution.md)).
 
 **Why a day window, and what backstops it:**
 - A window cannot be moved inside the challenge's own block: shifting it means holding a skewed BTC price against arbitrage through the 720 blocks (~2.4 hours) before a day boundary, and the price bought lasts only until the next.
-- At genesis one venue holds the wrappers, ixAurebit (slot 14, WBTC and cbBTC at 16% each), so no cross-venue average dilutes a skew. The largest-of-three rule backstops a low BTC reading: if manipulation pushes (1) toward zero, (2) and the (3) floor keep the deposit meaningful, and the challenger's maximum refuses a challenge that a skew has priced above it.
+- At genesis one venue holds the wrappers, ixAurebit (slot 14, WBTC and cbBTC at 16% each), so no cross-venue average dilutes a skew. A composition challenge replacing ixAurebit with a pool holding neither wrapper declares both lost and leaves term (1) at zero until a Miliarium pool holds one again. The largest-of-three rule backstops a low BTC reading: if manipulation pushes (1) toward zero, (2) and the (3) floor keep the deposit meaningful, and the challenger's maximum refuses a challenge that a skew has priced above it.
 - The contract never enumerates the gauges: the challenger proves the target's ranks (below) at a fixed cost per witness, so no number of gauges makes a challenge unpriceable.
 
 **Elite tail convention:** **p_tvl** and **p_eff** use **rank / N** (not CDF-from-bottom). Among **all active gauges** (Miliarium and Disqualified pools included), **N** = count of active gauges. Rank by the **gated TVL EMA**, the F-4 EMA with its maturity, sample-count and staleness gates applied, never spot TVL; **rank 1** = highest → **p_tvl = rank / N**. Independently rank by **efficiency ratio** as in F-10 (3-epoch moving average), a pool with no emissions having no ratio and ranking below every pool with one; **rank 1** = highest efficiency → **p_eff = rank / N**. **Ties** break on address: the lower pool contract address ranks higher.
