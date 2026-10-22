@@ -104,6 +104,13 @@ if block.number ≥ lastEMAUpdateBlock[pool] + BLOCKS_PER_DAY:          // and t
     twapTVL = svZCHF value of the pool's window-average balances      // Valuation, below
               // window = the last TWAP_WINDOW_BLOCKS before the day boundary
 
+    // Catch-up (one-sided): each day skipped since the last update steps toward the lesser of
+    // twapTVL and the EMA, so a gap lowers the EMA a step a day but raises it one step only;
+    // an update takes at most 60 steps in all, the ordinary step included
+    repeat min(days elapsed since lastEMAUpdateBlock[pool], 60) − 1 times:
+        tvlEMA[pool] = (2 × min(twapTVL, tvlEMA[pool]) + 59 × tvlEMA[pool]) / 61
+
+    // Then the ordinary step toward the window:
     tvlEMA[pool] = (EMA_ALPHA_NUMERATOR × twapTVL
                  + (EMA_ALPHA_DENOMINATOR − EMA_ALPHA_NUMERATOR) × tvlEMA[pool])
                  / EMA_ALPHA_DENOMINATOR
@@ -157,6 +164,7 @@ emission_from_CCB_i = Remaining(block) × CCB_share_i
 alpha = 2 / (60 + 1)                                           // ≈ 0.0328
 TVL_EMA(pool, today) = alpha × TVL_twap(pool, today)            // F-4's TWAP_WINDOW_BLOCKS sample
                      + (1 - alpha) × TVL_EMA(pool, yesterday)
+// days skipped between calls are caught up by F-4's one-sided rule (F-4, Update rule)
 
 // Step 1 — Incendiary priority skim
 Incendiary_total = Σ active Incendiary Boost claims this block
@@ -216,7 +224,7 @@ time_factor_c = 0                                         while block < qualify_
               = 1                                         from the first block of epoch c
 ```
 
-**pool_staked_EMA** is the 60-day exponential moving average of the pool's staked value, kept beside the F-4 TVL EMA — never a spot value: each sample is the pool's F-4 TVL TWAP times its qualified staked LP over its LP supply averaged over the same window, and it carries the TVL EMA's maturity, sample and staleness gates, so a pool whose staked-value EMA is unseeded or younger than 60 days confers zero power. **pool_qualified_LP** is the pool's staked LP past its qualification boundaries — qualified-only: neither LP that is not staked nor a tranche still inside its qualification period dilutes the holders who count. **The tranches c** are the holder's staked LP in the pool: each stake joins the tranche of epoch c, the 14-day epoch in which its block plus the on-ramp falls, so stakes whose 180 days end in the same epoch share one tranche, LP_c being their LP, latest_c their latest stake block, average_c the LP-weighted average of their stake blocks and qualify_c the first epoch boundary at least 14 days after latest_c. No stake counts before that boundary, so a stake begins to count after 14 to 28 days; a later stake in the same tranche can delay an earlier one by at most one epoch but never shortens a wait; and any unstake clears every tranche, the LP that stays staked starting one tranche at the unstake block. LP held but not staked confers no power. Only pools that confer weight carry power: the pool's gauge must be active (registered and not revoked), and a pool that holds no Miliarium slot also needs its gated TVL EMA — the F-4 EMA with its maturity, sample and staleness gates applied — at or above 10,000 svZCHF; slot holders are exempt from the floor. A Disqualified pool keeps its LPs' weight, since disqualification stops emissions, not weight; weight ends at revocation — automatic, or by governance, since a Disqualified pool stays an active gauge and can still be revoked — or when the TVL EMA falls below the floor. Transition occurs at the halving block. Both exponents are immutable.
+**pool_staked_EMA** is the 60-day exponential moving average of the pool's staked value, kept beside the F-4 TVL EMA and stepped with it by F-4's rule, a gap's one-sided catch-up included — never a spot value: each sample is the pool's F-4 TVL TWAP times its qualified staked LP over its LP supply averaged over the same window, and it carries the TVL EMA's maturity, sample and staleness gates, so a pool whose staked-value EMA is unseeded or younger than 60 days confers zero power. **pool_qualified_LP** is the pool's staked LP past its qualification boundaries — qualified-only: neither LP that is not staked nor a tranche still inside its qualification period dilutes the holders who count. **The tranches c** are the holder's staked LP in the pool: each stake joins the tranche of epoch c, the 14-day epoch in which its block plus the on-ramp falls, so stakes whose 180 days end in the same epoch share one tranche, LP_c being their LP, latest_c their latest stake block, average_c the LP-weighted average of their stake blocks and qualify_c the first epoch boundary at least 14 days after latest_c. No stake counts before that boundary, so a stake begins to count after 14 to 28 days; a later stake in the same tranche can delay an earlier one by at most one epoch but never shortens a wait; and any unstake clears every tranche, the LP that stays staked starting one tranche at the unstake block. LP held but not staked confers no power. Only pools that confer weight carry power: the pool's gauge must be active (registered and not revoked), and a pool that holds no Miliarium slot also needs its gated TVL EMA — the F-4 EMA with its maturity, sample and staleness gates applied — at or above 10,000 svZCHF; slot holders are exempt from the floor. A Disqualified pool keeps its LPs' weight, since disqualification stops emissions, not weight; weight ends at revocation — automatic, or by governance, since a Disqualified pool stays an active gauge and can still be revoked — or when the TVL EMA falls below the floor. Transition occurs at the halving block. Both exponents are immutable.
 
 ---
 
@@ -224,14 +232,14 @@ time_factor_c = 0                                         while block < qualify_
 
 **Purpose:** Rank gauged pools by capital efficiency and cap the emissions of the least efficient, so emissions flow to productive pools without penalising any pool during AuMM price appreciation.
 
-**Effect:** **Ranked pools** are ordered by efficiency ratio: gauged pools whose gated EMA meets the 10,000 svZCHF floor, that are **not Disqualified**, and that hold a Miliarium slot or are past their own month 12. A non-slot pool in months 1–12 takes no rank position, and no efficiency cap applies to it until its own month 13. The **bottom 15%** take hard emission caps by band, and the excess a capped pool cannot take flows to the uncapped pools pro-rata by CCB share ([Bootstrap](08_bootstrap.md) §xxiii). The **top 15%** form the **favored cohort**, exposed as a view and marked by events; it carries no allocation precedence and no cap. Activates at month 13 — a slot holder's from the genesis month-13 start (`MONTH_13_START_BLOCK`), any other pool's from month 13 of its own life, counted from its creation block (genesis pools from `GENESIS_BLOCK`).
+**Effect:** **Ranked pools** are ordered by efficiency ratio: gauged pools whose matured EMA meets the 10,000 svZCHF floor, that are **not Disqualified**, and that hold a Miliarium slot or are past their own month 12. A non-slot pool in months 1–12 takes no rank position, and no efficiency cap applies to it until its own month 13. The **bottom 15%** take hard emission caps by band, and the excess a capped pool cannot take flows to the uncapped pools pro-rata by CCB share ([Bootstrap](08_bootstrap.md) §xxiii). The **top 15%** form the **favored cohort**, exposed as a view and marked by events; it carries no allocation precedence and no cap. Activates at month 13 — a slot holder's from the genesis month-13 start (`MONTH_13_START_BLOCK`), any other pool's from month 13 of its own life, counted from its creation block (genesis pools from `GENESIS_BLOCK`).
 
 ```
 efficiency_ratio(pool_i) = (swap_fee_revenue_i + yield_fee_revenue_i)   // svZCHF, each fee priced on the latest completed window
                          / emissions_received_i                        // svZCHF, the AuMM priced on the latest completed window
 // 3-epoch (6-week) moving average
 
-// ranked pool = gauged AND gated EMA ≥ 10,000 svZCHF AND not Disqualified
+// ranked pool = gauged AND matured EMA ≥ 10,000 svZCHF AND not Disqualified
 //               AND (holds a Miliarium slot OR past its own month 12)
 
 sort ranked pools descending by efficiency_ratio
@@ -244,13 +252,14 @@ cap(pool_i) = 0.1% of total protocol emissions   if rank_i is in the bottom 5%
             = 0.5%                                if rank_i is in the bottom 10–5%
             = 1%                                  if rank_i is in the bottom 15–10%
             = none                                otherwise
-// a pool with a zero efficiency_ratio takes the 0.1% cap
+// a pool with a zero efficiency_ratio takes the 0.1% cap, unless the highest ratio
+// is zero: that epoch then writes no caps and every pool keeps its previous cap
 
 excess from every capped pool flows to the uncapped pools
 pro-rata by CCB share.
 ```
 
-Caps constrain the least efficient pools, never the most productive. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and take the most severe cap.
+Caps constrain the least efficient pools, never the most productive. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and take the most severe cap. The exception is a tournament in which every ranked pool's ratio is zero, as in a protocol-wide fee outage: it writes no caps, and every pool keeps the cap it had.
 
 Ranking membership is re-evaluated at each tournament epoch boundary; the criteria checked once at creation or activation are not re-tested. Revenue and emissions are both in svZCHF, each priced on the latest completed window when it is recorded, so the ratio carries AuMM's price; the ranking is relative, and a uniform move in AuMM's price keeps the order within an epoch. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
