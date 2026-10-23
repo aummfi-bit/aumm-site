@@ -261,7 +261,7 @@ pro-rata by CCB share.
 
 Caps constrain the least efficient pools, never the most productive. Pools with effectively zero tournament revenue place at the bottom of the ladder by construction and take the most severe cap. The exception is a tournament in which every ranked pool's ratio is zero, as in a protocol-wide fee outage: it writes no caps, and every pool keeps the cap it had.
 
-Ranking membership is re-evaluated at each tournament epoch boundary; the criteria checked once at creation or activation are not re-tested. Revenue and emissions are both in svZCHF, each priced on the latest completed window when it is recorded, so the ratio carries AuMM's price; the ranking is relative, and a uniform move in AuMM's price keeps the order within an epoch. See [Bootstrap (§xxiii)](08_bootstrap.md).
+Ranking membership is re-evaluated at each tournament epoch boundary; the criteria checked once at creation or activation are not re-tested. The revenue counted is what the fee-routing hook routes to der Bodensee and credits to the pool. Revenue and emissions are both in svZCHF, each priced on the latest completed window when it is recorded, so the ratio carries AuMM's price; the ranking is relative, and a uniform move in AuMM's price keeps the order within an epoch. See [Bootstrap (§xxiii)](08_bootstrap.md).
 
 ---
 
