@@ -18,7 +18,7 @@ A pool becomes eligible for AuMM emissions only once it has a gauge, and a gauge
 
 **Permissionless activation.** A pool created ungauged — or restarting after an automatic revocation (§xxiii) — is activated later. Activation is **permissionless** — any address can call **`activateGauge(pool, payToken)`** once the pool meets all immutable eligibility criteria (Quality Gate ≥52% by class-admitted weight under the TVL oracle's recorded rate providers with every rate-provided leg paying yield fees, a TVL of at least 10,000 svZCHF on the latest completed day window, creation by the Aureum weighted-pool factory, forbidden-token block clear, not in recovery mode, all role accounts renounced, a fee rail to der Bodensee, a registered swap fee within 0.01%–0.30%, donation not enabled in its Vault configuration, and registered on the protocol's fee-routing hook) and the **anti-spam fee** is paid, which needs der Bodensee initialized. Activation, unlike gauging at creation, **does require the 10,000 svZCHF TVL**. A pool that has left recovery mode has no day-window TVL until a clean balance record and then a full window have passed ([F-4](11_formulas.md)); an activation before then fails, and its anti-spam fee is spent.
 
-**Without an active gauge: no emissions, no Incendiary Boost.** The contract enforces qualification — no governance vote admits a gauge.
+**Without an active gauge: no CCB emissions, and the pool cannot be boosted** (a boost sold before its revocation completes). The contract enforces qualification — no governance vote admits a gauge.
 
 **Eligibility criteria are immutable.** A gauge cannot start, at creation or by activation, unless every immutable criterion that applies is satisfied at that block. Afterwards the **Anti-Gaming Engine** (§xxiii) re-evaluates one structural criterion only — the **ongoing TVL check**, from month 4 of the pool's life, on the gated 60-day EMA — alongside the age-banded volume discipline. The 52% Quality Gate, composition, factory provenance, fee band and every other criterion are checked once, at creation or activation, and not again; recovery mode is read again each epoch only to withhold the verdict, a pool in recovery mode, or out of it until a clean balance record and then a full window have passed ([F-4](11_formulas.md)), getting no verdict that epoch. Governance cannot waive, modify, or relax these rules. The contract is the gate; no governance signal substitutes for criteria compliance.
 
@@ -28,14 +28,14 @@ Core emission allocation remains automatic and immutable.
 
 ### Sandbox
 
-**Sandbox** is the permissionless default. Any pool without an active gauge operates in Sandbox — one created ungauged, one deployed through another factory, or one whose gauge was automatically revoked. Zero CCB emissions, no Incendiary Boost eligibility, and **no rank in either ranking**: the volume census and the Efficiency Tournament walk only gauged pools. Anyone can build and demonstrate performance before activating a gauge.
+**Sandbox** is the permissionless default. Any pool without an active gauge operates in Sandbox — one created ungauged, one deployed through another factory, or one whose gauge was automatically revoked. Zero CCB emissions, it cannot be boosted (a boost sold before its revocation completes), and **no rank in either ranking**: the volume census and the Efficiency Tournament walk only gauged pools. Anyone can build and demonstrate performance before activating a gauge.
 
 ### The Bootstrapping Sequence
 
 | Phase | Days | Driver | Purpose |
 |-------|------|--------|---------|
 | Gauging | At creation, or once criteria met; once der Bodensee is initialized | Gauged in the Aureum factory's creation call (static criteria + anti-spam fee approved to the gauge registry), or permissionless `activateGauge(pool, payToken)` + anti-spam fee | Quality gate — pool must pass criteria; no governance vote |
-| Incendiary Boost | Once der Bodensee is initialized | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the protocol fee sink to boost a pool |
+| Incendiary Boost | From the first block after Year 1, der Bodensee initialized | svZCHF/sUSDS deposit into der Bodensee | Proof of conviction — anyone can deepen the protocol fee sink to boost a pool |
 | CCB allocation | Once active — ongoing | 60-day EMA | Emissions tracked by smoothed TVL via the standard CCB |
 
 All other layers require an active gauge first. A successful pool builds TVL into its EMA over its first epochs, and the CCB takes over seamlessly. Failed pools lose the EMA weight and die naturally.
@@ -46,18 +46,18 @@ All other layers require an active gauge first. A successful pool builds TVL int
 
 ## xxii. Incendiary Boost
 
-Proof-of-conviction bootstrap. Anyone deposits **any amount** of svZCHF/sUSDS **one-sided into der Bodensee Pool**. In return, the target pool receives a supplementary AuMM emission stream for **1 epoch (14 days)**, starting at the **next epoch boundary**. The deposit amount is entirely at the paying user's discretion — conviction capital sacrificed to deepen the protocol fee sink.
+Proof-of-conviction bootstrap. Anyone deposits **any amount** of svZCHF/sUSDS **one-sided into der Bodensee Pool**. In return, the target pool receives a supplementary AuMM emission stream starting at the **next epoch boundary** and running across as many consecutive epochs as the shared cap requires. The deposit amount is entirely at the paying user's discretion — conviction capital sacrificed to deepen the protocol fee sink.
 
 ### Rules
 
 - **Any gauged pool** can be boosted.
 - **Anyone** can pay for a boost — not limited to pool operators.
 - **Stacking is additive.** A pool can be boosted any number of times, and concurrent boosts on the same pool sum rather than queue — allocations are additive per (epoch, pool). A new boost does not wait for an earlier one to finish; boosts compete only for the shared per-epoch bucket.
-- **Deposit amount:** user's choice. The full amount goes one-sided into der Bodensee Pool — no LP tokens minted, non-refundable.
+- **Deposit amount:** user's choice. The full amount goes one-sided into der Bodensee Pool — no LP tokens minted, non-refundable. **A sold boost completes:** its remaining epochs deliver to the boosted pool's staked LPs even if the pool is later revoked, by a challenge or automatically, Disqualified or in recovery mode.
 
 ### Priority Skim
 
-Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priority claims on the **LP emission tranche** — **after** the der Bodensee bootstrap skim in Months 1–10 (piecewise decay: 80%→50% by Month 6, 50%→0% by Month 10; see [Protocol formulas (F-0)](11_formulas.md); zero thereafter). The protocol calculates total AuMM required for all active boosts, subtracts from the LP tranche, distributes the remainder via equal split or CCB. Every active Incendiary Boost directly reduces emissions to all other pools. The depositor's svZCHF/sUSDS deepens der Bodensee in exchange for skipping the EMA queue.
+Total emissions are fixed (BTC-style hard cap), so Incendiary Boosts are priority claims on the **LP emission tranche** — purchases open at the first block after Year 1, after the der Bodensee bootstrap skim of Months 1–10 ([Protocol formulas (F-0)](11_formulas.md)) has ended, so a boost draws on the full block emission. The protocol calculates total AuMM required for all active boosts, subtracts from the LP tranche, distributes the remainder via CCB. Every active Incendiary Boost directly reduces emissions to all other pools. The depositor's svZCHF/sUSDS deepens der Bodensee in exchange for skipping the EMA queue.
 
 ### Immutable Parameters
 

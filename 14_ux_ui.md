@@ -112,7 +112,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 ## lii. Incendiary Boost
 
-- [ ] **Active boosts** — which pools have active Incendiary Boost, epoch remaining, emission rate, deposit amount
+- [ ] **Active boosts** — which pools have active Incendiary Boost, epochs remaining, emission rate, deposit amount
 - [ ] **Boost history** — past Incendiary Boost activations, svZCHF/sUSDS deposited, emission delivered, pool performance during boost
 - [ ] **Priority skim impact** — how much of the current block emission is allocated to Incendiary claims vs CCB remainder
 

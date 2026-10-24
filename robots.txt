@@ -254,7 +254,7 @@ Allow: /
 # - Miliarium Aureum — 28 genesis pools (not a closed market); Composition Challenge for slot replacement; F-12 for non-Miliarium gauge challenges
 # - AuMM — reward token (21M max, halving schedule); AuMT — LP tessera, conferring weight and emissions while staked; governance weight to zero when gauge revoked or, outside the Miliarium, below the 10,000 svZCHF floor
 # - Aequilibrium — AMM engine (Balancer-class design layer); substrate, not the product
-# - Incendiary Boost — svZCHF/sUSDS to der Bodensee, 1-epoch priority emission skim
+# - Incendiary Boost — svZCHF/sUSDS to der Bodensee from the first block after Year 1; stacking priority emission skim spanning as many epochs as the shared cap requires
 # - ixEDEL / routing — constellation routing (see glossary and miliarium docs)
 #
 # Internal-only repo files (not in llms-full.txt): editorial_sprints.md, script.md

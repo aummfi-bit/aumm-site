@@ -56,7 +56,7 @@ Where **i** ranges over the 28 Miliarium Aureum pools.
 
 **Purpose:** Anyone deposits svZCHF/sUSDS one-sided into der Bodensee Pool in exchange for a supplementary emission stream for a gauged pool, starting at the next epoch boundary — from the same fixed block emission, not new inflation. The deposit buys an entitlement, not a fixed window: a larger deposit spans more consecutive epochs rather than a larger single-epoch stream.
 
-**Effect:** Incendiary claims are subtracted from the **LP emission tranche** (after F-0’s bootstrap skim) **before** the tranche splits across pools (equal or CCB). Whatever remains is what equal split or CCB allocates. One boost per pool per epoch.
+**Effect:** Incendiary claims are subtracted from the **LP emission tranche** **before** the tranche splits across pools by CCB. Whatever remains is what CCB allocates. Purchases open at the first block after Year 1, so no claim falls in Months 1–12, when F-0's bootstrap skim, F-1's equal split and F-3's blend apply; boosts on one pool stack (below).
 
 ```
 lp_tranche(block) = lp_share(block) × block_emission(block)
@@ -64,7 +64,7 @@ lp_tranche(block) = lp_share(block) × block_emission(block)
 Remaining(block) = lp_tranche(block) − Incendiary_claims(block)
 ```
 
-Deposit amount at user discretion; full amount one-sided into der Bodensee Pool, non-refundable. Placement is FCFS walk-forward: from the next epoch boundary each epoch allocates `min(remaining entitlement, bucket capacity left)`, carrying the remainder forward until exhausted, so a boost spans as many consecutive epochs as the cap requires. All pools draw from **one shared bucket** capped at **15% of that epoch's emission integral** — integral form rather than `rate × BLOCKS_PER_EPOCH` because epochs straddle halvings — which is the anti-drought guard protecting ordinary LPs. Boosts stack: allocations are additive per (epoch, pool), with no per-pool limit.
+Deposit amount at user discretion; full amount one-sided into der Bodensee Pool, non-refundable. Placement is FCFS walk-forward: from the next epoch boundary each epoch allocates `min(remaining entitlement, bucket capacity left)`, carrying the remainder forward until exhausted, so a boost spans as many consecutive epochs as the cap requires. All pools draw from **one shared bucket** capped at **15% of that epoch's emission integral** — integral form rather than `rate × BLOCKS_PER_EPOCH` because epochs straddle halvings — which is the anti-drought guard protecting ordinary LPs. Boosts stack: allocations are additive per (epoch, pool), with no per-pool limit. **A sold boost completes:** its remaining epochs deliver to the boosted pool's staked LPs even if the pool is later revoked, by a challenge or automatically, Disqualified or in recovery mode; only a new purchase requires an active gauge.
 
 ---
 
@@ -74,13 +74,13 @@ Deposit amount at user discretion; full amount one-sided into der Bodensee Pool,
 
 **Purpose:** Shift from equal to full CCB over two months, avoiding overnight emission shocks.
 
-**Effect:** Each pool's share of the **post-Incendiary LP tranche** (F-2) blends its equal share (1/M, M counting the live Miliarium pools) with its CCB-derived share; a non-Miliarium pool takes no equal share, only its CCB leg. **α** rises linearly from zero (pure equal) to one (pure CCB). At midpoint, half and half. During Months 11–12, **bodensee_share = 0** — LP tranche equals full block emission before Incendiary.
+**Effect:** Each pool's share of the **LP emission tranche** blends its equal share (1/M, M counting the live Miliarium pools) with its CCB-derived share; a non-Miliarium pool takes no equal share, only its CCB leg. **α** rises linearly from zero (pure equal) to one (pure CCB). At midpoint, half and half. During Months 11–12, **bodensee_share = 0** and no Incendiary claim is skimmed, boosts opening at the first block after Year 1 (F-2), so the LP tranche equals the full block emission.
 
 ```
 share_i(block) = (1 − α(block)) × (1/M) × [i is Miliarium] + α(block) × CCB_share_i(block)
 ```
 
-Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime (CCB multiplier and Incendiary inside the CCB leg where applicable). Multiply **share_i** by **Remaining(block)** from F-2 to get AuMM to pool **i** for this leg.
+Where **α** runs linearly from **0** at the first block of Month 11 to **1** at the last block of Year 1. **CCB_share_i** uses the same score logic as the post–Year-1 regime, CCB multiplier included. Multiply **share_i** by **Remaining(block)** from F-2, the whole LP tranche here since boosts open only after Year 1, to get AuMM to pool **i** for this leg.
 
 ---
 
