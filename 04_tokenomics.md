@@ -132,7 +132,7 @@ Fourth root (Era 0) then cube root (Era 1) dampens whale dominance — maximum c
 - Gauge challenges (with timelock)
 - Miliarium Aureum composition challenges and empty-slot fills (2/3 supermajority)
 - Vault-class admission (proposal-with-veto) and revocation (simple majority)
-- Emergency levers: Vault authorizer change and pool pause (2/3 supermajority); pool unpause, Vault unpause and recovery-mode disable (simple majority), per [Constitution §xxvii](10_constitution.md)
+- Emergency levers: Vault authorizer change, which installs the one governance-only authorizer fixed at deployment and is final once used, and pool pause, within each pool's own pause window, four years from the factory's deployment for every pool Aureum's factory creates (2/3 supermajority); Vault unpause, recovery-mode disable and pool unpause, which also lifts recovery mode (simple majority), per [Constitution §xxvii](10_constitution.md)
 
 **What governance cannot control:** Emission schedule, maximum supply, CCB engine parameters, governance dampening transition, eligibility criteria, fee distribution split, der Bodensee Pool parameters, and all launch mechanics. Immutable in contract. Full list: [Immutable Parameters (§xxix)](10_constitution.md).
 

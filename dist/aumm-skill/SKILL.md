@@ -60,11 +60,11 @@ Aureum governance covers **ten** actions — not just gauge and composition chal
 3. **Composition Challenge** — replace a Miliarium asset in-slot, like-for-like, or fill an empty slot; 2/3 supermajority.
 4. **Vault-Class Registry Admission** — admit a new ERC-4626 token class; proposal-with-veto.
 5. **Vault-Class Revocation** — revoke an admitted class; simple majority.
-6. **Vault Authorizer Change** — replace the Vault's authorizer; 2/3 supermajority.
-7. **Pool Pause** — pause a batch of pools; 2/3 supermajority.
-8. **Pool Unpause** — simple majority, creatable only while the pools are paused.
+6. **Vault Authorizer Change** — install the one governance-only authorizer fixed at deployment, final once installed; 2/3 supermajority.
+7. **Pool Pause** — pause a batch of pools, each within its own pause window, four years from the factory's deployment for every pool Aureum's factory creates; 2/3 supermajority.
+8. **Pool Unpause** — simple majority, creatable only while the pools are paused; also lifts recovery mode, save on a pool whose rate read fails, and cannot execute while the Vault is paused.
 9. **Vault Unpause** — simple majority, creatable only while the Vault is paused.
-10. **Recovery-Mode Disable** — simple majority, creatable only while the pools are in recovery mode.
+10. **Recovery-Mode Disable** — simple majority, creatable only while the pools are in recovery mode; cannot execute while the Vault or a named pool is paused, and skips a pool whose rate read fails.
 
 Gauging is not a vote: a pool is gauged in its creation call or by permissionless activation, behind an anti-spam fee. Every proposal deposit is one-sided into der Bodensee (1,000 svZCHF or 1,250 sUSDS, a gauge challenge's per F-12; non-refundable; no LP tokens minted to the proposer). Turnout: 20% of total qualified voting power, measured at the proposal's snapshot block. Source: `references/10_constitution.md` §xxvii and `references/04_tokenomics.md` §ix.
 

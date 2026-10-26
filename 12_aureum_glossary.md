@@ -28,7 +28,7 @@ Keep **“mechanically”** only for non-price processes that are literally auto
 
 ## xxxi-a. Protocol Time
 
-- **Block numbers are canonical.** All contract logic measures time in `block.number`. Calendar terms in this documentation — month, year, week, day, epoch, "90 days," "14 days," "60-day EMA" — are aliases for block counts. See [Constitution §xxix](10_constitution.md) for the full canonical time-constant table.
+- **Block numbers are canonical.** All contract logic measures time in `block.number`, save the Balancer V3 substrate's own pause clocks — the Vault's pause window and buffer and each pool's pause window — which are timestamps; governance reads a pool's window only to refuse a pause past it. Calendar terms in this documentation — month, year, week, day, epoch, "90 days," "14 days," "60-day EMA" — are aliases for block counts. See [Constitution §xxix](10_constitution.md) for the full canonical time-constant table.
 - **Protocol month** = `BLOCKS_PER_MONTH = 219,000` blocks (~30.4 calendar days at 12-second blocks). One-twelfth of a protocol year.
 - **Protocol year** = `BLOCKS_PER_YEAR = 2,628,000` blocks = 365 calendar days exactly. One-quarter of a protocol era.
 - **Protocol epoch** = `BLOCKS_PER_EPOCH = 100,800` blocks = 14 calendar days ("bi-weekly"). Used as the Incendiary Boost's placement unit, and for CCB multiplier cadence, efficiency tournament smoothing, and fee-change cooldown.
@@ -94,9 +94,9 @@ Keep **“mechanically”** only for non-price processes that are literally auto
 ## xxxiv. Controls (Immutable)
 
 - no admin keys
-- no multisig — **except** a bounded emergency-pause window held by the Stage B multisig for `BLOCKS_PER_YEAR` blocks (~12 months) from the governance-migration block, after which the multisig has no authority anywhere, ever again, any position it holds as a liquidity provider carrying the same rights as any other LP's and no more (see [Constitution §xxix](10_constitution.md) governance subsection)
+- no multisig — **except** a bounded emergency-pause window held by the Stage B multisig for `BLOCKS_PER_YEAR` blocks (~12 months) from the governance-migration block, which a governance Vault Authorizer Change may end early, after which the multisig has no authority anywhere, ever again, any position it holds as a liquidity provider carrying the same rights as any other LP's and no more (see [Constitution §xxix](10_constitution.md) governance subsection)
 - no upgradeability
-- no pause function (user-facing); emergency-only Vault pause available during the 12-month window above
+- no pause function (user-facing); emergency-only Vault pause available during the 12-month window above, a pause set inside it clearing itself at the end of the Vault's pause window plus a 90-day buffer
 - no voting over emissions
 - no external oracle dependency for core operation
 

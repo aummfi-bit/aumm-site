@@ -73,17 +73,18 @@ The scope for Seam 1 covers the protocol's authority routing, governance executi
 
 Review agenda (questions, not settled claims): [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).
 
-Aureum enforces a strict decentralization roadmap. Post-deployment permissions are partitioned between automated governance logic and temporary emergency multisig controls; every pool role account is the zero address, and every other deployment slot is sealed or burned by the deployment itself.
+Aureum enforces a strict decentralization roadmap. Post-deployment permissions are partitioned between automated governance logic, a keyless recovery trigger and temporary emergency multisig controls; every pool role account is the zero address, and every other deployment slot is sealed or burned by the deployment itself.
 
 ### Post-Stage K Authority Architecture
 
-* **`EMERGENCY_MULTISIG`:** Exercises temporary operational oversight strictly constrained by a ~12-month block window after authorizer deployment.
+* **`EMERGENCY_MULTISIG`:** Exercises temporary operational oversight strictly constrained by a ~12-month block window after authorizer deployment. The principal is a contract, neither an EIP-7702-delegated account nor `AureumGovernance` or the deploying account, and installing the governance-only authorizer ends its role early.
 * **`AureumGovernance`:** The primary operational authority, executing passed proposals of the types [Constitution](10_constitution.md) §xxvii lists; it holds no upgrade path and no general call.
 * **Pool role accounts:** `pauseManager` and `swapFeeManager` are the zero address on every pool; pausing a pool is a governance proposal.
+* **`RecoveryTrigger`:** A keyless contract anyone may call: it puts a pool into recovery mode once its rate read reverts or reads zero at two blocks within a span, and clears recovery mode from a pool it entered once neither the Vault nor the pool is paused and the rate reads healthy; the authorizer grants it those two actions with no window.
 
 ### Emergency Window Decay
 
-Compliance with [Constitution](10_constitution.md) §xxix requires that all emergency administrative powers expire automatically. In `AureumGovernanceAuthorizer`, emergency override paths are gated by a strict **block-number** condition:
+Compliance with [Constitution](10_constitution.md) §xxix requires that all emergency administrative powers expire automatically. In `AureumGovernanceAuthorizer`, whose two grants to the keyless `RecoveryTrigger`, recovery-mode entry and exit, are held by no key and carry no window, emergency override paths are gated by a strict **block-number** condition:
 
 ```
 block.number < EMERGENCY_WINDOW_END_BLOCK
@@ -94,7 +95,7 @@ where `EMERGENCY_WINDOW_END_BLOCK = block.number_at_deploy + EMERGENCY_WINDOW_BL
 ### Governance Mutation Surfaces
 
 * **`setGovernanceContract`:** The setup-phase rebind of each seat to `AureumGovernance`, run once in the deployment; afterwards each seat is burned or held by `AureumGovernance`, whose proposal types include no call to it.
-* **`Vault.setAuthorizer`:** Executable exclusively via a formal `VaultAuthorizerChange` proposal passed by token holder consensus.
+* **`Vault.setAuthorizer`:** Executable exclusively via a formal `VaultAuthorizerChange` proposal passed by token holder consensus, which can install only the governance-only authorizer fixed at deployment; once it is installed the authorizer is final.
 
 *Note: The complete, itemized principal-to-action capability matrix represents an internal operational artifact tied to commit `9ec513d`. Public documentation publishes the review methodology and verified boundary proofs below; the seed questions are in [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).*
 

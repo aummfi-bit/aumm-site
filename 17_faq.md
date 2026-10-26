@@ -154,9 +154,9 @@ Each pool that confers weight — an active gauge, and for a pool outside the Mi
 
 ### Are there really no admin keys?
 
-Multisig has emergency-only role for ~12 months (`BLOCKS_PER_YEAR`), then dies permanently. Contracts become fully immutable—no admin keys, upgrades, pauses, or authority. Purpose: safe launch then decentralization.
+Multisig has emergency-only role for ~12 months (`BLOCKS_PER_YEAR`), then dies permanently, or earlier if governance installs the governance-only authorizer. Contracts become fully immutable—no admin keys, upgrades or key-held authority; a Vault pause set inside the window clears itself at most 90 days after the Vault's pause window ends, and after the window only governance proposals pause and unpause pools, a pause only within the pool's own pause window, four years from the factory's deployment for every pool Aureum's factory creates. Purpose: safe launch then decentralization.
 
-Actions allowed are emergency-only for ~12 months (`BLOCKS_PER_YEAR`), then gone: pause pools/vault, kill gauges (stop emissions), recovery mode, disable factories, denylist tokens—pure exploit containment, not operations. No upgrades, fee changes, parameter edits, fund routing, or mandate extension. After that window: fully immutable; no admin path.
+Actions allowed are emergency-only for ~12 months (`BLOCKS_PER_YEAR`), then gone: pausing and unpausing the Vault and entering and clearing recovery mode—pure exploit containment, not operations. No upgrades, fee changes, parameter edits, fund routing, or mandate extension. After that window no key holds any action: governance proposals pause and unpause pools and clear recovery mode, and a keyless trigger puts a pool whose rate read fails into recovery mode and clears it once the rate heals.
 
 ---
 
