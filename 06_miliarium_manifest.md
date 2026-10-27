@@ -55,7 +55,7 @@ Slot **01 (ixHelvetia):** **80% svZCHF / 20% sUSDS** Frankencoin MMA only ([Mili
 
 ## xv. Status Tracking
 
-All pools initialise at **Active**, and a Miliarium slot holder **stays Active**: it is exempt from both discipline stages — never Warned, Disqualified, or revoked by the discipline. The exemption keys on **holding a slot**, so a composition replacement is exempt from the block it is seated. Slot holders still rank in the volume census and the Efficiency Tournament, and take the efficiency caps from the genesis month-13 start. Warning and Disqualified are states of the non-slot discipline ([Bootstrap §xxiii](08_bootstrap.md)). The 28 slots are permanent — the count never decreases.
+All pools initialise at **Active** (each seeded only if its roles are renounced, it carries the fee-routing hook and its swap fee is in band), and a Miliarium slot holder **stays Active**: it is exempt from both discipline stages — never Warned, Disqualified, or revoked by the discipline. The exemption keys on **holding a slot**, so a composition replacement is exempt from the block it is seated. Slot holders still rank in the volume census and the Efficiency Tournament, and take the efficiency caps from the genesis month-13 start. Warning and Disqualified are states of the non-slot discipline ([Bootstrap §xxiii](08_bootstrap.md)). The 28 slots are permanent — the count never decreases.
 
 ```
 Active ⇄ Composition Challenge (deprecate-and-replace)

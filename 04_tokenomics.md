@@ -42,7 +42,7 @@ Eligibility for AuMM emissions is criteria-gated, not vote-gated. The primary cr
 
 > The 52% quality-gate numerator equals the sum of pool weights assigned to ERC-4626 tokens whose class is admitted in the Vault-Class Registry and which the pool registers under the non-zero rate provider the TVL oracle records for the token. All other token weights — including ERC-4626 tokens whose class is not admitted, admitted tokens registered under any other provider, and admitted tokens for which the oracle records no provider, one not yet mapped among them — count toward the ≤48% complement. Every leg a pool registers with a rate provider must pay yield fees for the pool to be gauged, whether or not it counts toward the 52%.
 >
-> The Quality Gate is checked once, when a pool is gauged — in its creation call or at activation — against the registry as it stands then; class admissions and revocations take effect at the next epoch boundary, and a gauged pool is not re-tested against the gate. The one structural criterion re-evaluated afterwards is TVL: from month 4 of a pool's life, its gated 60-day EMA must stay at or above 10,000 svZCHF (see [Bootstrap](08_bootstrap.md) §xxiii).
+> The Quality Gate is checked when a pool is gauged — in its creation call, at activation or, for a composition candidate, at proposal and again at execution — against the registry as it stands then; a class admission or revocation counts from its execution, the registry being read live, and a gauged pool keeps its gauge without being re-tested against the gate, so a revocation removes no gauge. The one structural criterion re-evaluated afterwards is TVL: from month 4 of a pool's life, its gated 60-day EMA must stay at or above 10,000 svZCHF (see [Bootstrap](08_bootstrap.md) §xxiii).
 
 ### Per-Block Streaming
 
@@ -182,7 +182,7 @@ der Bodensee Pool is the protocol's fee sink and AuMM trading venue — a **thre
 | Weights | **40% AuMM / 30% sUSDS / 30% svZCHF** (fixed, no time-decay) |
 | Swap fee | **0.75%**, fully retained **in pool** for der Bodensee LPs |
 | ERC-4626 yield share | **60% of pool TVL** (sUSDS + svZCHF) earns native vault yield |
-| Emission eligibility | **None** — AuMM cannot sit in an emission-eligible pool (no self-referential tokens) |
+| Emission eligibility | **None** — AuMM cannot sit in an emission-eligible pool, nor can der Bodensee's BPT or an ERC-4626 whose asset is either (no self-referential tokens) |
 
 There is no governance-voted multiple, no TVL measurement window, no stabilization inventory, no buyback, and no burn. Whoever initializes der Bodensee sets its founding ratio, and arbitrage corrects it; from then on the ratio of AuMM to stablecoins in the pool **is** the price, and weighted-pool math handles it organically.
 

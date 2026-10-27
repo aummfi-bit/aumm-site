@@ -10,7 +10,7 @@
 
 ## Phase 2 - Equal regime (through Month 10)
 
-- deploy and seed the 28 Miliarium pools
+- deploy and seed 26 of the 28 Miliarium pools, slots 4 and 7 left open
 - activate der Bodensee bootstrap emission (piecewise linear: 80% at genesis → 50% at end of Month 6 → 0% at end of Month 10; one-sided AuMM per [Protocol formulas (F-0)](11_formulas.md)), accruing per block and delivered in bounded flushes once der Bodensee is initialized
 - initialize der Bodensee from the Stage B multisig as soon as it can after emissions start, with AuMM it earns as a staked liquidity provider of a Miliarium pool; the multisig keeps the founding BPT as an ordinary LP position
 - activate equal 1/M of the **LP emission tranche** across the live Miliarium pools through end of Month 10

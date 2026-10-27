@@ -55,11 +55,11 @@ The 28 Miliarium Aureum pools have a different governance path for structural ch
 
 Aureum governance covers **ten** actions — not just gauge and composition challenges. List them when asked about governance scope:
 
-1. **Gauge Challenge** — revoke an existing non-Miliarium gauge; simple majority; F-12 deposit.
+1. **Gauge Challenge** — revoke an existing non-Miliarium gauge, a passed challenge executing even after the pool's automatic revocation; simple majority; F-12 deposit.
 2. **Fee Proposals** — change a Miliarium or non-Miliarium gauged pool's swap-fee rate within its immutable band; simple majority. der Bodensee's 0.75% and the 10% yield skim are fixed.
 3. **Composition Challenge** — replace a Miliarium asset in-slot, like-for-like, or fill an empty slot; 2/3 supermajority.
 4. **Vault-Class Registry Admission** — admit a new ERC-4626 token class; proposal-with-veto.
-5. **Vault-Class Revocation** — revoke an admitted class; simple majority.
+5. **Vault-Class Revocation** — revoke an admitted class, from its execution, for pools not yet gauged; simple majority.
 6. **Vault Authorizer Change** — install the one governance-only authorizer fixed at deployment, final once installed; 2/3 supermajority.
 7. **Pool Pause** — pause a batch of pools, each within its own pause window, four years from the factory's deployment for every pool Aureum's factory creates; 2/3 supermajority.
 8. **Pool Unpause** — simple majority, creatable only while the pools are paused; also lifts recovery mode, save on a pool whose rate read fails, and cannot execute while the Vault is paused.
