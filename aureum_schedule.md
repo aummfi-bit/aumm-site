@@ -6,7 +6,7 @@
 
 - finalize AuMM token with 21,000,000 hard cap
 - implement per-block emission with halving every 10,512,000 blocks
-- deploy immutable contracts with no admin, no multisig, no upgrade path
+- deploy immutable contracts with no admin or multisig beyond the one-time emergency window, no upgrade path
 
 ## Phase 2 - Equal regime (through Month 10)
 

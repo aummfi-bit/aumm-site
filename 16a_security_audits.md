@@ -73,7 +73,7 @@ The scope for Seam 1 covers the protocol's authority routing, governance executi
 
 Review agenda (questions, not settled claims): [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).
 
-Aureum enforces a strict decentralization roadmap. Post-deployment permissions are partitioned between automated governance logic, a keyless recovery trigger and temporary emergency multisig controls; every pool role account is the zero address, and every other deployment slot is sealed or burned by the deployment itself.
+Aureum enforces a strict decentralization roadmap. During the deployment, before the handoff to governance, the Stage B multisig's authorizer grants it one Vault action, the authorizer change, with the deployment's verification as the control (see `Vault.setAuthorizer` below). Post-deployment permissions are partitioned between automated governance logic, a keyless recovery trigger and temporary emergency multisig controls; every pool role account is the zero address, and every other deployment slot is sealed or burned by the deployment itself. Every slot that checks its target for code, the governance contract's seat in `AureumGovernanceAuthorizer` among them, also refuses an EIP-7702 delegation designator, so a delegated account cannot be seated where a contract is expected; the weighted-pool factory's gauge-registry seat is the exception, and the deployment's verification reads it back.
 
 ### Post-Stage K Authority Architecture
 
@@ -95,7 +95,7 @@ where `EMERGENCY_WINDOW_END_BLOCK = block.number_at_deploy + EMERGENCY_WINDOW_BL
 ### Governance Mutation Surfaces
 
 * **`setGovernanceContract`:** The setup-phase rebind of each seat to `AureumGovernance`, run once in the deployment; afterwards each seat is burned or held by `AureumGovernance`, whose proposal types include no call to it.
-* **`Vault.setAuthorizer`:** Executable exclusively via a formal `VaultAuthorizerChange` proposal passed by token holder consensus, which can install only the governance-only authorizer fixed at deployment; once it is installed the authorizer is final.
+* **`Vault.setAuthorizer`:** Before the handoff to governance, during the deployment, the Stage B multisig's `AureumAuthorizer` grants it this one action on the one Vault it was built for, by which the deployment installs `AureumGovernanceAuthorizer`. Because `setAuthorizer` accepts any authorizer and the grant never sees which, the grant bounds the key rather than removing it: the multisig could install a permissive authorizer, make other Vault-admin writes and restore the expected one before the handoff is checked. The control is the deployment's verification, which reads back the Vault writes governance cannot undo, not those it can, such as a roster pool's static swap fee or a pause or recovery state; and once the expected fee controller is restored, it cannot see that an interim one so installed collected the aggregate fees accrued before the handoff. After the handoff it is executable exclusively via a formal `VaultAuthorizerChange` proposal passed by token holder consensus, which can install only the governance-only authorizer fixed at deployment; once it is installed the authorizer is final.
 
 *Note: The complete, itemized principal-to-action capability matrix represents an internal operational artifact tied to commit `9ec513d`. Public documentation publishes the review methodology and verified boundary proofs below; the seed questions are in [`THREAT-MODEL-SEED.md`](https://aumm.fi/audit/seam-1/THREAT-MODEL-SEED.md).*
 

@@ -35,7 +35,7 @@ The architecture deserves a second run under a clean economic model. Project Aur
 - **Mining is LP.** Productive capital in, tokens out. No rewards for staking AuMM. No bribe markets.
 - **Anti-capture by design.** Governance power derives exclusively from staked LP positions with a 6-month on-ramp.
 - **Ethereum only.** Single chain. Maximum composability and aggregator coverage.
-- **Immutable.** No multisig, no admin keys, no upgradeability, no pause. No emission voting; governance exists only for non-emission actions.
+- **Immutable.** No multisig or admin keys beyond the one-time emergency window, no upgradeability, and no pause held by a key beyond that window ([Constitution §xxix](10_constitution.md)). No emission voting; governance exists only for non-emission actions.
 - **Continuous Capital Corporation.** Fully autonomous, rule-based — no discretionary treasury, no manual intervention. Capital allocation (CCB) and reserve management (der Bodensee Pool) are algorithmic and on-chain. Aligned with Dr. Luzius Meisser's CCC thesis and Frankencoin's implementation.
 
 ## ii-a. The Roman Infrastructure

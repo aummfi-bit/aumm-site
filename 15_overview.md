@@ -95,8 +95,8 @@ Two tracks, depending on what you need:
 - Constitutional capital market (AMM substrate, not the product)
 - Fair launch
 - Immutable from block 0
-- No multisig
-- No admin keys
+- No multisig beyond the one-time emergency window ([Constitution §xxix](10_constitution.md))
+- No admin keys beyond that window
 - No voting over emissions
 - Oracle-free core operation
 
