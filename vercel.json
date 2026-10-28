@@ -6,6 +6,14 @@
       "maxDuration": 60
     }
   },
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "www.aumm.fi" }],
+      "destination": "https://aumm.fi/:path",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*\\.md)",
