@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sagix Pools Trading Map</title>
+<style>
+:root{--bg:#0e0e0c;--card:#1c1c19;--line:#34342e;--text:#f0f0ec;--muted:#9a9a92;--gold:#ffb000;--gold2:#b07a00;--teal:#3fb6a8;--blue:#7aa2ff;--red:#e5534b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Calibri,Carlito,"Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 60px}
+h1{font-family:Cambria,Caladea,Georgia,serif;font-weight:600;font-size:34px;margin:6px 0 4px}
+h2{font-family:Cambria,Caladea,Georgia,serif;font-weight:600;font-size:22px;margin:0 0 12px}
+.kicker{color:var(--gold);font-weight:700;letter-spacing:.18em;font-size:12px;text-transform:uppercase}
+.sub{color:var(--muted);max-width:820px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 28px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi b{display:block;font-family:Cambria,Caladea,Georgia,serif;font-size:28px;color:var(--gold);line-height:1.1}
+.kpi span{color:var(--muted);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}}
+svg text{font-family:Calibri,Carlito,"Segoe UI",system-ui,sans-serif}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:13px;margin-top:8px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+ul.find{margin:0;padding-left:18px}ul.find li{margin-bottom:10px}
+.hl{color:var(--gold);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{color:var(--muted);font-weight:600;text-align:left;border-bottom:1px solid var(--line);padding:8px 8px}
+td{border-bottom:1px solid var(--line);padding:8px 8px;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.bar{height:14px;border-radius:3px;background:var(--gold)}
+.barrow{display:grid;grid-template-columns:230px 1fr 270px;gap:10px;align-items:center;margin:8px 0}
+@media(max-width:620px){.barrow{grid-template-columns:1fr}}
+.muted{color:var(--muted)}a{color:var(--gold)}
+.note{border-left:none;background:#151512;border:1px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--muted)}
+code{font-size:13px;color:var(--text)}
+</style></head><body><div class="wrap">
+<div class="kicker">Balancer V3 · Ethereum mainnet · Feb–Jun 2026</div>
+<h1>How trades moved across the Sagix pools</h1>
+<p class="sub">Every swap on the five Sagix pools, grouped by transaction. When one transaction swaps in two pools, the token passed between them is the bridge. Source: Balancer API pool events and Blockscout transaction data.</p>
+<div class="kpis" id="kpis"></div>
+
+<div class="grid2">
+ <div class="card"><h2>The map</h2>
+  <svg id="net" viewBox="0 0 760 470" width="100%" role="img" aria-label="Network of the five Sagix pools with cross-pool transaction links"></svg>
+  <div class="legend"><span><i class="sw" style="background:var(--blue)"></i>link bridged by ixEDEL</span><span><i class="sw" style="background:var(--teal)"></i>link bridged by svZCHF</span><span>line width = number of cross-pool hops · circle size = swaps</span></div>
+ </div>
+ <div class="card"><h2>What it shows</h2><ul class="find" id="find"></ul></div>
+</div>
+
+<div class="grid2">
+ <div class="card"><h2>Most common cross-pool routes</h2><div class="scroll"><table id="routes"></table></div></div>
+ <div class="card"><h2>Bridge token between pools</h2><div id="bridge"></div>
+  <h2 style="margin-top:22px">Tokens most traded</h2><div id="legs"></div></div>
+</div>
+
+<div class="card"><h2>Who sent the trades</h2><div id="cats"></div>
+ <div class="scroll" style="margin-top:14px"><table id="entries"></table></div></div>
+
+<div class="card"><h2>When: swaps per week, by pool</h2>
+ <svg id="weeks" viewBox="0 0 1000 300" width="100%" role="img" aria-label="Weekly swaps per pool"></svg>
+ <div class="legend" id="wlegend"></div></div>
+
+<div class="card"><h2>The five pools</h2><div class="scroll"><table id="pools"></table></div></div>
+
+<div class="note" id="caveats"></div>
+<p class="muted" style="font-size:13px;margin-top:16px">Method: swaps from <code>api-v3.balancer.fi</code> poolEvents (USD values as recorded at trade time); transaction sender and entry contract from <code>eth.blockscout.com</code>. Cross-pool = one transaction with swaps in two or more of these pools. Bridge = the output token of one leg used as the input of the next. Built 8 Nov 2026.</p>
+</div>
+<script>
+const D = {"kpi": {"swaps": 239, "txs": 191, "vol": 1084.97, "fees": 0.24, "traders": 87, "first": "19 Feb 2026", "last": "25 Jun 2026"}, "pools": [{"id": "0x37081447540b194d8e9aa2df95309dc830da8f11", "name": "80/20 ixEDEL-USDC", "tokens": ["USDC", "ixEDEL"], "swaps": 52, "vol": 171.85, "fees": 0.069, "median": 1.95, "added": 10911.42, "removed": 11464.94, "first_swap": "20 Feb", "last_swap": "12 May", "lp_events": [["19 Feb", "ADD", 13.62], ["19 Feb", "ADD", 151.8], ["31 Mar", "ADD", 501.14], ["31 Mar", "ADD", 10232.46], ["16 Apr", "REMOVE", 906.85], ["16 Apr", "REMOVE", 412.36], ["12 May", "ADD", 12.4], ["12 May", "REMOVE", 101.33], ["12 May", "REMOVE", 10031.96], ["25 Jun", "REMOVE", 12.44]]}, {"id": "0xd10d96730cbe56b7dc22cd69b1b8f325f929c8fe", "name": "ixFORUM", "tokens": ["LDO", "SKY", "ixEDEL", "sUSDS", "svZCHF"], "swaps": 71, "vol": 403.06, "fees": 0.081, "median": 5.3, "added": 2318.36, "removed": 2409.66, "first_swap": "11 Mar", "last_swap": "16 Apr", "lp_events": [["10 Mar", "ADD", 100.5], ["27 Mar", "ADD", 95.93], ["31 Mar", "ADD", 548.82], ["01 Apr", "ADD", 1573.11], ["16 Apr", "REMOVE", 2409.66]]}, {"id": "0x1967a1db66872356601f3fa5dd632a8240fbb87a", "name": "ixAQUA", "tokens": ["XAUT", "cbBTC", "ixEDEL", "svZCHF", "waUSDT"], "swaps": 33, "vol": 99.79, "fees": 0.014, "median": 2.58, "added": 1912.89, "removed": 1957.68, "first_swap": "21 Mar", "last_swap": "16 Apr", "lp_events": [["18 Mar", "ADD", 99.53], ["27 Mar", "ADD", 279.08], ["31 Mar", "ADD", 294.97], ["01 Apr", "ADD", 1239.32], ["16 Apr", "REMOVE", 1957.68]]}, {"id": "0xe408b69ff6e7036c095449ab458e61219b5d8ae4", "name": "ixSTRATA", "tokens": ["AAVE", "LINK", "ixEDEL", "svZCHF", "waGHO"], "swaps": 78, "vol": 342.26, "fees": 0.068, "median": 3.89, "added": 2236.96, "removed": 2295.4, "first_swap": "11 Mar", "last_swap": "16 Apr", "lp_events": [["10 Mar", "ADD", 100.3], ["27 Mar", "ADD", 99.92], ["31 Mar", "ADD", 101.75], ["01 Apr", "ADD", 1330.55], ["01 Apr", "ADD", 604.44], ["16 Apr", "REMOVE", 2295.4]]}, {"id": "0x849d43118c2e3c4856af26ee96f1a9d72bc2774f", "name": "svZCHF/ZCHF", "tokens": ["ZCHF", "svZCHF"], "swaps": 5, "vol": 68.02, "fees": 0.007, "median": 2.98, "added": 4514.99, "removed": 4783.08, "first_swap": "09 Mar", "last_swap": "28 Mar", "lp_events": [["19 Feb", "ADD", 236.59], ["10 Mar", "REMOVE", 155.45], ["06 Apr", "ADD", 11.76], ["06 Apr", "ADD", 1153.58], ["07 Apr", "ADD", 3113.07], ["23 Apr", "REMOVE", 311.21], ["30 Apr", "REMOVE", 4316.42]]}], "multi": 45, "edges": [{"a": "80/20 ixEDEL-USDC", "b": "ixSTRATA", "n": 19, "bridge": {"ixEDEL": 19}}, {"a": "80/20 ixEDEL-USDC", "b": "ixFORUM", "n": 12, "bridge": {"ixEDEL": 11}}, {"a": "80/20 ixEDEL-USDC", "b": "ixAQUA", "n": 7, "bridge": {"ixEDEL": 7}}, {"a": "ixFORUM", "b": "ixSTRATA", "n": 6, "bridge": {"svZCHF": 2, "ixEDEL": 2}}, {"a": "ixSTRATA", "b": "svZCHF/ZCHF", "n": 2, "bridge": {"svZCHF": 2}}, {"a": "ixAQUA", "b": "ixFORUM", "n": 1, "bridge": {"svZCHF": 1}}, {"a": "ixAQUA", "b": "ixSTRATA", "n": 1, "bridge": {"svZCHF": 1}}], "bridge": {"ixEDEL": 39, "svZCHF": 6}, "routes": [{"route": "USDC \u2192 ixEDEL \u2192 LINK   via 80/20 ixEDEL-USDC + ixSTRATA", "n": 5, "vol": 14.85}, {"route": "USDC \u2192 ixEDEL \u2192 LDO   via 80/20 ixEDEL-USDC + ixFORUM", "n": 5, "vol": 36.7}, {"route": "AAVE \u2192 ixEDEL \u2192 USDC   via ixSTRATA + 80/20 ixEDEL-USDC", "n": 5, "vol": 9.83}, {"route": "USDC \u2192 ixEDEL \u2192 waGHO   via 80/20 ixEDEL-USDC + ixSTRATA", "n": 3, "vol": 3.1}, {"route": "cbBTC \u2192 ixEDEL \u2192 USDC   via ixAQUA + 80/20 ixEDEL-USDC", "n": 3, "vol": 1.66}, {"route": "USDC \u2192 ixEDEL \u2192 waUSDT   via 80/20 ixEDEL-USDC + ixAQUA", "n": 2, "vol": 2.8}, {"route": "LINK \u2192 ixEDEL \u2192 USDC   via ixSTRATA + 80/20 ixEDEL-USDC", "n": 2, "vol": 9.41}, {"route": "USDC \u2192 ixEDEL \u2192 AAVE   via 80/20 ixEDEL-USDC + ixSTRATA", "n": 2, "vol": 4.74}, {"route": "SKY \u2192 ixEDEL \u2192 USDC   via ixFORUM + 80/20 ixEDEL-USDC", "n": 2, "vol": 0.87}, {"route": "waGHO \u2192 ixEDEL \u2192 USDC   via ixSTRATA + 80/20 ixEDEL-USDC", "n": 2, "vol": 4.25}, {"route": "AAVE \u2192 svZCHF \u2192 ZCHF   via ixSTRATA + svZCHF/ZCHF", "n": 2, "vol": 4.39}, {"route": "LDO \u2192 ixEDEL \u2192 USDC   via ixFORUM + 80/20 ixEDEL-USDC", "n": 1, "vol": 5.93}], "cats": [{"cat": "Bots and unlabelled contracts", "txs": 106, "vol": 448.75, "multi": 31}, {"cat": "Aggregators, solvers, bridges", "txs": 53, "vol": 311.07, "multi": 7}, {"cat": "Balancer routers (direct)", "txs": 28, "vol": 157.48, "multi": 6}, {"cat": "Smart wallets", "txs": 4, "vol": 21.81, "multi": 1}], "entries": [{"entry": "1inch AggregationRouterV6", "cat": "Aggregators, solvers, bridges", "txs": 33, "vol": 249.91, "multi": 1}, {"entry": "Balancer V3 Router", "cat": "Balancer routers (direct)", "txs": 18, "vol": 95.69, "multi": 0}, {"entry": "NftFarmStrategy (0x26d7\u202678d7)", "cat": "Bots and unlabelled contracts", "txs": 16, "vol": 26.97, "multi": 11}, {"entry": "ProposerMulticall (0x9ccc\u2026b294)", "cat": "Bots and unlabelled contracts", "txs": 15, "vol": 89.36, "multi": 0}, {"entry": "contract (0x3057\u2026cccc)", "cat": "Bots and unlabelled contracts", "txs": 12, "vol": 109.52, "multi": 0}, {"entry": "contract (0x009A\u20261b57)", "cat": "Bots and unlabelled contracts", "txs": 11, "vol": 41.3, "multi": 4}, {"entry": "Balancer V3 BatchRouter", "cat": "Balancer routers (direct)", "txs": 10, "vol": 61.79, "multi": 6}, {"entry": "CoW Protocol (GPv2Settlement)", "cat": "Aggregators, solvers, bridges", "txs": 8, "vol": 9.11, "multi": 6}, {"entry": "contract (0xaF68\u20261f7d)", "cat": "Bots and unlabelled contracts", "txs": 6, "vol": 40.11, "multi": 4}, {"entry": "contract (0x8146\u20265128)", "cat": "Bots and unlabelled contracts", "txs": 6, "vol": 31.82, "multi": 0}, {"entry": "contract (0xBc1D\u2026c973)", "cat": "Bots and unlabelled contracts", "txs": 6, "vol": 1.64, "multi": 0}, {"entry": "contract (0x55D0\u20266F06)", "cat": "Bots and unlabelled contracts", "txs": 5, "vol": 30.28, "multi": 5}, {"entry": "LI.FI", "cat": "Aggregators, solvers, bridges", "txs": 4, "vol": 12.3, "multi": 0}, {"entry": "contract (0x5D3A\u2026d8a4)", "cat": "Bots and unlabelled contracts", "txs": 3, "vol": 3.89, "multi": 3}], "months": [{"m": "Feb", "swaps": 4, "vol": 21.65}, {"m": "Mar", "swaps": 60, "vol": 145.19}, {"m": "Apr", "swaps": 174, "vol": 908.14}, {"m": "May", "swaps": 1, "vol": 10.0}, {"m": "Jun", "swaps": 0, "vol": 0}], "weeks": [{"w": "16 Feb", "80/20 ixEDEL-USDC": 3}, {"w": "23 Feb", "80/20 ixEDEL-USDC": 1}, {"w": "02 Mar", "80/20 ixEDEL-USDC": 7}, {"w": "09 Mar", "80/20 ixEDEL-USDC": 2, "ixFORUM": 5, "ixSTRATA": 12, "svZCHF/ZCHF": 1}, {"w": "16 Mar", "80/20 ixEDEL-USDC": 3, "ixAQUA": 1, "ixSTRATA": 2}, {"w": "23 Mar", "80/20 ixEDEL-USDC": 6, "ixFORUM": 1, "ixAQUA": 4, "ixSTRATA": 8, "svZCHF/ZCHF": 4}, {"w": "30 Mar", "80/20 ixEDEL-USDC": 9, "ixFORUM": 15, "ixAQUA": 12, "ixSTRATA": 9}, {"w": "06 Apr", "80/20 ixEDEL-USDC": 13, "ixFORUM": 25, "ixAQUA": 12, "ixSTRATA": 25}, {"w": "13 Apr", "80/20 ixEDEL-USDC": 7, "ixFORUM": 25, "ixAQUA": 4, "ixSTRATA": 22}, {"w": "11 May", "80/20 ixEDEL-USDC": 1}], "lp": {"lp_wallets": 5, "lp_swaps": 25, "lp_vol": 167.42, "main_swaps": 24, "main_vol": 157.43}, "tokens_legs": [["ixEDEL", 94], ["USDC", 52], ["AAVE", 51], ["LDO", 40], ["SKY", 39], ["svZCHF", 38], ["LINK", 36], ["waGHO", 36], ["sUSDS", 34], ["waUSDT", 22], ["cbBTC", 18], ["XAUT", 13], ["ZCHF", 5]]};
+const POOLC = {"80/20 ixEDEL-USDC":"#7aa2ff","ixFORUM":"#ffb000","ixAQUA":"#3fb6a8","ixSTRATA":"#e8873a","svZCHF/ZCHF":"#9a9a92"};
+const usd = v => "$" + (v>=100? Math.round(v).toLocaleString("en-US") : v.toFixed(2));
+const el = (t,a={},h="") => { const e=document.createElementNS("http://www.w3.org/2000/svg",t); for(const k in a) e.setAttribute(k,a[k]); if(h) e.textContent=h; return e; };
+// KPIs
+const K=D.kpi, pct=Math.round(100*D.multi/K.txs), br=D.bridge.ixEDEL||0, brt=Object.values(D.bridge).reduce((a,b)=>a+b,0);
+const kp=[[K.swaps,"swaps"],[K.txs,"transactions"],[usd(K.vol),"total volume"],[K.traders,"sending addresses"],[D.multi+" ("+pct+"%)","transactions crossing pools"],[br+" of "+brt,"cross-pool hops bridged by ixEDEL"]];
+document.getElementById("kpis").innerHTML = kp.map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join("");
+// Network
+const pos={"80/20 ixEDEL-USDC":[380,250],"ixSTRATA":[612,110],"ixFORUM":[150,110],"ixAQUA":[380,420],"svZCHF/ZCHF":[660,385]};
+const svg=document.getElementById("net"); const P={}; D.pools.forEach(p=>P[p.name]=p);
+D.edges.forEach(e=>{const [x1,y1]=pos[e.a],[x2,y2]=pos[e.b]; const main=Object.entries(e.bridge).sort((a,b)=>b[1]-a[1])[0]; const col=main&&main[0]==="svZCHF"?"#3fb6a8":"#7aa2ff";
+ svg.appendChild(el("line",{x1,y1,x2,y2,stroke:col,"stroke-width":1.5+e.n*0.55,"stroke-opacity":.75,"stroke-linecap":"round"}));
+ const tt=e.a==="80/20 ixEDEL-USDC"?0.62:0.5; const mx=x1+(x2-x1)*tt,my=y1+(y2-y1)*tt; const lab=e.n+" hop"+(e.n>1?"s":"")+(main?" · "+main[0]:"");
+ const tw=lab.length*6.6+14; svg.appendChild(el("rect",{x:mx-tw/2,y:my-11,width:tw,height:22,rx:5,fill:"#0e0e0c",stroke:"#34342e"}));
+ svg.appendChild(el("text",{x:mx,y:my+4,"text-anchor":"middle","font-size":12,fill:"#f0f0ec"},lab));});
+D.pools.forEach(p=>{const [x,y]=pos[p.name]; const r=16+Math.sqrt(p.swaps)*4.2;
+ svg.appendChild(el("circle",{cx:x,cy:y,r,fill:POOLC[p.name],"fill-opacity":.9,stroke:"#0e0e0c","stroke-width":3}));
+ const place={"80/20 ixEDEL-USDC":"below","ixFORUM":"below","ixSTRATA":"below","ixAQUA":"right","svZCHF/ZCHF":"above"}[p.name];
+ let tx=x, ty, anchor="middle";
+ if(place==="above") ty=y-r-26; else if(place==="below") ty=y+r+18; else { tx=x+r+12; ty=y-2; anchor="start"; }
+ const halo={"paint-order":"stroke",stroke:"#1c1c19","stroke-width":5,"stroke-linejoin":"round"};
+ svg.appendChild(el("text",{x:tx,y:ty,"text-anchor":anchor,"font-size":15,"font-weight":700,fill:"#f0f0ec",...halo},p.name));
+ svg.appendChild(el("text",{x:tx,y:ty+17,"text-anchor":anchor,"font-size":12,fill:"#9a9a92",...halo},p.swaps+" swaps · "+usd(p.vol)));});
+// Findings
+const topE=D.edges[0]; const L=D.lp;
+document.getElementById("find").innerHTML=[
+ `<li><span class="hl">${pct}% of transactions crossed pools</span> (${D.multi} of ${K.txs}). Traders and aggregators used the pools as one connected market, not five separate ones.</li>`,
+ `<li><span class="hl">ixEDEL was the bridge in ${br} of ${brt} cross-pool hops</span>; svZCHF in the other ${brt-br}. The 80/20 ixEDEL-USDC pool acted as the hub, the on- and off-ramp to dollars.</li>`,
+ `<li>The busiest link was <b>${topE.a} ↔ ${topE.b}</b> (${topE.n} hops). Typical path: USDC → ixEDEL in the 80/20 pool, then ixEDEL → LINK, LDO, AAVE or cbBTC in a Miliarium pool, and the reverse.</li>`,
+ `<li><b>The scale was test-sized:</b> ${usd(K.vol)} of volume, median trade a few dollars, about $22K of liquidity at peak. The routing pattern is the signal, not the volume.</li>`,
+ `<li>The main liquidity wallet (<code>0x9cc6…a274</code>) made ${L.main_swaps} of the swaps (${usd(L.main_vol)}). The rest came from about ${K.traders-1} other addresses.</li>`,
+ `<li>No circular arbitrage transactions were found (none starts and ends in the same token).</li>`].join("");
+// Routes
+document.getElementById("routes").innerHTML="<tr><th>Route</th><th class='n'>Txs</th><th class='n'>Size</th></tr>"+D.routes.slice(0,10).map(r=>{const [path,via]=r.route.split("   via ");return `<tr><td><b>${path}</b><br><span class="muted">via ${via}</span></td><td class="n">${r.n}</td><td class="n">${usd(r.vol)}</td></tr>`}).join("");
+// Bridge bars
+const bmax=Math.max(...Object.values(D.bridge));
+document.getElementById("bridge").innerHTML=Object.entries(D.bridge).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="barrow" style="grid-template-columns:90px 1fr 60px"><b>${k}</b><div class="bar" style="width:${100*v/bmax}%;background:${k==="svZCHF"?"#3fb6a8":"#7aa2ff"}"></div><span class="muted">${v} hops</span></div>`).join("");
+const lmax=D.tokens_legs[0][1];
+document.getElementById("legs").innerHTML=D.tokens_legs.slice(0,8).map(([k,v])=>`<div class="barrow" style="grid-template-columns:90px 1fr 60px"><b>${k}</b><div class="bar" style="width:${100*v/lmax}%;background:${k==="ixEDEL"?"#7aa2ff":k==="svZCHF"?"#3fb6a8":"#b07a00"}"></div><span class="muted">${v}</span></div>`).join("");
+// Categories
+const cmax=Math.max(...D.cats.map(c=>c.txs));
+document.getElementById("cats").innerHTML=D.cats.map(c=>`<div class="barrow"><b>${c.cat}</b><div class="bar" style="width:${100*c.txs/cmax}%"></div><span class="muted">${c.txs} txs · ${usd(c.vol)} · ${c.multi} cross-pool</span></div>`).join("");
+document.getElementById("entries").innerHTML="<tr><th>Entry contract</th><th>Type</th><th class='n'>Txs</th><th class='n'>Cross-pool</th><th class='n'>Volume</th></tr>"+D.entries.map(e=>`<tr><td>${e.entry}</td><td class="muted">${e.cat}</td><td class="n">${e.txs}</td><td class="n">${e.multi}</td><td class="n">${usd(e.vol)}</td></tr>`).join("");
+// Weekly stacked bars
+const W=D.weeks, ws=document.getElementById("weeks"); const names=Object.keys(POOLC);
+const maxw=Math.max(...W.map(w=>names.reduce((a,n)=>a+(w[n]||0),0))); const bw=900/W.length;
+for(let g=0;g<=4;g++){const y=260-g*55; ws.appendChild(el("line",{x1:60,x2:980,y1:y,y2:y,stroke:"#34342e"})); ws.appendChild(el("text",{x:52,y:y+4,"text-anchor":"end","font-size":12,fill:"#9a9a92"},Math.round(maxw*g/4)));}
+W.forEach((w,i)=>{let y=260; names.forEach(n=>{const v=w[n]||0; if(!v) return; const h=220*v/maxw; y-=h; ws.appendChild(el("rect",{x:70+i*bw,y,width:bw-14,height:h,fill:POOLC[n]}));});
+ ws.appendChild(el("text",{x:70+i*bw+(bw-14)/2,y:280,"text-anchor":"middle","font-size":12,fill:"#9a9a92"},w.w));});
+document.getElementById("wlegend").innerHTML=names.map(n=>`<span><i class="sw" style="background:${POOLC[n]}"></i>${n}</span>`).join("")+"<span>· Miliarium pools emptied 16 Apr; 80/20 pool mostly emptied 12 May</span>";
+// Pools table
+document.getElementById("pools").innerHTML="<tr><th>Pool</th><th>Tokens</th><th class='n'>Swaps</th><th class='n'>Volume</th><th class='n'>Fees</th><th class='n'>Median trade</th><th class='n'>Liquidity added</th><th>Swaps from–to</th></tr>"+D.pools.map(p=>`<tr><td><b>${p.name}</b><br><a href="https://etherscan.io/address/${p.id}">${p.id.slice(0,6)}…${p.id.slice(-4)}</a></td><td class="muted">${p.tokens.join(", ")}</td><td class="n">${p.swaps}</td><td class="n">${usd(p.vol)}</td><td class="n">${usd(p.fees)}</td><td class="n">${usd(p.median)}</td><td class="n">${usd(p.added)}</td><td>${p.first_swap} – ${p.last_swap}</td></tr>`).join("");
+document.getElementById("caveats").innerHTML=`<b style="color:#f0f0ec">Read this carefully.</b> These were pilot pools with about $22K of liquidity at their peak, and ${usd(K.vol)} traded in total (${usd(K.fees)} in fees). They show that routers and aggregators found the pools and routed through ixEDEL as designed. They do not show demand at scale. USD values are Balancer's own at the time of each trade. "Bots and unlabelled contracts" groups unverified or strategy contracts that Blockscout does not name; some may be aggregator executors.`;
+</script></body></html>
