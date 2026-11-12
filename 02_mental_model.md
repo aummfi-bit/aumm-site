@@ -70,7 +70,7 @@ Which pools should receive emissions right now? Base weight = 60-day EMA of on-c
 
 ### 2. Bootstrapping (Starting New Pools)
 
-New pools have no EMA history, so they need a path to earn emissions. **Incendiary Boost** is the cold-start mechanism — anyone deposits svZCHF/sUSDS one-sided into der Bodensee Pool, and the target pool receives a supplementary AuMM stream starting next epoch. Placement is first-come, first-served against a shared per-epoch cap, so a larger deposit streams across more consecutive epochs rather than more heavily in one, and boosts stack. Once the entitlement is exhausted, emissions depend purely on real TVL via the CCB. The sequence: conviction (Incendiary) → long-term reality (EMA).
+New pools have no EMA history, so they need a path to earn emissions. **Incendiary Boost** is the cold-start mechanism — anyone pays a svZCHF/sUSDS deposit, escrowed at purchase and released one-sided into der Bodensee Pool in bounded releases, and the target pool receives a supplementary AuMM stream starting next epoch. Placement is first-come, first-served against a shared per-epoch cap, so a larger deposit streams across more consecutive epochs, up to a 26-epoch horizon, rather than more heavily in one, and boosts stack. Once the entitlement is exhausted, emissions depend purely on real TVL via the CCB. The sequence: conviction (Incendiary) → long-term reality (EMA).
 
 ### 3. Discipline (Keeping the System Clean)
 
@@ -150,7 +150,7 @@ Same circuit from the protocol's view; three participant positions, three levera
 - full **0.75%** in-pool swap fee on every trade, including every recruitment buy;
 - in-place ERC-4626 yield on the **60%** stablecoin side via Rate Providers;
 - exposure to the implied AuMM↔stablecoin exchange rate on your **40%** AuMM leg as fee inflows change balances;
-- a pro-rata share of every bootstrap flush and fee donation into der Bodensee, as the founding BPT also has.
+- a pro-rata share of every bootstrap flush, fee donation and release of an Incendiary deposit into der Bodensee, as the founding BPT also has.
 
 Cost: impermanent loss on the AuMM leg — if AuMM’s implied spot moves up sharply, the pool nets you selling AuMM vs. simply holding. Deep-conviction only: long AuMM, wear the rebalancing cost, collect the toll on everyone else's recruitment.
 
