@@ -75,7 +75,7 @@ Era 0:   voting_power = (pool_staked_EMA)^(1/4) × Σ (stake_LP × time_factor) 
 Era 1+:  voting_power = (pool_staked_EMA)^(1/3) × Σ (stake_LP × time_factor) / pool_qualified_LP
 ```
 
-pool_staked_EMA is the pool's 60-day EMA of staked value (F-9, never spot): its TVL times the share of its LP that is staked and past its qualification boundary, gated as the TVL EMA is; pool_qualified_LP is that staked, qualified LP. The sum runs over the holder's stakes in the pool, each with its own time_factor, zero until the first epoch boundary at least 14 days after it and then counting from the stake to full weight by the 6-month on-ramp (F-9 states when a later stake sharing its 180-day epoch delays it). The root applies to the pool aggregate, so splitting a position across wallets is weight-neutral.
+pool_staked_EMA is the pool's 60-day EMA of staked value (F-9, never spot): its TVL in priced legs times the share of its LP that is staked and past its qualification boundary, gated as the TVL EMA is; pool_qualified_LP is that staked, qualified LP. The sum runs over the holder's stakes in the pool, each with its own time_factor, zero until the first epoch boundary at least 14 days after it and then counting from the stake to full weight by the 6-month on-ramp (F-9 states when a later stake sharing its 180-day epoch delays it). The root applies to the pool aggregate, so splitting a position across wallets is weight-neutral.
 
 Governance power reflects real economic commitment — how much capital you have at risk in productive pools, not which pool you happen to be in.
 
