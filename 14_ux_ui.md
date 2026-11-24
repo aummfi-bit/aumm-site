@@ -88,7 +88,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 
 - [ ] **Active proposals** — gauge challenges, fee changes, composition challenges; status, quorum progress, time remaining, vote tally
 - [ ] **Proposal history** — past votes with outcomes, turnout, deposit amounts
-- [ ] **Quorum tracker** — current total qualified voting power, 20% threshold line
+- [ ] **Quorum tracker** — current total qualified voting power, 20% threshold line, and for every type but the three de-escalations the retention line at two-thirds of the largest total at the 36 blocks one to 36 steps of 93,600 blocks before the snapshot
 - [ ] **Deposit log** — all governance svZCHF/sUSDS deposits into der Bodensee Pool (linked to proposal)
 
 ---
@@ -96,7 +96,7 @@ The MVP/post-MVP distinction is a planning tool — all of the sections below de
 ## l-a. Vault-Class Registry
 
 - [ ] **Proposed classes queue** — open proposals to admit a new ERC-4626 vault class to the registry; per proposal: proposer, the vault token admitted by its own address, bond amount, time remaining in veto window, vetoes accumulated vs threshold.
-- [ ] **Veto countdown** — per-proposal time-remaining indicator with auto-finalize block; AuMT-holder veto interface (cast / withdraw veto) gated on qualification.
+- [ ] **Veto countdown** — per-proposal time-remaining indicator with auto-finalize block; AuMT-holder veto interface (cast / withdraw veto) gated on qualification, a cast listing the pools in which the holder's staked AuMT confers weight.
 - [ ] **Admitted classes list** — full registry: genesis classes hard-coded at construction plus post-genesis admissions; per entry: the vault token's own address, admission block, originating proposal (if post-genesis), revocation status. See [Bootstrap (§xxiv-a)](08_bootstrap.md) for the registry mechanism.
 
 ---

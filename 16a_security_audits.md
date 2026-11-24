@@ -80,7 +80,7 @@ Aureum enforces a strict decentralization roadmap. During the deployment, before
 * **`EMERGENCY_MULTISIG`:** Exercises temporary operational oversight strictly constrained by a ~12-month block window after authorizer deployment. The principal is a contract, neither an EIP-7702-delegated account nor `AureumGovernance` or the deploying account, and installing the governance-only authorizer ends its role early.
 * **`AureumGovernance`:** The primary operational authority, executing passed proposals of the types [Constitution](10_constitution.md) §xxvii lists; it holds no upgrade path and no general call.
 * **Pool role accounts:** `pauseManager` and `swapFeeManager` are the zero address on every pool; pausing a pool is a governance proposal.
-* **`RecoveryTrigger`:** A keyless contract anyone may call: it puts a pool into recovery mode once its rate read reverts or reads zero at two blocks within a span, and clears recovery mode from a pool it entered once neither the Vault nor the pool is paused and the rate reads healthy; the authorizer grants it those two actions with no window.
+* **`RecoveryTrigger`:** A keyless contract anyone may call: it puts a pool into recovery mode once its rate read reverts or reads zero at two blocks within a span, and clears recovery mode from a pool it entered once neither the Vault nor the pool is paused and the rate reads healthy, and, from the block the emergency multisig's role ends, at its window's end or early, from any pool in recovery mode on the same conditions; the authorizer grants it those two actions with no window.
 
 ### Emergency Window Decay
 
